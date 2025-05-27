@@ -67,7 +67,8 @@
 						name: ''
 					}
 				],
-				system: true
+				system: true,
+				pageid:''
 			};
 		},
 		watch: {
@@ -136,22 +137,29 @@
 				// 	this.$u.vuex('vuex_tabIndex',0);//list页面第一个tab
 				// 	this.$parent.loadData();//刷新父组件数据
 				// }
+				
 				if (this.roleShowF) {
 					this.$u.vuex('vuex_userRole', "D");
 					if (this.vuex_user.phone != undefined) {
 						if (this.$parent.indexSumList) {
+							
 							var filer = this.vuex_userRole == "D" ? "0" : "1"
 							console.log("发货端0");
 							this.$parent.indexSumList = this.$parent.indexSumListCopy
 							this.$parent.indexSumList = this.$parent.indexSumList.filter(res => res.port == filer);
 							console.log("发货端1");
 							console.log(this.$parent.indexSumList);
-							this.$parent.getData();
-							this.$parent.getOrderDB()
+							if(this.pageid == 'index'){
+								this.$parent.getData();
+								this.$parent.getOrderDB()
+							}
 							console.log("发货端2");
 						}else{
-							this.$parent.getData();
-							this.$parent.getOrderDB()
+							if(this.pageid == 'index'){
+								this.$parent.getData();
+								this.$parent.getOrderDB()
+							}
+							console.log("发货端3");
 						}
 					} else {
 						console.log("未登录");
@@ -166,11 +174,13 @@
 							this.$parent.indexSumList = this.$parent.indexSumListCopy
 							this.$parent.indexSumList = this.$parent.indexSumList.filter(res => res.port == filer);
 							console.log(this.$parent.indexSumList);
-							console.log("收货端1");
-							this.$parent.getOrderDB()
-							console.log("收货端2");
+							if(this.pageid == 'index'){
+								this.$parent.getOrderDB()
+							}
 						}else{
-							this.$parent.getOrderDB()
+							if(this.pageid == 'index'){
+								this.$parent.getOrderDB()
+							}
 						}
 
 					} else {

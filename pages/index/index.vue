@@ -1043,6 +1043,7 @@
 			// 切换收发货
 			sideClick() {
 				this.$refs.popRole.roleShow = true
+				this.$refs.popRole.pageid = 'index'
 				if (this.vuex_userRole == "R") {
 					this.$refs.popRole.roleShowF = false
 					this.$refs.popRole.roleShowS = true
