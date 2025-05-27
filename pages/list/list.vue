@@ -781,7 +781,8 @@
 			Init() {
 				this.password = ""
 				this.hide = true
-
+				
+				console.log('当前：',this.vuex_tabIndex)
 				if (this.vuex_tabIndex != "") {
 					this.current = Number(this.vuex_tabIndex)
 					this.realTimeSel.paymentState = Number(this.vuex_tabIndex) - 1;
@@ -925,6 +926,11 @@
 					this.refresh = false;
 					this.onReachBottom = false
 					this.realTimeSel.role = this.vuex_userRole == "R" ? "1" : "0"
+					console.log('this.vuex_tabIndex',this.vuex_tabIndex)
+					console.log('this.current',this.current)
+					if (this.vuex_tabIndex != "") {
+						this.realTimeSel.paymentState = Number(this.vuex_tabIndex) - 1;
+					}
 					this.$u.post('/edo/order/getFilter', this.realTimeSel)
 						.then(res => {
 							// console.log(res.data.data.length);
@@ -1505,6 +1511,7 @@
 				//查询数据库
 				this.$refs.paging.reload();
 				this.current = index;
+				console.log('index',index);
 				
 				this.$u.vuex('vuex_tabIndex', (index == 0 ? "" : index));
 				this.realTimeSel.paymentState = (index == 0 ? "" : index)
