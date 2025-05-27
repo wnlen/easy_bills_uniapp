@@ -1,0 +1,68 @@
+.cardShow {
+	box-shadow: 0px 3.5px 5px 0px rgba(51, 51, 51, 0.1);
+}
+
+.cardShowPlus {
+	box-shadow: 0px 2px 3px 0px rgba(153, 153, 153, 0.025);
+}
+
+.ft-color {
+	color: #333333;
+}
+
+.ft-zjj-2 {
+	letter-spacing: 2px;
+}
+
+.ft-zjj-1 {
+	letter-spacing: 1px;
+}
+
+.ft-zjj-0.5 {
+	letter-spacing: 1px;
+}
+
+
+@font-face {
+	font-family: "ddbh";
+	src: url('https://ydj-css-file.oss-cn-shanghai.aliyuncs.com/DDBH.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: "ysdzt";
+	src: url('https://ydj-css-file.oss-cn-shanghai.aliyuncs.com/YSDZT.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: "syst";
+	src: url('https://ydj-css-file.oss-cn-shanghai.aliyuncs.com/syst.ttf') format('truetype');
+}
+
+
+
+.yrd {
+	font-family: 'ysdzt', Arial, sans-serif;
+	font-style: normal;
+    font-size: 17px;
+	width: 270px;
+}
+
+
+.bzhh {
+	font-style: normal;
+    font-size: 17px;
+	width: 260px;
+}
+
+.syst{
+	font-family: 'syst', Arial, sans-serif;
+}
+
+.xqcss {
+	font-size: 16px;
+	font-weight: normal;
+	line-height: 22px;
+	letter-spacing: 0px;
+	font-feature-settings: "kern" on;
+	color: #333333;
+}

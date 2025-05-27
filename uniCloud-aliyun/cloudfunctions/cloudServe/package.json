@@ -1,0 +1,11 @@
+{
+  "name": "cloudServe",
+  "dependencies": {},
+  "extensions": {
+    "uni-cloud-jql": {},
+    "uni-cloud-verify": {},
+    "uni-cloud-push": {},
+    "uni-cloud-ai": {},
+    "uni-cloud-sms": {}
+  }
+}

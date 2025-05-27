@@ -1,0 +1,1269 @@
+<template>
+	<view class="Index" @click="closeRole">
+		<view class="flex-row justify-left items-start"
+			style="z-index: 9;height: 35vh;width: 100vw;background-color: transparent;"
+			:style="{backgroundImage:vuex_userRole!='R'?'url(https://res-oss.elist.com.cn/wxImg/index/indexbg.png)':'url(https://res-oss.elist.com.cn/wxImg/index/indexR.png)',backgroundSize: 'cover'}">
+			<view class="flex-row justify-left items-center"
+				style="width: 100%;height: 70%;background-color: transparent;text-align: center;z-index: 2;">
+				<view class="mt18" style="width: 25%;">
+					<!-- #ifdef MP-WEIXIN -->
+					<u-avatar size="110" @click="goPath('')"
+						:src="vuex_user.data.headPortrait?vuex_user.data.headPortrait:ImgUrl+'/wxImg/index/mr.svg'">
+					</u-avatar>
+					<!-- #endif -->
+					<!-- #ifdef APP -->
+					<u-avatar size="110" @click="goPath('')"
+						:src="vuex_user.data.headPortrait?vuex_user.data.headPortrait:'https://res-oss.elist.com.cn/wxImg/index/mr.svg'">
+					</u-avatar>
+					<!-- #endif -->
+				</view>
+				<view class="flex-col justify-center items-start" style="width: 50%;" @click="goPath('')">
+					<text class="" style="color: #333333;font-size: 20px;font-weight: bold;letter-spacing: 2px;"
+						v-if="!isElevenDigitPhoneNumber(vuex_user.data.name)">
+						{{vuex_user.phone==undefined?"请登录~":"Hello!"+vuex_user.data.name.substring(0,4)+(vuex_user.data.name.length>4?"...":"")}}
+					</text>
+					<text class="" style="color: #333333;font-size: 20px;font-weight: bold;letter-spacing: 2px;" v-else>
+						{{vuex_user.phone==undefined?"请登录~":"Hello!欢迎"}}
+					</text>
+					<text class="mt10">
+						{{vuex_user.phone==undefined?"登录后体验完整易单据":"欢迎使用易单据订单管理"}}
+					</text>
+				</view>
+				<view class="flex-col justify-center items-start" style="width: 25%;height: 100%;">
+					<view class="pt48 mt18" style="" @tap.stop id="box">
+						<u-image v-show="vuex_userRole!='R'" @click="sideClick" :show-menu-by-longpress="false"
+							:src="ImgUrl+'/wxImg/index/fhd-role.png'" width="80px" height="26px"></u-image>
+						<u-image v-show="vuex_userRole=='R'" @click="sideClick" :show-menu-by-longpress="false"
+							:src="ImgUrl+'/wxImg/index/shd-role.png'" width="80px" height="26px"></u-image>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view class="home-main pl0 pr0 width100 mt10" style="background-color: transparent;">
+			<view class="home-box">
+				<view class="" v-if="vuex_userRole=='R'">
+					<u-notice-bar mode="horizontal" padding="13rpx 22rpx" speed="80"
+						:list="[vuex_user.chickenBloodTip||'欢迎使用易单据切换角色选择发货模式可使用～']"></u-notice-bar>
+				</view>
+				<view v-if="vuex_userRole=='D'" class="home-data cardShowPlus" style="background-color: #ffffff;">
+					<view class="">
+						<view class="flex-col height80 justify-left mt15 ml12">
+							<view class="flex-row items-center justify-left pb10 width100"
+								style=" display: flex;justify-content: space-between;align-items: center;">
+								<view class="flex-row" style="width: 150px;z-index: 999;">
+									<text class="mr5 ft-bold ft32" style="letter-spacing: 1px;">销售额(今年)</text>
+									<view @click="isLook = !isLook" class="flex-col items-center justify-center">
+										<u-icon v-if="isLook" name="eye-fill" size="35"></u-icon>
+										<u-icon v-else name="eye-off" size="35"></u-icon>
+									</view>
+								</view>
+							</view>
+							<view class="flex-row items-center justify-left">
+								<view class="" style="height: 30px;">
+									<text class="ft-bold ft50 ft-yellow" v-if="!isLook" style="color: #FFC300;">
+										<text class="ft32 ft-yellow">
+											****
+										</text>
+									</text>
+									<text class="ft32 ft-yellow" v-if="isLook">
+										￥
+									</text>
+									<u-count-to v-if="isLook" :end-val="priceObj[0]" separator="," color="#FFC300"
+										font-size="40" decimals='2' duration='1' bold></u-count-to>
+								</view>
+							</view>
+						</view>
+					</view>
+					<view class="father mt45" style="width: 100%;">
+						<view class="view" @click="goList(1)">
+							<text class="ft-lighgray ft25">待签收</text>
+							<view class="flex-row items-center justify-center mt8">
+								<text class="ft12 flex-row mt5" style="" v-if="isLook">
+									￥
+								</text>
+								<text v-if="!isLook">****</text>
+
+								<view class="" v-if="isLook">
+									<u-count-to v-if="!ifBig(priceObj[1])" :end-val="priceObj[1]" separator=","
+										color="#333333" font-size="30" decimals='2' duration='1' bold></u-count-to>
+									<text style="font-size: 14.84px;font-weight: bold;" v-if="ifBig(priceObj[1])">
+										{{BigSub(priceObj[1])}}
+									</text>
+								</view>
+							</view>
+						</view>
+						<view class="view" @click="goList(2)">
+							<text class="ft-lighgray ft25">已签收</text>
+							<view class="flex-row items-center justify-center mt8">
+								<text class="ft12 mt5" v-if="isLook">
+									￥
+								</text>
+								<text v-if="!isLook">****</text>
+								<view class="" v-if="isLook">
+									<u-count-to v-if="!ifBig(priceObj[2])" :end-val="priceObj[2]" separator=","
+										color="#333333" font-size="30" decimals='2' duration='1' bold></u-count-to>
+									<text style="font-size: 14.84px;font-weight: bold;" v-if="ifBig(priceObj[2])">
+										{{BigSub(priceObj[2])}}
+									</text>
+								</view>
+							</view>
+						</view>
+						<view class="view " @click="goList(3)">
+							<text class="ft-lighgray ft25">已收款</text>
+							<view class="flex-row items-center justify-center mt8">
+								<text class="ft12 mt5" v-if="isLook">
+									￥
+								</text>
+								<text v-if="!isLook">****</text>
+								<view class="" v-if="isLook">
+									<u-count-to v-if="!ifBig(priceObj[3])" :end-val="priceObj[3]" separator=","
+										color="#333333" font-size="30" decimals='2' duration='1' bold></u-count-to>
+									<text style="font-size: 14.84px;font-weight: bold;" v-if="ifBig(priceObj[3])">
+										{{BigSub(priceObj[3])}}
+									</text>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+
+
+			<view class="towCard flex-col justify-center height300 ml24 mr24" style="background-color: transparent;">
+				<view class="home-menu-wrap flex-row justify-center width100" style="background-color: transparent;">
+					<view v-if="vuex_userRole=='R'" style="background-size: cover;border-radius: 9px;"
+						:style="{backgroundImage:'url('+ImgUrl+'/wxImg/index/dqrdj.png)'}"
+						class="home-menu home-menu1 flex-row items-center cardShowPlus" id="box22"
+						@click="goPath('/pages/subPack/pending/pending');this.$u.vuex('vuex_tabIndex', 0);">
+						<view class="flex-col">
+							<text class="ft36" style="color: #E19306;">待确认单据</text>
+							<text class="ft24 ft-lighgray mt5" style="color: #E19306;">快速查询单据</text>
+						</view>
+					</view>
+					<view v-else class="home-menu home-menu2 flex-row items-center cardShowPlus"
+						style="background-size: cover;border-radius: 9px;background-position:bottom;"
+						:style="{backgroundImage:'url(https://res-oss.elist.com.cn/wxImg/index/yjkd.png)'}"
+						@click="goPath('/pages/subOrder/add')" id="box2">
+						<view class="flex-col">
+							<text class="ft36 ml10" style="color: #D46D45;">一键开单</text>
+							<text class="ft24 ft-lighgray mt5 ml10" style="color: #D46D45;">便捷高效创建</text>
+						</view>
+					</view>
+					<view class="home-menu home-menu3 flex-row items-center cardShowPlus"
+						style="background-size: cover;border-radius: 9px;"
+						:style="{backgroundImage:'url(https://res-oss.elist.com.cn/wxImg/index/ddtj.png)'}"
+						@click="goPath('/pages/subStatistics/statistics')">
+						<view class="flex-col">
+							<text class="ft36 ml10" style="color: #1D5594;">订单统计</text>
+							<text class="ft24 ft-lighgray mt5 ml10" style="color: #1D5594;">下载统计PDF</text>
+						</view>
+					</view>
+				</view>
+			</view>
+
+
+			<view class="sudoku u-margin-top-30 ml24 mr24 pb48 cardShowPlus" v-if="vuex_userRole!='R'"
+				style="border-radius: 6px;">
+
+				<view class="grid-container">
+					<view class="grid-item  mt10" @click="goList(item.type)" v-for="(item,index) in Sudoku.notLogD[0]"
+						:key="index">
+						<u-icon size="120" :name="item.icon"></u-icon>
+						<view class="grid-text">{{item.text}}</view>
+					</view>
+				</view>
+
+				<view class="grid-container">
+					<view class="grid-item  mt10" @click="goPath(item.path)" v-for="(item,index) in Sudoku.notLogD[1]"
+						:key="index">
+						<u-icon size="120" :name="item.icon"></u-icon>
+						<view class="grid-text">{{item.text}}</view>
+					</view>
+				</view>
+
+				<view class="grid-container pb6">
+					<view class="grid-item  mt10 relation" @click="goPathIndex(item)"
+						v-for="(item,index) in Sudoku.notLogD[2]" :key="index">
+						<view class="" v-if="!item.chat">
+							<u-icon size="120" :name="item.icon"></u-icon>
+							<view class="grid-text">{{item.text}}</view>
+							<u-badge v-if="item.count" bgColor="#E52829" :count="item.count" class="mr30"
+								style="position: absolute;top: 0px;right: 0px;"></u-badge>
+						</view>
+						<view class="" v-else>
+							<u-button hover-class="none" :hair-line="false" :custom-style="buttonStyle"
+								open-type="contact">
+								<view class="flex-col justify-center items-center" style="width: 100%;">
+									<u-icon size="110" :name="item.icon"></u-icon>
+									<view class="grid-text" style="">{{item.text}}</view>
+								</view>
+							</u-button>
+						</view>
+					</view>
+				</view>
+			</view>
+
+			<view class="sudoku u-margin-top-30 ml24 mr24 pl10 pr10 pb48 cardShowPlus" v-if="vuex_userRole=='R'"
+				style="border-radius: 6px;">
+				<view class="grid-container">
+					<view class="grid-item  mt10" @click="goList(item.type)" v-for="(item,index) in Sudoku.notLogR[0]"
+						:id="index==0?'box33':''" :key="index">
+						<u-icon size="120" :name="item.icon"></u-icon>
+						<view class="grid-text">{{item.text}}</view>
+						<u-badge v-if="item.count" bgColor="#E52829" :count="item.count" class="mr30"
+							style="position: absolute;top: 0px;right: 0px;"></u-badge>
+					</view>
+				</view>
+
+				<view class="grid-container">
+					<view class="grid-item  mt10" @click="goPath(item.path)" v-for="(item,index) in Sudoku.notLogR[1]"
+						:key="index">
+						<u-icon size="120" :name="item.icon"></u-icon>
+						<view class="grid-text">{{item.text}}</view>
+					</view>
+				</view>
+
+				<view class="grid-container pb6">
+					<view class="grid-item  mt10" @click="goPathIndex(item)" v-for="(item,index) in Sudoku.notLogR[2]"
+						:key="index">
+						<view class="" v-if="!item.chat">
+							<u-icon size="120" :name="item.icon"></u-icon>
+							<view class="grid-text">{{item.text}}</view>
+							<u-badge v-if="item.count" bgColor="#E52829" :count="item.count" class="mr30"
+								style="position: absolute;top: 0px;right: 0px;"></u-badge>
+						</view>
+						<view class="" v-else>
+							<u-button hover-class="none" :hair-line="false" :custom-style="buttonStyle"
+								open-type="contact">
+								<view class="flex-col justify-center items-center" style="width: 100%;">
+									<u-icon size="110" :name="item.icon"></u-icon>
+									<view class="grid-text" style="">{{item.text}}</view>
+								</view>
+							</u-button>
+						</view>
+					</view>
+				</view>
+			</view>
+			<view class="middle-banner mt25 ml24 mr24 cardShowPlus" style="background-color: transparent;">
+				<u-swiper @click="middleClick" bg-color="#F6F7F7"
+					:list="middleBanner.length>0?middleBanner:(vuex_userRole=='R'?middleBannerlXR:middleBannerlXD)"
+					:autoplay="false" height="190" interval="5000" autoplay style="width:auto !important" name="url"
+					:effect3d="true" effect3d-previous-margin="-10" border-radius="18"></u-swiper>
+			</view>
+		</view>
+
+		<pop-role ref="popRole"></pop-role>
+
+		<u-tabbar id="box6" :height="tabHight" iconSize="40" :list="vuex_tabbar" active-color="#0FB076"></u-tabbar>
+
+		<u-mask :show="expireShow">
+			<view class="flex-col justify-center items-center"
+				style="width: 100%;height:100%;background-color: transparent;">
+				<view class="flex-col justify-center items-center relative" style="width: 80%;height: 25%;border-radius: 14px;background-image: url('https://res-oss.elist.com.cn/wxImg/user/dqalert.png');
+					background-size: cover;">
+
+					<view class="absolute flex-col justify-center items-center"
+						style="top: 0;height: 80px;font-size: 18px;font-weight: bold;">
+						提示
+					</view>
+
+					<!-- #ifdef MP-WEIXIN -->
+					<text
+						style="font-size: 16px;color: #999999;">该{{vuex_user.workData.identity==3?"财务":"分管"}}人员权限已到期,请联系</text>
+					<!-- #endif -->
+					<!-- #ifdef APP -->
+					<text style="font-size: 16px;color: #999999;">人员权限已到期,请联系</text>
+					<!-- #endif -->
+					<text style="font-size: 16px;color: #999999;">主账号续费</text>
+
+					<view class="absolute flex-col justify-center items-center"
+						style="bottom: 0;height: 80px;width: 100%;" @click="exit">
+						<view class=""
+							style="background: linear-gradient(0deg, #F18341 -17%, #FFB963 100%);width: 160px;height: 40px;
+						box-shadow: 0px 1px 3px 0px rgba(222, 118, 14, 0.2);border-radius: 380px;display: flex;flex-direction: row;justify-content: center;align-items: center;">
+							<view class="" style="width: 142px;height: 30px;font-size: 14px;font-weight: bold;background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 68%);border-radius: 220px;color: white;
+						           display: flex;flex-direction: row;justify-content: center;align-items: center;">
+								确认
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</u-mask>
+
+
+		<pop-guide :max-step="3" :guideData="functionGuideData" ref="FunctionGuide"></pop-guide>
+		<pop-announcement ref="popAnnouncement"></pop-announcement>
+		<!-- <button ref="targetButton" open-type="contact" class="pos">客服</button> -->
+	</view>
+</template>
+<script>
+	export default {
+		data() {
+			return {
+				tabHight: "50px",
+				expireShow: false,
+				calendar: 0,
+				middleBanner: [],
+				middleBannerlXD: [{
+						"url": "https://res-oss.elist.com.cn/advertising/banner001.jpg",
+						"jump": "https://res-oss.elist.com.cn/advertising/advertising001.png?s=1"
+					},
+					{
+						"url": "https://res-oss.elist.com.cn/advertising/banner001.jpg",
+						"jump": "https://res-oss.elist.com.cn/advertising/advertising001.png?s=1"
+					}
+				],
+				middleBannerlXR: [{
+						"url": "https://res-oss.elist.com.cn/advertising/banner001.jpg",
+						"jump": "https://res-oss.elist.com.cn/advertising/advertising001.png?s=1"
+					},
+					{
+						"url": "https://res-oss.elist.com.cn/advertising/banner001.jpg",
+						"jump": "https://res-oss.elist.com.cn/advertising/advertising001.png?s=1"
+					}
+				],
+				isLook: true,
+				priceObj: [0, 0, 0, 0, 0],
+				backlog: 0,
+				indexSumList: 0,
+				indexSumListCopy: [],
+				socket: null,
+				flushIndex: 0,
+				unwatchFlush: null,
+				DQS: [],
+				intoView: '',
+				functionGuideData: {
+					step: 0,
+					tips: '', // 介绍
+					tipsPosition: '', // 介绍 显示位置
+					btnGroupPosition: '', // 按钮组显示位置
+					position: {}
+				},
+				buttonStyle: {
+					backgroundColor: '',
+					border: 'none',
+					appearance: 'none',
+					outline: 'none',
+					boxShadow: 'none',
+					height: "100%",
+					width: "100%",
+					padding: "0"
+				},
+				guidancePage: 0,
+				Sudoku: {
+					notLogD: [
+						[{
+							icon: "/static/img/index/icon/tb1.png",
+							type: 1,
+							text: "待签收"
+						}, {
+							icon: "/static/img/index/icon/tb2.png",
+							type: 2,
+							text: "已签收"
+						}, {
+							icon: "/static/img/index/icon/tb3.png",
+							type: 3,
+							text: "已收款"
+						}],
+						[{
+							icon: "/static/img/index/icon/tb4.png",
+							type: 0,
+							text: "客户",
+							path: "/pages/subIndex/my_customer/my_customer"
+						}, {
+							icon: "/static/img/index/icon/tb10.png",
+							type: 0,
+							text: "商品库",
+							path: "/pages/subOrder/commodityDetails/nventoryCommodities",
+						}, {
+							icon: "https://res-oss.elist.com.cn/wxImg/tab/tb11.png",
+							type: 0,
+							text: "草稿箱",
+							path: "/pages/subOrder/drafts"
+						}],
+						[{
+							icon: "/static/img/index/icon/tb7.png",
+							type: 0,
+							text: "待办事项",
+							path: "/pages/subIndex/backlog/backlog",
+							count: 0
+						}, {
+							icon: "/static/img/index/icon/tb8.png",
+							type: 0,
+							text: "客服咨询",
+							path: "/pages/subMessage/chitchat/chat?type=9",
+							chat: true
+						}, {
+							icon: "/static/img/index/icon/tb9.png",
+							type: 0,
+							text: "更多功能",
+							path: "/pages/subPack/more/more?tid=更多功能"
+						}]
+					],
+					notLogR: [
+						[{
+							icon: "/static/img/index/icon/tb1.png",
+							type: 1,
+							text: "待确收"
+						}, {
+							icon: "/static/img/index/icon/tb2.png",
+							type: 2,
+							text: "已签收"
+						}, {
+							icon: "/static/img/index/icon/tb3.png",
+							type: 3,
+							text: "已付款"
+						}],
+						[{
+							icon: "/static/img/index/icon/tb4.png",
+							type: 0,
+							text: "供应商",
+							path: "/pages/subIndex/my_customer/my_customer"
+						}, {
+							icon: "/static/img/index/icon/tb5.png",
+							type: 0,
+							text: "付款单列表",
+							path: "/pages/subStatistics/receipt/bill_receipt?tid=付款单列表"
+						}, {
+							icon: "/static/img/index/icon/tb6.png",
+							type: 0,
+							text: "开付款单",
+							path: "/pages/subStatistics/receipt/receipt?tid=开付款单"
+						}],
+						[{
+							icon: "/static/img/index/icon/tb7.png",
+							type: 0,
+							text: "待办事项",
+							path: "/pages/subIndex/backlog/backlog",
+							count: 0
+						}, {
+							icon: "/static/img/index/icon/tb8.png",
+							type: 0,
+							text: "客服咨询",
+							path: "/pages/subMessage/chitchat/chat?type=9",
+							chat: true
+						}, {
+							icon: "/static/img/index/icon/tb9.png",
+							type: 0,
+							text: "更多功能",
+							path: "/pages/subPack/more/more?tid=更多功能"
+						}]
+					]
+				}
+			}
+		},
+		onLoad() {
+			//菜单变更
+			this.$getModel((value) => {
+				console.log("===动态高===>", value);
+				if (value) {
+					this.tabHight = value
+					// 在这里可以根据获取到的值进行其他操作
+				} else {
+					this.tabHight = value
+				}
+			});
+		},
+		onShow() {
+			if (this.vuex_user.phone == undefined || this.vuex_user.phone == "10000000000" || this.vuex_user.phone ==
+				null) {
+				console.log("未登录");
+				if (this.vuex_userRole == "D") {
+					this.middleBanner = this.middleBannerlXD
+				} else {
+					this.middleBanner = this.middleBannerlXR
+				}
+
+				//#ifdef APP 
+                    this.goToLogin();
+				//#endif 
+			} else {
+				this.$loadUser(this);
+				// this.$pushMessage(111);
+				this.guideCourse();
+				this.SOCKETfLUSH();
+				this.getmiddleBanner();
+				this.exitIfOpen();
+				this.getData();
+				this.getDQS();
+				this.getOrderDB();
+				this.Announcement();
+				this.draftOk();
+				setTimeout(() => {
+					this.menu();
+				}, 1000);
+			}
+		},
+		onShareAppMessage() {
+			if (res.from === 'button') { // 来自页面内分享按钮
+				console.log(res.target)
+			}
+			return {
+				title: '易单据，快捷开单',
+				path: '/pages/index/index'
+			}
+		},
+		onShareTimeline(res) {
+			return {
+				title: '易单据，快捷开单',
+				type: 0,
+				summary: "",
+			}
+		},
+		methods: {
+			goToLogin(){
+				uni.navigateTo({
+					url: "/pages/subUser/login"
+				})
+			},
+			goPathIndex(item) {
+				console.log(item);
+				if (this.vuex_user.phone == undefined) {
+					uni.navigateTo({
+						url: "/pages/subUser/login"
+					})
+					return;
+				}
+				if (item.chat) {
+					this.$refs.targetButton.triggerEvent('click');
+				} else {
+					uni.navigateTo({
+						url: item.path
+					})
+				}
+			},
+			draftOk() {
+				setTimeout(() => {
+					if (this.draft) {
+						console.log("===草稿箱存入凭证===>", this.draft);
+						this.$u.toast("已存入草稿箱~");
+						this.$u.vuex('draft', false);
+					}
+				}, 1200)
+			},
+			Announcement() {
+				this.$loadUser(this);
+				console.log("===全局公告===>");
+				var announcement = this.announcement
+				console.log("=== 全局公告 announcement===>", announcement);
+				var ale = announcement ? announcement.id != null : null
+				console.log("=== 全局公告 ale===>", announcement);
+				if (announcement.announcementType == "0") {
+					this.getYear()
+				} else {
+					this.$refs.popAnnouncement.popAnnouncement = ale
+				}
+			},
+			getYear() {
+				var dx = {
+					"bossNumberS": this.vuex_user.phone,
+					"bossNumberE": this.vuex_user.phone
+				}
+
+				this.$u.post('edo/order/old', dx).then(res => {
+					var data = res.data.data
+					if (data.D.length > 0 || data.R.length > 0) {
+						this.$refs.popAnnouncement.popAnnouncement = true
+						console.log("YEAR");
+					}
+				});
+			},
+			menu() {
+				var login = this.vuex_user.phone != undefined;
+				if (login) {
+					var work = this.vuex_user.data.work == "1";
+					if (work) {
+						var identity = this.vuex_user.workData.identity
+						if (identity == '3') {
+
+							this.Sudoku.notLogD[1][1] = {
+								icon: "/static/img/index/icon/tb5.png",
+								type: 0,
+								text: "收款单列表",
+								path: "/pages/subStatistics/receipt/bill_receipt"
+							}
+
+							this.Sudoku.notLogD[1][2] = {
+								icon: "https://res-oss.elist.com.cn/wxImg/tab/tb6.png",
+								type: 0,
+								text: "开收款单",
+								path: "/pages/subStatistics/receipt/receipt?tid=开收款单"
+							}
+						}
+						if (identity != '3') {
+
+							this.Sudoku.notLogD[1][1] = {
+								icon: "/static/img/index/icon/tb10.png",
+								type: 0,
+								text: "商品库",
+								path: "/pages/subOrder/commodityDetails/nventoryCommodities",
+							}
+
+							this.Sudoku.notLogD[1][2] = {
+								icon: "https://res-oss.elist.com.cn/wxImg/tab/tb11.png",
+								type: 0,
+								text: "草稿箱",
+								path: "/pages/subOrder/drafts"
+							}
+						}
+					} else {
+
+						this.Sudoku.notLogD[1][1] = {
+							icon: "/static/img/index/icon/tb10.png",
+							type: 0,
+							text: "商品库",
+							path: "/pages/subOrder/commodityDetails/nventoryCommodities",
+						}
+
+						this.Sudoku.notLogD[1][2] = {
+							icon: "https://res-oss.elist.com.cn/wxImg/tab/tb11.png",
+							type: 0,
+							text: "草稿箱",
+							path: "/pages/subOrder/drafts"
+						}
+					}
+				}
+			},
+			guideCourse() {
+				if (this.vuex_user.phone != undefined) {
+					console.log("信息", this.guidanceD, this.guidanceR);
+					if (this.vuex_userRole == "D") {
+						if (this.guidanceD == 1) {
+							this.guide()
+						}
+					} else {
+						if (this.guidanceR == 1) {
+							this.guide()
+						}
+					}
+
+				}
+			},
+			guide() {
+				this._statusBarHeight = 44 + uni.getSystemInfoSync().statusBarHeight
+				this.$refs.FunctionGuide.init()
+			},
+			setFunctionGuideData(data) {
+				this.functionGuideData = {
+					...this.functionGuideData,
+					...data
+				}
+
+				if (this.vuex_userRole == 'D') {
+					this.showFunctionGuideD()
+				} else {
+					this.showFunctionGuideR()
+				}
+
+			},
+			showFunctionGuideR() {
+				if (this._step == this.functionGuideData.step) return
+				this._step = this.functionGuideData.step
+				if (this.functionGuideData.step == 1) {
+					this.getElementData('#box', res => {
+						this.setFunctionGuideData({
+							tips: '介绍模块1，简述一下模块功能',
+							btnGroupPosition: '10rpx',
+							tipsPosition: {
+								top: "50rpx",
+								right: "0",
+								backgroundImage: "url(https://res-oss.elist.com.cn/wxImg/handbook/guide/stepD1.png)"
+							},
+							img: {
+								url: ""
+							},
+							position: {
+								// 自定义导航栏
+								// top: uni.upx2px(30) + this._statusBarHeight + 'px',
+								top: `${res.top+(res.height/2)}px`,
+								right: "18px",
+								width: `${res.width}px`,
+								height: `${res.height/2}px`,
+							}
+						})
+					})
+
+				} else if (this.functionGuideData.step == 2) {
+					this.getElementData('#box22', res => {
+						this.setFunctionGuideData({
+							tips: '介绍模块2，简述一下模块功能',
+							btnGroupPosition: '',
+							tipsPosition: {
+								top: "200rpx",
+								left: "0",
+								backgroundImage: "url(https://res-oss.elist.com.cn/wxImg/handbook/guide/stepR22.png)"
+							},
+							position: {
+								top: res.top + 'px',
+								width: `${res.width}px`,
+								left: "14px",
+								height: `${res.height}px`
+							}
+						})
+					})
+				} else if (this.functionGuideData.step == 3) {
+
+					let systemInfo = uni.getSystemInfoSync();
+					let platform = systemInfo.platform;
+					let osName = systemInfo.osName;
+
+					var setting = platform === 'android'
+
+					this.getElementData('#box33', res => {
+						this.setFunctionGuideData({
+							tips: '介绍模块6，模块处于底部，需滚动页面',
+							btnGroupPosition: '550rpx',
+							tipsPosition: {
+								top: "200rpx",
+								left: "0",
+								backgroundImage: "url(https://res-oss.elist.com.cn/wxImg/handbook/guide/stepR33.png)"
+							},
+							position: {
+								top: res.top + 'px',
+								width: `${res.width/2}px`,
+								left: "45px",
+								height: `${res.height}px`
+							}
+						})
+					})
+					this.$nextTick(() => {
+						this.intoView = 'box6'
+					})
+				} else if (this.functionGuideData.step == 'jump') {
+					this.intoView = 'top'
+				}
+			},
+			showFunctionGuideD() {
+				if (this._step == this.functionGuideData.step) return
+				this._step = this.functionGuideData.step
+				if (this.functionGuideData.step == 1) {
+					this.getElementData('#box', res => {
+						this.setFunctionGuideData({
+							tips: '介绍模块1，简述一下模块功能',
+							btnGroupPosition: '10rpx',
+							tipsPosition: {
+								top: "50rpx",
+								right: "0",
+								backgroundImage: "url(https://res-oss.elist.com.cn/wxImg/handbook/guide/stepD1.png)"
+							},
+							img: {
+								url: ""
+							},
+							position: {
+								// 自定义导航栏
+								// top: uni.upx2px(30) + this._statusBarHeight + 'px',
+								top: `${res.top+(res.height/2)}px`,
+								right: "18px",
+								width: `${res.width}px`,
+								height: `${res.height/2}px`,
+							}
+						})
+					})
+
+				} else if (this.functionGuideData.step == 2) {
+					this.getElementData('#box2', res => {
+						this.setFunctionGuideData({
+							tips: '介绍模块2，简述一下模块功能',
+							btnGroupPosition: '',
+							tipsPosition: {
+								top: "200rpx",
+								left: "0",
+								backgroundImage: "url(https://res-oss.elist.com.cn/wxImg/handbook/guide/stepD2.png)"
+							},
+							position: {
+								top: res.top + 'px',
+								width: `${res.width}px`,
+								left: "14px",
+								height: `${res.height}px`
+							}
+						})
+					})
+				} else if (this.functionGuideData.step == 3) {
+
+					let systemInfo = uni.getSystemInfoSync();
+					let platform = systemInfo.platform;
+					let osName = systemInfo.osName;
+
+					var setting = platform === 'android'
+
+					this.getElementData('#box6', res => {
+						this.setFunctionGuideData({
+							tips: '介绍模块6，模块处于底部，需滚动页面',
+							btnGroupPosition: '550rpx',
+							tipsPosition: {
+								top: "-270rpx",
+								left: "-20px",
+								backgroundImage: "url(https://res-oss.elist.com.cn/wxImg/handbook/guide/stepD3.png)"
+							},
+							position: {
+								bottom: setting ? (uni.getSystemInfoSync().statusBarHeight) * 0.1 + "px" :
+									(uni.getSystemInfoSync().statusBarHeight) * 0.55 + "px",
+								height: setting ? `${res.height/1.1}px` : `${res.height/1.5}px`,
+								width: `${(res.width/4)/2}px`,
+								left: `${res.width/4+((res.width/4)/5)}px`
+							}
+						})
+					})
+					this.$nextTick(() => {
+						this.intoView = 'box6'
+					})
+				} else if (this.functionGuideData.step == 'jump') {
+					this.intoView = 'top'
+				}
+			},
+			getElementData(el, cb) {
+				const query = uni.createSelectorQuery().in(this)
+				query.select(el).boundingClientRect().exec((res) => {
+					if (res[0]) {
+						cb(res[0])
+					}
+				})
+			},
+			exitIfOpen() {
+				var workIF = this.vuex_user.data.work == "1";
+				if (workIF) {
+					var s = this.vuex_user.workData.endTime;
+					if (s == "0") {
+						this.expireShow = true
+					}
+				}
+			},
+			exit() {
+				wx.exitMiniProgram({
+					success: function() {
+						console.log('成功退出小程序');
+					},
+					fail: function(err) {
+						console.error('退出小程序失败', err);
+					}
+				});
+			},
+			BigSub(price) {
+				if (typeof price !== 'number' || price < 1000000) {
+					throw new Error('Price must be a number greater than or equal to 10000000.');
+				}
+				const priceInWan = price / 10000;
+				const roundedPriceInWan = Math.round(priceInWan);
+				const formattedPrice = roundedPriceInWan + '万';
+				return formattedPrice;
+			},
+			ifBig(price) {
+				if (price > 1000000) {
+					return true;
+				} else {
+					return false;
+				}
+			},
+			SOCKETfLUSH() {
+				this.unwatchFlush = this.$store.watch(
+					(state) => state.flush, // 监听状态  
+					(newVal, oldVal) => {
+						this.flushIndex = newVal;
+						this.getOrderDB()
+						this.getData()
+						this.getDQS()
+						console.log("SOCKETfLUSH");
+					}
+				);
+			},
+			getOrderDB() {
+				var workIF = this.vuex_user.data.work == "0";
+				var dx = {
+					"bUser": "",
+					"bBoss": "",
+					"port": this.vuex_userRole
+				}
+				if (workIF) {
+					dx.bBoss = this.vuex_user.phone
+				} else {
+					//console.log("(待办事项)有工作:", workIF);
+					var identity = this.vuex_user.workData.identity;
+					if (identity == "4") {
+						dx.bBoss = this.vuex_user.workData.bossNumber
+						dx.bUser = this.vuex_user.phone
+					} else if (identity == "1") {
+						dx.bBoss = this.vuex_user.workData.bossNumber
+						// dx.bUser = this.vuex_user.workData.bossNumber
+					} else {
+						dx.bBoss = this.vuex_user.workData.bossNumber
+						dx.bUser = this.vuex_user.phone
+					}
+				}
+
+				this.$u.post('edo/orderDel/get', dx).then(res => {
+					this.indexSumList = res.data.data[0]
+					console.log("待办", this.indexSumList);
+					this.Sudoku.notLogD[2][0].count = res.data.data[0]
+					this.Sudoku.notLogR[2][0].count = res.data.data[0]
+				})
+
+			},
+			onPullDownRefresh() {
+				if (this.vuex_user.phone != undefined) {
+					this.getData();
+					this.getDQS()
+					setTimeout(function() {
+						uni.stopPullDownRefresh();
+					}, 1000)
+				} else {
+					this.$u.toast("请登录")
+					uni.stopPullDownRefresh();
+				}
+			},
+			a() {
+				return 118;
+			},
+			getmiddleBanner() {
+				var filer = this.vuex_userRole == "D" ? "1" : "0"
+				this.$u.post('edo/advert/get?port=' + filer).then(res => {
+
+					if (res.data.code == 999) {
+						console.log("res", res);
+						if (this.vuex_userRole == "D") {
+							this.middleBanner = this.middleBannerlXD
+						} else {
+							this.middleBanner = this.middleBannerlXR
+						}
+
+					} else {
+						this.middleBanner = []
+						this.middleBanner = res.data.data;
+					}
+
+
+				})
+			},
+			getData() {
+				//是否工作
+				var ifwork = this.vuex_user.data.work == "0"
+				//是否为发获段
+				var ifWorkPort = this.vuex_userRole == "D"
+				var realTimeSel = {
+					"bossNumberS": "",
+					"staffNumberS": ""
+				}
+
+				const date = new Date();
+				date.setDate(date.getDate() + 15);
+
+				realTimeSel.startDate = this.$u.timeFormat(new Date(new Date().getFullYear(), 0, 1), 'yyyy-mm-dd');
+				realTimeSel.endDate = this.$u.timeFormat(date, 'yyyy-mm-dd');
+
+				if (ifwork) {
+					//没工作
+					realTimeSel.bossNumberS = this.vuex_user.phone;
+				} else {
+					var identity = this.vuex_user.workData.identity == '4';
+					if (identity) {
+						realTimeSel.bossNumberS = this.vuex_user.workData.bossNumber;
+						realTimeSel.staffNumberS = this.vuex_user.phone;
+					}
+					realTimeSel.bossNumberS = this.vuex_user.workData.bossNumber;
+
+				}
+
+				if (ifWorkPort) {
+					this.$u.post('/edo/order/getFilterSum', realTimeSel).
+					then(res => {
+						//console.log(res.data.data);
+						this.priceObj = res.data.data;
+					}).catch(res => {
+						this.$u.toast(that.message)
+					})
+				}
+			},
+			getDQS() {
+				var ifwork = this.vuex_user.data.work == "0"
+				//是否为发获段
+				var ifWorkPort = this.vuex_userRole == "D"
+
+				var realTimeSel = {
+					"bossNumberS": "",
+					"bossNumberE": "",
+					"staffNumberS": "",
+					"staffNumberE": "",
+					"paymentState": "0",
+					"phoneE": "",
+					"organizationE": "",
+					"enterpriseS": "",
+					"phoneS": "",
+					"startDate": "",
+					"endDate": "",
+					"takeE": "",
+					"contactsS": "",
+					"siteE": "",
+					"enterpriseDz": "",
+					"getPhone": "",
+					"inventoryName": "",
+				}
+
+
+				const date = new Date();
+				date.setDate(date.getDate() + 15);
+
+				realTimeSel.startDate = this.$u.timeFormat(new Date(new Date().getFullYear(), 0, 1), 'yyyy-mm-dd');
+				realTimeSel.endDate = this.$u.timeFormat(date, 'yyyy-mm-dd');
+
+				if (ifwork) {
+					//没工作
+					realTimeSel.bossNumberE = this.vuex_user.phone;
+				} else {
+					var identity = this.vuex_user.workData.identity == '4';
+					if (identity) {
+						realTimeSel.bossNumberE = this.vuex_user.workData.bossNumber;
+						realTimeSel.staffNumberE = this.vuex_user.phone;
+					}
+					realTimeSel.bossNumberE = this.vuex_user.workData.bossNumber;
+
+				}
+
+				this.$u.post('/edo/order/Quantity', realTimeSel)
+					.then(res => {
+						//console.log("index 当前订单个数：", res);
+						this.DQS = res.data.data
+						this.Sudoku.notLogR[0][0].count = res.data.data[1]
+					})
+					.catch(res => {
+						this.refresh = true;
+						this.$u.toast("获取个数失败");
+					});
+			},
+			jumpSearch() {
+				//console.log("聚焦");
+				uni.navigateTo({
+					url: '/pages/index/search_index/search_index'
+				})
+			},
+			closeRole() {
+				if (this.$refs.popRole.roleShow) {
+					this.$refs.popRole.roleShow = false
+				}
+			},
+			// 切换收发货
+			sideClick() {
+				this.$refs.popRole.roleShow = true
+				if (this.vuex_userRole == "R") {
+					this.$refs.popRole.roleShowF = false
+					this.$refs.popRole.roleShowS = true
+					this.$refs.popRole.check = '2'
+				} else {
+					this.$refs.popRole.roleShowF = true
+					this.$refs.popRole.roleShowS = false
+					this.$refs.popRole.check = '1'
+				}
+			},
+			isElevenDigitPhoneNumber(phoneNumber) {
+				// 使用正则表达式匹配11位数字
+				const regex = /^\d{11}$/;
+				return regex.test(phoneNumber);
+			},
+			middleClick(e) {
+				this.jumpToUrl(this.middleBanner[e].jump);
+			},
+			jumpToUrl(url) {
+				if (!url) return;
+				if (url.indexOf('http') < 0) {
+					// 内部跳转
+					uni.navigateTo({
+						url: url
+					});
+				} else {
+					// 外部跳转
+					console.log("外部跳转");
+					uni.previewImage({
+						loop: true,
+						urls: [url], //可以展示imgUrl 列表中所有的图片
+					});
+				}
+			},
+			goList(val) {
+				this.$u.vuex('vuex_tabIndex', val);
+				uni.switchTab({
+					url: '/pages/list/list'
+				})
+			}
+		},
+	}
+</script>
+
+<style>
+	.grid-container {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-gap: 0;
+	}
+
+	.grid-item {
+		background-color: #ffffff;
+		text-align: center;
+		/* padding: 5px; */
+		padding-top: 15px;
+		position: relative;
+	}
+</style>
+<style lang="scss" scoped>
+	.Index {
+		background-color: #F6F7F7;
+		overflow: auto;
+		height: 100vh;
+		width: 100vw;
+
+		position: relative;
+
+		overflow-x: hidden;
+	}
+
+	.Index::-webkit-scrollbar {
+		display: none;
+	}
+
+
+	.Index {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+		/* Firefox */
+	}
+
+
+
+	.ft36 {
+		color: #333333;
+		font-weight: bold;
+	}
+
+	.grid-text {
+		font-size: 28rpx;
+		color: #333333;
+		font-weight: normal;
+		border: none;
+	}
+
+	.swiper-wrap {
+		height: 35vh;
+	}
+
+	.inp {
+		position: absolute;
+		width: 90%;
+		top: 15.3vh;
+		z-index: 9999;
+		margin-left: 5%;
+	}
+
+	.home-main {
+		position: relative;
+		top: -300rpx;
+		z-index: 997;
+		min-height: 500rpx;
+	}
+
+	.home-menu-wrap {
+		.home-menu {
+			border-radius: 14px;
+			color: #333;
+			position: relative;
+			flex: 1;
+			overflow: hidden;
+			padding: 20rpx 0 40rpx 16rpx;
+			border-radius: 12rpx;
+			height: 12vh;
+		}
+
+		.home-menu1 {
+			margin-right: 15rpx;
+		}
+
+		.home-menu2 {
+			margin-right: 15rpx;
+		}
+
+		.home-menu3 {
+			margin-left: 15rpx;
+		}
+	}
+
+	.home-data {
+		padding-top: 24rpx;
+		padding-bottom: 24rpx;
+		padding-left: 12rpx;
+		padding-right: 12rpx;
+		background-color: #FFFFFF;
+		border-radius: 12rpx;
+	}
+
+	.sub-menu {
+		.sub-menu-item {
+			width: 336rpx;
+			height: 180rpx;
+			padding: 42rpx 0 0 46rpx;
+			opacity: 1;
+			border-radius: 12rpx;
+			margin-bottom: 20rpx;
+		}
+
+		.sub-item-orange {}
+
+		.sub-item-blue {}
+
+		.sub-item-red {}
+	}
+
+	.home-box {
+		padding: 40rpx 20rpx 30rpx;
+		width: 100%;
+		height: auto;
+		background-color: transparent;
+	}
+
+	.sudoku,
+	.towCard {
+		background-color: #ffffff;
+	}
+
+	.sudoku {
+		background-color: #ffffff;
+	}
+
+	.father {
+		display: flex;
+		/* 使用Flexbox布局 */
+		// background-color: darkcyan;
+	}
+
+	.father .view:nth-child(1) {
+		width: 33%;
+		margin-right: 2px;
+		height: 100%;
+		background-color: #F9F9F9;
+
+		border-top-left-radius: 6px;
+		border-bottom-left-radius: 6px;
+	}
+
+	.father .view:nth-child(2) {
+		width: 33%;
+		margin-right: 2px;
+		height: 100%;
+		background-color: #F8F8F8;
+	}
+
+	.father .view:nth-child(3) {
+		width: 33%;
+		height: 100%;
+		background-color: #F8F8F8;
+		border-top-right-radius: 6px;
+		border-bottom-right-radius: 6px;
+	}
+
+	.view {
+		flex: 1;
+		/* 这会使每个视图平分容器的宽度 */
+		box-sizing: border-box;
+		/* 确保边框和内边距不会增加元素的宽度 */
+		padding: 10px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+</style>

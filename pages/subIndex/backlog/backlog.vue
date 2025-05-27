@@ -1,0 +1,386 @@
+<template>
+	<view class="bg-gray vh100">
+
+		<z-paging ref="paging" use-virtual-list :force-close-inner-list="true"
+			:cell-height-mode="1===0?'fixed':'dynamic'" @virtualListChange="virtualListChange" @query="queryList">
+			<view slot="top">
+				<u-navbar :custom-back="returnIndex" :border-bottom="false" :titleBold="true" title-color="#000000"
+					title="待办事项" title-size="34" bgColor="#ffffff"></u-navbar>
+				<!-- <u-notice-bar mode="horizontal" :list="uNoticeBarlist" padding="6rpx 12rpx"></u-notice-bar> -->
+				<u-tabs item-width="50%" active-color="#01BB74" inactive-color="#333333" :list="tabList"
+					@change="TabClick" :current="tab"></u-tabs>
+			</view>
+
+			<view slot="empty" v-show="vuex_user.workData.identity=='3'&&tab==1||vuex_user.workData.identity=='4'&&tab==0||vuex_user.data.work=='0'||vuex_user.workData.identity=='1'" style="padding-bottom: 500px;">
+				<u-empty src="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg" icon-size="400"
+					text="暂无待办事项~" mode="search" margin-top="200"></u-empty>
+			</view>
+
+			<view slot="empty" v-show="vuex_user.workData.identity=='3'&&tab==0||vuex_user.workData.identity=='4'&&tab==1||vuex_user.data.work=='1'&&vuex_user.workData.identity!='1'" style="padding-bottom: 500px;">
+				<u-empty src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" icon-size="400"
+					text="无查看权限~" mode="search" margin-top="200"></u-empty>
+			</view>
+
+
+			<view class="ml24 mr24 mt24" style="background-color: white;border-radius: 12px;" :index="index"
+				v-for="(item, index) in list" :key="item.id">
+				<u-swipe-action class="" style="" @open="open(index)" :options="options" @click="click(item)"
+					:show="item.show">
+					<view class="item flex-col justify-left">
+						<!-- 此层wrap在此为必写的，否则可能会出现标题定位错误 -->
+						<view class="u-body-item u-flex u-row-between u-p-b-0">
+							<view class="flex-row justify-center items-center" v-if="item.genre=='D'">
+								<u-icon name="https://res-oss.elist.com.cn/wxImg/index/del.svg" size="40"></u-icon>
+								<text class="ml20" style="font-size: 16px;font-weight: bold;">删除申请</text>
+							</view>
+							<view class="flex-row justify-center items-center" v-if="item.genre=='P'">
+								<u-icon name="https://res-oss.elist.com.cn/wxImg/index/play.svg" size="40"></u-icon>
+								<text class="ml20" style="font-size: 16px;font-weight: bold;">确认付款申请</text>
+							</view>
+							<div style="float: right;">
+								<u-button :custom-style="customStyle" type="success" shape="circle"
+									@click="clickApply(item)">同意</u-button>
+							</div>
+						</view>
+						<view class="">
+							<!-- 				<view class="flex-col mt25" style="font-size: 14px;">
+								<text style="color: #666666;"
+									v-if="item.genre=='D'">{{item.aName||item.aUser}}申请删除{{item.port=="E"?"付款单":(item.port=="S"?"收款单":"订单")}}</text>
+								<text style="color: #666666;"
+									v-if="item.genre=='P'">{{item.aName||item.aUser}}申请确认付款{{item.port=="E"?"付款单":(item.port=="S"?"收款单":"订单")}}</text>
+								<text style="color: #666666;" class="mt10">订单编号：<text
+										style="color: #01BB74;">{{item.orderNumber}}</text></text>
+							</view>
+							<view class="flex-col mt25" style="font-size: 14px;">
+								<text style="color: #666666;"
+									v-if="item.genre=='D'">{{item.aName||item.aUser}}申请删除{{item.port=="E"?"付款单":(item.port=="S"?"收款单":"订单")}}</text>
+								<text style="color: #666666;"
+									v-if="item.genre=='P'">{{item.aName||item.aUser}}申请确认付款{{item.port=="E"?"付款单":(item.port=="S"?"收款单":"订单")}}</text>
+								<text style="color: #666666;" class="mt10">订单编号：<text
+										style="color: #01BB74;">{{item.orderNumber}}</text></text>
+							</view> -->
+							<view class="flex-col mt25" style="font-size: 14px;" v-if="item.port=='D'||item.port=='R'">
+								<text style="color: #666666;"
+									v-if="item.genre=='D'">{{item.aName||item.aUser}}申请删除订单</text>
+								<text style="color: #666666;"
+									v-if="item.genre=='P'">{{item.aName||item.aUser}}申请确认付款订单</text>
+								<text style="color: #666666;" class="mt10">订单编号：<text
+										style="color: #01BB74;">{{item.orderNumber}}</text></text>
+							</view>
+							<view class="flex-col mt25" style="font-size: 14px;" v-if="item.port=='E'||item.port=='S'">
+								<text style="color: #666666;"
+									v-if="item.genre=='D'">{{item.aName||item.aUser}}申请删除{{(item.port=="E"?"收款单":"付款单")}}</text>
+								<text style="color: #666666;"
+									v-if="item.genre=='P'">{{item.aName||item.aUser}}申请确认付款收款单</text>
+								<text style="color: #666666;" class="mt10">订单编号：<text
+										style="color: #01BB74;">{{item.orderNumber}}</text></text>
+							</view>
+
+							<view class="flex-row mt15" style="font-size: 14px;" v-if="item.port=='D'||item.port=='R'">
+								<text style="color: #AAAAAA;" v-if="item.orderState<=1">订单状态：</text>
+								<text style="color: #AAAAAA;" v-if="item.orderState>1">订单数：</text>
+								<text style="color: #AAAAAA;"
+									v-if="item.orderState<=1">{{item.orderState=='0'?'待签收':(item.orderState=='1'?'已签收':'已付款')}}</text>
+								<text style="color: #AAAAAA;" v-if="item.orderState>1">{{item.orderState}}</text>
+							</view>
+
+							<view class="flex-row mt15" style="font-size: 14px;" v-if="item.port=='E'||item.port=='S'">
+								<text style="color: #AAAAAA;">订单数量：</text>
+								<text style="color: #AAAAAA;">{{item.billQuantity}}</text>
+							</view>
+							<view class="flex-row mt15" style="font-size: 14px;" v-if="item.port=='E'||item.port=='S'">
+								<text style="color: #AAAAAA;">订单金额：</text>
+								<text style="color: #AAAAAA;">￥{{parseFloat(item.totalPrices).toFixed(2)}}</text>
+							</view>
+
+							<view class="flex-row mb36 mt15" style="font-size: 14px;">
+								<text style="color: #AAAAAA;">申请时间：</text>
+								<text
+									style="color: #AAAAAA;">{{$u.timeFormat(item.createTime, 'yyyy-mm-dd hh:MM:ss')}}</text>
+							</view>
+
+						</view>
+						<view class="u-body-item u-flex u-row-between u-p-b-0 u-border-top" @click="jumpDetails(item)">
+							<view class="u-body-item-title u-line-0 mt15" style="color: #01BB74;">
+								查看订单</view>
+							<view class="mt15" style="float: right;">
+								<u-icon class="u-body-item-title u-line-1" name="arrow-right" color="#666666"
+									size="28"></u-icon>
+							</view>
+						</view>
+					</view>
+				</u-swipe-action>
+			</view>
+		</z-paging>
+
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				list: [],
+				disabled: false,
+				btnWidth: 180,
+				show: false,
+				options: [{
+					text: '删除',
+					style: {
+						backgroundColor: '#ff6e55'
+					}
+				}],
+				identity: false,
+				customStyle: {
+					width: "54.1px",
+					height: "22.7px",
+					borderRadius: "227px",
+					fontSize: "12px"
+				},
+				tabList: [{
+					name: '送货单',
+				}, {
+					name: '收款单',
+				}],
+				tab: 0,
+				uNoticeBarlist: [
+					" 当年待办请在12月31日前处理完成，逾期将清空无法处理~ "
+				]
+			};
+		},
+		onShow() {
+
+			if (this.vuex_user.workData != null) {
+				var ide = this.vuex_user.workData.identity == "3"
+				if (ide) {
+					this.identity = true
+				}
+
+			}
+
+			if (this.vuex_userRole == "D") {
+				this.tabList[1].name = "收款单"
+			} else {
+				this.tabList[1].name = "付款单"
+			}
+			
+			// #ifdef MP-WEIXIN  
+			this.$refs.paging.refresh();
+			// #endif  
+
+			
+			// this.loadData();
+		},
+		onHide() {
+
+		},
+		methods: {
+			virtualListChange(vlist) {
+				this.list = vlist
+			},
+			queryList(start, end) {
+				console.log("获取", start, end);
+				if (this.vuex_user.workData.identity != '3' || (this.tab == 1 && this.vuex_user.workData.identity =='3')) {
+					this.refresh(start, end)
+				} else {
+					this.$refs.paging.complete([])
+				}
+			},
+			TabClick(item) {
+				this.tab = item
+				console.log(item);
+				this.$refs.paging.refresh();
+			},
+			returnIndex() {
+				uni.navigateBack()
+			},
+			jumpDetails(item) {
+
+				console.log(item);
+				if (item.port == "E" || item.port == "S") {
+					uni.navigateTo({
+						url: "/pages/subStatistics/receipt/bill_particulars?id=" + item.orderId
+					});
+				} else {
+					uni.navigateTo({
+						url: "/pages/subOrder/details?id=" + item.orderId
+					});
+				}
+
+			},
+			delCount() {
+				var ifok = Number(this.vuex_tabbar[0].counts) > 0;
+				if (ifok) {
+					this.vuex_tabbar[0].counts = Number(this.vuex_tabbar[0].counts) - 1;
+				}
+			},
+			clickApply(item) {
+				console.log(item);
+				var genre = item.genre
+				if (genre == "P") {
+					this.okPlay(item)
+				} else if (genre == "D") {
+					this.okDel(item)
+				}
+			},
+			okDel(item) {
+				//同意删除
+				this.$u.post('edo/orderDel/ok', item).then(res => {
+					console.log(res.data.data);
+					if (res.data.data == '1') {
+						this.$u.toast(res.data.message);
+						var that = this;
+						setTimeout(function() {
+							that.$refs.paging.refresh();
+							that.delCount()
+						}, 500)
+
+					}
+				})
+			},
+			okPlay(item) {
+				//同意支付
+				this.$u.post('edo/orderDel/ok', item).then(res => {
+					console.log(res.data.data);
+					if (res.data.data == '1') {
+						this.$u.toast(res.data.message);
+						var that = this;
+						setTimeout(function() {
+							that.$refs.paging.refresh();
+							that.delCount()
+						}, 500)
+
+					}
+				})
+
+			},
+			refresh(start, end) {
+				var workIF = this.vuex_user.data.work == "0";
+				var dx = {
+					"bUser": "",
+					"bBoss": "",
+					"type": this.tab == 0 ? true : false,
+					"page": start,
+					"size": end
+				}
+				if (workIF) {
+					//没工作
+					dx.bBoss = this.vuex_user.phone
+				} else {
+					//有工作
+					console.log("(待办事项)有工作:", workIF);
+					var identity = this.vuex_user.workData.identity;
+					if (identity == "4") {
+						dx.bBoss = this.vuex_user.workData.bossNumber
+						dx.bUser = this.vuex_user.phone
+					}else if (identity == "1") {
+						dx.bBoss = this.vuex_user.workData.bossNumber
+						// dx.bUser = this.vuex_user.phone
+					} else {
+						dx.bBoss = this.vuex_user.workData.bossNumber
+						dx.bUser = this.vuex_user.workData.bossNumber
+					}
+				}
+
+				this.$u.post('edo/orderDel/getLimit', dx).then(res => {
+					var getList = res.data.data.map(obj => ({
+						...obj,
+						show: false
+					}));
+
+					var filer = this.vuex_userRole == "D"
+					if (filer) {
+						this.$refs.paging.complete(getList.filter(res => (res.port == "R" || res.port == "E")));
+					} else {
+						this.$refs.paging.complete(getList.filter(res => (res.port == "D" || res.port == "S")));
+					}
+					console.log("筛选条件后: ", this.list);
+				})
+			},
+			loadData() {
+				var workIF = this.vuex_user.data.work == "0";
+				var dx = {
+					"bUser": "",
+					"bBoss": "",
+					"type": this.tab == 0 ? true : false
+				}
+				if (workIF) {
+					//没工作
+					dx.bBoss = this.vuex_user.phone
+				} else {
+					//有工作
+					console.log("(待办事项)有工作:", workIF);
+					var identity = this.vuex_user.workData.identity;
+					if (identity == "4") {
+						dx.bBoss = this.vuex_user.workData.bossNumber
+						dx.bUser = this.vuex_user.phone
+					} else {
+						dx.bBoss = this.vuex_user.workData.bossNumber
+						dx.bUser = this.vuex_user.workData.bossNumber
+					}
+				}
+
+				this.$u.post('edo/orderDel/get', dx).then(res => {
+					this.list = res.data.data.map(obj => ({
+						...obj,
+						show: false
+					}));
+					var filer = this.vuex_userRole == "D" ? "1" : "0"
+					console.log("筛选条件: ", filer);
+					if (filer == "1") {
+						this.list = this.list.filter(res => (res.port == "f" || res.port == "1"));
+					} else {
+						this.list = this.list.filter(res => (res.port == "0"));
+					}
+
+					console.log("筛选条件后: ", this.list);
+				})
+
+
+			},
+			click(item) {
+				console.log("删除", item);
+				this.$u.post('edo/orderDel/up', item).then(res => {
+					console.log(res.data.data);
+					if (res.data.data == '1') {
+						this.$u.toast("已撤销申请~");
+						this.$refs.paging.refresh();
+						this.delCount()
+					}
+				})
+			},
+			// 如果打开一个的时候，不需要关闭其他，则无需实现本方法
+			open(index) {
+				// 先将正在被操作的swipeAction标记为打开状态，否则由于props的特性限制，
+				// 原本为'false'，再次设置为'false'会无效
+				console.log(index);
+				this.list[index].show = true;
+				this.list.map((val, idx) => {
+					if (index != idx) this.list[idx].show = false;
+				})
+			}
+		}
+	};
+</script>
+
+<style lang="scss" scoped>
+	.item {
+		display: flex;
+		padding: 20rpx;
+	}
+
+	image {
+		width: 120rpx;
+		flex: 0 0 120rpx;
+		height: 120rpx;
+		margin-right: 20rpx;
+		border-radius: 12rpx;
+	}
+
+	.title {
+		text-align: left;
+		font-size: 28rpx;
+		color: $u-content-color;
+		margin-top: 20rpx;
+	}
+</style>
