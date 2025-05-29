@@ -85,7 +85,7 @@
 				var ifWorkPort = this.vuex_userRole == "R"
 				if (ifWorkPort) {
 					uni.setNavigationBarTitle({
-						title: "创建新供应商"
+						title: "创建供应商"
 					})
 					this.title = "供应商"
 				} else {

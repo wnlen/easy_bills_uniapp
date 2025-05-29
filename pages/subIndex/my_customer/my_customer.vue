@@ -13,8 +13,8 @@
 			</view>
 		</u-navbar>
 
-		<u-tabs name="cate_name" inactive-color="#333333" active-color="#01BB74" :list="list.length? list : []"
-			:is-scroll="false" :current="currents" @change="change"></u-tabs>
+		<!-- <u-tabs name="cate_name" inactive-color="#333333" active-color="#01BB74" :list="list.length? list : []"
+			:is-scroll="false" :current="currents" @change="change"></u-tabs> -->
 
 		<view class="flex-row ml24 mr24 mt24" style="display: flex;">
 			<view class="ml5 mr5" style="flex: 1;">
@@ -117,8 +117,10 @@
 
 
 		<view class="">
-			<u-empty v-if="isEmptyObject(listO)&&show==1" src="https://res-oss.elist.com.cn/wxImg/order/empty.svg"
-				icon-size="400" text="暂无欠款~" mode="search" margin-top="200"></u-empty>
+			<u-empty v-if="isEmptyObject(listO)&&show==1&&vuex_userRole=='D'" src="https://res-oss.elist.com.cn/wxImg/order/empty.svg"
+				icon-size="400" text="暂无客户~" mode="search" margin-top="200"></u-empty>
+			<u-empty v-if="isEmptyObject(listO)&&show==1&&vuex_userRole=='R'" src="https://res-oss.elist.com.cn/wxImg/order/empty.svg"
+				icon-size="400" text="暂无供应商~" mode="search" margin-top="200"></u-empty>
 			<view class="mt20 pb150" :style="{display:show!=1?'none':'block'}"
 				@click="showAl=(showAl==true?false:false)">
 				<view class="ml20 flex-row items-center vw100" v-for="(item2, index2) in listO" :key="index2"
@@ -180,7 +182,8 @@
 		data() {
 			return {
 				showAl: false,
-				list: [{
+				list: [
+					{
 					cate_name: '客户列表'
 				}, {
 					cate_name: '销售列表'
