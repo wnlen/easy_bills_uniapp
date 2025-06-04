@@ -254,6 +254,20 @@
 	@import "uni_modules/vk-uview-ui/index.scss";
 	@import 'static/common/css/base.scss';
 
+	@font-face {
+		font-family: "ddbh";
+		src: url('https://cdn.elist.com.cn/uniapp/font/DDBH.ttf') format('truetype');
+	}
+
+	@font-face {
+		font-family: "ysdzt";
+		src: url('https://cdn.elist.com.cn/uniapp/font/YSDZT.ttf') format('truetype');
+	}
+
+	@font-face {
+		font-family: "syst";
+		src: url('https://cdn.elist.com.cn/uniapp/font/syst.ttf') format('truetype');
+	}
 
 	// .u-line-1{
 	// 	font-size: 12px;
