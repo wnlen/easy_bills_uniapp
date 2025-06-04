@@ -13,14 +13,16 @@ const install = (Vue, vm) => {
 	});
 
 	// 请求拦截，配置Token等参数
-	
 	//#ifdef MP-WEIXIN
+	
 	Vue.prototype.$u.http.interceptor.request = (config) => {
-		config.header.token = vm.vuex_token;
-		config.header.userRole = vm.vuex_userRole;
-		config.header.phone = vm.vuex_user.phone;
-		config.header.work = vm.vuex_work;
-		config.header.boss = vm.vuex_user.workData ? vm.vuex_user.workData.bossNumber ? vm.vuex_user.workData.bossNumber : '0' : '0';
+		const lifeData = uni.getStorageSync('lifeData') || {};
+		console.log('本地缓存',vm)
+		config.header.token = lifeData.vuex_token || '';
+		config.header.userRole = lifeData.vuex_userRole || '';
+		config.header.phone = lifeData.vuex_user?.phone || '';
+		config.header.work = lifeData.vuex_work || '';
+		config.header.boss = lifeData.vuex_user?.workData?.bossNumber || '0';
 		return config;
 	}
 	//#endif
@@ -36,7 +38,6 @@ const install = (Vue, vm) => {
 		return config;
 	}
 	//#endif
-	
 	
 	Vue.prototype.$u.http.interceptor.response = (response) => {
 		const {
