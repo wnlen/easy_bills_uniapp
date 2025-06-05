@@ -13,8 +13,8 @@
 			</view>
 		</u-navbar>
 
-		<!-- <u-tabs name="cate_name" inactive-color="#333333" active-color="#01BB74" :list="list.length? list : []"
-			:is-scroll="false" :current="currents" @change="change"></u-tabs> -->
+		<u-tabs name="cate_name" inactive-color="#333333" active-color="#01BB74" :list="list.length? list : []"
+			:is-scroll="false" :current="currents" @change="change"></u-tabs>
 
 		<view class="flex-row ml24 mr24 mt24" style="display: flex;">
 			<view class="ml5 mr5" style="flex: 1;">
@@ -474,7 +474,7 @@
 				var port = this.vuex_userRole == "R" ? "1" : "0";
 				this.$u.post('edo/delivery/get?sBossNumber=' + phone + '&eBossNumber=' + phone + '&port=' + port).then(
 					res => {
-						console.log(res.data.data);
+						console.log('edo/delivery/get?sBossNumber',res.data.data);
 						that.client = res.data.data
 						this.clientCopy = res.data.data
 					})

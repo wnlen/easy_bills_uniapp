@@ -1,9 +1,5 @@
 <template>
 	<view class="vh100 pb60 flex-col justify-center" style="background-color: #ffffff;overflow-x: hidden;">
-
-
-
-
 		<!-- #ifdef MP-WEIXIN -->
 		<u-navbar :custom-back="navBack" :border-bottom="false" :titleBold="true" title-color="#000000" title-size="34"
 			bgColor="#ffffff">
@@ -23,10 +19,8 @@
 			title-size="34" bgColor="#ffffff">
 		</u-navbar>
 		<!-- #endif -->
-
 		<view class="width100" style="height: 80vh;text-align: center;margin-left: 10vw;"
 			v-show="vuex_userRole == 'D'&& shareShow == true">
-
 			<u-popup v-model="showShare" mode="center" width="80%" height="20%" border-radius="15">
 				<view class="relative" style="height: 100%;width: 100%;">
 					<view class="flex-col justify-center items-center" style="height: 30%;">
@@ -46,7 +40,6 @@
 					</view>
 				</view>
 			</u-popup>
-
 
 			<view class="mt45 flex-col justify-center"
 				style="width: 80vw;text-align: center;align-items: center;height: 50vh;">
@@ -72,19 +65,15 @@
 						style="background-color: #01BB74;width:135.62px;height:'39.99px';border-radius:169.2px;color: #ffffff;"
 						class="ml10" @click="ContinueBilling">继续开单</button>
 				</view>
-
 			</view>
-
 		</view>
-
-
+		
 		<view v-if="!identity" class="flex-row justify-center items-center absolute" style="width: 100%;top: 30%;">
 			<u-image src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" width="300px" height="200px"></u-image>
 			<view class="absolute" style="bottom: -40px;color: #AAAAAA;font-size: 14px;">
 				无开单权限~
 			</view>
 		</view>
-
 
 		<view class="hand relative" style="background-color: #01BB74;width: 100vw;height: 60px;"
 			v-if="vuex_userRole == 'D' && shareShow == false && identity">
@@ -175,7 +164,6 @@
 					</view>
 				</view>
 			</view>
-
 
 			<scroll-view enhanced :show-scrollbar="false" scroll-y="true"
 				style="background-color: #F4F4F4;max-height: 335px;margin-top: 12rpx;">
@@ -451,7 +439,6 @@
 			this.addEmp()
 		},
 		onUnload() {
-
 			if (!this.backHomepageClick) {
 				if (this.receipts.bossNumberE != "" || this.orderItemList.length > 0 && this.orderTotal > 0) {
 					this.draftOrderConceal(false);

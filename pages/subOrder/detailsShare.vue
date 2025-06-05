@@ -343,23 +343,27 @@
 				timer: null
 			};
 		},
+		computed: {
+			vuex_user() {
+				return this.$store.state.vuex_user;
+			},
+			vuex_userRole() {
+				return this.$store.state.vuex_userRole;
+			}
+		},
 		onLoad(options) {
-			console.log("显示", options);
 			//单据id
 			this.options = options
 			this.getOrder(options)
-			console.log("this.post", this.post);
-			console.log("this.post", this.post.length);
-			console.log("this.post", this.post.length == 0);
-			this.$getRecord(this)
 		},
 		onShow(options) {
 			this.$loadUser(this);
-			if (this.vuex_user.phone != undefined) {
-				this.getQs()
-				this.getOrder(this.options)
+			this.$getRecord(this)
+			if (this.vuex_user && this.vuex_user.phone) {
+			  this.getQs();
+			  this.getOrder(this.options);
 			} else {
-
+			  console.warn('vuex_user 未初始化');
 			}
 		},
 		onShareAppMessage(ops) {
@@ -382,7 +386,6 @@
 		},
 		methods: {
 			getQs() {
-
 				this.$u.post('/edo/signature/get', {
 					"phone": this.vuex_user.phone
 				}).then(res => {
@@ -402,7 +405,6 @@
 					this.orderId = options.id
 					//获取单据信息
 					const order = await this.loadData(options.id);
-					console.log("order", order);
 					if (order.data.data.post == null) {
 						this.shareShow = true
 						return;
@@ -414,7 +416,6 @@
 				}
 			},
 			yz(options) {
-
 				var id = options.id;
 				//分享标记
 				var type = options.type;
@@ -458,7 +459,6 @@
 					} else {
 						console.log("------------->分享页验证失败");
 					}
-
 
 				} else {
 					console.log("------no------->单据id", id);
@@ -568,7 +568,6 @@
 						url: "/pages/index/index"
 					})
 				}
-
 			},
 			async verificationOrder() {
 				if (this.vuex_user.phone != undefined) {
@@ -580,9 +579,7 @@
 					var portE = phone == this.post.bossNumberE;
 					var portS = phone == this.post.bossNumberS;
 
-
-					this.$u.post('/edo/user/details?phone=' + phone).
-					then(res => {
+					this.$u.post('/edo/user/details?phone=' + phone).then(res => {
 						var resRelation = res.data.data.cRelation;
 						var resDateGet = res.data.data.staffNumber;
 						var user = res.data.data.user.work == "0";
@@ -616,17 +613,14 @@
 								this.LookThree = true
 							}
 
-
 						} else {
 							//有工作
-
 							if (resDateGet == undefined) {
 								this.LookShar = this.port
 								this.LookBtn = "N"
 								this.identity = 9
 								this.LookThree = true
 							}
-
 
 							var boss = "";
 							var identity = resDateGet[phone];
@@ -643,7 +637,6 @@
 								return;
 							}
 
-
 							console.log(boss, identity);
 							console.log(this.post);
 							console.log(this.post.bossNumberE, this.post.bossNumberS);
@@ -653,14 +646,12 @@
 							var staffE = phone == this.post.staffNumberE;
 							var staffS = phone == this.post.staffNumberS;
 
-
 							if (!bossE && !bossS && !staffE && !staffS) {
 								//有工作 第三方
 								this.LookShar = this.port
 								this.LookBtn = "N"
 								this.identity = 9
 							}
-
 
 							if (bossE) {
 								//收货端
@@ -672,7 +663,6 @@
 								} else {
 									this.LookBtn = "N"
 								}
-
 							}
 
 							if (bossS) {
@@ -680,10 +670,8 @@
 								this.LookShar = "D"
 								this.LookBtn = "N"
 							}
-
-
+							
 							if (identity != "0") {
-								console.log(bossE, bossS);
 								if (bossE) {
 									//收货端
 									this.LookShar = "R"
@@ -708,20 +696,12 @@
 									}
 								}
 								
-								
 								// if (portS) {
 								// 	//发货端
 								// 	this.LookBtn = "N"
 								// }
-
-
 							}
-
-
-
-
 						}
-
 					});
 				}
 			},
@@ -745,16 +725,9 @@
 					}
 				});
 			},
+			//根据id获取单据
 			loadData(id) {
-				//更具id获取单据
-				return new Promise((resolve, reject) => {
-					var that = this;
-					this.$u.post('/edo/order/getById/' + id).
-					then(res => {
-
-						resolve(res)
-					})
-				});
+				return this.$u.post('/edo/order/getById/' + id);
 			},
 			onConfirm() {
 				console.log(this.qsrList);
@@ -868,7 +841,6 @@
 				send.signaturePhone = qm.phone;
 				send.signatureName = qm.name;
 				send.paymentState = "1"
-				console.log(send);
 				this.$u.post('/edo/order/signFor', send).
 				then(res => {
 					if (res.data == "9") {
@@ -880,7 +852,6 @@
 					this.getOrder(this.options)
 					this.flushDBSX(this.post);
 				}).catch(res => {
-					console.log(res);
 					this.$u.toast("签收失败~");
 					this.showMask = false
 					this.getOrder(this.options)

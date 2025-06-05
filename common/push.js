@@ -18,6 +18,7 @@ export default {
 
 
 		Vue.prototype.$getCid = function(data) {
+			// #ifdef APP
 			uni.getPushClientId({
 				success: (res) => {
 					console.log("cid=====================>",res.cid);
@@ -26,6 +27,7 @@ export default {
 					console.log(err)
 				}
 			})
+			// #endif
 
 		}
 		

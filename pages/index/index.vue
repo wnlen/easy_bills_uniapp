@@ -20,10 +20,10 @@
 				<view class="flex-col justify-center items-start" style="width: 50%;" @click="goPath('')">
 					<text class="" style="color: #333333;font-size: 20px;font-weight: bold;letter-spacing: 2px;"
 						v-if="!isElevenDigitPhoneNumber(vuex_user.data.name)">
-						{{vuex_user.phone==undefined?"请登录~":"Hello!"+vuex_user.data.name.substring(0,4)+(vuex_user.data.name.length>4?"...":"")}}
+						{{vuex_user.phone==undefined?"登录之后更精彩~":"Hello!"+vuex_user.data.name.substring(0,4)+(vuex_user.data.name.length>4?"...":"")}}
 					</text>
 					<text class="" style="color: #333333;font-size: 20px;font-weight: bold;letter-spacing: 2px;" v-else>
-						{{vuex_user.phone==undefined?"请登录~":"Hello!欢迎"}}
+						{{vuex_user.phone==undefined?"登录之后更精彩~":"Hello!欢迎"}}
 					</text>
 					<text class="mt10">
 						{{vuex_user.phone==undefined?"登录后体验完整易单据":"欢迎使用易单据订单管理"}}

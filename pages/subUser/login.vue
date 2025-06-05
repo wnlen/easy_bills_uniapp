@@ -43,17 +43,17 @@
 					<view class=""
 						style="height: 250px;width: 40%;margin-left: 8%;margin-right: 2%;border: 1px solid #01BB74;border-radius: 12px;"
 						@click="roleQH(0)">
-						<u-image v-show="role==0" border-radius="20" width="100%" height="100%"
-							src="/static/images/role01.svg"></u-image>
-						<u-image v-show="role!=0" border-radius="20" width="100%" height="100%"
-							src="/static/images/role00.svg"></u-image>
+						<!-- <u-image v-show="role==0" border-radius="20" width="100%" height="100%"
+							src="/static/images/role01.svg"></u-image> -->
+						<!-- <u-image v-show="role!=0" border-radius="20" width="100%" height="100%"
+							src="/static/images/role00.svg"></u-image> -->
 					</view>
 					<view class="" style="height: 250px;width: 40%;border: 1px solid #01BB74;border-radius: 12px;"
 						@click="roleQH(1)">
-						<u-image v-show="role==1" border-radius="20" width="100%" height="100%"
+						<!-- <u-image v-show="role==1" border-radius="20" width="100%" height="100%"
 							src="/static/images/role03.svg"></u-image>
 						<u-image v-show="role!=1" border-radius="20" width="100%" height="100%"
-							src="/static/images/role02.svg"></u-image>
+							src="/static/images/role02.svg"></u-image> -->
 					</view>
 				</view>
 				<view class="" style="margin-top: 8vh;width: 80vw;">
@@ -206,7 +206,7 @@
 					console.log(option.url);
 				} else {
 
-					let page = that.$hao.prePage().$mp.page;
+					let page = that.prePage().$mp.page;
 					that.pageroute = encodeURIComponent(`/${page.route}?${that.queryParams(page.options)}`);
 					console.log(page);
 				}
@@ -282,9 +282,7 @@
 						that.$u.post('/edo/rest/v1/login', {
 							'loginCode': that.wxLoginRes,
 							'phoneCode': e.detail.code
-						}).
-						then(res => {
-
+						}).then(res => {
 							var resDate = res.data.data;
 
 							console.log("resDate", resDate);
