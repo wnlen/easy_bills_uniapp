@@ -4,10 +4,14 @@ export default {
 		console.log("--------->全局刷新个人信息<-------------");
 
 		const vuexUser = vm.$store?.state?.vuex_user;
-
 		if (!vuexUser || !vuexUser.phone) {
 			console.warn("vuex_user 不存在或未登录，跳转登录页");
-			uni.navigateTo({ url: "/pages/subUser/login" });
+			//带分享参数
+			if(vm.options){
+				uni.navigateTo({ url: "/pages/subUser/login?share_id=" + vm.options.id + "&phone=" + vm.options.phone + "&port=" + vm.options.port + "&type=" + vm.options.type + "&versions=" + vm.options.versions});
+			}else{
+				uni.navigateTo({ url: "/pages/subUser/login"});
+			}
 			return;
 		}
 

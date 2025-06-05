@@ -170,17 +170,24 @@
 				},
 				err: false,
 				phoneNumberErr: false,
-				passsswordErr: false
+				passsswordErr: false,
+				share_data:{}
 			};
-		},
-		onShow() {
-			// #ifdef MP-WEIXIN 
-			this.refreshCode()
-			// #endif
 		},
 		onLoad(option) {
 			//使用微信登录获取登录code
 			this.getSystemInfoSyncInit();
+			
+			//接收分享参数
+			if(option&&option.share_id){
+				console.log('option',option)
+				this.share_data.id = option.share_id
+				this.share_data.phone = option.phone
+				this.share_data.type = option.type
+				this.share_data.port = option.port
+				this.share_data.versions = option.versions
+			}
+			
 			if (this.isApp) {
 				console.log("app");
 				// var that = this;
@@ -205,13 +212,16 @@
 					that.pageroute = option.url
 					console.log(option.url);
 				} else {
-
 					let page = that.prePage().$mp.page;
 					that.pageroute = encodeURIComponent(`/${page.route}?${that.queryParams(page.options)}`);
 					console.log(page);
 				}
 			}
-
+		},
+		onShow() {
+			// #ifdef MP-WEIXIN 
+			this.refreshCode()
+			// #endif
 		},
 		onShareAppMessage(ops) {
 			return {
@@ -284,8 +294,6 @@
 							'phoneCode': e.detail.code
 						}).then(res => {
 							var resDate = res.data.data;
-
-							console.log("resDate", resDate);
 							that.message = resDate.loginState
 
 							if (resDate.data == null || resDate.data.work == null) {
@@ -306,25 +314,29 @@
 							this.$u.vuex('vuex_user', resDate);
 							this.$u.vuex('guidanceD', resDate.data.guidanceD);
 							this.$u.vuex('guidanceR', resDate.data.guidanceR);
-
-							console.log('vuex_token', this.vuex_token);
-							console.log('vuex_user', this.vuex_user);
-							console.log('vuex_userRole', this.vuex_userRole);
-							console.log("vuex_work", this.vuex_work);
-
 							if (resDate.phone != "" && resDate.data.work != null) {
 								this.$loadUser(this);
-								uni.switchTab({
-									url: '/pages/index/index'
-								})
+								console.log('Object.keys(this.share_data).length',Object.keys(this.share_data).length)
+								//接收分享参数
+								if(Object.keys(this.share_data).length !=0){
+									console.log('接收分享参数',this.share_data)
+									uni.navigateTo({
+										url: '/pages/subOrder/detailsShare?id=' + 
+										this.share_data.id + 
+										"&phone=" + this.share_data.phone + 
+										"&port=" + this.share_data.port + 
+										"&type=" + this.share_data.type + 
+										"&versions=" + this.share_data.versions
+									})
+								}else{
+									uni.switchTab({
+										url: '/pages/index/index'
+									})									
+								}
 								this.roleShow = true;
 							} else {
-
 								that.$u.toast(that.message)
 							}
-
-
-
 						}).catch(res => {
 							console.log(res);
 							that.$u.toast("服务器异常,请联系官方客服")
@@ -336,8 +348,6 @@
 				} else {
 					this.$u.toast("请同意用户协议~")
 				}
-
-
 			},
 			queryParams(data, isPrefix = false) {
 				let prefix = isPrefix ? '?' : ''
