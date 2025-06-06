@@ -1,4 +1,6 @@
 <script>
+import SocketManager from '@/utils/socketManager.js';
+
 export default {
 	data() {
 		return {
@@ -10,98 +12,68 @@ export default {
 				contact: 0,
 				emp: 0,
 				notice: 0
-			},
-			systemSocket: null,
-			systemSocketOpen: false,
-			heartbeatTimer: null
+			}
 		};
 	},
-	onLaunch() {
-		
+	onLaunch(options) {
+		console.log('options', options);
+
+		if (options.query?.share_id && !this.vuex_token) {
+			uni.navigateTo({
+				url: `/pages/subUser/login?share_id=${options.query.share_id}&phone=${options.query.type}&versions=${options.query.versions}`
+			});
+		}
+
 		this.initUpdateManager();
+
 		if (uni.getStorageSync("1003") === "0") {
 			uni.removeStorage({ key: "1003" });
-			console.log("Removed marker 1003");
 		}
+
 		uni.removeStorage({ key: "details" });
 		uni.setStorageSync("auth", "0");
 	},
 	onShow(options) {
 		console.log("Scene:", options);
-		this.$getCid();
-		this.$monitorPushMessage();
+		this.$getCid?.();
+		this.$monitorPushMessage?.();
 
 		if (options.scene !== 1007 && this.vuex_user?.phone) {
-			this.initSystemSocket();
+			// 👉 使用封装模块连接 WebSocket
+			SocketManager.connect(this.vuex_user.phone, (data) => {
+				if (data.type) {
+					this.updateMessageCounts();
+					this.$store.commit('updateFlush', data.type);
+				}
+			});
+
 			this.updateMessageCounts();
 			this.redirectToIndexIfNeeded();
 		}
 	},
 	onHide() {
-		if (uni.getStorageSync("1003") === "0") {
-			console.log("Cleaning up 1003");
-			uni.removeStorage({ key: "1003" });
-		}
-		clearInterval(this.heartbeatTimer);
+		SocketManager.close(); // 👉 页面隐藏时清理 WebSocket
 		this.$u.vuex('guidance', 0);
 	},
 	onUnload() {
 		uni.setStorageSync("auth", "0");
+		SocketManager.close(); // 👉 页面卸载时清理 WebSocket
 	},
 	methods: {
-		initSystemSocket() {
-			if (this.systemSocketOpen) {
-				console.log("Socket already open");
-				return;
-			}
-
-			this.systemSocket = uni.connectSocket({
-				url: `wss://wxapi.elist.com.cn/edo/login/${this.vuex_user.phone}`,
-				success: () => {
-					console.log("Socket connection opened");
-					this.systemSocketOpen = true;
-				},
-				fail: (err) => {
-					console.log("Socket connection failed", err);
-					this.systemSocketOpen = false;
-				}
-			});
-
-			this.heartbeatTimer = setInterval(() => {
-				this.systemSocket.send({
-					data: JSON.stringify({
-						type: "0",
-						fromUserId: this.vuex_user.phone,
-						toUserId: this.vuex_user.phone,
-						time: new Date()
-					})
-				});
-			}, 15000);
-
-			this.handleSocketMessages();
-		},
-		handleSocketMessages() {
-			this.systemSocket.onMessage((res) => {
-				let data = JSON.parse(res.data);
-				if (data.type && this.vuex_user?.phone) {
-					this.updateMessageCounts();
-					this.$store.commit('updateFlush', data.type);
-				}
-			});
-		},
 		updateMessageCounts() {
 			this.getPendingTasks();
 			this.getNotifications();
 		},
 		getPendingTasks() {
-			this.$u.post('edo/orderDel/get', { bUser: this.vuex_user.phone })
-				.then(res => {
-					let isDirector = this.vuex_userRole === "D";
-					let tasks = res.data.data.filter(item => isDirector ? item.port === "1" || item.port === "f" : item.port === "0");
-					this.todoCount = tasks.length;
-					this.vuex_tabbar[0].counts = tasks.length;
-					console.log("Pending tasks:", tasks);
-				});
+			this.$u.post('edo/orderDel/get', { bUser: this.vuex_user.phone }).then(res => {
+				const isDirector = this.vuex_userRole === "D";
+				const tasks = res.data.data.filter(item =>
+				isDirector ? item.port === "1" || item.port === "f" : item.port === "0"
+				);
+				this.todoCount = tasks.length;
+				this.vuex_tabbar[0].counts = tasks.length;
+				console.log("Pending tasks:", tasks);
+			});
 		},
 		getNotifications() {
 			const user = this.vuex_user;
@@ -111,7 +83,7 @@ export default {
 				work: user.data.work
 			};
 			this.$u.post('/edo/inform/all', dx).then(res => {
-				let count = res.data.data;
+				const count = res.data.data;
 				if (this.vuex_tabbar[2].count !== count) {
 					this.vuex_tabbar[2].count = count;
 				}
@@ -134,7 +106,7 @@ export default {
 						showCancel: false,
 						confirmText: '确定',
 						success: res => {
-							if (res.confirm) {
+						  if (res.confirm) {
 								updateManager.onUpdateReady(() => updateManager.applyUpdate());
 								updateManager.onUpdateFailed(() => {
 									uni.showModal({
