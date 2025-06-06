@@ -4,17 +4,18 @@ export default {
 		console.log("--------->全局刷新个人信息<-------------");
 
 		const vuexUser = vm.$store?.state?.vuex_user;
+		
 		if (!vuexUser || !vuexUser.phone) {
 			console.warn("vuex_user 不存在或未登录，跳转登录页");
 			//带分享参数
 			if(vm.options){
-				uni.navigateTo({ url: "/pages/subUser/login?share_id=" + vm.options.id + "&phone=" + vm.options.phone + "&port=" + vm.options.port + "&type=" + vm.options.type + "&versions=" + vm.options.versions});
+				uni.navigateTo({ url: "/pages/subUser/login?share_id=" + vm.options.share_id + "&phone=" + vm.options.phone + "&port=" + vm.options.port + "&type=" + vm.options.type + "&versions=" + vm.options.versions});
 			}else{
 				uni.navigateTo({ url: "/pages/subUser/login"});
 			}
 			return;
 		}
-
+		console.log('个人信息',vuexUser)
 		const role = vuexUser.data?.work === "1" ? 1 : 2;
 
 		vm.$u.post(`edo/user/renewal?phone=${vuexUser.phone}&role=${role}`).then(res => {

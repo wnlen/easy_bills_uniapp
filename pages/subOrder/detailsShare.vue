@@ -352,12 +352,12 @@
 			}
 		},
 		onLoad(options) {
+			this.$loadUser(this);
 			//单据id
 			this.options = options
 			this.getOrder(options)
 		},
 		onShow(options) {
-			this.$loadUser(this);
 			this.$getRecord(this)
 			if (this.vuex_user && this.vuex_user.phone) {
 			  this.getQs();
@@ -401,10 +401,10 @@
 				})
 			},
 			async getOrder(options) {
-				if (options.id != undefined) {
-					this.orderId = options.id
+				if (options.share_id != undefined) {
+					this.orderId = options.share_id
 					//获取单据信息
-					const order = await this.loadData(options.id);
+					const order = await this.loadData(options.share_id);
 					if (order.data.data.post == null) {
 						this.shareShow = true
 						return;
@@ -416,7 +416,7 @@
 				}
 			},
 			yz(options) {
-				var id = options.id;
+				var id = options.share_id;
 				//分享标记
 				var type = options.type;
 				//分享人手机号码

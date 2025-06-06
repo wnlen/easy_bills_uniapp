@@ -685,17 +685,20 @@
 		},
 		onShareAppMessage(ops) {
 			if (ops.from === 'button') {
-				console.log("分享：", ops);
 				var pid = ops.target.dataset.id;
 				var pThumb = ops.target.dataset.thumb;
 				var phone = this.vuex_user.phone;
 				var port = this.vuex_userRole
 				var versions = this.ShareDetails
-				console.log(pThumb);
+				console.log("分享参数：", pid);
+				console.log("分享参数：", pThumb);
+				console.log("分享参数：", phone);
+				console.log("分享参数：", port);
+				console.log("分享参数：", versions);
 				return {
 					// title: `这是您的${versions=="Y"?"有金额":"无金额"}货单，请打开易单据查看详情~`,
 					title: `您有一张订单待确认~`,
-					path: '/pages/subOrder/detailsShare?id=' + pid + "&&type=1" + "&&phone=" + phone + "&&port=" + port +
+					path: '/pages/subOrder/detailsShare?share_id=' + pid + "&&type=1" + "&&phone=" + phone + "&&port=" + port +
 						"&&versions=" + versions,
 					imageUrl: pThumb
 				}

@@ -19,8 +19,8 @@ Vue.use(httpInterceptor); // 请求拦截
 import push from '@/common/push.js';
 Vue.use(push);
 
-import socket from '@/common/socket.js';
-Vue.use(socket);
+// import socket from '@/common/socket.js';
+// Vue.use(socket);
 
 import refresh from '@/common/refresh.js';
 Vue.use(refresh);

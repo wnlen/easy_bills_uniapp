@@ -129,9 +129,12 @@
 				this.messageList = JSON.parse(mes).message
 			}
 		},
-
 		onUnload() {
-
+			uni.closeSocket();
+			uni.offSocketMessage();
+			uni.offSocketOpen();
+			uni.offSocketClose();
+			uni.offSocketError();
 		},
 		methods: {
 			sendImg() {
@@ -213,7 +216,7 @@
 				console.log(support);
 				var jsons = JSON.stringify(obj);
 				var json = JSON.parse(jsons)
-				if (!this.socketOpen) {
+				if (!this.socketOpen && uni.getSocketTask) {
 					uni.connectSocket({
 						url: 'wss://wxapi.elist.com.cn/edo/send/' + this.vuex_user.phone, // 你的 WebSocket 服务器地址  
 						success: () => {

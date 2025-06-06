@@ -592,7 +592,7 @@
 				return {
 					// title: `这是您的${versions=="Y"?"有金额":"无金额"}货单，请打开易单据查看详情~`,
 					title: `您有一张订单待确认~`,
-					path: '/pages/subOrder/detailsShare?id=' + pid + "&&type=1" + "&&phone=" + phone + "&&port=" + port +
+					path: '/pages/subOrder/detailsShare?share_id=' + pid + "&&type=1" + "&&phone=" + phone + "&&port=" + port +
 						"&&versions=" + versions,
 					imageUrl: pThumb
 				}
