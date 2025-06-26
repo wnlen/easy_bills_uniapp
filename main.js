@@ -19,6 +19,11 @@ Vue.use(httpInterceptor); // 请求拦截
 import push from '@/common/push.js';
 Vue.use(push);
 
+import createApi from '@/api';
+const api = createApi(uni.$u); 
+Vue.prototype.$api = api;
+uni.$api = api; 
+
 // import socket from '@/common/socket.js';
 // Vue.use(socket);
 
