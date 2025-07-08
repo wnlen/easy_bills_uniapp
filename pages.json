@@ -39,6 +39,16 @@
 				"onReachBottomDistance": 50
 			}
 
+		},
+		{
+			"path" : "pages/user/share",
+			"style" : 
+			{
+				"navigationBarTitleText" : "分享给好友",
+				"navigationStyle": "custom",
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh": false
+			}
 		}
 	],
 	"globalStyle": {
@@ -831,7 +841,18 @@
 					}
 				}
 			]
+		},
+		{
+			"root": "pages/questionnaire",
+			"pages": [{
+					"path": "index",
+					"style": {
+						"navigationBarTitleText": "调查问卷",
+						"enablePullDownRefresh": false,
+						"navigationStyle": "custom"
+					}
+				}
+			]
 		}
-
 	]
 }

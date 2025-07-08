@@ -226,6 +226,13 @@
 						'url': '/pages/subUser/setting',
 						'verify': false,
 						'verifyLogin': true,
+					},
+					{
+						'name': "分享给好友",
+						'icon': '/wxImg/user/share_icon.svg',
+						'url': '/pages/user/share',
+						'verify': false,
+						'verifyLogin': true,
 					}
 				],
 				subjectRole: {

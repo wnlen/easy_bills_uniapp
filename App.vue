@@ -17,13 +17,14 @@ export default {
 	},
 	onLaunch(options) {
 		console.log('options', options);
-
-		if (options.query?.share_id && !this.vuex_token) {
-			uni.navigateTo({
-				url: `/pages/subUser/login?share_id=${options.query.share_id}&phone=${options.query.type}&versions=${options.query.versions}`
-			});
+		const inviterId = options?.query?.inviterId;
+		//缓存邀请码
+		if (inviterId) {
+			uni.setStorageSync('inviterId', inviterId);
+		}else {
+			uni.removeStorageSync('inviterId');
 		}
-
+		
 		this.initUpdateManager();
 
 		if (uni.getStorageSync("1003") === "0") {
@@ -72,7 +73,7 @@ export default {
 				);
 				this.todoCount = tasks.length;
 				this.vuex_tabbar[0].counts = tasks.length;
-				console.log("Pending tasks:", tasks);
+				// console.log("Pending tasks:", tasks);
 			});
 		},
 		getNotifications() {
