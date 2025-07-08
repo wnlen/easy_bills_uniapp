@@ -29,7 +29,7 @@
 				</view>
 
 				<view class="BodyQBQYScrollView_CardOne">
-					<view class="card_people" v-for="(item,index) in c_product_statistics" :key="index" :style="{border:(index==0?check.A.checkA:check.A.checkB)?'1px solid #D6AE83':'',
+					<view class="card_people" v-for="(item,index) in c_product_statistics" :key="index" :style="{border:(index==0?check.A.checkA:check.A.checkB)?'2rpx solid #D6AE83':'',
 						background:(index==0?check.A.checkA:check.A.checkB)?'#FFFAFB':''}" @click="checkboxClick(index)">
 						<view class="card_people_icon">
 							<u-icon size="90" name="https://res-oss.elist.com.cn/wxImg/vip/jyn.svg"></u-icon>
@@ -62,12 +62,12 @@
 						<view class="card_people_check">
 							<view class="flex-col justify-center items-center"
 								:style="{backgroundColor:(index==0?check.A.checkA:check.A.checkB)?'#EA7183':'#ffffff'}"
-								style="border-radius: 50px;height: 16px;width: 16px;border: 1px solid #AAAAAA;">
+								style="border-radius: 100rpx;height: 32rpx;width: 32rpx;border: 2rpx solid #AAAAAA;">
 								<u-icon name="checkbox-mark" color="#ffffff" size="20"></u-icon>
 							</view>
 
-							<view class="absolute" style="right: 15px;top: -1rpx;" v-if="index==1">
-								<u-image width="70px" height="25px"
+							<view class="absolute" style="right: 30rpx;top: -1rpx;" v-if="index==1">
+								<u-image width="140rpx" height="50rpx"
 									src="https://res-oss.elist.com.cn/wxImg/order/tj.png"></u-image>
 							</view>
 						</view>
@@ -83,12 +83,12 @@
 				<view class="BodyQBQYScrollView_CardTwo">
 					<view class="tempCard">
 						<view class="tempCard_img">
-							<image class="" :src="srdz.ls" style="height: 86px;width: 130px;">
+							<image class="" :src="srdz.ls" style="height: 172rpx;width: 260rpx;">
 							</image>
 						</view>
 						<view class="tempCard_title">
 							<view class="bjzx">
-								<!-- <button open-type="contact" style="background-color: transparent;width: 100%;height: 100%;font-size: 10px;
+								<!-- <button open-type="contact" style="background-color: transparent;width: 100%;height: 100%;font-size: 20rpx;
 									align-items: center;color: #E7647F;display: flex;flex-direction: row;padding: 0;
 									justify-content: center;border: none;appearance: none;outline: none;box-shadow: none;">
 
@@ -112,7 +112,7 @@
 					<text class="Hand_title">往年数据</text>
 				</view>
 				<view class="pt24 ml24 mr24 mt24"
-					style="background: #FFFFFF;box-shadow: 0px 2.8px 4.2px 1px rgba(109, 99, 88, 0.2);border-radius: 6.51px;">
+					style="background: #FFFFFF;box-shadow: 0rpx 5.6rpx 8.4rpx 2rpx rgba(109, 99, 88, 0.2);border-radius: 13.02rpx;">
 					<view class="formerYearsCard width100 pd10 mt20 flex-row">
 						<view class="width40 flex-col mt20" @click="dropdownIcon"
 							style="z-index: 98;height: 100%;text-align: center;">
@@ -131,7 +131,7 @@
 								<view class="flex-row justify-left items-center pb20 pt10" @click="checkboxClickdr(0)">
 									<view class="flex-col justify-center items-center"
 										:style="{backgroundColor:(!check.B.checkA)?'#EA7183':'#ffffff'}"
-										style="border-radius: 50px;height: 15px;width: 15px;border: 1px solid #AAAAAA;">
+										style="border-radius: 100rpx;height: 30rpx;width: 30rpx;border: 2rpx solid #AAAAAA;">
 										<u-icon name="checkbox-mark" color="#ffffff" size="25"></u-icon>
 									</view>
 									<view class="ml15 relative mr48">
@@ -153,7 +153,7 @@
 								<view class="flex-row justify-left items-center pt20 pb10" @click="checkboxClickdr(1)">
 									<view class="flex-col justify-center items-center"
 										:style="{backgroundColor:(!check.B.checkB)?'#EA7183':'#ffffff'}"
-										style="border-radius: 50px;height: 15px;width: 15px;border: 1px solid #AAAAAA;">
+										style="border-radius: 100rpx;height: 30rpx;width: 30rpx;border: 2rpx solid #AAAAAA;">
 										<u-icon name="checkbox-mark" color="#ffffff" size="25"></u-icon>
 									</view>
 
@@ -203,7 +203,7 @@
 							<view class="tabBodyOne_card_body_hand">
 								合伙人
 								<u-icon @click="popDetails(4,c_product_people[2])" size="20" name="question-circle"
-									color="#AAAAAA" class="absolute ml5" style="top: 0;right: 0px;"></u-icon>
+									color="#AAAAAA" class="absolute ml5" style="top: 0;right: 0rpx;"></u-icon>
 							</view>
 							<view class="tabBodyOne_card_body_sum">
 								<u-number-box :min="0" bgColorJ="#F7C6CD" bgColorI="#ffffff" colorJ="#FFFFFF"
@@ -223,7 +223,7 @@
 							<view class="tabBodyOne_card_body_check" @click="alertTitle">
 								<view class="flex-col justify-center items-center"
 									:style="{backgroundColor:(playMoneyListSend.c_product_people.c>0)?'#EA7183':'#ffffff'}"
-									style="border-radius: 50px;height: 15px;width: 15px;border: 1px solid #AAAAAA;">
+									style="border-radius: 100rpx;height: 30rpx;width: 30rpx;border: 2rpx solid #AAAAAA;">
 									<u-icon name="checkbox-mark" color="#ffffff" size="20"></u-icon>
 								</view>
 							</view>
@@ -234,7 +234,7 @@
 							<view class="tabBodyOne_card_body_hand">
 								财务
 								<u-icon @click="popDetails(2,c_product_people[0])" size="20" name="question-circle"
-									color="#AAAAAA" class="absolute ml5" style="top: 0;right: 10px;"></u-icon>
+									color="#AAAAAA" class="absolute ml5" style="top: 0;right: 20rpx;"></u-icon>
 							</view>
 							<view class="tabBodyOne_card_body_sum">
 								<u-number-box :min="0" bgColorJ="#F7C6CD" bgColorI="#ffffff" colorJ="#FFFFFF"
@@ -252,7 +252,7 @@
 							<view class="tabBodyOne_card_body_check" @click="alertTitle">
 								<view class="flex-col justify-center items-center"
 									:style="{backgroundColor:(playMoneyListSend.c_product_people.a>0)?'#EA7183':'#ffffff'}"
-									style="border-radius: 50px;height: 15px;width: 15px;border: 1px solid #AAAAAA;">
+									style="border-radius: 100rpx;height: 30rpx;width: 30rpx;border: 2rpx solid #AAAAAA;">
 									<u-icon name="checkbox-mark" color="#ffffff" size="20"></u-icon>
 								</view>
 							</view>
@@ -262,7 +262,7 @@
 							<view class="tabBodyOne_card_body_hand">
 								员工
 								<u-icon @click="popDetails(2,c_product_people[1])" size="20" name="question-circle"
-									color="#AAAAAA" class="absolute ml5" style="top: 0;right: 10px;"></u-icon>
+									color="#AAAAAA" class="absolute ml5" style="top: 0;right: 20rpx;"></u-icon>
 							</view>
 							<view class="tabBodyOne_card_body_sum">
 								<u-number-box :min="0" bgColorJ="#F7C6CD" bgColorI="#ffffff" colorJ="#FFFFFF"
@@ -282,7 +282,7 @@
 							<view class="tabBodyOne_card_body_check" @click="alertTitle">
 								<view class="flex-col justify-center items-center"
 									:style="{backgroundColor:(playMoneyListSend.c_product_people.b>0)?'#EA7183':'#ffffff'}"
-									style="border-radius: 50px;height: 15px;width: 15px;border: 1px solid #AAAAAA;">
+									style="border-radius: 100rpx;height: 30rpx;width: 30rpx;border: 2rpx solid #AAAAAA;">
 									<u-icon name="checkbox-mark" color="#ffffff" size="20"></u-icon>
 								</view>
 							</view>
@@ -301,7 +301,7 @@
 							<view class="title_hhr">
 								合伙人
 								<u-icon @click="popDetails(3,c_product_people[2])" size="20" name="question-circle"
-									color="#AAAAAA" class="absolute ml32" style="top: 0;right: 10px;"></u-icon>
+									color="#AAAAAA" class="absolute ml32" style="top: 0;right: 20rpx;"></u-icon>
 							</view>
 						</view>
 
@@ -325,7 +325,7 @@
 							<view class="tabBodyTwoBody_check">
 								<view class="flex-col justify-center items-center"
 									:style="{backgroundColor:(!item.check)?'#EA7183':'#ffffff'}"
-									style="border-radius: 50px;height: 15px;width: 15px;border: 1px solid #AAAAAA;">
+									style="border-radius: 100rpx;height: 30rpx;width: 30rpx;border: 2rpx solid #AAAAAA;">
 									<u-icon name="checkbox-mark" color="#ffffff" size="20"></u-icon>
 								</view>
 							</view>
@@ -338,7 +338,7 @@
 							<view class="title_cw">
 								财务
 								<u-icon @click="popDetails(3,c_product_people[0])" size="20" name="question-circle"
-									color="#AAAAAA" class="absolute ml5" style="top: 0;right: 10px;"></u-icon>
+									color="#AAAAAA" class="absolute ml5" style="top: 0;right: 20rpx;"></u-icon>
 							</view>
 						</view>
 
@@ -362,7 +362,7 @@
 							<view class="tabBodyTwoBody_check">
 								<view class="flex-col justify-center items-center"
 									:style="{backgroundColor:(!item.check)?'#EA7183':'#ffffff'}"
-									style="border-radius: 50px;height: 15px;width: 15px;border: 1px solid #AAAAAA;">
+									style="border-radius: 100rpx;height: 30rpx;width: 30rpx;border: 2rpx solid #AAAAAA;">
 									<u-icon name="checkbox-mark" color="#ffffff" size="20"></u-icon>
 								</view>
 							</view>
@@ -372,7 +372,7 @@
 							<view class="title_cw">
 								员工
 								<u-icon @click="popDetails(3,c_product_people[1])" size="20" name="question-circle"
-									color="#AAAAAA" class="absolute ml5" style="top: 0;right: 10px;"></u-icon>
+									color="#AAAAAA" class="absolute ml5" style="top: 0;right: 20rpx;"></u-icon>
 							</view>
 						</view>
 
@@ -396,7 +396,7 @@
 							<view class="tabBodyTwoBody_check">
 								<view class="flex-col justify-center items-center"
 									:style="{backgroundColor:(!item.check)?'#EA7183':'#ffffff'}"
-									style="border-radius: 50px;height: 15px;width: 15px;border: 1px solid #AAAAAA;">
+									style="border-radius: 100rpx;height: 30rpx;width: 30rpx;border: 2rpx solid #AAAAAA;">
 									<u-icon name="checkbox-mark" color="#ffffff" size="20"></u-icon>
 								</view>
 							</view>
@@ -416,14 +416,14 @@
 
 		<view class="BodyWDDD" v-show="current==1">
 
-			<view class="vw100" style="margin-top:50%;height: 100px;" v-if="jurisdictionOrdder.length==0">
+			<view class="vw100" style="margin-top:50%;height: 200rpx;" v-if="jurisdictionOrdder.length==0">
 				<u-empty src="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg" icon-size="400"
 					text="暂无购买记录~" mode="search" margin-top="200"></u-empty>
 			</view>
 
 			<scroll-view scroll-y="true" class="BodyWDDDScrollView">
 				<view v-for="(item,index) in jurisdictionOrdder" :key="index" class="orderCard ml24 mr24 mt48"
-					style="width: 94%;background-color: #ffffff;min-height: 20vh;color: #666666;font-size: 13px;">
+					style="width: 94%;background-color: #ffffff;min-height: 20vh;color: #666666;font-size: 26rpx;">
 					<view class="relative pd20 ml20 mr20">
 						<view class="absolute" style="left: 0;">
 							订单编号：{{item.orderNumber}}
@@ -448,7 +448,7 @@
 									{{$u.timeFormat(item2.endTime, 'yyyy-mm-dd')}}到期 ×{{item2.sum}}
 								</view>
 							</view>
-							<view class="absolute" style="right: 5px;">
+							<view class="absolute" style="right: 10rpx;">
 								￥{{item.priceAll.C1}}
 							</view>
 						</view>
@@ -468,7 +468,7 @@
 								</view>
 
 							</view>
-							<view class="absolute" style="right: 5px;">
+							<view class="absolute" style="right: 10rpx;">
 								￥{{item.priceAll.C2}}
 							</view>
 						</view>
@@ -488,7 +488,7 @@
 								</view>
 
 							</view>
-							<view class="absolute" style="right: 5px;">
+							<view class="absolute" style="right: 10rpx;">
 								￥{{item.priceAll.C3}}
 							</view>
 						</view>
@@ -511,7 +511,7 @@
 									{{item3}}到期
 								</view>
 							</view>
-							<view class="absolute" style="right: 5px;">
+							<view class="absolute" style="right: 10rpx;">
 								￥{{item.priceAll.B1}}
 							</view>
 						</view>
@@ -531,7 +531,7 @@
 									{{item3}}到期
 								</view>
 							</view>
-							<view class="absolute" style="right: 5px;">
+							<view class="absolute" style="right: 10rpx;">
 								￥{{item.priceAll.B2}}
 							</view>
 						</view>
@@ -553,7 +553,7 @@
 									{{item3}}到期
 								</view>
 							</view>
-							<view class="absolute" style="right: 5px;">
+							<view class="absolute" style="right: 10rpx;">
 								￥{{item.priceAll.A1}}
 							</view>
 						</view>
@@ -574,7 +574,7 @@
 									{{item3}}到期
 								</view>
 							</view>
-							<view class="absolute" style="right: 5px;">
+							<view class="absolute" style="right: 10rpx;">
 								￥{{item.priceAll.A2}}
 							</view>
 						</view>
@@ -594,7 +594,7 @@
 									{{item3}}到期 ×{{getProductC(index3)}}
 								</view>
 							</view>
-							<view class="absolute" style="right: 5px;">
+							<view class="absolute" style="right: 10rpx;">
 								￥{{item.priceAll.C1}}
 							</view>
 						</view>
@@ -610,7 +610,7 @@
 									{{item3}}到期 ×{{getProductC(index3)}}
 								</view>
 							</view>
-							<view class="absolute" style="right: 5px;">
+							<view class="absolute" style="right: 10rpx;">
 								￥{{item.priceAll.C2}}
 							</view>
 						</view>
@@ -626,7 +626,7 @@
 									{{item3}}到期 ×{{getProductC(index3)}}
 								</view>
 							</view>
-							<view class="absolute" style="right: 5px;">
+							<view class="absolute" style="right: 10rpx;">
 								￥{{item.priceAll.C3}}
 							</view>
 						</view>
@@ -648,7 +648,7 @@
 									{{item4}}到期 ×1
 								</view>
 							</view>
-							<view class="absolute" style="right: 5px;">
+							<view class="absolute" style="right: 10rpx;">
 								￥{{item.priceAll.O1}}
 							</view>
 						</view>
@@ -663,7 +663,7 @@
 									{{item4}}到期 ×1
 								</view>
 							</view>
-							<view class="absolute" style="right: 5px;">
+							<view class="absolute" style="right: 10rpx;">
 								￥{{item.priceAll.O2}}
 							</view>
 						</view>
@@ -675,24 +675,24 @@
 						</view>
 
 
-						<view class="flex-row justify-left relative mt30" style="width: 100%;height: 35px;">
+						<view class="flex-row justify-left relative mt30" style="width: 100%;height: 70rpx;">
 							<view class="flex-row items-center absolute" style="right: 0;">
 								<button class="hl-btn-plus ml20 flex-row items-center justify-center" type="default"
 									@click="invoice(item)">
 									<text v-if="item.file=='0'"
-										style="color: #BB9063;font-size: 13px;font-weight: normal;">申请发票</text>
+										style="color: #BB9063;font-size: 26rpx;font-weight: normal;">申请发票</text>
 									<text v-if="item.file!='0'&&item.file!='1'"
-										style="color: #BB9063;font-size: 13px;font-weight: normal;">发票下载</text>
+										style="color: #BB9063;font-size: 26rpx;font-weight: normal;">发票下载</text>
 									<text v-if="item.file=='1'"
-										style="color: #BB9063;font-size: 13px;font-weight: normal;">申请中</text>
+										style="color: #BB9063;font-size: 26rpx;font-weight: normal;">申请中</text>
 								</button>
 								<button class="hl-btn-plus ml20 flex-row items-center justify-center"
 									open-type="contact" type="default">
-									<text style="color: #BB9063;font-size: 13px;font-weight: normal;">售后咨询</text>
+									<text style="color: #BB9063;font-size: 26rpx;font-weight: normal;">售后咨询</text>
 								</button>
 								<!-- <button class="hl-btn-plus ml20 flex-row items-center justify-center"
 									@click="goPath('/pages/subMessage/chitchat/chat?type=9')" type="default">
-									<text style="color: #BB9063;font-size: 13px;font-weight: normal;">售后咨询</text>
+									<text style="color: #BB9063;font-size: 26rpx;font-weight: normal;">售后咨询</text>
 								</button> -->
 							</view>
 
@@ -704,7 +704,7 @@
 									合计
 								</view>
 							</view>
-							<view class="absolute" style="right: 5px;">
+							<view class="absolute" style="right: 10rpx;">
 								￥{{item.price}}
 							</view>
 						</view>
@@ -715,7 +715,7 @@
 									支付时间
 								</view>
 							</view>
-							<view class="absolute" style="right: 5px;">
+							<view class="absolute" style="right: 10rpx;">
 								{{$u.timeFormat(item.payTime, 'yyyy-mm-dd hh:MM:ss')}}
 							</view>
 						</view>
@@ -727,7 +727,7 @@
 										支付方式
 									</view>
 								</view>
-								<view class="absolute" style="right: 5px;">
+								<view class="absolute" style="right: 10rpx;">
 									微信支付
 								</view>
 							</view>
@@ -737,7 +737,7 @@
 										下单时间
 									</view>
 								</view>
-								<view class="absolute" style="right: 5px;">
+								<view class="absolute" style="right: 10rpx;">
 									{{$u.timeFormat(item.createTime, 'yyyy-mm-dd hh:MM:ss')}}
 								</view>
 							</view>
@@ -772,10 +772,10 @@
 
 		<view class="PlyBtn" v-if="current==0&&showIdently">
 			<view class="btn">
-				<view class="absolute" style="left: 30px;">
+				<view class="absolute" style="left: 60rpx;">
 					合计支付：<text>￥{{(playMoneyListSend.totalPrice).toFixed(2)}}</text>
 				</view>
-				<view class="absolute" style="right: 40px;color: #3F311B;font-weight: 600;" @click="Play">
+				<view class="absolute" style="right: 80rpx;color: #3F311B;font-weight: 600;" @click="Play">
 					立即购买
 				</view>
 			</view>
@@ -891,8 +891,8 @@
 					width: "100%",
 					padding: "0",
 					color: "#E7647F",
-					fontSize: "10px",
-					borderRadius: "3px"
+					fontSize: "20rpx",
+					borderRadius: "6rpx"
 				},
 			}
 		},
@@ -1339,9 +1339,6 @@
 				this.$loadUser(this);
 				var jurisdiction = this.vuex_user.jurisdiction;
 				this.playMoneyListSend.time = JSON.parse(JSON.stringify(jurisdiction))
-
-
-
 			},
 			dropdownIcon() {
 				console.log("打开");
@@ -1432,6 +1429,7 @@
 					this.c_product_statistics = resData.statistics
 					this.c_product_old_data = resData.database
 					this.c_product_people = resData.location
+					// this.c_product_people[2].priceDiscount = 0.01
 				});
 
 				var dx = {
@@ -1587,7 +1585,7 @@
 			width: 100%;
 			height: 80%;
 			background-color: white;
-			border-radius: 15px 15px 0px 0px;
+			border-radius: 30rpx 30rpx 0rpx 0rpx;
 
 			.BodyQBQYScrollView {
 				height: 100%;
@@ -1609,17 +1607,17 @@
 
 					.Hand_icon {
 						background-color: #D6AE83;
-						width: 3px;
-						height: 18px;
-						margin-right: 8px;
+						width: 6rpx;
+						height: 36rpx;
+						margin-right: 16rpx;
 					}
 
 					.Hand_title {
-						font-size: 17px;
+						font-size: 34rpx;
 						font-weight: 500;
-						line-height: 22px;
+						line-height: 44rpx;
 						text-align: center;
-						letter-spacing: 0px;
+						letter-spacing: 0rpx;
 						color: #333333;
 					}
 				}
@@ -1632,10 +1630,10 @@
 					margin-right: 24rpx;
 
 					.card_people {
-						box-shadow: 0px 2px 3px 1px rgba(109, 99, 88, 0.2);
-						height: 100px;
+						box-shadow: 0rpx 4rpx 6rpx 2rpx rgba(109, 99, 88, 0.2);
+						height: 200rpx;
 						margin-top: 24rpx;
-						border-radius: 15px 15px 15px 15px;
+						border-radius: 30rpx 30rpx 30rpx 30rpx;
 
 						display: flex;
 						flex-direction: row;
@@ -1687,10 +1685,10 @@
 								// background-color: darkcyan;
 
 								.grandsonText {
-									font-size: 13px;
+									font-size: 26rpx;
 									font-weight: normal;
-									line-height: 17.04px;
-									letter-spacing: 0px;
+									line-height: 34.08rpx;
+									letter-spacing: 0rpx;
 									color: #AAAAAA;
 								}
 							}
@@ -1709,21 +1707,21 @@
 							height: 100%;
 
 							.grandsonPriceSign {
-								font-size: 13.28px;
+								font-size: 26.56rpx;
 								font-weight: bold;
-								line-height: 16.23px;
+								line-height: 32.46rpx;
 								text-align: right;
-								letter-spacing: 0px;
+								letter-spacing: 0rpx;
 								color: #EA7183;
 							}
 
 							.grandsonPrice {
 								font-family: Source Han Sans;
-								font-size: 14px;
+								font-size: 28rpx;
 								font-weight: 500;
-								line-height: 16px;
+								line-height: 32rpx;
 								text-align: right;
-								letter-spacing: 0px;
+								letter-spacing: 0rpx;
 								font-variation-settings: "opsz" auto;
 								font-feature-settings: "kern" on;
 								color: #EA7183;
@@ -1738,11 +1736,11 @@
 
 							.grandsonPriceOriginal {
 								font-family: Source Han Sans;
-								font-size: 10.36px;
+								font-size: 20.72rpx;
 								font-weight: normal;
-								line-height: 16.28px;
+								line-height: 32.56rpx;
 								text-align: center;
-								letter-spacing: 0px;
+								letter-spacing: 0rpx;
 								text-decoration: line-through;
 								font-variation-settings: "opsz" auto;
 								font-feature-settings: "kern" on;
@@ -1765,8 +1763,8 @@
 							width: 10%;
 							height: 100%;
 
-							border-top-right-radius: 15px;
-							border-bottom-right-radius: 15px;
+							border-top-right-radius: 30rpx;
+							border-bottom-right-radius: 30rpx;
 						}
 
 					}
@@ -1786,11 +1784,11 @@
 					height: 20vh;
 
 					.tempCard {
-						width: 150px;
+						width: 300rpx;
 						height: 100%;
 						background-color: #ffffff;
-						box-shadow: 0px 2.34px 3.52px 1px rgba(109, 99, 88, 0.2);
-						border-radius: 5.45px;
+						box-shadow: 0rpx 4.68rpx 7.04rpx 2rpx rgba(109, 99, 88, 0.2);
+						border-radius: 10.9rpx;
 
 						display: flex;
 						flex-direction: column;
@@ -1814,14 +1812,14 @@
 
 								position: absolute;
 
-								width: 75.11px;
-								height: 22.06px;
-								border-radius: 2.51px;
+								width: 150.22rpx;
+								height: 44.12rpx;
+								border-radius: 5.02rpx;
 								opacity: 1;
 								background: #FCEFF2;
 								color: #E65D7F;
-								font-size: 10.87px;
-								right: 5px;
+								font-size: 21.74rpx;
+								right: 10rpx;
 							}
 						}
 
@@ -1835,10 +1833,10 @@
 					margin-left: 24rpx;
 					margin-right: 24rpx;
 
-					border-radius: 15px;
+					border-radius: 30rpx;
 					margin-top: 24rpx;
 
-					box-shadow: 0px 2.8px 4.2px 1px rgba(109, 99, 88, 0.2);
+					box-shadow: 0rpx 5.6rpx 8.4rpx 2rpx rgba(109, 99, 88, 0.2);
 
 
 					position: relative;
@@ -1851,7 +1849,7 @@
 						z-index: 1;
 						align-items: center;
 
-						border-radius: 15px 15px 0px 0px;
+						border-radius: 30rpx 30rpx 0rpx 0rpx;
 
 						display: flex;
 						flex-direction: row;
@@ -1865,7 +1863,7 @@
 
 						// background-color: #D6AE83;
 
-						border-radius: 0px 0px 15px 15px;
+						border-radius: 0rpx 0rpx 30rpx 30rpx;
 
 						display: flex;
 						flex-direction: column;
@@ -1930,7 +1928,7 @@
 								height: 100%;
 								width: 50%;
 
-								padding-left: 40px;
+								padding-left: 80rpx;
 								text-align: right;
 							}
 
@@ -1950,10 +1948,10 @@
 						width: 100%;
 						height: auto;
 						// background-color: #D6AE83;
-						border-radius: 0px 0px 15px 15px;
+						border-radius: 0rpx 0rpx 30rpx 30rpx;
 						display: flex;
 						flex-direction: column;
-						padding-bottom: 50px;
+						padding-bottom: 100rpx;
 						// overflow-y: scroll;
 
 						.tabBodyTwoEmpty {
@@ -2009,7 +2007,7 @@
 						}
 
 						.tabBodyTwoBody {
-							height: 80px;
+							height: 160rpx;
 							// width: 100%;
 							// background-color: #E65D7F;
 
@@ -2083,7 +2081,7 @@
 			width: 100%;
 			height: 100%;
 			background-color: #F4F4F4;
-			border-radius: 15px 15px 0px 0px;
+			border-radius: 30rpx 30rpx 0rpx 0rpx;
 
 			.BodyWDDDScrollView {
 				height: 100%;
@@ -2091,12 +2089,12 @@
 				// background-color: #AAAAAA;
 
 				.orderCard {
-					border-radius: 6px;
+					border-radius: 12rpx;
 				}
 
 				.BodyWDDDScrollViewEmpty {
 					width: 100%;
-					height: 200px;
+					height: 400rpx;
 				}
 
 
@@ -2115,8 +2113,8 @@
 			.btn {
 				// width: 100%;
 				margin-top: 24rpx;
-				border-radius: 250px;
-				height: 50px;
+				border-radius: 500rpx;
+				height: 100rpx;
 				// background-image: url('https://res-oss.elist.com.cn/wxImg/vip/play.png');
 				background-image: url('https://guanlutech.oss-cn-shanghai.aliyuncs.com/wxImg/vip/play.png');
 				background-size: cover;
@@ -2140,11 +2138,11 @@
 
 	.grandsonPriceSign {
 		font-family: Source Han Sans;
-		font-size: 13.28px;
+		font-size: 26.56rpx;
 		font-weight: bold;
-		line-height: 16.23px;
+		line-height: 32.46rpx;
 		text-align: right;
-		letter-spacing: 0px;
+		letter-spacing: 0rpx;
 		font-variation-settings: "opsz" auto;
 		font-feature-settings: "kern" on;
 		color: #EA7183;
@@ -2152,11 +2150,11 @@
 
 	.grandsonPrice {
 		font-family: Source Han Sans;
-		font-size: 16px;
+		font-size: 32rpx;
 		font-weight: 500;
-		line-height: 16.23px;
+		line-height: 32.46rpx;
 		text-align: right;
-		letter-spacing: 0px;
+		letter-spacing: 0rpx;
 
 		font-variation-settings: "opsz" auto;
 		font-feature-settings: "kern" on;
@@ -2166,11 +2164,11 @@
 
 	.grandsonPriceOriginal {
 		font-family: Source Han Sans;
-		font-size: 10.36px;
+		font-size: 20.72rpx;
 		font-weight: normal;
-		line-height: 16.28px;
+		line-height: 32.56rpx;
 		text-align: center;
-		letter-spacing: 0px;
+		letter-spacing: 0rpx;
 		text-decoration: line-through;
 		font-variation-settings: "opsz" auto;
 		font-feature-settings: "kern" on;
@@ -2178,20 +2176,20 @@
 	}
 
 	.ddbt {
-		font-size: 15px;
+		font-size: 30rpx;
 		font-weight: normal;
-		line-height: 22px;
-		letter-spacing: 0px;
+		line-height: 44rpx;
+		letter-spacing: 0rpx;
 		color: #333333;
 
 	}
 
 	.dqsj {
-		font-size: 13px;
+		font-size: 26rpx;
 		font-weight: normal;
-		line-height: 22px;
+		line-height: 44rpx;
 		/* text-align: center; */
-		letter-spacing: 0px;
+		letter-spacing: 0rpx;
 		color: #999999;
 
 	}

@@ -14,17 +14,17 @@
 					@getphonenumber="getPhoneNumber" @click="">
 					<u-icon name="" size="50" label="手机号快捷登录" label-color="#fff" label-size="32"></u-icon>
 				</u-button>
-				<view class="width100 justify-center items-center flex-row pt30" style="font-size: 10px;">
+				<view class="width100 justify-center items-center flex-row pt30" style="font-size: 20rpx;">
 					<view class="flex-col justify-center items-center"
 						:style="{backgroundColor:disabled?'#01BB74':'#ffffff'}" @click="radioGroupChange"
-						style="border-radius: 50px;height: 20px;width: 20px;border: 1px solid #AAAAAA;">
+						style="border-radius: 100rpx;height: 40rpx;width: 40rpx;border: 2rpx solid #AAAAAA;">
 						<u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
 					</view>
 					<view class="ml15">
-						<text style="color: #AAAAAA;font-size: 12px;">同意并遵行易单据</text>
-						<text style="color: #01BB74;font-size: 12px;" @top.stop @click="jump(0)">《用户服务协议》</text>
-						<text style="color: #AAAAAA;font-size: 12px;">和</text>
-						<text style="color: #01BB74;font-size: 12px;" @top.stop @click="jump(1)">《隐私政策》</text>
+						<text style="color: #AAAAAA;font-size: 24rpx;">同意并遵行易单据</text>
+						<text style="color: #01BB74;font-size: 24rpx;" @top.stop @click="jump(0)">《用户服务协议》</text>
+						<text style="color: #AAAAAA;font-size: 24rpx;">和</text>
+						<text style="color: #01BB74;font-size: 24rpx;" @top.stop @click="jump(1)">《隐私政策》</text>
 					</view>
 				</view>
 			</view>
@@ -34,21 +34,21 @@
 			:mask-close-able="false">
 			<view class="pd36 flex-col justify-center items-center">
 				<text class="ft30 ft-bold ft-green mb10"
-					style="color: #01BB74;font-size: 20px;font-weight: bold;">切换用户角色</text>
+					style="color: #01BB74;font-size: 40rpx;font-weight: bold;">切换用户角色</text>
 				<text class="ft-gray pb48">随时切换您的收发货角色，快速收发单</text>
-				<view class="vw100 flex-row" style="height: 200px;">
+				<view class="vw100 flex-row" style="height: 400rpx;">
 					<view class="">
 
 					</view>
 					<view class=""
-						style="height: 250px;width: 40%;margin-left: 8%;margin-right: 2%;border: 1px solid #01BB74;border-radius: 12px;"
+						style="height: 500rpx;width: 40%;margin-left: 8%;margin-right: 2%;border: 2rpx solid #01BB74;border-radius: 24rpx;"
 						@click="roleQH(0)">
 						<!-- <u-image v-show="role==0" border-radius="20" width="100%" height="100%"
 							src="/static/images/role01.svg"></u-image> -->
 						<!-- <u-image v-show="role!=0" border-radius="20" width="100%" height="100%"
 							src="/static/images/role00.svg"></u-image> -->
 					</view>
-					<view class="" style="height: 250px;width: 40%;border: 1px solid #01BB74;border-radius: 12px;"
+					<view class="" style="height: 500rpx;width: 40%;border: 2rpx solid #01BB74;border-radius: 24rpx;"
 						@click="roleQH(1)">
 						<!-- <u-image v-show="role==1" border-radius="20" width="100%" height="100%"
 							src="/static/images/role03.svg"></u-image>
@@ -100,17 +100,17 @@
 			<view class="buttonTab">
 				<view class="button" @click="LoginImport">立即登录</view>
 			</view>
-			<view class="yszc" style="font-size: 10px;">
+			<view class="yszc" style="font-size: 20rpx;">
 				<view class="flex-col justify-center items-center"
 					:style="{backgroundColor:disabled?'#01BB74':'#ffffff'}" @click="radioGroupChange"
-					style="border-radius: 50px;height: 15px;width: 15px;border: 1px solid #AAAAAA;">
+					style="border-radius: 100rpx;height: 30rpx;width: 30rpx;border: 2rpx solid #AAAAAA;">
 					<u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
 				</view>
 				<view class="ml15">
-					<text style="color: #AAAAAA;font-size: 12px;">同意并遵行易单据</text>
-					<text style="color: #01BB74;font-size: 12px;" @top.stop @click="jump(0)">《用户服务协议》</text>
-					<text style="color: #AAAAAA;font-size: 12px;">和</text>
-					<text style="color: #01BB74;font-size: 12px;" @top.stop @click="jump(1)">《隐私政策》</text>
+					<text style="color: #AAAAAA;font-size: 24rpx;">同意并遵行易单据</text>
+					<text style="color: #01BB74;font-size: 24rpx;" @top.stop @click="jump(0)">《用户服务协议》</text>
+					<text style="color: #AAAAAA;font-size: 24rpx;">和</text>
+					<text style="color: #01BB74;font-size: 24rpx;" @top.stop @click="jump(1)">《隐私政策》</text>
 				</view>
 			</view>
 
@@ -119,12 +119,12 @@
 				<view class="yjdl" @click="oneKeyLogin">
 					本机号码一键登录
 				</view>
-				<view class="mt20" style="color: #AAAAAA;font-size: 12px;text-align: center;">
+				<view class="mt20" style="color: #AAAAAA;font-size: 24rpx;text-align: center;">
 					第三方登录
 				</view>
 				<view class="mt10 flex-row justify-center items-center" style="text-align: center;">
 					<view class="flex-row justify-center items-center"
-						style="background-color: #20C300;height: 60px;width: 60px;border-radius: 50%;"
+						style="background-color: #20C300;height: 120rpx;width: 120rpx;border-radius: 50%;"
 						@click="wxloginInit">
 						<u-icon name="weixin-fill" color="#ffffff" size="100"></u-icon>
 					</view>
@@ -178,6 +178,7 @@
 			//使用微信登录获取登录code
 			this.getSystemInfoSyncInit();
 			
+			console.log('option',option)
 			//接收分享参数
 			if(option&&option.share_id){
 				console.log('option',option)
@@ -186,6 +187,7 @@
 				this.share_data.type = option.type
 				this.share_data.port = option.port
 				this.share_data.versions = option.versions
+				console.log('this.share_data.versionsthis.share_data.versionsthis.share_data.versions',this.share_data.versions)
 			}
 			
 			if (this.isApp) {
@@ -207,15 +209,23 @@
 						console.log(loginRes.code, "------CQL");
 					}
 				});
-				// 返回上一页
-				if (option.url) {
-					that.pageroute = option.url
-					console.log(option.url);
-				} else {
-					let page = that.prePage().$mp.page;
-					that.pageroute = encodeURIComponent(`/${page.route}?${that.queryParams(page.options)}`);
-					console.log(page);
-				}
+				
+				// if (option.url) {
+				// 	that.pageroute = option.url;
+				// 	console.log('使用指定 URL：', option.url);
+				// } else {
+				// 	const prevPage = that.prePage?.();
+				// 	const page = prevPage?.$mp?.page;
+				
+				// 	if (page && page.route && page.options) {
+				// 		const queryString = that.queryParams(page.options);
+				// 		that.pageroute = encodeURIComponent(`/${page.route}?${queryString}`);
+				// 		console.log('使用上一页生成的 URL：', that.pageroute);
+				// 	} else {
+				// 		console.warn('无法获取上一页信息，pageroute 设置失败');
+				// 		that.pageroute = '';
+				// 	}
+				// }
 			}
 		},
 		onShow() {
@@ -258,7 +268,7 @@
 					provider: 'weixin',
 					success: function(loginRes) {
 						that.wxLoginRes = loginRes.code;
-						console.log("loginRes.code======>", loginRes.code, "------CQL");
+						console.log("loginRes.code======>", loginRes.code);
 						console.log("loginRes======>", loginRes);
 					}
 				});
@@ -287,11 +297,14 @@
 					}
 
 					console.log("that.wxLoginRes", that.wxLoginRes);
+					console.log("e.detail.code", e.detail.code);
+					const inviterId = uni.getStorageSync('inviterId') || null; // 登录前保存过
 					if (that.wxLoginRes) {
 						this.refreshCode()
 						that.$u.post('/edo/rest/v1/login', {
 							'loginCode': that.wxLoginRes,
-							'phoneCode': e.detail.code
+							'phoneCode': e.detail.code,
+							'inviterId': inviterId || null
 						}).then(res => {
 							var resDate = res.data.data;
 							that.message = resDate.loginState
@@ -316,12 +329,11 @@
 							this.$u.vuex('guidanceR', resDate.data.guidanceR);
 							if (resDate.phone != "" && resDate.data.work != null) {
 								this.$loadUser(this);
-								console.log('Object.keys(this.share_data).length',Object.keys(this.share_data).length)
 								//接收分享参数
 								if(Object.keys(this.share_data).length !=0){
 									console.log('接收分享参数',this.share_data)
-									uni.navigateTo({
-										url: '/pages/subOrder/detailsShare?id=' + 
+									uni.redirectTo({
+										url: '/pages/subOrder/detailsShare?share_id=' + 
 										this.share_data.id + 
 										"&phone=" + this.share_data.phone + 
 										"&port=" + this.share_data.port + 
@@ -331,9 +343,10 @@
 								}else{
 									uni.switchTab({
 										url: '/pages/index/index'
-									})									
+									})
+									this.roleShow = true;
 								}
-								this.roleShow = true;
+								
 							} else {
 								that.$u.toast(that.message)
 							}
@@ -427,8 +440,8 @@
 						"backgroundColor": "#ffffff", // 授权页面背景颜色，默认值：#ffffff
 						"icon": {
 							"path": "/static/img/logo/logo-r.png", // 自定义显示在授权框中的logo，仅支持本地图片 默认显示App logo
-							"width": "60px", //图标宽度 默认值：60px
-							"height": "60px" //图标高度 默认值：60px
+							"width": "120rpx", //图标宽度 默认值：120rpx
+							"height": "120rpx" //图标高度 默认值：120rpx
 						},
 					},
 					success() { //预登录成功
@@ -445,8 +458,8 @@
 								"backgroundColor": "#ffffff", // 授权页面背景颜色，默认值：#ffffff
 								"icon": {
 									"path": "/static/img/logo/logo-r.png", // 自定义显示在授权框中的logo，仅支持本地图片 默认显示App logo
-									"width": "60px", //图标宽度 默认值：60px
-									"height": "60px" //图标高度 默认值：60px
+									"width": "120rpx", //图标宽度 默认值：120rpx
+									"height": "120rpx" //图标高度 默认值：120rpx
 								},
 							},
 							success(res) { // 登录成功
@@ -629,6 +642,7 @@
 				}
 			},
 			loginWX(code) {
+				console.log('微信登录')
 				var dx = {
 					code: code
 				}
@@ -657,18 +671,18 @@
 	}
 
 	.yjdl {
-		width: 190px;
-		height: 50px;
-		border-radius: 188px;
+		width: 380rpx;
+		height: 100rpx;
+		border-radius: 376rpx;
 		opacity: 1;
 		background: #F5FCF9;
 
 		font-family: Source Han Sans;
-		font-size: 15px;
+		font-size: 30rpx;
 		font-weight: 500;
-		line-height: 21.12px;
+		line-height: 42.24rpx;
 		text-align: center;
-		letter-spacing: 0px;
+		letter-spacing: 0rpx;
 
 		font-feature-settings: "kern" on;
 		color: #01BB74;
@@ -682,12 +696,12 @@
 	.placeholder_class {
 		color: #999999;
 		font-family: Source Han Sans;
-		font-size: 14px;
+		font-size: 28rpx;
 		font-weight: normal;
-		line-height: 21.12px;
-		letter-spacing: 0px;
+		line-height: 42.24rpx;
+		letter-spacing: 0rpx;
 
-		margin-left: 0px;
+		margin-left: 0rpx;
 
 		text-align: left;
 
@@ -701,32 +715,32 @@
 	}
 
 	.head {
-		margin-bottom: 80px;
+		margin-bottom: 160rpx;
 		width: 100%;
 		position: relative;
 	}
 
 	.headline {
 		font-family: Source Han Sans;
-		font-size: 26px;
+		font-size: 52rpx;
 		font-weight: 500;
-		line-height: 21.12px;
-		letter-spacing: 0px;
+		line-height: 42.24rpx;
+		letter-spacing: 0rpx;
 		font-feature-settings: "kern" on;
 		color: #333333;
 		position: absolute;
 
-		left: 20px;
+		left: 40rpx;
 
 	}
 
 	.headlineInput {
 		font-family: Source Han Sans;
-		font-size: 16px;
+		font-size: 32rpx;
 		font-weight: normal;
-		line-height: 21.12px;
+		line-height: 42.24rpx;
 		text-align: center;
-		letter-spacing: 0px;
+		letter-spacing: 0rpx;
 		font-feature-settings: "kern" on;
 		color: #333333;
 
@@ -735,14 +749,14 @@
 		justify-content: left;
 		align-items: center;
 
-		margin-bottom: 10px;
+		margin-bottom: 20rpx;
 	}
 
 
 	.Input {
-		width: 289.11px;
-		height: 48px;
-		border-radius: 188px;
+		width: 578.22rpx;
+		height: 96rpx;
+		border-radius: 376rpx;
 		opacity: 1;
 
 		display: flex;
@@ -761,13 +775,13 @@
 		// background-color: #01BB74;
 		height: 100%;
 		width: 80%;
-		text-indent: 20px;
+		text-indent: 40rpx;
 	}
 
 	.button {
-		width: 290px;
-		height: 50px;
-		border-radius: 188px;
+		width: 580rpx;
+		height: 100rpx;
+		border-radius: 376rpx;
 		opacity: 1;
 		background: #01BB74;
 
@@ -776,12 +790,12 @@
 		justify-content: center;
 		align-items: center;
 
-		font-size: 18px;
+		font-size: 36rpx;
 		font-weight: 500;
 		color: #FFFFFF;
 
-		margin-top: 40px;
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
+		margin-top: 80rpx;
+		box-shadow: 0 8rpx 12rpx rgba(0, 0, 0, 0.1), 0 2rpx 6rpx rgba(0, 0, 0, 0.2);
 	}
 
 	.button:hover {
@@ -792,15 +806,15 @@
 	.button:active {
 		background-color: #00d382;
 		/* 按下时改变背景颜色 */
-		transform: translateY(1px);
+		transform: translateY(2rpx);
 		/* 按下时稍微向下移动一点，增加反馈 */
 	}
 
 	.headlineEnd {
 		display: flex;
 		flex-direction: row;
-		margin-top: 5px;
-		font-size: 12px;
+		margin-top: 10rpx;
+		font-size: 24rpx;
 		font-weight: normal;
 		position: relative;
 
@@ -820,15 +834,15 @@
 	}
 
 	.InputTab {
-		margin-bottom: 20px;
+		margin-bottom: 40rpx;
 	}
 
 	.buttonTab {
-		margin-top: 10px;
+		margin-top: 20rpx;
 	}
 
 	.err {
 		color: #F53F3F;
-		font-size: 12px;
+		font-size: 24rpx;
 	}
 </style>

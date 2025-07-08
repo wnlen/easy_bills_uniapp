@@ -303,7 +303,7 @@ export default {
 	
 .u-field {
 	font-size: 28rpx;
-	padding: 20rpx 28rpx;
+	padding: 20rpx 0rpx;
 	text-align: left;
 	position: relative;
 	color: $u-main-color;

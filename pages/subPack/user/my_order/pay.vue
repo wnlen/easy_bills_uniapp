@@ -1,7 +1,7 @@
 <template>
 	<view class="vw100 flex-col w100 justify-center items-center">
 	<!-- 	<u-navbar :custom-back="payBack" :border-bottom="false" title-color="#333333" title="支付订单" title-size="28"
-			background="{background:transparent,color:white,fontSize: 14px;}"></u-navbar> -->
+			background="{background:transparent,color:white,fontSize: 28rpx;}"></u-navbar> -->
 
 		<u-navbar :custom-back="payBack" :border-bottom="false" :titleBold="true" title-color="#000000" title="支付订单"
 			title-size="34" bgColor="#ffffff"></u-navbar>
@@ -65,6 +65,7 @@
 			}
 		},
 		onLoad(option) {
+			console.log('option',option)
 			var order = option.order;
 			var order = uni.getStorageSync(order);
 			this.order = JSON.parse(order);
@@ -172,21 +173,21 @@
 <style>
 	.hander {
 		font-family: Source Han Sans;
-		font-size: 13px;
+		font-size: 26rpx;
 		font-weight: normal;
-		line-height: 22px;
+		line-height: 44rpx;
 		text-align: center;
-		letter-spacing: 0px;
+		letter-spacing: 0rpx;
 		color: #999999;
 	}
 
 	.price {
 		font-family: Source Han Sans;
-		font-size: 40px;
+		font-size: 80rpx;
 		font-weight: 600;
-		line-height: 21.12px;
+		line-height: 42.24rpx;
 		text-align: center;
-		letter-spacing: 0px;
+		letter-spacing: 0rpx;
 		color: #3D3D3D;
 	}
 </style>

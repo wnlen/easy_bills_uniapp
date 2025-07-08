@@ -20,7 +20,7 @@
 							订单统计
 						</view>
 						<view @click="jumpVideo" class="flex-row justify-center items-center ml12"
-							style="border: 1.1px solid #01BB74;height: 22px;width:68px;border-radius: 8rpx;color: #01BB74;font-size: 11px;">
+							style="border: 2.2rpx solid #01BB74;height: 44rpx;width:136rpx;border-radius: 8rpx;color: #01BB74;font-size: 22rpx;">
 							使用方法<u-icon class="ml6" name="https://res-oss.elist.com.cn/wxImg/video.png"
 								size="20"></u-icon>
 						</view>
@@ -54,24 +54,24 @@
 
 					<view class="flex-row justify-center items-center mt20" style="width: 100%;">
 						<view class="flex-row justify-center items-center mr24" @click="choiceGET(0)"
-							:style="{backgroundColor:'#ffffff',color:showOrderTage=='0'?'#01BB74':'#999999',border:'1px solid '+(showOrderTage=='0'?'#01BB74':'#999999')}"
-							style="color: #ffffff;background-color: #01BB74;width: 20%;height: 27px;border-radius: 6px;height: 27.42px;">
+							:style="{backgroundColor:'#ffffff',color:showOrderTage=='0'?'#01BB74':'#999999',border:'2rpx solid '+(showOrderTage=='0'?'#01BB74':'#999999')}"
+							style="color: #ffffff;background-color: #01BB74;width: 20%;height: 54rpx;border-radius: 12rpx;height: 54.84rpx;">
 							全部
 						</view>
 						<view class="flex-row justify-center items-center mr24" @click="choiceGET(1)"
-							:style="{backgroundColor:'#ffffff',color:showOrderTage=='1'?'#01BB74':'#999999',border:'1px solid '+(showOrderTage=='1'?'#01BB74':'#999999')}"
-							style="color: #01BB74;background-color: #F2FBF8;width: 20%;height: 27px;border-radius: 6px;height: 27.42px;">
+							:style="{backgroundColor:'#ffffff',color:showOrderTage=='1'?'#01BB74':'#999999',border:'2rpx solid '+(showOrderTage=='1'?'#01BB74':'#999999')}"
+							style="color: #01BB74;background-color: #F2FBF8;width: 20%;height: 54rpx;border-radius: 12rpx;height: 54.84rpx;">
 							{{vuex_userRole=='R'?'待确收':'待签收'}}
 
 						</view>
 						<view class="flex-row justify-center items-center " @click="choiceGET(2)"
-							:style="{backgroundColor:'#ffffff',color:showOrderTage=='2'?'#01BB74':'#999999',border:'1px solid '+(showOrderTage=='2'?'#01BB74':'#999999')}"
-							style="color: #01BB74;background-color: #F2FBF8;width: 20%;height: 27px;border-radius: 6px;height: 27.42px;">
+							:style="{backgroundColor:'#ffffff',color:showOrderTage=='2'?'#01BB74':'#999999',border:'2rpx solid '+(showOrderTage=='2'?'#01BB74':'#999999')}"
+							style="color: #01BB74;background-color: #F2FBF8;width: 20%;height: 54rpx;border-radius: 12rpx;height: 54.84rpx;">
 							已签收
 						</view>
 						<view class="flex-row justify-center items-center ml20" @click="choiceGET(3)"
-							:style="{backgroundColor:'#ffffff',color:showOrderTage=='3'?'#01BB74':'#999999',border:'1px solid '+(showOrderTage=='3'?'#01BB74':'#999999')}"
-							style="color: #01BB74;background-color: #F2FBF8;width: 20%;height: 27px;border-radius: 6px;height: 27.42px;">
+							:style="{backgroundColor:'#ffffff',color:showOrderTage=='3'?'#01BB74':'#999999',border:'2rpx solid '+(showOrderTage=='3'?'#01BB74':'#999999')}"
+							style="color: #01BB74;background-color: #F2FBF8;width: 20%;height: 54rpx;border-radius: 12rpx;height: 54.84rpx;">
 							{{vuex_userRole=='R'?'已付款':'已收款'}}
 						</view>
 					</view>
@@ -132,7 +132,7 @@
 								<view class="flex-col justify-center items-center"
 									:style="{backgroundColor:item.check?'#01BB74':'#ffffff'}"
 									@click="checkboxGroupChange(item,index)"
-									style="border-radius: 50px;height: 20px;width: 20px;border: 1px solid #AAAAAA;">
+									style="border-radius: 100rpx;height: 40rpx;width: 40rpx;border: 2rpx solid #AAAAAA;">
 									<u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
 								</view>
 								<view class="ml15">
@@ -145,20 +145,20 @@
 						</view>
 						<view class="ml20" style="width: 30%;">
 							<u-image v-if="vuex_userRole=='D'" :show-menu-by-longpress="false"
-								:style="{display:item.paymentState == '0'?'inline':'none'}" class="u-img" width="60px"
-								height="25px" src="@/static/img/obj/bq1.png"></u-image>
+								:style="{display:item.paymentState == '0'?'inline':'none'}" class="u-img" width="120rpx"
+								height="50rpx" src="@/static/img/obj/bq1.png"></u-image>
 							<u-image v-if="vuex_userRole=='R'" :show-menu-by-longpress="false"
-								:style="{display:item.paymentState == '0'?'inline':'none'}" class="u-img" width="60px"
-								height="25px" src="@/static/img/obj/dqs.png"></u-image>
-							<u-image :style="{display:item.paymentState == '1'?'inline':'none'}" width="60px"
-								:show-menu-by-longpress="false" height="25px" class="u-img"
+								:style="{display:item.paymentState == '0'?'inline':'none'}" class="u-img" width="120rpx"
+								height="50rpx" src="@/static/img/obj/dqs.png"></u-image>
+							<u-image :style="{display:item.paymentState == '1'?'inline':'none'}" width="120rpx"
+								:show-menu-by-longpress="false" height="50rpx" class="u-img"
 								src="@/static/img/obj/bq2.png" :lazy-load="true"></u-image>
 							<u-image v-if="vuex_userRole!='R'" :show-menu-by-longpress="false"
-								:style="{display:item.paymentState == '2'?'inline':'none'}" width="60px" height="25px"
+								:style="{display:item.paymentState == '2'?'inline':'none'}" width="120rpx" height="50rpx"
 								class="u-img" src="@/static/img/obj/bq3.png" :lazy-load="true"></u-image>
 							<u-image v-if="vuex_userRole=='R'" :show-menu-by-longpress="false"
-								:style="{display:item.paymentState == '2'?'inline':'none'}" class="u-img" width="60px"
-								height="25px" src="@/static/img/obj/yfk.png"></u-image>
+								:style="{display:item.paymentState == '2'?'inline':'none'}" class="u-img" width="120rpx"
+								height="50rpx" src="@/static/img/obj/yfk.png"></u-image>
 						</view>
 					</view>
 					<view class="width100 pb25 pt10 u-skeleton-fillet">
@@ -193,39 +193,39 @@
 			</view>
 
 
-			<view slot="empty" style="padding-bottom: 100px;">
+			<view slot="empty" style="padding-bottom: 200rpx;">
 				<u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl+'/wxImg/list/empty.svg'"
 					label-color="#AAAAAA" label="暂无记录" size="180"></u-icon>
 			</view>
 
 
 			<!-- <view class="EmptyCard" style="height: 10vh;width: 100vw;"> -->
-			<view class="" slot="bottom" style="background-color: #FFFFFF;box-shadow: 0px 2px 3px 0px rgba(51, 51, 51, 0.2);
+			<view class="" slot="bottom" style="background-color: #FFFFFF;box-shadow: 0rpx 4rpx 6rpx 0rpx rgba(51, 51, 51, 0.2);
 			    	bottom: 0;">
 				<view class="flex-row justify-between items-center" style="height: 10vh;">
 					<view class="flex-row items-center vw100">
 						<view class="items-center flex-row"
 							style="width: 92%;display: flex;justify-content: space-between;">
-							<view class="" style="text-align: left;font-size: 12px;color: #01BB74;" :disabled="false">
+							<view class="" style="text-align: left;font-size: 24rpx;color: #01BB74;" :disabled="false">
 								<view class="ml24" style="">
 									<view class="flex-row justify-center items-center">
 										<view class="flex-col justify-center items-center" @click="checkedAll"
 											:style="{backgroundColor:checked?'#01BB74':'#ffffff'}"
-											style="border-radius: 50px;height: 20px;width: 20px;border: 1px solid #AAAAAA;">
+											style="border-radius: 100rpx;height: 40rpx;width: 40rpx;border: 2rpx solid #AAAAAA;">
 											<u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
 										</view>
-										<view class="ml15" style="color: #333333;font-size: 14px">
+										<view class="ml15" style="color: #333333;font-size: 28rpx">
 											全选
 										</view>
 									</view>
 								</view>
 							</view>
 							<view class="mr20 flex-row"
-								style="text-align: left;font-size: 14px;width: 30%;color: #666666;">
+								style="text-align: left;font-size: 28rpx;width: 30%;color: #666666;">
 								统计：<view style="color: #01BB74;">{{OrderQuantity}}个订单</view>
 							</view>
 							<view :disabled="!hasCheck" @click="dlPdf" class="flex-row justify-center items-center"
-								style="width: 140px;height: 40px;border-radius: 45px;opacity: 1;background-color: #01BB74;color: white;float: right;
+								style="width: 280rpx;height: 80rpx;border-radius: 90rpx;opacity: 1;background-color: #01BB74;color: white;float: right;
 			    					font-weight: 600;
 			    					">
 								<u-icon name="https://res-oss.elist.com.cn/wxImg/statistics/down.svg"
@@ -241,18 +241,18 @@
 
 		<view class="order-simple-list pl30 pr30">
 
-			<!-- <view class="fixed-bar pd30" style="background-color: #FFFFFF;box-shadow: 0px 2px 3px 0px rgba(51, 51, 51, 0.2);
+			<!-- <view class="fixed-bar pd30" style="background-color: #FFFFFF;box-shadow: 0rpx 4rpx 6rpx 0rpx rgba(51, 51, 51, 0.2);
 				bottom: 0;">
 				<view class="flex-row justify-between items-center">
 					<view class="flex-row items-center vw100">
 						<view class="items-center flex-row"
 							style="width: 92%;display: flex;justify-content: space-between;">
-							<view class="" style="text-align: left;font-size: 12px;color: #01BB74;" :disabled="false">
+							<view class="" style="text-align: left;font-size: 24rpx;color: #01BB74;" :disabled="false">
 								<view class="ml24" style="">
 									<view class="flex-row justify-center items-center">
 										<view class="flex-col justify-center items-center" @click="checkedAll"
 											:style="{backgroundColor:checked?'#01BB74':'#ffffff'}"
-											style="border-radius: 50px;height: 20px;width: 20px;border: 1px solid #AAAAAA;">
+											style="border-radius: 100rpx;height: 40rpx;width: 40rpx;border: 2rpx solid #AAAAAA;">
 											<u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
 										</view>
 										<view class="ml15" style="color: #333333;">
@@ -262,11 +262,11 @@
 								</view>
 							</view>
 							<view class="mr20 flex-row"
-								style="text-align: left;font-size: 12px;width: 30%;color: #666666;">
+								style="text-align: left;font-size: 24rpx;width: 30%;color: #666666;">
 								统计：<view style="color: #01BB74;">{{OrderQuantity}}个订单</view>
 							</view>
 							<view :disabled="!hasCheck" @click="dlPdf" class="flex-row justify-center items-center"
-								style="width: 140px;height: 40px;border-radius: 45px;opacity: 1;background-color: #01BB74;color: white;float: right;
+								style="width: 280rpx;height: 80rpx;border-radius: 90rpx;opacity: 1;background-color: #01BB74;color: white;float: right;
 								font-weight: 600;
 								">
 								<u-icon name="https://res-oss.elist.com.cn/wxImg/statistics/down.svg"
@@ -286,7 +286,7 @@
 							订单统计
 						</view>
 						<view @click="jumpVideo" class="flex-row justify-center items-center ml12"
-							style="border: 1.1px solid #01BB74;height: 22px;width:68px;border-radius: 8rpx;color: #01BB74;font-size: 11px;">
+							style="border: 2.2rpx solid #01BB74;height: 44rpx;width:136rpx;border-radius: 8rpx;color: #01BB74;font-size: 22rpx;">
 							使用方法<u-icon class="ml6" name="https://res-oss.elist.com.cn/wxImg/video.png"
 								size="20"></u-icon>
 						</view>
@@ -295,7 +295,7 @@
 				<view class="flex-col pl30 pr30 pb30 justify-between height100" style="width: 100%;">
 					<view class="flex-col mt20" style="width: 100%;">
 						<text
-							style="font-family: Source Han Sans;font-size: 14px;font-weight: bold;line-height: 21.12px;letter-spacing: 0px;font-feature-settings: 'kern' on; color: #333333;">
+							style="font-family: Source Han Sans;font-size: 28rpx;font-weight: bold;line-height: 42.24rpx;letter-spacing: 0rpx;font-feature-settings: 'kern' on; color: #333333;">
 							时间筛选
 						</text>
 						<view class="flex-row items-center justify-between mt10" style="width: 100%;">
@@ -303,7 +303,7 @@
 								<text class="mr10" style="color: #999999;">开始日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
 								<view @click="calendar1Show=true" class="ml24"
-									style="border-box;border: 0.5px solid #999999;padding: 12rpx;border-radius: 3px;">
+									style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
 									{{date1}}
 								</view>
 							</view>
@@ -311,7 +311,7 @@
 								<text class="mr10 ml20" style="color: #999999;">结束日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
 								<view @click="calendar2Show=true" class="ml24"
-									style="border-box;border: 0.5px solid #999999;padding: 12rpx;border-radius: 3px;">
+									style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
 									{{date2}}
 								</view>
 							</view>
@@ -319,7 +319,7 @@
 
 						<view class="mt40">
 							<text
-								style="font-family: Source Han Sans;font-size: 14px;font-weight: bold;line-height: 21.12px;letter-spacing: 0px;font-feature-settings: 'kern' on; color: #333333;">
+								style="font-family: Source Han Sans;font-size: 28rpx;font-weight: bold;line-height: 42.24rpx;letter-spacing: 0rpx;font-feature-settings: 'kern' on; color: #333333;">
 								范围筛选
 							</text>
 
@@ -327,19 +327,19 @@
 								<view class="flex-col justify-center text-center items-center mr24"
 									@click="Filtrate('0')"
 									:style="{backgroundColor:showTage=='0'?'#01BB74':'#F2FBF8',color:showTage=='0'?'#ffffff':'#01BB74'}"
-									style="color: #ffffff;background-color: #01BB74;width: 30%;height: 27px;border-radius: 6px;height: 27.42px;">
+									style="color: #ffffff;background-color: #01BB74;width: 30%;height: 54rpx;border-radius: 12rpx;height: 54.84rpx;">
 									联系人
 								</view>
 								<view class="flex-col justify-center text-center items-center mr24"
 									@click="Filtrate('1')"
 									:style="{backgroundColor:showTage=='1'?'#01BB74':'#F2FBF8',color:showTage=='1'?'#ffffff':'#01BB74'}"
-									style="color: #01BB74;background-color: #F2FBF8;width: 30%;height: 27px;border-radius: 6px;height: 27.42px;">
+									style="color: #01BB74;background-color: #F2FBF8;width: 30%;height: 54rpx;border-radius: 12rpx;height: 54.84rpx;">
 									联系号码
 								</view>
 								<view class="flex-col justify-center text-center items-center mr24"
 									@click="Filtrate('2')"
 									:style="{backgroundColor:showTage=='2'?'#01BB74':'#F2FBF8',color:showTage=='2'?'#ffffff':'#01BB74'}"
-									style="color: #01BB74;background-color: #F2FBF8;width: 30%;height: 27px;border-radius: 6px;height: 27.42px;">
+									style="color: #01BB74;background-color: #F2FBF8;width: 30%;height: 54rpx;border-radius: 12rpx;height: 54.84rpx;">
 									{{(vuex_userRole=='R'?'收货地址':'收货地址')}}
 								</view>
 							</view>
@@ -347,7 +347,7 @@
 								<view class="flex-col justify-center text-center items-center mr24"
 									@click="Filtrate('3')"
 									:style="{backgroundColor:showTage=='3'?'#01BB74':'#F2FBF8',color:showTage=='3'?'#ffffff':'#01BB74'}"
-									style="color: #01BB74;background-color: #F2FBF8;width: 30%;height: 27px;border-radius: 6px;height: 27.42px;">
+									style="color: #01BB74;background-color: #F2FBF8;width: 30%;height: 54rpx;border-radius: 12rpx;height: 54.84rpx;">
 									产品名称
 								</view>
 							</view>
@@ -359,7 +359,7 @@
 					</view>
 					<view class="flex-row justify-end mt25 vw100" style="">
 						<view class="mt15"
-							style="text-align: left;align-items: center;color: #ccc;font-size: 12px;float: left;margin-right: 15%;">
+							style="text-align: left;align-items: center;color: #ccc;font-size: 24rpx;float: left;margin-right: 15%;">
 							<!-- 保存偏好设置 -->
 						</view>
 						<view class="mr48" style="float: right;">
@@ -518,14 +518,22 @@
 				if (key.includes("DQ")) {
 					// "近三月，近一年 到期时间2024.12.31"
 					var code = key.split("-")[0];
-
-					text = text + (code == "A1" ? "  近三月 已到期" + date : "  近一年 已到期" + date)
-					// this.uNoticeBarlist.push(code=="A1"?"近三月 到期时间"+date:"近一年 到期时间"+date)
+					if(code == "A1"){
+						text = text + "  近三月 已到期" + date
+					}else if(code == "A2"){
+						text = text + "    近一年 已到期" + date
+					}
+					// else if(code == "B1"){
+					// 	text = text + "  往年数据 已到期" + date
+					// }else if(code == "B2"){
+					// 	text = text + "  往年数据 已到期" + date
+					// }
 				} else {
 					if (key.includes("A")) {
-						text = text + (key == "A1" ? "  近三月 到期时间" + date : "  近一年 到期时间" + date)
+						text = text + (key == "A1" ? "  近三月 到期时间" + date : "    近一年 到期时间" + date)
 					}
 				}
+				console.log('`````````````````',key)
 			}
 			this.uNoticeBarlist.push(text)
 		},
@@ -767,6 +775,7 @@
 				console.log(this.vuex_user.data.work);
 				var that = this;
 				this.$u.post('edo/user/renewal?phone=' + this.vuex_user.phone + '&role=' + role).then(res => {
+					console.log('权限',res.data.data)
 					let a = that.vuex_user
 					a.ac = res.data.data.ac
 					a.data = res.data.data.data
@@ -1783,7 +1792,7 @@
 			.filter-btn {
 				margin-left: 15rpx;
 				margin-right: 15rpx;
-				border-radius: 99px;
+				border-radius: 198rpx;
 				background-color: #f9f9f9;
 				padding: 12rpx;
 				flex: 1;

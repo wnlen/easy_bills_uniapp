@@ -18,23 +18,29 @@
 					<!-- #endif -->
 				</view>
 				<view class="flex-col justify-center items-start" style="width: 50%;" @click="goPath('')">
-					<text class="" style="color: #333333;font-size: 20px;font-weight: bold;letter-spacing: 2px;"
-						v-if="!isElevenDigitPhoneNumber(vuex_user.data.name)">
-						{{vuex_user.phone==undefined?"登录之后更精彩~":"Hello!"+vuex_user.data.name.substring(0,4)+(vuex_user.data.name.length>4?"...":"")}}
-					</text>
-					<text class="" style="color: #333333;font-size: 20px;font-weight: bold;letter-spacing: 2px;" v-else>
-						{{vuex_user.phone==undefined?"登录之后更精彩~":"Hello!欢迎"}}
-					</text>
-					<text class="mt10">
-						{{vuex_user.phone==undefined?"登录后体验完整易单据":"欢迎使用易单据订单管理"}}
-					</text>
+					<view v-if="isLogin">
+						<view class="islogon ellipsis">
+							{{"Hello!"+username}}
+						</view></br>
+						<view class="text_1">
+							欢迎使用易单据订单管理
+						</view>
+					</view>
+					<view v-else>
+						<view class="islogon">
+							登录之后更精彩~
+						</view></br>
+						<view class="text_1">
+							登录后体验完整易单据
+						</view>
+					</view>
 				</view>
 				<view class="flex-col justify-center items-start" style="width: 25%;height: 100%;">
 					<view class="pt48 mt18" style="" @tap.stop id="box">
 						<u-image v-show="vuex_userRole!='R'" @click="sideClick" :show-menu-by-longpress="false"
-							:src="ImgUrl+'/wxImg/index/fhd-role.png'" width="80px" height="26px"></u-image>
+							:src="ImgUrl+'/wxImg/index/fhd-role.png'" width="160rpx" height="52rpx"></u-image>
 						<u-image v-show="vuex_userRole=='R'" @click="sideClick" :show-menu-by-longpress="false"
-							:src="ImgUrl+'/wxImg/index/shd-role.png'" width="80px" height="26px"></u-image>
+							:src="ImgUrl+'/wxImg/index/shd-role.png'" width="160rpx" height="52rpx"></u-image>
 					</view>
 				</view>
 			</view>
@@ -50,8 +56,8 @@
 						<view class="flex-col height80 justify-left mt15 ml12">
 							<view class="flex-row items-center justify-left pb10 width100"
 								style=" display: flex;justify-content: space-between;align-items: center;">
-								<view class="flex-row" style="width: 150px;z-index: 999;">
-									<text class="mr5 ft-bold ft32" style="letter-spacing: 1px;">销售额(今年)</text>
+								<view class="flex-row" style="width: 300rpx;z-index: 999;">
+									<text class="mr5 ft-bold ft32" style="letter-spacing: 2rpx;">销售额(今年)</text>
 									<view @click="isLook = !isLook" class="flex-col items-center justify-center">
 										<u-icon v-if="isLook" name="eye-fill" size="35"></u-icon>
 										<u-icon v-else name="eye-off" size="35"></u-icon>
@@ -59,7 +65,7 @@
 								</view>
 							</view>
 							<view class="flex-row items-center justify-left">
-								<view class="" style="height: 30px;">
+								<view class="" style="height: 60rpx;">
 									<text class="ft-bold ft50 ft-yellow" v-if="!isLook" style="color: #FFC300;">
 										<text class="ft32 ft-yellow">
 											****
@@ -86,7 +92,7 @@
 								<view class="" v-if="isLook">
 									<u-count-to v-if="!ifBig(priceObj[1])" :end-val="priceObj[1]" separator=","
 										color="#333333" font-size="30" decimals='2' duration='1' bold></u-count-to>
-									<text style="font-size: 14.84px;font-weight: bold;" v-if="ifBig(priceObj[1])">
+									<text style="font-size: 29.68rpx;font-weight: bold;" v-if="ifBig(priceObj[1])">
 										{{BigSub(priceObj[1])}}
 									</text>
 								</view>
@@ -102,7 +108,7 @@
 								<view class="" v-if="isLook">
 									<u-count-to v-if="!ifBig(priceObj[2])" :end-val="priceObj[2]" separator=","
 										color="#333333" font-size="30" decimals='2' duration='1' bold></u-count-to>
-									<text style="font-size: 14.84px;font-weight: bold;" v-if="ifBig(priceObj[2])">
+									<text style="font-size: 29.68rpx;font-weight: bold;" v-if="ifBig(priceObj[2])">
 										{{BigSub(priceObj[2])}}
 									</text>
 								</view>
@@ -118,7 +124,7 @@
 								<view class="" v-if="isLook">
 									<u-count-to v-if="!ifBig(priceObj[3])" :end-val="priceObj[3]" separator=","
 										color="#333333" font-size="30" decimals='2' duration='1' bold></u-count-to>
-									<text style="font-size: 14.84px;font-weight: bold;" v-if="ifBig(priceObj[3])">
+									<text style="font-size: 29.68rpx;font-weight: bold;" v-if="ifBig(priceObj[3])">
 										{{BigSub(priceObj[3])}}
 									</text>
 								</view>
@@ -128,10 +134,9 @@
 				</view>
 			</view>
 
-
 			<view class="towCard flex-col justify-center height300 ml24 mr24" style="background-color: transparent;">
 				<view class="home-menu-wrap flex-row justify-center width100" style="background-color: transparent;">
-					<view v-if="vuex_userRole=='R'" style="background-size: cover;border-radius: 9px;"
+					<view v-if="vuex_userRole=='R'" style="background-size: cover;border-radius: 18rpx;"
 						:style="{backgroundImage:'url('+ImgUrl+'/wxImg/index/dqrdj.png)'}"
 						class="home-menu home-menu1 flex-row items-center cardShowPlus" id="box22"
 						@click="goPath('/pages/subPack/pending/pending');this.$u.vuex('vuex_tabIndex', 0);">
@@ -141,7 +146,7 @@
 						</view>
 					</view>
 					<view v-else class="home-menu home-menu2 flex-row items-center cardShowPlus"
-						style="background-size: cover;border-radius: 9px;background-position:bottom;"
+						style="background-size: cover;border-radius: 18rpx;background-position:bottom;"
 						:style="{backgroundImage:'url(https://res-oss.elist.com.cn/wxImg/index/yjkd.png)'}"
 						@click="goPath('/pages/subOrder/add')" id="box2">
 						<view class="flex-col">
@@ -150,7 +155,7 @@
 						</view>
 					</view>
 					<view class="home-menu home-menu3 flex-row items-center cardShowPlus"
-						style="background-size: cover;border-radius: 9px;"
+						style="background-size: cover;border-radius: 18rpx;"
 						:style="{backgroundImage:'url(https://res-oss.elist.com.cn/wxImg/index/ddtj.png)'}"
 						@click="goPath('/pages/subStatistics/statistics')">
 						<view class="flex-col">
@@ -163,7 +168,7 @@
 
 
 			<view class="sudoku u-margin-top-30 ml24 mr24 pb48 cardShowPlus" v-if="vuex_userRole!='R'"
-				style="border-radius: 6px;">
+				style="border-radius: 12rpx;">
 
 				<view class="grid-container">
 					<view class="grid-item  mt10" @click="goList(item.type)" v-for="(item,index) in Sudoku.notLogD[0]"
@@ -187,8 +192,7 @@
 						<view class="" v-if="!item.chat">
 							<u-icon size="120" :name="item.icon"></u-icon>
 							<view class="grid-text">{{item.text}}</view>
-							<u-badge v-if="item.count" bgColor="#E52829" :count="item.count" class="mr30"
-								style="position: absolute;top: 0px;right: 0px;"></u-badge>
+							<u-badge v-if="item.count" bgColor="#E52829" :count="item.count" class="mr30" style="position: absolute;top: 0rpx;right: 0rpx;"></u-badge>
 						</view>
 						<view class="" v-else>
 							<u-button hover-class="none" :hair-line="false" :custom-style="buttonStyle"
@@ -204,14 +208,14 @@
 			</view>
 
 			<view class="sudoku u-margin-top-30 ml24 mr24 pl10 pr10 pb48 cardShowPlus" v-if="vuex_userRole=='R'"
-				style="border-radius: 6px;">
+				style="border-radius: 12rpx;">
 				<view class="grid-container">
 					<view class="grid-item  mt10" @click="goList(item.type)" v-for="(item,index) in Sudoku.notLogR[0]"
 						:id="index==0?'box33':''" :key="index">
 						<u-icon size="120" :name="item.icon"></u-icon>
 						<view class="grid-text">{{item.text}}</view>
 						<u-badge v-if="item.count" bgColor="#E52829" :count="item.count" class="mr30"
-							style="position: absolute;top: 0px;right: 0px;"></u-badge>
+							style="position: absolute;top: 0rpx;right: 0rpx;"></u-badge>
 					</view>
 				</view>
 
@@ -230,7 +234,7 @@
 							<u-icon size="120" :name="item.icon"></u-icon>
 							<view class="grid-text">{{item.text}}</view>
 							<u-badge v-if="item.count" bgColor="#E52829" :count="item.count" class="mr30"
-								style="position: absolute;top: 0px;right: 0px;"></u-badge>
+								style="position: absolute;top: 0rpx;right: 0rpx;"></u-badge>
 						</view>
 						<view class="" v-else>
 							<u-button hover-class="none" :hair-line="false" :custom-style="buttonStyle"
@@ -259,29 +263,29 @@
 		<u-mask :show="expireShow">
 			<view class="flex-col justify-center items-center"
 				style="width: 100%;height:100%;background-color: transparent;">
-				<view class="flex-col justify-center items-center relative" style="width: 80%;height: 25%;border-radius: 14px;background-image: url('https://res-oss.elist.com.cn/wxImg/user/dqalert.png');
+				<view class="flex-col justify-center items-center relative" style="width: 80%;height: 25%;border-radius: 28rpx;background-image: url('https://res-oss.elist.com.cn/wxImg/user/dqalert.png');
 					background-size: cover;">
 
 					<view class="absolute flex-col justify-center items-center"
-						style="top: 0;height: 80px;font-size: 18px;font-weight: bold;">
+						style="top: 0;height: 160rpx;font-size: 36rpx;font-weight: bold;">
 						提示
 					</view>
 
 					<!-- #ifdef MP-WEIXIN -->
 					<text
-						style="font-size: 16px;color: #999999;">该{{vuex_user.workData.identity==3?"财务":"分管"}}人员权限已到期,请联系</text>
+						style="font-size: 32rpx;color: #999999;">该{{vuex_user.workData.identity==3?"财务":"分管"}}人员权限已到期,请联系</text>
 					<!-- #endif -->
 					<!-- #ifdef APP -->
-					<text style="font-size: 16px;color: #999999;">人员权限已到期,请联系</text>
+					<text style="font-size: 32rpx;color: #999999;">人员权限已到期,请联系</text>
 					<!-- #endif -->
-					<text style="font-size: 16px;color: #999999;">主账号续费</text>
+					<text style="font-size: 32rpx;color: #999999;">主账号续费</text>
 
 					<view class="absolute flex-col justify-center items-center"
-						style="bottom: 0;height: 80px;width: 100%;" @click="exit">
+						style="bottom: 0;height: 160rpx;width: 100%;" @click="exit">
 						<view class=""
-							style="background: linear-gradient(0deg, #F18341 -17%, #FFB963 100%);width: 160px;height: 40px;
-						box-shadow: 0px 1px 3px 0px rgba(222, 118, 14, 0.2);border-radius: 380px;display: flex;flex-direction: row;justify-content: center;align-items: center;">
-							<view class="" style="width: 142px;height: 30px;font-size: 14px;font-weight: bold;background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 68%);border-radius: 220px;color: white;
+							style="background: linear-gradient(0deg, #F18341 -17%, #FFB963 100%);width: 320rpx;height: 80rpx;
+						box-shadow: 0rpx 2rpx 6rpx 0rpx rgba(222, 118, 14, 0.2);border-radius: 760rpx;display: flex;flex-direction: row;justify-content: center;align-items: center;">
+							<view class="" style="width: 284rpx;height: 60rpx;font-size: 28rpx;font-weight: bold;background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 68%);border-radius: 440rpx;color: white;
 						           display: flex;flex-direction: row;justify-content: center;align-items: center;">
 								确认
 							</view>
@@ -301,24 +305,16 @@
 	export default {
 		data() {
 			return {
-				tabHight: "50px",
+				tabHight: "100rpx",
 				expireShow: false,
 				calendar: 0,
 				middleBanner: [],
 				middleBannerlXD: [{
-						"url": "https://res-oss.elist.com.cn/advertising/banner001.jpg",
-						"jump": "https://res-oss.elist.com.cn/advertising/advertising001.png?s=1"
-					},
-					{
-						"url": "https://res-oss.elist.com.cn/advertising/banner001.jpg",
-						"jump": "https://res-oss.elist.com.cn/advertising/advertising001.png?s=1"
+						"url": "https://res-oss.elist.com.cn/advertising/free_card.png",
+						"jump": "https://res-oss.elist.com.cn/advertising/free_card.png?s=1"
 					}
 				],
 				middleBannerlXR: [{
-						"url": "https://res-oss.elist.com.cn/advertising/banner001.jpg",
-						"jump": "https://res-oss.elist.com.cn/advertising/advertising001.png?s=1"
-					},
-					{
 						"url": "https://res-oss.elist.com.cn/advertising/banner001.jpg",
 						"jump": "https://res-oss.elist.com.cn/advertising/advertising001.png?s=1"
 					}
@@ -453,10 +449,19 @@
 				}
 			}
 		},
+		computed: {
+			isLogin() {
+				return this.vuex_token && this.vuex_user?.phone;
+			},
+			username() {
+				// console.log('this.vuex_user',this.vuex_user)
+				return this.vuex_user?.data?.name || this.vuex_user?.data?.phoneNumber || '用户';
+			}
+		},
 		onLoad() {
 			//菜单变更
 			this.$getModel((value) => {
-				console.log("===动态高===>", value);
+				// console.log("===动态高===>", value);
 				if (value) {
 					this.tabHight = value
 					// 在这里可以根据获取到的值进行其他操作
@@ -466,14 +471,16 @@
 			});
 		},
 		onShow() {
-			if (this.vuex_user.phone == undefined || this.vuex_user.phone == "10000000000" || this.vuex_user.phone ==
-				null) {
-				console.log("未登录");
+			this.getmiddleBanner();//加载广告
+			if (this.vuex_user.phone == undefined || this.vuex_user.phone == "10000000000" || this.vuex_user.phone == null) {
+				
+				
 				if (this.vuex_userRole == "D") {
 					this.middleBanner = this.middleBannerlXD
 				} else {
 					this.middleBanner = this.middleBannerlXR
 				}
+				// console.log('this.middleBanner',this.middleBanner);
 
 				//#ifdef APP 
                     this.goToLogin();
@@ -483,7 +490,6 @@
 				// this.$pushMessage(111);
 				this.guideCourse();
 				this.SOCKETfLUSH();
-				this.getmiddleBanner();
 				this.exitIfOpen();
 				this.getData();
 				this.getDQS();
@@ -494,10 +500,11 @@
 					this.menu();
 				}, 1000);
 			}
+			// console.log('this.middleBanner',this.middleBannerlXR);
 		},
 		onShareAppMessage() {
 			if (res.from === 'button') { // 来自页面内分享按钮
-				console.log(res.target)
+				// console.log(res.target)
 			}
 			return {
 				title: '易单据，快捷开单',
@@ -518,7 +525,7 @@
 				})
 			},
 			goPathIndex(item) {
-				console.log(item);
+				// console.log(item);
 				if (this.vuex_user.phone == undefined) {
 					uni.navigateTo({
 						url: "/pages/subUser/login"
@@ -544,7 +551,7 @@
 			},
 			Announcement() {
 				this.$loadUser(this);
-				console.log("===全局公告===>");
+				// console.log("===全局公告===>");
 				var announcement = this.announcement
 				console.log("=== 全局公告 announcement===>", announcement);
 				var ale = announcement ? announcement.id != null : null
@@ -565,7 +572,7 @@
 					var data = res.data.data
 					if (data.D.length > 0 || data.R.length > 0) {
 						this.$refs.popAnnouncement.popAnnouncement = true
-						console.log("YEAR");
+						// console.log("YEAR");
 					}
 				});
 			},
@@ -627,7 +634,7 @@
 			},
 			guideCourse() {
 				if (this.vuex_user.phone != undefined) {
-					console.log("信息", this.guidanceD, this.guidanceR);
+					// console.log("信息", this.guidanceD, this.guidanceR);
 					if (this.vuex_userRole == "D") {
 						if (this.guidanceD == 1) {
 							this.guide()
@@ -677,7 +684,7 @@
 								// 自定义导航栏
 								// top: uni.upx2px(30) + this._statusBarHeight + 'px',
 								top: `${res.top+(res.height/2)}px`,
-								right: "18px",
+								right: "36rpx",
 								width: `${res.width}px`,
 								height: `${res.height/2}px`,
 							}
@@ -697,7 +704,7 @@
 							position: {
 								top: res.top + 'px',
 								width: `${res.width}px`,
-								left: "14px",
+								left: "28rpx",
 								height: `${res.height}px`
 							}
 						})
@@ -722,7 +729,7 @@
 							position: {
 								top: res.top + 'px',
 								width: `${res.width/2}px`,
-								left: "45px",
+								left: "90rpx",
 								height: `${res.height}px`
 							}
 						})
@@ -754,7 +761,7 @@
 								// 自定义导航栏
 								// top: uni.upx2px(30) + this._statusBarHeight + 'px',
 								top: `${res.top+(res.height/2)}px`,
-								right: "18px",
+								right: "36rpx",
 								width: `${res.width}px`,
 								height: `${res.height/2}px`,
 							}
@@ -774,7 +781,7 @@
 							position: {
 								top: res.top + 'px',
 								width: `${res.width}px`,
-								left: "14px",
+								left: "28rpx",
 								height: `${res.height}px`
 							}
 						})
@@ -793,7 +800,7 @@
 							btnGroupPosition: '550rpx',
 							tipsPosition: {
 								top: "-270rpx",
-								left: "-20px",
+								left: "-40rpx",
 								backgroundImage: "url(https://res-oss.elist.com.cn/wxImg/handbook/guide/stepD3.png)"
 							},
 							position: {
@@ -863,7 +870,7 @@
 						this.getOrderDB()
 						this.getData()
 						this.getDQS()
-						console.log("SOCKETfLUSH");
+						console.log("监听SOCKET状态");
 					}
 				);
 			},
@@ -893,7 +900,7 @@
 
 				this.$u.post('edo/orderDel/get', dx).then(res => {
 					this.indexSumList = res.data.data[0]
-					console.log("待办", this.indexSumList);
+					// console.log("待办", this.indexSumList);
 					this.Sudoku.notLogD[2][0].count = res.data.data[0]
 					this.Sudoku.notLogR[2][0].count = res.data.data[0]
 				})
@@ -911,15 +918,15 @@
 					uni.stopPullDownRefresh();
 				}
 			},
-			a() {
-				return 118;
-			},
 			getmiddleBanner() {
+				// console.log('刷新')
 				var filer = this.vuex_userRole == "D" ? "1" : "0"
-				this.$u.post('edo/advert/get?port=' + filer).then(res => {
-
-					if (res.data.code == 999) {
-						console.log("res", res);
+				// console.log('广告',this.vuex_userRole);
+				this.$api.advert.getAdvertList({
+					'port':filer
+				}).then(res => {
+					// console.log('广告列表',res)
+					if (res.data.code == 401) {
 						if (this.vuex_userRole == "D") {
 							this.middleBanner = this.middleBannerlXD
 						} else {
@@ -930,8 +937,6 @@
 						this.middleBanner = []
 						this.middleBanner = res.data.data;
 					}
-
-
 				})
 			},
 			getData() {
@@ -1063,6 +1068,7 @@
 				this.jumpToUrl(this.middleBanner[e].jump);
 			},
 			jumpToUrl(url) {
+				console.log('点击广告',url)
 				if (!url) return;
 				if (url.indexOf('http') < 0) {
 					// 内部跳转
@@ -1098,8 +1104,8 @@
 	.grid-item {
 		background-color: #ffffff;
 		text-align: center;
-		/* padding: 5px; */
-		padding-top: 15px;
+		/* padding: 10rpx; */
+		padding-top: 30rpx;
 		position: relative;
 	}
 </style>
@@ -1161,7 +1167,7 @@
 
 	.home-menu-wrap {
 		.home-menu {
-			border-radius: 14px;
+			border-radius: 28rpx;
 			color: #333;
 			position: relative;
 			flex: 1;
@@ -1234,17 +1240,17 @@
 
 	.father .view:nth-child(1) {
 		width: 33%;
-		margin-right: 2px;
+		margin-right: 4rpx;
 		height: 100%;
 		background-color: #F9F9F9;
 
-		border-top-left-radius: 6px;
-		border-bottom-left-radius: 6px;
+		border-top-left-radius: 12rpx;
+		border-bottom-left-radius: 12rpx;
 	}
 
 	.father .view:nth-child(2) {
 		width: 33%;
-		margin-right: 2px;
+		margin-right: 4rpx;
 		height: 100%;
 		background-color: #F8F8F8;
 	}
@@ -1253,8 +1259,8 @@
 		width: 33%;
 		height: 100%;
 		background-color: #F8F8F8;
-		border-top-right-radius: 6px;
-		border-bottom-right-radius: 6px;
+		border-top-right-radius: 12rpx;
+		border-bottom-right-radius: 12rpx;
 	}
 
 	.view {
@@ -1262,9 +1268,21 @@
 		/* 这会使每个视图平分容器的宽度 */
 		box-sizing: border-box;
 		/* 确保边框和内边距不会增加元素的宽度 */
-		padding: 10px;
+		padding: 20rpx;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+	}
+	.islogon{
+		width: 450rpx;
+		color: #333333;
+		font-size: 44rpx;
+		font-weight: bold;
+		letter-spacing: 4rpx;
+		text-align: left;
+		margin-bottom: 5rpx;
+	}
+	.text_1{
+		text-align: left;
 	}
 </style>
