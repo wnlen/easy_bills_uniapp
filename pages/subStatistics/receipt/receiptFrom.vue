@@ -339,8 +339,7 @@
 					this.$u.post("/edo/bills/addBill", this.billFrom).then(res => {
 						console.log("/edo/bills/addBill", res);
 						this.checkSend = true
-						var addBill = res.data.code != 1
-						if (addBill) {
+						if (res.data.code == 200) {
 							this.$u.toast(res.data.message)
 							setTimeout(() => {
 								uni.navigateBack();

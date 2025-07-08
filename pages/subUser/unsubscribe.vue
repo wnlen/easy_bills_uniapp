@@ -91,7 +91,7 @@
 				var code = this.form.code;
 				if (code != "") {
 					this.$u.post('edo/user/comparisonCode?phone=' + this.vuex_user.phone + "&&code=" + code).then(res => {
-						var rescode = res.data.code == "1"
+						var rescode = res.data.code == 200
 						if (rescode) {
 							uni.navigateTo({
 								url: '/pages/subPack/user/affirm/affirm'
@@ -110,7 +110,7 @@
 				if (this.codeClick) {
 					this.codeClick=false;
 					this.$u.post('edo/user/getUnsubscribeCode?phone=' + this.vuex_user.phone+"&&type=0").then(res => {
-						var rescode = res.data.data.code == "1"
+						var rescode = res.data.code == 200
 						console.log("获取结果", rescode);
 						console.log("获取结果", res);
 						if (rescode) {

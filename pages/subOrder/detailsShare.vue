@@ -352,9 +352,9 @@
 			}
 		},
 		onLoad(options) {
+			this.options = options
 			this.$loadUser(this);
 			//单据id
-			this.options = options
 			this.getOrder(options)
 		},
 		onShow(options) {

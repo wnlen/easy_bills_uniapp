@@ -650,7 +650,7 @@
 							"sourcePhone":this.lock.sourcePhone 
 						}).then(res => {
 							console.log(res);
-							var lock = res.data.code == 1;
+							var lock = res.data.code == 200;
 							if (lock) {
 								// this.$u.toast("验证成功~")
 								console.log(res);

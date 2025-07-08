@@ -1160,7 +1160,7 @@
 					console.log(res);
 					if (res.data == "9") {
 						this.$u.toast("该单据已签收");
-					} else if (res.data.code == "0") {
+					} else if (res.data.code == 200) {
 						this.$u.toast(res.data.message);
 						send.paymentState = "0"
 						setTimeout(function() {

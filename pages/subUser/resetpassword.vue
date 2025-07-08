@@ -101,8 +101,7 @@
 				var code = this.form.code;
 				if (code != "") {
 					this.$u.post('edo/user/comparisonCode?phone=' + this.vuex_user.phone + "&&code=" + code).then(res => {
-						var rescode = res.data.code == "1"
-						if (rescode) {
+						if (res.data.code == 200) {
 							console.log(this.signature);
 							uni.redirectTo({
 								url: "/pages/subPack/user/signee/add?item=" + JSON.stringify(this
@@ -121,38 +120,35 @@
 			getCode() {
 				if (this.codeClick) {
 					this.codeClick = false;
-					this.$u.post('edo/user/getUnsubscribeCode?phone=' + this.vuex_user.phone + "&&type=1").then(res => {
-						var rescode = res.data.data.code == "1"
-						console.log("获取结果", rescode);
-						console.log("获取结果", res);
-						if (rescode) {
-							this.codeText = 1;
+					this.$u.post('edo/user/getUnsubscribeCode?phone=' + this.vuex_user.phone + "&type=1").then(res => {
+						if (res.data.code === 200) {
 							if (this.timer) {
-								// 如果已经有倒计时，则不重复发送验证码  
 								uni.showToast({
 									title: '请勿重复发送',
 									icon: 'none'
 								});
 								return;
 							}
-							// 显示倒计时  
-							var that = this;
+					
+							this.codeText = 1;
 							this.timer = setInterval(() => {
-								this.interval = this.interval - 1;
-								if (this.interval <= 0) {
+								if (this.interval > 0) {
+									this.interval--;
+								} else {
 									clearInterval(this.timer);
 									this.interval = 60;
 									this.timer = null;
 									this.codeText = 0;
-									that.codeClick = true;
+									this.codeClick = true;
 								}
 							}, 1000);
+					
 							uni.showToast({
 								title: '验证码已发送',
 								icon: 'success'
 							});
 						} else {
-							this.$u.toast(res.data.data.mes)
+							this.$u.toast(res.data.message || '发送失败');
 						}
 					})
 				} else {
