@@ -1,21 +1,25 @@
 export default {
   install(Vue) {
 	Vue.prototype.$loadUser = (vm) => {
-		console.log("--------->全局刷新个人信息<-------------");
+		console.log("--------->全局刷新个人信息START<-------------");
 
 		const vuexUser = vm.$store?.state?.vuex_user;
+		// console.log('用户资料',!vuexUser.phone)
+		// console.log('!vuexUser.phone',!vuexUser.phone)
 		
-		if (!vuexUser || !vuexUser.phone) {
+		if (!vuexUser.phone) {
 			console.warn("vuex_user 不存在或未登录，跳转登录页");
+			// console.log('vm.options',vm.options)
+			// console.log('vm.options.share_id',vm.options.share_id)
 			//带分享参数
 			if(vm.options){
-				uni.navigateTo({ url: "/pages/subUser/login?share_id=" + vm.options.share_id + "&phone=" + vm.options.phone + "&port=" + vm.options.port + "&type=" + vm.options.type + "&versions=" + vm.options.versions});
+				uni.redirectTo({ url: "/pages/subUser/login?share_id=" + vm.options.share_id + "&phone=" + vm.options.phone + "&port=" + vm.options.port + "&type=" + vm.options.type + "&versions=" + vm.options.versions});
 			}else{
 				uni.navigateTo({ url: "/pages/subUser/login"});
 			}
 			return;
 		}
-		console.log('个人信息',vuexUser)
+		console.log('当前用户信息',vuexUser)
 		const role = vuexUser.data?.work === "1" ? 1 : 2;
 
 		vm.$u.post(`edo/user/renewal?phone=${vuexUser.phone}&role=${role}`).then(res => {
@@ -49,7 +53,7 @@ export default {
 			});
 		});
 
-		console.log("--------->全局刷新个人信息更新成功<-------------");
+		console.log("--------->全局刷新个人信息END<-------------");
 	};
 
     // 通知服务端
@@ -62,7 +66,6 @@ export default {
 	
 
     Vue.prototype.$record = (vm) => {
-		console.log('adadddddd')
       const pages = getCurrentPages();
       const currentPage = pages[pages.length - 1];
       const currentPagePath = currentPage.route;

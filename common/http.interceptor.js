@@ -1,29 +1,30 @@
+// 白名单接口路径（无需 token 的接口）
+const noAuthUrls = [
+	'/edo/advert/get',
+	'/rest/v1/login',
+	'/rest/v1/register'
+];
+//白名单前缀接口
+const whitePrefixList = ['/public/'];
+let hasRedirectedToLogin = false;
+
 const install = (Vue, vm) => {
+	//请求全局配置
 	Vue.prototype.$u.http.setConfig({
-		// baseUrl: 'https://wxapi.elist.com.cn',
-		baseUrl: 'http://localhost:8080/test',
+		baseUrl: 'https://wxapi.elist.com.cn',
+		// baseUrl: 'https://wxapi.elist.com.cn/test',
+		// baseUrl: 'http://192.168.124.2:8081/test',
 		showLoading: true,
 		loadingText: '加载中~',
 		loadingTime: 800,
 		originalData: true
 	});
-	// 白名单接口路径（无需 token 的接口）
-	const noAuthUrls = [
-		'/edo/advert/get',
-		'/rest/v1/login',
-		'/rest/v1/register'
-	];
-	//白名单前缀接口
-	const whitePrefixList = [
-		'/public/'
-	];
-	let hasRedirectedToLogin = false;
-	
 	// 请求拦截器
 	Vue.prototype.$u.http.interceptor.request = (config) => {
 		const isWhiteListed = isWhiteListedPath(config.url);
 		const skipAuth = config.custom?.noAuth;
-
+		// console.log('config.url',config.url)
+		// console.log('isWhiteListed',isWhiteListed)
 		if (!isWhiteListed && !skipAuth) {
 			const lifeData = uni.getStorageSync('lifeData') || {};
 			config.header = config.header || {};
@@ -39,12 +40,10 @@ const install = (Vue, vm) => {
 	};
 
 	// 响应拦截器
-	Vue.prototype.$u.http.interceptor.response = (response) => {
-		const { config, data } = response;
-		const isWhiteListed = isWhiteListedPath(config.url);
-		const skipAuth = config.custom?.noAuth;
-		console.log('响应拦截器',response)
-		if (data.code === 401 && !isWhiteListed && !skipAuth && !hasRedirectedToLogin) {
+	Vue.prototype.$u.http.interceptor.response = (res) => {
+		// console.log('响应拦截器',res)
+		const { statusCode, data } = res;
+		if (data.code === 401 && !hasRedirectedToLogin) {
 			console.warn('401 未授权，执行清理并跳转登录页');
 			hasRedirectedToLogin = true;
 			setTimeout(() => (hasRedirectedToLogin = false), 2000); // 防止多次跳转
@@ -58,7 +57,7 @@ const install = (Vue, vm) => {
 			});
 		}
 
-		return response;
+		return res;
 	};
 	
 };
