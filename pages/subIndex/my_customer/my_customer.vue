@@ -127,7 +127,7 @@
 					style="border-bottom: 1px solid #f7f7f7;height: 9vh;" @click="particulars(item2,false)">
 					<view class="" style="width:10%">
 						<u-image :show-menu-by-longpress="false"
-							:src="item2.img=='zx'?'/static/img/obj/zx.svg':(item2.img==undefined?'/static/img/obj/wzc.svg':(item2.img=='wsz'?'/static/img/obj/defind.svg':item2.img))"
+							:src="item2.img=='zx'?'/static/img/obj/zx.svg':(item2.img==undefined?headimg():(item2.img=='wsz'?'/static/img/obj/defind.svg':item2.img))"
 							width="90rpx" height="90rpx" shape="circle"></u-image>
 					</view>
 					<view class="ml30" style="width:60%">
@@ -137,7 +137,8 @@
 						<view class="ft-gray">
 							{{vuex_userRole=="R"?'应付款:':'应收欠款:'}}
 							<text class="ft-bold" size="mini" :style="{color:item2.total>0?'#01BB74':'#999999'}">
-								￥{{(item2.total).toFixed(2)}}</text>
+								￥{{ formatAmount(item2.total) }}
+							</text>
 						</view>
 					</view>
 					<view class="" style="width: 20%;display: flex;flex-direction: row;justify-content: right;"
@@ -171,7 +172,7 @@
 		<view :style="{display:show!=1?'none':'block'}" class="vw100 pd30"
 			style="position: fixed;bottom: 0px;height: 50px;background-color: #01BB74;z-index: 999;align-items: center;border-radius: 6px 6px 0px 0px;opacity: 1;">
 			<view class="" style="float: right;color: white;">
-				合计欠款：<text class="ft39 ft-bold">￥{{(all).toFixed(2)}}</text>
+				合计欠款：<text class="ft39 ft-bold">￥{{ formatAmount(all)}}</text>
 			</view>
 		</view>
 
@@ -268,6 +269,9 @@
 			}
 		},
 		methods: {
+			headimg(){
+				return uni.getStorageSync('wzc_img');
+			},
 			establish() {
 				console.log("establish");
 				uni.navigateTo({
@@ -453,8 +457,8 @@
 					for (let key in list) {
 						sum = sum + list[key].total
 					}
+					
 					this.all = sum
-					// console.log("list:", list,sum);
 				} else {
 					var dx = this.client
 					let filteredKeys = Object.keys(dx).filter(key => key.includes(e));
@@ -463,10 +467,7 @@
 						filteredObj[key] = dx[key];
 					});
 					this.client = filteredObj
-					// console.log("client:", filteredObj);
 				}
-				// console.log(e);
-
 			},
 			loadData() {
 				var that = this;
@@ -533,11 +534,11 @@
 					console.log('edo/order/market', res.data.data);
 					that.listO = res.data.data
 					that.listOCopy = res.data.data
-					var sum = 0;
-					for (let key in this.listO) {
-						sum = sum + this.listO[key].total
-					}
-					this.all = sum
+					
+					this.all = Object.values(this.listO)
+					  .reduce((acc, item) => acc + Number(item.total), 0)
+					  .toFixed(2);
+					this.all = Number(this.all); // 可选，如果你希望是数字
 				})
 			},
 			change(index) {
