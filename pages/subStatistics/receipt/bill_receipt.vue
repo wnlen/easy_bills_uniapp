@@ -116,7 +116,7 @@
 					</view>
 					<view class="OrderCard_card_b">
 						<view class="c_t">订单金额：
-							<text style="color:#01BB74;font-weight: 500;">￥{{item.billPrice.toFixed(2)}}</text>
+							<text style="color:#01BB74;font-weight: 500;">￥{{formatAmount(item.billPrice)}}</text>
 						</view>
 					</view>
 				</view>
@@ -167,11 +167,11 @@
 							<view class="LeftTop_text">
 								<span v-if="vuex_userRole=='D'">应收：</span>
 								<span v-if="vuex_userRole=='R'">应付：</span>
-								<text>￥{{(parseFloat(price)-parseFloat(discount)).toFixed(2)}}</text>
+								<text>￥{{formatAmount(parseFloat(price)-parseFloat(discount))}}</text>
 							</view>
 						</view>
 						<view class="fixedBarLeftBuo">
-							<text>折扣：￥{{(parseFloat(discount)).toFixed(2)}}</text>
+							<text>折扣：￥{{formatAmount(parseFloat(discount))}}</text>
 						</view>
 					</view>
 					<view class="fixedBarRight">

@@ -556,7 +556,7 @@
 				console.log("=== 全局公告 announcement===>", announcement);
 				var ale = announcement ? announcement.id != null : null
 				console.log("=== 全局公告 ale===>", announcement);
-				if (announcement.announcementType == "0") {
+				if (announcement?.announcementType == "0") {
 					this.getYear()
 				} else {
 					this.$refs.popAnnouncement.popAnnouncement = ale
