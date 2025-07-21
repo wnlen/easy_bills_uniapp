@@ -1,7 +1,7 @@
 <template>
 	<view class="vh100 vw100 fixed-bar-height" style="background-color: #FFFBF1;">
 
-		<z-paging ref="paging" use-virtual-list :force-close-inner-list="true" :hide-empty-view="hideEmptyView" 
+		<z-paging ref="paging" use-virtual-list :force-close-inner-list="true" :hide-empty-view="hideEmptyView"
 			:cell-height-mode="1===0?'fixed':'dynamic'" @virtualListChange="virtualListChange" @query="queryList">
 
 			<view slot="top">
@@ -33,7 +33,7 @@
 
 
 			<view class="order-simple-list pl30 pr30" v-show="current==0&&!moneyCALL">
-				<div v-if="" class="bg-white pd20 mt20 radius flex-col justify-center items-center cardShow">
+				<div class="bg-white pd20 mt20 radius flex-col justify-center items-center cardShow">
 					<view class="flex-col" style="width: 100%;">
 						<text class="ft30 ft-gray mb18" style="color: #999999;">累计金额</text>
 						<view class="">
@@ -252,7 +252,7 @@
 				</view>
 			</view> -->
 
-			<view slot="empty"  style="padding-bottom: 100px;">
+			<view slot="empty" style="padding-bottom: 100px;">
 				<u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl+'/wxImg/list/empty.svg'"
 					label-color="#AAAAAA" label="暂无记录" size="180"></u-icon>
 			</view>
@@ -466,7 +466,7 @@
 				Title: "条件筛选",
 				uNoticeBarlist: [],
 				downPdfCheck: true,
-				hideEmptyView:false
+				hideEmptyView: false
 			};
 
 		},
@@ -476,36 +476,9 @@
 
 		},
 		onReachBottom() {
-			// console.log("lala ");
-			// console.log("加载更多");
-			// var sum = this.realTimeSel.limitS;
-			// var list = sum.split(",")
-			// var s = Number(list[0]);
-			// var e = Number(list[1]) + 25;
-			// this.s = s
-			// this.e = e
-			// s = (s == 0 ? e - 25 : s + 25)
-
-			// if (this.orderList.length % 25 == 0) {
-			// 	this.realTimeSel.limitS = s + "," + e
-			// 	this.refreshData()
-			// } else {
-			// 	this.uloading = false
-			// }
 
 		},
-		onPullDownRefresh() {
-			// console.log("下拉");
-			// var sum = this.realTimeSel.limitS;
-			// var list = sum.split(",")
-			// var s = 0;
-			// var e = Number(list[1]);
-			// this.realTimeSel.limitS = s + "," + e
-			// this.refreshData()
-			// setTimeout(function() {
-			// 	uni.stopPullDownRefresh();
-			// }, 3000)
-		},
+		onPullDownRefresh() {},
 		onShow() {
 			// this.getYear()
 			var option = uni.getStorageSync('companyNameJSON');
@@ -539,7 +512,7 @@
 					if (DP == undefined) {
 						// this.$u.toast("您没有该年份数据权限");
 						this.$refs.paging.complete([]);
-						this.hideEmptyView=true
+						this.hideEmptyView = true
 						this.jurisdiction = false
 						return;
 					} else {
@@ -550,7 +523,7 @@
 					console.log("===请求拦截判断R===>", RP);
 					if (RP == undefined) {
 						// this.$u.toast("您没有该年份数据权限");
-						this.hideEmptyView=true
+						this.hideEmptyView = true
 						this.$refs.paging.complete([]);
 						this.jurisdiction = false
 						return;
@@ -696,12 +669,10 @@
 				}
 			},
 			getYear() {
-
-
 				console.log('this.vuex_user.jurisdiction', this.vuex_user.jurisdiction);
+				console.log('this.vuex_userRole', this.vuex_userRole);
 				var role = this.vuex_userRole == "R"
 				for (let key in this.vuex_user.jurisdiction) {
-					console.log(key);
 					if (role) {
 						if (key == "B2") {
 							//全部权限
@@ -741,7 +712,7 @@
 				} else {
 					dx.bossNumberS = work ? this.vuex_user.phone : this.vuex_user.workData.bossNumber;
 				}
-
+				console.log('老数据', dx)
 				this.$u.post('edo/order/old', dx).then(res => {
 					console.log("获取数据:", res);
 					var resData = res.data.data;
@@ -852,7 +823,7 @@
 			},
 
 			jumpnView() {
-				console.log('this.dropdownName',this.dropdownName)
+				console.log('this.dropdownName', this.dropdownName)
 				if (this.dropdownName == "" || this.dropdownName == "请选择") {
 					this.$u.toast("请选择年份")
 				} else {
@@ -1004,14 +975,6 @@
 				if (this.field == "") {
 					condition = this.field
 				}
-
-				// var dx = {
-				// 	"start": this.realTimeSel.startDate,
-				// 	"end": this.realTimeSel.endDate,
-				// 	"cOrderList": okDown,
-				// 	"port": this.vuex_userRole
-				// }
-
 
 				var dx = {
 					"start": this.realTimeSel.startDate,
@@ -1192,8 +1155,6 @@
 					return;
 				}
 				this.date2 = e.result
-				// this.searchList.end = e.result
-				// this.realTimeSel.endDate = this.date1
 				if (this.date1 != "") {
 					if (this.date2 >= this.date1) {
 						this.realTimeSel.endDate = this.date2
@@ -1208,8 +1169,6 @@
 			filterSubmit() {
 				if (this.dataList.length > 0) {
 					this.show_start = false
-					// this.realTimeSel.startDate = this.dropdownName + "-01-01";
-					// this.realTimeSel.endDate = this.getLastMillisecondOfYear(this.dropdownName);
 					this.realTimeSel.startDate = this.date1
 					this.realTimeSel.endDate = this.date2
 					this.$refs.paging.refresh();
@@ -1308,11 +1267,11 @@
 				this.realTimeSel.phoneS = ""
 				this.realTimeSel.contactsS = ""
 				this.realTimeSel.siteE = ""
-				
-				this.realTimeSel.kTakeE=""
-				this.realTimeSel.kPhoneE=""
-				this.realTimeSel.kSiteE=""
-				
+
+				this.realTimeSel.kTakeE = ""
+				this.realTimeSel.kPhoneE = ""
+				this.realTimeSel.kSiteE = ""
+
 				this.$refs.paging.reload();
 			},
 			checkboxGroupChange(event, index) {
@@ -1343,24 +1302,6 @@
 				} else {
 					this.$u.toast("您暂无可勾选的订单~")
 				}
-				// if (len > 0) {
-				// 	if (this.checked) {
-				// 		this.checked = false
-				// 		this.orderList.forEach(res => {
-				// 			res.check = false;
-				// 		})
-				// 		this.hasCheck = false
-				// 	} else {
-				// 		this.checked = true
-				// 		this.orderList.forEach(res => {
-				// 			res.check = true;
-				// 		})
-				// 		this.hasCheck = true
-				// 	}
-				// } else {
-				// 	// 您暂无可勾选的订单
-				// 	this.$u.toast("您暂无可勾选的订单~")
-				// }
 			},
 			getData() {
 				let that = this;
