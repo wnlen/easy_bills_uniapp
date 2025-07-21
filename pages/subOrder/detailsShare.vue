@@ -413,6 +413,18 @@
 					this.orderItemList = order.data.data.orderItemList
 					this.imgList = order.data.data.imgList
 					this.yz(options)
+				}else if(options.id != undefined) {
+					this.orderId = options.id
+					//获取单据信息
+					const order = await this.loadData(options.id);
+					if (order.data.data.post == null) {
+						this.shareShow = true
+						return;
+					}
+					this.post = order.data.data.post
+					this.orderItemList = order.data.data.orderItemList
+					this.imgList = order.data.data.imgList
+					this.yz(options)
 				}
 			},
 			yz(options) {

@@ -31,11 +31,11 @@
 					<view class="u-border-top absolute al" style="bottom: 0;height: 30%;width: 100%;">
 						<view class="u-border-right item flex-col justify-center items-center" style="height: 100%;">
 							<button class="fx" size="medium" open-type="share" :data-id="transmitList[0].id"
-								:data-thumb="transmitList[0].picturesId" shape="circle" @click="ShareY">有金额转发</button>
+								:data-thumb="transmitList[0].picturesId" shape="circle" @click="beforeShare('Y')" :disabled="!shareReady">有金额转发</button>
 						</view>
 						<view class="item flex-col justify-center items-center" style="height: 100%;">
 							<button class="fx" size="medium" open-type="share" :data-id="transmitList[0].id"
-								:data-thumb="transmitList[0].picturesId" shape="circle" @click="ShareN">无金额转发</button>
+								:data-thumb="transmitList[0].picturesId" shape="circle" @click="beforeShare('N')" :disabled="!shareReady">无金额转发</button>
 						</view>
 					</view>
 				</view>
@@ -407,8 +407,29 @@
 					color: "#01BB74"
 				},
 				backHomepageClick: false,
-				khPhone: ""
+				khPhone: "",
+				shareReady: false
 			};
+		},
+		onShareAppMessage(ops) {
+			if (ops.from === 'button') {
+				console.log("分享：", ops);
+				var pid = ops.target.dataset.id;
+				var phone = this.vuex_user.phone;
+				var port = this.vuex_userRole
+				var versions = this.ShareDetails
+				return {
+					title: `您有一张订单待确认~`,
+					path: '/pages/subOrder/detailsShare?share_id=' + pid + "&&type=1" + "&&phone=" + phone + "&&port=" + port + "&&versions=" + versions,
+					imageUrl: this.transmitList[0].picturesId || '/static/share.png'
+				}
+			} else {
+				return {
+					title: '打开易单据小程序，极速管理您的货单~',
+					path: '/pages/index/index',
+					imageUrl: '/static/share.png'
+				}
+			}
 		},
 		onShow() {
 			// #ifdef MP-WEIXIN
@@ -567,16 +588,13 @@
 					}
 				}
 			},
-			ShareY(item) {
-				this.ShareDetails = "Y"
-				console.log("有金额");
-			},
-			ShareN(item) {
-				console.log("无金额");
-				this.ShareDetails = "N"
+			beforeShare(type) {
+			    this.ShareDetails = type;
+			    return new Promise(resolve => {
+					setTimeout(resolve, 100); // 等待 ShareDetails 设置完成
+			    });
 			},
 			ifInput(val) {
-				// console.log("输入框", val);
 				if (val === "") {
 					// console.log("输入框 满足", val);
 					return '#D8D8D8';
@@ -603,31 +621,7 @@
 				this.receipts.phoneE = ""
 				this.goPath('/pages/subOrder/table');
 			},
-			onShareAppMessage(ops) {
-				if (ops.from === 'button') {
-					console.log("分享：", ops);
-					var pid = ops.target.dataset.id;
-					var pThumb = ops.target.dataset.thumb;
-					var phone = this.vuex_user.phone;
-					var port = this.vuex_userRole
-					var versions = this.ShareDetails
-					console.log(pThumb);
-					return {
-						// title: `这是您的${versions=="Y"?"有金额":"无金额"}货单，请打开易单据查看详情~`,
-						title: `您有一张订单待确认~`,
-						path: '/pages/subOrder/detailsShare?share_id=' + pid + "&&type=1" + "&&phone=" + phone + "&&port=" +
-							port +
-							"&&versions=" + versions,
-						imageUrl: pThumb
-					}
-				} else {
-					return {
-						title: '打开易单据小程序，极速管理您的货单~',
-						path: '/pages/index/index',
-						imageUrl: '/static/share.png'
-					}
-				}
-			},
+			
 			addEmp() {
 				var ifwork = this.vuex_user.data.work == "0";
 				var dx = {
@@ -658,7 +652,6 @@
 				return /^\d+$/.test(str);
 			},
 			InitSearch(e) {
-
 				if (e.target.value == "" || e.target.value == null) {
 					console.log("===未输入手机号码===>");
 					return false;
@@ -1174,8 +1167,9 @@
 								this.backHomepageClick = true
 								this.$u.post('/edo/order/getByOrderNumber/' + this.receipts.orderNumber).
 								then(res => {
-									console.log("请求结果：" + res.data.data.post);
+									console.log("请求结果11：",res.data.data);
 									this.transmitList = res.data.data;
+									this.shareReady = true;
 									uni.removeStorageSync("inventoryStockpile")
 									resolve(true);
 								}).catch(res => {
