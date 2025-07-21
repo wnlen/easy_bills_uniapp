@@ -531,3 +531,8 @@ background: linear-gradient(90deg, #01BB74 0%, #01BB74 100%);
 	width: 100%;
 }
 
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

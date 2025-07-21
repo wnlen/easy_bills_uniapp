@@ -220,10 +220,6 @@
 				<view v-if="showYQZ" style="width: 100px;font-size: 13px;color: #01BB74;" class="flex-row">申请中</view>
 			</view>
 		</view>
-
-	</view>
-
-
 	</view>
 </template>
 

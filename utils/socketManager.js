@@ -87,7 +87,7 @@ const SocketManager = {
 
       // #ifdef MP-WEIXIN
       uni.sendSocketMessage({ data: msg });
-      console.log('[WS] 小程序心跳发送');
+      // console.log('[WS] 小程序心跳发送');
       // #endif
 
     }, HEARTBEAT_INTERVAL);
