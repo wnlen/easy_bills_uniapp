@@ -1,28 +1,28 @@
 <template>
 	<view>
+		<view class="list">
+			<text style="color: #FA3534;">*</text>手机号
+		</view>
 		<view class="flex-row justify-center items-center ml24 mr24 mt24 pl20 pr20 pt24 pb24"
 			style="background-color: rgba(244, 244, 244, 0.5);;border-radius: 6px;">
-			<view style="width: 20%;">
-				<text class="pt20 pb20 pr12 textcolor" style="color: #333333;"><text
-						style="color: #FA3534;">*</text>手机号</text>
-			</view>
-			<view style="width: 80%;">
+
+			<view style="width: 100%;">
 				<input class="input" placeholder-class="placeholder_class_establish" type="number"
 					@input="searchPhoneInput" v-model="submitUser.searchPhone" style="color:'#333333'" maxlength="20"
 					placeholder="请输入手机号" />
 			</view>
 		</view>
+		<view class="list">
+			{{user.port=='D'?"客户备注":"供应商备注"}}
+		</view>
 		<view class="flex-row justify-center items-center ml24 mr24 mt24 pl20 pr20 pt24 pb24"
 			style="background-color: rgba(244, 244, 244, 0.5);;border-radius: 6px;">
-			<view style="width: 25%;">
-				<text class="pt20 pb20 pr12 textcolor" style="color: #333333;"><text style="color: #FA3534;"></text>
-					{{user.port=='D'?"客户备注":"供应商备注"}}</text>
-			</view>
-			<view style="width: 75%;" v-if="user.port=='D'">
+
+			<view style="width: 100%;" v-if="user.port=='D'">
 				<input class="input" placeholder-class="placeholder_class_establish" type="text" @input="changeText"
 					v-model="submitUser.remarkD" style="color:'#333333'" maxlength="20" placeholder="请输入客户备注" />
 			</view>
-			<view style="width: 75%;padding-right: 20rpx;" v-if="user.port=='R'">
+			<view style="width: 100%;padding-right: 20rpx;" v-if="user.port=='R'">
 				<input class="input" placeholder-class="placeholder_class_establish" type="text" @input="changeText"
 					v-model="submitUser.remarkR" style="color:'#333333'" maxlength="20" placeholder="请输入供应商备注" />
 			</view>
@@ -190,10 +190,15 @@
 <style>
 	.placeholder_class_establish {
 		color: #D8D8D8;
-		text-align: right;
+		text-align: left;
 	}
 
 	.input {
-		text-align: right;
+		text-align: left;
+	}
+
+	.list {
+		margin-left: 30rpx;
+		margin-top: 30rpx;
 	}
 </style>
