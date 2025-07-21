@@ -30,9 +30,13 @@ uni.$api = api;
 import refresh from '@/common/refresh.js';
 Vue.use(refresh);
 
-//全局方法插件
+//全局js 方法插件
 import globalMethods from '@/common/globalMethods.js';
 Vue.use(globalMethods);
+
+//全局模版 方法插件
+import globalMixin from '@/common/globalMixin.js';
+Vue.mixin(globalMixin);
 
 // ========== 创建 Vue 实例 ==========
 const app = new Vue({
