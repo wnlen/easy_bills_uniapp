@@ -278,17 +278,13 @@
 			</view>
 		</u-popup>
 
-
-		<u-mask :show="roleShow" @click="roleShow = false">
+		<up-overlay :show="roleShow" @click="roleShow = false">
 			<pop-renew ref="popRenew" :item="buy"></pop-renew>
-		</u-mask>
-
-
+		</up-overlay>
 	</view>
 </template>
 
 <script>
-	import random from '../../../../uni_modules/vk-uview-ui/libs/function/random';
 	export default {
 		data() {
 			return {

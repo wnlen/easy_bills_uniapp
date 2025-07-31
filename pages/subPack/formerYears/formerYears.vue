@@ -199,7 +199,7 @@
 				</view>
 				<!-- <view class="flex-row justify-center items-center" style="width: 100%;"
 					v-show="uloading&&dataList.length>0">
-					<u-loading mode="flower"></u-loading>
+					<up-loading-icon mode="flower"></up-loading-icon>
 				</view> -->
 			</view>
 

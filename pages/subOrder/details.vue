@@ -225,7 +225,7 @@
 							<view class="ml20" style="" v-for="(item2,index2) in imgList" :key="index2">
 								<u-image :src="item2.url" shape="square" width="150rpx" height="150rpx"
 									@click="bigImg(item2.url)">
-									<u-loading slot="loading"></u-loading>
+									<up-loading-icon slot="loading"></up-loading-icon>
 								</u-image>
 							</view>
 						</view>
@@ -374,9 +374,6 @@
 			<!-- </view> -->
 		</u-popup>
 
-
-
-		<!-- <u-mask :show="showMask" @click="showMask = false"> -->
 		<u-popup class="flex-col justify-center items-center" border-radius="15" mode="center" v-model="showMask"
 			width="600rpx" height="400rpx">
 			<view class="flex-col justify-center items-center relative" style="height: 100%;width: 100%;">
@@ -408,9 +405,6 @@
 				</view>
 			</view>
 		</u-popup>
-		<!-- </u-mask> -->
-
-
 		<u-popup v-model="showBrowsePrint" :custom-style="customStylePrint" mode="center" border-radius="14"
 			width="650rpx" :height="showBrowsePrintHeight">
 			<view class="w100 pt30 relative flex-col items-center"

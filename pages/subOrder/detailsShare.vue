@@ -192,7 +192,7 @@
 							<view class="ml20" style="" v-for="(item2,index2) in imgList" :key="index2">
 								<u-image :src="item2.url" shape="square" width="150rpx" height="150rpx"
 									@click="bigImg(item2.url)">
-									<u-loading slot="loading"></u-loading>
+									<up-loading-icon slot="loading"></up-loading-icon>
 								</u-image>
 							</view>
 						</view>

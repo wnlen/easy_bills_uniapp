@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<u-navbar :custom-back="rightClick" :border-bottom="false" :titleBold="true" title-color="#000000" title="一键开单"
-			title-size="34" bgColor="#ffffff"></u-navbar>
+			title-size="34" bgColor="#ffffff">
 		</u-navbar>
 		<view class="">
 			<view class="flex-col items-center absolute" style="width: 100%;top: 30%;">

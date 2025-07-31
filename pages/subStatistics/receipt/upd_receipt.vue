@@ -174,8 +174,6 @@
 
 		</z-paging>
 
-
-		<!-- <u-mask :show="showCheck" @click="showCheck = false" duration="300"> -->
 		<u-popup v-model="showCheck" mode="bottom" border-radius="15">
 			<view class="warp"
 				style="height: 70vh;width: 100vw;background-color: #ffffff;border-radius: 15rpx 15rpx 0 0;">
@@ -279,7 +277,6 @@
 				</z-paging>
 			</view>
 		</u-popup>
-		<!-- </u-mask> -->
 
 		<u-loadmore v-show="total>5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" />
 

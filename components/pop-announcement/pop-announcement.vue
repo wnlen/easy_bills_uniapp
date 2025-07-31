@@ -1,7 +1,7 @@
 <template>
 	<view class="popAnnouncement" v-show="popAnnouncement">
 
-		<u-mask :show="popAnnouncement">
+		<up-overlay :show="popAnnouncement">
 			<view class="pop">
 				<view class="pop_card">
 					<view class="pop_card_hand">
@@ -18,7 +18,7 @@
 					</view>
 				</view>
 			</view>
-		</u-mask>
+		</up-overlay>
 
 	</view>
 </template>

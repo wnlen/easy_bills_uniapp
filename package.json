@@ -1,7 +1,17 @@
 {
   "dependencies": {
+    "clipboard": "^2.0.11",
+    "dayjs": "^1.11.13",
     "echarts": "^5.4.3",
+    "html2canvas": "^1.4.1",
+    "luch-request": "^3.1.1",
+    "pinia": "^2.1.4",
+    "pinia-plugin-persistedstate": "^3.2.3",
     "qrcode": "^1.5.3",
-    "qrcodejs2": "^0.0.2"
+    "qrcodejs2": "^0.0.2",
+    "vue-i18n": "^11.1.10"
+  },
+  "devDependencies": {
+    "rollup-plugin-visualizer": "^6.0.3"
   }
 }

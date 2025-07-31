@@ -7,12 +7,12 @@
 				<view class="flex-row flex-1 ml24 items-center" style="">
 					<view>
 						<!-- #ifdef MP-WEIXIN -->
-						<u-avatar size="120"
+						<u-avatar size="60"
 							:src="vuex_user.data.headPortrait==null?ImgUrl+'/wxImg/index/mr.svg':vuex_user.data.headPortrait"
 							@click="userClick"></u-avatar>
 						<!-- #endif -->
 						<!-- #ifdef APP -->
-						<u-avatar size="120" src="https://res-oss.elist.com.cn/wxImg/index/mr.svg"
+						<u-avatar size="60" src="https://res-oss.elist.com.cn/wxImg/index/mr.svg"
 							@click="userClick"></u-avatar>
 						<!-- #endif -->
 					</view>
@@ -48,17 +48,17 @@
 						</view>
 
 						<view class="flex-col justify-left mt20" style="">
-							<view class=".ft-zjj-0.5" @click="userClick">
+							<view class="ft-zjj-05" @click="userClick">
 								<view class="flex-row items-center">
 									<u-icon size="50" :name="ImgUrl+'/wxImg/user/my-phone.png'"></u-icon>
 									<text class="pb5" style="color: #525252;">{{vuex_user.phone||'***********'}}</text>
 								</view>
 							</view>
 							<view class="">
-								<view class=".ft-zjj-0.5" @click="userClick">
+								<view class="ft-zjj-05" @click="userClick">
 									<view class="flex-row items-center">
 										<u-icon size="50" :name="ImgUrl+'/wxImg/user/my-emp.png'"></u-icon>
-<!-- 										<text class="pb5"
+										<!-- 										<text class="pb5"
 											style="color: #525252;">{{(vuex_user.ac?vuex_user.ac.enterpriseName:'未完善公司信息')}}</text> -->
 										<text class="pb5"
 											style="color: #525252;">{{(vuex_user.ac?vuex_user.ac.enterpriseName?vuex_user.ac.enterpriseName:'***********':'未完善公司信息')}}</text>
@@ -75,7 +75,6 @@
 		</view>
 
 		<view class="user-menu" style="position: relative;z-index: 10;height: 70vh;">
-
 			<view class="card flex-row bg-white mt25 ml24 mr24 cardShowPlus" style="border-radius: 6px;height: 12vh;">
 				<view class="icon" style="" id="box">
 					<view class="" @click="menuClick(menusIcon[0])">
@@ -105,38 +104,30 @@
 			<view class="card flex-row mt25 ml24 ml24 cardShowPlus justify-center items-center pb5 pt5"
 				style="border-radius: 6px;width: 94vw;height: auto;background-color: white;">
 				<view class="" style="width: 94%;">
-
-					<u-cell-item :title="menus[0].name" :arrow="true" arrow-direction="right"
-						@click="menuClick(menus[0])" :border-bottom='false'>
-						<u-icon slot="icon" size="40" :name="ImgUrl+menus[0].icon" color="#999"
-							:custom-style="{'marginRight':'20rpx'}"></u-icon>
-					</u-cell-item>
-
-					<u-cell-group :border="true" style="width: 96%;height: 99%;">
-						<u-cell-item v-for="(item,index) in filteredMenus" :key="index" :title="item.name" :arrow="true"
-							arrow-direction="right" @click="menuClick(item)" border-bottom>
-							<u-icon slot="icon" size="40" :name="ImgUrl+item.icon" color="#999"
+					<up-cell-group>
+						<up-cell :title="menus[0].name" :arrow="true" arrow-direction="right"
+							@click="menuClick(menus[0])" :border-bottom='false'>
+							<u-icon slot="icon" size="40" :name="ImgUrl+menus[0].icon" color="#999"
 								:custom-style="{'marginRight':'20rpx'}"></u-icon>
-						</u-cell-item>
+						</up-cell>
+					</up-cell-group>
+					<up-cell-group :border="true" style="width: 96%;height: 99%;">
+						<up-cell v-for="(item,index) in filteredMenus" :key="index" :title="item.name"
+							:arrow="true" arrow-direction="right" @click="menuClick(item)" border-bottom>
+							<up-icon slot="icon" size="40" :name="ImgUrl+item.icon" color="#999"
+								:custom-style="{'marginRight':'20rpx'}"></up-icon>
+						</up-cell>
 
-					</u-cell-group>
+					</up-cell-group>
 
-					<u-cell-item :title="menus[menus.length-1].name" :arrow="true" arrow-direction="right"
+					<up-cell :title="menus[menus.length-1].name" :arrow="true" arrow-direction="right"
 						@click="menuClick(menus[menus.length-1])" :border-bottom='false' :border='false'>
 						<u-icon slot="icon" size="40" :name="ImgUrl+menus[menus.length-1].icon" color="#999"
 							:custom-style="{'marginRight':'20rpx'}"></u-icon>
-					</u-cell-item>
+					</up-cell>
 
 				</view>
 			</view>
-			<!-- 						<u-cell-group :border="false">
-				<u-cell-item v-for="(item,index) in menus" :key="index" :title="item.name" :arrow="true"
-					arrow-direction="right" @click="menuClick(item)" border-bottom>
-					<u-icon slot="icon" size="40" :name="item.icon" color="#999"
-						:custom-style="{'marginRight':'20rpx'}"></u-icon>
-					<text slot="right-icon" class="ft-lighgray">{{item.info}}</text>
-				</u-cell-item>
-			</u-cell-group> -->
 		</view>
 
 		<u-tabbar :list="vuex_tabbar" :height="tabHight" iconSize="40" active-color="#0FB076"></u-tabbar>

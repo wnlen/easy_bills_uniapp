@@ -31,9 +31,16 @@
 				</view>
 				<view class="FromInput u-border-bottom">
 					<text class="textcolor">总金额:</text>
-					<input placeholder-class="placeholder_class" type="text" v-model="billFrom.billPrice.toFixed(2)"
-						:style="{color:'#333333'}" maxlength="11" disabled placeholder="请获取总金额"
-						class="ml15  flex-1 u-line-1 endcolor" />
+					<input
+					  :value="parseFloat(billFrom.billPrice).toFixed(2)"
+					  disabled
+					  placeholder-class="placeholder_class"
+					  type="text"
+					  :style="{color:'#333333'}"
+					  maxlength="11"
+					  placeholder="请获取总金额"
+					  class="ml15 flex-1 u-line-1 endcolor"
+					/>
 					<text>元</text>
 				</view>
 				<view class="FromInput u-border-bottom" v-if="vuex_userRole == 'D'">

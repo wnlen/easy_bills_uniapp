@@ -1,0 +1,2 @@
+// product.js
+export default () => ({})

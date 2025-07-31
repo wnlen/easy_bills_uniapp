@@ -1,0 +1,2 @@
+// customer.js
+export default () => ({})

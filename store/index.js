@@ -1,8 +1,5 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { createStore } from 'vuex'
 import apiConfig from '@/common/http.api.js';
-
-Vue.use(Vuex)
 
 let lifeData = {};
 
@@ -48,7 +45,7 @@ const saveLifeData = function(key, value) {
 		uni.setStorageSync('lifeData', tmp);
 	}
 }
-const store = new Vuex.Store({
+const store = createStore({
 	state: {
 		flush: 0,
 		// 如果上面从本地获取的lifeData对象下有对应的属性，就赋值给state中对应的变量

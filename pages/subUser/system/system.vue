@@ -1,10 +1,10 @@
 <template>
 	<view class="vh100 bg-gray">
-		<u-cell-group :border="false">
-			<u-cell-item :title="item.name" v-for="(item,index) in num" :arrow="true" :key="index" @click="jump(item)">
+		<up-cell-group :border="false">
+			<up-cell :title="item.name" v-for="(item,index) in num" :arrow="true" :key="index" @click="jump(item)">
 				<text slot="right-icon" class="ft-lighgray"></text>
-			</u-cell-item>
-		</u-cell-group>
+			</up-cell>
+		</up-cell-group>
 	</view>
 </template>
 

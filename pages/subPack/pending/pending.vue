@@ -393,7 +393,7 @@
 
 		<!-- <u-tabbar :list="vuex_tabbar" active-color="#0FB076"></u-tabbar> -->
 
-		<u-mask :show="showMask" @click="showMask = false;password=''">
+		<up-overlay :show="showMask" @click="showMask = false;password=''">
 			<u-popup class="flex-col justify-center items-center" border-radius="15" mode="center" v-model="showMask"
 				width="600rpx" height="400rpx">
 				<view class="flex-col justify-center items-center relative" style="height: 100%;width: 100%;">
@@ -426,8 +426,7 @@
 					</view>
 				</view>
 			</u-popup>
-		</u-mask>
-
+		</up-overlay>
 	</view>
 </template>
 

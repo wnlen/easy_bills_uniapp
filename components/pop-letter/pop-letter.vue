@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<u-mask :show="show" @click="show = false">
+		<up-overlay :show="show" @click="show = false">
 			<view class="letter" @tap.stop>
 
 				<view style="width: 65vw; height: 52vh; background-color: red; position: relative;border-radius: 12px;
@@ -21,7 +21,7 @@
 					</view>
 				</view>
 			</view>
-		</u-mask>
+		</up-overlay>
 	</view>
 </template>
 

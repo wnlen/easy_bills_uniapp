@@ -1,10 +1,8 @@
 <template>
 	<view class="content">
-		<!-- <u-navbar :custom-back="jump" title="发票审核" :autoBack="true"> -->
-			<u-navbar :custom-back="jump" :border-bottom="false" :titleBold="true" title-color="#000000" title="发票审核"
-				title-size="34" bgColor="#ffffff"></u-navbar>
+		<u-navbar :custom-back="jump" :border-bottom="false" :titleBold="true" title-color="#000000" title="发票审核"
+				title-size="34" bgColor="#ffffff">
 		</u-navbar>
-		<!-- https://res-oss.elist.com.cn/wxImg/user/invoic.svg -->
 		<view class="w100 box">
 			<view class="mt20">
 				<u-icon name="https://res-oss.elist.com.cn/wxImg/user/invoic.png" size="200"></u-icon>

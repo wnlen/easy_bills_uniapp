@@ -51,8 +51,7 @@
 					电子单据已发送给收货人
 				</view>
 				<view class="flex-row justify-center items-center mt40">
-					<button class=""
-						style="background-color: #ffffff;width:135.62px;height:'39.99px';border-radius:169.2px;color: #262626;border: 1px solid #01BB74;"
+					<button style="background-color: #ffffff;width:135.62px;height:'39.99px';border-radius:169.2px;color: #262626;border: 1px solid #01BB74;"
 						class=" mr10" size="medium" shape="circle" @click="showShare=true">
 						<u-icon class="pr10" label-color="#01BB74" label="微信分享好友" label-pos="right" name="weixin-fill"
 							color="#01BB74" size="30"></u-icon>
@@ -311,9 +310,9 @@
 		<pop-auth ref="popAuth"></pop-auth>
 		<!-- 认证提醒 -->
 
-		<u-mask :show="showOrderPly" @click="showOrderPly = false" :mask-click-able="false">
+		<up-overlay :show="showOrderPly" @click="showOrderPly = false" :mask-click-able="false">
 			<pop-order ref="popOrder" :item="order"></pop-order>
-		</u-mask>
+		</up-overlay>
 	</view>
 </template>
 

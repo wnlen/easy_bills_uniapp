@@ -5,14 +5,14 @@
 			:style="{backgroundImage:vuex_userRole!='R'?'url(https://res-oss.elist.com.cn/wxImg/index/indexbg.png)':'url(https://res-oss.elist.com.cn/wxImg/index/indexR.png)',backgroundSize: 'cover'}">
 			<view class="flex-row justify-left items-center"
 				style="width: 100%;height: 70%;background-color: transparent;text-align: center;z-index: 2;">
-				<view class="mt18" style="width: 25%;">
+				<view class="mt16 ml14 mr15">
 					<!-- #ifdef MP-WEIXIN -->
-					<u-avatar size="110" @click="goPath('')"
+					<u-avatar size="45" @click="goPath('')"
 						:src="vuex_user.data.headPortrait?vuex_user.data.headPortrait:ImgUrl+'/wxImg/index/mr.svg'">
 					</u-avatar>
 					<!-- #endif -->
 					<!-- #ifdef APP -->
-					<u-avatar size="110" @click="goPath('')"
+					<u-avatar size="45" @click="goPath('')"
 						:src="vuex_user.data.headPortrait?vuex_user.data.headPortrait:'https://res-oss.elist.com.cn/wxImg/index/mr.svg'">
 					</u-avatar>
 					<!-- #endif -->
@@ -35,13 +35,15 @@
 						</view>
 					</view>
 				</view>
-				<view class="flex-col justify-center items-start" style="width: 25%;height: 100%;">
-					<view class="pt48 mt18" style="" @tap.stop id="box">
-						<u-image v-show="vuex_userRole!='R'" @click="sideClick" :show-menu-by-longpress="false"
-							:src="ImgUrl+'/wxImg/index/fhd-role.png'" width="160rpx" height="52rpx"></u-image>
-						<u-image v-show="vuex_userRole=='R'" @click="sideClick" :show-menu-by-longpress="false"
-							:src="ImgUrl+'/wxImg/index/shd-role.png'" width="160rpx" height="52rpx"></u-image>
-					</view>
+				<view class="btn_role">
+					<up-button v-if="vuex_userRole=='D'" @click="sideClick" type="primary" shape="circle" text="发货端"
+						:customStyle="btn_customStyle">
+						发货端<albb-icon icon="ydj-qiehuan" :iconStyle="iconStyle" size="40rpx" color="#fff"></albb-icon>
+					</up-button>
+					<up-button v-if="vuex_userRole=='R'" @click="sideClick" type="primary" shape="circle" text="收货端"
+						:customStyle="btn_customStyle">
+						收货端<albb-icon icon="ydj-qiehuan" :iconStyle="iconStyle" size="40rpx" color="#fff"></albb-icon>
+					</up-button>
 				</view>
 			</view>
 		</view>
@@ -59,8 +61,8 @@
 								<view class="flex-row" style="width: 300rpx;z-index: 999;">
 									<text class="mr5 ft-bold ft32" style="letter-spacing: 2rpx;">销售额(今年)</text>
 									<view @click="isLook = !isLook" class="flex-col items-center justify-center">
-										<u-icon v-if="isLook" name="eye-fill" size="35"></u-icon>
-										<u-icon v-else name="eye-off" size="35"></u-icon>
+										<u-icon v-if="isLook" name="eye-fill" size="18"></u-icon>
+										<u-icon v-else name="eye-off" size="18"></u-icon>
 									</view>
 								</view>
 							</view>
@@ -75,7 +77,7 @@
 										￥
 									</text>
 									<u-count-to v-if="isLook" :end-val="priceObj[0]" separator="," color="#FFC300"
-										font-size="40" decimals='2' duration='1' bold></u-count-to>
+										font-size="25" decimals='2' duration='1' bold></u-count-to>
 								</view>
 							</view>
 						</view>
@@ -91,8 +93,8 @@
 
 								<view class="" v-if="isLook">
 									<u-count-to v-if="!ifBig(priceObj[1])" :end-val="priceObj[1]" separator=","
-										color="#333333" font-size="30" decimals='2' duration='1' bold></u-count-to>
-									<text style="font-size: 29.68rpx;font-weight: bold;" v-if="ifBig(priceObj[1])">
+										color="#333333" font-size="15" decimals='2' duration='1' bold></u-count-to>
+									<text style="font-size: 30rpx;font-weight: bold;" v-if="ifBig(priceObj[1])">
 										{{BigSub(priceObj[1])}}
 									</text>
 								</view>
@@ -107,7 +109,7 @@
 								<text v-if="!isLook">****</text>
 								<view class="" v-if="isLook">
 									<u-count-to v-if="!ifBig(priceObj[2])" :end-val="priceObj[2]" separator=","
-										color="#333333" font-size="30" decimals='2' duration='1' bold></u-count-to>
+										color="#333333" font-size="15" decimals='2' duration='1' bold></u-count-to>
 									<text style="font-size: 29.68rpx;font-weight: bold;" v-if="ifBig(priceObj[2])">
 										{{BigSub(priceObj[2])}}
 									</text>
@@ -123,7 +125,7 @@
 								<text v-if="!isLook">****</text>
 								<view class="" v-if="isLook">
 									<u-count-to v-if="!ifBig(priceObj[3])" :end-val="priceObj[3]" separator=","
-										color="#333333" font-size="30" decimals='2' duration='1' bold></u-count-to>
+										color="#333333" font-size="15" decimals='2' duration='1' bold></u-count-to>
 									<text style="font-size: 29.68rpx;font-weight: bold;" v-if="ifBig(priceObj[3])">
 										{{BigSub(priceObj[3])}}
 									</text>
@@ -169,19 +171,18 @@
 
 			<view class="sudoku u-margin-top-30 ml24 mr24 pb48 cardShowPlus" v-if="vuex_userRole!='R'"
 				style="border-radius: 12rpx;">
-
 				<view class="grid-container">
-					<view class="grid-item  mt10" @click="goList(item.type)" v-for="(item,index) in Sudoku.notLogD[0]"
-						:key="index">
-						<u-icon size="120" :name="item.icon"></u-icon>
+					<view class="grid-item  mt10 items-center justify-center" @click="goList(item.type)"
+						v-for="(item,index) in Sudoku.notLogD[0]" :key="index">
+						<u-icon size="60" :name="item.icon"></u-icon>
 						<view class="grid-text">{{item.text}}</view>
 					</view>
 				</view>
 
 				<view class="grid-container">
-					<view class="grid-item  mt10" @click="goPath(item.path)" v-for="(item,index) in Sudoku.notLogD[1]"
-						:key="index">
-						<u-icon size="120" :name="item.icon"></u-icon>
+					<view class="grid-item  mt10 items-center justify-center" @click="goPath(item.path)"
+						v-for="(item,index) in Sudoku.notLogD[1]" :key="index">
+						<u-icon size="60" :name="item.icon"></u-icon>
 						<view class="grid-text">{{item.text}}</view>
 					</view>
 				</view>
@@ -189,16 +190,17 @@
 				<view class="grid-container pb6">
 					<view class="grid-item  mt10 relation" @click="goPathIndex(item)"
 						v-for="(item,index) in Sudoku.notLogD[2]" :key="index">
-						<view class="" v-if="!item.chat">
-							<u-icon size="120" :name="item.icon"></u-icon>
+						<view class="justify-center" v-if="!item.chat">
+							<u-icon size="60" :name="item.icon"></u-icon>
 							<view class="grid-text">{{item.text}}</view>
-							<u-badge v-if="item.count" bgColor="#E52829" :count="item.count" class="mr30" style="position: absolute;top: 0rpx;right: 0rpx;"></u-badge>
+							<u-badge v-if="item.count" bgColor="#E52829" :count="item.count" class="mr30"
+								style="position: absolute;top: 0rpx;right: 0rpx;"></u-badge>
 						</view>
-						<view class="" v-else>
+						<view v-else>
 							<u-button hover-class="none" :hair-line="false" :custom-style="buttonStyle"
 								open-type="contact">
 								<view class="flex-col justify-center items-center" style="width: 100%;">
-									<u-icon size="110" :name="item.icon"></u-icon>
+									<u-icon size="55" :name="item.icon"></u-icon>
 									<view class="grid-text" style="">{{item.text}}</view>
 								</view>
 							</u-button>
@@ -212,7 +214,7 @@
 				<view class="grid-container">
 					<view class="grid-item  mt10" @click="goList(item.type)" v-for="(item,index) in Sudoku.notLogR[0]"
 						:id="index==0?'box33':''" :key="index">
-						<u-icon size="120" :name="item.icon"></u-icon>
+						<u-icon size="60" :name="item.icon"></u-icon>
 						<view class="grid-text">{{item.text}}</view>
 						<u-badge v-if="item.count" bgColor="#E52829" :count="item.count" class="mr30"
 							style="position: absolute;top: 0rpx;right: 0rpx;"></u-badge>
@@ -222,7 +224,7 @@
 				<view class="grid-container">
 					<view class="grid-item  mt10" @click="goPath(item.path)" v-for="(item,index) in Sudoku.notLogR[1]"
 						:key="index">
-						<u-icon size="120" :name="item.icon"></u-icon>
+						<u-icon size="60" :name="item.icon"></u-icon>
 						<view class="grid-text">{{item.text}}</view>
 					</view>
 				</view>
@@ -231,7 +233,7 @@
 					<view class="grid-item  mt10" @click="goPathIndex(item)" v-for="(item,index) in Sudoku.notLogR[2]"
 						:key="index">
 						<view class="" v-if="!item.chat">
-							<u-icon size="120" :name="item.icon"></u-icon>
+							<u-icon size="60" :name="item.icon"></u-icon>
 							<view class="grid-text">{{item.text}}</view>
 							<u-badge v-if="item.count" bgColor="#E52829" :count="item.count" class="mr30"
 								style="position: absolute;top: 0rpx;right: 0rpx;"></u-badge>
@@ -248,11 +250,11 @@
 					</view>
 				</view>
 			</view>
-			<view class="middle-banner mt25 ml24 mr24 cardShowPlus" style="background-color: transparent;">
+			<view class="middle-banner mt25 ml24 mr24 cardShowPlus">
 				<u-swiper @click="middleClick" bg-color="#F6F7F7"
-					:list="middleBanner.length>0?middleBanner:(vuex_userRole=='R'?middleBannerlXR:middleBannerlXD)"
-					:autoplay="false" height="190" interval="5000" autoplay style="width:auto !important" name="url"
-					:effect3d="true" effect3d-previous-margin="-10" border-radius="18"></u-swiper>
+					:list="middleBanner.length>0?middleBanner:(vuex_userRole=='R'?middleBannerlXR:middleBannerlXD)" imgMode="aspectFill"
+					height="95" interval="5000" autoplay name="url" :effect3d="true" effect3d-previous-margin="-10"
+					border-radius="18"></u-swiper>
 			</view>
 		</view>
 
@@ -260,7 +262,7 @@
 
 		<u-tabbar id="box6" :height="tabHight" iconSize="40" :list="vuex_tabbar" active-color="#0FB076"></u-tabbar>
 
-		<u-mask :show="expireShow">
+		<up-overlay :show="expireShow">
 			<view class="flex-col justify-center items-center"
 				style="width: 100%;height:100%;background-color: transparent;">
 				<view class="flex-col justify-center items-center relative" style="width: 80%;height: 25%;border-radius: 28rpx;background-image: url('https://res-oss.elist.com.cn/wxImg/user/dqalert.png');
@@ -293,7 +295,7 @@
 					</view>
 				</view>
 			</view>
-		</u-mask>
+		</up-overlay>
 
 
 		<pop-guide :max-step="3" :guideData="functionGuideData" ref="FunctionGuide"></pop-guide>
@@ -302,23 +304,32 @@
 	</view>
 </template>
 <script>
+	import albbIcon from '@/uni_modules/albb-icon/components/albb-icon/albb-icon.vue'
 	export default {
 		data() {
 			return {
+				iconStyle: {
+					'marginLeft': '5rpx',
+					'color': '#fff'
+				},
+				btn_customStyle: {
+					'width': '160rpx',
+					'height': '52rpx',
+					'backgroundColor': '#FDB728',
+					'border-color': '#FDB728'
+				},
 				tabHight: "100rpx",
 				expireShow: false,
 				calendar: 0,
 				middleBanner: [],
 				middleBannerlXD: [{
-						"url": "https://res-oss.elist.com.cn/advertising/free_card.png",
-						"jump": "https://res-oss.elist.com.cn/advertising/free_card.png?s=1"
-					}
-				],
+					"url": "https://res-oss.elist.com.cn/advertising/free_card.png",
+					"jump": "https://res-oss.elist.com.cn/advertising/free_card.png?s=1"
+				}],
 				middleBannerlXR: [{
-						"url": "https://res-oss.elist.com.cn/advertising/banner001.jpg",
-						"jump": "https://res-oss.elist.com.cn/advertising/advertising001.png?s=1"
-					}
-				],
+					"url": "https://res-oss.elist.com.cn/advertising/banner001.jpg",
+					"jump": "https://res-oss.elist.com.cn/advertising/advertising001.png?s=1"
+				}],
 				isLook: true,
 				priceObj: [0, 0, 0, 0, 0],
 				backlog: 0,
@@ -469,12 +480,15 @@
 					this.tabHight = value
 				}
 			});
+			console.log('vuex_userRole', this.vuex_userRole)
+			console.log('albbIcon', albbIcon)
 		},
 		onShow() {
-			this.getmiddleBanner();//加载广告
-			if (this.vuex_user.phone == undefined || this.vuex_user.phone == "10000000000" || this.vuex_user.phone == null) {
-				
-				
+			this.getmiddleBanner(); //加载广告
+			if (this.vuex_user.phone == undefined || this.vuex_user.phone == "10000000000" || this.vuex_user.phone ==
+				null) {
+
+
 				if (this.vuex_userRole == "D") {
 					this.middleBanner = this.middleBannerlXD
 				} else {
@@ -483,7 +497,7 @@
 				// console.log('this.middleBanner',this.middleBanner);
 
 				//#ifdef APP 
-                    this.goToLogin();
+				this.goToLogin();
 				//#endif 
 			} else {
 				this.$loadUser(this);
@@ -519,7 +533,7 @@
 			}
 		},
 		methods: {
-			goToLogin(){
+			goToLogin() {
 				uni.navigateTo({
 					url: "/pages/subUser/login"
 				})
@@ -922,10 +936,11 @@
 				// console.log('刷新')
 				var filer = this.vuex_userRole == "D" ? "1" : "0"
 				// console.log('广告',this.vuex_userRole);
+				console.log('this.$api.advert 是：', this.$api.advert)
 				this.$api.advert.getAdvertList({
-					'port':filer
+					'port': filer
 				}).then(res => {
-					// console.log('广告列表',res)
+					console.log('广告列表',res)
 					if (res.data.code == 401) {
 						if (this.vuex_userRole == "D") {
 							this.middleBanner = this.middleBannerlXD
@@ -1068,7 +1083,7 @@
 				this.jumpToUrl(this.middleBanner[e].jump);
 			},
 			jumpToUrl(url) {
-				console.log('点击广告',url)
+				console.log('点击广告', url)
 				if (!url) return;
 				if (url.indexOf('http') < 0) {
 					// 内部跳转
@@ -1094,30 +1109,13 @@
 	}
 </script>
 
-<style>
-	.grid-container {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		grid-gap: 0;
-	}
-
-	.grid-item {
-		background-color: #ffffff;
-		text-align: center;
-		/* padding: 10rpx; */
-		padding-top: 30rpx;
-		position: relative;
-	}
-</style>
 <style lang="scss" scoped>
 	.Index {
 		background-color: #F6F7F7;
 		overflow: auto;
 		height: 100vh;
 		width: 100vw;
-
 		position: relative;
-
 		overflow-x: hidden;
 	}
 
@@ -1273,16 +1271,39 @@
 		flex-direction: column;
 		align-items: center;
 	}
-	.islogon{
+
+	.islogon {
 		width: 450rpx;
 		color: #333333;
-		font-size: 44rpx;
+		font-size: 40rpx;
 		font-weight: bold;
 		letter-spacing: 4rpx;
 		text-align: left;
 		margin-bottom: 5rpx;
 	}
-	.text_1{
+
+	.text_1 {
 		text-align: left;
+	}
+
+	.btn_role {
+		position: absolute;
+		right: 30rpx;
+		top: 170rpx;
+	}
+
+	.grid-container {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-gap: 0;
+	}
+
+	.grid-item {
+		background-color: #ffffff;
+		text-align: center;
+		/* padding: 10rpx; */
+		padding-top: 30rpx;
+		position: relative;
+		margin: 0 auto;
 	}
 </style>

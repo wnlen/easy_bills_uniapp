@@ -47,48 +47,8 @@
 				</view>
 			</view>
 		</view>
-		<!-- <view class="relative flex-col  items-center" style="height:60%;background-color: transparent;margin-top: 10%;">
-			<view class="flex-col items-center"
-				style="background-color: #FFFFFF;border-radius: 18px;height: 380px;width: 80%;margin-top: 20%;">
-				<view class="icon flex-col justify-center items-center absolute" style="position: relative;top: -40px;">
-					<u-avatar :src="vuex_user.data.headPortrait" size="150" mode="circle"></u-avatar>
-				</view>
-				<view class="absolute" style="position: relative;width: 100%;top: -50px;">
-					<view class="flex-col justify-center items-center width100"
-						style="font-family: Source Han Sans;font-size: 19.2px;font-weight: bold;line-height: 26.4px;text-align: center;letter-spacing: 0px;">
-						{{vuex_user.data.name}}
-					</view>
-					<view class="width100 flex-row justify-center items-center">
-						<view class="">
-							<u-icon name="phone" color="#AAAAAA" size="28"></u-icon>
-						</view>
-						<view class="">
-							{{vuex_user.phone}}
-						</view>
-					</view>
-				</view>
-				<view class="width100 absolute" style="width: 100%;bottom: 20%;">
-					<view v-if="!showSF" class="flex-col justify-center items-center" style="width: 100%;">
-						<canvas ref="content" id="qrcode" canvas-id="qrcode"
-							style="width: 200px;height:200px;"></canvas>
-					</view>
-				</view>
-			</view>
-		</view> -->
 
-
-		<!-- 	<view class="flex-row justify-center items-center" style="position: fixed; bottom: 5%;width: 100vw;">
-			<u-icon class="icon" name="https://res-oss.elist.com.cn/wxImg/user/bc.svg" color="transparent" size="130"
-				label="保存" margin-top="10" label-pos="bottom" label-color="#ffffff" @click="uiconGet('1')"></u-icon>
-			<u-icon class="icon" name="https://res-oss.elist.com.cn/wxImg/user/sys.svg" color="transparent" size="130"
-				label="扫一扫" margin-top="10" label-pos="bottom" label-color="#ffffff" @click="uiconGet('2')"></u-icon>
-			<u-icon class="icon" name="https://res-oss.elist.com.cn/wxImg/user/fx.svg" color="transparent" size="130"
-				label="分享" margin-top="10" label-pos="bottom" label-color="#ffffff" @click="uiconGet('3')"></u-icon>
-		</view> -->
-
-
-
-		<u-mask :show="showSF" @click="showSF = false">
+		<up-overlay :show="showSF" @click="showSF = false">
 			<div @tap.stop v-if="showSF" class="flex-col justify-center items-center relative" :style="{height:heig}"
 				style="background-color: white;position: absolute;width: 75%;height: 20vh;margin-top: 70%;
 				         border-radius: 6.87px;margin-left: 46px;">
@@ -152,7 +112,7 @@
 					</view>
 				</view>
 			</div>
-		</u-mask>
+		</up-overlay>
 
 	</view>
 
@@ -161,7 +121,7 @@
 
 <script>
 	import UQRCode from '@/components/uqrcode.js'
-	import html2canvas from '@/components/html2canvas.min.js'
+	import html2canvas from 'html2canvas'
 	export default {
 		data() {
 			return {
