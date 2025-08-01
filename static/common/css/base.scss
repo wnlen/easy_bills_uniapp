@@ -37,13 +37,15 @@ view,image,text {box-sizing: border-box;flex-shrink: 0;}
 .ft24{
 	font-size: 24rpx;
 	}
+.ft28{
+		font-size: 28rpx;
+		}
 .ftp14{font-size: 14px;}
 .line24{line-height: 24rpx;}
 .ft25{font-size: 25rpx;}
 .line25{line-height: 25rpx;}
 .ft26{font-size: 26rpx;}
 .ft27{font-size: 27rpx;}
-.ft20{font-size: 20px;}
 .ft16{font-size: 16px;}
 .ft12{font-size: 12px;}
 .ft14{font-size: 14px;}
@@ -85,6 +87,7 @@ view,image,text {box-sizing: border-box;flex-shrink: 0;}
 .width150{width: 150rpx;}
 .width157{width: 157rpx;}
 .width215{width: 215rpx;}
+.width25_{width: 25%;}
 .width40{width: 40%;}
 .width46{width: 46%;}
 .width50{width: 50%;}
@@ -162,8 +165,11 @@ view,image,text {box-sizing: border-box;flex-shrink: 0;}
 .mb13{margin-bottom: 13rpx;}
 .mb14{margin-bottom: 14rpx;}
 .mb15{margin-bottom: 15rpx;}
+.mb16{margin-bottom: 16rpx;}
 .mb18{margin-bottom: 18rpx;}
 .mb20{margin-bottom: 20rpx;}
+.pb20{padding-bottom: 20rpx;}
+.pall30{padding: 30rpx;}
 .mb24{margin-bottom: 24rpx;}
 .mb30{margin-bottom: 30rpx;}
 .mb54{margin-bottom: 54rpx;}
@@ -264,6 +270,7 @@ view,image,text {box-sizing: border-box;flex-shrink: 0;}
 .pr180{padding-right: 180rpx;}
 .left{float:left}
 .right{float:right}
+.radius12{border-radius: 12rpx;}
 .radius{border-radius: 14rpx;}
 .radius28{border-radius: 28rpx;}
 .text-center{text-align:center}
