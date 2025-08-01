@@ -65,9 +65,15 @@
 				</view>
 				<view class="FromInput">
 					<text class="textcolor">应收金额:</text>
-					<input placeholder-class="placeholder_class" type="number" disabled
-						v-model="parseFloat(billFrom.billAfterPrice).toFixed(2)" :style="{color:'#333333'}"
-						maxlength="11" placeholder="请输入折扣计算应收金额" class="ml15  flex-1 u-line-1 endcolor" />
+					<input
+					  v-model="billFrom.billAfterPrice"
+					  type="number"
+					  :style="{ color: '#333333' }"
+					  maxlength="11"
+					  placeholder="请输入折扣计算应收金额"
+					  class="ml15 flex-1 u-line-1 endcolor"
+					  placeholder-class="placeholder_class"
+					/>
 					<text>元</text>
 				</view>
 			</view>

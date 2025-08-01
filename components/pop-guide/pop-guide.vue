@@ -92,7 +92,6 @@
 						this.GuidanceDR(port)
 					} else {
 						if (this.functionGuideData.step == 3) {
-							// this.$u.vuex('guidance', 1);
 							uni.setStorageSync("guidance", 1)
 							if (uni.getStorageSync("guidance") != "") {
 								uni.switchTab({

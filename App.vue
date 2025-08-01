@@ -43,7 +43,7 @@ export default {
 		this.$monitorPushMessage?.();
 
 		if (options.scene !== 1007 && this.vuex_user?.phone) {
-			// 👉 使用封装模块连接 WebSocket
+			// 使用封装模块连接 WebSocket
 			SocketManager.connect(this.vuex_user.phone, (data) => {
 				if (data.type) {
 					this.updateMessageCounts();
@@ -56,12 +56,17 @@ export default {
 		}
 	},
 	onHide() {
-		SocketManager.close(); // 👉 页面隐藏时清理 WebSocket
-		this.$u.vuex('guidance', 0);
+		SocketManager.close(); // 页面隐藏时清理 WebSocket
+		
+		this.$u.setPinia({
+			guide:{
+				guidance:0
+			}
+		})
 	},
 	onUnload() {
 		uni.setStorageSync("auth", "0");
-		SocketManager.close(); // 👉 页面卸载时清理 WebSocket
+		SocketManager.close(); // 页面卸载时清理 WebSocket
 	},
 	methods: {
 		updateMessageCounts() {
@@ -130,7 +135,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "uni_modules/vk-uview-ui/index.scss";
+@import "@/uni_modules/uview-plus/index.scss";
 @import 'static/common/css/base.scss';
 
 @font-face {

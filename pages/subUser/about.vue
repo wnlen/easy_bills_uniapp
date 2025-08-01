@@ -1,7 +1,7 @@
 <template>
 	<view class="fixed-bar-height">
 		<view class="flex-col items-center pt100">
-			<image class="logo" src="@/static/logo.png" mode="widthFix"></image>
+			<image class="logo" src="@/static/icon/appMain.png" mode="widthFix"></image>
 			<view class="ml48 mr48 mt60">
 				<text class="ft29 ft-lighgray">{{infos.aboutIntroduction}}</text>
 			</view>

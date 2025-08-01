@@ -1,7 +1,7 @@
 <template>
 	<view class="vw100 vh100 bg-white">
-		<u-field label-width="0" v-model="text" type="textarea" auto-height="true" trim="true" placeholder="请输入备注" focus
-			maxlength="50"></u-field>
+		<up-input label-width="0" v-model="text" type="textarea" auto-height="true" trim="true" placeholder="请输入备注" focus
+			maxlength="50"></up-input>
 		<view class="fixed-bar bg-white pd30">
 			<view class="flex-row justify-center items-center">
 				<u-button :custom-style="customStyle" shape="circle" type="success" @click="save">保存</u-button>

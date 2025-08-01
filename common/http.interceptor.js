@@ -1,74 +1,76 @@
-// 白名单接口路径（无需 token 的接口）
-const noAuthUrls = [
-	'/edo/advert/get',
-	'/rest/v1/login',
-	'/rest/v1/register'
-];
-//白名单前缀接口
-const whitePrefixList = ['/public/'];
-let hasRedirectedToLogin = false;
+// common/http.interceptor.js
+import Request from 'luch-request' // 下载的插件
+import { useUserStore } from '@/store/user';
+let hasRedirectedToLogin = false
 
-const install = (Vue, vm) => {
-	//请求全局配置
-	Vue.prototype.$u.http.setConfig({
-		baseUrl: 'https://wxapi.elist.com.cn',
-		// baseUrl: 'https://wxapi.elist.com.cn/test',
-		// baseUrl: 'http://192.168.124.2:8081/test',
-		showLoading: true,
-		loadingText: '加载中~',
-		loadingTime: 800,
-		originalData: true
-	});
-	// 请求拦截器
-	Vue.prototype.$u.http.interceptor.request = (config) => {
-		const isWhiteListed = isWhiteListedPath(config.url);
-		const skipAuth = config.custom?.noAuth;
-		// console.log('config.url',config.url)
-		// console.log('isWhiteListed',isWhiteListed)
-		if (!isWhiteListed && !skipAuth) {
-			const lifeData = uni.getStorageSync('lifeData') || {};
-			config.header = config.header || {};
-
-			config.header.token = lifeData.vuex_token || '';
-			config.header.userRole = lifeData.vuex_userRole || '';
-			config.header.phone = lifeData.vuex_user?.phone || '';
-			config.header.work = lifeData.vuex_work || '';
-			config.header.boss = lifeData.vuex_user?.workData?.bossNumber || '0';
-		}
-
-		return config;
-	};
-
-	// 响应拦截器
-	Vue.prototype.$u.http.interceptor.response = (res) => {
-		// console.log('响应拦截器',res)
-		const { statusCode, data } = res;
-		if (data.code === 401 && !hasRedirectedToLogin) {
-			console.warn('401 未授权，执行清理并跳转登录页');
-			hasRedirectedToLogin = true;
-			setTimeout(() => (hasRedirectedToLogin = false), 2000); // 防止多次跳转
-			
-			Vue.prototype.$u.vuex('vuex_token', '');
-			Vue.prototype.$u.vuex('vuex_userRole', 'D');
-			Vue.prototype.$u.vuex('vuex_user', { phone: undefined });
-
-			uni.navigateTo({
-				url: '/pages/subUser/login'
-			});
-		}
-
-		return res;
-	};
-	
-};
-// 白名单判断封装函数
 function isWhiteListedPath(url = '') {
-	const cleanUrl = url.split('?')[0]; // 去掉 ? 后面的参数
+	const noAuthUrls = ['/edo/advert/get', '/rest/v1/login', '/rest/v1/register']
+	const whitePrefixList = ['/public/']
+	const cleanUrl = url.split('?')[0]
 	return (
 		noAuthUrls.includes(cleanUrl) ||
 		whitePrefixList.some(prefix => cleanUrl.startsWith(prefix))
-	);
+	)
 }
-export default {
-	install
-};
+
+export const initRequest = () => {
+	const http = new Request();
+	
+	if (!http || typeof http.setConfig !== 'function') {
+		console.warn('[拦截器未注册] uni.$u.http 不可用，跳过安装')
+		return null
+	}
+
+	http.setConfig((config) => {
+		// config.baseURL = 'https://wxapi.elist.com.cn/'
+		config.baseURL = 'https://wxapi.elist.com.cn/test/'
+		// baseUrl: 'http://192.168.124.2:8081/test/'
+		config.showLoading = true
+		config.loadingText = '加载中~'
+		config.loadingTime = 800
+		config.originalData = true
+		return config
+	})
+
+	http.interceptors.request.use((config) => {
+		const userStore = useUserStore();
+		
+		// console.log('userStore',userStore);
+			
+		const isWhite = isWhiteListedPath(config.url)
+		const skipAuth = config.custom?.noAuth
+		
+		if (!isWhite && !skipAuth) {
+			const lifeData =  {}
+			console.log('tokentokentokentokentokentoken',userStore);
+			config.header = {
+				...config.header,
+				token: userStore.token || '',
+				userRole: userStore.userRole || '',
+				phone: userStore.user?.phone || '',
+				work: userStore.work || '',
+				boss: userStore.user?.workData?.bossNumber || '0'
+			}
+		}
+		return config
+	})
+
+	http.interceptors.response.use((res) => {
+		if (res?.data?.code === 401 && !hasRedirectedToLogin) {
+			hasRedirectedToLogin = true
+			setTimeout(() => (hasRedirectedToLogin = false), 2000)
+
+			// uni.$u.vuex('vuex_token', '')
+			// uni.$u.vuex('vuex_userRole', 'D')
+			// uni.$u.vuex('vuex_user', {
+			// 	phone: undefined
+			// })
+
+			uni.navigateTo({
+				url: '/pages/subUser/login'
+			})
+		}
+		return res
+	})
+	return http
+}

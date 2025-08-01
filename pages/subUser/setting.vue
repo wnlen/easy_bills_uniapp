@@ -1,18 +1,18 @@
 <template>
 	<view class="vh100 bg-gray">
-		<u-cell-group :border="false">
-			<u-cell-item v-for="(item,index) in menus" :key="index" :title="item.name" :arrow="true"
+		<up-cell-group :border="false">
+			<up-cell v-for="(item,index) in menus" :key="index" :title="item.name" :arrow="true"
 				arrow-direction="right" @click="menuClick(item)">
 				<text slot="right-icon"
 					class="ft-lighgray">{{item.id=='1'?(vuex_userRole == 'D'? '发货方' : '收货方'):''}}</text>
-			</u-cell-item>
-			<u-cell-item title="注销账号" @click="writeOff" :arrow="true">
+			</up-cell>
+			<up-cell title="注销账号" @click="writeOff" :arrow="true">
 				<text slot="right-icon" class="ft-lighgray"></text>
-			</u-cell-item>
-			<u-cell-item title="退出登录" @click="loginOut" :arrow="true">
+			</up-cell>
+			<up-cell title="退出登录" @click="loginOut" :arrow="true">
 				<text slot="right-icon" class="ft-lighgray"></text>
-			</u-cell-item>
-		</u-cell-group>
+			</up-cell>
+		</up-cell-group>
 		<!--<view class="top-divider flex-row justify-center bg-white text-center">
 			<text @click="loginOut" class="ft29 ft-red pd30">退出登录</text>
 		</view>-->
@@ -98,11 +98,16 @@
 					success: res => {
 						if (res.confirm) {
 							this.$u.toast("已退出~");
-							this.$u.vuex('vuex_token', '');
-							this.$u.vuex('vuex_userRole', this.vuex_userRole);
-							this.$u.vuex('vuex_user', {
-								"phone":undefined
-							});
+							this.$u.setPinia({
+								user:{
+									userRole: this.vuex_userRole,
+									token: '',
+									user: {
+										"phone":undefined
+									}
+								}
+							})
+							
 							
 							//关闭socket
 							

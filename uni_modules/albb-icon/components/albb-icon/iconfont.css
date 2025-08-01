@@ -1,0 +1,21 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 4981937 */
+  /* Color fonts */
+  src: 
+       url('iconfont.woff2?t=1753329178845') format('woff2'),
+       url('iconfont.woff?t=1753329178845') format('woff'),
+       url('iconfont.ttf?t=1753329178845') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ydj-qiehuan:before {
+  content: "\e622";
+}
+

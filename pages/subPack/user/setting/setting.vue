@@ -1,18 +1,18 @@
 <template>
 	<view class="card flex-row bg-white mt25 ml30 mr30" style="border-radius: 12px;width: 92vw;height: auto;">
-		<u-cell-group :border="false" style="width: 100%;">
-			<u-cell-item title="检查更新" :arrow="false" arrow-direction="right" @click="menuClick(1)" border-bottom>
+		<up-cell-group :border="false" style="width: 100%;">
+			<up-cell title="检查更新" :arrow="false" arrow-direction="right" @click="menuClick(1)" border-bottom>
 				<text slot="right-icon" class="ft-lighgray">已经是最新版本</text>
-			</u-cell-item>
-			<u-cell-item title="接受消息提醒"  :arrow="false" arrow-direction="right" @click="menuClick(2)" border-bottom>
+			</up-cell>
+			<up-cell title="接受消息提醒"  :arrow="false" arrow-direction="right" @click="menuClick(2)" border-bottom>
 				<u-switch v-model="checked1" active-color="#01BB74"	></u-switch>
-			</u-cell-item>
-			<u-cell-item title="个性化服务推荐"  :arrow="false" arrow-direction="right" @click="menuClick(3)" border-bottom>
+			</up-cell>
+			<up-cell title="个性化服务推荐"  :arrow="false" arrow-direction="right" @click="menuClick(3)" border-bottom>
 				<u-switch v-model="checked2" active-color="#01BB74"	></u-switch>
-			</u-cell-item>
-			<u-cell-item title="关于我们" :arrow="true" arrow-direction="right" @click="menuClick(4)" border-bottom>
-			</u-cell-item>
-		</u-cell-group>
+			</up-cell>
+			<up-cell title="关于我们" :arrow="true" arrow-direction="right" @click="menuClick(4)" border-bottom>
+			</up-cell>
+		</up-cell-group>
 	</view>
 </template>
 

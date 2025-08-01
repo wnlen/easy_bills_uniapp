@@ -174,8 +174,6 @@
 
 		</z-paging>
 
-
-		<!-- <u-mask :show="showCheck" @click="showCheck = false" duration="300"> -->
 		<u-popup v-model="showCheck" mode="bottom" border-radius="15">
 			<view class="warp"
 				style="height: 70vh;width: 100vw;background-color: #ffffff;border-radius: 15rpx 15rpx 0 0;">
@@ -279,7 +277,6 @@
 				</z-paging>
 			</view>
 		</u-popup>
-		<!-- </u-mask> -->
 
 		<u-loadmore v-show="total>5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" />
 
@@ -1408,7 +1405,12 @@
 				//查询数据库
 				this.$refs.paging.reload();
 				this.current = index;
-				this.$u.vuex('vuex_tabIndex', (index == 0 ? "" : (Number(index) - 1)));
+				this.$u.setPinia({
+					global:{
+						tabIndex: index == 0 ? "" : (Number(index) - 1)
+					}
+				})
+				
 				this.realTimeSel.paymentState = (index == 0 ? "" : (Number(index) - 1));
 				this.realTimeSel.limitS = 0 + "," + 10;
 				this.refresh = true;
@@ -1459,7 +1461,12 @@
 
 			},
 			clear() {
-				this.$u.vuex('vuex_tabIndex', 0);
+				this.$u.setPinia({
+					global:{
+						tabIndex: 0
+					}
+				})
+				
 				this.current = 0;
 				this.realTimeSel.paymentState = "";
 				this.date1 = this.$u.timeFormat(new Date(new Date().getFullYear(), 0, 1), 'yyyy-mm-dd');

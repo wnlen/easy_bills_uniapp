@@ -72,7 +72,6 @@
 </template>
 
 <script>
-	import demodata from '@/mockdata/demodata.json';
 	export default {
 		data() {
 			return {

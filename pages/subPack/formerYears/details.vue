@@ -269,7 +269,7 @@
 							<view class="ml20" style="" v-for="(item2,index2) in imgList" :key="index2">
 								<u-image :src="item2.url" shape="square" width="150rpx" height="150rpx"
 									@click="bigImg(item2.url)">
-									<u-loading slot="loading"></u-loading>
+									<up-loading-icon slot="loading"></up-loading-icon>
 								</u-image>
 							</view>
 						</view>
@@ -489,7 +489,11 @@
 
 			var scene = options.scene;
 			if (scene != undefined) {
-				this.$u.vuex('vuex_userRole', scene == 1 ? "D" : "R");
+				this.$u.setPinia({
+					user:{
+						userRole: scene == 1 ? "D" : "R"
+					}
+				})
 			}
 
 			var id = options.id;
@@ -1012,14 +1016,6 @@
 					that.post = res.data.data.post
 					that.orderItemList = res.data.data.orderItemList
 					that.imgList = res.data.data.imgList
-					// if (this.vuex_user.phone == that.post.bossNumberE || (this.vuex_user.phone == that.post
-					// 		.staffNumberE && this.vuex_user.workData.bossNumber == that.post.bossNumberE)) {
-					// 	this.$u.vuex('vuex_userRole', "R");
-					// 	this.LookShar = "F"
-					// 	console.log("==================>满足");
-					// } else {
-					// 	console.log("==================>不满足");
-					// }
 				}).catch(res => {
 
 				})

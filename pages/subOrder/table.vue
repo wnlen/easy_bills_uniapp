@@ -2,7 +2,7 @@
 
 	<view class="" style="width: 100%;height: 100vh;overflow-x: hidden;">
 
-		<u-mask :show="showSF" @click="showSF = false">
+		<up-overlay :show="showSF" @click="showSF = false">
 			<div @tap.stop v-if="showSF" class="flex-col relative" :style="{height:heig}" style="background-color: white;width: 75%;margin-top: 70%;
 				         border-radius: 6.87px;margin-left: 46px;">
 				<view class="flex-col justify-center items-center" style="font-size: 16px;height: 5vh;">
@@ -61,7 +61,7 @@
 				</view>
 
 			</div>
-		</u-mask>
+		</up-overlay>
 
 
 
@@ -131,15 +131,6 @@
 				</view>
 			</view>
 		</view>
-		<!-- </u-index-list> -->
-
-	</view>
-
-
-
-
-
-
 	</view>
 </template>
 <script>

@@ -51,7 +51,7 @@
 				:placeholder="show!=1?(vuex_userRole=='R'?'请输入关键字进行供应商查找':'请输入关键字进行客户查找'):(vuex_userRole=='R'?'请输入关键字进行账单查询':'请输入关键字进行销售查询')" />
 		</view>
 
-		<u-mask :show="showSF" @click="showSF = false">
+		<up-overlay :show="showSF" @click="showSF = false">
 			<div @tap.stop v-if="showSF" class="flex-col relative" :style="{height:heig}" style="background-color: white;width: 75%;margin-top: 70%;
 				         border-radius: 6.87px;margin-left: 46px;">
 				<view class="flex-col justify-center items-center" style="font-size: 16px;height: 5vh;">
@@ -110,7 +110,7 @@
 				</view>
 
 			</div>
-		</u-mask>
+		</up-overlay>
 
 
 

@@ -2,11 +2,11 @@
 import { prePage, goPath, goTab } from '@/utils/nav.js';
 
 export default {
-	install(Vue) {
-		Vue.prototype.prePage = prePage;
-		Vue.prototype.goPath = function(path) {
+	install(app) {
+		app.config.globalProperties.prePage = prePage;
+		app.config.globalProperties.goPath = function(path) {
 			goPath(path, this);
 		};
-		Vue.prototype.goTab = goTab;
+		app.config.globalProperties.goTab = goTab;
 	}
 };

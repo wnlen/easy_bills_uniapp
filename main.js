@@ -1,47 +1,114 @@
-import Vue from 'vue';
-import App from './App.vue';
-Vue.config.productionTip = false;
-App.mpType = 'app';
+// main.js
+import App from './App.vue'
+import {
+	createSSRApp
+} from 'vue'
 
 // ========== UI 框架 ==========
-import uView from '@/uni_modules/vk-uview-ui';
-Vue.use(uView); // 注册 uView UI
+import uViewPlus from '@/uni_modules/uview-plus'
 
 // ========== 状态管理 ==========
-import store from '@/store';
-import vuexStore from '@/store/$u.mixin.js';
-Vue.mixin(vuexStore); // vuex 简写
+import {
+	createPinia
+} from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import {
+	legacySetPinia,
+	setPinia,
+	getPinia
+} from '@/common/piniaHelper'
+
+// ========== 初始化请求库（含拦截器、headers等） ==========
+import {
+	initRequest
+} from '@/common/http.interceptor.js'
 
 // ========== 自定义插件 ==========
-import httpInterceptor from '@/common/http.interceptor.js';
-Vue.use(httpInterceptor); // 请求拦截
+import push from '@/common/push.js'
+import createRefresh from '@/common/refresh.js'
+import globalMethods from '@/common/globalMethods.js'
+import globalMixin from '@/common/globalMixin.js'
+import createApi from '@/api'
 
-import push from '@/common/push.js';
-Vue.use(push);
+// import uExtend from '@/plugins/uExtend'
 
-import createApi from '@/api';
-const api = createApi(uni.$u); 
-Vue.prototype.$api = api;
-uni.$api = api; 
 
-// import socket from '@/common/socket.js';
-// Vue.use(socket);
+export function createApp() {
+	const app = createSSRApp(App)
 
-import refresh from '@/common/refresh.js';
-Vue.use(refresh);
+	// 创建 Pinia 实例
+	const pinia = createPinia()
 
-//全局js 方法插件
-import globalMethods from '@/common/globalMethods.js';
-Vue.use(globalMethods);
+	// 先注入默认的持久化策略（优先级最高）
+	pinia.use(({
+		options
+	}) => {
+		// 如果 persist 设置为 true，注入默认策略
+		if (options.persist === true) {
+			options.persist = {
+				enabled: true,
+				strategies: [{
+					storage: {
+						getItem: uni.getStorageSync,
+						setItem: uni.setStorageSync,
+						removeItem: uni.removeStorageSync,
+					}
+				}]
+			}
+		}
 
-//全局模版 方法插件
-import globalMixin from '@/common/globalMixin.js';
-Vue.mixin(globalMixin);
+		// 如果启用了 persist 且没有设置 storage，则补充默认的 uni 存储
+		else if (
+			options.persist?.enabled &&
+			!options.persist.strategies?.[0]?.storage
+		) {
+			options.persist.strategies[0].storage = {
+				getItem: uni.getStorageSync,
+				setItem: uni.setStorageSync,
+				removeItem: uni.removeStorageSync,
+			}
+		}
+	})
 
-// ========== 创建 Vue 实例 ==========
-const app = new Vue({
-	store,
-	...App
-});
+	pinia.use(piniaPluginPersistedstate)
+	app.use(pinia)
 
-app.$mount();
+	// 初始化 uView 拦截器
+	const http = initRequest()
+
+	// UI 框架
+	app.use(uViewPlus, () => ({
+		httpIns: () => http
+	}))
+
+	// Vue 3 的全局属性配置$u
+	app.config.globalProperties.$u = {
+		...app.config.globalProperties.$u,
+		vuex: legacySetPinia,
+		setPinia,
+		getPinia
+	};
+	//给全局this赋值$u
+	uni.$u = app.config.globalProperties.$u
+
+	// API 注入
+	const api = createApi(http)
+	app.config.globalProperties.$api = api
+	uni.$api = api
+
+	app.config.globalProperties.$http = http
+	uni.$http = http
+
+	// 全局插件 & Mixin
+	app.use(push)
+	app.use(globalMethods)
+	app.use(createRefresh(http))
+	app.mixin(globalMixin) //混入全局变量\全局方法
+
+	// 挂载 Vue 应用
+	app.mount('#app');
+
+	return {
+		app
+	}
+}

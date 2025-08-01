@@ -5,20 +5,20 @@
 		<view class="absolute" style="left: 48rpx;top: 120rpx;color: #333333;" @click="experience">
 			暂不登录
 		</view>
-		<view class="form-wrap width60 flex-col items-center">
+		<view class="form-wrap width60 flex-col items-center" style="top: 400rpx;">
 			<u-image class="login-logo" width="400rpx" src="https://res-oss.elist.com.cn/wxImg/user/logoLogin.svg"
 				mode="widthFix"></u-image>
 			<view class="width100 pt100 pb60">
 				<u-button type="primary" hover-class="none" :custom-style="{backgroundColor:'#01BB74'}"
 					class="form-btn-big" shape="circle" size="default" open-type="getPhoneNumber"
-					@getphonenumber="getPhoneNumber" @click="">
-					<u-icon name="" size="50" label="手机号快捷登录" label-color="#fff" label-size="32"></u-icon>
+					@getphonenumber="(e)=> getPhoneNumber(e)" @click="">
+					<u-icon name="" size="25" label="手机号快捷登录" label-color="#fff" label-size="16"></u-icon>
 				</u-button>
 				<view class="width100 justify-center items-center flex-row pt30" style="font-size: 20rpx;">
 					<view class="flex-col justify-center items-center"
 						:style="{backgroundColor:disabled?'#01BB74':'#ffffff'}" @click="radioGroupChange"
 						style="border-radius: 100rpx;height: 40rpx;width: 40rpx;border: 2rpx solid #AAAAAA;">
-						<u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
+						<u-icon name="checkbox-mark" color="#ffffff" size="14"></u-icon>
 					</view>
 					<view class="ml15">
 						<text style="color: #AAAAAA;font-size: 24rpx;">同意并遵行易单据</text>
@@ -289,23 +289,23 @@
 			},
 			getPhoneNumber(e) {
 				if (this.disabled) {
-					console.log('获取手机号：', e);
 					var that = this;
 					if (!e.detail.code) {
 						that.$u.toast("请授权手机号进行登录~")
 						return
 					}
 
-					console.log("that.wxLoginRes", that.wxLoginRes);
-					console.log("e.detail.code", e.detail.code);
+					// console.log("that.wxLoginRes", that.wxLoginRes);
+					// console.log("e.detail.code", e.detail.code);
 					const inviterId = uni.getStorageSync('inviterId') || null; // 登录前保存过
 					if (that.wxLoginRes) {
 						this.refreshCode()
-						that.$u.post('/edo/rest/v1/login', {
+						that.$http.post('/edo/rest/v1/login', {
 							'loginCode': that.wxLoginRes,
 							'phoneCode': e.detail.code,
 							'inviterId': inviterId || null
 						}).then(res => {
+							console.log('')
 							var resDate = res.data.data;
 							that.message = resDate.loginState
 
@@ -315,18 +315,32 @@
 							}
 
 							if (resDate.data.work == "" || resDate.data.work != '1') {
-								this.$u.vuex('vuex_work', "N");
-								console.log("N");
+								this.$u.setPinia({
+									user:{
+										work: 'N'
+									}
+								})
+								
 							} else {
-								this.$u.vuex('vuex_work', "Y");
-								console.log("Y");
+								this.$u.setPinia({
+									user:{
+										work: 'Y'
+									}
+								})
 							}
-
-							this.$u.vuex('vuex_userRole', "D");
-							this.$u.vuex('vuex_token', resDate.loginToken);
-							this.$u.vuex('vuex_user', resDate);
-							this.$u.vuex('guidanceD', resDate.data.guidanceD);
-							this.$u.vuex('guidanceR', resDate.data.guidanceR);
+							
+							console.log('[登录后设置前] 当前 token:', this.$u.getPinia('user.token'));
+							this.$u.setPinia({
+								user:{
+									userRole: 'D',
+									token: resDate.loginToken,
+									user: resDate,
+									guidanceD: resDate.data.guidanceD,
+									guidanceR: resDate.data.guidanceR
+								}
+							})
+							console.log('[登录后设置后] 当前 token:', this.$u.getPinia('user.token'));
+							
 							if (resDate.phone != "" && resDate.data.work != null) {
 								this.$loadUser(this);
 								//接收分享参数
@@ -351,7 +365,7 @@
 								that.$u.toast(that.message)
 							}
 						}).catch(res => {
-							console.log(res);
+							console.log('res11111111111',res);
 							that.$u.toast("服务器异常,请联系官方客服")
 							// that.$u.toast(that.message)
 						})
@@ -382,13 +396,25 @@
 				return _result.length ? prefix + _result.join('&') : ''
 			},
 			radioChange(e) {
-				this.$u.vuex('vuex_userRole', e.detail.value);
+				this.$u.setPinia({
+					user:{
+						userRole: e.detail.value
+					}
+				})
 			},
 			submitRole() {
 				if (this.role == 0) {
-					this.$u.vuex('vuex_userRole', "D");
+					this.$u.setPinia({
+						user:{
+							userRole: 'D'
+						}
+					})
 				} else {
-					this.$u.vuex('vuex_userRole', "R");
+					this.$u.setPinia({
+						user:{
+							userRole: 'R'
+						}
+					})
 				}
 				this.roleShow = false;
 				uni.reLaunch({
@@ -535,8 +561,13 @@
 						uni.closeAuthView() //关闭一键登录弹出窗口
 					}, 500)
 					if (mess.data.type == 1) {
-						this.$u.vuex('vuex_user', mess.data);
-						this.$u.vuex('vuex_token', mess.data.loginToken);
+						this.$u.setPinia({
+							user:{
+								user: mess.data,
+								token: mess.data.loginToken
+							}
+						})
+						
 						this.$loadUser(this);
 						uni.switchTab({
 							url: "/pages/index/index"
@@ -570,8 +601,13 @@
 					var code = res.data.data;
 					console.log(code);
 					if (code.type == 1) {
-						this.$u.vuex('vuex_user', code);
-						this.$u.vuex('vuex_token', code.loginToken);
+						this.$u.setPinia({
+							user:{
+								user: code,
+								token: code.loginToken
+							}
+						})
+						
 						this.$loadUser(this);
 						uni.switchTab({
 							url: "/pages/index/index"

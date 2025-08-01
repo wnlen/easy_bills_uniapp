@@ -1,15 +1,10 @@
 <template>
 	<view class="modification">
-
-		<!-- <view class="modificationCrad"> -->
-
 		<z-paging ref="paging" use-virtual-list :force-close-inner-list="true" :showEmpty="true"
 			:hide-empty-view="hideEmptyView" :cell-height-mode="1===0?'fixed':'dynamic'"
 			@virtualListChange="virtualListChange" @query="queryList">
 
 			<view slot="top">
-				<!-- 	<u-navbar title="商品库" :background="{backgroundColor: 'transparent'}" :border-bottom="false"
-					:custom-back="customBack"></u-navbar> -->
 				<u-navbar :border-bottom="false" :background="{backgroundColor: 'transparent'}"
 					back-icon-color="#000000" :titleBold="true" title-color="#000000" title="商品库" title-size="34"
 					:custom-back="customBack" bgColor="#ffffff"></u-navbar>
@@ -81,7 +76,6 @@
 				</view>
 			</view>
 		</z-paging>
-		<!-- </view> -->
 
 		<u-popup v-model="shoppingTrolley" mode="bottom" border-radius="15">
 			<view class="" style="width: 100%;height: 70vh;padding-top: 24rpx;">
@@ -94,7 +88,6 @@
 					<view class="OrderCard" style="width: 94vw;" v-for="(item, index) in orderItemList" :key="index">
 						<u-swipe-action :show="item.show" :index="index" @click="click" @open="open" :options="options"
 							btn-width="140">
-							<!-- <view class="OrderCard"> -->
 							<view class="flex-row pt24 pb24" style="width: 100%;">
 								<view style="width: 10%;" class="ml20">品名:</view>
 								<view style="width: 40%;">{{item.description}}</view>
@@ -127,13 +120,15 @@
 										</view>
 									</u-td>
 									<u-td width="100px">
-										<input type="text" disabled
-											v-model="(item.unitPrice * item.quantity).toFixed(2)" maxlength="10"
-											placeholder="请输入" :custom-style="uploadingCommodityInputStyle" />
+									  <input type="text"
+									         :value="formatAmount(item.unitPrice * item.quantity)"
+									         disabled
+									         maxlength="10"
+									         placeholder="请输入"
+									         :custom-style="uploadingCommodityInputStyle" />
 									</u-td>
 								</u-tr>
 							</u-table>
-							<!-- </view> -->
 						</u-swipe-action>
 					</view>
 					<view slot="bottom">

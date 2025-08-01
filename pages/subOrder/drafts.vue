@@ -761,7 +761,11 @@
 
 			},
 			clear() {
-				this.$u.vuex('vuex_tabIndex', 0);
+				this.$u.setPinia({
+					global:{
+						tabIndex:0
+					}
+				})
 				this.realTimeSel.paymentState = "";
 
 				let currentDate = new Date();

@@ -188,7 +188,7 @@
 					</view>
 				</view>
 				<view class="flex-row justify-center items-center" style="width: 100%;" v-show="uloading">
-					<u-loading mode="flower"></u-loading>
+					<up-loading-icon mode="flower"></up-loading-icon>
 				</view>
 			</view>
 
@@ -381,9 +381,9 @@
 
 		</view>
 
-		<u-mask :show="roleShow" @click="roleShow = false">
+		<up-overlay :show="roleShow" @click="roleShow = false">
 			<pop-database ref="popDatabase"></pop-database>
-		</u-mask>
+		</up-overlay>
 
 	</view>
 </template>

@@ -31,11 +31,13 @@
 					<view class="u-border-top absolute al" style="bottom: 0;height: 30%;width: 100%;">
 						<view class="u-border-right item flex-col justify-center items-center" style="height: 100%;">
 							<button class="fx" size="medium" open-type="share" :data-id="transmitList[0].id"
-								:data-thumb="transmitList[0].picturesId" shape="circle" @click="beforeShare('Y')" :disabled="!shareReady">有金额转发</button>
+								:data-thumb="transmitList[0].picturesId" shape="circle" @click="beforeShare('Y')"
+								:disabled="!shareReady">有金额转发</button>
 						</view>
 						<view class="item flex-col justify-center items-center" style="height: 100%;">
 							<button class="fx" size="medium" open-type="share" :data-id="transmitList[0].id"
-								:data-thumb="transmitList[0].picturesId" shape="circle" @click="beforeShare('N')" :disabled="!shareReady">无金额转发</button>
+								:data-thumb="transmitList[0].picturesId" shape="circle" @click="beforeShare('N')"
+								:disabled="!shareReady">无金额转发</button>
 						</view>
 					</view>
 				</view>
@@ -54,9 +56,8 @@
 					电子单据已发送给收货人
 				</view>
 				<view class="flex-row justify-center items-center mt40">
-					<button class=""
-						style="background-color: #ffffff;width:135.62px;height:'39.99px';border-radius:169.2px;color: #262626;border: 1px solid #01BB74;"
-						class=" mr10" size="medium" shape="circle" @click="showShare=true">
+					<button style="background-color: #ffffff;width:135.62px;height:'39.99px';border-radius:169.2px;color: #262626;border: 1px solid #01BB74;"
+						class="mr10" size="medium" shape="circle" @click="showShare=true">
 						<u-icon class="pr10" label-color="#01BB74" label="微信分享好友" label-pos="right" name="weixin-fill"
 							color="#01BB74" size="30"></u-icon>
 					</button>
@@ -67,7 +68,7 @@
 				</view>
 			</view>
 		</view>
-		
+
 		<view v-if="!identity" class="flex-row justify-center items-center absolute" style="width: 100%;top: 30%;">
 			<u-image src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" width="300px" height="200px"></u-image>
 			<view class="absolute" style="bottom: -40px;color: #AAAAAA;font-size: 14px;">
@@ -292,9 +293,9 @@
 		<pop-auth ref="popAuth"></pop-auth>
 		<!-- 认证提醒 -->
 
-		<u-mask :show="showOrderPly" @click="showOrderPly = false" :mask-click-able="false">
+		<up-overlay :show="showOrderPly" @click="showOrderPly = false" :mask-click-able="false">
 			<pop-order ref="popOrder" :item="order"></pop-order>
-		</u-mask>
+		</up-overlay>
 	</view>
 </template>
 
@@ -420,7 +421,8 @@
 				var versions = this.ShareDetails
 				return {
 					title: `您有一张订单待确认~`,
-					path: '/pages/subOrder/detailsShare?share_id=' + pid + "&&type=1" + "&&phone=" + phone + "&&port=" + port + "&&versions=" + versions,
+					path: '/pages/subOrder/detailsShare?share_id=' + pid + "&&type=1" + "&&phone=" + phone + "&&port=" +
+						port + "&&versions=" + versions,
 					imageUrl: this.transmitList[0].picturesId || '/static/share.png'
 				}
 			} else {
@@ -589,10 +591,10 @@
 				}
 			},
 			beforeShare(type) {
-			    this.ShareDetails = type;
-			    return new Promise(resolve => {
+				this.ShareDetails = type;
+				return new Promise(resolve => {
 					setTimeout(resolve, 100); // 等待 ShareDetails 设置完成
-			    });
+				});
 			},
 			ifInput(val) {
 				if (val === "") {
@@ -621,7 +623,7 @@
 				this.receipts.phoneE = ""
 				this.goPath('/pages/subOrder/table');
 			},
-			
+
 			addEmp() {
 				var ifwork = this.vuex_user.data.work == "0";
 				var dx = {
@@ -1167,7 +1169,7 @@
 								this.backHomepageClick = true
 								this.$u.post('/edo/order/getByOrderNumber/' + this.receipts.orderNumber).
 								then(res => {
-									console.log("请求结果11：",res.data.data);
+									console.log("请求结果11：", res.data.data);
 									this.transmitList = res.data.data;
 									this.shareReady = true;
 									uni.removeStorageSync("inventoryStockpile")
@@ -1320,11 +1322,17 @@
 					console.log("添加结果======>", resultOrder);
 					if (resultOrder) {
 						const img = await this.sendOrderImg()
-						// this.draft = true
-						this.$u.vuex('draft', true);
+						this.$u.setPinia({
+							guide:{
+								draft: true
+							}
+						})
 					} else {
-						this.$u.vuex('draft', false);
-						// this.draft = false
+						this.$u.setPinia({
+							guide:{
+								draft: false
+							}
+						})
 					}
 				}
 

@@ -221,9 +221,9 @@
 		<pop-auth ref="popAuth"></pop-auth>
 		<!-- 认证提醒 -->
 
-		<u-mask :show="showOrderPly" @click="showOrderPly = false" :mask-click-able="false">
+		<up-overlay :show="showOrderPly" @click="showOrderPly = false" :mask-click-able="false">
 			<pop-order ref="popOrder" :item="order"></pop-order>
-		</u-mask>
+		</up-overlay>
 	</view>
 </template>
 

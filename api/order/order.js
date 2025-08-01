@@ -1,8 +1,11 @@
-export default {
+export default (http) => ({
 	getProductAll(data) {
-		return uni.$u.post('/edo/productAll/get', data);
+		return http.post('/edo/productAll/get', data)
 	},
-	createOrder(data) {
-		return uni.$u.post('/order/create', data);
+	postOrderFilter(data) {
+		return http.post('/edo/order/getFilter', data)
+	},
+	postOrderQuantity(data) {
+		return http.post('/edo/order/Quantity', data)
 	}
-};
+});

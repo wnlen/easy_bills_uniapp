@@ -35,14 +35,14 @@
 					</u-radio-group>
 				
 					<view v-show="FormData[q_item.id].is_qita">
-						<u-field
+						<up-input
 							v-model="FormData[q_item.id].content"
 							placeholder="填写更多答案"
 							type="textarea"
 							:field-style="field_style"
 							:border-bottom="false"
 							label-width="0"
-						></u-field>
+						></up-input>
 					</view>
 				</view>
 				<view class="list-item-radio" v-if="q_item.type=='multi'">
@@ -53,15 +53,15 @@
 					</uv-checkbox-group>
 
 					<view class="" v-show="FormData[q_item.id].is_qita">
-						<u-field v-model="FormData[q_item.id].content" placeholder="填写更多答案" type="textarea"
+						<up-input v-model="FormData[q_item.id].content" placeholder="填写更多答案" type="textarea"
 							:field-style="field_style" :border-bottom="false" label-width="0">
-						</u-field>
+						</up-input>
 					</view>
 				</view>
 				<view v-if="q_item.type=='text'">
-					<u-field v-model="FormData[q_item.id].content" placeholder="填写更多答案" type="textarea"
+					<up-input v-model="FormData[q_item.id].content" placeholder="填写更多答案" type="textarea"
 						:field-style="field_style" :border-bottom="false" label-width="0">
-					</u-field>
+					</up-input>
 				</view>
 			</view>
 			<view class="Note">
