@@ -1,3 +1,4 @@
+// common/piniaHelper.js
 import { useUserStore } from '@/store/user'
 import { useGlobalStore } from '@/store/global'
 import { useGuideStore } from '@/store/guide'
@@ -12,6 +13,34 @@ const storeMap = {
   system: useSystemStore
 }
 
+/**
+ * 使用示例
+ const token = getPinia('user.token');
+ */
+export function getPinia(path) {
+	const [storeName, key] = path.split('.') // 如 "user.token"
+
+	const storeMap = {
+		user: useUserStore(),
+		global: useGlobalStore(),
+		guide: useGuideStore(),
+		draft: useDraftStore(),
+		system: useSystemStore()
+	}
+
+	const store = storeMap[storeName]
+	if (!store) return undefined
+
+	return key ? store[key] : store
+}
+
+/**
+ * 使用示例
+ setPinia({
+   user: { token: 'newToken', userRole: 'D' },
+   global: { tabIndex: 1 },
+ });
+ */
 export function setPinia(payload) {
   if (typeof payload === 'string') {
     console.error('[setPinia] 已弃用字符串参数，请使用对象形式')
@@ -104,19 +133,3 @@ export function legacySetPinia(name, value) {
 	});
 }
 
-export function getPinia(path) {
-	const [storeName, key] = path.split('.') // 如 "user.token"
-
-	const storeMap = {
-		user: useUserStore(),
-		global: useGlobalStore(),
-		guide: useGuideStore(),
-		draft: useDraftStore(),
-		system: useSystemStore()
-	}
-
-	const store = storeMap[storeName]
-	if (!store) return undefined
-
-	return key ? store[key] : store
-}

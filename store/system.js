@@ -4,17 +4,7 @@ import {
 } from 'pinia'
 
 export const useSystemStore = defineStore('system', {
-	persist: {
-		enabled: true,
-		strategies: [{
-			key: 'system', // 本地存储的 key
-			storage: {
-				getItem: (key) => uni.getStorageSync(key),
-				setItem: (key, value) => uni.setStorageSync(key, value),
-				removeItem: (key) => uni.removeStorageSync(key),
-			}
-		}]
-	},
+	persist: true,
 	state: () => ({
 		flush: 0
 	}),

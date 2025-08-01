@@ -505,7 +505,11 @@
 
 			var scene = options.scene;
 			if (scene != undefined) {
-				this.$u.vuex('vuex_userRole', scene == 1 ? "D" : "R");
+				this.$u.setPinia({
+					user:{
+						userRole: scene == 1 ? "D" : "R"
+					}
+				})
 			}
 
 			var id = options.id;

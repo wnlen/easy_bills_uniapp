@@ -98,11 +98,16 @@
 					success: res => {
 						if (res.confirm) {
 							this.$u.toast("已退出~");
-							this.$u.vuex('vuex_token', '');
-							this.$u.vuex('vuex_userRole', this.vuex_userRole);
-							this.$u.vuex('vuex_user', {
-								"phone":undefined
-							});
+							this.$u.setPinia({
+								user:{
+									userRole: this.vuex_userRole,
+									token: '',
+									user: {
+										"phone":undefined
+									}
+								}
+							})
+							
 							
 							//关闭socket
 							

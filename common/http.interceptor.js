@@ -1,5 +1,6 @@
 // common/http.interceptor.js
 import Request from 'luch-request' // 下载的插件
+import { useUserStore } from '@/store/user';
 let hasRedirectedToLogin = false
 
 function isWhiteListedPath(url = '') {
@@ -13,9 +14,8 @@ function isWhiteListedPath(url = '') {
 }
 
 export const initRequest = () => {
-	// ✅ 延迟到运行时再拿 http（此时 uViewPlus 已完成挂载）
-
 	const http = new Request();
+	
 	if (!http || typeof http.setConfig !== 'function') {
 		console.warn('[拦截器未注册] uni.$u.http 不可用，跳过安装')
 		return null
@@ -33,19 +33,23 @@ export const initRequest = () => {
 	})
 
 	http.interceptors.request.use((config) => {
+		const userStore = useUserStore();
+		
+		// console.log('userStore',userStore);
+			
 		const isWhite = isWhiteListedPath(config.url)
 		const skipAuth = config.custom?.noAuth
 		
 		if (!isWhite && !skipAuth) {
-			const lifeData = this.$u.getPinia() || {}
-			console.log('tooknddddddddd',lifeData);
+			const lifeData =  {}
+			console.log('tokentokentokentokentokentoken',userStore);
 			config.header = {
 				...config.header,
-				token: lifeData.vuex_token || '',
-				userRole: lifeData.vuex_userRole || '',
-				phone: lifeData.vuex_user?.phone || '',
-				work: lifeData.vuex_work || '',
-				boss: lifeData.vuex_user?.workData?.bossNumber || '0'
+				token: userStore.token || '',
+				userRole: userStore.userRole || '',
+				phone: userStore.user?.phone || '',
+				work: userStore.work || '',
+				boss: userStore.user?.workData?.bossNumber || '0'
 			}
 		}
 		return config
@@ -56,11 +60,11 @@ export const initRequest = () => {
 			hasRedirectedToLogin = true
 			setTimeout(() => (hasRedirectedToLogin = false), 2000)
 
-			uni.$u.vuex('vuex_token', '')
-			uni.$u.vuex('vuex_userRole', 'D')
-			uni.$u.vuex('vuex_user', {
-				phone: undefined
-			})
+			// uni.$u.vuex('vuex_token', '')
+			// uni.$u.vuex('vuex_userRole', 'D')
+			// uni.$u.vuex('vuex_user', {
+			// 	phone: undefined
+			// })
 
 			uni.navigateTo({
 				url: '/pages/subUser/login'

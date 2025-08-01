@@ -18,17 +18,7 @@ if (envVersion === 'develop') {
 // #endif
 
 export const useGlobalStore = defineStore('global', {
-  persist: {
-  	enabled: true,
-  	strategies: [{
-  		key: 'global', // 本地存储的 key
-  		storage: {
-  			getItem: (key) => uni.getStorageSync(key),
-  			setItem: (key, value) => uni.setStorageSync(key, value),
-  			removeItem: (key) => uni.removeStorageSync(key),
-  		}
-  	}]
-  },
+  persist: true,
   state: () => ({
     tabIndex: 0,
     version: '1.0.0',

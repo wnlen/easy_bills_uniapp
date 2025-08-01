@@ -57,7 +57,12 @@ export default {
 	},
 	onHide() {
 		SocketManager.close(); // 页面隐藏时清理 WebSocket
-		this.$u.vuex('guidance', 0);
+		
+		this.$u.setPinia({
+			guide:{
+				guidance:0
+			}
+		})
 	},
 	onUnload() {
 		uni.setStorageSync("auth", "0");

@@ -5,15 +5,25 @@ import {
 
 export const useUserStore = defineStore('user', {
 	persist: {
-		enabled: true,
-		strategies: [{
-			key: 'user', // 本地存储的 key
-			storage: {
-				getItem: (key) => uni.getStorageSync(key),
-				setItem: (key, value) => uni.setStorageSync(key, value),
-				removeItem: (key) => uni.removeStorageSync(key),
-			}
-		}]
+	  enabled: true,
+	  strategies: [{
+	    key: 'user',
+	    storage: {
+	      getItem: (key) => {
+	        const value = uni.getStorageSync(key);
+	        console.log('[getItem]', key, value);
+	        return value;
+	      },
+	      setItem: (key, value) => {
+	        console.log('[setItem]', key, value); // 关键调试
+	        uni.setStorageSync(key, value);
+	      },
+	      removeItem: (key) => {
+	        console.log('[removeItem]', key);
+	        uni.removeStorageSync(key);
+	      }
+	    }
+	  }]
 	},
 	state: () => ({
 		user: {
