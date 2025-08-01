@@ -260,6 +260,7 @@
 			});
 		},
 		onShow() {
+			console.log('this.$u.pinia//token',this.$u.getPinia('user.token'))
 			if (this.vuex_user.phone != undefined) {
 				this.$loadUser(this);
 				this.loadData()

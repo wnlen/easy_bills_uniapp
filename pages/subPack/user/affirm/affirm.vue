@@ -188,11 +188,13 @@
 				})
 			},
 			ClearVuexCash() {
-				this.$u.vuex('vuex_token', '');
-				this.$u.vuex('vuex_userRole', '');
-				this.$u.vuex('vuex_user', {
-					'nickName': "请注册~"
-				});
+				this.$u.setPinia({
+					user:{
+						token: '',
+						userRole:'',
+						user:{'nickname':'请注册~'}
+					}
+				})
 
 				setTimeout(() => {
 					uni.navigateTo({

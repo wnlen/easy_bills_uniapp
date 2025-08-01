@@ -1322,11 +1322,17 @@
 					console.log("添加结果======>", resultOrder);
 					if (resultOrder) {
 						const img = await this.sendOrderImg()
-						// this.draft = true
-						this.$u.vuex('draft', true);
+						this.$u.setPinia({
+							guide:{
+								draft: true
+							}
+						})
 					} else {
-						this.$u.vuex('draft', false);
-						// this.draft = false
+						this.$u.setPinia({
+							guide:{
+								draft: false
+							}
+						})
 					}
 				}
 

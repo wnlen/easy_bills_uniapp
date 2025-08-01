@@ -489,7 +489,11 @@
 
 			var scene = options.scene;
 			if (scene != undefined) {
-				this.$u.vuex('vuex_userRole', scene == 1 ? "D" : "R");
+				this.$u.setPinia({
+					user:{
+						userRole: scene == 1 ? "D" : "R"
+					}
+				})
 			}
 
 			var id = options.id;
@@ -1012,14 +1016,6 @@
 					that.post = res.data.data.post
 					that.orderItemList = res.data.data.orderItemList
 					that.imgList = res.data.data.imgList
-					// if (this.vuex_user.phone == that.post.bossNumberE || (this.vuex_user.phone == that.post
-					// 		.staffNumberE && this.vuex_user.workData.bossNumber == that.post.bossNumberE)) {
-					// 	this.$u.vuex('vuex_userRole', "R");
-					// 	this.LookShar = "F"
-					// 	console.log("==================>满足");
-					// } else {
-					// 	console.log("==================>不满足");
-					// }
 				}).catch(res => {
 
 				})

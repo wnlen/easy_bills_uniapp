@@ -139,9 +139,9 @@
 			<view class="towCard flex-col justify-center height300 ml24 mr24" style="background-color: transparent;">
 				<view class="home-menu-wrap flex-row justify-center width100" style="background-color: transparent;">
 					<view v-if="vuex_userRole=='R'" style="background-size: cover;border-radius: 18rpx;"
-						:style="{backgroundImage:'url('+ImgUrl+'/wxImg/index/dqrdj.png)'}"
+						:style="{backgroundImage:'url('+ ImgUrl +'/wxImg/index/dqrdj.png)'}"
 						class="home-menu home-menu1 flex-row items-center cardShowPlus" id="box22"
-						@click="goPath('/pages/subPack/pending/pending');this.$u.vuex('vuex_tabIndex', 0);">
+						@click="goPath('/pages/subPack/pending/pending');">
 						<view class="flex-col">
 							<text class="ft36" style="color: #E19306;">待确认单据</text>
 							<text class="ft24 ft-lighgray mt5" style="color: #E19306;">快速查询单据</text>
@@ -484,6 +484,12 @@
 			console.log('albbIcon', albbIcon)
 		},
 		onShow() {
+			console.log('广告列表1111111111',this.ImgUrl )  
+			
+			// console.log('this.$u.getPinia',this.$u.getPinia('user.token'))
+			setTimeout(() => {
+			    console.log('延迟后打印 token:', this.$u.getPinia('user.token'));
+			  }, 3000); // 加一点延迟，确保持久化加载完毕
 			this.getmiddleBanner(); //加载广告
 			if (this.vuex_user.phone == undefined || this.vuex_user.phone == "10000000000" || this.vuex_user.phone ==
 				null) {
@@ -559,7 +565,6 @@
 					if (this.draft) {
 						console.log("===草稿箱存入凭证===>", this.draft);
 						this.$u.toast("已存入草稿箱~");
-						this.$u.vuex('draft', false);
 					}
 				}, 1200)
 			},
@@ -941,6 +946,7 @@
 					'port': filer
 				}).then(res => {
 					console.log('广告列表',res)
+					
 					if (res.data.code == 401) {
 						if (this.vuex_userRole == "D") {
 							this.middleBanner = this.middleBannerlXD
@@ -1100,7 +1106,6 @@
 				}
 			},
 			goList(val) {
-				this.$u.vuex('vuex_tabIndex', val);
 				uni.switchTab({
 					url: '/pages/list/list'
 				})

@@ -289,29 +289,23 @@
 			},
 			getPhoneNumber(e) {
 				if (this.disabled) {
-					console.log('获取手机号：', e);
-					console.log('获取手机号1：', this.$u);
 					var that = this;
 					if (!e.detail.code) {
 						that.$u.toast("请授权手机号进行登录~")
 						return
 					}
 
-					console.log("that.wxLoginRes", that.wxLoginRes);
-					console.log("e.detail.code", e.detail.code);
+					// console.log("that.wxLoginRes", that.wxLoginRes);
+					// console.log("e.detail.code", e.detail.code);
 					const inviterId = uni.getStorageSync('inviterId') || null; // 登录前保存过
 					if (that.wxLoginRes) {
 						this.refreshCode()
-						if (typeof this.$u?.vuex === 'function') {
-						    this.$u.vuex('vuex_token', 'abc')
-						  } else {
-						    console.error('this.$u.vuex 未挂载！')
-						  }
 						that.$http.post('/edo/rest/v1/login', {
 							'loginCode': that.wxLoginRes,
 							'phoneCode': e.detail.code,
 							'inviterId': inviterId || null
 						}).then(res => {
+							console.log('')
 							var resDate = res.data.data;
 							that.message = resDate.loginState
 
@@ -321,18 +315,32 @@
 							}
 
 							if (resDate.data.work == "" || resDate.data.work != '1') {
-								this.$u.vuex('vuex_work', "N");
-								console.log("N");
+								this.$u.setPinia({
+									user:{
+										work: 'N'
+									}
+								})
+								
 							} else {
-								this.$u.vuex('vuex_work', "Y");
-								console.log("Y");
+								this.$u.setPinia({
+									user:{
+										work: 'Y'
+									}
+								})
 							}
-
-							this.$u.vuex('vuex_userRole', "D");
-							this.$u.vuex('vuex_token', resDate.loginToken);
-							this.$u.vuex('vuex_user', resDate);
-							this.$u.vuex('guidanceD', resDate.data.guidanceD);
-							this.$u.vuex('guidanceR', resDate.data.guidanceR);
+							
+							console.log('[登录后设置前] 当前 token:', this.$u.getPinia('user.token'));
+							this.$u.setPinia({
+								user:{
+									userRole: 'D',
+									token: resDate.loginToken,
+									user: resDate,
+									guidanceD: resDate.data.guidanceD,
+									guidanceR: resDate.data.guidanceR
+								}
+							})
+							console.log('[登录后设置后] 当前 token:', this.$u.getPinia('user.token'));
+							
 							if (resDate.phone != "" && resDate.data.work != null) {
 								this.$loadUser(this);
 								//接收分享参数
@@ -388,13 +396,25 @@
 				return _result.length ? prefix + _result.join('&') : ''
 			},
 			radioChange(e) {
-				this.$u.vuex('vuex_userRole', e.detail.value);
+				this.$u.setPinia({
+					user:{
+						userRole: e.detail.value
+					}
+				})
 			},
 			submitRole() {
 				if (this.role == 0) {
-					this.$u.vuex('vuex_userRole', "D");
+					this.$u.setPinia({
+						user:{
+							userRole: 'D'
+						}
+					})
 				} else {
-					this.$u.vuex('vuex_userRole', "R");
+					this.$u.setPinia({
+						user:{
+							userRole: 'R'
+						}
+					})
 				}
 				this.roleShow = false;
 				uni.reLaunch({
@@ -541,8 +561,13 @@
 						uni.closeAuthView() //关闭一键登录弹出窗口
 					}, 500)
 					if (mess.data.type == 1) {
-						this.$u.vuex('vuex_user', mess.data);
-						this.$u.vuex('vuex_token', mess.data.loginToken);
+						this.$u.setPinia({
+							user:{
+								user: mess.data,
+								token: mess.data.loginToken
+							}
+						})
+						
 						this.$loadUser(this);
 						uni.switchTab({
 							url: "/pages/index/index"
@@ -576,8 +601,13 @@
 					var code = res.data.data;
 					console.log(code);
 					if (code.type == 1) {
-						this.$u.vuex('vuex_user', code);
-						this.$u.vuex('vuex_token', code.loginToken);
+						this.$u.setPinia({
+							user:{
+								user: code,
+								token: code.loginToken
+							}
+						})
+						
 						this.$loadUser(this);
 						uni.switchTab({
 							url: "/pages/index/index"

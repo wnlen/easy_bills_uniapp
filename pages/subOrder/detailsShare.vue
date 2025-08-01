@@ -561,13 +561,25 @@
 
 					} else {
 						if (this.LookThreeNo) {
-							this.$u.vuex('vuex_userRole', "D");
+							this.$u.setPinia({
+								user:{
+									userRole: "D"
+								}
+							})
 						} else {
-							this.$u.vuex('vuex_userRole', this.LookShar);
+							this.$u.setPinia({
+								user:{
+									userRole: this.LookShar
+								}
+							})
 						}
 					}
 				} else {
-					this.$u.vuex('vuex_userRole', "D");
+					this.$u.setPinia({
+						user:{
+							userRole: 'D'
+						}
+					})
 				}
 
 				if (this.vuex_userRole != null && this.vuex_userRole != undefined && this.vuex_userRole != '') {
@@ -575,7 +587,11 @@
 						url: "/pages/index/index"
 					})
 				} else {
-					this.$u.vuex('vuex_userRole', "D");
+					this.$u.setPinia({
+						user:{
+							userRole: 'D'
+						}
+					})
 					uni.switchTab({
 						url: "/pages/index/index"
 					})

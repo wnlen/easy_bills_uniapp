@@ -644,7 +644,6 @@
 				// }
 				// this.$refs.paging.reload();
 				// // this.current = index;
-				// this.$u.vuex('vuex_tabIndex', (this.current == 0 ? "" : (Number(this.current) - 1)));
 				// this.realTimeSel.paymentState = (this.current == 0 ? "" : (Number(this.current) - 1))
 				// this.realTimeSel.limitS = 0 + "," + 10
 				// //console.log("(当前标记)this.current:", this.current);
@@ -1338,11 +1337,13 @@
 				//查询数据库
 				this.$refs.paging.reload();
 				this.current = index;
-				this.$u.vuex('vuex_tabIndex', (index == 0 ? "" : (Number(index) - 1)));
+				this.$u.setPinia({
+					global:{
+						tabIndex: index == 0 ? "" : (Number(index) - 1)
+					}
+				})
 				this.realTimeSel.paymentState = (index == 0 ? "" : (Number(index) - 1))
 				this.realTimeSel.limitS = 0 + "," + 10
-				//console.log("(当前标记)this.current:", this.current);
-				//console.log("(储存标记)this.vuex_tabIndex:", this.vuex_tabIndex);
 				this.refresh = true
 				this.$refs.paging.reload();
 			},
@@ -1499,7 +1500,11 @@
 
 			},
 			clear() {
-				this.$u.vuex('vuex_tabIndex', 0);
+				this.$u.setPinia({
+					global:{
+						tabIndex: 0
+					}
+				})
 
 				const date = new Date();
 				date.setDate(date.getDate() + 15);

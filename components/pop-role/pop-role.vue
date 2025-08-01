@@ -49,6 +49,8 @@
 </template>
 
 <script>
+	import { useGlobalStore } from '@/store/global';
+	const globalStore = useGlobalStore();
 	export default {
 		name: "pop-role",
 		data() {
@@ -80,6 +82,7 @@
 			}
 		},
 		onShow() {
+			console.log('ImgUrlaaaaaaaaaaaaaa',this.ImgUrl)
 			if (this.vuex_userRole == "R") {
 				this.roleShowF = false
 				this.roleShowS = true
@@ -91,7 +94,12 @@
 				this.check = '1';
 				// this.vuex_tabbar[0].counts=0
 			}
-			this.$u.vuex('vuex_tabIndex', 0);
+			
+			this.$u.setPinia({
+				global:{
+					tabIndex:0
+				}
+			})
 		},
 		methods: {
 			qh(i) {
@@ -132,14 +140,13 @@
 				this.roleId = e.detail.value
 			},
 			submitRole() {
-				// if(this.roleId != this.vuex_userRole){
-				// 	this.$u.vuex('vuex_userRole', this.roleId);
-				// 	this.$u.vuex('vuex_tabIndex',0);//list页面第一个tab
-				// 	this.$parent.loadData();//刷新父组件数据
-				// }
 				
 				if (this.roleShowF) {
-					this.$u.vuex('vuex_userRole', "D");
+					this.$u.setPinia({
+						user:{
+							userRole:'D'
+						}
+					})
 					if (this.vuex_user.phone != undefined) {
 						if (this.$parent.indexSumList) {
 							
@@ -166,7 +173,11 @@
 					}
 
 				} else {
-					this.$u.vuex('vuex_userRole', "R");
+					this.$u.setPinia({
+						user:{
+							userRole:'R'
+						}
+					})
 					if (this.vuex_user.phone != undefined) {
 						if (this.$parent.indexSumList) {
 							var filer = this.vuex_userRole == "D" ? "0" : "1"

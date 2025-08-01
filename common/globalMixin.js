@@ -3,6 +3,9 @@ import {
 	useUserStore
 } from '@/store/user'
 import {
+	useGlobalStore
+} from '@/store/global'
+import {
 	formatAmount
 } from '@/common/format.js';
 
@@ -28,22 +31,20 @@ export default {
 		  }
 		},
 		vuex_userRole() {
-			return useUserStore().vuex_userRole || 'D'
+			return useUserStore().userRole || 'D'
 		},
 		vuex_token() {
-			return useUserStore().vuex_token || ''
+			console.log('useUserStore().token',useUserStore().token)
+			return useUserStore().token || ''
 		},
 		vuex_work() {
-			return useUserStore().vuex_work || ''
+			return useUserStore().work || ''
 		},
 		ImgUrl() {
-			return useUserStore().ImgUrl || ''
+			return useGlobalStore().ImgUrl || ''
 		},
 		announcement() {
 			return useUserStore().announcement || {}
-		},
-		headPortrait() {
-			return useUserStore().vuex_user?.data?.headPortrait || ''
 		}
 	}
 }

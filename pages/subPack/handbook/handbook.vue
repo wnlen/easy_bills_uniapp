@@ -263,7 +263,11 @@
 		},
 		onShow() {
 			if (this.vuex_userRole==""||this.vuex_userRole==undefined) {
-				this.$u.vuex('vuex_userRole', 'D');
+				this.$u.setPinia({
+					user:{
+						userRole: 'D'
+					}
+				})
 			}
 		},
 		methods: {
