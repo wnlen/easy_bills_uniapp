@@ -87,12 +87,10 @@
 				this.roleShowF = false
 				this.roleShowS = true
 				this.check = '2';
-				// this.vuex_tabbar[0].counts=0
 			} else {
 				this.roleShowF = true
 				this.roleShowS = false
 				this.check = '1';
-				// this.vuex_tabbar[0].counts=0
 			}
 			
 			this.$u.setPinia({

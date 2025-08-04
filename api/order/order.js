@@ -1,11 +1,14 @@
 export default (http) => ({
-	getProductAll(data) {
-		return http.post('/edo/productAll/get', data)
+	getProductAll(param) {
+		return http.post('/edo/productAll/get', param)
 	},
-	postOrderFilter(data) {
-		return http.post('/edo/order/getFilter', data)
+	postOrderFilter(param) {
+		return http.post('/edo/order/getFilter', param)
 	},
-	postOrderQuantity(data) {
-		return http.post('/edo/order/Quantity', data)
+	postOrderQuantity(param) {
+		return http.post('/edo/order/Quantity', param)
+	},
+	getOrderDelList(param) {
+		return http.post('edo/orderDel/get', param)
 	}
 });

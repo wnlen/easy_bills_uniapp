@@ -130,7 +130,17 @@
 		},
 		onShow() {
 			if (this.vuex_user.phone != undefined) {
-				this.vuex_tabbar[2].count = 0
+				this.$u.setPinia({
+					global: {
+						tabbar: [
+							{},
+							{},
+							{
+								count: 0
+							}
+						]
+					}
+				});
 				this.showMess = false
 				this.loadData()
 				this.SOCKETfLUSH();
@@ -173,9 +183,18 @@
 
 					console.log(this.list);
 
-					if (this.vuex_tabbar[2].count != sum) {
-						this.vuex_tabbar[2].count = 0
-						this.vuex_tabbar[2].count = sum
+					if (this.$u.getPinia('global.tabbar.2.count') != sum) {
+						this.$u.setPinia({
+							global: {
+								tabbar: [
+									{},
+									{},
+									{
+										count: sum
+									}
+								]
+							}
+						});
 					}
 
 					this.showMess = true

@@ -4,27 +4,7 @@ import {
 } from 'pinia'
 
 export const useUserStore = defineStore('user', {
-	persist: {
-	  enabled: true,
-	  strategies: [{
-	    key: 'user',
-	    storage: {
-	      getItem: (key) => {
-	        const value = uni.getStorageSync(key);
-	        console.log('[getItem]', key, value);
-	        return value;
-	      },
-	      setItem: (key, value) => {
-	        console.log('[setItem]', key, value); // 关键调试
-	        uni.setStorageSync(key, value);
-	      },
-	      removeItem: (key) => {
-	        console.log('[removeItem]', key);
-	        uni.removeStorageSync(key);
-	      }
-	    }
-	  }]
-	},
+	unistorage: true, // 开启后对 state 的数据读写都将持久化
 	state: () => ({
 		user: {
 			workData: {},

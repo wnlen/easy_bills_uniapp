@@ -8,12 +8,9 @@ import {
 import uViewPlus from '@/uni_modules/uview-plus'
 
 // ========== 状态管理 ==========
+import * as Pinia from 'pinia';
+import { createUnistorage } from "./uni_modules/pinia-plugin-unistorage";
 import {
-	createPinia
-} from 'pinia'
-import { piniaStorage } from 'pinia-plugin-piniastorage'
-import {
-	legacySetPinia,
 	setPinia,
 	getPinia
 } from '@/common/piniaHelper'
@@ -37,41 +34,9 @@ export function createApp() {
 	const app = createSSRApp(App)
 
 	// 创建 Pinia 实例
-	const pinia = createPinia()
-
-	// 先注入默认的持久化策略（优先级最高）
-	pinia.use(({
-		options
-	}) => {
-		// 如果 persist 设置为 true，注入默认策略
-		if (options.persist === true) {
-			options.persist = {
-				enabled: true,
-				strategies: [{
-					storage: {
-						getItem: uni.getStorageSync,
-						setItem: uni.setStorageSync,
-						removeItem: uni.removeStorageSync,
-					}
-				}]
-			}
-		}
-
-		// 如果启用了 persist 且没有设置 storage，则补充默认的 uni 存储
-		else if (
-			options.persist?.enabled &&
-			!options.persist.strategies?.[0]?.storage
-		) {
-			options.persist.strategies[0].storage = {
-				getItem: uni.getStorageSync,
-				setItem: uni.setStorageSync,
-				removeItem: uni.removeStorageSync,
-			}
-		}
-	})
-
-	pinia.use(piniaStorage())
-	app.use(pinia)
+	const store = Pinia.createPinia();
+	store.use(createUnistorage());
+	app.use(store);
 
 	// 初始化 uView 拦截器
 	const http = initRequest()
@@ -84,9 +49,10 @@ export function createApp() {
 	// Vue 3 的全局属性配置$u
 	app.config.globalProperties.$u = {
 		...app.config.globalProperties.$u,
-		vuex: legacySetPinia,
 		setPinia,
-		getPinia
+		getPinia,
+		post: http.post,
+		get: http.get
 	};
 	//给全局this赋值$u
 	uni.$u = app.config.globalProperties.$u
@@ -109,6 +75,7 @@ export function createApp() {
 	app.mount('#app');
 
 	return {
-		app
+		app,
+		Pinia
 	}
 }

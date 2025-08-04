@@ -484,12 +484,6 @@
 			console.log('albbIcon', albbIcon)
 		},
 		onShow() {
-			console.log('广告列表1111111111',this.ImgUrl )  
-			
-			// console.log('this.$u.getPinia',this.$u.getPinia('user.token'))
-			setTimeout(() => {
-			    console.log('延迟后打印 token:', this.$u.getPinia('user.token'));
-			  }, 3000); // 加一点延迟，确保持久化加载完毕
 			this.getmiddleBanner(); //加载广告
 			if (this.vuex_user.phone == undefined || this.vuex_user.phone == "10000000000" || this.vuex_user.phone ==
 				null) {
