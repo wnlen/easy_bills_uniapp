@@ -11,7 +11,7 @@ import uViewPlus from '@/uni_modules/uview-plus'
 import {
 	createPinia
 } from 'pinia'
-import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import { piniaStorage } from 'pinia-plugin-piniastorage'
 import {
 	legacySetPinia,
 	setPinia,
@@ -70,7 +70,7 @@ export function createApp() {
 		}
 	})
 
-	pinia.use(piniaPluginPersistedstate)
+	pinia.use(piniaStorage())
 	app.use(pinia)
 
 	// 初始化 uView 拦截器
