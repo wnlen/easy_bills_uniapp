@@ -984,7 +984,7 @@ function refreshDataNew() {
 		if (globalStore.tabIndex !== '') {
 			realTimeSel.value.paymentState = Number(globalStore.tabIndex) - 1;
 		}
-		uni.$api.order_order
+		uni.$api.order
 			.postOrderFilter(realTimeSel.value)
 			.then((res) => {
 				const orderListData = res.data.data.map((obj) => ({
@@ -1003,7 +1003,7 @@ function refreshDataNew() {
 				uni.$u.toast('请求失败');
 			});
 
-		uni.$api.order_order
+		uni.$api.order
 			.postOrderQuantity('/edo/order/Quantity', realTimeSel.value)
 			.then((res) => {
 				OrderQuantity.value = res.data.data[1];

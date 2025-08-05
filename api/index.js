@@ -1,22 +1,28 @@
 // api/index.js
-const files = import.meta.glob('./**/*.js', {
-	eager: true
-})
+const files = import.meta.glob('./**/*.js', { eager: true })
 
 export default (http) => {
-	const modules = {}
+  const modules = {}
 
-	for (const path in files) {
-		if (path.includes('index.js')) continue
+  for (const path in files) {
+    if (path.includes('index.js')) continue
 
-		// 提取模块名，例如 './user/invite.js' → 'user_invite'
-		const name = path
-			.replace(/^\.\/|\.js$/g, '') // 去掉开头 ./ 和结尾 .js
-			.replace(/\//g, '_') // 替换 / 为 _，支持子目录
+    // 提取目录名（模块名）
+    const [, moduleName, fileName] = path.match(/\.\/([^/]+)\/([^/]+)\.js$/) || []
 
-		const mod = files[path].default
-		modules[name] = typeof mod === 'function' ? mod(http) : mod
-	}
+    if (!moduleName || !fileName) continue
 
-	return modules
+    const mod = files[path].default
+
+    // 初始化模块容器
+    if (!modules[moduleName]) {
+      modules[moduleName] = {}
+    }
+
+    // 合并每个文件导出的方法进模块中
+    const resolvedModule = typeof mod === 'function' ? mod(http) : mod
+    Object.assign(modules[moduleName], resolvedModule)
+  }
+
+  return modules
 }

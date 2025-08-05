@@ -73,7 +73,7 @@ export default {
 			this.getNotifications();
 		},
 		getPendingTasks() {
-			this.$api.order_order.getOrderDelList({ bUser: this.vuex_user.phone }).then((res) => {
+			this.$api.order.getOrderDelList({ bUser: this.vuex_user.phone }).then((res) => {
 				const isDirector = this.vuex_userRole === 'D';
 				const tasks = res.data.data.filter((item) => (isDirector ? item.port === '1' || item.port === 'f' : item.port === '0'));
 				this.todoCount = tasks.length;

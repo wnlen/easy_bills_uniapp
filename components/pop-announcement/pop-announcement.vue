@@ -49,10 +49,10 @@
 					announcementRead: 1,
 					createTime: new Date()
 				}
-				this.$u.post('/edo/announcement/add', dx).then(res => {
-					console.log(dx);
-				});
-
+				this.$api.announcement.addAnnouncement(dx).then(res => {
+					console.log(dx)
+				})
+				
 				var path = this.announcement.announcementBtnPath
 				if (path != null && path != undefined && path != "") {
 					uni.navigateTo({
