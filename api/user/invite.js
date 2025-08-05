@@ -3,7 +3,7 @@ export default (http) => ({
 	getInviteOverview() {
 		return http.get('/edo/invite/overview')
 	},
-	// 领取奖励
+	// 邀请好友满足条件领取奖励
 	claimInviteReward(type) {
 		return http.post('/edo/invite/reward', { type });
 	}

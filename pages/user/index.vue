@@ -22,7 +22,8 @@
 									{{ vuex_user.phone == undefined ? '请登录~' : userName(vuex_user.data.name) || '设置用户名~' }}
 								</view>
 							</view>
-							<view class="flex-row justify-between ml20" style="width: 60px; height: 30px" v-if="vuex_user.data">
+							<view class="flex-row justify-between ml20" style="width: 120rpx; height: 60rpx" v-if="vuex_user.data">
+
 								<image v-if="vuex_user.data.work != '1'" src="https://res-oss.elist.com.cn/wxImg/user/zzh.svg" style="width: 100%; height: 100%"></image>
 								<view v-if="vuex_user.data.work == '1'" style="width: 100%; height: 100%">
 									<image
@@ -39,6 +40,7 @@
 						<view class="flex-col justify-left mt20" style="">
 							<view class="ft-zjj-05" @click="userClick">
 								<view class="flex-row items-center">
+
 									<u-icon size="50rpx" :name="ImgUrl + '/wxImg/user/my-phone.png'"></u-icon>
 									<text class="pb5" style="color: #525252">{{ vuex_user.phone || '***********' }}</text>
 								</view>
@@ -46,7 +48,9 @@
 							<view class="">
 								<view class="ft-zjj-05" @click="userClick">
 									<view class="flex-row items-center">
+
 										<u-icon size="50rpx" :name="ImgUrl + '/wxImg/user/my-emp.png'"></u-icon>
+
 										<!-- 										<text class="pb5"
 											style="color: #525252;">{{(vuex_user.ac?vuex_user.ac.enterpriseName:'未完善公司信息')}}</text> -->
 										<text class="pb5" style="color: #525252">
@@ -55,7 +59,9 @@
 									</view>
 								</view>
 								<view class="items-center absolute" @click="generateCode" style="right: 5%; top: 14%">
+
 									<u-icon size="70rpx" :name="ImgUrl + '/wxImg/user/QRCode.svg'"></u-icon>
+
 								</view>
 							</view>
 						</view>
@@ -64,29 +70,37 @@
 			</view>
 		</view>
 
+
 		<view class="user-menu" style="position: relative; z-index: 10">
 			<view class="card flex-row bg-white mt25 ml24 mr24 cardShowPlus" style="border-radius: 6px; height: 12vh">
 				<view class="icon" style="" id="box">
 					<view class="" @click="menuClick(menusIcon[0])">
 						<u-icon size="100rpx" :name="ImgUrl + '/wxImg/user/wddd.png'"></u-icon>
+
 						<view>我的订购</view>
 					</view>
 				</view>
 				<view class="icon" @click="menuClick(menusIcon[1])">
 					<view class="">
+
 						<u-icon size="100rpx" :name="ImgUrl + '/wxImg/user/grzl.png'"></u-icon>
+
 						<view>个人资料</view>
 					</view>
 				</view>
 				<view class="icon" @click="menuClick(menusIcon[2])">
 					<view class="">
+
 						<u-icon size="100rpx" :name="ImgUrl + '/wxImg/user/rygl.png'"></u-icon>
+
 						<view>人员管理</view>
 					</view>
 				</view>
 				<view class="icon" @click="menuClick(menusIcon[3])">
 					<view class="">
+
 						<u-icon size="100rpx" :name="ImgUrl + '/wxImg/user/qsgl.png'"></u-icon>
+
 						<view>签收管理</view>
 					</view>
 				</view>
@@ -95,6 +109,7 @@
 				class="card flex-row mt25 ml24 ml24 cardShowPlus justify-center items-center pb5 pt5"
 				style="border-radius: 6px; width: 94vw; height: auto; background-color: white"
 			>
+
 				<view class="" style="width: 94%">
 					<u-cell-group :border="false">
 						<u-cell :title="menus[0].name" isLink @click="menuClick(menus[0])">
@@ -113,9 +128,11 @@
 							</template>
 						</u-cell>
 					</u-cell-group>
+
 				</view>
 			</view>
 		</view>
+
 
 		<!-- 自定义tab -->
 		<pop-tab :tabIndex="3" ref="popTab"></pop-tab>
@@ -246,7 +263,6 @@ export default {
 		});
 	},
 	onShow() {
-		console.log('this.$u.pinia//token', this.$u.getPinia('user.token'));
 		if (this.vuex_user.phone != undefined) {
 			this.$loadUser(this);
 			this.loadData();

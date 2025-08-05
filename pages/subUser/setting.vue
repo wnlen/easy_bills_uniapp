@@ -13,9 +13,7 @@
 				<text slot="right-icon" class="ft-lighgray"></text>
 			</up-cell>
 		</up-cell-group>
-		<!--<view class="top-divider flex-row justify-center bg-white text-center">
-			<text @click="loginOut" class="ft29 ft-red pd30">退出登录</text>
-		</view>-->
+		
 		<!-- 切换角色 -->
 		<pop-role ref="popRole"></pop-role>
 		<!-- 切换角色 -->

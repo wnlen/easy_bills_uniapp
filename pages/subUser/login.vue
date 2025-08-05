@@ -295,8 +295,6 @@
 						return
 					}
 
-					// console.log("that.wxLoginRes", that.wxLoginRes);
-					// console.log("e.detail.code", e.detail.code);
 					const inviterId = uni.getStorageSync('inviterId') || null; // 登录前保存过
 					if (that.wxLoginRes) {
 						this.refreshCode()
@@ -305,7 +303,6 @@
 							'phoneCode': e.detail.code,
 							'inviterId': inviterId || null
 						}).then(res => {
-							console.log('')
 							var resDate = res.data.data;
 							that.message = resDate.loginState
 
@@ -328,18 +325,18 @@
 									}
 								})
 							}
-							
-							console.log('[登录后设置前] 当前 token:', this.$u.getPinia('user.token'));
+							console.log('登录成狗，设置缓存')
 							this.$u.setPinia({
 								user:{
 									userRole: 'D',
 									token: resDate.loginToken,
-									user: resDate,
+									user: resDate
+								},
+								guide:{
 									guidanceD: resDate.data.guidanceD,
 									guidanceR: resDate.data.guidanceR
 								}
 							})
-							console.log('[登录后设置后] 当前 token:', this.$u.getPinia('user.token'));
 							
 							if (resDate.phone != "" && resDate.data.work != null) {
 								this.$loadUser(this);
@@ -365,9 +362,7 @@
 								that.$u.toast(that.message)
 							}
 						}).catch(res => {
-							console.log('res11111111111',res);
 							that.$u.toast("服务器异常,请联系官方客服")
-							// that.$u.toast(that.message)
 						})
 					} else {
 						this.$u.toast(that.wxLoginRes)

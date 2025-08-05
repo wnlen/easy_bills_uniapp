@@ -155,7 +155,17 @@
 						if (res.data.data == 1) {
 							this.loadDataYG()
 							this.flushDBSX(dx, res.data.message)
-							this.vuex_tabbar[2].count = 0
+							this.$u.setPinia({
+								global: {
+									tabbar: [
+										{},
+										{},
+										{
+											count: 0
+										}
+									]
+								}
+							});
 						}
 
 						this.$u.toast(res.data.message)
@@ -180,11 +190,30 @@
 				}
 			},
 			flushDBSX(dx, mes) {
-
-				this.vuex_tabbar[2].count = Number(this.vuex_tabbar[2].count) - 1
-				var count = Number(this.vuex_tabbar[2].count)
+				var count = Number(this.$u.getPinia('global.tabbar.2.count'));
+				this.$u.setPinia({
+					global: {
+						tabbar: [
+							{},
+							{},
+							{
+								count: count-1
+							}
+						]
+					}
+				});
 				if (count < 0) {
-					this.vuex_tabbar[2].count = 0
+					this.$u.setPinia({
+						global: {
+							tabbar: [
+								{},
+								{},
+								{
+									count: 0
+								}
+							]
+						}
+					});
 				}
 
 				var list = []
