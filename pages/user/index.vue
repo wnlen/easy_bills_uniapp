@@ -23,6 +23,7 @@
 								</view>
 							</view>
 							<view class="flex-row justify-between ml20" style="width: 120rpx; height: 60rpx" v-if="vuex_user.data">
+
 								<image v-if="vuex_user.data.work != '1'" src="https://res-oss.elist.com.cn/wxImg/user/zzh.svg" style="width: 100%; height: 100%"></image>
 								<view v-if="vuex_user.data.work == '1'" style="width: 100%; height: 100%">
 									<image
@@ -39,14 +40,17 @@
 						<view class="flex-col justify-left mt20" style="">
 							<view class="ft-zjj-05" @click="userClick">
 								<view class="flex-row items-center">
-									<u-icon size="25" :name="ImgUrl + '/wxImg/user/my-phone.png'"></u-icon>
+
+									<u-icon size="50rpx" :name="ImgUrl + '/wxImg/user/my-phone.png'"></u-icon>
 									<text class="pb5" style="color: #525252">{{ vuex_user.phone || '***********' }}</text>
 								</view>
 							</view>
 							<view class="">
 								<view class="ft-zjj-05" @click="userClick">
 									<view class="flex-row items-center">
-										<u-icon size="25" :name="ImgUrl + '/wxImg/user/my-emp.png'"></u-icon>
+
+										<u-icon size="50rpx" :name="ImgUrl + '/wxImg/user/my-emp.png'"></u-icon>
+
 										<!-- 										<text class="pb5"
 											style="color: #525252;">{{(vuex_user.ac?vuex_user.ac.enterpriseName:'未完善公司信息')}}</text> -->
 										<text class="pb5" style="color: #525252">
@@ -55,7 +59,9 @@
 									</view>
 								</view>
 								<view class="items-center absolute" @click="generateCode" style="right: 5%; top: 14%">
-									<u-icon size="35" :name="ImgUrl + '/wxImg/user/QRCode.svg'"></u-icon>
+
+									<u-icon size="70rpx" :name="ImgUrl + '/wxImg/user/QRCode.svg'"></u-icon>
+
 								</view>
 							</view>
 						</view>
@@ -64,29 +70,37 @@
 			</view>
 		</view>
 
-		<view class="user-menu">
+
+		<view class="user-menu" style="position: relative; z-index: 10">
 			<view class="card flex-row bg-white mt25 ml24 mr24 cardShowPlus" style="border-radius: 6px; height: 12vh">
-				<view class="icon" id="box">
+				<view class="icon" style="" id="box">
 					<view class="" @click="menuClick(menusIcon[0])">
-						<u-icon size="50" :custom-style="icon_style" :name="ImgUrl + '/wxImg/user/wddd.png'"></u-icon>
+						<u-icon size="100rpx" :name="ImgUrl + '/wxImg/user/wddd.png'"></u-icon>
+
 						<view>我的订购</view>
 					</view>
 				</view>
 				<view class="icon" @click="menuClick(menusIcon[1])">
 					<view class="">
-						<u-icon size="50" :custom-style="icon_style" :name="ImgUrl + '/wxImg/user/grzl.png'"></u-icon>
+
+						<u-icon size="100rpx" :name="ImgUrl + '/wxImg/user/grzl.png'"></u-icon>
+
 						<view>个人资料</view>
 					</view>
 				</view>
 				<view class="icon" @click="menuClick(menusIcon[2])">
 					<view class="">
-						<u-icon size="50" :custom-style="icon_style" :name="ImgUrl + '/wxImg/user/rygl.png'"></u-icon>
+
+						<u-icon size="100rpx" :name="ImgUrl + '/wxImg/user/rygl.png'"></u-icon>
+
 						<view>人员管理</view>
 					</view>
 				</view>
 				<view class="icon" @click="menuClick(menusIcon[3])">
 					<view class="">
-						<u-icon size="50" :custom-style="icon_style" :name="ImgUrl + '/wxImg/user/qsgl.png'"></u-icon>
+
+						<u-icon size="100rpx" :name="ImgUrl + '/wxImg/user/qsgl.png'"></u-icon>
+
 						<view>签收管理</view>
 					</view>
 				</view>
@@ -95,35 +109,33 @@
 				class="card flex-row mt25 ml24 ml24 cardShowPlus justify-center items-center pb5 pt5"
 				style="border-radius: 6px; width: 94vw; height: auto; background-color: white"
 			>
-				<view style="width: 94%">
-					<up-cell-group :border="false">
-						<up-cell :title="menus[0].name" :isLink="true" arrow-direction="right" @click="menuClick(menus[0])" :border="false">
-							<u-icon slot="icon" size="40" :name="ImgUrl + menus[0].icon" color="#999" :custom-style="{ marginRight: '20rpx' }"></u-icon>
-						</up-cell>
-					</up-cell-group>
-					<up-cell-group :border="false">
-						<up-cell
-							v-for="(item, index) in filteredMenus"
-							:key="index"
-							:title="item.name"
-							:border="false"
-							:isLink="true"
-							arrow-direction="right"
-							@click="menuClick(item)"
-						>
-							<up-icon slot="icon" size="40" :name="ImgUrl + item.icon" color="#999" :custom-style="{ marginRight: '20rpx' }"></up-icon>
-						</up-cell>
-					</up-cell-group>
-					<up-cell-group :border="false">
-						<up-cell :title="menus[menus.length - 1].name" :isLink="true" arrow-direction="right" @click="menuClick(menus[menus.length - 1])" :border="false">
-							<u-icon slot="icon" size="40" :name="ImgUrl + menus[menus.length - 1].icon" color="#999" :custom-style="{ marginRight: '20rpx' }"></u-icon>
-						</up-cell>
-					</up-cell-group>
+
+				<view class="" style="width: 94%">
+					<u-cell-group :border="false">
+						<u-cell :title="menus[0].name" isLink @click="menuClick(menus[0])">
+							<template #icon>
+								<u-icon slot="icon" size="40rpx" :name="ImgUrl + menus[0].icon" color="#999" :custom-style="{ marginRight: '20rpx' }"></u-icon>
+							</template>
+						</u-cell>
+						<u-cell v-for="(item, index) in filteredMenus" :key="index" :title="item.name + 2" isLink @click="menuClick(item)">
+							<template #icon>
+								<u-icon slot="icon" size="40rpx" :name="ImgUrl + item.icon" color="#999" :custom-style="{ marginRight: '20rpx' }"></u-icon>
+							</template>
+						</u-cell>
+						<u-cell :title="menus[menus.length - 1].name + 1" isLink @click="menuClick(menus[menus.length - 1])" :border="false">
+							<template #icon>
+								<u-icon slot="icon" size="40rpx" :name="ImgUrl + menus[menus.length - 1].icon" color="#999" :custom-style="{ marginRight: '20rpx' }"></u-icon>
+							</template>
+						</u-cell>
+					</u-cell-group>
+
 				</view>
 			</view>
 		</view>
 
-		<u-tabbar :list="vuex_tabbar" :height="tabHight" iconSize="40" active-color="#0FB076"></u-tabbar>
+
+		<!-- 自定义tab -->
+		<pop-tab :tabIndex="3" ref="popTab"></pop-tab>
 
 		<pop-guide :max-step="3" :guideData="functionGuideData" ref="FunctionGuide"></pop-guide>
 	</view>
@@ -133,9 +145,6 @@
 export default {
 	data() {
 		return {
-			icon_style: {
-				margin: '0 auto'
-			},
 			tabHight: '50px',
 			backgroundImage: ['https://res-oss.elist.com.cn/wxImg/index/indexR.png', 'https://res-oss.elist.com.cn/wxImg/index/indexbg.png'],
 			eye: 1,
@@ -265,21 +274,9 @@ export default {
 	methods: {
 		guideCourse() {
 			if (this.vuex_user.phone != undefined) {
-				if (this.guidanceD == 1) {
-					this.$loadUser(this);
-					var guidance = uni.getStorageSync('guidance');
-					if (guidance == undefined || guidance == null || guidance == '') {
-						if (this.vuex_userRole == 'D') {
-							uni.switchTab({
-								url: '/pages/index/index'
-							});
-						}
-					} else {
-						uni.removeStorageSync('guidance');
-						if (this.vuex_userRole == 'D') {
-							this.guide();
-						}
-					}
+				console.log(11, this.$u.getPinia('guide.guidanceD'));
+				if (this.$u.getPinia('guide.guidanceD') != 1 && this.vuex_userRole == 'D') {
+					this.guide();
 				}
 			}
 		},
@@ -322,6 +319,11 @@ export default {
 							height: `${res.height / 1.2}px`
 						}
 					});
+				});
+				this.$u.setPinia({
+					guide: {
+						guidanceD: 1
+					}
 				});
 			}
 		},
@@ -438,9 +440,6 @@ export default {
 }
 
 .user-menu {
-	position: relative;
-	z-index: 10;
-	height: 100vh;
 	background: #f4f4f4;
 	min-height: 200rpx;
 	margin-top: -30rpx;
@@ -498,5 +497,8 @@ export default {
 	flex-direction: column;
 	justify-content: center;
 	text-align: center;
+	::v-deep image {
+		margin: 0 auto;
+	}
 }
 </style>

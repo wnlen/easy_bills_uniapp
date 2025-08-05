@@ -3,8 +3,8 @@
 		<!-- 		<u-navbar :border-bottom="false" title-color="#333333" title="更多功能" title-size="28"
 			background="{background:transparent,color:white,fontSize: 14px;}"></u-navbar> -->
 
-		<u-navbar :border-bottom="false" :titleBold="true" title-color="#000000" title="更多功能" title-size="34"
-			bgColor="#ffffff"></u-navbar>
+		<u-navbar :placeholder="true" :border-bottom="false" :titleBold="true" title-color="#000000" title="更多功能" title-size="34"
+			bgColor="#ffffff" :autoBack="true" ></u-navbar>
 
 		<view class="ml24 mr24">
 			<!-- <view class="titleMore">
@@ -33,7 +33,8 @@
 					<template v-slot="{item, index}">
 						<view class="ml5 mr5 flex-col justify-center items-center relative"
 							style="background-color: transparent;">
-							<u-icon :label="item.name" size="100" :name="item.icon" label-pos="bottom" label-size="25"
+							{{item.icon}}
+							<u-icon :label="item.name" size="100rpx" :name="item.icon" label-pos="bottom" label-size="25rpx"
 								label-color="#333333" @touchstart="handleTouchStart" @touchend="handleTouchEnd"
 								@click="jump(item)" @touchcancel="handleTouchCancel"></u-icon>
 						</view>
@@ -81,7 +82,7 @@
 
 			},
 			getIcon() {
-				this.$u.post('/edo/sequence/getExist', {
+				this.$http.post('/edo/sequence/getExist', {
 					"phone": this.vuex_user.phone
 				}).
 				then(res => {

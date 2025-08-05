@@ -16,6 +16,7 @@ export default {
 		};
 	},
 	onLaunch(options) {
+		uni.hideTabBar();
 		console.log('options', options);
 		const inviterId = options?.query?.inviterId;
 		//缓存邀请码

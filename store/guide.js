@@ -15,10 +15,11 @@ export const useGuideStore = defineStore('guide', {
 		setDraft(val) {
 			this.draft = val
 		},
-		setGuidance(type, val) {
-			if (type === 'D') this.guidanceD = val
-			else if (type === 'R') this.guidanceR = val
-			else this.guidance = val
+		setGuidanceD(val) {
+			this.guidanceD = val
+		},
+		setGuidanceR(val) {
+			this.guidanceD = val
 		}
 	}
 })

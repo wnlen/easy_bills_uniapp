@@ -6,7 +6,7 @@
 			@change="move($event, item, index)">
 			<div @tap.stop class="absolute" style="right: 0;top: 0;width: 20px;height: 20px;z-index: 99999;" @click="minusFun(item,list,index,minusName)">
 				<u-icon v-show="minus" :color="minusColor"  :name="minusName"
-					size="30" class="absolute" style="right: 0;top: 0;"></u-icon>
+					size="30rpx" class="absolute" style="right: 0;top: 0;"></u-icon>
 			</div>
 			<div>
 				<slot :item="item" :index="index"></slot>

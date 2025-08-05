@@ -406,11 +406,13 @@
 				</view>
 			</view>
 
-			<view class="NullView" style="height: 5vh; background-color: transparent"></view>
 
-			<view slot="bottom">
-				<u-tabbar :list="vuex_tabbar" :height="tabHight" iconSize="40" active-color="#0FB076"></u-tabbar>
+
+			<view class="NullView" style="height: 5vh;background-color: transparent;">
+
 			</view>
+			<!-- 自定义tab -->
+			<pop-tab :tabIndex="1" ref="popTab"></pop-tab>
 		</z-paging>
 
 		<u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" />
