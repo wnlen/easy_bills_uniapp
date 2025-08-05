@@ -1,3 +1,4 @@
+// api/survey.js
 export default (http) => ({
 	//获取问卷数据
 	getSurveyList(param) {

@@ -4,7 +4,7 @@ import {
 } from 'pinia'
 
 export const useGuideStore = defineStore('guide', {
-	persist: true,
+	unistorage: true, // 开启后对 state 的数据读写都将持久化
 	state: () => ({
 		guidanceD: null,
 		guidanceR: null,
@@ -15,10 +15,11 @@ export const useGuideStore = defineStore('guide', {
 		setDraft(val) {
 			this.draft = val
 		},
-		setGuidance(type, val) {
-			if (type === 'D') this.guidanceD = val
-			else if (type === 'R') this.guidanceR = val
-			else this.guidance = val
+		setGuidanceD(val) {
+			this.guidanceD = val
+		},
+		setGuidanceR(val) {
+			this.guidanceD = val
 		}
 	}
 })

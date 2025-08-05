@@ -35,8 +35,9 @@
 			</view>
 		</u-swipe-action>
 
-
-		<u-tabbar :list="vuex_tabbar" :height="tabHight" iconSize="40" active-color="#0FB076"></u-tabbar>
+		<!-- 自定义tab -->
+		<pop-tab :tabIndex="2" ref="popTab"></pop-tab>
+		<!-- <u-tabbar :list="vuex_tabbar" :height="tabHight" iconSize="40" active-color="#0FB076"></u-tabbar> -->
 	</view>
 </template>
 
@@ -130,7 +131,17 @@
 		},
 		onShow() {
 			if (this.vuex_user.phone != undefined) {
-				this.vuex_tabbar[2].count = 0
+				this.$u.setPinia({
+					global: {
+						tabbar: [
+							{},
+							{},
+							{
+								count: 0
+							}
+						]
+					}
+				});
 				this.showMess = false
 				this.loadData()
 				this.SOCKETfLUSH();
@@ -173,9 +184,18 @@
 
 					console.log(this.list);
 
-					if (this.vuex_tabbar[2].count != sum) {
-						this.vuex_tabbar[2].count = 0
-						this.vuex_tabbar[2].count = sum
+					if (this.$u.getPinia('global.tabbar.2.count') != sum) {
+						this.$u.setPinia({
+							global: {
+								tabbar: [
+									{},
+									{},
+									{
+										count: sum
+									}
+								]
+							}
+						});
 					}
 
 					this.showMess = true

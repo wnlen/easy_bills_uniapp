@@ -1,16 +1,26 @@
 // common/piniaHelper.js
-import { useUserStore } from '@/store/user'
-import { useGlobalStore } from '@/store/global'
-import { useGuideStore } from '@/store/guide'
-import { useDraftStore } from '@/store/draft'
-import { useSystemStore } from '@/store/system'
+import {
+	useUserStore
+} from '@/store/user'
+import {
+	useGlobalStore
+} from '@/store/global'
+import {
+	useGuideStore
+} from '@/store/guide'
+import {
+	useDraftStore
+} from '@/store/draft'
+import {
+	useSystemStore
+} from '@/store/system'
 
 const storeMap = {
-  user: useUserStore,
-  global: useGlobalStore,
-  guide: useGuideStore,
-  draft: useDraftStore,
-  system: useSystemStore
+	user: useUserStore,
+	global: useGlobalStore,
+	guide: useGuideStore,
+	draft: useDraftStore,
+	system: useSystemStore
 }
 
 /**
@@ -18,7 +28,7 @@ const storeMap = {
  const token = getPinia('user.token');
  */
 export function getPinia(path) {
-	const [storeName, key] = path.split('.') // 如 "user.token"
+	if (!path) return undefined
 
 	const storeMap = {
 		user: useUserStore(),
@@ -28,10 +38,14 @@ export function getPinia(path) {
 		system: useSystemStore()
 	}
 
+	const [storeName, ...keys] = path.split('.')
 	const store = storeMap[storeName]
 	if (!store) return undefined
 
-	return key ? store[key] : store
+	return keys.reduce((acc, key) => {
+		if (acc === undefined || acc === null) return undefined
+		return acc[key]
+	}, store)
 }
 
 /**
@@ -42,94 +56,32 @@ export function getPinia(path) {
  });
  */
 export function setPinia(payload) {
-  if (typeof payload === 'string') {
-    console.error('[setPinia] 已弃用字符串参数，请使用对象形式')
-    return
-  }
+	for (const [storeName, storeData] of Object.entries(payload)) {
+		const useStore = storeMap[storeName]
+		if (!useStore) continue
+		const store = useStore()
 
-  for (const [storeName, storeData] of Object.entries(payload)) {
-    const useStore = storeMap[storeName]
-    if (!useStore) {
-      console.warn(`[setPinia] 未找到 store: ${storeName}`)
-      continue
-    }
+		const patchData = {}
 
-    const store = useStore()
-    Object.assign(store, storeData)
-  }
-}
+		for (const key in storeData) {
+			const originValue = store[key]
+			const newValue = storeData[key]
 
-// 兼容旧版调用方式 (可选)
-export function legacySetPinia(name, value) {
-	const mapping = {
-		'vuex_token': {
-			store: 'user',
-			key: 'token'
-		},
-		'vuex_user': {
-			store: 'user',
-			key: 'user'
-		},
-		'vuex_userRole': {
-			store: 'user',
-			key: 'userRole'
-		},
-		'vuex_password': {
-			store: 'user',
-			key: 'password'
-		},
-		'announcement': {
-			store: 'user',
-			key: 'announcement'
-		},
-		'vuex_tabIndex': {
-			store: 'global',
-			key: 'tabIndex'
-		},
-		'vuex_tabbar': {
-			store: 'global',
-			key: 'tabbar'
-		},
-		'ImgUrl': {
-			store: 'global',
-			key: 'ImgUrl'
-		},
-		'taber': {
-			store: 'global',
-			key: 'taber'
-		},
-		'guidance': {
-			store: 'guide',
-			key: 'guidance'
-		},
-		'guidanceD': {
-			store: 'guide',
-			key: 'guidanceD'
-		},
-		'guidanceR': {
-			store: 'guide',
-			key: 'guidanceR'
-		},
-		'draft': {
-			store: 'draft',
-			key: 'draft'
-		},
-		'flush': {
-			store: 'system',
-			key: 'flush'
+			// 处理数组合并：保留原值，更新指定项
+			if (Array.isArray(originValue) && Array.isArray(newValue)) {
+				const merged = [...originValue]
+				newValue.forEach((partialItem, index) => {
+					merged[index] = {
+						...(originValue[index] || {}),
+						...(partialItem || {})
+					}
+				})
+				patchData[key] = merged
+			} else {
+				patchData[key] = newValue
+			}
 		}
-	};
 
-	const map = mapping[name];
-	if (!map) {
-		console.warn(`未匹配的 pinia 状态字段: ${name}`);
-		return;
+		store.$patch(patchData)
 	}
-
-	setPinia({
-		[map.store]: {
-			[map.key]: value
-		}
-	});
 }
-

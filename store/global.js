@@ -18,7 +18,7 @@ if (envVersion === 'develop') {
 // #endif
 
 export const useGlobalStore = defineStore('global', {
-  persist: true,
+  unistorage: true, // 开启后对 state 的数据读写都将持久化
   state: () => ({
     tabIndex: 0,
     version: '1.0.0',

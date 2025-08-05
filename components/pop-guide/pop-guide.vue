@@ -66,8 +66,6 @@
 					step: 'jump'
 				})
 				this.setFunctionGuideState()
-				// 标记状态，只有首次访问小程序时显示指引
-				uni.setStorageSync('showGuide', 1)
 			},
 			next() {
 				this.throttle(() => {
@@ -115,13 +113,13 @@
 					guidanceR: port ? 1 : 0,
 					port: this.vuex_userRole
 				}
-				this.$u.post('edo/user/Guidance', dx).then(res => {
-					console.log("修改结果：", res);
-					if (res.data.data == 1) {
-						this.show = false
-					}
-					this.$loadUser(this);
-				});
+				this.show = false
+				this.$loadUser(this);
+				// this.$u.post('edo/user/Guidance', dx).then(res => {
+				// 	console.log("修改结果：", res);
+				// 	if (res.data.data == 1) {
+				// 	}
+				// });
 			},
 			setFunctionGuideState() {
 				this.show = false

@@ -209,9 +209,19 @@
 
 			},
 			delCount() {
-				var ifok = Number(this.vuex_tabbar[0].counts) > 0;
+				const sum = Number(this.$u.getPinia('global.tabbar.0.counts'));
+				var ifok = sum > 0;
 				if (ifok) {
-					this.vuex_tabbar[0].counts = Number(this.vuex_tabbar[0].counts) - 1;
+					const num = sum - 1;
+					this.$u.setPinia({
+						global: {
+							tabbar: [
+								{
+									count: num
+								}
+							]
+						}
+					});
 				}
 			},
 			clickApply(item) {

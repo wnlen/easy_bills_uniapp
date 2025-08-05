@@ -83,7 +83,7 @@
 		},
 		methods: {
 			getData() {
-				this.$api.user_invite.getInviteOverview().then(res => {
+				this.$api.user.getInviteOverview().then(res => {
 					const data = res.data.data;
 					this.shareLink = data.shareLink;
 					this.qrCodeUrl = data.qrCodeUrl;
@@ -127,7 +127,7 @@
 			},
 			claimReward(type) {
 				console.log('领取')
-				this.$api.user_invite.claimInviteReward(type).then((res) => {
+				this.$api.user.claimInviteReward(type).then((res) => {
 					if(res.data.code == 200){
 						this.$refs.toast.show({
 							type: 'success',

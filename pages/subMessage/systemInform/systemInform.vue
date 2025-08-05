@@ -46,12 +46,31 @@
 			del(item) {
 				this.$u.post('/edo/SystemInform/InformDel', item).then(res => {
 					var del = res.data.data;
-					console.log(del);
-					// this.$u.toast(`删除成功`);
-					if (this.vuex_tabbar[2].count > 0) {
-						this.vuex_tabbar[2].count = Number(this.vuex_tabbar[2].count) - 1
+					var count = Number(this.$u.getPinia('global.tabbar.2.count'));
+					if (count > 0) {
+						this.$u.setPinia({
+							global: {
+								tabbar: [
+									{},
+									{},
+									{
+										count: count-1
+									}
+								]
+							}
+						});
 					} else {
-						this.vuex_tabbar[2].count = 0;
+						this.$u.setPinia({
+							global: {
+								tabbar: [
+									{},
+									{},
+									{
+										count: 0
+									}
+								]
+							}
+						});
 					}
 
 					var that = this;

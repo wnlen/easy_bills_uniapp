@@ -35,8 +35,6 @@ export const initRequest = () => {
 	http.interceptors.request.use((config) => {
 		const userStore = useUserStore();
 		
-		// console.log('userStore',userStore);
-			
 		const isWhite = isWhiteListedPath(config.url)
 		const skipAuth = config.custom?.noAuth
 		
