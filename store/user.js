@@ -36,7 +36,7 @@ export const useUserStore = defineStore('user', {
 		userRole: 'D',
 		work: '',
 		password: '',
-		announcement: ''
+		announcement: '',
 	}),
 	actions: {
 		setToken(token) {

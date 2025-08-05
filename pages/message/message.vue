@@ -35,8 +35,9 @@
 			</view>
 		</u-swipe-action>
 
-
-		<u-tabbar :list="vuex_tabbar" :height="tabHight" iconSize="40" active-color="#0FB076"></u-tabbar>
+		<!-- 自定义tab -->
+		<pop-tab :tabIndex="2" ref="popTab"></pop-tab>
+		<!-- <u-tabbar :list="vuex_tabbar" :height="tabHight" iconSize="40" active-color="#0FB076"></u-tabbar> -->
 	</view>
 </template>
 
