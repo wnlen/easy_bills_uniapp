@@ -492,6 +492,7 @@ export default {
 		// 加载广告
 		getmiddleBanner() {
 			var filer = this.vuex_userRole == 'D' ? '1' : '0';
+			console.log('this.$api.advert', this.$api);
 			this.$api.advert
 				.getAdvertList({
 					port: filer

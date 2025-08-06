@@ -75,7 +75,10 @@
 				let role = this.vuex_user.data.work == "1" ? 1 : 2;
 				console.log(this.vuex_user.data.work);
 				var that = this;
-				this.$u.post('edo/user/renewal?phone=' + this.vuex_user.phone + '&role=' + role).then(res => {
+				this.$api.user.refreshUser({
+				  phone: this.vuex_user.phone,
+				  role: role
+				}).then(res => {
 					let a = that.vuex_user
 					a.ac = res.data.data.ac
 					this.qy = a.ac
@@ -92,8 +95,8 @@
 				console.log("用户信息实时更新 ", this.vuex_user);
 			},
 			loadData() {
-				this.$u.post('edo/ac/get', {
-					"user": this.vuex_user.phone
+				this.$api.order.getAccountStatistics({
+				  user: this.vuex_user.phone
 				}).then(res => {
 					console.log("认证状态==》", res.data);
 					if (res.data.data != null) {

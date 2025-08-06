@@ -343,8 +343,7 @@
 
 					console.log("this.billFrom:", this.billFrom);
 
-					this.$u.post("/edo/bills/addBill", this.billFrom).then(res => {
-						console.log("/edo/bills/addBill", res);
+					this.$api.bills.addBill(this.billFrom).then(res => {
 						this.checkSend = true
 						if (res.data.code == 200) {
 							this.$u.toast(res.data.message)
@@ -369,7 +368,7 @@
 			},
 			getOrderNumber() {
 				// billNumber
-				this.$u.post("/edo/bills/billNumber").then(res => {
+				this.$api.bills.generateBillNumber().then(res => {
 					console.log("编号", res);
 					this.billFrom.billNumber = res.data.data
 				});
@@ -498,38 +497,15 @@
 								size: size
 							}
 							if (type) {
-								// that.billFrom.fileAliList.push()
 								dx.file = uploadFileRes.data
 								resolve(dx)
 							} else {
 								dx.file = uploadFileRes.data
 								resolve(dx)
-								// that.billFrom.imgAliList.push(uploadFileRes.data)
 							}
 						}
 					});
 				});
-
-
-				// console.log(fileAvatar);
-				// let that = this;
-				// uni.uploadFile({
-				// 	url: that.$u.http.config.baseUrl + '/edo/bills/file',
-				// 	header: {
-				// 		token: that.vuex_token,
-				// 		phone: that.vuex_user.phone,
-				// 		number: billNumber
-				// 	},
-				// 	filePath: fileAvatar,
-				// 	name: 'file',
-				// 	success: (uploadFileRes) => {
-				// 		if (type) {
-				// 			that.billFrom.fileAliList.push(uploadFileRes.data)
-				// 		} else {
-				// 			that.billFrom.imgAliList.push(uploadFileRes.data)
-				// 		}
-				// 	}
-				// });
 			}
 		}
 	}

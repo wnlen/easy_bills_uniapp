@@ -115,11 +115,9 @@
 				}
 				this.show = false
 				this.$loadUser(this);
-				// this.$u.post('edo/user/Guidance', dx).then(res => {
-				// 	console.log("修改结果：", res);
-				// 	if (res.data.data == 1) {
-				// 	}
-				// });
+				this.$api.user.userGuidance(dx).then(res => {
+					
+				});
 			},
 			setFunctionGuideState() {
 				this.show = false

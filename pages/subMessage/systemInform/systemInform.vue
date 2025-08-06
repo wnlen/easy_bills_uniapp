@@ -44,7 +44,7 @@
 				}
 			},
 			del(item) {
-				this.$u.post('/edo/SystemInform/InformDel', item).then(res => {
+				this.$api.inform.deleteSystemInform(item).then(res => {
 					var del = res.data.data;
 					var count = Number(this.$u.getPinia('global.tabbar.2.count'));
 					if (count > 0) {
@@ -136,7 +136,7 @@
 					state: "1",
 					phone: this.vuex_user.phone
 				}
-				this.$u.post('/edo/SystemInform/get', dx).then(res => {
+				this.$api.inform.getSystemInformList(dx).then(res => {
 					this.InformList = res.data.data.map(obj => ({
 						...obj,
 						show: false

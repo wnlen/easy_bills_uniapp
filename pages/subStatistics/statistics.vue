@@ -4,7 +4,6 @@
 			:auto="true" :refresher-enabled="true" fixed="true" @virtualListChange="virtualListChange"
 			@query="queryList" style=""> -->
 
-		<!-- 111 -->
 		<z-paging
 			ref="paging"
 			use-virtual-list
@@ -13,6 +12,7 @@
 			@virtualListChange="virtualListChange"
 			@query="queryList"
 		>
+
 			<!-- <view slot="top"> -->
 			<u-sticky >
 				<u-navbar :autoBack="true" :placeholder="true">
@@ -273,7 +273,6 @@
 					<up-loading-icon mode="flower"></up-loading-icon>
 				</view>
 			</view>
-
 			<view v-if="!orderList.length" style="padding-bottom: 200rpx">
 				<u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" label-color="#AAAAAA" label="暂无记录" size="180rpx"></u-icon>
 			</view>
@@ -822,7 +821,6 @@ export default {
 						this.refresh = true;
 						this.$u.toast('获取个数失败');
 					});
-
 				//
 			} else {
 				//console.debug("请求到底拦截");
@@ -936,56 +934,6 @@ export default {
 			this.$refs.paging.reload();
 		},
 		refreshData() {
-			console.log('请求');
-
-			// if (this.refresh) {
-			// 	this.refresh = false;
-			// 	this.realTimeSel.role = this.vuex_userRole == "R" ? "1" : "0"
-			// 	this.$u.post('/edo/order/getFilter', this.realTimeSel)
-			// 		.then(res => {
-
-			// 			let [s, e] = this.realTimeSel.limitS.split(",");
-
-			// 			var getList = res.data.data;
-			// 			if (this.checked) {
-			// 				for (let key in getList) {
-			// 					// console.log(orderList[key]);
-			// 					getList[key].check = true
-			// 				}
-			// 			} else {
-			// 				for (let key in getList) {
-			// 					// console.log(orderList[key]);
-			// 					getList[key].check = false
-			// 				}
-			// 			}
-
-			// 			let orderList = s == "0" ? res.data.data : [...this.orderList, ...getList];
-
-			// 			this.$refs.paging.complete(orderList);
-
-			// 			// this.orderList = orderList
-			// 			this.totalMoney = orderList.reduce((total, obj) => total + obj.price, 0);
-
-			// 			console.log(this.orderList);
-			// 			this.refresh = true;
-			// 			this.uloading = false
-			// 		})
-			// 		.catch(res => {
-			// 			this.refresh = true;
-			// 			this.$u.toast("服务器响应失败");
-			// 		});
-
-			// 	this.$u.post('/edo/order/Quantity', this.realTimeSel)
-			// 		.then(res => {
-			// 			console.log("当前订单个数：", res);
-			// 			this.OrderQuantity = res.data.data[1]
-			// 			this.OrderQuantitySum = res.data.data[0]
-			// 		})
-			// 		.catch(res => {
-			// 			this.refresh = true;
-			// 			this.$u.toast("获取个数失败");
-			// 		});
-			// }
 		},
 		searchListenner() {
 			this.checked = false;
@@ -1039,8 +987,8 @@ export default {
 					var dx = Object.assign({}, this.realTimeSel);
 					dx.limitS = '';
 					dx.role = this.vuex_userRole == 'R' ? '1' : '0';
-					this.$u
-						.post('/edo/order/getFilter', dx)
+					this.$api.order
+						.postOrderFilter(dx)
 						.then((res) => {
 							console.log('下载pdf的单据：', res.data.data);
 							this.downPdf(res.data.data);
@@ -1078,9 +1026,7 @@ export default {
 			};
 
 			console.log(dx);
-			this.$u
-				.post('/edo/order/pdf', dx)
-				.then((res) => {
+			this.$api.order.generateOrderPDF(dx).then((res) => {
 					// #ifdef APP-PLUS
 					console.log('pdf----------->', res.data.data);
 					uni.downloadFile({
@@ -1589,9 +1535,7 @@ export default {
 					};
 				}
 				console.log(dx);
-				that.$u
-					.post('/edo/order/get', dx)
-					.then((res) => {
+				this.$api.order.getOrders(dx).then((res) => {
 						var resDate = res.data.data.map((item) => {
 							return {
 								...item,
@@ -1622,9 +1566,7 @@ export default {
 					};
 				}
 				console.log(dx);
-				that.$u
-					.post('/edo/order/get', dx)
-					.then((res) => {
+				this.$api.order.getOrders(dx).then((res) => {
 						console.log(res.data.data);
 						this.orderList = res.data.data;
 						this.orderListCopy = res.data.data;
@@ -1739,7 +1681,7 @@ export default {
 			var dx = {
 				phone: this.vuex_user.phone
 			};
-			this.$u.post('edo/jurisdiction/getDatabase', dx).then((res) => {
+			this.$api.pay.getDatabaseUsage(dx).then((res) => {
 				this.CrearOrder(res.data.data, index);
 			});
 		},
