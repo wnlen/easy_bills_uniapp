@@ -218,7 +218,7 @@
 					"aCompany": ""
 				}
 
-				this.$u.post('edo/user/search?phone=' + addPhone).then(res => {
+				this.$api.user.searchUser({ phone: addPhone }).then(res => {
 					console.log("(检索添加人)： ", JSON.stringify(res.data.data.map));
 					var addUser = res.data.data;
 					var bossAdd = addPhone;
@@ -246,7 +246,7 @@
 					dx.port = this.role == 1 ? "D" : "R"
 
 
-					this.$u.post('edo/client/add', dx).then(res => {
+					this.$api.user.addClient(dx).then.then(res => {
 						console.log("添加申请： " + res.data.data);
 						var resAddFriend = res.data
 						this.addResAlert(resAddFriend)

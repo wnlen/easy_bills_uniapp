@@ -80,10 +80,10 @@
 				this.orderList = vList;
 			},
 			queryList(pageNo, pageSize) {
-				this.$u.post("/edo/bills/billsByIdGetOrder", {
-					"billList": this.billsList,
-					"page": pageNo,
-					"size": pageSize
+				this.$api.bills.getBillOrdersByIds({
+				  billList: this.billsList,
+				  page: pageNo,
+				  size: pageSize
 				}).then(res => {
 					this.$refs.paging.complete(res.data.data);
 				});

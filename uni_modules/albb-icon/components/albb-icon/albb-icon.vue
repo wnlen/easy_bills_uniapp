@@ -61,13 +61,7 @@
 	}
 
 	// 本地地址，需从阿里矢量图中下载相关文件
-	/* #ifdef MP */
-		@import url('./iconfont.css');
-	/* #endif */
-	/* #ifdef APP-VUE */
-		@import url('//at.alicdn.com/t/c/font_4981937_a7du4n5prli.css');/
-	/* #endif */
-
+	@import url('./iconfont.css');
 
 	.iconfont {
 		font-size: 32rpx;

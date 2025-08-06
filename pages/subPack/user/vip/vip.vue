@@ -13,8 +13,7 @@
 		},
 		methods: {
 			play(){
-				this.$u.post('/edo/vip/buy').
-				then(res => {
+				this.$api.pay.buyVip({}).then(res => {
 					console.log(res.data.data);
 				     this.playWX(res.data.data);	
 				}).catch(res=>{

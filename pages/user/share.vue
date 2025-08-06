@@ -127,7 +127,7 @@
 			},
 			claimReward(type) {
 				console.log('领取')
-				this.$api.user.claimInviteReward(type).then((res) => {
+				this.$api.user.claimInviteReward({type}).then((res) => {
 					if(res.data.code == 200){
 						this.$refs.toast.show({
 							type: 'success',

@@ -42,8 +42,7 @@
 				}
 				console.log(remark);
 				if (remark.remark.length>0) {
-					this.$u.post('/edo/remark/add',remark).
-					then(res => {
+					this.$api.user.addRemark(remark).then(res => {
 						console.log(res.data.data);
 						this.orderList = res.data.data;
 						this.totalMoney = this.orderList.reduce((total, obj) => total + obj.price, 0);

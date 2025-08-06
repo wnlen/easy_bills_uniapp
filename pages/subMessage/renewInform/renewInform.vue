@@ -73,7 +73,7 @@
 				}
 			},
 			del(item) {
-				this.$u.post('/edo/inform/renewDel', item).then(res => {
+				this.$api.inform.deleteInformItem(item).then(res => {
 					var del = res.data.data;
 					console.log(del);
 					this.$u.toast(`删除成功`);
@@ -163,7 +163,7 @@
 					state: "1",
 					phone: this.vuex_user.phone
 				}
-				this.$u.post('/edo/inform/renew', dx).then(res => {
+				this.$api.inform.refreshInformStatus(dx).then(res => {
 					this.renewInformList = res.data.data.map(obj => ({
 						...obj,
 						show: false

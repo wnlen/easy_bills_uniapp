@@ -5,6 +5,7 @@ export default (http) => {
   const modules = {}
 
   for (const path in files) {
+	// 跳过index.js自身
     if (path === './index.js') continue
 
     // 提取目录名（模块名）

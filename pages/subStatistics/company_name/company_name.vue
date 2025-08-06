@@ -57,7 +57,7 @@
 				})
 			}
 
-			this.$u.post('/edo/rest/v1/myOrderList', this.queryObj).then(res => {
+			this.$api.user.getMyOrderList(this.queryObj).then(res => {
 
 				var listName = []
 				for (let key in res) {

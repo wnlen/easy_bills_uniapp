@@ -76,6 +76,7 @@ export default {
 				textAlign: 'right',
 				color: '#D8D8D8'
 			},
+
 			labelStyle: {
 				color: 'red',
 				paddingLeft: '12px'

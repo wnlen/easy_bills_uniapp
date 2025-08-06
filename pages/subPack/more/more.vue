@@ -81,10 +81,9 @@
 
 			},
 			getIcon() {
-				this.$http.post('/edo/sequence/getExist', {
-					"phone": this.vuex_user.phone
-				}).
-				then(res => {
+				this.$api.bills.checkSequenceExistence({
+				  phone: this.vuex_user.phone
+				}).then(res => {
 					var D = this.vuex_userRole == "D";
 					// this.list = D ? res.data.data.D : res.data.data.R;
 					// this.listO= D ? res.data.data.DO : res.data.data.RO;

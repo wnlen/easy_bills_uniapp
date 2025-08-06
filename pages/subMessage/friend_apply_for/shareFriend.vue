@@ -67,7 +67,7 @@ export default {
 				return;
 			}
 
-			this.$api.sign.setShare(this.deliveryOrder).then((res) => {
+			this.$api.order.shareDeliveryOrder(this.deliveryOrder).then((res) => {
 				this.$u.toast(res.data.message);
 				if (res.data.data == 1) {
 					setTimeout(function () {
@@ -112,13 +112,12 @@ export default {
 			} else {
 				var that = this;
 				console.log(e);
-				that.$u
-					.post('/edo/rest/v1/phone', {
+				this.$api.user
+					.bindPhoneNumber({
 						loginCode: that.wxLoginRes,
 						phoneCode: e.detail.code
 					})
 					.then((res) => {
-						console.log('===/edo/rest/v1/phone===>', res);
 						var getPhone = res.data.data.phone;
 						console.log('===getPhone===>', getPhone);
 						console.log('===this.requestPhone===>', this.requestPhone);

@@ -95,7 +95,7 @@
 				}
 				
 				
-				this.$u.post("edo/printer/printUpdateName", dx).then(res => {
+				this.$api.printer.updatePrinterName(dx).then(res => {
 					var up = res.data;
 					if (up == "1") {
 						uni.navigateBack();

@@ -172,8 +172,7 @@
 
 				console.log(this.invoice);
 
-				this.$u.post('/edo/invoice/add', this.invoice).
-				then(res => {
+				this.$api.invoice.addInvoice(this.invoice).then(res => {
 					if (res.data.data == "1") {
 						this.$u.toast("申请成功 ");
 						uni.reLaunch({

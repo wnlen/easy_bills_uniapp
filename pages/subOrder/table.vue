@@ -412,7 +412,7 @@ export default {
 
 				dx.port = this.role == 1 ? 'D' : 'R';
 
-				this.$u.post('edo/client/add', dx).then((res) => {
+				this.$api.user.addClient(dx).then.then((res) => {
 					console.log('添加申请： ' + res.data.data);
 					var resAddFriend = res.data;
 					this.addResAlert(resAddFriend);

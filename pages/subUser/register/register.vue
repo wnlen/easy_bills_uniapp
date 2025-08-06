@@ -145,7 +145,7 @@
 					type: 0
 				}
 
-				this.$u.post('edo/rest/app/v1/passwordResetGetCode', dx).then(
+				this.$api.user.getPasswordResetCode(dx).then(
 					res => {
 						var data = res.data
 						var rescode = data.data == "1"

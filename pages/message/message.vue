@@ -171,8 +171,7 @@
 					"staff": this.vuex_user.phone,
 					"work": this.vuex_user.data.work
 				}
-				this.$u.post('/edo/inform/MesAll', dx).
-				then(res => {
+				this.$api.inform.getAllMessages(dx).then(res => {
 					var list = res.data.data;
 					var sum = 0;
 					this.list.forEach((item, index) => {
