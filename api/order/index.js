@@ -190,7 +190,7 @@ export default (http) => ({
 			  },
 			
 			  /**
-			   * 直接发货（无需对方确认即建立订单）
+			   * 创建客户、供应商
 			   * 原始接口：/edo/delivery/direct
 			   */
 			  directDelivery(params) {

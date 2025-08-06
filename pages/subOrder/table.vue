@@ -288,7 +288,11 @@ export default {
 			var that = this;
 			var port = this.vuex_userRole == 'R' ? '1' : '0';
 			var phone = this.vuex_work == 'Y' ? this.vuex_user.workData.bossNumber : this.vuex_user.phone;
-			this.$api.sign.getDirect(phone, port).then((res) => {
+			this.$api.order.getDeliveryList({
+				sBossNumber:phone,
+				eBossNumber:phone,
+				port:port
+			}).then((res) => {
 				console.log(res.data.data);
 				that.client = res.data.data;
 				that.clientCopy = res.data.data;
