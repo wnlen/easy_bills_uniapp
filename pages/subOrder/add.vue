@@ -1,7 +1,8 @@
 <template>
 	<view class="vh100 pb60 flex-col justify-center" style="background-color: #ffffff; overflow-x: hidden">
 		<!-- #ifdef MP-WEIXIN -->
-		<u-navbar :custom-back="navBack" :border-bottom="false" :titleBold="true" title-color="#000000" title-size="34" bgColor="#ffffff">
+		<u-navbar :autoBack="true" :placeholder="true" bgColor="#ffffff">
+			<template #center>
 			<view class="flex-row items-center justify-center ml48" style="width: 100%">
 				<view class="" style="font-size: 34rpx; font-weight: 510">一键开单</view>
 				<view
@@ -9,14 +10,15 @@
 					class="flex-row justify-center items-center ml12"
 					style="border: 1.1px solid #01bb74; height: 22px; width: 68px; border-radius: 8rpx; color: #01bb74; font-size: 11px"
 				>
-					使用方法
-					<u-icon class="ml6" name="https://res-oss.elist.com.cn/wxImg/video.png" size="20"></u-icon>
+					<text class="mr6">使用方法</text>
+					<u-icon class="ml6" name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></u-icon>
 				</view>
 			</view>
+			</template>
 		</u-navbar>
 		<!-- #endif -->
 		<!-- #ifdef APP -->
-		<u-navbar :custom-back="navBack" title="一键开单" :border-bottom="false" :titleBold="true" title-color="#000000" title-size="34" bgColor="#ffffff"></u-navbar>
+		<u-navbar title="一键开单" :autoBack="true" :placeholder="true" bgColor="#ffffff"></u-navbar>
 		<!-- #endif -->
 		<view class="width100" style="height: 80vh; text-align: center; margin-left: 10vw" v-show="vuex_userRole == 'D' && shareShow == true">
 			<u-popup v-model="showShare" mode="center" width="80%" height="20%" border-radius="15">
@@ -130,7 +132,7 @@
 							客户手机号:
 						</text>
 						<input
-							maxlength="20"
+							maxlength="11"
 							placeholder-class="placeholder_class"
 							style="color: #333333"
 							@input="searchIFNumber"
@@ -142,7 +144,7 @@
 							placeholder="请输入客户手机号"
 							class="flex-1 endcolor"
 						/>
-						<u-button shape="circle" size="mini" hover-class="none" :custom-style="{ backgroundColor: '#01BB74', color: '#ffffff' }" @click="jumpTable">
+						<u-button shape="circle" size="mini" hover-class="none" :custom-style="{ backgroundColor: '#01BB74', color: '#ffffff',width:'70rpx' }" @click="jumpTable">
 							选择客户
 						</u-button>
 					</view>
@@ -337,10 +339,10 @@
 							<view class="textcolor pt20 pb20 u-border-bottom">
 								企业名称:
 								<text :style="{ color: '#333333' }" class="ml15 endcolor" v-if="vuex_user.data.work == '0'">
-									{{ vuex_user.ac.enterpriseName || vuex_user.phone }}
+									{{ vuex_user.ac?.enterpriseName || vuex_user.phone }}
 								</text>
 								<text :style="{ color: '#333333' }" class="ml15 endcolor" v-else>
-									{{ vuex_user.ac.enterpriseName || vuex_user.workData.bossNumber }}
+									{{ vuex_user.ac?.enterpriseName || vuex_user.workData.bossNumber }}
 								</text>
 							</view>
 							<view class="textcolor pt20 pb20 u-border-bottom">

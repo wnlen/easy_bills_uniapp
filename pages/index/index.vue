@@ -3,8 +3,7 @@
 		<u-navbar title="" :placeholder="true" bgColor="transparent" leftIconSize="0"></u-navbar>
 		<view class="flex-row justify-between items-end ml30 mr30">
 			<view>
-				<view class="title1 mb12" v-if="isLogin">易单据</view>
-				<view class="title mb12" v-else @click="isLogin ? '' : goToLogin()">请登录~</view>
+				<view class="title mb12" @click="isLogin ? '' : goToLogin()">{{ isLogin ? '易单据' : '请登录~' }}</view>
 				<view class="ft28">送货单轻松签收</view>
 			</view>
 			<view class="flex-row justify-between butBox text-center ft28 ft-bold" id="box">
@@ -268,7 +267,15 @@ export default {
 			this.guideCourse();
 		}
 	},
-	onLoad() {},
+	onLoad() {
+		// #ifdef MP-WEIXIN
+		wx.loadFontFace({
+			family: '阿里妈妈数黑体 Bold',
+			source: 'url("https://res-oss.elist.com.cn/wxImg/fonts/aliBold/Xizk3ttTNIiT.woff2")',
+			success: console.log
+		});
+		// #endif
+	},
 	computed: {
 		isLogin() {
 			return this.vuex_token && this.vuex_user?.phone;
@@ -440,7 +447,7 @@ export default {
 				let systemInfo = uni.getSystemInfoSync();
 				let platform = systemInfo.platform;
 				let osName = systemInfo.osName;
-
+				const bottomSafeArea = systemInfo.safeAreaInsets ? systemInfo.safeAreaInsets.bottom : 0;
 				var setting = platform === 'android';
 				this.getElementData('#box4', (res) => {
 					console.log('box4', res);
@@ -453,10 +460,10 @@ export default {
 							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/stepD3.png)'
 						},
 						position: {
-							bottom: 0,
+							bottom: `${bottomSafeArea}px`,
 							height: '100rpx',
 							width: '86rpx',
-							left: `${res.left - 5}px`
+							left: `${res.left - 10}px`
 						}
 					});
 				});
@@ -779,25 +786,17 @@ export default {
 	background: url('https://res-oss.elist.com.cn/wxImg/index/indexR.png') no-repeat left top #f6f7f7;
 	background-size: 100% auto;
 }
-
+/* #ifndef MP-WEIXIN */
 @font-face {
 	font-family: '阿里妈妈数黑体 Bold';
 	font-weight: 700;
-	src: url('//at.alicdn.com/wf/webfont/rdxQu8eqOUH7/4bx8ph3uS3Bz.woff2') format('woff2'), url('//at.alicdn.com/wf/webfont/rdxQu8eqOUH7/jgLhzuIxyXiQ.woff') format('woff');
+	src: url('https://res-oss.elist.com.cn/wxImg/fonts/aliBold/Xizk3ttTNIiT.woff2') format('woff2'),
+		url('https://res-oss.elist.com.cn/wxImg/fonts/aliBold/O28WvFtJWcqI.woff') format('woff');
 	font-variation-settings: normal;
 	font-display: swap;
 }
-@font-face {
-	font-family: '阿里妈妈数黑体1 Bold';
-	font-weight: 700;
-	src: url('//at.alicdn.com/wf/webfont/rdxQu8eqOUH7/8KTWSk9TaT2N.woff2') format('woff2'), url('//at.alicdn.com/wf/webfont/rdxQu8eqOUH7/v21IG1eeclHx.woff') format('woff');
-	font-variation-settings: normal;
-	font-display: swap;
-}
-.title1 {
-	font-family: '阿里妈妈数黑体1 Bold';
-	font-size: 36rpx;
-}
+/* #endif */
+
 .title {
 	font-family: '阿里妈妈数黑体 Bold';
 	font-size: 36rpx;

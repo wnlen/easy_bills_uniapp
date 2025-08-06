@@ -76,7 +76,6 @@ export default {
 				textAlign: 'right',
 				color: '#D8D8D8'
 			},
-
 			labelStyle: {
 				color: 'red',
 				paddingLeft: '12px'
@@ -133,7 +132,7 @@ export default {
 			console.log('添加', ver);
 			if (ver) {
 				console.log('添加', this.submitUser);
-				this.$api.sign.setDirect(this.submitUser).then((res) => {
+				this.$api.order.directDelivery(this.submitUser).then((res) => {
 					console.log('===添加结果===>',res.data);
 					var mes = res.data;
 					this.$u.toast(mes.message);
