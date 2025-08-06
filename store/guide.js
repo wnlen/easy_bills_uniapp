@@ -9,7 +9,7 @@ export const useGuideStore = defineStore('guide', {
 		guidanceD: null,
 		guidanceR: null,
 		guidance: 0,
-		draft: false
+		draft: false,
 	}),
 	actions: {
 		setDraft(val) {
@@ -20,6 +20,6 @@ export const useGuideStore = defineStore('guide', {
 		},
 		setGuidanceR(val) {
 			this.guidanceD = val
-		}
+		},
 	}
 })

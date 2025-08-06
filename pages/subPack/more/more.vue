@@ -33,7 +33,6 @@
 					<template v-slot="{item, index}">
 						<view class="ml5 mr5 flex-col justify-center items-center relative"
 							style="background-color: transparent;">
-							{{item.icon}}
 							<u-icon :label="item.name" size="100rpx" :name="item.icon" label-pos="bottom" label-size="25rpx"
 								label-color="#333333" @touchstart="handleTouchStart" @touchend="handleTouchEnd"
 								@click="jump(item)" @touchcancel="handleTouchCancel"></u-icon>

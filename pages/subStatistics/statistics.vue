@@ -12,37 +12,42 @@
 			@virtualListChange="virtualListChange"
 			@query="queryList"
 		>
-			<view slot="top">
-				<u-navbar :border-bottom="false" :titleBold="true" title-color="#000000" title-size="34" bgColor="#ffffff">
-					<view class="flex-row items-center justify-center ml50" style="width: 100%">
-						<view class="" style="font-size: 34rpx; font-weight: 510">订单统计</view>
-						<view
-							@click="jumpVideo"
-							class="flex-row justify-center items-center ml12"
-							style="border: 2.2rpx solid #01bb74; height: 44rpx; width: 136rpx; border-radius: 8rpx; color: #01bb74; font-size: 22rpx"
-						>
-							使用方法
-							<u-icon class="ml6" name="https://res-oss.elist.com.cn/wxImg/video.png" size="20"></u-icon>
+
+			<!-- <view slot="top"> -->
+			<u-sticky >
+				<u-navbar :autoBack="true" :placeholder="true">
+					<template #center>
+						<view class="flex-row items-center justify-center ml50" style="width: 100%">
+							<view class="" style="font-size: 34rpx; font-weight: 510">订单统计</view>
+							<view
+								@click="jumpVideo"
+								class="flex-row justify-center items-center ml12"
+								style="border: 2.2rpx solid #01bb74; height: 44rpx; width: 136rpx; border-radius: 8rpx; color: #01bb74; font-size: 22rpx"
+							>
+								<text class="mr6">使用方法</text>
+								<u-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></u-icon>
+							</view>
 						</view>
-					</view>
+					</template>
 				</u-navbar>
-				<u-notice-bar mode="horizontal" :list="uNoticeBarlist" padding="6rpx 12rpx"></u-notice-bar>
+				<u-notice-bar v-if="uNoticeBarlist.length" direction="column" :text="uNoticeBarlist" padding="6rpx 12rpx"></u-notice-bar>
 				<view class="fliter-wrap">
 					<view class="fliter-wrap-view">
 						<view
 							@click="tagClick(index, item)"
 							v-for="(item, index) in filterTags"
+							v-show="item.show"
 							:key="index"
-							v-if="item.show"
 							class="filter-btn flex-row justify-center items-center"
 							:class="{ active: index == tagIndex }"
 						>
-							<u-icon v-if="item.key == false" size="35" name="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/vip/vip.svg"></u-icon>
+							<u-icon v-if="item.key == false" size="35rpx" name="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/vip/vip.svg"></u-icon>
 							{{ item.value }}
 						</view>
 					</view>
 				</view>
-			</view>
+			</u-sticky>
+
 
 			<view class="ml24 mr24 mb24">
 				<div class="bg-white pd20 mt20 radius flex-col justify-center items-center cardShow">
@@ -50,7 +55,7 @@
 						<text class="ft30 ft-gray mb18" style="color: #999999">累计金额</text>
 						<view class="">
 							<text class="ft42 ft-bold">￥</text>
-							<u-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="40" decimals="2" bold></u-count-to>
+							<u-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="40rpx" decimals="2" bold></u-count-to>
 						</view>
 					</view>
 
@@ -107,24 +112,39 @@
 
 					<div class="flex-row items-center radius pr20 mr10 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%">
 						<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
-							<text class="ft11 ft-gray ml36" @click="CustomerGet">{{ vuex_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
-							<u-input class="ml24 width100" @input="changeCustomer" v-model="customer" :placeholder="vuex_userRole == 'R' ? '请选择供应商' : '请选择客户'" />
+							<text class="ft11 ft-gray ml36 mr20" @click="CustomerGet">{{ vuex_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
+							<u-input
+								border="none"
+								class="ml24 width100"
+								@input="changeCustomer"
+								v-model="customer"
+								:placeholder="vuex_userRole == 'R' ? '请选择供应商' : '请选择客户'"
+							/>
 							<div class="flex-col justify-center items-center" style="height: 5vh">
-								<u-icon class="ml48" name="/static/img/list/lxr.svg" size="45" @click="CustomerGet"></u-icon>
+								<u-icon class="ml48" name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon>
 							</div>
 						</div>
 					</div>
 
 					<div class="flex-row items-center radius pr20 mr10 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%">
 						<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
-							<text class="ft11 ft-gray ml36" @click="filtrateGet">
+							<text class="ft11 ft-gray ml36 mr10" @click="filtrateGet">
 								{{ Title }}
 							</text>
-							<u-icon class="ml10" name="arrow-down-fill" size="10"></u-icon>
-
-							<u-input v-if="showTage != '1'" class="ml24 my-input" style="width: 100%" v-model="field" @input="searchListenner" placeholder="输入关键字进行检索" />
+							<u-icon name="arrow-down-fill" size="10"></u-icon>
+							<text class="mr20"></text>
+							<u-input
+								v-if="showTage != '1'"
+								border="none"
+								class="my-input"
+								style="width: 100%"
+								v-model="field"
+								@input="searchListenner"
+								placeholder="输入关键字进行检索"
+							/>
 
 							<u-input
+								border="none"
 								v-if="showTage == '1'"
 								maxlength="11"
 								class="ml24 my-input"
@@ -135,7 +155,7 @@
 							/>
 
 							<div class="flex-col justify-center items-center" style="height: 5vh">
-								<u-icon class="ml48" name="/static/img/list/ss.svg" size="45"></u-icon>
+								<u-icon class="ml48" name="/static/img/list/ss.svg" size="45rpx"></u-icon>
 							</div>
 						</div>
 					</div>
@@ -253,13 +273,11 @@
 					<up-loading-icon mode="flower"></up-loading-icon>
 				</view>
 			</view>
-
-			<view slot="empty" style="padding-bottom: 200rpx">
-				<u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" label-color="#AAAAAA" label="暂无记录" size="180"></u-icon>
+			<view v-if="!orderList.length" style="padding-bottom: 200rpx">
+				<u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" label-color="#AAAAAA" label="暂无记录" size="180rpx"></u-icon>
 			</view>
-
-			<!-- <view class="EmptyCard" style="height: 10vh;width: 100vw;"> -->
-			<view class="" slot="bottom" style="background-color: #ffffff; box-shadow: 0rpx 4rpx 6rpx 0rpx rgba(51, 51, 51, 0.2); bottom: 0">
+			<view style="height: 200rpx;"></view>
+			<view class="fixed"  style="background-color: #ffffff; box-shadow: 0rpx 4rpx 6rpx 0rpx rgba(51, 51, 51, 0.2); bottom: 0">
 				<view class="flex-row justify-between items-center" style="height: 10vh">
 					<view class="flex-row items-center vw100">
 						<view class="items-center flex-row" style="width: 92%; display: flex; justify-content: space-between">
@@ -288,14 +306,13 @@
 								class="flex-row justify-center items-center"
 								style="width: 280rpx; height: 80rpx; border-radius: 90rpx; opacity: 1; background-color: #01bb74; color: white; float: right; font-weight: 600"
 							>
-								<u-icon name="https://res-oss.elist.com.cn/wxImg/statistics/down.svg" size="40"></u-icon>
+								<u-icon name="https://res-oss.elist.com.cn/wxImg/statistics/down.svg" size="40rpx"></u-icon>
 								下载PDF
 							</view>
 						</view>
 					</view>
 				</view>
 			</view>
-			<!-- </view> -->
 		</z-paging>
 
 		<view class="order-simple-list pl30 pr30">
@@ -345,7 +362,7 @@
 							style="border: 2.2rpx solid #01bb74; height: 44rpx; width: 136rpx; border-radius: 8rpx; color: #01bb74; font-size: 22rpx"
 						>
 							使用方法
-							<u-icon class="ml6" name="https://res-oss.elist.com.cn/wxImg/video.png" size="20"></u-icon>
+							<u-icon class="ml6" name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></u-icon>
 						</view>
 					</view>
 				</u-navbar>
@@ -367,14 +384,14 @@
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
 							<view class="flex-row items-center" style="width: 50%">
 								<text class="mr10" style="color: #999999">开始日期</text>
-								<u-icon name="arrow-down-fill" size="10"></u-icon>
+								<u-icon name="arrow-down-fill" size="10rpx"></u-icon>
 								<view @click="calendar1Show = true" class="ml24" style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
 									{{ date1 }}
 								</view>
 							</view>
 							<view class="flex-row items-center" style="width: 50%">
 								<text class="mr10 ml20" style="color: #999999">结束日期</text>
-								<u-icon name="arrow-down-fill" size="10"></u-icon>
+								<u-icon name="arrow-down-fill" size="10rpx"></u-icon>
 								<view @click="calendar2Show = true" class="ml24" style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
 									{{ date2 }}
 								</view>
@@ -624,7 +641,10 @@ export default {
 			}
 			console.log('`````````````````', key);
 		}
-		this.uNoticeBarlist.push(text);
+		if(text!==''){
+			this.uNoticeBarlist.push(text);
+		}
+		
 	},
 	onReachBottom() {
 		console.log('lala ');
@@ -765,8 +785,8 @@ export default {
 				this.refresh = false;
 				this.onReachBottom = false;
 				this.realTimeSel.role = this.vuex_userRole == 'R' ? '1' : '0';
-				this.$api.order
-					.postOrderFilter(this.realTimeSel)
+				this.$u
+					.post('/edo/order/getFilter', this.realTimeSel)
 					.then((res) => {
 						var orderList = res.data.data.map((obj) => {
 							return {
@@ -790,7 +810,9 @@ export default {
 						this.$u.toast('请求失败');
 					});
 
-				this.$api.order.getFilteredOrderCount(this.realTimeSel).then((res) => {
+				this.$u
+					.post('/edo/order/Quantity', this.realTimeSel)
+					.then((res) => {
 						//console.log("当前订单个数：", res);
 						this.OrderQuantity = res.data.data[1];
 						this.OrderQuantitySum = res.data.data[0];
@@ -799,7 +821,6 @@ export default {
 						this.refresh = true;
 						this.$u.toast('获取个数失败');
 					});
-
 				//
 			} else {
 				//console.debug("请求到底拦截");
@@ -866,27 +887,22 @@ export default {
 			let role = this.vuex_user.data.work == '1' ? 1 : 2;
 			console.log(this.vuex_user.data.work);
 			var that = this;
-			this.$api.user
-				.refreshUser({
-					phone: this.vuex_user.phone,
-					role: role
-				})
-				.then((res) => {
-					console.log('权限', res.data.data);
-					let a = that.vuex_user;
-					a.ac = res.data.data.ac;
-					a.data = res.data.data.data;
-					a.workData = res.data.data.workData;
-					a.jurisdiction = res.data.data.jurisdiction;
-					a.vuex_password = res.data.data.password;
-					that.$u.vuex('vuex_user', a);
-					if (res.data.data.data.work == '1') {
-						that.$u.vuex('vuex_work', 'Y');
-					} else {
-						that.$u.vuex('vuex_work', 'N');
-					}
-					this.loadVip();
-				});
+			this.$u.post('edo/user/renewal?phone=' + this.vuex_user.phone + '&role=' + role).then((res) => {
+				console.log('权限', res.data.data);
+				let a = that.vuex_user;
+				a.ac = res.data.data.ac;
+				a.data = res.data.data.data;
+				a.workData = res.data.data.workData;
+				a.jurisdiction = res.data.data.jurisdiction;
+				a.vuex_password = res.data.data.password;
+				that.$u.vuex('vuex_user', a);
+				if (res.data.data.data.work == '1') {
+					that.$u.vuex('vuex_work', 'Y');
+				} else {
+					that.$u.vuex('vuex_work', 'N');
+				}
+				this.loadVip();
+			});
 
 			console.log('用户信息实时更新 ', this.vuex_user);
 		},
@@ -918,7 +934,6 @@ export default {
 			this.$refs.paging.reload();
 		},
 		refreshData() {
-			console.log('请求');
 		},
 		searchListenner() {
 			this.checked = false;

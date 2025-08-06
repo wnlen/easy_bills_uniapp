@@ -113,10 +113,19 @@
 		},
 		computed: {
 			enterpriseName() {
-				return this.userData?.enterpriseName || '未完善';
+				if(this.vuex_userRole=='D'){
+					return this.userData?.enterpriseName || '客户未完善';
+				}else{
+					return this.userData?.enterpriseName || '供应商未完善';
+				}
+				
 			},
 			enterpriseSite() {
-				return this.userData?.site || '未完善';
+				if(this.vuex_userRole=='D'){
+					return this.userData?.site || '客户未完善';
+				}else{
+					return this.userData?.site || '供应商未完善';
+				}
 			}
 		},
 		watch: {

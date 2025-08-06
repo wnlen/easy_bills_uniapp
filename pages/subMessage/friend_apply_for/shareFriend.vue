@@ -1,11 +1,13 @@
 <template>
 	<view class="shareFriend">
 		<view class="absolute" style="left: 24rpx; top: 120rpx">
-			<u-icon name="arrow-left" color="#333333" size="45" @click="close"></u-icon>
+			<u-icon name="arrow-left" color="#333333" size="45rpx" @click="close"></u-icon>
 		</view>
 		<view class="shareFriendBottom">
 			<view class="shareFriendBottomButton">
-				<u-button hover-class="none" shape="circle" :custom-style="customStyle" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">加入好友</u-button>
+				<u-button hover-class="none" shape="circle" :custom-style="customStyle" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">
+					{{ invitationRole == 'D' ? '成为客户' : '成为供应商' }}
+				</u-button>
 			</view>
 		</view>
 	</view>
@@ -16,8 +18,8 @@ export default {
 		return {
 			customStyle: {
 				background: '#FFAF38',
-				width: '220px',
-				height: '47px',
+				width: '440rpx',
+				height: '94rpx',
 				border: '#FFAF38',
 				color: '#ffffff'
 			},
@@ -26,11 +28,13 @@ export default {
 			deliveryOrder: {
 				sBossNumber: '',
 				eBossNumber: ''
-			}
+			},
+			invitationRole: 'D' //邀请者的角色
 		};
 	},
 	onLoad(option) {
 		this.requestPhone = option.phone;
+		this.invitationRole = option.invitationRole;
 		console.log('请求者=========》', option);
 		console.log('请求者=========》', option.phone);
 	},

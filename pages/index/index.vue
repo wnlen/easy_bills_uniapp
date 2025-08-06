@@ -3,11 +3,12 @@
 		<u-navbar title="" :placeholder="true" bgColor="transparent" leftIconSize="0"></u-navbar>
 		<view class="flex-row justify-between items-end ml30 mr30">
 			<view>
-				<view class="title mb12" @click="isLogin ? '' : goToLogin()">{{ isLogin ? '易单据' : '请登录~' }}</view>
+				<view class="title1 mb12" v-if="isLogin">易单据</view>
+				<view class="title mb12" v-else @click="isLogin ? '' : goToLogin()">请登录~</view>
 				<view class="ft28">送货单轻松签收</view>
 			</view>
 			<view class="flex-row justify-between butBox text-center ft28 ft-bold" id="box">
-				<view class="flex-1" v-for="(item, index) in roleList" :key="item.value" @click="changeRole(item.value)" :class="vuex_userRole === item.value ? 'activeBtn' : ''">
+				<view v-for="(item, index) in roleList" :key="item.value" @click="changeRole(item.value)" :class="vuex_userRole === item.value ? 'activeBtn' : 'flex-1'">
 					{{ item.name }}
 				</view>
 			</view>
@@ -18,19 +19,19 @@
 					<qiun-data-charts type="ring" :opts="ringOpts" :chartData="chartsDataPie2" />
 					<view class="text-center ft-bold">
 						<text class="ft24">￥</text>
-						<text v-for="(item, index) in allprice.toString().split('.')" :class="index == 0 ? 'ft32' : 'ft24'" :key="index">
+						<text v-for="(item, index) in allprice.toFixed(2).toString().split('.')" :class="index == 0 ? 'ft32' : 'ft24'" :key="index">
 							{{ item }}
-							<text v-if="index === 0 && allprice.toString().split('.').length > 1">.</text>
+							<text v-if="index === 0 && allprice.toFixed(2).toString().split('.').length > 1">.</text>
 						</text>
 					</view>
 				</view>
-				<view class="flex-col justify-around mr32 items-end">
-					<view class="flex-row items-center" v-for="(ite, ind) in chartsDataPie2.series[0].data" :key="ind">
+				<view class="flex-col justify-around mr32 items-end pt30">
+					<view class="flex-row items-center" @click="goList(ite.type)" v-for="(ite, ind) in chartsDataPie2.series[0].data" :key="ind">
 						<view class="text-center ft-bold" :class="ind == 0 ? 'ft-orange' : ind == 1 ? 'ft-blue' : 'ft-green'">
 							<text class="ft20">￥</text>
-							<text v-for="(item, index) in ite.value.toString().split('.')" :class="index == 0 ? 'ft28' : 'ft20'" :key="index">
+							<text v-for="(item, index) in ite.value.toFixed(2).toString().split('.')" :class="index == 0 ? 'ft28' : 'ft20'" :key="index">
 								{{ item }}
-								<text v-if="index === 0 && ite.value.toString().split('.').length > 1">.</text>
+								<text v-if="index === 0 && ite.value.toFixed(2).toString().split('.').length > 1">.</text>
 							</text>
 						</view>
 						<view class="ft-gray ft28 ml11">{{ ite.name }} ></view>
@@ -44,6 +45,7 @@
 					:class="vuex_userRole === 'D' && index === 0 ? 'indexbox1 indexbox' : vuex_userRole === 'R' && index === 0 ? 'indexbox2 indexbox' : 'indexbox3 indexbox'"
 					v-for="(item, index) in orderList2"
 					:key="index"
+					@click="goPath(item.path)"
 				>
 					<image class="ml10 mr10 mt8" :src="item.icon" mode="widthFix"></image>
 					<view>
@@ -65,9 +67,9 @@
 				</view>
 			</view>
 			<view class="flex-row justify-center pb20">
-				<u-button hover-class="none" :hair-line="false" :custom-style="buttonStyle" open-type="contact">
+				<u-button hover-class="none" :active="false" :hair-line="false" class="no-shadow-button" :custom-style="buttonStyle" open-type="contact">
 					<u-icon name="kefu-ermai" size="14"></u-icon>
-					<text class="ft28 ml10">客服咨询></text>
+					<text class="ft28 ml10">客服咨询 ></text>
 				</u-button>
 			</view>
 		</view>
@@ -111,7 +113,6 @@ export default {
 				position: {}
 			},
 			buttonStyle: {
-				backgroundColor: '',
 				border: 'none',
 				appearance: 'none',
 				outline: 'none',
@@ -137,7 +138,8 @@ export default {
 			ringOpts: {
 				rotate: false,
 				rotateLock: false,
-				color: ['#1890FF', '#91CB74', '#F7A944'],
+				// color: ['#1890FF', '#01BB74', '#F7A944'],
+				color: ['#ECECEC', '#ECECEC', '#ECECEC'],
 				padding: [0, 0, 0, 0],
 				width: 130,
 				height: 130,
@@ -149,7 +151,8 @@ export default {
 				title: {
 					name: '总销售',
 					fontSize: 14,
-					color: '#333'
+					color: '#333',
+					fontWeigh: 700
 				},
 				subtitle: {
 					name: '（今年）',
@@ -175,15 +178,18 @@ export default {
 						data: [
 							{
 								name: '待签收',
-								value: 0
+								value: 0,
+								type: 1
 							},
 							{
 								name: '已签收',
-								value: 0
+								value: 0,
+								type: 2
 							},
 							{
 								name: '已收款',
-								value: 0
+								value: 0,
+								type: 3
 							}
 						]
 					}
@@ -230,12 +236,14 @@ export default {
 				{
 					name: '开送货单',
 					sub: '三步完成开单',
-					icon: '/static/img/index/new/index1.png'
+					icon: '/static/img/index/new/index1.png',
+					path: '/pages/subOrder/add'
 				},
 				{
 					name: '统计对账',
 					sub: '下载统计表',
-					icon: '/static/img/index/new/index2.png'
+					icon: '/static/img/index/new/index2.png',
+					path: '/pages/subStatistics/statistics'
 				}
 			]
 		};
@@ -267,10 +275,20 @@ export default {
 		}
 	},
 	methods: {
+		// 跳转订单页
+		goList(val) {
+			// this.current=val
+			this.$u.setPinia({
+				global: {
+					tabIndex: val
+				}
+			});
+			uni.switchTab({
+				url: '/pages/list/list'
+			});
+		},
 		// 新手指引
 		guideCourse() {
-			console.log('发货端新手指引是否完成', this.$u.getPinia('guide.guidanceD'));
-			console.log('收货端新手指引是否完成', this.$u.getPinia('guide.guidanceR'));
 			if (this.vuex_userRole == 'D' && this.$u.getPinia('guide.guidanceD') != 1) {
 				this.$refs.FunctionGuide.init();
 			} else if (this.vuex_userRole == 'R' && this.$u.getPinia('guide.guidanceR') != 1) {
@@ -535,24 +553,28 @@ export default {
 							data: [
 								{
 									name: '待签收',
-									value: 0
+									value: 0,
+									type: 1
 								},
 								{
 									name: '已签收',
-									value: 0
+									value: 0,
+									type: 2
 								},
 								{
 									name: '已收款',
-									value: 0
+									value: 0,
+									type: 3
 								}
 							]
 						}
 					]
 				};
-				(this.ringOpts = {
+				this.ringOpts = {
 					rotate: false,
 					rotateLock: false,
-					color: ['#1890FF', '#91CB74', '#F7A944'],
+					// color: ['#1890FF', '#01BB74', '#F7A944'],
+					color: ['#ECECEC', '#ECECEC', '#ECECEC'],
 					padding: [0, 0, 0, 0],
 					width: 130,
 					height: 130,
@@ -583,51 +605,54 @@ export default {
 							borderColor: '#FFFFFF'
 						}
 					}
-				}),
-					(this.iconlist = [
-						{
-							title: '客户',
-							icon: '/static/img/index/new/icon1.png',
-							path: '/pages/subIndex/my_customer/my_customer'
-						},
-						{
-							title: '商品库',
-							icon: '/static/img/index/new/icon2.png',
-							path: '/pages/subOrder/commodityDetails/nventoryCommodities'
-						},
-						{
-							title: '草稿箱',
-							icon: '/static/img/index/new/icon3.png',
-							path: '/pages/subOrder/drafts'
-						},
-						{
-							title: '待办事项',
-							icon: '/static/img/index/new/icon4.png',
-							path: '/pages/subIndex/backlog/backlog'
-						},
-						{
-							title: '更多功能',
-							icon: '/static/img/index/new/icon5.png',
-							path: '/pages/subPack/more/more?tid=更多功能'
-						}
-					]);
+				};
+				this.iconlist = [
+					{
+						title: '客户',
+						icon: '/static/img/index/new/icon1.png',
+						path: '/pages/subIndex/my_customer/my_customer'
+					},
+					{
+						title: '商品库',
+						icon: '/static/img/index/new/icon2.png',
+						path: '/pages/subOrder/commodityDetails/nventoryCommodities'
+					},
+					{
+						title: '草稿箱',
+						icon: '/static/img/index/new/icon3.png',
+						path: '/pages/subOrder/drafts'
+					},
+					{
+						title: '待办事项',
+						icon: '/static/img/index/new/icon4.png',
+						path: '/pages/subIndex/backlog/backlog'
+					},
+					{
+						title: '更多功能',
+						icon: '/static/img/index/new/icon5.png',
+						path: '/pages/subPack/more/more?tid=更多功能'
+					}
+				];
 				this.orderList2 = [
 					{
 						name: '开送货单',
 						sub: '三步完成开单',
-						icon: '/static/img/index/new/index1.png'
+						icon: '/static/img/index/new/index1.png',
+						path: '/pages/subOrder/add'
 					},
 					{
 						name: '统计对账',
 						sub: '下载统计表',
-						icon: '/static/img/index/new/index2.png'
+						icon: '/static/img/index/new/index2.png',
+						path: '/pages/subStatistics/statistics'
 					}
 				];
 			} else {
-				(this.ringOpts = {
+				this.ringOpts = {
 					rotate: false,
 					rotateLock: false,
-					color: ['#1890FF', '#91CB74', '#F7A944'],
+					// color: ['#1890FF', '#01BB74', '#F7A944'],
+					color: ['#ECECEC', '#ECECEC', '#ECECEC'],
 					padding: [0, 0, 0, 0],
 					width: 130,
 					height: 130,
@@ -658,27 +683,30 @@ export default {
 							borderColor: '#FFFFFF'
 						}
 					}
-				}),
-					(this.chartsDataPie2 = {
-						series: [
-							{
-								data: [
-									{
-										name: '待确收',
-										value: 0
-									},
-									{
-										name: '已签收',
-										value: 0
-									},
-									{
-										name: '已付款',
-										value: 0
-									}
-								]
-							}
-						]
-					});
+				};
+				this.chartsDataPie2 = {
+					series: [
+						{
+							data: [
+								{
+									name: '待确收',
+									value: 0,
+									type: 1
+								},
+								{
+									name: '已签收',
+									value: 0,
+									type: 2
+								},
+								{
+									name: '已付款',
+									value: 0,
+									type: 3
+								}
+							]
+						}
+					]
+				};
 				this.iconlist = [
 					{
 						title: '供应商',
@@ -711,12 +739,14 @@ export default {
 					{
 						name: '送货单签收',
 						sub: '在线电子签署',
-						icon: '/static/img/index/new/index3.png'
+						icon: '/static/img/index/new/index3.png',
+						path: '/pages/subPack/pending/pending'
 					},
 					{
 						name: '统计对账',
 						sub: '下载统计表',
-						icon: '/static/img/index/new/index2.png'
+						icon: '/static/img/index/new/index2.png',
+						path: '/pages/subStatistics/statistics'
 					}
 				];
 			}
@@ -724,6 +754,16 @@ export default {
 	}
 };
 </script>
+
+<style>
+.no-shadow-button,
+.no-shadow-button:active,
+.no-shadow-button:focus,
+::v-deep .u-button:before {
+	--u-button-shadow: none !important; /* 确保长按时也没有阴影 */
+	background: transparent !important;
+}
+</style>
 
 <style lang="scss" scoped>
 .Index {
@@ -747,7 +787,17 @@ export default {
 	font-variation-settings: normal;
 	font-display: swap;
 }
-
+@font-face {
+	font-family: '阿里妈妈数黑体1 Bold';
+	font-weight: 700;
+	src: url('//at.alicdn.com/wf/webfont/rdxQu8eqOUH7/8KTWSk9TaT2N.woff2') format('woff2'), url('//at.alicdn.com/wf/webfont/rdxQu8eqOUH7/v21IG1eeclHx.woff') format('woff');
+	font-variation-settings: normal;
+	font-display: swap;
+}
+.title1 {
+	font-family: '阿里妈妈数黑体1 Bold';
+	font-size: 36rpx;
+}
 .title {
 	font-family: '阿里妈妈数黑体 Bold';
 	font-size: 36rpx;
@@ -764,7 +814,6 @@ export default {
 	border-radius: 214rpx;
 	border: 1px solid #fdb728;
 	color: #fdb728;
-
 	> view {
 		line-height: 54rpx;
 
@@ -772,13 +821,14 @@ export default {
 			color: #fff;
 			border-radius: 214rpx;
 			background: #fdb728;
+			width: 144rpx;
 		}
 	}
 }
 
 .indexbox {
-	width: 147px;
-	height: 73px;
+	width: 294rpx;
+	height: 146rpx;
 	border-radius: 13.77px;
 
 	image {
