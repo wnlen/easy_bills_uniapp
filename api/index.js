@@ -5,7 +5,7 @@ export default (http) => {
   const modules = {}
 
   for (const path in files) {
-    if (path.includes('index.js')) continue
+    if (path === './index.js') continue
 
     // 提取目录名（模块名）
     const [, moduleName, fileName] = path.match(/\.\/([^/]+)\/([^/]+)\.js$/) || []
