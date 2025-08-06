@@ -406,11 +406,7 @@
 				</view>
 			</view>
 
-
-
-			<view class="NullView" style="height: 5vh;background-color: transparent;">
-
-			</view>
+			<view class="NullView" style="height: 5vh; background-color: transparent"></view>
 			<!-- 自定义tab -->
 			<pop-tab :tabIndex="1" ref="popTab"></pop-tab>
 		</z-paging>
@@ -760,8 +756,8 @@ onLoad(() => {
 // 页面进入展示
 onShow(() => {
 	if (userStore.user.phone !== undefined) {
-		console.log('globalStore.tabIndex',globalStore.tabIndex)
-		current.value = globalStore.tabIndex
+		console.log('globalStore.tabIndex', globalStore.tabIndex);
+		current.value = globalStore.tabIndex;
 		loadData();
 		useInitPage(realTimeSel, searchList, paging, date1, date2, tabsList.value, customer, current);
 		// paging.value?.reload()
@@ -1007,7 +1003,9 @@ function refreshDataNew() {
 				uni.$u.toast('请求失败');
 			});
 
-		this.$api.order.getFilteredOrderCount(realTimeSel.value).then((res) => {
+		this.$api.order
+			.getFilteredOrderCount(realTimeSel.value)
+			.then((res) => {
 				OrderQuantity.value = res.data.data[1];
 				OrderQuantitySum.value = res.data.data[0];
 			})
@@ -1330,12 +1328,16 @@ function applyUpdatePlay(order) {
 		dx.bBoss = order.bossNumberS === order.staffNumberS ? order.bossNumberS : order.staffNumberS;
 	}
 
-	this.$api.order.addTemporaryOrder(dx).then((res) => finallyAlertDel(res.data, order))
+	this.$api.order
+		.addTemporaryOrder(dx)
+		.then((res) => finallyAlertDel(res.data, order))
 		.catch(() => {});
 }
 
 function updateOrder(order) {
-	this.$api.order.signForOrder(order).then((res) => {
+	this.$api.order
+		.signForOrder(order)
+		.then((res) => {
 			uni.$u.toast(res.data.message);
 			paging.value?.reload();
 		})

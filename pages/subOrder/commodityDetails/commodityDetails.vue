@@ -1,10 +1,10 @@
 <template>
 	<view>
-		<u-navbar title="商品详情"></u-navbar>
+		<u-navbar :autoBack="true" :placeholder="true" title="商品详情"></u-navbar>
 		<view class="" v-if="details.img!=null&&details.img!='definde'">
 			<u-image width="100%" height="600rpx" :src="details.img" :show-menu-by-longpress="false"></u-image>
 		</view>
-		<view class="flex-col pt24" style="width: 100%;height: 100px;">
+		<view class="flex-col pt24" style="width: 100%;height: 200rpx;">
 			<view class="relative flex-row justify-center items-center pd24 mt24" style="width: 100%;">
 				<view class="absolute commodityDetailsHeadline" style="left: 24rpx;">
 					品名
@@ -53,13 +53,13 @@
 					{{details.explainRemark?"":"---"}}
 				</view>
 			</view>
-			<view class="ml24 mr24 pd24" style="background-color: #F9F9F9;border-radius: 6px; text-indent: 1em;"
+			<view class="ml24 mr24 pd24" style="background-color: #F9F9F9;border-radius: 12rpx; text-indent: 1em;"
 				v-if="details.explainRemark">
 				&nbsp;&nbsp;{{details.explainRemark}}
 			</view>
 		</view>
 
-		<view class="" style="position: absolute;bottom: 20px;width: 94%;justify-content: center;left: 3%;">
+		<view class="" style="position: absolute;bottom: 40rpx;width: 94%;justify-content: center;left: 3%;">
 			<u-button hover-class="none" :custom-style="{backgroundColor:'#01BB74',color:'#ffffff'}"
 				class="form-btn-big" @click="commodityDetailsUpdate" shape="circle">编辑商品</u-button>
 		</view>
@@ -135,19 +135,19 @@
 
 <style lang="scss">
 	.commodityDetailsHeadline {
-		font-size: 16px;
+		font-size: 32rpx;
 		font-weight: normal;
-		line-height: 22px;
-		letter-spacing: 0px;
+		line-height: 44rpx;
+		letter-spacing: 0rpx;
 		color: #666666;
 	}
 
 	.commodityDetailsValue {
-		font-size: 16px;
+		font-size: 32rpx;
 		font-weight: normal;
-		line-height: 22px;
+		line-height: 44rpx;
 		text-align: right;
-		letter-spacing: 0px;
+		letter-spacing: 0rpx;
 		color: #333333;
 	}
 </style>

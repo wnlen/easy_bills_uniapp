@@ -1,11 +1,11 @@
 <template>
 	<view class="noAccess">
-		<u-navbar :border-bottom="false" :titleBold="true" title-color="#000000"  title-size="34"
+		<u-navbar :autoBack="true" :placeholder="true" :border-bottom="false" :titleBold="true" title-color="#000000"  title-size="34"
 			bgColor="#ffffff"></u-navbar>
 
 		<view class="flex-row justify-center items-center absolute" style="width: 100%;top: 30%;">
-			<u-image src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" width="300px" height="200px"></u-image>
-			<view class="absolute" style="bottom: -40px;color: #AAAAAA;font-size: 14px;">
+			<u-image src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" width="600rpx" height="400rpx"></u-image>
+			<view class="absolute" style="bottom: -80rpx;color: #AAAAAA;font-size: 28rpx;">
 				您暂无权限~
 			</view>
 		</view>
@@ -36,6 +36,6 @@
 		justify-content: center;
 		align-items: center;
 
-		padding-bottom: 100px;
+		padding-bottom: 200rpx;
 	}
 </style>

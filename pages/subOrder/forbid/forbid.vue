@@ -1,12 +1,12 @@
 <template>
 	<view class="content">
-		<u-navbar :custom-back="rightClick" :border-bottom="false" :titleBold="true" title-color="#000000" title="一键开单"
+		<u-navbar :autoBack="true" :placeholder="true" :custom-back="rightClick" :border-bottom="false" :titleBold="true" title-color="#000000" title="一键开单"
 			title-size="34" bgColor="#ffffff">
 		</u-navbar>
 		<view class="">
 			<view class="flex-col items-center absolute" style="width: 100%;top: 30%;">
-				<u-image src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" width="300px" height="150px"></u-image>
-				<view class="absolute" style="bottom: -150px;color: #AAAAAA;font-size: 14px;">
+				<u-image src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" width="600rpx" height="300rpx"></u-image>
+				<view class="absolute" style="bottom: -300rpx;color: #AAAAAA;font-size: 28rpx;">
 					<view class="hand">
 						您暂无权限~
 					</view>
@@ -52,27 +52,27 @@
 	}
 
 	.title {
-		font-size: 14px;
+		font-size: 28rpx;
 		color: #e6e6e6;
 	}
 
 	.hand {
-		font-size: 18px;
+		font-size: 36rpx;
 		font-weight: 500;
-		line-height: 22px;
+		line-height: 44rpx;
 		text-align: center;
-		letter-spacing: 0px;
+		letter-spacing: 0rpx;
 		font-feature-settings: "kern" on;
 		color: #01BB74;
 
-		padding-bottom: 10px;
+		padding-bottom: 20rpx;
 
 	}
 
 	.button {
-		width: 190px;
-		height: 45px;
-		border-radius: 188px;
+		width: 380rpx;
+		height: 90rpx;
+		border-radius: 376rpx;
 		opacity: 1;
 		background: #01BB74;
 
@@ -81,8 +81,8 @@
 		align-items: center;
 		color: #ffffff;
 
-		font-size: 18px;
+		font-size: 36rpx;
 
-		margin-top: 10px;
+		margin-top: 20rpx;
 	}
 </style>

@@ -1,9 +1,9 @@
 <template>
 	<view class="vh100 vw100 fixed-bar-height  flex-col justify-center items-center">
-		<u-navbar :border-bottom="false" :titleBold="true" title-color="#000000" :title="title" title-size="34"
+		<u-navbar :autoBack="true" :placeholder="true" :border-bottom="false" :titleBold="true" title-color="#000000" :title="title" title-size="34"
 			bgColor="#ffffff">
 		</u-navbar>
-		<u-image :src="OperatingSystem?systemImg.ios:systemImg.az" width="300px" height="200px"></u-image>
+		<u-image :src="OperatingSystem?systemImg.ios:systemImg.az" width="600rpx" height="400rpx"></u-image>
 		<text class="mt30" style="color: #AAAAAA;">正在开发中~</text>
 	</view>
 </template>

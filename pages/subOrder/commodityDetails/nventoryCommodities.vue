@@ -1,65 +1,44 @@
 <template>
 	<view class="modification">
-		<!-- <view class="modificationCrad"> -->
-
-		<z-paging
-			ref="paging"
-			use-virtual-list
-			:force-close-inner-list="true"
-			:cell-height-mode="1 === 0 ? 'fixed' : 'dynamic'"
-			@virtualListChange="virtualListChange"
-			@query="queryList"
-		>
-			<view slot="top">
-				<!-- <u-navbar title="商品库" :background="{backgroundColor: 'transparent'}" :border-bottom="false"></u-navbar> -->
-				<u-navbar
-					:border-bottom="false"
-					:background="{ backgroundColor: 'transparent' }"
-					back-icon-color="#000000"
-					:titleBold="true"
-					title-color="#000000"
-					title="商品库"
-					title-size="34"
-					bgColor="#ffffff"
-				></u-navbar>
+		<z-paging ref="paging" use-virtual-list :force-close-inner-list="true" cell-height-mode="dynamic" @virtualListChange="virtualListChange" @query="queryList">
+			<template #top>
+				<up-navbar :autoBack="true" :placeholder="true" bgColor="#00000000" :titleBold="true" :titleStyle="titleStyle" title="商品库"></up-navbar>
 				<view class="ml24 mr24 flex-row items-center justify-center pb30">
-					<view class="flex-row items-center justify-center pl10 pr10" style="background: #ffffff; border-radius: 127px; width: 75%">
-						<u-icon class="ml6" name="search" color="#01BB74" size="40"></u-icon>
+					<view class="flex-row items-center justify-center pl10 pr10" style="background: #ffffff; border-radius: 254rpx; width: 75%; height: 60rpx">
+						<u-icon name="search" color="#01BB74" size="40rpx"></u-icon>
 						<u-input
-							class="my-input ml6"
-							style="width: 100%"
-							@input="SearchInventoryChange"
-							v-model="SearchInventory"
-							:custom-style="{ backgroundColor: 'transparent' }"
+							:custom-style="{ backgroundColor: 'transparent',marginLeft: '10rpx' }"
+							:modelValue="SearchInventory"
 							placeholder="请输入商品名称/规格"
-							clearable="true"
+							:clearable="true"
+							border="none"
+							@change="SearchInventoryChange"
 						/>
 					</view>
 					<u-button @click="jumpAddCommodity" :custom-style="SearchCustomStyle" type="success">添加商品</u-button>
 				</view>
-			</view>
-
-			<view slot="empty" style="padding-bottom: 100px">
-				<u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" label-color="#AAAAAA" label="没有数据哦~" size="180"></u-icon>
-			</view>
-
-			<view class="invCard" v-for="(item, index) in orderList" :key="index">
-				<view class="" @click="jumpCommodityDetails(item)">
-					<u-image
-						border-radius="6px"
-						width="200rpx"
-						height="200rpx"
-						:show-menu-by-longpress="false"
-						:src="item.img === 'definde' ? 'https://res-oss.elist.com.cn/wxImg/order/emptyView.png' : item.img"
-					></u-image>
+			</template>
+			<view class="box1">
+				<view class="invCard" v-for="(item, index) in orderList" :key="index">
+					<view class="" @click="jumpCommodityDetails(item)">
+						<u-image
+							border-radius="12rpx"
+							width="200rpx"
+							height="200rpx"
+							:show-menu-by-longpress="false"
+							:src="item.img === 'definde' ? 'https://res-oss.elist.com.cn/wxImg/order/emptyView.png' : item.img"
+						></u-image>
+					</view>
+					<view class="invText" @click="jumpCommodityDetails(item)">
+						<text>{{ item.description }}</text>
+						<text>规格：{{ item.specification }}</text>
+						<text>单位：{{ item.unit }}</text>
+						<text>单价：{{ item.unitPrice == '0' ? '-' : '￥' + item.unitPrice }}</text>
+					</view>
+					<view class="del_product_icon">
+						<u-icon :stop="true" name="trash" color="#666666" size="40rpx" @click="delOrderBill(item)"></u-icon>
+					</view>
 				</view>
-				<view class="invText" @click="jumpCommodityDetails(item)">
-					<text>{{ item.description }}</text>
-					<text>规格：{{ item.specification }}</text>
-					<text>单位：{{ item.unit }}</text>
-					<text>单价：{{ item.unitPrice == '0' ? '-' : '￥' + item.unitPrice }}</text>
-				</view>
-				<u-icon @tab.stop class="absolute" style="bottom: 24rpx; right: 24rpx" name="trash" color="#666666" size="40" @click="delOrderBill(item)"></u-icon>
 			</view>
 		</z-paging>
 	</view>
@@ -69,18 +48,22 @@
 export default {
 	data() {
 		return {
+			titleStyle: {
+				fontSize: '34',
+				fontWeight: 'bold'
+			},
 			orderList: [],
 			SearchInventory: '',
 			SearchCustomStyle: {
-				width: '60px',
-				height: '30px',
+				width: '120rpx',
+				height: '60rpx',
 				padding: '6rpx',
 				marginLeft: '24rpx',
-				fontSize: '12px'
+				fontSize: '24rpx'
 			},
 			bottomCustomStyle: {
-				width: '108px',
-				height: '40px',
+				width: '216rpx',
+				height: '80rpx',
 				padding: '6rpx',
 				marginLeft: '6rpx',
 				position: 'absolute',
@@ -141,6 +124,7 @@ export default {
 			this.$api.library
 				.getCommodityList(this.merchandiseInventory)
 				.then((res) => {
+					console.log('res111111111',res)
 					this.$refs.paging.complete(res.data.data);
 				})
 				.catch((res) => {
@@ -216,22 +200,19 @@ export default {
 	overflow: hidden;
 }
 
-.modificationCrad {
-	width: 100vw;
-	height: 82%;
-	border-radius: 15px 15px 0px 0px;
-	background-color: #ffffff;
-	position: absolute;
-	bottom: 0;
+.box1 {
+	// position: absolute;
+	// width: 100%;
+	// margin-top: 50rpx;
 }
 
 .invCard {
-	box-shadow: 0px 1px 3px 0px rgba(216, 216, 216, 0.5);
+	box-shadow: 0rpx 2rpx 6rpx 0rpx rgba(216, 216, 216, 0.5);
 	margin-right: 24rpx;
 	margin-left: 24rpx;
 	padding: 24rpx;
 	background-color: #ffffff;
-	border-radius: 6px;
+	border-radius: 12rpx;
 	margin-bottom: 24rpx;
 	position: relative;
 	display: flex;
@@ -244,28 +225,34 @@ export default {
 		align-items: left;
 		justify-content: left;
 		margin-left: 48rpx;
-		width: 200px;
+		width: 400rpx;
 		// background-color: #aaffff;
 
 		text:nth-child(1) {
 			padding-bottom: 24rpx;
-			font-size: 16px;
+			font-size: 32rpx;
 			font-weight: bold;
-			line-height: 18px;
-			letter-spacing: 0px;
+			line-height: 36rpx;
+			letter-spacing: 0rpx;
 			color: #3d3d3d;
 		}
 
 		text:not(:nth-child(1)) {
-			font-size: 14px;
+			font-size: 28rpx;
 			font-weight: normal;
-			line-height: 18px;
-			letter-spacing: 0px;
+			line-height: 36rpx;
+			letter-spacing: 0rpx;
 			color: #999999;
 			padding-bottom: 12rpx;
 			padding-top: 4rpx;
 			// background-color: red;
 		}
+	}
+
+	.del_product_icon {
+		position: absolute;
+		right: 20rpx;
+		bottom: 20rpx;
 	}
 }
 
@@ -280,7 +267,7 @@ export default {
 
 	position: relative;
 
-	box-shadow: 0px -1px 3px 0px rgba(0, 0, 0, 0.1);
+	box-shadow: 0rpx -2rpx 6rpx 0rpx rgba(0, 0, 0, 0.1);
 
 	padding-left: 24rpx;
 }
@@ -298,6 +285,6 @@ export default {
 	margin-left: 24rpx;
 	margin-right: 24rpx;
 	border-radius: 15rpx;
-	box-shadow: 0px 3.5px 5px 0px rgba(51, 51, 51, 0.1);
+	box-shadow: 0rpx 7rpx 10rpx 0rpx rgba(51, 51, 51, 0.1);
 }
 </style>
