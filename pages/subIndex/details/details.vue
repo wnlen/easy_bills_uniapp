@@ -1,6 +1,6 @@
 <template>
 	<view class="page-container">
-		<u-navbar :border-bottom="false" :titleBold="true" title-color="#000000" :title="detailsHeadline"
+		<u-navbar :autoBack="true" :placeholder="true" :border-bottom="false" :titleBold="true" title-color="#000000" :title="detailsHeadline"
 			title-size="34" bgColor="#ffffff"></u-navbar>
 			
 		<uv-popup ref="popup" mode="center" round="50" :overlay="false" :customStyle="popup_style" zIndex="999999">
@@ -102,7 +102,7 @@
 					'position': 'fixed',
 					'borderRadius': '25rpx',
 					'top': '550rpx',
-					'boxShadow': '0px 0px 20rpx 20rpx #ececec'
+					'boxShadow': '0rpx 0rpx 20rpx 20rpx #ececec'
 				},
 				textareaStyle:{
 					'marginTop':'10rpx',

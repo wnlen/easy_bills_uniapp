@@ -2,8 +2,8 @@
 	<view class="vh100 vw100 flex-col items-center"
 		style="background-size: cover;background-image: url('https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/user/login.png');">
 		<view class="" style="background-color: transparent;">
-			<u-navbar :custom-back="customBack" :border-bottom="false" title-color="#333333" title="" title-size="28"
-				:background="{background:'transparent',color:'white',fontSize: '14px'}"></u-navbar>
+			<u-navbar :placeholder="true" :custom-back="customBack" :border-bottom="false" title-color="#333333" title="" title-size="28"
+				:background="{background:'transparent',color:'white',fontSize: '28rpx'}"></u-navbar>
 		</view>
 		<view v-if="hint" class="flex-col justify-center items-center" style="margin-top: 10%;width: 100%;">
 			<view class="InputTab">
@@ -19,7 +19,7 @@
 					<input placeholder-class="placeholder_class" v-model="fromCode.code" type="number" maxlength="10"
 						placeholder="请输入验证码" class="u-line-1 ml15 endcolor codeInput" />
 					<u-text @click="getCode"
-						style="font-size: 12px;color: #01BB74;">{{interval==70?"获取验证码":"倒计时 "+interval}}</u-text>
+						style="font-size: 24rpx;color: #01BB74;">{{interval==70?"获取验证码":"倒计时 "+interval}}</u-text>
 				</view>
 			</view>
 
@@ -152,18 +152,18 @@
 	}
 
 	.yjdl {
-		width: 190px;
-		height: 50px;
-		border-radius: 188px;
+		width: 380rpx;
+		height: 100rpx;
+		border-radius: 376rpx;
 		opacity: 1;
 		background: #F5FCF9;
 
 		font-family: Source Han Sans;
-		font-size: 15px;
+		font-size: 30rpx;
 		font-weight: 500;
-		line-height: 21.12px;
+		line-height: 42.24rpx;
 		text-align: center;
-		letter-spacing: 0px;
+		letter-spacing: 0rpx;
 
 		font-feature-settings: "kern" on;
 		color: #01BB74;
@@ -177,12 +177,12 @@
 	.placeholder_class {
 		color: #999999;
 		font-family: Source Han Sans;
-		font-size: 14px;
+		font-size: 28rpx;
 		font-weight: normal;
-		line-height: 21.12px;
-		letter-spacing: 0px;
+		line-height: 42.24rpx;
+		letter-spacing: 0rpx;
 
-		margin-left: 0px;
+		margin-left: 0rpx;
 
 		text-align: left;
 
@@ -196,32 +196,32 @@
 	}
 
 	.head {
-		margin-bottom: 80px;
+		margin-bottom: 160rpx;
 		width: 100%;
 		position: relative;
 	}
 
 	.headline {
 		font-family: Source Han Sans;
-		font-size: 26px;
+		font-size: 52rpx;
 		font-weight: 500;
-		line-height: 21.12px;
-		letter-spacing: 0px;
+		line-height: 42.24rpx;
+		letter-spacing: 0rpx;
 		font-feature-settings: "kern" on;
 		color: #333333;
 		position: absolute;
 
-		left: 20px;
+		left: 40rpx;
 
 	}
 
 	.headlineInput {
 		font-family: Source Han Sans;
-		font-size: 16px;
+		font-size: 32rpx;
 		font-weight: normal;
-		line-height: 21.12px;
+		line-height: 42.24rpx;
 		text-align: center;
-		letter-spacing: 0px;
+		letter-spacing: 0rpx;
 		font-feature-settings: "kern" on;
 		color: #333333;
 
@@ -230,14 +230,14 @@
 		justify-content: left;
 		align-items: center;
 
-		margin-bottom: 10px;
+		margin-bottom: 20rpx;
 	}
 
 
 	.Input {
-		width: 289.11px;
-		height: 48px;
-		border-radius: 188px;
+		width: 578.22rpx;
+		height: 96rpx;
+		border-radius: 376rpx;
 		opacity: 1;
 
 		display: flex;
@@ -254,7 +254,7 @@
 		// background-color: #01BB74;
 		height: 100%;
 		width: 80%;
-		text-indent: 20px;
+		text-indent: 40rpx;
 	}
 
 	.codeInput {
@@ -262,9 +262,9 @@
 	}
 
 	.button {
-		width: 290px;
-		height: 50px;
-		border-radius: 188px;
+		width: 580rpx;
+		height: 100rpx;
+		border-radius: 376rpx;
 		opacity: 1;
 		background: #01BB74;
 
@@ -273,12 +273,12 @@
 		justify-content: center;
 		align-items: center;
 
-		font-size: 18px;
+		font-size: 36rpx;
 		font-weight: 500;
 		color: #FFFFFF;
 
-		margin-top: 40px;
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.2);
+		margin-top: 80rpx;
+		box-shadow: 0 8rpx 12rpx rgba(0, 0, 0, 0.1), 0 2rpx 6rpx rgba(0, 0, 0, 0.2);
 	}
 
 	.button:hover {
@@ -289,15 +289,15 @@
 	.button:active {
 		background-color: #00d382;
 		/* 按下时改变背景颜色 */
-		transform: translateY(1px);
+		transform: translateY(2rpx);
 		/* 按下时稍微向下移动一点，增加反馈 */
 	}
 
 	.headlineEnd {
 		display: flex;
 		flex-direction: row;
-		margin-top: 5px;
-		font-size: 12px;
+		margin-top: 10rpx;
+		font-size: 24rpx;
 		font-weight: normal;
 		position: relative;
 
@@ -315,10 +315,10 @@
 	}
 
 	.InputTab {
-		margin-bottom: 20px;
+		margin-bottom: 40rpx;
 	}
 
 	.buttonTab {
-		margin-top: 10px;
+		margin-top: 20rpx;
 	}
 </style>

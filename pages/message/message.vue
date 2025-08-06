@@ -1,12 +1,12 @@
 <template>
 	<view class="content bg-white pb38">
-		<u-navbar :border-bottom="false" back-icon-color="#ffffff" :titleBold="true" title-color="#000000" title="消息"
+		<u-navbar :autoBack="true" :placeholder="true" :border-bottom="false" back-icon-color="#ffffff" :titleBold="true" title-color="#000000" title="消息"
 			title-size="34" bgColor="#ffffff"></u-navbar>
 		<view class="mb2">
 			<u-notice-bar mode="vertical" :list="list2"></u-notice-bar>
 		</view>
 
-		<view class="vw100" style="margin-top:50%;height: 100px;" v-if="!ifShow()">
+		<view class="vw100" style="margin-top:50%;height: 200rpx;" v-if="!ifShow()">
 			<u-empty src="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg" icon-size="400"
 				text="暂无消息~" mode="search" margin-top="200"></u-empty>
 		</view>
@@ -22,7 +22,7 @@
 							<text>{{item.name}}</text>
 						</view>
 						<view class="" style="width: 40%;">
-							<text class="" style="font-size: 12px;color: #cccccc;margin-right: 0;width:20%;">
+							<text class="" style="font-size: 24rpx;color: #cccccc;margin-right: 0;width:20%;">
 								{{item.time}}
 							</text>
 						</view>
@@ -45,7 +45,7 @@
 	export default {
 		data() {
 			return {
-				tabHight: "50px",
+				tabHight: "100rpx",
 				backText: "选择客户",
 				showMess: false,
 				list: [{
@@ -361,25 +361,25 @@
 	// 	display: flex;
 	// 	justify-content: space-between;
 	// 	align-items: flex-end;
-	// 	height: 85px;
+	// 	height: 170rpx;
 	// 	width: 100vw;
 	// 	background-color: #ffffff;
-	// 	border-bottom: 1px solid #eee;
+	// 	border-bottom: 2rpx solid #eee;
 	// }
 
 	// .header-left {
-	// 	font-size: 15px;
+	// 	font-size: 30rpx;
 	// 	color: #333;
 	// }
 
 	// .header-title {
-	// 	font-size: 16px;
+	// 	font-size: 32rpx;
 	// 	color: #333;
-	// 	margin-right: 80px;
+	// 	margin-right: 160rpx;
 	// }
 
 	// .header-message {
-	// 	font-size: 14px;
+	// 	font-size: 28rpx;
 	// 	color: #999;
 	// }
 

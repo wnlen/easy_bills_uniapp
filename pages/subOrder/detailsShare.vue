@@ -2,6 +2,8 @@
 	<view class="vh100 vw100" style="background-size: cover">
 		<view>
 			<u-navbar
+				:autoBack="true"
+				:placeholder="true"
 				:border-bottom="false"
 				back-icon-color="#000000"
 				:titleBold="true"
@@ -22,75 +24,75 @@
 			<view class="ml20 mr20">
 				<view class="flex-row" style="margin-top: 2%">
 					<view class="" style="width: 20%">
-						<u-image mode="scaleToFill" src="https://res-oss.elist.com.cn/wxImg/order/logo.svg" width="100px" height="40px" :show-menu-by-longpress="false"></u-image>
+						<u-image mode="scaleToFill" src="https://res-oss.elist.com.cn/wxImg/order/logo.svg" width="200rpx" height="80rpx" :show-menu-by-longpress="false"></u-image>
 					</view>
 					<view class="flex-row justify-center items-center" style="width: 60%">
-						<u-image :show-menu-by-longpress="false" src="@/static/img/order/dd2x.svg" width="146px" height="22px"></u-image>
+						<u-image :show-menu-by-longpress="false" src="@/static/img/order/dd2x.svg" width="292rpx" height="44rpx"></u-image>
 					</view>
 					<view class="" style="width: 20%"></view>
 				</view>
 
 				<view class="width100 flex-row pt15" style="height: 4vh">
 					<view class="flex-row justify-center items-center" style="width: 100%; font-weight: 600">
-						<view class="mb10 syst ft-zjj-1" style="text-align: left; color: #333333; font-size: 18px; font-weight: 600">
+						<view class="mb10 syst ft-zjj-1" style="text-align: left; color: #333333; font-size: 36rpx; font-weight: 600">
 							<text>{{ post.enterpriseS || post.bossNumberS || '' }}</text>
 						</view>
 					</view>
 				</view>
 
 				<view class="bg-white pb350 flex-co mt10">
-					<view v-if="wxType == 1 && LookShar == 'D'" class="absolute" style="right: 10px">
+					<view v-if="wxType == 1 && LookShar == 'D'" class="absolute" style="right: 20rpx">
 						<u-image
 							v-if="post.paymentState == '0'"
 							:show-menu-by-longpress="false"
 							src="https://res-oss.elist.com.cn/wxImg/order/dqs.png"
-							width="120px"
-							height="120px"
+							width="240rpx"
+							height="240rpx"
 						></u-image>
 						<u-image
 							v-if="post.paymentState == '1'"
 							:show-menu-by-longpress="false"
 							src="https://res-oss.elist.com.cn/wxImg/order/yqs.png"
-							width="120px"
-							height="120px"
+							width="240rpx"
+							height="240rpx"
 						></u-image>
 						<u-image
 							v-if="post.paymentState == '2'"
 							:show-menu-by-longpress="false"
 							src="https://res-oss.elist.com.cn/wxImg/order/ysk.png"
-							width="120px"
-							height="120px"
+							width="240rpx"
+							height="240rpx"
 						></u-image>
 					</view>
 
-					<view v-if="wxType == 1 && LookShar == 'R'" class="absolute" style="right: 10px">
+					<view v-if="wxType == 1 && LookShar == 'R'" class="absolute" style="right: 20rpx">
 						<u-image
 							v-if="post.paymentState == '0'"
 							:show-menu-by-longpress="false"
 							src="https://res-oss.elist.com.cn/wxImg/order/dqs-r.png"
-							width="120px"
-							height="120px"
+							width="240rpx"
+							height="240rpx"
 						></u-image>
 						<u-image
 							v-if="post.paymentState == '1'"
 							:show-menu-by-longpress="false"
 							src="https://res-oss.elist.com.cn/wxImg/order/yqs.png"
-							width="120px"
-							height="120px"
+							width="240rpx"
+							height="240rpx"
 						></u-image>
 						<u-image
 							v-if="post.paymentState == '2'"
 							:show-menu-by-longpress="false"
 							src="https://res-oss.elist.com.cn/wxImg/order/yfk.png"
-							width="120px"
-							height="120px"
+							width="240rpx"
+							height="240rpx"
 						></u-image>
 					</view>
 
 					<view class="pd20 black-border-top black-border-left black-border-right">
 						<view class="flex-row" style="font-family: ddbh">
 							<u-icon size="50" name="https://res-oss.elist.com.cn/wxImg/order/number.svg"></u-icon>
-							<text class="ml10 mt10" style="color: #fa5151; font-size: 15px">{{ post.orderNumber || '' }}</text>
+							<text class="ml10 mt10" style="color: #fa5151; font-size: 30rpx">{{ post.orderNumber || '' }}</text>
 						</view>
 						<view class="flex-row mt13 xqcss">
 							<view class="">发货日期：</view>
@@ -203,7 +205,7 @@
 								<image
 									v-if="post.signatureImg != ''"
 									:src="post.signatureImg"
-									style="transform: rotate(270deg) translateY(20%); width: 60px"
+									style="transform: rotate(270deg) translateY(20%); width: 120rpx"
 									class=""
 									mode="widthFix"
 								></image>
@@ -324,7 +326,7 @@ export default {
 			showMask: false,
 			password: '',
 			err: false,
-			ImageSoleHeight: '200px',
+			ImageSoleHeight: '400rpx',
 			PrintNum: 0,
 			hasValueFourWithKeyThree: false,
 			LookShar: '',
@@ -1000,13 +1002,13 @@ export default {
 
 .table-cell {
 	// display: table-cell;
-	// border: 1px solid #333333;
+	// border: 2rpx solid #333333;
 	// /* 可选：添加边框 */
-	// padding: 8px;
+	// padding: 16rpx;
 	// /* 可选：添加内边距 */
 	// /* 设置单元格的最大宽度或宽度，根据实际需要调整 */
-	max-width: 60px;
-	min-width: 30px;
+	max-width: 120rpx;
+	min-width: 60rpx;
 	// /* 示例值，根据字符数和字体大小调整 */
 	word-wrap: break-word;
 	// /* 确保长单词或URL会在边界处换行 */
@@ -1017,9 +1019,9 @@ export default {
 	// vertical-align: top;
 	// /* 文本顶部对齐 */
 	display: table-cell;
-	border: 1px solid #333333;
+	border: 2rpx solid #333333;
 	/* 可选：添加边框 */
-	padding: 8px;
+	padding: 16rpx;
 	/* 可选：添加内边距 */
 	text-align: center;
 	/* 水平居中 */
@@ -1027,35 +1029,35 @@ export default {
 	/* 垂直居中 */
 	box-sizing: border-box;
 	/* 包含边框和内边距在宽度内 */
-	width: 59px;
+	width: 118rpx;
 }
 
 .passwordTitle {
 	width: 100%;
 	height: 40%;
 	color: #333333;
-	font-size: 18px;
+	font-size: 36rpx;
 	font-weight: 600;
 }
 
 .titlePas {
 	color: #333333;
-	font-size: 18px;
+	font-size: 36rpx;
 	font-weight: 600;
 }
 
 .titlePasOK {
 	color: #01bb74;
-	font-size: 18px;
+	font-size: 36rpx;
 	font-weight: 600;
 }
 
 .err {
 	font-family: Source Han Sans;
-	font-size: 13px;
+	font-size: 26rpx;
 	font-weight: normal;
-	line-height: 22.46px;
-	letter-spacing: 0.65px;
+	line-height: 44.92rpx;
+	letter-spacing: 1.3rpx;
 
 	font-feature-settings: 'kern' on;
 	color: #f53f3f;
@@ -1068,7 +1070,7 @@ export default {
 	overflow: hidden;
 	white-space: nowrap;
 	animation: typing 0.5s forwards;
-	// font-size:16px;
+	// font-size:32rpx;
 	// font-family: 'ysdzt', Arial, sans-serif;
 	padding-top: 12rpx;
 	color: #8f3e04;

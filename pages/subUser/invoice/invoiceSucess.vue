@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<u-navbar :custom-back="jump" :border-bottom="false" :titleBold="true" title-color="#000000" title="发票审核"
+		<u-navbar :placeholder="true" :custom-back="jump" :border-bottom="false" :titleBold="true" title-color="#000000" title="发票审核"
 				title-size="34" bgColor="#ffffff">
 		</u-navbar>
 		<view class="w100 box">

@@ -1,20 +1,20 @@
 <template>
 	<view class="vw100 vh100 bg-gray">
 		<view>
-			<u-navbar title="支付消息"></u-navbar>
+			<u-navbar :autoBack="true" :placeholder="true" title="支付消息"></u-navbar>
 			<view class="content">
 			</view>
 		</view>
 
 		<view class="flex-col mt20" v-for="(item,index) in List">
-			<text class="flex-col justify-center items-center" style="width: 100vw;color:#999999;font-size: 10px;">
+			<text class="flex-col justify-center items-center" style="width: 100vw;color:#999999;font-size: 20rpx;">
 				{{item.createTime}}
 			</text>
 			<u-card class="ml24 mr24 bg-white justify-center mt10"
 			     margin="10"
 			    :border="false"
 				:thumb="item.type==1?'/static/img/message/zftx.svg':'/static/img/message/fktz.svg'" thumb-width="40"
-				:title="item.name" head-border-bottom="true" style="width: 94vw;border-radius: 10px;"
+				:title="item.name" head-border-bottom="true" style="width: 94vw;border-radius: 20rpx;"
 				:thumb-circle="true"
 				:key="index">
 				<view class="" slot="body">
@@ -23,20 +23,20 @@
 							{{item.body}}
 						</view>
 						<view class="u-body-item-title u-line-6"
-							style="width: 85vw;text-align: center;color: #333333;font-size: 15px;" else>
+							style="width: 85vw;text-align: center;color: #333333;font-size: 30rpx;" else>
 							<view class="">
 								{{item.play.state=="1"?"支付成功":"支付失败"}}
 							</view>
 							<view
-								style="width: 85vw;text-align: center;color: #333333;font-size: 20px;font-weight: bold;">
+								style="width: 85vw;text-align: center;color: #333333;font-size: 40rpx;font-weight: bold;">
 								￥{{item.play.price}}
 							</view>
 							<view class="mt20 mb10"
-								style="width: 85vw;text-align: left;color: #333333;font-size: 12px;">
+								style="width: 85vw;text-align: left;color: #333333;font-size: 24rpx;">
 								<text style="color: #AAAAAA;">{{item.allBody.playName}}</text><text
 									class="ml10">{{item.allBody.playTime}}</text>
 							</view>
-							<view style="width: 85vw;text-align: left;color: #333333;font-size: 12px;">
+							<view style="width: 85vw;text-align: left;color: #333333;font-size: 24rpx;">
 								<text style="color: #AAAAAA;">{{item.allBody.unitName}}</text><text
 									class="ml10">{{item.allBody.unit}}</text>
 							</view>
@@ -114,26 +114,26 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-end;
-		height: 85px;
+		height: 170rpx;
 		width: 100vw;
 		background-color: #ffffff;
-		border-bottom: 1px solid #eee;
+		border-bottom: 2rpx solid #eee;
 	}
 
 	.header-left {
-		font-size: 15px;
+		font-size: 30rpx;
 		color: #333;
 	}
 
 	.header-title {
-		font-size: 18px;
+		font-size: 36rpx;
 		font-weight: bold;
 		color: #333;
-		margin-right: 75px;
+		margin-right: 150rpx;
 	}
 
 	.header-message {
-		font-size: 14px;
+		font-size: 28rpx;
 		color: #999;
 	}
 </style>

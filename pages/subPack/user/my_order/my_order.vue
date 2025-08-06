@@ -1,6 +1,6 @@
 <template>
 	<view class="Myorder">
-		<u-navbar :custom-back="rightClick" back-icon-color="#ffffff" :background="uNa" :border-bottom="false"
+		<u-navbar :autoBack="true" :placeholder="true" :custom-back="rightClick" back-icon-color="#ffffff" :background="uNa" :border-bottom="false"
 			:titleBold="true" title-color="#ffffff" title="我的订购" title-size="34"></u-navbar>
 
 

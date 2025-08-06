@@ -1,10 +1,10 @@
 <template>
 	<view class="content items-center pt20">
 		<!-- 		<u-navbar :border-bottom="false" title-color="#333333" title="更多功能" title-size="28"
-			background="{background:transparent,color:white,fontSize: 14px;}"></u-navbar> -->
+			background="{background:transparent,color:white,fontSize: 28rpx;}"></u-navbar> -->
 
-		<u-navbar :placeholder="true" :border-bottom="false" :titleBold="true" title-color="#000000" title="更多功能" title-size="34"
-			bgColor="#ffffff" :autoBack="true" ></u-navbar>
+		<u-navbar :autoBack="true" :placeholder="true" :border-bottom="false" :titleBold="true" title-color="#000000" title="更多功能" title-size="34"
+			bgColor="#ffffff"></u-navbar>
 
 		<view class="ml24 mr24">
 			<!-- <view class="titleMore">
@@ -130,9 +130,9 @@
 	}
 
 	.titleMore {
-		font-size: 16px;
+		font-size: 32rpx;
 		font-weight: 500;
-		line-height: 22px;
+		line-height: 44rpx;
 		color: #333333;
 	}
 </style>

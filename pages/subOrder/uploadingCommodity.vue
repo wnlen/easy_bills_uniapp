@@ -1,34 +1,26 @@
 <template>
 	<view class="uploadingCommodity">
-		<u-navbar title="添加商品"></u-navbar>
-
-		<!-- <u-image class="ml24" border-radius="6px" width="300rpx" height="300rpx" :src="presentPicture"></u-image> -->
-
+		<up-navbar :autoBack="true" :placeholder="true" :titleBold="true" title="添加商品"></up-navbar>
 		<view class="uploadingCommodityImg">
 			<u-upload
-				:custom-btn="true"
-				:action="action"
-				:show-retry="false"
-				:file-list="fileList"
-				:show-tips="false"
-				:before-upload="handleUpload"
-				max-size="9999999"
-				:max-count="1"
-				multiple
-				del-bg-color="#565C62"
+				v-model:fileList="fileList"
+				autoUpload
+				autoDelete
+				:autoUploadApi="action"
+				autoUploadDriver="local"
+				:maxCount="1"
+				:maxSize="9999999"
+				:showPreviewImage="true"
+				:previewFullImage="true"
+				:deletable="true"
+				:showRetry="false"
 			>
-				<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
-					<u-icon :marginTop="15" name="plus-circle-fill" color="#01BB74" size="50" label-pos="bottom" label="添加图片"></u-icon>
-				</view>
+				<template #trigger>
+					<view class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
+						<up-icon name="plus-circle-fill" color="#01BB74" size="50rpx" label="添加图片" label-pos="bottom" />
+					</view>
+				</template>
 			</u-upload>
-
-			<!-- <u-upload :custom-btn="true" :action="action" :show-retry="false" :file-list="fileList"
-				:show-tips="false" :before-upload="handleUpload" max-size="5242880" max-count="3" multiple
-				del-bg-color="#e9e9e9">
-				<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
-					<u-icon name="https://res-oss.elist.com.cn/wxImg/order/down.png" size="200"></u-icon>
-				</view>
-			</u-upload> -->
 		</view>
 
 		<view class="uploadingCommodityFrom">
@@ -37,8 +29,8 @@
 					*
 					<text class="name">品名</text>
 				</text>
-				<view class="uploadingCommodityFromCardRowInput" style="width: 300px">
-					<u-input type="text" v-model="uploadingCommodity.description" :custom-style="customStyle" placeholder="请您填写商品名称" />
+				<view class="uploadingCommodityFromCardRowInput" style="width: 600rpx">
+					<u-input type="text" v-model="uploadingCommodity.description" :custom-style="customStyle" border="none" inputAlign="right" :clearable="true" placeholder="请您填写商品名称" />
 				</view>
 			</view>
 			<view class="uploadingCommodityFromCardRow">
@@ -46,8 +38,8 @@
 					*
 					<text class="name">规格</text>
 				</text>
-				<view class="uploadingCommodityFromCardRowInput" style="width: 300px">
-					<u-input type="text" v-model="uploadingCommodity.specification" placeholder="请输入" :custom-style="customStyle" />
+				<view class="uploadingCommodityFromCardRowInput" style="width: 600rpx">
+					<u-input type="text" v-model="uploadingCommodity.specification" placeholder="请输入" :custom-style="customStyle" border="none" inputAlign="right" :clearable="true" />
 				</view>
 			</view>
 			<view class="uploadingCommodityFromCardRow">
@@ -55,8 +47,8 @@
 					*
 					<text class="name">单位</text>
 				</text>
-				<view class="uploadingCommodityFromCardRowInput mt24" style="width: 300px">
-					<u-input type="text" v-model="uploadingCommodity.unit" maxlength="10" placeholder="请输入" :custom-style="customStyle" />
+				<view class="uploadingCommodityFromCardRowInput mt24" style="width: 600rpx">
+					<u-input type="text" v-model="uploadingCommodity.unit" maxlength="10" placeholder="请输入" :custom-style="customStyle" border="none" inputAlign="right" :clearable="true" />
 				</view>
 			</view>
 			<view class="uploadingCommodityFromCardRow">
@@ -64,21 +56,21 @@
 					*
 					<text class="name">单价</text>
 				</text>
-				<view class="uploadingCommodityFromCardRowInput" style="width: 200px">
-					<u-input v-model="uploadingCommodity.unitPrice" type="digit" maxlength="10" placeholder="请输入" :custom-style="customStyle" />
+				<view class="uploadingCommodityFromCardRowInput" style="width: 400rpx">
+					<u-input v-model="uploadingCommodity.unitPrice" type="digit" maxlength="10" placeholder="请输入" :custom-style="customStyle" border="none" inputAlign="right" :clearable="true" />
 				</view>
 			</view>
 			<view class="uploadingCommodityFromCard">
 				<text class="name">备注说明</text>
-				<u-input v-model="uploadingCommodity.remark" type="textarea" placeholder="请输入" />
+				<u-input v-model="uploadingCommodity.remark" type="textarea" placeholder="请输入" border="none" />
 			</view>
 			<view class="flex-row justify-end items-center pr24 pt48" style="width: 100%">
 				<text class="name mr24">置于商品库顶部</text>
-				<u-switch size="35" active-color="#01BB74" v-model="uploadingCommodity.top"></u-switch>
+				<u-switch size="25" active-color="#01BB74" v-model="uploadingCommodity.top"></u-switch>
 			</view>
 		</view>
 
-		<view class="" style="position: absolute; bottom: 20px; width: 94%; justify-content: center; left: 3%">
+		<view class="" style="position: absolute; bottom: 40rpx; width: 94%; justify-content: center; left: 3%">
 			<u-button type="primary" hover-class="none" :custom-style="{ backgroundColor: '#01BB74' }" class="form-btn-big" @click="uploadingCommodityAdd" shape="circle">
 				保存
 			</u-button>
@@ -200,7 +192,9 @@ export default {
 			} else {
 				if (this.check) {
 					this.check = false;
-					this.$api.library.addCommodity(this.uploadingCommodity).then((res) => {
+					this.$api.library
+						.addCommodity(this.uploadingCommodity)
+						.then((res) => {
 							console.log(res);
 							this.$u.toast(res.data.message);
 							if (res.data.data > 0) {
@@ -276,18 +270,32 @@ export default {
 	height: 100vh;
 
 	.uploadingCommodityImg {
+		position: relative;
 		background: rgba(244, 244, 244, 0.5);
 		margin-left: 24rpx;
-		// margin-right: 24rpx;
 		margin-top: 24rpx;
-		height: 16vh;
-		width: 34vw;
-		border-radius: 6px;
+		height: 248rpx;
+		width: 248rpx;
+		border-radius: 12rpx;
 
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
+		text-align: center;
+
+		.slot-btn {
+			position: absolute;
+			width: 248rpx;
+			height: 248rpx;
+			top: 0rpx;
+			display: flex;
+			justify-content: center;
+			border-radius: 12rpx;
+		}
+		.slot-btn__hover {
+			background-color: #e8f5f0;
+		}
 	}
 
 	.uploadingCommodityFrom {

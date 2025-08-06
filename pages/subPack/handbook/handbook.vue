@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<!-- <u-navbar :background="{ background: '#ffffff' }" back-icon-size="30" title="操作手册"></u-navbar> -->
-		<u-navbar :custom-back="customBack" :border-bottom="false" :titleBold="true" title-color="#000000" title="操作手册" title-size="34"
+		<u-navbar :autoBack="true" :placeholder="true" :custom-back="customBack" :border-bottom="false" :titleBold="true" title-color="#000000" title="操作手册" title-size="34"
 			bgColor="#ffffff"></u-navbar>
 
 		<view class="absolute flex-col items-center cardAll">
@@ -304,7 +304,7 @@
 		background-color: #FFFFFF;
 		width: 96%;
 		min-height: 20vh;
-		border-radius: 6px;
+		border-radius: 12rpx;
 
 	}
 
@@ -314,17 +314,17 @@
 		height: 70%;
 		bottom: 0;
 		/* overflow-y: auto; */
-		padding-top: 20px;
-		padding-bottom: 100px;
+		padding-top: 40rpx;
+		padding-bottom: 200rpx;
 	}
 
 	.cardOneTitle {
-		font-size: 15px;
+		font-size: 30rpx;
 		font-weight: normal;
 		line-height: normal;
 		letter-spacing: 0em;
 		color: #333333;
-		padding: 10px;
+		padding: 20rpx;
 	}
 
 	.cardOneIcon {
@@ -335,8 +335,8 @@
 
 	.item {
 		flex: 1;
-		height: 90px;
-		/* border: 1px solid #ccc; */
+		height: 180rpx;
+		/* border: 2rpx solid #ccc; */
 		box-sizing: border-box;
 		display: flex;
 		justify-content: center;

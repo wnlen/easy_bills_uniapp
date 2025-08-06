@@ -1,13 +1,13 @@
 <template>
 	<view class="vh100 pb60 flex-col justify-center" style="background-color: #ffffff">
-		<u-navbar :custom-back="navBack" :border-bottom="false" :titleBold="true" title-color="#000000" title="订单修改" title-size="34" bgColor="#ffffff"></u-navbar>
+		<u-navbar :autoBack="true" :placeholder="true" :custom-back="navBack" :border-bottom="false" :titleBold="true" title-color="#000000" title="订单修改" title-size="34" bgColor="#ffffff"></u-navbar>
 
 		<view v-if="!identity" class="flex-row justify-center items-center absolute" style="width: 100%; top: 30%">
-			<u-image src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" width="300px" height="200px"></u-image>
-			<view class="absolute" style="bottom: -40px; color: #aaaaaa; font-size: 14px">无开单权限~</view>
+			<u-image src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" width="600rpx" height="400rpx"></u-image>
+			<view class="absolute" style="bottom: -80rpx; color: #aaaaaa; font-size: 28rpx">无开单权限~</view>
 		</view>
 
-		<view class="hand relative" style="background-color: #01bb74; width: 100vw; height: 60px" v-if="vuex_userRole == 'D' && shareShow == false && identity">
+		<view class="hand relative" style="background-color: #01bb74; width: 100vw; height: 120rpx" v-if="vuex_userRole == 'D' && shareShow == false && identity">
 			<view
 				class="pd20 syst absolute"
 				style="
@@ -15,12 +15,12 @@
 					background-color: transparent;
 					height: 10vh;
 					color: #ffffff;
-					font-size: 20px;
+					font-size: 40rpx;
 					font-weight: bold;
 					display: flex;
 					flex-direction: row;
 					justify-content: center;
-					top: 1px;
+					top: 2rpx;
 				"
 			>
 				{{
@@ -36,7 +36,7 @@
 		</view>
 
 		<view class="form-wrap pt20 absolute" style="background-color: #ffffff" v-if="vuex_userRole == 'D' && shareShow == false && identity">
-			<view class="form-inner flex-col" style="font-size: 14px; background-color: #ffffff">
+			<view class="form-inner flex-col" style="font-size: 28rpx; background-color: #ffffff">
 				<view class="flex-col justify-left">
 					<u-image v-if="vuex_user.eorderLogo" :src="vuex_user.eorderLogo" width="152" height="60" mode="aspectFill" />
 					<view class="ft-bold handcolor">发货单信息</view>
@@ -135,7 +135,7 @@
 				</view>
 			</view>
 
-			<scroll-view enhanced :show-scrollbar="false" scroll-y="true" style="background-color: #f4f4f4; max-height: 335px; margin-top: 12rpx">
+			<scroll-view enhanced :show-scrollbar="false" scroll-y="true" style="background-color: #f4f4f4; max-height: 670rpx; margin-top: 12rpx">
 				<view style="width: 100%; background-color: #ffffff" v-for="(item, index) in orderItemList" :key="index" @click="merchandiseInventory(false)" class="mb12 mt12">
 					<view class="flex-row pt24 pb24" style="width: 100%">
 						<view style="width: 10%" class="ml20">品名:</view>
@@ -188,7 +188,7 @@
 				</view>
 			</view>
 
-			<view class="form-inner-card flex-col" style="font-size: 14px; background-color: #ffffff">
+			<view class="form-inner-card flex-col" style="font-size: 28rpx; background-color: #ffffff">
 				<view v-if="recentlyData" class="flex-row justify-between items-center mt45 ft-bold">
 					<text class="line34 handcolor">相关图片/票据</text>
 				</view>
@@ -215,7 +215,7 @@
 
 				<view class="flex-col mt45" style="width: 95%">
 					<text class="handcolor line34" style="font-weight: bold">备注</text>
-					<view class="mt40" style="border-radius: 3px; box-sizing: border-box; border: 0.5px solid rgba(216, 216, 216, 0.5)">
+					<view class="mt40" style="border-radius: 6rpx; box-sizing: border-box; border: 1rpx solid rgba(216, 216, 216, 0.5)">
 						<input
 							v-model="receipts.signatureDescr"
 							type="text"
@@ -795,7 +795,7 @@ export default {
 		height: 199.7%;
 		-webkit-transform: scale(0.5, 0.5);
 		transform: scale(0.5, 0.5);
-		// border: 1px solid #333;
+		// border: 2rpx solid #333;
 		z-index: 1;
 		border-radius: 100rpx;
 		background: transparent;
@@ -805,17 +805,17 @@ export default {
 <style>
 .handcolor {
 	color: #333333;
-	font-size: 16px;
+	font-size: 32rpx;
 }
 
 .textcolor {
 	color: #666666;
-	font-size: 14px;
+	font-size: 28rpx;
 	font-weight: 500;
 }
 
 .endcolor {
-	font-size: 14px;
+	font-size: 28rpx;
 	font-weight: 500;
 }
 

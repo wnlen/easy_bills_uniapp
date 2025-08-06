@@ -3,7 +3,7 @@
 	<!-- 	<u-navbar :custom-back="payBack" :border-bottom="false" title-color="#333333" title="支付订单" title-size="28"
 			background="{background:transparent,color:white,fontSize: 28rpx;}"></u-navbar> -->
 
-		<u-navbar :custom-back="payBack" :border-bottom="false" :titleBold="true" title-color="#000000" title="支付订单"
+		<u-navbar :placeholder="true" :custom-back="payBack" :border-bottom="false" :titleBold="true" title-color="#000000" title="支付订单"
 			title-size="34" bgColor="#ffffff"></u-navbar>
 
 

@@ -3,17 +3,17 @@
 		<view>
 			<!-- <u-navbar :border-bottom="false" back-icon-color="#FFFFFF" :titleBold="true" title-color="#FFFFFF"
 				title="我的二维码" title-size="34" background="transparent"></u-navbar> -->
-				<u-navbar :border-bottom="false" back-icon-color="#FFFFFF" :titleBold="true" title-color="#FFFFFF"
+				<u-navbar :autoBack="true" :placeholder="true" :border-bottom="false" back-icon-color="#FFFFFF" :titleBold="true" title-color="#FFFFFF"
 					title="我的二维码" title-size="34" background="transparent"></u-navbar>
 		</view>
 		<view class="card">
 			<view class="cardCode">
-				<view class="icon flex-col justify-center items-center absolute" style="position: relative;top: -40px;">
+				<view class="icon flex-col justify-center items-center absolute" style="position: relative;top: -80rpx;">
 					<u-avatar :src="vuex_user.data.headPortrait" size="150" mode="circle"></u-avatar>
 				</view>
-				<view class="absolute" style="position: relative;width: 100%;top: -50px;">
-					<view class="flex-col justify-center items-center width100 mb54" style="font-family: Source Han Sans;font-size: 19.2px;font-weight: bold;
-						line-height: 24px;text-align: center;letter-spacing: 0px;height: 40px;">
+				<view class="absolute" style="position: relative;width: 100%;top: -100rpx;">
+					<view class="flex-col justify-center items-center width100 mb54" style="font-family: Source Han Sans;font-size: 38.4rpx;font-weight: bold;
+						line-height: 48rpx;text-align: center;letter-spacing: 0rpx;height: 80rpx;">
 						{{vuex_user.data.name}}
 						<view class="width100 flex-row justify-center items-center">
 							<view class="flex-row justify-center items-center">
@@ -25,10 +25,10 @@
 						</view>
 					</view>
 
-					<view class="width100 absolute" style="width: 100%;top: 60px;">
+					<view class="width100 absolute" style="width: 100%;top: 120rpx;">
 						<view v-if="!showSF" class="flex-col justify-center items-center" style="width: 100%;">
 							<canvas ref="content" id="qrcode" canvas-id="qrcode"
-								style="width: 200px;height:200px;"></canvas>
+								style="width: 400rpx;height:400rpx;"></canvas>
 						</view>
 					</view>
 				</view>
@@ -51,19 +51,19 @@
 		<up-overlay :show="showSF" @click="showSF = false">
 			<div @tap.stop v-if="showSF" class="flex-col justify-center items-center relative" :style="{height:heig}"
 				style="background-color: white;position: absolute;width: 75%;height: 20vh;margin-top: 70%;
-				         border-radius: 6.87px;margin-left: 46px;">
-				<view class="absolute mt60" style="font-size: 18px;top: 0;height: 30px;">
+				         border-radius: 13.74rpx;margin-left: 92rpx;">
+				<view class="absolute mt60" style="font-size: 36rpx;top: 0;height: 60rpx;">
 					添加好友
 				</view>
 				<view class="flex-row text-center justify-center items-center absolute"
-					style="width: 100%;height: 40px;top:55px;">
+					style="width: 100%;height: 80rpx;top:110rpx;">
 					<view class="flex-col text-center justify-center items-center"
-						style="color: #999999;font-size: 18px;">
+						style="color: #999999;font-size: 36rpx;">
 						申请添加对方为
 					</view>
 					<view @click="showChecked=(showChecked==true?false:true);!showChecked?(heig='20vh'):(heig='25vh')"
 						class="ml15 flex-col text-center justify-center items-center"
-						style="box-sizing: border-box;border: 0.57px solid #999999;border-radius: 6.87px;width: 79.58px;height: 30.23px;">
+						style="box-sizing: border-box;border: 1.14rpx solid #999999;border-radius: 13.74rpx;width: 159.16rpx;height: 60.46rpx;">
 						{{role==1?"客户":"供应商"}}
 					</view>
 					<view class="ml10">
@@ -72,7 +72,7 @@
 					</view>
 				</view>
 				<view v-if="!showChecked" class=" u-border-top flex-row absolute"
-					style="width: 100%;height: 52px;bottom: 0;" @tap.stop>
+					style="width: 100%;height: 104rpx;bottom: 0;" @tap.stop>
 					<view @click="showSF=false;init()"
 						class="onsm u-border-right flex-col text-center justify-center items-cente"
 						style="width:50%;height: 100%;">
@@ -84,15 +84,15 @@
 					</view>
 				</view>
 				<view v-if="showChecked" class="u-border-top flex-col absolute mt20"
-					style="width: 100%;height: 100px;bottom: 0;" @tap.stop>
+					style="width: 100%;height: 200rpx;bottom: 0;" @tap.stop>
 					<view @click="role=1;showChecked=false;heig='20vh'"
 						class="flex-row items-center ml36 mt25 pl20 relative"
-						style="height: 35px;width: 255px;border-radius: 3px;"
+						style="height: 70rpx;width: 510rpx;border-radius: 6rpx;"
 						:style="{backgroundColor:role==1?'#ECFAF4':'#FBFBFB',color:role==1?'#01BB74':'#333333'}">
 						<view>
 							客户
 						</view>
-						<view v-if="role==1" class="absolute" style="right: 10px;">
+						<view v-if="role==1" class="absolute" style="right: 20rpx;">
 							<!-- https://res-oss.elist.com.cn/wxImg/code/check.svg -->
 							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28"></u-icon>
 
@@ -100,12 +100,12 @@
 					</view>
 					<view @click="role=0;showChecked=false;heig='20vh'"
 						class="flex-row items-center ml36 mt10 pl20 relative"
-						style="height: 35px;width: 255px;border-radius: 3px;"
+						style="height: 70rpx;width: 510rpx;border-radius: 6rpx;"
 						:style="{backgroundColor:role==0?'#ECFAF4':'#FBFBFB',color:role==0?'#01BB74':'#333333'}">
 						<view>
 							供应商
 						</view>
-						<view v-if="role==0" class="absolute" style="right: 10px;">
+						<view v-if="role==0" class="absolute" style="right: 20rpx;">
 							<!-- https://res-oss.elist.com.cn/wxImg/code/check.svg -->
 							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28"></u-icon>
 						</view>
@@ -344,10 +344,10 @@
 
 		.cardCode {
 			width: 70vw;
-			height: 350px;
+			height: 700rpx;
 			background-color: #ffffff;
 			margin-bottom: 10vh;
-			border-radius: 18px;
+			border-radius: 36rpx;
 		}
 
 
@@ -367,9 +367,9 @@
 	}
 
 	.icon {
-		padding-left: 23px;
-		padding-right: 23px;
-		padding-bottom: 20px;
+		padding-left: 46rpx;
+		padding-right: 46rpx;
+		padding-bottom: 40rpx;
 	}
 
 	.oksm {

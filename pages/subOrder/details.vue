@@ -6,6 +6,8 @@
 	>
 		<view v-show="show == 1">
 			<u-navbar
+				:autoBack="true"
+				:placeholder="true"
 				:border-bottom="false"
 				back-icon-color="#000000"
 				:titleBold="true"

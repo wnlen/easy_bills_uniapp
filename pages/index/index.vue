@@ -272,7 +272,12 @@ export default {
 		wx.loadFontFace({
 			family: '阿里妈妈数黑体 Bold',
 			source: 'url("https://res-oss.elist.com.cn/wxImg/fonts/aliBold/Xizk3ttTNIiT.woff2")',
-			success: console.log
+			success(res) {
+			  console.log('loadFontFace success = ', res)
+			},
+			fail: function(res) {
+			  console.log('loadFontFace fail = ', res)
+			}
 		});
 		// #endif
 	},

@@ -1,16 +1,16 @@
 <template>
 	<view class="vh100 vw100 flex-col items-center" style="background-size: cover; background-image: url('https://res-oss.elist.com.cn/wxImg/user/unsubscribe.png')">
 		<view class="absolute">
-			<u-navbar background="transparent" :border-bottom="false"></u-navbar>
+			<u-navbar :placeholder="true" background="transparent" :border-bottom="false"></u-navbar>
 		</view>
 
 		<view
 			class="flex-row justify-center items-center"
-			style="margin-top: 20%; font-size: 19px; font-weight: 600; line-height: 21.12px; text-align: center; letter-spacing: 0px; color: #333333; width: 100%; height: 10vh"
+			style="margin-top: 20%; font-size: 38rpx; font-weight: 600; line-height: 42.24rpx; text-align: center; letter-spacing: 0rpx; color: #333333; width: 100%; height: 10vh"
 		>
 			找回密码身份验证
 		</view>
-		<view class="" style="margin-top: 0%; background-color: #ffffff; border-radius: 6px; padding: 20px; padding-bottom: 70px">
+		<view class="" style="margin-top: 0%; background-color: #ffffff; border-radius: 12rpx; padding: 40rpx; padding-bottom: 140rpx">
 			<view class="mt45">
 				<view class="">手机号</view>
 				<view class="flex-row justify-center items-center u-border-bottom relative">
@@ -20,11 +20,11 @@
 			</view>
 			<view class="mt30">
 				<view class="">验证码</view>
-				<view class="flex-row justify-center items-center u-border-bottom relative mt30 pb20" style="width: 100%; height: 30px">
+				<view class="flex-row justify-center items-center u-border-bottom relative mt30 pb20" style="width: 100%; height: 60rpx">
 					<u-input class="absolute my-input" style="left: 0" v-model="form.code" type="text" placeholder="请输入您的验证码"></u-input>
 					<text
 						class="absolute"
-						style="font-size: 12px; font-weight: normal; line-height: 21.12px; text-align: center; letter-spacing: 0px; color: #01bb74; right: 10px"
+						style="font-size: 24rpx; font-weight: normal; line-height: 42.24rpx; text-align: center; letter-spacing: 0rpx; color: #01bb74; right: 20rpx"
 						type="primary"
 						@click="getCode"
 					>
@@ -36,7 +36,7 @@
 				<view
 					@click="comparisonCode"
 					class="flex-row justify-center items-center"
-					style="width: 268.76px; height: 52px; border-radius: 188px; opacity: 1; background: #01bb74; color: #ffffff"
+					style="width: 537.52rpx; height: 104rpx; border-radius: 376rpx; opacity: 1; background: #01bb74; color: #ffffff"
 				>
 					下一步
 				</view>
@@ -69,7 +69,7 @@ export default {
 				height: '100%',
 				width: '100%',
 				padding: '0',
-				fontSize: '12px',
+				fontSize: '24rpx',
 				color: '#666666'
 			}
 		};
@@ -180,7 +180,7 @@ export default {
 <style>
 .my-input .u-input-clear {
 	/* 调整清除按钮的样式，比如 margin 或 padding */
-	margin-right: 10px;
+	margin-right: 20rpx;
 	/* 或者其他你想要的样式 */
 }
 </style>

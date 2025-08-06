@@ -1,46 +1,46 @@
 <template>
 	<view class="attestation" :style="{backgroundImage:'url('+ImgUrl+'/wxImg/user/back.svg'+')'}">
-		<u-navbar :border-bottom="false" back-icon-color="#000000" :titleBold="true" title-color="#000000" title="公司资料"
+		<u-navbar :autoBack="true" :placeholder="true" :border-bottom="false" back-icon-color="#000000" :titleBold="true" title-color="#000000" title="公司资料"
 			 title-size="34"
-			:background="{background:'transparent',color:'white',fontSize: '14px'}"></u-navbar>
+			:background="{background:'transparent',color:'white',fontSize: '28rpx'}"></u-navbar>
 
 		<img :src="ImgUrl+'/wxImg/user/back.png'" alt="" srcset=""
-			style="position: absolute;top: 15px;width: 100vw;height: 100%;margin-top: 0vh;border-radius: 6px;" />
+			style="position: absolute;top: 30rpx;width: 100vw;height: 100%;margin-top: 0vh;border-radius: 12rpx;" />
 
 		<view class="card" style="">
 
-			<view class="" v-if="true" style="border-radius: border-radius: 6px;">
+			<view class="" v-if="true" style="border-radius: border-radius: 12rpx;">
 				<view class="flex-row items-center pt38" style="width: 100%;">
 					<u-image shape="circle" class="ml20" :show-menu-by-longpress="false"
-						:src="vuex_user.data.headPortrait||'/static/img/obj/defind.svg'" width="50px"
-						height="50px"></u-image>
+						:src="vuex_user.data.headPortrait||'/static/img/obj/defind.svg'" width="100rpx"
+						height="100rpx"></u-image>
 					<text class="ml10"
-						style="font-weight: bold;color: #333333;font-size: 18px;">{{userName(vuex_user.data.name)||"未设置"}}</text>
+						style="font-weight: bold;color: #333333;font-size: 36rpx;">{{userName(vuex_user.data.name)||"未设置"}}</text>
 					<img class="ml15"
 						:src="!qy?ImgUrl+'/wxImg/order/no-is.svg':ImgUrl+'/wxImg/order/yes-is.svg'"
-						style="width: 40px;height: 25px"></img>
+						style="width: 80rpx;height: 50rpx"></img>
 				</view>
 				<view class="flex-row items-center ml24 mr24 flex-row mb18" v-if="1==2"
-					style="height: 6vh;background: rgba(1, 187, 116, 0.05);border-radius: 6px;position: relative; ">
+					style="height: 6vh;background: rgba(1, 187, 116, 0.05);border-radius: 12rpx;position: relative; ">
 					<u-icon class="ml20" :name="ImgUrl+'/wxImg/user/sfz.svg'" size="30"></u-icon>
 					<text class="ml15" style="font-weight: 500;color: #333333;">身份证认证</text>
 					<button class="ml48 mr20 flex-col justify-center" shape="circle" @click="jump(1)"
-						style="background-color: #01BB74;color: white;width: 60px;height: 30px;font-size: 10px;align-items: center;position: absolute;right: 0;border-radius: 217px;">去认证</button>
+						style="background-color: #01BB74;color: white;width: 120rpx;height: 60rpx;font-size: 20rpx;align-items: center;position: absolute;right: 0;border-radius: 434rpx;">去认证</button>
 				</view>
 				<!-- 				<view class="flex-row items-center card ml24 mr24 flex-row mb18"
-					style="width: 93%;height: 6vh;background: rgba(1, 187, 116, 0.05);border-radius: 6px;position: relative; ">
+					style="width: 93%;height: 6vh;background: rgba(1, 187, 116, 0.05);border-radius: 12rpx;position: relative; ">
 					<u-icon class="ml20" name="/static/img/auth/rl.svg" size="30"></u-icon>
 					<text class="ml15" style="font-weight: 500;color: #333333;">人脸认证</text>
 					<button class="ml48 mr20 flex-col justify-center" shape="circle" @click="jump(2)"
-						style="background-color: #01BB74;color: white;width: 60px;height: 30px;font-size: 10px;align-items: center;position: absolute;right: 0;border-radius: 217px;">去认证</button>
+						style="background-color: #01BB74;color: white;width: 120rpx;height: 60rpx;font-size: 20rpx;align-items: center;position: absolute;right: 0;border-radius: 434rpx;">去认证</button>
 				</view> -->
 				<view @click="jump(3)" class="flex-row items-center ml24 mr24 flex-row mb24 mt24"
 					v-show="vuex_user.data.work=='0'"
-					style="height: 10vh;background: #FFFEF9;border-radius: 6px;position: relative;box-shadow: 0px 1px 3px 0px rgba(205, 202, 186, 0.3); ">
+					style="height: 10vh;background: #FFFEF9;border-radius: 12rpx;position: relative;box-shadow: 0rpx 2rpx 6rpx 0rpx rgba(205, 202, 186, 0.3); ">
 					<u-icon class="ml20" :name="ImgUrl+'/wxImg/user/qyrz.png'" size="90"></u-icon>
 					<text class="ml15" style="font-weight: 500;color: #333333;">公司资料</text>
-					<button v-if="btnqy==0" class="ml48 mr20 flex-col justify-center" shape="circle" style="color: white;width: 60px;height: 30px;
-						font-size: 10px;align-items: center;position: absolute;right: 0;border-radius: 217px;
+					<button v-if="btnqy==0" class="ml48 mr20 flex-col justify-center" shape="circle" style="color: white;width: 120rpx;height: 60rpx;
+						font-size: 20rpx;align-items: center;position: absolute;right: 0;border-radius: 434rpx;
 						background:  linear-gradient(90deg, #242538 0%, #5A637E 118%);;">
 						{{btnqy==0?"去完善":"已完善"}}
 					</button>
@@ -191,7 +191,7 @@
 			height: 74vh;
 			position: absolute;
 			z-index: 2;
-			border-radius: 13px;
+			border-radius: 26rpx;
 			bottom: 0;
 			background-color: white;
 			left: 24rpx;

@@ -1,7 +1,7 @@
 <template>
 	<view class="vw100 vh100 bg-gray">
 		<view>
-			<u-navbar title="系统通知"></u-navbar>
+			<u-navbar :autoBack="true" :placeholder="true" title="系统通知"></u-navbar>
 			<view class="content">
 			</view>
 		</view>
@@ -27,21 +27,21 @@
 
 
 		<u-popup v-model="showAlertSJ" mode="center" border-radius="16">
-			<view class="flex-col justify-center items-center" style="width: 300px;height: 400px; text-align: center;">
-				<view class="" style="height: 150px;width: 150px;">
+			<view class="flex-col justify-center items-center" style="width: 600rpx;height: 800rpx; text-align: center;">
+				<view class="" style="height: 300rpx;width: 300rpx;">
 					<u-image width="100%" height="100%" src="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/obj/sj.svg"></u-image>
 				</view>
-				<view class="mb10" style="color: #333333;font-size: 19.2px;font-weight: bold;">
+				<view class="mb10" style="color: #333333;font-size: 38.4rpx;font-weight: bold;">
 					更新升级中
 				</view>
-				<view class="mb20" style="color: #AAAAAA;font-size: 14.2px;font-weight: bold;">
+				<view class="mb20" style="color: #AAAAAA;font-size: 28.4rpx;font-weight: bold;">
 					易单据为您提供更加优质服务
 				</view>
 
 				<view class="mb20" style="width: 60%;">
 					<u-line-progress :striped="true" :percent="70" :striped-active="true"></u-line-progress>
 				</view>
-				<view class="" style="color: #AAAAAA;font-size:12px;font-weight: bold;">
+				<view class="" style="color: #AAAAAA;font-size:24rpx;font-weight: bold;">
 					正在努力下载...
 				</view>
 			</view>
@@ -82,26 +82,26 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: flex-end;
-		height: 85px;
+		height: 170rpx;
 		width: 100vw;
 		background-color: #ffffff;
-		border-bottom: 1px solid #eee;
+		border-bottom: 2rpx solid #eee;
 	}
 
 	.header-left {
-		font-size: 15px;
+		font-size: 30rpx;
 		color: #333;
 	}
 
 	.header-title {
-		font-size: 18px;
+		font-size: 36rpx;
 		font-weight: bold;
 		color: #333;
-		margin-right: 75px;
+		margin-right: 150rpx;
 	}
 
 	.header-message {
-		font-size: 14px;
+		font-size: 28rpx;
 		color: #999;
 	}
 </style>
