@@ -62,7 +62,6 @@
 		},
 		methods:{
 			changeTab(e){
-				console.log(e)
 				uni.switchTab({
 					url:this.tabbar[e].pagePath
 				})

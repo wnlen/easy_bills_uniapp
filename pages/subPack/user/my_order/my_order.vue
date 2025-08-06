@@ -421,7 +421,7 @@
 					text="暂无购买记录~" mode="search" margin-top="200"></u-empty>
 			</view>
 
-			<scroll-view scroll-y="true" class="BodyWDDDScrollView">
+			<scroll-view scroll-y="true" class="BodyWDDDScrollView" v-if="jurisdictionOrdder.length">
 				<view v-for="(item,index) in jurisdictionOrdder" :key="index" class="orderCard ml24 mr24 mt48"
 					style="width: 94%;background-color: #ffffff;min-height: 20vh;color: #666666;font-size: 26rpx;">
 					<view class="relative pd20 ml20 mr20">

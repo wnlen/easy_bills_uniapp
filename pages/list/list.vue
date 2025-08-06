@@ -43,7 +43,7 @@
 						}"
 						itemStyle="padding-left: 30rpx; padding-right: 30rpx; height: 70rpx;font-size:32rpx;paddingBottom:20rpx;backgroundColor:#fff"
 						:current="current"
-						@change="change"
+						@change="changeTab"
 					></up-tabs>
 				</view>
 			</template>
@@ -760,6 +760,8 @@ onLoad(() => {
 // 页面进入展示
 onShow(() => {
 	if (userStore.user.phone !== undefined) {
+		console.log('globalStore.tabIndex',globalStore.tabIndex)
+		current.value = globalStore.tabIndex
 		loadData();
 		useInitPage(realTimeSel, searchList, paging, date1, date2, tabsList.value, customer, current);
 		// paging.value?.reload()
@@ -1018,11 +1020,11 @@ function refreshDataNew() {
 	}
 }
 
-function change(index) {
+function changeTab(item) {
 	paging.value?.reload();
-	current.value = index;
-	setPinia('vuex_tabIndex', index === 0 ? '' : index);
-	realTimeSel.value.paymentState = index === 0 ? '' : index;
+	current.value = item.index;
+	setPinia('vuex_tabIndex', item.index === 0 ? '' : item.index);
+	realTimeSel.value.paymentState = item.index === 0 ? '' : item.index;
 	realTimeSel.value.limitS = '0,10';
 	refresh.value = true;
 	paging.value?.reload();
