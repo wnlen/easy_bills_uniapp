@@ -1,8 +1,7 @@
 <template>
 	<view class="content">
 		<!-- <u-navbar :background="{ background: '#ffffff' }" back-icon-size="30" title="操作手册"></u-navbar> -->
-		<u-navbar :custom-back="customBack" :border-bottom="false" :titleBold="true" title-color="#000000" title="操作手册" title-size="34"
-			bgColor="#ffffff"></u-navbar>
+		<u-navbar :autoBack="true" :placeholder="true" title="操作手册"></u-navbar>
 
 		<view class="absolute flex-col items-center cardAll">
 
@@ -15,7 +14,7 @@
 					:key="index">
 					<view class="item" v-for="(item2,index2) in item" :key="index2">
 						<u-icon @click="jump(item2)" label-pos="bottom" :label="item2.name" :name="item2.icon"
-							size="90"></u-icon>
+							size="90rpx"></u-icon>
 					</view>
 				</view>
 
@@ -31,7 +30,7 @@
 					:key="index">
 					<view class="item" v-for="(item2,index2) in item" :key="index2">
 						<u-icon @click="jump(item2)" label-pos="bottom" :label="item2.name" :name="item2.icon"
-							size="90"></u-icon>
+							size="90rpx"></u-icon>
 					</view>
 				</view>
 
@@ -47,7 +46,7 @@
 					:key="index">
 					<view class="item" v-for="(item2,index2) in item" :key="index2">
 						<u-icon @click="jump(item2)" label-pos="bottom" :label="item2.name" :name="item2.icon"
-							size="90"></u-icon>
+							size="90rpx"></u-icon>
 					</view>
 				</view>
 
@@ -64,7 +63,7 @@
 					v-for="(item,index) in iconList.cardThree" :key="index">
 					<view class="item" v-for="(item2,index2) in item" :key="index2">
 						<u-icon @click="jump(item2)" label-pos="bottom" :label="item2.name" :name="item2.icon"
-							size="90"></u-icon>
+							size="90rpx"></u-icon>
 					</view>
 				</view>
 

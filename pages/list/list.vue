@@ -406,11 +406,7 @@
 				</view>
 			</view>
 
-
-
-			<view class="NullView" style="height: 5vh;background-color: transparent;">
-
-			</view>
+			<view class="NullView" style="height: 5vh; background-color: transparent"></view>
 			<!-- 自定义tab -->
 			<pop-tab :tabIndex="1" ref="popTab"></pop-tab>
 		</z-paging>
@@ -431,8 +427,8 @@
 					</view>
 				</view>
 			</u-navbar> -->
-			<view class="flex-col pl30 pr30 pb30 justify-between height100">
-				<view>
+			<view class="pl30 pr30">
+				<view class="pb60">
 					<view class="flex-col mt20">
 						<text
 							style="
@@ -447,19 +443,18 @@
 						>
 							时间筛选
 						</text>
-
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
-							<view class="flex-row items-center" style="width: 50%">
+							<view class="flex-row items-center flex-1">
 								<text class="mr10" style="color: #999999">开始日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="calendar1Show = true" class="ml24" style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
+								<view @click="$refs.unicalendar.open()" class="ml14" style="border-box;border: 1rpx solid #999999;padding: 6rpx;border-radius: 6rpx;">
 									{{ date1 }}
 								</view>
 							</view>
-							<view class="flex-row items-center" style="width: 50%">
-								<text class="mr10 ml20" style="color: #999999">结束日期</text>
+							<view class="flex-row items-center flex-1">
+								<text class="mr10" style="color: #999999">结束日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="calendar2Show = true" class="ml24" style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
+								<view @click="calendar2Show = true" class="ml14" style="border-box;border: 1rpx solid #999999;padding: 6rpx;border-radius: 6rpx;">
 									{{ date2 }}
 								</view>
 							</view>
@@ -482,36 +477,33 @@
 
 							<view class="flex-row mt20" style="width: 100%">
 								<view
-									class="flex-col justify-center items-center text-center mr24"
+									class="flex-col justify-center items-center text-center mr24 tages"
 									@click="Filtrate('0')"
 									:style="{ backgroundColor: showTage == '0' ? '#01BB74' : '#F2FBF8', color: showTage == '0' ? '#ffffff' : '#01BB74' }"
-									style="color: #ffffff; background-color: #01bb74; width: 30%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
 								>
 									联系人
 								</view>
 								<view
-									class="flex-col justify-center items-center text-center mr24"
+									class="flex-col justify-center items-center text-center mr24 tages"
 									@click="Filtrate('1')"
 									:style="{ backgroundColor: showTage == '1' ? '#01BB74' : '#F2FBF8', color: showTage == '1' ? '#ffffff' : '#01BB74' }"
-									style="color: #01bb74; background-color: #f2fbf8; width: 30%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
+									style=""
 								>
 									联系号码
 								</view>
 								<view
-									class="flex-col justify-center items-center text-center"
+									class="flex-col justify-center items-center text-center tages"
 									@click="Filtrate('2')"
 									:style="{ backgroundColor: showTage == '2' ? '#01BB74' : '#F2FBF8', color: showTage == '2' ? '#ffffff' : '#01BB74' }"
-									style="color: #01bb74; background-color: #f2fbf8; width: 30%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
 								>
 									{{ userStore.userRole == 'R' ? '收货地址' : '收货地址' }}
 								</view>
 							</view>
 							<view class="flex-row mt20" style="width: 100%">
 								<view
-									class="flex-col justify-center items-center text-center"
+									class="flex-col justify-center items-center text-center tages"
 									@click="Filtrate('3')"
 									:style="{ backgroundColor: showTage == '3' ? '#01BB74' : '#F2FBF8', color: showTage == '3' ? '#ffffff' : '#01BB74' }"
-									style="color: #01bb74; background-color: #f2fbf8; width: 30%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
 								>
 									产品名称
 								</view>
@@ -521,32 +513,34 @@
 				</view>
 
 				<!-- 按钮 -->
-				<view class="flex-row justify-end mt25 vw100" style="">
-					<view class="mt15" style="text-align: left; align-items: center; color: #ccc; font-size: 24rpx; float: left; margin-right: 15%">
-						<!-- 保存偏好设置 -->
-					</view>
-					<view class="mr48" style="float: right">
-						<u-button type="info" @click="filterReset" shape="circle" size="medium" :custom-style="{ marginRight: '20rpx' }" plain>重置</u-button>
-						<u-button type="success" @click="filterSubmit" shape="circle" size="medium" :custom-style="{ marginLeft: '20rpx' }" plain>确定</u-button>
-					</view>
+				<view class="flex-row justify-end">
+					<u-button
+						color="#F4F4F4"
+						type="info"
+						@click="filterReset"
+						shape="circle"
+						size="medium"
+						:custom-style="{ width: '154rpx', color: '#999999', margin: '0 20rpx 0 0', height: '60rpx' }"
+					>
+						重置
+					</u-button>
+					<u-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :custom-style="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
 				</view>
 			</view>
 		</u-popup>
-
 		<u-calendar
-			btn-type="success"
-			v-model="calendar1Show"
-			active-bg-color="#01BB74"
-			range-bg-color="#DFF9EF"
-			range-color="#333333"
-			mode="date"
-			:min-date="getCurrentYearFirstDay()"
-			:max-date="getCurrentDate()"
-			@change="date1Change"
+			:show="calendar1Show"
+			mode="range"
+			:maxDate="new Date('2025-08-21').getTime()"
+			:minDate="new Date('2025-01-01').getTime()"
+			:defaultDate="[getCurrentYearFirstDay(), getCurrentDate()]"
+			color="#01BB74"
+			@confirm="date1Change"
+			@close="calendar1Show = false"
 		></u-calendar>
-		<u-calendar
+		<!-- <u-calendar
 			btn-type="success"
-			v-model="calendar2Show"
+			:show="calendar2Show"
 			active-bg-color="#01BB74"
 			range-bg-color="#DFF9EF"
 			range-color="#333333"
@@ -554,7 +548,7 @@
 			:min-date="getCurrentYearFirstDay()"
 			:max-date="getCurrentDate()"
 			@change="date2Change"
-		></u-calendar>
+		></u-calendar> -->
 
 		<!-- <u-tabbar :list="vuex_tabbar" active-color="#0FB076"></u-tabbar> -->
 
@@ -760,8 +754,8 @@ onLoad(() => {
 // 页面进入展示
 onShow(() => {
 	if (userStore.user.phone !== undefined) {
-		console.log('globalStore.tabIndex',globalStore.tabIndex)
-		current.value = globalStore.tabIndex
+		console.log('globalStore.tabIndex', globalStore.tabIndex);
+		current.value = globalStore.tabIndex;
 		loadData();
 		useInitPage(realTimeSel, searchList, paging, date1, date2, tabsList.value, customer, current);
 		// paging.value?.reload()
@@ -1007,7 +1001,9 @@ function refreshDataNew() {
 				uni.$u.toast('请求失败');
 			});
 
-		this.$api.order.getFilteredOrderCount(realTimeSel.value).then((res) => {
+		this.$api.order
+			.getFilteredOrderCount(realTimeSel.value)
+			.then((res) => {
 				OrderQuantity.value = res.data.data[1];
 				OrderQuantitySum.value = res.data.data[0];
 			})
@@ -1053,13 +1049,17 @@ function CustomerGet() {
 function filtrateGet() {
 	show_start.value = true;
 }
+function Filtrate(type) {
+	showTage.value = type;
+}
 
 function virtualListChange(vList) {
 	orderList.value = vList;
 }
 
 function date1Change(e) {
-	date1.value = e.result;
+	console.log(e);
+	// date1.value = e.result;
 }
 
 function getCurrentYearFirstDay() {
@@ -1330,12 +1330,16 @@ function applyUpdatePlay(order) {
 		dx.bBoss = order.bossNumberS === order.staffNumberS ? order.bossNumberS : order.staffNumberS;
 	}
 
-	this.$api.order.addTemporaryOrder(dx).then((res) => finallyAlertDel(res.data, order))
+	this.$api.order
+		.addTemporaryOrder(dx)
+		.then((res) => finallyAlertDel(res.data, order))
 		.catch(() => {});
 }
 
 function updateOrder(order) {
-	this.$api.order.signForOrder(order).then((res) => {
+	this.$api.order
+		.signForOrder(order)
+		.then((res) => {
 			uni.$u.toast(res.data.message);
 			paging.value?.reload();
 		})
@@ -1675,5 +1679,12 @@ function getCurrentDate() {
 
 	font-feature-settings: 'kern' on;
 	color: #f53f3f;
+}
+.tages {
+	color: #01bb74;
+	background-color: #f2fbf8;
+	width: 30%;
+	height: 54rpx;
+	border-radius: 12rpx;
 }
 </style>
