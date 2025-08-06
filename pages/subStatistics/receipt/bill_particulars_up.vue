@@ -258,7 +258,7 @@
 			var dx = {
 				"id": idNumber
 			}
-			this.$u.post("/edo/bills/billIdGet", dx).then(res => {
+			this.$api.bills.getBillById(dx).then(res => {
 				console.log("单个详情：", res);
 				this.billFrom = res.data.data
 				this.billFrom.billTime = this.$u.timeFormat(this.billFrom.billTime, 'yyyy-mm-dd')
@@ -392,7 +392,7 @@
 					this.billFrom.uplImgFolderIdList = this.urlList
 					this.billFrom.updFileAliList = this.updAttachmentFile
 					this.billFrom.delFileList = this.delFileList
-					this.$u.post("/edo/bills/updBill", this.billFrom).then(res => {
+					this.$api.bills.updateBill(this.billFrom).then(res => {
 						console.log(res);
 						this.checkSend = true
 						this.$u.toast(res.data.message);

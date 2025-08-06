@@ -1005,9 +1005,7 @@ function refreshDataNew() {
 				uni.$u.toast('请求失败');
 			});
 
-		uni.$api.order
-			.postOrderQuantity('/edo/order/Quantity', realTimeSel.value)
-			.then((res) => {
+		this.$api.order.getFilteredOrderCount(realTimeSel.value).then((res) => {
 				OrderQuantity.value = res.data.data[1];
 				OrderQuantitySum.value = res.data.data[0];
 			})
@@ -1330,16 +1328,12 @@ function applyUpdatePlay(order) {
 		dx.bBoss = order.bossNumberS === order.staffNumberS ? order.bossNumberS : order.staffNumberS;
 	}
 
-	uni.$u
-		.post('/edo/orderDel/add', dx)
-		.then((res) => finallyAlertDel(res.data, order))
+	this.$api.order.addTemporaryOrder(dx).then((res) => finallyAlertDel(res.data, order))
 		.catch(() => {});
 }
 
 function updateOrder(order) {
-	uni.$u
-		.post('/edo/order/signFor', order)
-		.then((res) => {
+	this.$api.order.signForOrder(order).then((res) => {
 			uni.$u.toast(res.data.message);
 			paging.value?.reload();
 		})

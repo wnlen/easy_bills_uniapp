@@ -406,8 +406,7 @@
 					"port": "",
 					"aCompany": ""
 				}
-
-				this.$u.post('edo/user/search?phone=' + addPhone).then(res => {
+				this.$api.user.searchUser({ phone: addPhone }).then(res => {
 					console.log("(检索添加人)： ", JSON.stringify(res.data.data.map));
 					var addUser = res.data.data;
 					var bossAdd = addPhone;
@@ -433,7 +432,7 @@
 
 					dx.port = this.role == 1 ? "R" : "D"
 
-					this.$u.post('edo/client/add', dx).then(res => {
+					this.$api.client.addClient(dx).then(res => {
 						console.log("添加申请： " + res.data.data);
 						var resAddFriend = res.data
 						this.addResAlert(resAddFriend)
@@ -473,9 +472,12 @@
 				var that = this;
 				var phone = this.vuex_work == "Y" ? this.vuex_user.workData.bossNumber : this.vuex_user.phone
 				var port = this.vuex_userRole == "R" ? "1" : "0";
-				this.$u.post('edo/delivery/get?sBossNumber=' + phone + '&eBossNumber=' + phone + '&port=' + port).then(
+				this.$api.order.getDeliveryList({
+				  sBossNumber: phone,
+				  eBossNumber: phone,
+				  port: port
+				}).then(
 					res => {
-						console.log('edo/delivery/get?sBossNumber',res.data.data);
 						that.client = res.data.data
 						this.clientCopy = res.data.data
 					})
@@ -530,8 +532,7 @@
 					}
 				}
 
-				this.$u.post('edo/order/market', dx).then(res => {
-					console.log('edo/order/market', res.data.data);
+				this.$api.order.getMarketOrders(dx).then(res => {
 					that.listO = res.data.data
 					that.listOCopy = res.data.data
 					

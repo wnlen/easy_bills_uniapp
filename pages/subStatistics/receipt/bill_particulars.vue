@@ -149,7 +149,7 @@
 			var dx = {
 				"id": idNumber
 			}
-			this.$u.post("/edo/bills/billIdGet", dx).then(res => {
+			this.$api.bills.getBillById(dx).then(res => {
 				console.log("单个详情：", res);
 				this.billFrom = res.data.data
 

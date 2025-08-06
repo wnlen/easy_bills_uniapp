@@ -111,7 +111,7 @@
 				console.log("添加", ver);
 				if (ver) {
 					console.log("添加", this.submitUser);
-					this.$u.post('edo/delivery/direct', this.submitUser).then(res => {
+					this.$api.order.directDelivery(this.submitUser).then(res => {
 						console.log("===添加结果===>", res);
 						var mes = res.data
 						this.$u.toast(mes.message);

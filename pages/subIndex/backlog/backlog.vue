@@ -235,7 +235,7 @@
 			},
 			okDel(item) {
 				//同意删除
-				this.$u.post('edo/orderDel/ok', item).then(res => {
+				this.$api.order.confirmOrderDraft(item).then(res => {
 					console.log(res.data.data);
 					if (res.data.data == '1') {
 						this.$u.toast(res.data.message);
@@ -250,7 +250,7 @@
 			},
 			okPlay(item) {
 				//同意支付
-				this.$u.post('edo/orderDel/ok', item).then(res => {
+				this.$api.order.confirmOrderDraft(item).then(res => {
 					console.log(res.data.data);
 					if (res.data.data == '1') {
 						this.$u.toast(res.data.message);
@@ -292,7 +292,7 @@
 					}
 				}
 
-				this.$u.post('edo/orderDel/getLimit', dx).then(res => {
+				this.$api.order.getOrderDraftLimit(dx).then(res => {
 					var getList = res.data.data.map(obj => ({
 						...obj,
 						show: false
@@ -330,7 +330,7 @@
 					}
 				}
 
-				this.$u.post('edo/orderDel/get', dx).then(res => {
+				this.$api.order.getOrderDraftList(dx).then(res => {
 					this.list = res.data.data.map(obj => ({
 						...obj,
 						show: false
@@ -350,7 +350,7 @@
 			},
 			click(item) {
 				console.log("删除", item);
-				this.$u.post('edo/orderDel/up', item).then(res => {
+				this.$api.order.updateOrderDraft(item).then(res => {
 					console.log(res.data.data);
 					if (res.data.data == '1') {
 						this.$u.toast("已撤销申请~");

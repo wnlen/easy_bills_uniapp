@@ -262,7 +262,11 @@
 				var that = this;
 				var port = this.vuex_userRole == "R" ? "1" : "0";
 				var phone = this.vuex_work == "Y" ? this.vuex_user.workData.bossNumber : this.vuex_user.phone
-				this.$u.post('edo/delivery/get?sBossNumber=' + phone + '&eBossNumber=' + phone + '&port=' + port).then(
+				this.$api.order.getDeliveryList({
+				  sBossNumber: phone,
+				  eBossNumber: phone,
+				  port: port
+				}).then(
 					res => {
 						console.log(res.data.data);
 						that.client = res.data.data
@@ -373,7 +377,7 @@
 					"aCompany": ""
 				}
 
-				this.$u.post('edo/user/search?phone=' + addPhone).then(res => {
+				this.$api.user.searchUser({ phone: addPhone }).then(res => {
 					console.log("(检索添加人)： ", JSON.stringify(res.data.data.map));
 					var addUser = res.data.data;
 					var bossAdd = addPhone;
@@ -400,7 +404,7 @@
 					dx.port = this.role == 1 ? "D" : "R"
 
 
-					this.$u.post('edo/client/add', dx).then(res => {
+					this.$api.user.addClient(dx).then.then(res => {
 						console.log("添加申请： " + res.data.data);
 						var resAddFriend = res.data
 						this.addResAlert(resAddFriend)

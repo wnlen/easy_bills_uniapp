@@ -126,7 +126,7 @@
 					this.getByID.phone = this.vuex_user.workData.bossNumber
 				}
 
-				this.$u.post('/edo/library/get/id', this.getByID)
+				this.$api.library.getCommodityById(this.getByID)
 					.then(res => {
 
 						this.uploadingCommodity = res.data.data
@@ -229,8 +229,7 @@
 						this.uploadingCommodity.img = "definde"
 					}
 
-					that.$u.post('/edo/library/upd', that.uploadingCommodity)
-						.then(res => {
+					that.$api.library.updateCommodity(that.uploadingCommodity).then(res => {
 							console.log(res);
 							that.$u.toast(res.data.message);
 							if (res.data.data == "1") {
@@ -262,8 +261,7 @@
 					success: (uploadFileRes) => {
 						console.log(uploadFileRes.data);
 						that.uploadingCommodity.img = uploadFileRes.data
-						that.$u.post('/edo/library/upd', that.uploadingCommodity)
-							.then(res => {
+						that.$api.library.updateCommodity(that.uploadingCommodity).then(res => {
 								console.log(res);
 								that.$u.toast(res.data.message);
 								if (res.data.data == "1") {

@@ -114,7 +114,7 @@
 					this.getByID.phone = this.vuex_user.workData.bossNumber
 				}
 				console.log("getByID", this.getByID);
-				this.$u.post('/edo/library/get/id', this.getByID)
+				this.$api.library.getCommodityById(this.getByID)
 					.then(res => {
 						this.details = res.data.data
 					})

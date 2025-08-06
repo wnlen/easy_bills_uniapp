@@ -363,8 +363,7 @@
 
 				if (billdel) {
 					//直接删除
-					console.log(billdel, bill);
-					this.$u.post("/edo/bills/delBill", bill).then(res => {
+					this.$api.bills.deleteBill(bill).then(res => {
 						console.log("删除：", bill.id, res);
 						this.$u.toast(res.data.message);
 						this.$refs.paging.refresh();
@@ -409,7 +408,7 @@
 					this.defaultValues.createTime = new Date();
 					this.defaultValues.state = "1";
 					this.defaultValues.orderState = this.addingBill(bill.orders)
-					this.$u.post("/edo/bills/delApplyFor", this.defaultValues).then(res => {
+					this.$api.bills.revokeBillApplication(this.defaultValues).then(res => {
 						console.log("删除：", bill.id, res);
 						this.$u.toast(res.data.message);
 						this.$refs.paging.refresh();
@@ -580,12 +579,10 @@
 
 				if (port) {
 					console.log("收费");
-					// okBill
-					this.$u.post("/edo/bills/okBill", {
-						billCheckList: okList,
-						phone: this.vuex_user.phone,
-						port: this.vuex_userRole
-
+					this.$api.bills.confirmBills({
+					  billCheckList: okList,
+					  phone: this.vuex_user.phone,
+					  port: this.vuex_userRole
 					}).then(res => {
 						this.$refs.paging.reload().catch(() => {});
 						this.$u.toast(res.data.message);
@@ -670,9 +667,7 @@
 
 
 					// batchBillApply
-					this.$u.post("/edo/bills/batchBillApply", {
-						cDelOrderApplyList: cDelOrderApplyList
-					}).then(res => {
+					this.$api.bills.batchApplyBills({ cDelOrderApplyList:cDelOrderApplyList }).then(res => {
 						this.$u.toast(res.data.message);
 						this.$refs.paging.reload().catch(() => {});
 						this.checkFalse()
@@ -716,7 +711,7 @@
 			queryList(pageNo, pageSize) {
 				this.billFrom.page = pageNo;
 				this.billFrom.size = pageSize
-				this.$u.post("/edo/bills/searchBill", this.billFrom).then(res => {
+				this.$api.bills.searchBills(this.billFrom).then(res => {
 					console.log(res);
 					var billsList = res.data.data.map(obj => {
 						return {

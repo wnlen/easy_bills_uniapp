@@ -323,8 +323,7 @@
 					this.realTimeSel.bossNumberS = boss
 					this.realTimeSel.staffNumberS = this.vuex_user.phone
 				}
-				this.$u.post('/edo/draft/amount', this.realTimeSel)
-					.then(res => {
+				this.$api.draft.getDraftAmount(this.realTimeSel).then(res => {
 						this.DraftsAmount = res.data.data
 						console.log("===草稿箱总数===>", res);
 					});
@@ -356,8 +355,7 @@
 					confirmText: '确认',
 					success: res => {
 						if (res.confirm) {
-							this.$u.post('/edo/draft/delById', this.realTimeSel)
-								.then(res => {
+							this.$api.draft.deleteDraftById(this.realTimeSel).then(res => {
 									this.$u.toast("删除成功~")
 									this.checked = false
 									this.$refs.paging.reload();
@@ -560,8 +558,7 @@
 					this.refresh = false;
 					this.onReachBottom = false
 					this.realTimeSel.role = this.vuex_userRole == "R" ? "1" : "0"
-					this.$u.post('/edo/draft/getFilter', this.realTimeSel)
-						.then(res => {
+					this.$api.draft.getDraftList(this.realTimeSel).then(res => {
 							console.log(res.data.data.length);
 
 							var orderList = res.data.data.map(obj => {

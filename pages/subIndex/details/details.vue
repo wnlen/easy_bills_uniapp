@@ -225,8 +225,7 @@
 					sBossNumber: sBossNumber,
 					eBossNumber: eBossNumber
 				}
-				this.$u.post('/edo/delivery/searchUser', dx).
-				then(res => {
+				this.$api.user.searchReceivableUsers(dx).then(res => {
 					console.log("===未注册用户===>", res);
 					var wzcUser = res.data.data;
 					this.remark = ifWorkPort ? wzcUser.remarkD : wzcUser.remarkR
@@ -297,7 +296,7 @@
 					remarkD: isR ? null : remark
 				};
 
-				this.$u.post('/edo/delivery/remark', payload).then(res => {
+				this.$api.user.updateDeliveryRemark(payload).then(res => {
 					const msg = res.data.message;
 					this.$u.toast(msg);
 					this.$refs.popup.close();

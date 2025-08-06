@@ -26,7 +26,7 @@
 					phoneNumber: this.vuex_user.phone
 				}
 				var that = this;
-				this.$u.post('edo/gzh/v1/verificationCode', dx).then(res => {
+				this.$api.gzh.getGzhVerificationCode(dx).then(res => {
 					console.log("结果", res.data.data);
 					var resGzh = res.data.data;
 					if (resGzh=="1") {

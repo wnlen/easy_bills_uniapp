@@ -950,8 +950,7 @@
 				}
 				// CNotice
 				console.log("获取详情", item);
-				this.$u.post('/edo/CNotice/get', dx).
-				then(res => {
+				this.$api.inform.getNoticeList(dx).then(res => {
 					this.$refs.popDetails.show = true
 					this.$refs.popDetails.popupShowText = JSON.parse(JSON.parse(JSON.stringify(res.data.data))
 						.json)
@@ -1091,8 +1090,7 @@
 				var dx = {
 					phone: phone
 				}
-				this.$u.post('/edo/jurisdiction/getRenew', dx).
-				then(res => {
+				this.$api.pay.getJurisdictionRenewInfo(dx).then(res => {
 					var renew = res.data.data
 
 					for (let key in renew) {
@@ -1127,8 +1125,7 @@
 				var dx = {
 					phone: phone
 				}
-				this.$u.post('/edo/jurisdiction/order', dx).
-				then(res => {
+				this.$api.pay.createJurisdictionOrder(dx).then(res => {
 					var data = res.data.data
 					for (var i = 0; i < data.length; i++) {
 						data[i].open = false
@@ -1144,8 +1141,7 @@
 				var dx = {
 					phone: phone
 				}
-				this.$u.post('/edo/jurisdiction/get', dx).
-				then(res => {
+				this.$api.pay.getUserJurisdiction(dx).then(res => {
 					this.jurisdiction = res.data.data
 					console.log("已开通的权限：", res.data.data);
 				}).catch(res => {
@@ -1192,14 +1188,6 @@
 					uni.navigateTo({
 						url: "/pages/subPack/user/my_order/pay?order=" + timeKey.toString()
 					})
-					// console.log("支付：", order);
-					// console.log("权限：", this.playMoneyListSend);
-					// this.$u.post('/edo/vip/buy', order).
-					// then(res => {
-					// 	this.playWX(res.data.data);
-					// }).catch(res => {
-
-					// })
 				}
 
 
@@ -1227,24 +1215,6 @@
 					fail: function(err) {
 						// 支付失败后的回调函数  
 						console.log("支付失败后的回调函数:", err);
-						//关闭订单
-						// that.$u.post('/edo/wxpay/closeOrderPlay?code=' + wx.nonceStr).
-						// then(res => {
-						// 	// 删除订单支付
-						// 	that.$u.post('/edo/wxpay/playOrderDel?code=' + wx.nonceStr).
-						// 	then(res => {
-						// 		var jg = res.data.data
-						// 		if (jg == "1") {
-						// 			that.$u.toast("取消支付成功")
-						// 		} else {
-						// 			that.$u.toast("取消支付失败")
-						// 		}
-						// 	}).catch(res => {
-						// 		that.$u.toast("取消支付失败")
-						// 	})
-						// }).catch(res => {
-						// 	that.$u.toast("支付关闭失败")
-						// })
 					}
 				});
 			},
@@ -1423,7 +1393,7 @@
 
 			},
 			getData() {
-				this.$u.post('edo/playItem/get').then(res => {
+				this.$api.pay.getPayItems({}).then(res => {
 					console.log("获取数据:", res);
 					var resData = res.data.data;
 					this.c_product_statistics = resData.statistics
@@ -1439,14 +1409,11 @@
 				dx.bossNumberE = this.vuex_user.phone
 				dx.bossNumberS = this.vuex_user.phone
 
-				this.$u.post('edo/order/old', dx).then(res => {
-					console.log("获取数据:", res);
+				this.$api.order.getOldOrders(dx).then(res => {
 					var resData = res.data.data;
 					this.dataList = resData
 					this.dataListAll = [...new Set([...this.dataList.D, ...this.dataList.R])];
 				});
-
-				// /edo/order/old
 			},
 			valChange(e) {
 				console.log('当前值为: ' + e.value)

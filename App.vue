@@ -74,7 +74,7 @@ export default {
 			this.getNotifications();
 		},
 		getPendingTasks() {
-			this.$api.order.getOrderDelList({ bUser: this.vuex_user.phone }).then((res) => {
+			this.$api.order.getOrderDraftList({ bUser: this.vuex_user.phone }).then((res) => {
 				const isDirector = this.vuex_userRole === 'D';
 				const tasks = res.data.data.filter((item) => (isDirector ? item.port === '1' || item.port === 'f' : item.port === '0'));
 				this.todoCount = tasks.length;
@@ -96,9 +96,7 @@ export default {
 				staff: user.phone,
 				work: user.data.work
 			};
-			this.$u
-				.post('/edo/inform/all', dx)
-				.then((res) => {
+			this.$api.inform.getAllInformList(dx).then((res) => {
 					const count = res.data.data;
 					if (this.$u.getPinia('global.tabbar.2.count') !== count) {
 						this.$u.setPinia({

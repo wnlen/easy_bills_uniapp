@@ -587,7 +587,7 @@
 					"bossNumberE": this.vuex_user.phone
 				}
 
-				this.$u.post('edo/order/old', dx).then(res => {
+				this.$api.order.getOldOrders(dx).then(res => {
 					var data = res.data.data
 					if (data.D.length > 0 || data.R.length > 0) {
 						this.$refs.popAnnouncement.popAnnouncement = true
@@ -917,7 +917,7 @@
 					}
 				}
 
-				this.$u.post('edo/orderDel/get', dx).then(res => {
+				this.$api.order.getOrderDraftList(dx).then(res => {
 					this.indexSumList = res.data.data[0]
 					// console.log("待办", this.indexSumList);
 					this.Sudoku.notLogD[2][0].count = res.data.data[0]
@@ -990,8 +990,7 @@
 				}
 
 				if (ifWorkPort) {
-					this.$u.post('/edo/order/getFilterSum', realTimeSel).
-					then(res => {
+					this.$api.order.getFilteredOrderSum(realTimeSel).then(res => {
 						//console.log(res.data.data);
 						this.priceObj = res.data.data;
 					}).catch(res => {
@@ -1044,8 +1043,7 @@
 
 				}
 
-				this.$u.post('/edo/order/Quantity', realTimeSel)
-					.then(res => {
+				this.$api.order.getFilteredOrderCount(realTimeSel).then(res => {
 						//console.log("index 当前订单个数：", res);
 						this.DQS = res.data.data
 						this.Sudoku.notLogR[0][0].count = res.data.data[1]

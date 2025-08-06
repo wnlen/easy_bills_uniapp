@@ -1,7 +1,7 @@
-// api/advert.js
+// api/advert/index.js
 export default (http) => ({
 	// 获取广告列表
 	getAdvertList(params) {
-		return http.get(`edo/advert/get`,{params});
+		return http.get(`edo/advert/get`,params);
 	}
 });

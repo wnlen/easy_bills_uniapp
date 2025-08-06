@@ -281,10 +281,10 @@
 					return;
 				}
 
-				this.$u.post('edo/user/up', send).then(res => {
+				this.$api.user.updateUserUp(send).then(res => {
 					console.log("修改状态：", res.data);
 
-					this.$u.post('edo/ac/add', dx).then(res => {
+					this.$api.order.addAccountRecord(dx).then(res => {
 						console.log("认证更新：", res.data);
 						if (res.data.data == '1') {
 							uni.navigateBack()

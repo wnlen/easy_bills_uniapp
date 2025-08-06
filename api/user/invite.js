@@ -4,7 +4,11 @@ export default (http) => ({
 		return http.get('/edo/invite/overview')
 	},
 	// 邀请好友满足条件领取奖励
-	claimInviteReward(type) {
-		return http.post('/edo/invite/reward', { type });
+	claimInviteReward(params) {
+		return http.post('/edo/invite/reward', params);
+	},
+	// 新手指引
+	Guidance(params) {
+	  return http.post('/edo/user/Guidance', params)
 	}
 });

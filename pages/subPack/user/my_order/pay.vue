@@ -92,8 +92,7 @@
 					"phone": phone,
 					"orderNumber": number
 				}
-				this.$u.post('/edo/payTable/verify', dx).
-				then(res => {
+				this.$api.pay.verifyPayRecord(dx).then(res => {
 					var yz = res.data.data
 					if (yz == 1) {
 						//支付成功
@@ -117,8 +116,7 @@
 			ply() {
 				var order = this.order
 				console.log("支付：", order);
-				this.$u.post('/edo/vip/buy', order).
-				then(res => {
+				this.$api.pay.buyVip(order).then(res => {
 					this.playWX(res.data.data);
 				}).catch(res => {
 
@@ -142,24 +140,6 @@
 					fail: function(err) {
 						// 支付失败后的回调函数  
 						console.log("支付失败后的回调函数:", err);
-						//关闭订单
-						// that.$u.post('/edo/wxpay/closeOrderPlay?code=' + wx.nonceStr).
-						// then(res => {
-						// 	// 删除订单支付
-						// 	that.$u.post('/edo/wxpay/playOrderDel?code=' + wx.nonceStr).
-						// 	then(res => {
-						// 		var jg = res.data.data
-						// 		if (jg == "1") {
-						// 			that.$u.toast("取消支付成功")
-						// 		} else {
-						// 			that.$u.toast("取消支付失败")
-						// 		}
-						// 	}).catch(res => {
-						// 		that.$u.toast("取消支付失败")
-						// 	})
-						// }).catch(res => {
-						// 	that.$u.toast("支付关闭失败")
-						// })
 					}
 				});
 			},

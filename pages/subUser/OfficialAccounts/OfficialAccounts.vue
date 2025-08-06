@@ -26,7 +26,7 @@
 		},
 		methods: {
 			getGZHUrl(){
-				this.$u.post('edo/gzh/article').then(res => {
+				this.$api.gzh.getGzhArticle({}).then(res => {
 					this.wzurl=res.data.data.path
 				});
 			},
@@ -36,7 +36,7 @@
 					phoneNumber: this.vuex_user.phone
 				}
 				var that = this;
-				this.$u.post('edo/gzh/v1/verificationCode', dx).then(res => {
+				this.$api.gzh.getGzhVerificationCode(dx).then(res => {
 					console.log("结果", res.data.data);
 					var resGzh = res.data.data;
 					if (resGzh!="1") {
@@ -50,17 +50,6 @@
 			message(e) {},
 			bindload(e) {
 				//验证是否成功
-				// var dx = {
-				// 	phoneNumber: this.vuex_user.phone
-				// }
-				// var that = this;
-				// this.$u.post('edo/gzh/v1/verificationCode', dx).then(res => {
-				// 	console.log("结果", res.data.data);
-				// 	var resGzh = res.data.data;
-				// 	uni.navigateTo({
-				// 		url: "/pages/subUser/OfficialAccounts/OfficialBack"
-				// 	})
-				// });
 			},
 			binderror(e) {}
 		},
