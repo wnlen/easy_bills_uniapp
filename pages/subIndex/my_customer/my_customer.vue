@@ -61,7 +61,7 @@
 			<u-input
 				border="none"
 				style="width: 100%; padding: 10rpx"
-				v-model="searchValue"
+				:modelValue="searchValue"
 				@input="search"
 				:placeholder="
 					show != 1
@@ -154,14 +154,14 @@
 		<view class="">
 			<u-empty
 				v-if="isEmptyObject(listO) && show == 1 && vuex_userRole == 'D'"
-				src="https://res-oss.elist.com.cn/wxImg/order/empty.svg"
+				icon="https://res-oss.elist.com.cn/wxImg/order/empty.svg"
 				iconSize="200rpx"
 				text="暂无客户~"
 				marginTop="200rpx"
 			></u-empty>
 			<u-empty
 				v-if="isEmptyObject(listO) && show == 1 && vuex_userRole == 'R'"
-				src="https://res-oss.elist.com.cn/wxImg/order/empty.svg"
+				icon="https://res-oss.elist.com.cn/wxImg/order/empty.svg"
 				iconSize="200rpx"
 				text="暂无供应商~"
 				marginTop="200"
@@ -204,8 +204,8 @@
 		<view class="">
 			<u-empty
 				v-if="isEmptyObject(client) && show == 0"
-				src="https://res-oss.elist.com.cn/wxImg/order/empty.svg"
-				icon-size="400rpx"
+				icon="https://res-oss.elist.com.cn/wxImg/order/empty.svg"
+				iconSize="400rpx"
 				text="暂无好友~"
 				mode="search"
 				margin-top="200"

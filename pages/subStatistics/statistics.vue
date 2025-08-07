@@ -115,7 +115,7 @@
 								border="none"
 								class="ml24 width100"
 								@input="changeCustomer"
-								v-model="customer"
+								:modelValue="customer"
 								:placeholder="vuex_userRole == 'R' ? '请选择供应商' : '请选择客户'"
 							/>
 							<div class="flex-col justify-center items-center" style="height: 5vh">
@@ -136,7 +136,7 @@
 								border="none"
 								class="my-input"
 								style="width: 100%"
-								v-model="field"
+								:modelValue="field"
 								@input="searchListenner"
 								placeholder="输入关键字进行检索"
 							/>
@@ -147,7 +147,7 @@
 								maxlength="11"
 								class="ml24 my-input"
 								style="width: 100%"
-								v-model="field"
+								:modelValue="field"
 								@input="searchListenner"
 								placeholder="输入号码进行检索"
 							/>

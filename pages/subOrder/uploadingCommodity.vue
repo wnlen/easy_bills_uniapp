@@ -30,7 +30,15 @@
 					<text class="name">品名</text>
 				</text>
 				<view class="uploadingCommodityFromCardRowInput" style="width: 600rpx">
-					<u-input type="text" v-model="uploadingCommodity.description" :custom-style="customStyle" border="none" inputAlign="right" :clearable="true" placeholder="请您填写商品名称" />
+					<u-input
+						type="text"
+						:modelValue="uploadingCommodity.description"
+						:custom-style="customStyle"
+						border="none"
+						inputAlign="right"
+						:clearable="true"
+						placeholder="请您填写商品名称"
+					/>
 				</view>
 			</view>
 			<view class="uploadingCommodityFromCardRow">
@@ -39,7 +47,15 @@
 					<text class="name">规格</text>
 				</text>
 				<view class="uploadingCommodityFromCardRowInput" style="width: 600rpx">
-					<u-input type="text" v-model="uploadingCommodity.specification" placeholder="请输入" :custom-style="customStyle" border="none" inputAlign="right" :clearable="true" />
+					<u-input
+						type="text"
+						:modelValue="uploadingCommodity.specification"
+						placeholder="请输入"
+						:custom-style="customStyle"
+						border="none"
+						inputAlign="right"
+						:clearable="true"
+					/>
 				</view>
 			</view>
 			<view class="uploadingCommodityFromCardRow">
@@ -48,7 +64,16 @@
 					<text class="name">单位</text>
 				</text>
 				<view class="uploadingCommodityFromCardRowInput mt24" style="width: 600rpx">
-					<u-input type="text" v-model="uploadingCommodity.unit" maxlength="10" placeholder="请输入" :custom-style="customStyle" border="none" inputAlign="right" :clearable="true" />
+					<u-input
+						type="text"
+						:modelValue="uploadingCommodity.unit"
+						maxlength="10"
+						placeholder="请输入"
+						:custom-style="customStyle"
+						border="none"
+						inputAlign="right"
+						:clearable="true"
+					/>
 				</view>
 			</view>
 			<view class="uploadingCommodityFromCardRow">
@@ -57,12 +82,21 @@
 					<text class="name">单价</text>
 				</text>
 				<view class="uploadingCommodityFromCardRowInput" style="width: 400rpx">
-					<u-input v-model="uploadingCommodity.unitPrice" type="digit" maxlength="10" placeholder="请输入" :custom-style="customStyle" border="none" inputAlign="right" :clearable="true" />
+					<u-input
+						:modelValue="uploadingCommodity.unitPrice"
+						type="digit"
+						maxlength="10"
+						placeholder="请输入"
+						:custom-style="customStyle"
+						border="none"
+						inputAlign="right"
+						:clearable="true"
+					/>
 				</view>
 			</view>
 			<view class="uploadingCommodityFromCard">
 				<text class="name">备注说明</text>
-				<u-input v-model="uploadingCommodity.remark" type="textarea" placeholder="请输入" border="none" />
+				<u-input :modelValue="uploadingCommodity.remark" type="textarea" placeholder="请输入" border="none" />
 			</view>
 			<view class="flex-row justify-end items-center pr24 pt48" style="width: 100%">
 				<text class="name mr24">置于商品库顶部</text>

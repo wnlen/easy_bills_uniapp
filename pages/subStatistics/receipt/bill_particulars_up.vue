@@ -2,161 +2,206 @@
 	<view class="receiptFrom">
 		<view class="FROMBill">
 			<view class="HandFrom">
-				<view class="FromTitle">
-					开具信息
-				</view>
+				<view class="FromTitle">开具信息</view>
 				<view class="FromInput u-border-bottom">
 					<text class="textcolor">订单编号:</text>
-					<input placeholder-class="placeholder_class" type="number" v-model="billFrom.billNumber"
-						:style="{color:'#F76565'}" maxlength="18" disabled placeholder="请获取单据编号"
-						class="ml15  flex-1 u-line-1 endcolor" />
+					<input
+						placeholder-class="placeholder_class"
+						type="number"
+						v-model="billFrom.billNumber"
+						:style="{ color: '#F76565' }"
+						maxlength="18"
+						disabled
+						placeholder="请获取单据编号"
+						class="ml15 flex-1 u-line-1 endcolor"
+					/>
 				</view>
 				<view class="FromInput u-border-bottom">
 					<text v-if="vuex_userRole == 'D'" class="textcolor">客户名称:</text>
 					<text v-if="vuex_userRole == 'R'" class="textcolor">供应商名称:</text>
 					<input
-						v-if="vuex_user.data.work=='0'?vuex_user.phone== billFrom.sourcePhone:vuex_user.workData.bossNumber== billFrom.sourcePhone"
-						placeholder-class="placeholder_class" type="number" v-model="billFrom.billEnterpriseE"
-						:style="{color:'#333333'}" maxlength="20" disabled placeholder="请获取客户名称"
-						class="ml15  flex-1 u-line-1 endcolor" />
-					<input v-else placeholder-class="placeholder_class" type="number" v-model="billFrom.billEnterpriseS"
-						:style="{color:'#333333'}" maxlength="20" disabled placeholder="请获取客户名称"
-						class="ml15  flex-1 u-line-1 endcolor" />
+						v-if="vuex_user.data.work == '0' ? vuex_user.phone == billFrom.sourcePhone : vuex_user.workData.bossNumber == billFrom.sourcePhone"
+						placeholder-class="placeholder_class"
+						type="number"
+						v-model="billFrom.billEnterpriseE"
+						:style="{ color: '#333333' }"
+						maxlength="20"
+						disabled
+						placeholder="请获取客户名称"
+						class="ml15 flex-1 u-line-1 endcolor"
+					/>
+					<input
+						v-else
+						placeholder-class="placeholder_class"
+						type="number"
+						v-model="billFrom.billEnterpriseS"
+						:style="{ color: '#333333' }"
+						maxlength="20"
+						disabled
+						placeholder="请获取客户名称"
+						class="ml15 flex-1 u-line-1 endcolor"
+					/>
 				</view>
 				<view class="FromInput">
 					<text class="textcolor">开具日期:</text>
-					<input placeholder-class="placeholder_class" disabled type="number" v-model="billFrom.billTime"
-						:style="{color:'#333333'}" maxlength="11" placeholder="请选择开具日期"
-						class="ml15  flex-1 u-line-1 endcolor" />
+					<input
+						placeholder-class="placeholder_class"
+						disabled
+						type="number"
+						v-model="billFrom.billTime"
+						:style="{ color: '#333333' }"
+						maxlength="11"
+						placeholder="请选择开具日期"
+						class="ml15 flex-1 u-line-1 endcolor"
+					/>
 				</view>
 			</view>
 
 			<view class="FromPrice">
 				<view class="FromInput u-border-bottom relative flex flex-row justify-left items-center">
-					<view class="" style="font-weight: bold;padding-top: 12rpx;">
-						修改订单
-					</view>
-					<view class="absolute" style="right: 12rpx;">
+					<view class="" style="font-weight: bold; padding-top: 12rpx">修改订单</view>
+					<view class="absolute" style="right: 12rpx">
 						<!-- <u-button class="form-btn-big" hover-class="none" size="mini"
 							:custom-style="{backgroundColor:'#01BB74',color:'#ffffff'}" @click="selectOrder"
 							shape="circle">选择&gt;</u-button> -->
-						<view @click="selectOrder" class="flex-row justify-center items-center"
-							style="width: 62px;height: 24px;border-radius: 45px;background: #01BB74;color: #FFFFFF;font-size: 12px;">
+						<view
+							@click="selectOrder"
+							class="flex-row justify-center items-center"
+							style="width: 62px; height: 24px; border-radius: 45px; background: #01bb74; color: #ffffff; font-size: 12px"
+						>
 							选择&nbsp;&gt;
 						</view>
 					</view>
 				</view>
-				<view class="FromTitle" style="padding-top: 12rpx;">
-					开具金额
-				</view>
+				<view class="FromTitle" style="padding-top: 12rpx">开具金额</view>
 				<view class="FromInput u-border-bottom">
 					<text class="textcolor">总金额:</text>
-					<input placeholder-class="placeholder_class" type="number" v-model="billFrom.billPrice"
-						:style="{color:'#333333'}" maxlength="11" disabled placeholder="请获取总金额"
-						class="ml15  flex-1 u-line-1 endcolor" />
+					<input
+						placeholder-class="placeholder_class"
+						type="number"
+						v-model="billFrom.billPrice"
+						:style="{ color: '#333333' }"
+						maxlength="11"
+						disabled
+						placeholder="请获取总金额"
+						class="ml15 flex-1 u-line-1 endcolor"
+					/>
 					<text>元</text>
 				</view>
 				<view class="FromInput u-border-bottom" v-if="vuex_userRole == 'D'">
 					<text class="textcolor">折扣率:</text>
-					<input placeholder-class="placeholder_class" :disabled="!edit" @input="billAfterPriceCount"
-						type="number" v-model="billFrom.billDiscountPrice" :style="{color:'#333333'}" maxlength="3"
-						placeholder="请输入折扣率" class="ml15  flex-1 u-line-1 endcolor" />
+					<input
+						placeholder-class="placeholder_class"
+						:disabled="!edit"
+						@input="billAfterPriceCount"
+						type="number"
+						v-model="billFrom.billDiscountPrice"
+						:style="{ color: '#333333' }"
+						maxlength="3"
+						placeholder="请输入折扣率"
+						class="ml15 flex-1 u-line-1 endcolor"
+					/>
 					<text>%</text>
 				</view>
 				<view class="FromInput">
 					<text class="textcolor">应收金额:</text>
 					<input
-					  v-model="billFrom.billAfterPrice"
-					  type="number"
-					  :style="{ color: '#333333' }"
-					  maxlength="11"
-					  placeholder="请输入折扣计算应收金额"
-					  class="ml15 flex-1 u-line-1 endcolor"
-					  placeholder-class="placeholder_class"
+						v-model="billFrom.billAfterPrice"
+						type="number"
+						:style="{ color: '#333333' }"
+						maxlength="11"
+						placeholder="请输入折扣计算应收金额"
+						class="ml15 flex-1 u-line-1 endcolor"
+						placeholder-class="placeholder_class"
 					/>
 					<text>元</text>
 				</view>
 			</view>
 
 			<view class="FromFile">
-				<view class="FromFileTitle">
-					图片
-				</view>
-				<view class="recently-cat flex-row flex-wrap" style="width: 100%;">
-					<view class="recently-cat flex-row flex-wrap mt24" style="width: 95%;">
-						<u-upload :custom-btn="true" :action="action" :show-retry="false" :file-list="imgFileList"
-							@on-remove="moveImgFileList" :show-tips="false" :before-upload="handleUpload"
-							max-size="524288" max-count="3" multiple del-bg-color="#e9e9e9">
+				<view class="FromFileTitle">图片</view>
+				<view class="recently-cat flex-row flex-wrap" style="width: 100%">
+					<view class="recently-cat flex-row flex-wrap mt24" style="width: 95%">
+						<u-upload
+							:custom-btn="true"
+							:action="action"
+							:show-retry="false"
+							:file-list="imgFileList"
+							@on-remove="moveImgFileList"
+							:show-tips="false"
+							:before-upload="handleUpload"
+							max-size="524288"
+							max-count="3"
+							multiple
+							del-bg-color="#e9e9e9"
+						>
 							<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
-								<u-icon :name="ImgUrl+'/wxImg/order/down.png'" size="200"></u-icon>
+								<u-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200"></u-icon>
 							</view>
 						</u-upload>
 					</view>
 				</view>
 
-				<view class="FromFileTitle">
-					上传附件
-				</view>
+				<view class="FromFileTitle">上传附件</view>
 				<view class="FilePdfList">
 					<pop-file :fileList="fileList"></pop-file>
 				</view>
 
 				<!-- #ifdef MP-WEIXIN -->
-				<view v-if="fileList.length<3" class="uploadView" @click="uploadFile">
-					<u-icon label-color="#01BB74" label-pos="bottom" label="点击上传"
-						:name="ImgUrl+'/wxImg/order/fjUpload.svg'" size="100"></u-icon>
+				<view v-if="fileList.length < 3" class="uploadView" @click="uploadFile">
+					<u-icon label-color="#01BB74" label-pos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100"></u-icon>
 				</view>
 				<!-- #endif -->
 				<!-- #ifdef APP -->
 				<view class="uploadView" @click="chooseFile">
-					<u-icon label-color="#01BB74" label-pos="bottom" label="点击上传"
-						:name="ImgUrl+'/wxImg/order/fjUpload.svg'" size="100"></u-icon>
+					<u-icon label-color="#01BB74" label-pos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100"></u-icon>
 				</view>
 				<!-- #endif -->
 
-				<view class="FromFileTitle">
-					备注说明
-				</view>
+				<view class="FromFileTitle">备注说明</view>
 				<view class="FromFileTitleRemark" style="">
-					<u-input type="textarea" class="" placeholder="请填写备注，字数不超过50字" v-model="billFrom.billRemark"
-						placeholder-class="placeholder_class" maxlength="50" height="100%" />
+					<u-input
+						type="textarea"
+						border="none"
+						class=""
+						placeholder="请填写备注，字数不超过50字"
+						:modelValue="billFrom.billRemark"
+						placeholder-class="placeholder_class"
+						maxlength="50"
+						height="100%"
+					/>
 				</view>
 			</view>
 
 			<view class="FromOwn">
 				<view class="OwnText">
-					<view class="OwnTextFromTitle">
-						企业名称:
-					</view>
-					<text  :style="{color:'#333333'}" class="ml15 endcolor OwnTextFromText" v-if="vuex_user.data.work=='0'">
-						{{ vuex_user.ac.enterpriseName ||vuex_user.phone }}</text>
-					<text :style="{color:'#333333'}" class="ml15 endcolor OwnTextFromText" v-else>
-						{{ vuex_user.ac.enterpriseName ||vuex_user.workData.bossNumber }}</text>
+					<view class="OwnTextFromTitle">企业名称:</view>
+					<text :style="{ color: '#333333' }" class="ml15 endcolor OwnTextFromText" v-if="vuex_user.data.work == '0'">
+						{{ vuex_user.ac.enterpriseName || vuex_user.phone }}
+					</text>
+					<text :style="{ color: '#333333' }" class="ml15 endcolor OwnTextFromText" v-else>
+						{{ vuex_user.ac.enterpriseName || vuex_user.workData.bossNumber }}
+					</text>
 				</view>
 				<view class="OwnText">
-					<view class="OwnTextFromTitle">
-						联系人:
-					</view>
-					<text
-						class="OwnTextFromText">{{ vuex_user.data.name || vuex_user.phone || vuex_user.data.phone}}</text>
+					<view class="OwnTextFromTitle">联系人:</view>
+					<text class="OwnTextFromText">{{ vuex_user.data.name || vuex_user.phone || vuex_user.data.phone }}</text>
 				</view>
 				<view class="OwnText">
-					<view class="OwnTextFromTitle">
-						联系电话:
-					</view>
+					<view class="OwnTextFromTitle">联系电话:</view>
 					<text class="OwnTextFromText">{{ vuex_user.phone || vuex_user.data.phone }}</text>
 				</view>
 			</view>
 			<view class="sendBill">
 				<!-- #ifdef MP-WEIXIN -->
-				<u-button type="primary" class="form-btn-big" hover-class="none"
-					:custom-style="{backgroundColor:'#01BB74'}" @click="sendOrder(true)"
-					shape="circle">{{vuex_userRole == 'D'?"修改收款单":"修改付款单"}}</u-button>
+				<u-button type="primary" class="form-btn-big" hover-class="none" :custom-style="{ backgroundColor: '#01BB74' }" @click="sendOrder(true)" shape="circle">
+					{{ vuex_userRole == 'D' ? '修改收款单' : '修改付款单' }}
+				</u-button>
 				<!-- #endif -->
 				<!-- #ifdef APP -->
-				<u-button type="primary" class="form-btn-big" hover-class="none"
-					:custom-style="{backgroundColor:'#01BB74'}" @click="sendOrder(false)"
-					shape="circle">{{vuex_userRole == 'D'?"修改收款单":"修改付款单"}}</u-button>
+				<u-button type="primary" class="form-btn-big" hover-class="none" :custom-style="{ backgroundColor: '#01BB74' }" @click="sendOrder(false)" shape="circle">
+					{{ vuex_userRole == 'D' ? '修改收款单' : '修改付款单' }}
+				</u-button>
 				<!-- #endif -->
 			</view>
 		</view>
@@ -176,619 +221,617 @@
 				<button style="" class="BillReturnBtn" @click="ContinueBilling">返回首页</button>
 			</view>
 		</view> -->
-
 	</view>
 </template>
 
 <script>
-	import chooseFile from '@/common/file.js';
-	export default {
-		data() {
-			return {
-				billFrom: {
-					"billList": [],
-					"billNumber": "",
-					"sourcePhone": "",
-					"receptionPhone": "",
-					"billTime": "",
-					"billPrice": 0,
-					"billDiscountPrice": null,
-					"billAfterPrice": 0,
-					"billFile": "",
-					"billRemark": "",
-					"billVoucher": "1",
-					"billOperator": "32",
-					"billState": "0",
-					"billEnterpriseS": "",
-					"billEnterpriseE": "",
-					"billLinkman": "33",
-					"billPhone": "",
-					"orders": "",
-					"type": "0",
-					"createTime": "",
-					"updateTime": "",
-					"fileAliList": [],
-					"imgAliList": [],
-					"searchJson": "",
-					"ids": [],
-					"oldId": [],
-					"nowId": [],
-					"check": false,
-					"cBillFolderList": [],
-					"updFileAliList": [],
-					"delFileList": [],
-					"updImgAliList": [],
-					"delImgFolderIdList": [],
-					"uplImgFolderIdList": [],
-					"oldFileAliList": []
-				},
-				billEnterprise: "",
-				action: "",
-				fileList: [],
+import chooseFile from '@/common/file.js';
+export default {
+	data() {
+		return {
+			billFrom: {
+				billList: [],
+				billNumber: '',
+				sourcePhone: '',
+				receptionPhone: '',
+				billTime: '',
+				billPrice: 0,
+				billDiscountPrice: null,
+				billAfterPrice: 0,
+				billFile: '',
+				billRemark: '',
+				billVoucher: '1',
+				billOperator: '32',
+				billState: '0',
+				billEnterpriseS: '',
+				billEnterpriseE: '',
+				billLinkman: '33',
+				billPhone: '',
+				orders: '',
+				type: '0',
+				createTime: '',
+				updateTime: '',
+				fileAliList: [],
+				imgAliList: [],
+				searchJson: '',
+				ids: [],
+				oldId: [],
+				nowId: [],
+				check: false,
+				cBillFolderList: [],
+				updFileAliList: [],
 				delFileList: [],
-				imgFileList: [],
-				consignee: {},
-				edit: false,
-				updImgFile: [],
-				updAttachmentFile: [],
-				removeList: [],
-				loadList: [],
-				urlList: [],
-				checkSend: true
-			}
-		},
-		onLoad(option) {
-			console.log("单个详情：", option);
-			var port = this.vuex_userRole == "D"
+				updImgAliList: [],
+				delImgFolderIdList: [],
+				uplImgFolderIdList: [],
+				oldFileAliList: []
+			},
+			billEnterprise: '',
+			action: '',
+			fileList: [],
+			delFileList: [],
+			imgFileList: [],
+			consignee: {},
+			edit: false,
+			updImgFile: [],
+			updAttachmentFile: [],
+			removeList: [],
+			loadList: [],
+			urlList: [],
+			checkSend: true
+		};
+	},
+	onLoad(option) {
+		console.log('单个详情：', option);
+		var port = this.vuex_userRole == 'D';
+		if (port) {
+			uni.setNavigationBarTitle({
+				title: '收款单修改'
+			});
+		} else {
+			uni.setNavigationBarTitle({
+				title: '付款单修改'
+			});
+		}
+		var idNumber = Number(option.id);
+		var edit = option.edit;
+		if (edit) {
+			this.edit = edit;
+		}
+
+		var dx = {
+			id: idNumber
+		};
+		this.$api.bills.getBillById(dx).then((res) => {
+			console.log('单个详情：', res);
+			this.billFrom = res.data.data;
+			this.billFrom.billTime = this.$u.timeFormat(this.billFrom.billTime, 'yyyy-mm-dd');
+
+			var port = this.vuex_userRole == 'R';
 			if (port) {
-				uni.setNavigationBarTitle({
-					title: "收款单修改"
-				});
+				this.billEnterprise = this.billFrom.billEnterpriseS;
 			} else {
-				uni.setNavigationBarTitle({
-					title: "付款单修改"
-				});
-			}
-			var idNumber = Number(option.id)
-			var edit = option.edit;
-			if (edit) {
-				this.edit = edit
+				this.billEnterprise = this.billFrom.billEnterpriseE;
 			}
 
-			var dx = {
-				"id": idNumber
-			}
-			this.$api.bills.getBillById(dx).then(res => {
-				console.log("单个详情：", res);
-				this.billFrom = res.data.data
-				this.billFrom.billTime = this.$u.timeFormat(this.billFrom.billTime, 'yyyy-mm-dd')
+			var list = [];
 
-				var port = this.vuex_userRole == "R";
-				if (port) {
-					this.billEnterprise = this.billFrom.billEnterpriseS
-				} else {
-					this.billEnterprise = this.billFrom.billEnterpriseE
-				}
+			var imgList = this.billFrom.cBillFolderList.filter((rs) => rs.type == '0');
+			var fileList = this.billFrom.cBillFolderList.filter((rs) => rs.type == '1');
 
-				var list = []
+			this.updImgFile = imgList;
+			this.updAttachmentFile = fileList;
+			this.billFrom.oldFileAliList = fileList;
 
-				var imgList = this.billFrom.cBillFolderList.filter(rs => rs.type == "0");
-				var fileList = this.billFrom.cBillFolderList.filter(rs => rs.type == "1");
-
-				this.updImgFile = imgList
-				this.updAttachmentFile = fileList
-				this.billFrom.oldFileAliList = fileList
-
-				this.updImgFile.forEach(res => {
-					var dx = {
-						url: res.file,
-						id: res.id,
-						size: res.size,
-						billId: res.billId
-					}
-					this.imgFileList.push(dx)
-				})
-
-
-				this.updAttachmentFile.forEach(res => {
-					var split = res.file.split("-");
-					var name = split[split.length - 1];
-					var type = this.FileTypeName(res.file);
-					var dx = {
-						type: type,
-						name: name,
-						size: res.size,
-						path: res.file,
-						http: true,
-						billId: res.billId,
-						id: res.id
-					}
-					this.fileList.push(dx)
-				})
-
-				console.log("图片", imgList);
-				console.log("附件", fileList);
-
+			this.updImgFile.forEach((res) => {
+				var dx = {
+					url: res.file,
+					id: res.id,
+					size: res.size,
+					billId: res.billId
+				};
+				this.imgFileList.push(dx);
 			});
 
+			this.updAttachmentFile.forEach((res) => {
+				var split = res.file.split('-');
+				var name = split[split.length - 1];
+				var type = this.FileTypeName(res.file);
+				var dx = {
+					type: type,
+					name: name,
+					size: res.size,
+					path: res.file,
+					http: true,
+					billId: res.billId,
+					id: res.id
+				};
+				this.fileList.push(dx);
+			});
 
-		},
-		onShow() {
-			var bill = uni.getStorageSync("bill");
-			console.log(bill);
-			if (bill != null && bill != undefined && bill != "") {
-				var jo = JSON.parse(bill)
-				console.log(jo);
-				this.billFrom.billPrice = jo.priceNumber
-				this.billFrom.searchJson = JSON.stringify(JSON.parse(JSON.stringify(jo.searchJson)))
-				this.billFrom.billAfterPrice = (this.billFrom.billPrice * (1 - (this.billFrom.billDiscountPrice / 100)))
-					.toFixed(2);
-				this.billFrom.orders = jo.ids.join(',')
-				this.billFrom.oldId = jo.oldId;
-				this.billFrom.nowId = jo.nowIds;
-				this.billFrom.check = jo.check;
-				uni.removeStorageSync("bill")
+			console.log('图片', imgList);
+			console.log('附件', fileList);
+		});
+	},
+	onShow() {
+		var bill = uni.getStorageSync('bill');
+		console.log(bill);
+		if (bill != null && bill != undefined && bill != '') {
+			var jo = JSON.parse(bill);
+			console.log(jo);
+			this.billFrom.billPrice = jo.priceNumber;
+			this.billFrom.searchJson = JSON.stringify(JSON.parse(JSON.stringify(jo.searchJson)));
+			this.billFrom.billAfterPrice = (this.billFrom.billPrice * (1 - this.billFrom.billDiscountPrice / 100)).toFixed(2);
+			this.billFrom.orders = jo.ids.join(',');
+			this.billFrom.oldId = jo.oldId;
+			this.billFrom.nowId = jo.nowIds;
+			this.billFrom.check = jo.check;
+			uni.removeStorageSync('bill');
+		}
+		this.action = this.$u.http.config.baseUrl + '/edo/order/imgA';
+		console.log('bill', bill);
+	},
+	methods: {
+		async sendOrder(app) {
+			console.log('', this.imgFileList);
+			console.log('', this.fileList);
+			console.log('要删除的元素', this.removeList);
+
+			if (this.checkSend) {
+				this.checkSend = false;
+
+				//要删除的
+				const uniqueIds = [...new Set(this.removeList.map((item) => item.id))];
+				console.log('要删除的元素', uniqueIds);
+				//要添加的
+				console.log('loadList', this.loadList);
+
+				var ifWorkPort = this.vuex_userRole == 'R';
+				this.billFrom.type = ifWorkPort ? 0 : 1;
+
+				for (const res of this.fileList) {
+					console.log(res);
+					if (res.id == null) {
+						const url = await this.UploadFilePdf(res.path, this.billFrom.billNumber, true, res.size, app);
+						this.updAttachmentFile.push({
+							file: url.url,
+							size: url.size,
+							id: null
+						});
+					}
+				}
+
+				// 图片文件上传
+				for (const res of this.loadList) {
+					if (res.file != undefined) {
+						const url = await this.UploadFilePdf(res.url, this.billFrom.billNumber, false, res.size, app);
+						console.log('1上传结果', url);
+						var dx = {
+							file: url.url,
+							size: url.size,
+							id: null
+						};
+						this.urlList.push(dx);
+					} else {
+						console.log('无需上传');
+					}
+				}
+
+				console.log('要删除的元素', uniqueIds);
+				console.log('要上传的', this.urlList);
+				console.log('附件文件', this.fileList);
+				console.log('附件文件', this.updAttachmentFile);
+				console.log('待删除附件文件', this.delFileList);
+
+				this.billFrom.delImgFolderIdList = uniqueIds;
+				this.billFrom.uplImgFolderIdList = this.urlList;
+				this.billFrom.updFileAliList = this.updAttachmentFile;
+				this.billFrom.delFileList = this.delFileList;
+				this.$api.bills.updateBill(this.billFrom).then((res) => {
+					console.log(res);
+					this.checkSend = true;
+					this.$u.toast(res.data.message);
+					setTimeout(function () {
+						uni.navigateBack();
+					}, 300);
+					// uni.navigateBack()
+				});
+			} else {
+				this.$u.toast('请勿重复点击~');
 			}
-			this.action = this.$u.http.config.baseUrl + "/edo/order/imgA"
-			console.log("bill", bill);
 		},
-		methods: {
-			async sendOrder(app) {
-				console.log("", this.imgFileList);
-				console.log("", this.fileList);
-				console.log("要删除的元素", this.removeList);
+		selectOrder() {
+			console.log(this.billFrom.orders);
+			console.log(this.billFrom.searchJson);
+			uni.navigateTo({
+				url: `upd_receipt?searchJson=${this.billFrom.searchJson}&ids=${this.billFrom.orders}&start=${this.billFrom.sourcePhone}&end=${this.billFrom.receptionPhone}`
+			});
+		},
+		LookImg(list) {
+			var look = list.filter((res) => res.type == '1');
+			const fileList = look.map((res) => res.file);
+			uni.previewImage({
+				current: fileList[0],
+				urls: fileList
+			});
+		},
+		billAfterPriceCount(e) {
+			var prc = Number(e.detail.value);
 
-				if (this.checkSend) {
-					this.checkSend = false
+			if (prc > 50) {
+				this.billFrom.billAfterPrice = 0;
+				this.billFrom.billDiscountPrice = null;
+				this.billFrom.billAfterPrice = this.billFrom.billPrice;
+				uni.showToast({
+					title: '折扣率不能超过50%',
+					icon: 'none'
+				});
+				return;
+			}
 
-					//要删除的
-					const uniqueIds = [...new Set(this.removeList.map(item => item.id))];
-					console.log("要删除的元素", uniqueIds);
-					//要添加的
-					console.log("loadList", this.loadList);
-
-
-					var ifWorkPort = this.vuex_userRole == "R"
-					this.billFrom.type = ifWorkPort ? 0 : 1
-
-					for (const res of this.fileList) {
-						console.log(res);
-						if (res.id == null) {
-							const url = await this.UploadFilePdf(res.path, this.billFrom.billNumber, true, res.size,
-								app);
-							this.updAttachmentFile.push({
-								file: url.url,
-								size: url.size,
-								id: null
-							})
-						}
-					}
-
-					// 图片文件上传
-					for (const res of this.loadList) {
-						if (res.file != undefined) {
-							const url = await this.UploadFilePdf(res.url, this.billFrom.billNumber, false, res.size,
-								app);
-							console.log("1上传结果", url);
-							var dx = {
-								file: url.url,
-								size: url.size,
-								id: null
-							}
-							this.urlList.push(dx)
-						} else {
-							console.log("无需上传");
-						}
-					}
-
-
-					console.log("要删除的元素", uniqueIds);
-					console.log("要上传的", this.urlList);
-					console.log("附件文件", this.fileList);
-					console.log("附件文件", this.updAttachmentFile);
-					console.log("待删除附件文件", this.delFileList);
-
-					this.billFrom.delImgFolderIdList = uniqueIds
-					this.billFrom.uplImgFolderIdList = this.urlList
-					this.billFrom.updFileAliList = this.updAttachmentFile
-					this.billFrom.delFileList = this.delFileList
-					this.$api.bills.updateBill(this.billFrom).then(res => {
-						console.log(res);
-						this.checkSend = true
-						this.$u.toast(res.data.message);
-						setTimeout(function() {
-							uni.navigateBack()
-						}, 300)
-						// uni.navigateBack()
-					});
-				} else {
-					this.$u.toast("请勿重复点击~");
-				}
-
-
-
-			},
-			selectOrder() {
-				console.log(this.billFrom.orders);
-				console.log(this.billFrom.searchJson);
-				uni.navigateTo({
-					url: `upd_receipt?searchJson=${this.billFrom.searchJson}&ids=${this.billFrom.orders}&start=${this.billFrom.sourcePhone}&end=${this.billFrom.receptionPhone}`
-				})
-			},
-			LookImg(list) {
-				var look = list.filter(res => res.type == "1");
-				const fileList = look.map(res => res.file);
-				uni.previewImage({
-					current: fileList[0],
-					urls: fileList
-				})
-			},
-			billAfterPriceCount(e) {
-				var prc = Number(e.detail.value)
-
-				if (prc > 50) {
-					this.billFrom.billAfterPrice = 0
-					this.billFrom.billDiscountPrice = null
-					this.billFrom.billAfterPrice = this.billFrom.billPrice
-					uni.showToast({
-						title: '折扣率不能超过50%',
-						icon: 'none'
-					});
-					return;
-				}
-
-				this.billFrom.billAfterPrice = (this.billFrom.billPrice * (1 - (prc / 100))).toFixed(2);
-
-			},
-			moveImgFileList(index, lists) {
-				console.log(index, lists);
-				if (this.updImgFile[index] != undefined) {
-					this.removeList.push(this.updImgFile[index])
-				}
-				this.loadList = lists
-			},
-			handleUpload(e, list) {
-				this.loadList = list
-				console.log(list);
-			},
-			chooseFile() {
-				chooseFile((path) => {
-					console.log('111111111', path);
-					uni.getFileInfo({ //读取文件大小
-						filePath: path,
-						success: (res) => {
-							console.log('11111111', res)
-							const binSize = res.size;
-							console.log('size', binSize)
-							console.log('size', path.split(".")[(path.split(".").length - 1)])
-							var dx = {
-								type: path.split(".")[(path.split(".").length - 1)],
-								name: path,
-								size: binSize,
-								path: path,
-								http: false
-							}
-							this.fileList.push(dx)
-							console.log(this.fileList);
-						},
-						fail: (err) => {
-							console.log('222222222', err)
-						}
-					})
-				})
-			},
-			uploadFile() {
-				console.log("上传");
-				var that = this;
-				uni.chooseMessageFile({
-					count: 1,
-					sizeType: ["original", "compressed"],
-					extension: ['doc', 'docx', 'pdf', 'pptx', 'ppt', 'xls', 'xlsx'],
-					sourceType: ["album"],
-					success(res) {
-						console.log("选择的文件", res)
-
-						var FileVerify = that.UploadFileVerify(res);
-						var FileVerifySize = that.FileVerifySize(res);
-						if (FileVerifySize) {
-							uni.showToast({
-								title: '单个文件不能超过5M',
-								icon: 'none'
-							});
-							return;
-						}
-						if (FileVerify) {
-							console.log();
-							//size  name  path
-							var file = res.tempFiles[0];
-							var dx = {
-								type: that.FileType(res),
-								name: file.name,
-								size: file.size,
-								path: file.path,
-								id: null
-							}
-							that.fileList.push(dx)
-							// that.UploadFilePdf(res);
-						} else {
-							uni.showToast({
-								title: '格式错误',
-								icon: 'none'
-							});
-						}
-
-						//  //选择成功之后上传
+			this.billFrom.billAfterPrice = (this.billFrom.billPrice * (1 - prc / 100)).toFixed(2);
+		},
+		moveImgFileList(index, lists) {
+			console.log(index, lists);
+			if (this.updImgFile[index] != undefined) {
+				this.removeList.push(this.updImgFile[index]);
+			}
+			this.loadList = lists;
+		},
+		handleUpload(e, list) {
+			this.loadList = list;
+			console.log(list);
+		},
+		chooseFile() {
+			chooseFile((path) => {
+				console.log('111111111', path);
+				uni.getFileInfo({
+					//读取文件大小
+					filePath: path,
+					success: (res) => {
+						console.log('11111111', res);
+						const binSize = res.size;
+						console.log('size', binSize);
+						console.log('size', path.split('.')[path.split('.').length - 1]);
+						var dx = {
+							type: path.split('.')[path.split('.').length - 1],
+							name: path,
+							size: binSize,
+							path: path,
+							http: false
+						};
+						this.fileList.push(dx);
+						console.log(this.fileList);
+					},
+					fail: (err) => {
+						console.log('222222222', err);
 					}
 				});
-			},
-			UploadFileVerify(res) {
-				var name = res.tempFiles[0].name;
-				var suffix = name.split(".")[1];
-				var file = suffix == "xls" || suffix == "xlsx" || suffix == "et" || suffix == "doc" ||
-					suffix == "docx" || suffix == "pdf" || suffix == "jpg" || suffix == "jpeg" || suffix == "png" ||
-					suffix == "gif";
-				return file;
-			},
-			UploadFileVerifCyHttp(name) {
-				var suffix = name.split(".")[1];
-				var file = suffix == "xls" || suffix == "xlsx" || suffix == "et" || suffix == "doc" ||
-					suffix == "docx" || suffix == "pdf" || suffix == "jpg" || suffix == "jpeg" || suffix == "png" ||
-					suffix == "gif";
-				return file;
-			},
-			FileVerifySize(res) {
-				var file = res.tempFiles[0].size;
-				if (file > 5242880) {
-					return true;
-				}
-				return false;
-			},
-			FileType(res) {
-				var name = res.tempFiles[0].name;
-				var suffix = name.split(".")[1];
-				if (suffix == "pdf") {
-					return 0;
-				} else if (suffix == "doc" || suffix == "docx") {
-					return 1;
-				} else if (suffix == "xls" || suffix == "xlsx") {
-					return 2;
-				} else if (suffix == "jpg" || suffix == "jpeg" || suffix == "png" ||
-					suffix == "gif") {
-					return 3;
-				} else {
-					return 3;
-				}
-			},
-			FileTypeName(name) {
-				var split = name.split(".");
-				var suffix = split[split.length - 1];
-				if (suffix == "pdf") {
-					return 0;
-				} else if (suffix == "doc" || suffix == "docx") {
-					return 1;
-				} else if (suffix == "xls" || suffix == "xlsx") {
-					return 2;
-				} else if (suffix == "jpg" || suffix == "jpeg" || suffix == "png" ||
-					suffix == "gif") {
-					return 3;
-				} else {
-					return 3;
-				}
-			},
-			UploadFilePdf(fileAvatar, billNumber, type, size, app) {
+			});
+		},
+		uploadFile() {
+			console.log('上传');
+			var that = this;
+			uni.chooseMessageFile({
+				count: 1,
+				sizeType: ['original', 'compressed'],
+				extension: ['doc', 'docx', 'pdf', 'pptx', 'ppt', 'xls', 'xlsx'],
+				sourceType: ['album'],
+				success(res) {
+					console.log('选择的文件', res);
 
-				return new Promise((resolve, reject) => {
-					let that = this;
-					uni.uploadFile({
-						url: that.$u.http.config.baseUrl + '/edo/bills/file',
-						header: {
-							token: that.vuex_token,
-							phone: app ? that.vuex_user.phone : that.vuex_user.phone + "-app",
-							number: billNumber
-						},
-						filePath: fileAvatar,
-						name: 'file',
-						success: (uploadFileRes) => {
-							var dx = {
-								url: "",
-								size: size
-							}
-							console.log("文件大小", fileAvatar);
-							console.log("文件大小", size);
-							if (type) {
-								// that.billFrom.fileAliList.push()
-								dx.url = uploadFileRes.data
-								resolve(dx)
-							} else {
-								dx.url = uploadFileRes.data
-								resolve(dx)
-								// that.billFrom.imgAliList.push(uploadFileRes.data)
-							}
-						}
-					});
-				});
+					var FileVerify = that.UploadFileVerify(res);
+					var FileVerifySize = that.FileVerifySize(res);
+					if (FileVerifySize) {
+						uni.showToast({
+							title: '单个文件不能超过5M',
+							icon: 'none'
+						});
+						return;
+					}
+					if (FileVerify) {
+						console.log();
+						//size  name  path
+						var file = res.tempFiles[0];
+						var dx = {
+							type: that.FileType(res),
+							name: file.name,
+							size: file.size,
+							path: file.path,
+							id: null
+						};
+						that.fileList.push(dx);
+						// that.UploadFilePdf(res);
+					} else {
+						uni.showToast({
+							title: '格式错误',
+							icon: 'none'
+						});
+					}
+
+					//  //选择成功之后上传
+				}
+			});
+		},
+		UploadFileVerify(res) {
+			var name = res.tempFiles[0].name;
+			var suffix = name.split('.')[1];
+			var file =
+				suffix == 'xls' ||
+				suffix == 'xlsx' ||
+				suffix == 'et' ||
+				suffix == 'doc' ||
+				suffix == 'docx' ||
+				suffix == 'pdf' ||
+				suffix == 'jpg' ||
+				suffix == 'jpeg' ||
+				suffix == 'png' ||
+				suffix == 'gif';
+			return file;
+		},
+		UploadFileVerifCyHttp(name) {
+			var suffix = name.split('.')[1];
+			var file =
+				suffix == 'xls' ||
+				suffix == 'xlsx' ||
+				suffix == 'et' ||
+				suffix == 'doc' ||
+				suffix == 'docx' ||
+				suffix == 'pdf' ||
+				suffix == 'jpg' ||
+				suffix == 'jpeg' ||
+				suffix == 'png' ||
+				suffix == 'gif';
+			return file;
+		},
+		FileVerifySize(res) {
+			var file = res.tempFiles[0].size;
+			if (file > 5242880) {
+				return true;
 			}
+			return false;
+		},
+		FileType(res) {
+			var name = res.tempFiles[0].name;
+			var suffix = name.split('.')[1];
+			if (suffix == 'pdf') {
+				return 0;
+			} else if (suffix == 'doc' || suffix == 'docx') {
+				return 1;
+			} else if (suffix == 'xls' || suffix == 'xlsx') {
+				return 2;
+			} else if (suffix == 'jpg' || suffix == 'jpeg' || suffix == 'png' || suffix == 'gif') {
+				return 3;
+			} else {
+				return 3;
+			}
+		},
+		FileTypeName(name) {
+			var split = name.split('.');
+			var suffix = split[split.length - 1];
+			if (suffix == 'pdf') {
+				return 0;
+			} else if (suffix == 'doc' || suffix == 'docx') {
+				return 1;
+			} else if (suffix == 'xls' || suffix == 'xlsx') {
+				return 2;
+			} else if (suffix == 'jpg' || suffix == 'jpeg' || suffix == 'png' || suffix == 'gif') {
+				return 3;
+			} else {
+				return 3;
+			}
+		},
+		UploadFilePdf(fileAvatar, billNumber, type, size, app) {
+			return new Promise((resolve, reject) => {
+				let that = this;
+				uni.uploadFile({
+					url: that.$u.http.config.baseUrl + '/edo/bills/file',
+					header: {
+						token: that.vuex_token,
+						phone: app ? that.vuex_user.phone : that.vuex_user.phone + '-app',
+						number: billNumber
+					},
+					filePath: fileAvatar,
+					name: 'file',
+					success: (uploadFileRes) => {
+						var dx = {
+							url: '',
+							size: size
+						};
+						console.log('文件大小', fileAvatar);
+						console.log('文件大小', size);
+						if (type) {
+							// that.billFrom.fileAliList.push()
+							dx.url = uploadFileRes.data;
+							resolve(dx);
+						} else {
+							dx.url = uploadFileRes.data;
+							resolve(dx);
+							// that.billFrom.imgAliList.push(uploadFileRes.data)
+						}
+					}
+				});
+			});
 		}
 	}
+};
 </script>
 
 <style lang="scss" scoped>
-	.receiptFrom {
-		width: 100vw;
-		height: 100vh;
-		background-color: #F4F4F4;
+.receiptFrom {
+	width: 100vw;
+	height: 100vh;
+	background-color: #f4f4f4;
 
-		.FROMBill {
-			width: 100%;
-			height: auto;
-			background-color: #F4F4F4;
-		}
-
-		.BillSuccess {
-			width: 100%;
-			height: 100%;
-			background-color: #ffffff;
-
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-
-			padding-bottom: 20%;
-
-			.BillReturnBtn {
-				width: 189.12px;
-				height: 44.43px;
-				border-radius: 188px;
-				background-color: #01BB74;
-				color: white;
-			}
-		}
-
-		.HandFrom {
-			background-color: white;
-			width: 100%;
-			height: 20%;
-			// padding: 24rpx;
-			padding-left: 24rpx;
-			padding-right: 24rpx;
-		}
-
-		.FromPrice {
-			width: 100%;
-			height: 20%;
-			// padding: 24rpx;
-			padding-left: 24rpx;
-			padding-right: 24rpx;
-			background-color: white;
-			margin-top: 24rpx;
-		}
-
-		.uploadView {
-			display: flex;
-			flex-direction: row;
-			justify-content: center;
-			align-items: center;
-
-			margin-top: 24rpx;
-
-			// padding: 30rpx;
-			padding-bottom: 60rpx;
-			padding-top: 30rpx;
-			border-style: dashed;
-			border-color: #D8D8D8;
-			border-width: 1px;
-			border-radius: 6px;
-		}
-
-		.FilePdfList {
-			width: 100%;
-			height: auto;
-			// padding: 24rpx;
-		}
-
-		.FromTitle {
-			font-weight: bold;
-			// margin: 24rpx;
-			margin-top: 24rpx;
-		}
-
-		.FromInput {
-			display: flex;
-			flex-direction: row;
-			justify-content: left;
-			align-content: center;
-
-			padding-bottom: 24rpx;
-			padding-top: 24rpx;
-			padding-right: 24rpx;
-
-			.textcolor {
-				color: #666666;
-			}
-		}
+	.FROMBill {
+		width: 100%;
+		height: auto;
+		background-color: #f4f4f4;
 	}
 
-	.FromOwn {
+	.BillSuccess {
+		width: 100%;
+		height: 100%;
+		background-color: #ffffff;
+
 		display: flex;
 		flex-direction: column;
-		justify-content: left;
-		margin-top: 24rpx;
+		justify-content: center;
+		align-items: center;
 
-		height: 300px;
+		padding-bottom: 20%;
 
-		background-color: white;
-
-		.OwnText {
-			display: flex;
-			flex-direction: row;
-			justify-content: left;
-
-
-
-			padding-bottom: 48rpx;
-			padding-top: 48rpx;
-			margin-left: 24rpx;
-
-			// padding: 24rpx;
-
-			position: relative;
-
-			.OwnTextFromTitle {
-				font-weight: 500;
-				position: absolute;
-				left: 0;
-			}
-
-			.OwnTextFromText {
-				padding-right: 24rpx;
-				font-weight: 500;
-				position: absolute;
-				right: 0;
-			}
+		.BillReturnBtn {
+			width: 189.12px;
+			height: 44.43px;
+			border-radius: 188px;
+			background-color: #01bb74;
+			color: white;
 		}
 	}
 
-	.ImgView {
+	.HandFrom {
+		background-color: white;
+		width: 100%;
+		height: 20%;
+		// padding: 24rpx;
+		padding-left: 24rpx;
+		padding-right: 24rpx;
+	}
+
+	.FromPrice {
+		width: 100%;
+		height: 20%;
+		// padding: 24rpx;
+		padding-left: 24rpx;
+		padding-right: 24rpx;
+		background-color: white;
+		margin-top: 24rpx;
+	}
+
+	.uploadView {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+
+		margin-top: 24rpx;
+
+		// padding: 30rpx;
+		padding-bottom: 60rpx;
+		padding-top: 30rpx;
+		border-style: dashed;
+		border-color: #d8d8d8;
+		border-width: 1px;
+		border-radius: 6px;
+	}
+
+	.FilePdfList {
+		width: 100%;
+		height: auto;
+		// padding: 24rpx;
+	}
+
+	.FromTitle {
+		font-weight: bold;
+		// margin: 24rpx;
+		margin-top: 24rpx;
+	}
+
+	.FromInput {
 		display: flex;
 		flex-direction: row;
 		justify-content: left;
-		align-items: center;
-	}
+		align-content: center;
 
-	.FromFile {
-		display: flex;
-		flex-direction: column;
-		justify-content: left;
-
-		margin-top: 24rpx;
-		padding-left: 24rpx;
+		padding-bottom: 24rpx;
+		padding-top: 24rpx;
 		padding-right: 24rpx;
 
-		background-color: white;
-
-		.FromFileTitle {
-			padding-top: 48rpx;
-			margin-bottom: 24rpx;
-			font-weight: bold;
-		}
-
-		.FromFileTitleRemark {
-			padding-bottom: 48rpx;
-			background-color: #F4F4F4;
-			border-radius: 6px;
-			margin-bottom: 24rpx;
-			padding-left: 24rpx;
-			padding-top: 24rpx;
-			height: 100px;
+		.textcolor {
+			color: #666666;
 		}
 	}
+}
 
-	.sendBill {
-		position: fixed;
-		z-index: 55;
-		bottom: 0;
-		width: 100%;
-		padding: 24rpx;
+.FromOwn {
+	display: flex;
+	flex-direction: column;
+	justify-content: left;
+	margin-top: 24rpx;
+
+	height: 300px;
+
+	background-color: white;
+
+	.OwnText {
+		display: flex;
+		flex-direction: row;
+		justify-content: left;
+
+		padding-bottom: 48rpx;
+		padding-top: 48rpx;
+		margin-left: 24rpx;
+
+		// padding: 24rpx;
+
+		position: relative;
+
+		.OwnTextFromTitle {
+			font-weight: 500;
+			position: absolute;
+			left: 0;
+		}
+
+		.OwnTextFromText {
+			padding-right: 24rpx;
+			font-weight: 500;
+			position: absolute;
+			right: 0;
+		}
 	}
+}
+
+.ImgView {
+	display: flex;
+	flex-direction: row;
+	justify-content: left;
+	align-items: center;
+}
+
+.FromFile {
+	display: flex;
+	flex-direction: column;
+	justify-content: left;
+
+	margin-top: 24rpx;
+	padding-left: 24rpx;
+	padding-right: 24rpx;
+
+	background-color: white;
+
+	.FromFileTitle {
+		padding-top: 48rpx;
+		margin-bottom: 24rpx;
+		font-weight: bold;
+	}
+
+	.FromFileTitleRemark {
+		padding-bottom: 48rpx;
+		background-color: #f4f4f4;
+		border-radius: 6px;
+		margin-bottom: 24rpx;
+		padding-left: 24rpx;
+		padding-top: 24rpx;
+		height: 100px;
+	}
+}
+
+.sendBill {
+	position: fixed;
+	z-index: 55;
+	bottom: 0;
+	width: 100%;
+	padding: 24rpx;
+}
 </style>

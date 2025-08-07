@@ -18,7 +18,7 @@
 			</view>
 		</view>
 
-		<u-empty src="https://res-oss.elist.com.cn/wxImg/order/orderEmpty.svg" icon-size="400" v-if="shareShow" text="订单已删除~" mode="search" margin-top="300"></u-empty>
+		<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/orderEmpty.svg" iconSize="400rpx" v-if="shareShow" text="订单已删除~" mode="search" margin-top="300"></u-empty>
 
 		<view class="height80 fixed-bar-height" v-if="!shareShow">
 			<view class="ml20 mr20">

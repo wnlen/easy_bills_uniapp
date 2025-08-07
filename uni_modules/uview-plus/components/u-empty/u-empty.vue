@@ -112,7 +112,7 @@
 
 	.u-empty {
 		@include flex;
-		flex-direction: column;
+		flex-direction: column !important;
 		justify-content: center;
 		align-items: center;
 

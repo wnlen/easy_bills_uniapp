@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<!-- <u-navbar :background="{ background: '#ffffff' }" back-icon-size="30" title="操作手册"></u-navbar> -->
-		<u-navbar :autoBack="true" :placeholder="true" title="操作手册" :custom-back="customBack"></u-navbar>
+		<u-navbar :autoBack="true" :placeholder="true" title="操作手册"></u-navbar>
 
 
 		<view class="absolute flex-col items-center cardAll">
@@ -271,11 +271,6 @@
 			}
 		},
 		methods: {
-			customBack(){
-				uni.switchTab({
-					url:"/pages/user/index"
-				})
-			},
 			jump(list) {
 				if (!list.accomplish) {
 					uni.navigateTo({

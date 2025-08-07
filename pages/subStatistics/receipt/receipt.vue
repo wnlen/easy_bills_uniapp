@@ -114,7 +114,7 @@
 </style>
 <template>
 	<view class="root">
-		<u-empty src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" icon-size="400" text="无查看权限~" mode="search" margin-top="-200" v-if="!identity"></u-empty>
+		<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" mode="search" margin-top="-200" v-if="!identity"></u-empty>
 
 		<z-paging
 			ref="paging"
@@ -161,10 +161,11 @@
 							</text>
 							<u-icon class="ml10 mr10" name="/static/img/list/sx.svg" size="40"></u-icon>
 							<u-input
+								border="none"
 								class="my-input"
 								style="width: 100%"
 								@input="CustomerGetChange"
-								v-model="customer"
+								:modelValue="customer"
 								:custom-style="{ backgroundColor: 'transparent' }"
 								:placeholder="vuex_userRole === 'R' ? '请选择供应商' : '请选择客户'"
 								clearable="true"
@@ -179,13 +180,22 @@
 								{{ Title }}
 							</text>
 							<u-icon class="ml10 mr10" name="/static/img/list/sj.svg" size="40"></u-icon>
-							<u-input v-if="showTage !== '1'" class="my-input" style="width: 100%" v-model="field" @input="searchListenner" placeholder="输入关键字进行检索" />
 							<u-input
+								border="none"
+								v-if="showTage !== '1'"
+								class="my-input"
+								style="width: 100%"
+								:modelValue="field"
+								@input="searchListenner"
+								placeholder="输入关键字进行检索"
+							/>
+							<u-input
+								border="none"
 								v-if="showTage === '1'"
 								maxlength="11"
 								class="ml24 my-input"
 								style="width: 100%"
-								v-model="field"
+								:modelValue="field"
 								@input="searchListenner"
 								placeholder="输入号码进行检索"
 							/>
@@ -750,11 +760,13 @@ export default {
 					var idList = orderListCheck.map((item) => item.id);
 					console.log('查看有没有锁的单子');
 
-					this.$api.bills.lockBills({
-					  billCheckList: idList,
-					  port: this.vuex_userRole,
-					  sourcePhone: this.lock.sourcePhone
-					}).then((res) => {
+					this.$api.bills
+						.lockBills({
+							billCheckList: idList,
+							port: this.vuex_userRole,
+							sourcePhone: this.lock.sourcePhone
+						})
+						.then((res) => {
 							console.log(res);
 							var lock = res.data.code == 200;
 							if (lock) {
@@ -1086,7 +1098,9 @@ export default {
 				this.refresh = false;
 				this.onReachBottom = false;
 				this.realTimeSel.role = this.vuex_userRole == 'R' ? '1' : '0';
-				this.$api.bills.getFilteredBills(this.realTimeSel).then((res) => {
+				this.$api.bills
+					.getFilteredBills(this.realTimeSel)
+					.then((res) => {
 						//console.log(res.data.data);
 
 						var orderList = res.data.data.map((obj) => {
@@ -1110,7 +1124,9 @@ export default {
 						this.$u.toast('请求失败');
 					});
 
-				this.$api.bills.getLockedBillQuantity(this.realTimeSel).then((res) => {
+				this.$api.bills
+					.getLockedBillQuantity(this.realTimeSel)
+					.then((res) => {
 						//console.log("当前订单个数：", res);
 						this.OrderQuantity = res.data.data[1];
 						this.OrderQuantitySum = res.data.data[0];
@@ -1168,7 +1184,9 @@ export default {
 					this.$u.toast('请求失败');
 				});
 
-			this.$api.order.getFilteredOrderCount(this.realTimeSel).then((res) => {
+			this.$api.order
+				.getFilteredOrderCount(this.realTimeSel)
+				.then((res) => {
 					//console.log("当前订单个数：", res);
 					this.OrderQuantity = res.data.data[1];
 					this.OrderQuantitySum = res.data.data[0];
@@ -1317,7 +1335,9 @@ export default {
 			}
 
 			var okOrNo = 0;
-			this.$api.order.addTemporaryOrder(dx).then((res) => {
+			this.$api.order
+				.addTemporaryOrder(dx)
+				.then((res) => {
 					okOrNo = res.data.data;
 				})
 				.catch((res) => {
@@ -1383,7 +1403,9 @@ export default {
 			}, 500);
 		},
 		updateOrder(order) {
-			this.$api.order.signForOrder(send).then((res) => {
+			this.$api.order
+				.signForOrder(send)
+				.then((res) => {
 					if (res.data.data == '9') {
 						this.$u.toast('确认失败~');
 					} else {
