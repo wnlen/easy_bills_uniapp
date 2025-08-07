@@ -1,15 +1,8 @@
 <template>
 	<view class="Myorder">
-		<u-navbar
-			:custom-back="rightClick"
-			leftIconColor="#ffffff"
-			:bgColor="uNa"
-			:border-bottom="false"
-			:titleBold="true"
-			title-color="#ffffff"
-			title="我的订购"
-			title-size="34"
-		></u-navbar>
+		<u-navbar :autoBack="true" :placeholder="true" :custom-back="rightClick" back-icon-color="#ffffff" :background="uNa" :border-bottom="false"
+			:titleBold="true" title-color="#ffffff" title="我的订购" title-size="34"></u-navbar>
+
 
 		<pop-details ref="popDetails"></pop-details>
 

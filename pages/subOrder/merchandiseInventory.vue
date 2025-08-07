@@ -23,7 +23,7 @@
 					bgColor="#ffffff"
 				></u-navbar>
 				<view class="ml24 mr24 flex-row items-center justify-center pb30">
-					<view class="flex-row items-center justify-center pl10 pr10" style="background: #ffffff; border-radius: 127px; width: 75%">
+					<view class="flex-row items-center justify-center pl10 pr10" style="background: #ffffff; border-radius: 254rpx; width: 75%">
 						<u-icon class="ml6" name="search" color="#01BB74" size="40"></u-icon>
 						<u-input
 							class="my-input ml6"
@@ -43,7 +43,7 @@
 				<view class="invCard" @click="jumpAddCommodity">
 					<view class="">
 						<u-image
-							border-radius="6px"
+							border-radius="12rpx"
 							width="200rpx"
 							height="200rpx"
 							:show-menu-by-longpress="false"
@@ -61,7 +61,7 @@
 					<view
 						class="flex-row justify-center items-center"
 						@click="jumpAddCommodity"
-						style="width: 140px; height: 40px; border-radius: 169.2px; box-sizing: border-box; border: 1.5px solid #01bb74"
+						style="width: 280rpx; height: 80rpx; border-radius: 338.4rpx; box-sizing: border-box; border: 3rpx solid #01bb74"
 					>
 						<u-icon class="absolute" label="添加商品" label-color="#01BB74" name="plus" color="#01BB74" size="30"></u-icon>
 					</view>
@@ -71,14 +71,14 @@
 			<view class="invCard" v-for="(item, index) in orderList" :key="index">
 				<view class="" @click="jumpCommodityDetails(item)">
 					<u-image
-						border-radius="6px"
+						border-radius="12rpx"
 						width="200rpx"
 						height="200rpx"
 						:show-menu-by-longpress="false"
 						:src="item.img === 'definde' ? 'https://res-oss.elist.com.cn/wxImg/order/emptyView.png' : item.img"
 					></u-image>
 				</view>
-				<view class="invText" style="width: 150px" @click="jumpCommodityDetails(item)">
+				<view class="invText" style="width: 300rpx" @click="jumpCommodityDetails(item)">
 					<text>{{ item.description }}</text>
 					<text>规格：{{ item.specification }}</text>
 					<text>单位：{{ item.unit }}</text>
@@ -91,7 +91,7 @@
 				<view class="bottomCard">
 					<view class="relative">
 						<u-icon name="https://res-oss.elist.com.cn/wxImg/order/merchandiseInventory.png" size="110" @click="AlertCard"></u-icon>
-						<u-badge class="absolute" type="error" :count="orderItemList.length" style="right: -10px; top: 0"></u-badge>
+						<u-badge class="absolute" type="error" :count="orderItemList.length" style="right: -20rpx; top: 0"></u-badge>
 					</view>
 
 					<text class="ml12">
@@ -152,7 +152,7 @@
 											/>
 										</view>
 									</u-td>
-									<u-td width="100px">
+									<u-td width="200rpx">
 										<input
 											type="text"
 											:value="formatAmount(item.unitPrice * item.quantity)"
@@ -170,7 +170,7 @@
 						<view class="bottomCard">
 							<view class="relative">
 								<u-icon name="https://res-oss.elist.com.cn/wxImg/order/merchandiseInventory.png" size="110" @click="closeOpen"></u-icon>
-								<u-badge class="absolute" type="error" :count="orderItemList.length" style="right: -10px; top: 0"></u-badge>
+								<u-badge class="absolute" type="error" :count="orderItemList.length" style="right: -20rpx; top: 0"></u-badge>
 							</view>
 							<text class="ml12">
 								合计:
@@ -192,15 +192,15 @@ export default {
 			orderList: [],
 			SearchInventory: '',
 			SearchCustomStyle: {
-				width: '60px',
-				height: '30px',
+				width: '120rpx',
+				height: '60rpx',
 				padding: '6rpx',
 				marginLeft: '24rpx',
-				fontSize: '12px'
+				fontSize: '24rpx'
 			},
 			bottomCustomStyle: {
-				width: '108px',
-				height: '40px',
+				width: '216rpx',
+				height: '80rpx',
 				padding: '6rpx',
 				marginLeft: '6rpx',
 				position: 'absolute',
@@ -574,19 +574,19 @@ export default {
 .modificationCrad {
 	width: 100vw;
 	height: 82%;
-	border-radius: 15px 15px 0px 0px;
+	border-radius: 30rpx 30rpx 0rpx 0rpx;
 	background-color: #ffffff;
 	position: absolute;
 	bottom: 0;
 }
 
 .invCard {
-	box-shadow: 0px 1px 3px 0px rgba(216, 216, 216, 0.5);
+	box-shadow: 0rpx 2rpx 6rpx 0rpx rgba(216, 216, 216, 0.5);
 	margin-right: 24rpx;
 	margin-left: 24rpx;
 	padding: 24rpx;
 	background-color: #ffffff;
-	border-radius: 6px;
+	border-radius: 12rpx;
 	margin-bottom: 24rpx;
 	position: relative;
 	display: flex;
@@ -602,18 +602,18 @@ export default {
 
 		text:nth-child(1) {
 			padding-bottom: 24rpx;
-			font-size: 16px;
+			font-size: 32rpx;
 			font-weight: bold;
-			line-height: 18px;
-			letter-spacing: 0px;
+			line-height: 36rpx;
+			letter-spacing: 0rpx;
 			color: #3d3d3d;
 		}
 
 		text:not(:nth-child(1)) {
-			font-size: 14px;
+			font-size: 28rpx;
 			font-weight: normal;
-			line-height: 18px;
-			letter-spacing: 0px;
+			line-height: 36rpx;
+			letter-spacing: 0rpx;
 			color: #999999;
 			padding-bottom: 12rpx;
 			padding-top: 4rpx;
@@ -633,7 +633,7 @@ export default {
 
 	position: relative;
 
-	box-shadow: 0px -1px 3px 0px rgba(0, 0, 0, 0.1);
+	box-shadow: 0rpx -2rpx 6rpx 0rpx rgba(0, 0, 0, 0.1);
 
 	padding-left: 24rpx;
 }
@@ -651,6 +651,6 @@ export default {
 	margin-left: 24rpx;
 	margin-right: 24rpx;
 	border-radius: 15rpx;
-	box-shadow: 0px 3.5px 5px 0px rgba(51, 51, 51, 0.1);
+	box-shadow: 0rpx 7rpx 10rpx 0rpx rgba(51, 51, 51, 0.1);
 }
 </style>

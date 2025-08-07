@@ -351,7 +351,7 @@
 			</view> -->
 
 			<u-popup v-model="show_start" mode="top" width="100%">
-				<u-navbar :border-bottom="false" :titleBold="true" title-color="#000000" title-size="34" bgColor="#ffffff">
+				<u-navbar :autoBack="true" :placeholder="true" :border-bottom="false" :titleBold="true" title-color="#000000" title-size="34" bgColor="#ffffff">
 					<view class="flex-row items-center justify-center ml50" style="width: 100%">
 						<view class="" style="font-size: 34rpx; font-weight: 510">订单统计</view>
 						<view

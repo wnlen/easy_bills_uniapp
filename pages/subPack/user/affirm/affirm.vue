@@ -2,17 +2,17 @@
 	<view class="relative flex-col items-center" style="width: 100vw; height: 100vh">
 		<view class="" style="background-color: transparent">
 			<!-- 		<u-navbar :custom-back="customBack" :border-bottom="false" title-color="#333333" title="注销账号"
-				title-size="28" background="{background:transparent,color:white,fontSize: 14px;}"></u-navbar> -->
+				title-size="28" background="{background:transparent,color:white,fontSize: 28rpx;}"></u-navbar> -->
 
-			<u-navbar :custom-back="customBack" :border-bottom="false" :titleBold="true" title-color="#000000" title="注销账号" title-size="34" bgColor="#ffffff"></u-navbar>
+			<u-navbar :autoBack="true" :placeholder="true" :custom-back="customBack" :border-bottom="false" :titleBold="true" title-color="#000000" title="注销账号" title-size="34" bgColor="#ffffff"></u-navbar>
 		</view>
 		<view class="flex-col justify-center items-center mt30">
 			<view class="">
 				<u-icon name="https://res-oss.elist.com.cn/wxImg/user/del.svg" size="200"></u-icon>
 			</view>
-			<view class="" style="font-size: 18px; font-weight: 700; text-align: center; letter-spacing: 0px">注销账号将永久失效且不可恢复</view>
+			<view class="" style="font-size: 36rpx; font-weight: 700; text-align: center; letter-spacing: 0rpx">注销账号将永久失效且不可恢复</view>
 		</view>
-		<view class="ml24 mr24 mt30 pd30" style="background-color: #f9f9f9; width: 94%; height: 50vh; border-radius: 6px">
+		<view class="ml24 mr24 mt30 pd30" style="background-color: #f9f9f9; width: 94%; height: 50vh; border-radius: 12rpx">
 			<view class="flex-col items-baseline pt25 pb30">
 				<view class="flex-row items-center">
 					<u-icon name="https://res-oss.elist.com.cn/wxImg/user/dian.svg" size="15"></u-icon>
@@ -36,13 +36,13 @@
 			</view>
 		</view>
 
-		<view class="absolute flex-col justify-center items-center" style="bottom: 70px">
+		<view class="absolute flex-col justify-center items-center" style="bottom: 140rpx">
 			<view class="flex-row justify-center items-center mr24 ml24 mb20" @click="radioGroupChange">
 				<u-radio-group>
 					<u-radio :disabled="disabled" active-color="#01BB74" icon-size="12" class="flex-row justify-center" style="text-align: center">
 						<view class="">
-							<text @tap.stop @click="radioGroupChange" style="color: #aaaaaa; font-size: 12px">同意并遵行易单据</text>
-							<text @tap.stop style="color: #01bb74; font-size: 12px" @click="jumpWord()">《账号注销须知》</text>
+							<text @tap.stop @click="radioGroupChange" style="color: #aaaaaa; font-size: 24rpx">同意并遵行易单据</text>
+							<text @tap.stop style="color: #01bb74; font-size: 24rpx" @click="jumpWord()">《账号注销须知》</text>
 						</view>
 					</u-radio>
 				</u-radio-group>
@@ -53,7 +53,7 @@
 					@tap.stop
 					@click="zx"
 					class="flex-row justify-center items-center ml24 mr24"
-					style="background: #01bb74; width: 350.92px; height: 52px; border-radius: 188px; font-size: 18px; font-weight: bold; color: white"
+					style="background: #01bb74; width: 701.84rpx; height: 104rpx; border-radius: 376rpx; font-size: 36rpx; font-weight: bold; color: white"
 				>
 					确认注销
 				</view>
@@ -182,15 +182,15 @@ export default {
 
 <style scoped lang="scss">
 .title {
-	font-size: 16px;
+	font-size: 32rpx;
 	font-weight: 600;
 }
 
 .text {
-	font-size: 18px;
+	font-size: 36rpx;
 	font-weight: normal;
-	line-height: 23px;
-	letter-spacing: 0.5px;
+	line-height: 46rpx;
+	letter-spacing: 1rpx;
 }
 
 .showAddPhoneCard {
@@ -202,23 +202,23 @@ export default {
 	.hand {
 		color: #333333;
 		font-family: Source Han Sans;
-		font-size: 18px;
+		font-size: 36rpx;
 		font-weight: 500;
-		line-height: 25.18px;
+		line-height: 50.36rpx;
 		text-align: center;
-		letter-spacing: 0px;
-		margin-top: 30px;
+		letter-spacing: 0rpx;
+		margin-top: 60rpx;
 	}
 
 	.text {
 		text-align: center;
 		margin-top: 12rpx;
 		font-family: Source Han Sans;
-		font-size: 14px;
+		font-size: 28rpx;
 		font-weight: normal;
-		line-height: 25.18px;
+		line-height: 50.36rpx;
 		text-align: center;
-		letter-spacing: 0px;
+		letter-spacing: 0rpx;
 
 		font-feature-settings: 'kern' on;
 		color: #999999;

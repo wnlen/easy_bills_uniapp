@@ -4,12 +4,12 @@
 			<template #left>
 			</template>
 		</u-navbar>
-		<view class="mb2">
 			<u-notice-bar direction="column" :text="list2"></u-notice-bar>
 		</view>
 
 		<view class="vw100" style="margin-top: 50%; height: 100px" v-if="!ifShow()">
 			<u-empty src="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg" icon-size="400rpx" text="暂无消息~" mode="search" margin-top="200"></u-empty>
+
 		</view>
 
 		<u-swipe-action :show="item.show" :index="index" v-for="(item, index) in list" :key="index" @click="click" disabled @open="open" :options="options">
@@ -19,10 +19,10 @@
 					<view class="flex-row" style="width: 100%">
 						<view class="" style="width: 60%; font-size: 32rpx; margin-top: 4rpx">
 							<text>{{ item.name }}</text>
-						</view>
-						<view class="" style="width: 40%">
-							<text class="" style="font-size: 12px; color: #cccccc; margin-right: 0; width: 20%">
-								{{ item.time }}
+						</view
+						<view class="" style="width: 40%;">
+							<text class="" style="font-size: 24rpx;color: #cccccc;margin-right: 0;width:20%;">
+								{{item.time}}
 							</text>
 						</view>
 					</view>

@@ -1,21 +1,27 @@
 <template>
 	<view class="uploadingCommodity">
-		<u-navbar title="修改商品"></u-navbar>
-
-		<!-- <u-image class="ml24" border-radius="6px" width="300rpx" height="300rpx" :src="presentPicture"></u-image> -->
-
-		<!-- <view class="uploadingCommodityImg">
-			<u-upload :auto-upload="false" :custom-btn="true" :action="action" :show-retry="false" :file-list="fileList" :show-tips="false"
-				:before-upload="handleUpload" max-size="5242880" max-count="1" multiple del-bg-color="#565C62">
-				<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
-					<u-icon :marginTop="15" name="plus-circle-fill" color="#01BB74" size="50" label-pos="bottom"
-						label="添加图片" @click="">
-					</u-icon>
-				</view>
+		<up-navbar :autoBack="true" :placeholder="true" :titleBold="true" title="修改商品"></up-navbar>
+		<view class="uploadingCommodityImg">
+			<u-upload
+				v-model:fileList="fileList"
+				autoUpload
+				autoDelete
+				:autoUploadApi="action"
+				autoUploadDriver="local"
+				:maxCount="1"
+				:maxSize="9999999"
+				:showPreviewImage="true"
+				:previewFullImage="true"
+				:deletable="true"
+				:showRetry="false"
+			>
+				<template #trigger>
+					<view class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
+						<up-icon name="plus-circle-fill" color="#01BB74" size="50rpx" label="添加图片" label-pos="bottom" />
+					</view>
+				</template>
 			</u-upload>
-		</view> -->
-
-
+		</view>
 		<view class="uploadingCommodityImg">
 			<u-upload :custom-btn="true" :action="action" :file-list="fileList" :show-tips="false" @on-remove="onRemove"
 				:before-upload="handleUpload" max-size="5242880" max-count="1" multiple del-bg-color="#565C62">
@@ -26,9 +32,7 @@
 				</view>
 			</u-upload>
 		</view>
-
-
-
+		
 		<view class="uploadingCommodityFrom">
 			<view class="uploadingCommodityFromCard">
 				<text class="sign">*<text class="name">品名</text></text>
@@ -36,21 +40,21 @@
 			</view>
 			<view class="uploadingCommodityFromCardRow">
 				<text class="sign">*<text class="name">规格</text></text>
-				<view class="uploadingCommodityFromCardRowInput" style="width: 300px;">
+				<view class="uploadingCommodityFromCardRowInput" style="width: 600rpx;">
 					<u-input type="text" v-model="uploadingCommodity.specification" placeholder="请输入"
 						:custom-style="customStyle" />
 				</view>
 			</view>
 			<view class="uploadingCommodityFromCardRow">
 				<text class="sign">*<text class="name">单位</text></text>
-				<view class="uploadingCommodityFromCardRowInput" style="width: 300px;">
+				<view class="uploadingCommodityFromCardRowInput" style="width: 600rpx;">
 					<u-input type="text" v-model="uploadingCommodity.unit" maxlength="10" placeholder="请输入"
 						:custom-style="customStyle" />
 				</view>
 			</view>
 			<view class="uploadingCommodityFromCardRow">
 				<text class="sign">*<text class="name">单价</text></text>
-				<view class="uploadingCommodityFromCardRowInput" style="width: 300px;">
+				<view class="uploadingCommodityFromCardRowInput" style="width: 600rpx;">
 					<u-input type="digit" v-model="uploadingCommodity.unitPrice" maxlength="10" placeholder="请输入"
 						:custom-style="customStyle" />
 				</view>
@@ -66,7 +70,7 @@
 		</view>
 
 
-		<view class="" style="position: absolute;bottom: 20px;width: 94%;justify-content: center;left: 3%;">
+		<view class="" style="position: absolute;bottom: 40rpx;width: 94%;justify-content: center;left: 3%;">
 			<u-button type="primary" hover-class="none" :custom-style="{backgroundColor:'#01BB74'}" class="form-btn-big"
 				@click="uploadingCommodityAdd" shape="circle">保存</u-button>
 		</view>
@@ -290,7 +294,7 @@
 			margin-top: 24rpx;
 			height: 16vh;
 			width: 34vw;
-			border-radius: 6px;
+			border-radius: 12rpx;
 
 			display: flex;
 			flex-direction: row;

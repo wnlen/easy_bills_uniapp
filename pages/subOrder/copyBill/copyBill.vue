@@ -1,10 +1,10 @@
 <template>
 	<view class="vh100 pb60 flex-col justify-center" style="background-color: #ffffff; overflow-x: hidden">
-		<u-navbar :custom-back="navBack" :border-bottom="false" :titleBold="true" title-color="#000000" title-size="34" bgColor="#ffffff">
+		<u-navbar :autoBack="true" :placeholder="true" :custom-back="navBack" :border-bottom="false" :titleBold="true" title-color="#000000" title-size="34" bgColor="#ffffff">
 			<view class="flex-row items-center justify-center ml48" style="width: 100%">
 				<view class="" style="font-size: 34rpx; font-weight: 510">一键开单</view>
 				<!-- <view @click="jumpVideo" class="flex-row justify-center items-center ml12"
-					style="border: 1.1px solid #01BB74;height: 22px;width:68px;border-radius: 8rpx;color: #01BB74;font-size: 11px;">
+					style="border: 2.2rpx solid #01BB74;height: 44rpx;width:136rpx;border-radius: 8rpx;color: #01BB74;font-size: 22rpx;">
 					使用方法<u-icon class="ml6" name="https://res-oss.elist.com.cn/wxImg/video.png" size="20"></u-icon>
 				</view> -->
 			</view>
@@ -14,7 +14,7 @@
 			<u-popup v-model="showShare" mode="center" width="80%" height="20%" border-radius="15">
 				<view class="relative" style="height: 100%; width: 100%">
 					<view class="flex-col justify-center items-center" style="height: 30%">提示</view>
-					<view class="flex-col justify-center items-center" style="height: 40%; font-size: 18px; font-weight: 600">请选择转发版本</view>
+					<view class="flex-col justify-center items-center" style="height: 40%; font-size: 36rpx; font-weight: 600">请选择转发版本</view>
 					<view class="u-border-top absolute al" style="bottom: 0; height: 30%; width: 100%">
 						<view class="u-border-right item flex-col justify-center items-center" style="height: 100%">
 							<button
@@ -50,11 +50,11 @@
 				<view class="" style="width: 60vw; height: 20vh">
 					<u-image style="" width="100%" height="100%" src="https://res-oss.elist.com.cn/wxImg/order/fscg.png"></u-image>
 				</view>
-				<view class="text-center mt20" style="color: #01bb74; font-size: 17px; font-weight: bold; width: 100%">发送成功!</view>
-				<view class="text-center mt10" style="color: #aaaaaa; font-size: 13px; font-weight: normal">电子单据已发送给收货人</view>
+				<view class="text-center mt20" style="color: #01bb74; font-size: 34rpx; font-weight: bold; width: 100%">发送成功!</view>
+				<view class="text-center mt10" style="color: #aaaaaa; font-size: 26rpx; font-weight: normal">电子单据已发送给收货人</view>
 				<view class="flex-row justify-center items-center mt40">
 					<button
-						style="background-color: #ffffff; width: 135.62px; height: '39.99px'; border-radius: 169.2px; color: #262626; border: 1px solid #01bb74"
+						style="background-color: #ffffff; width: 271.24rpx; height: '79.98rpx'; border-radius: 338.4rpx; color: #262626; border: 2rpx solid #01bb74"
 						class="mr10"
 						size="medium"
 						shape="circle"
@@ -63,7 +63,7 @@
 						<u-icon class="pr10" label-color="#01BB74" label="微信分享好友" label-pos="right" name="weixin-fill" color="#01BB74" size="30"></u-icon>
 					</button>
 
-					<button style="background-color: #01bb74; width: 135.62px; height: '39.99px'; border-radius: 169.2px; color: #ffffff" class="ml10" @click="ContinueBilling">
+					<button style="background-color: #01bb74; width: 271.24rpx; height: '79.98rpx'; border-radius: 338.4rpx; color: #ffffff" class="ml10" @click="ContinueBilling">
 						继续开单
 					</button>
 				</view>
@@ -71,11 +71,11 @@
 		</view>
 
 		<view v-if="!identity" class="flex-row justify-center items-center absolute" style="width: 100%; top: 30%">
-			<u-image src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" width="300px" height="200px"></u-image>
-			<view class="absolute" style="bottom: -40px; color: #aaaaaa; font-size: 14px">无开单权限~</view>
+			<u-image src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" width="600rpx" height="400rpx"></u-image>
+			<view class="absolute" style="bottom: -80rpx; color: #aaaaaa; font-size: 28rpx">无开单权限~</view>
 		</view>
 
-		<view class="hand relative" style="background-color: #01bb74; width: 100vw; height: 60px" v-if="vuex_userRole == 'D' && shareShow == false && identity">
+		<view class="hand relative" style="background-color: #01bb74; width: 100vw; height: 120rpx" v-if="vuex_userRole == 'D' && shareShow == false && identity">
 			<view
 				class="pd20 syst absolute"
 				style="
@@ -83,12 +83,12 @@
 					background-color: transparent;
 					height: 10vh;
 					color: #ffffff;
-					font-size: 20px;
+					font-size: 40rpx;
 					font-weight: bold;
 					display: flex;
 					flex-direction: row;
 					justify-content: center;
-					top: 1px;
+					top: 2rpx;
 				"
 			>
 				{{
@@ -104,13 +104,13 @@
 		</view>
 
 		<view class="form-wrap pt20 absolute" style="background-color: #ffffff" v-if="vuex_userRole == 'D' && shareShow == false && identity">
-			<view class="form-inner flex-col" style="font-size: 14px; background-color: #ffffff">
+			<view class="form-inner flex-col" style="font-size: 28rpx; background-color: #ffffff">
 				<view class="flex-col justify-left">
 					<u-image v-if="vuex_user.eorderLogo" :src="vuex_user.eorderLogo" width="152" height="60" mode="aspectFill" />
 					<view class="ft-bold pd10 handcolor relative">
 						发货单信息
 						<!-- 			<view @click="jumDrafts" class="absolute flex-row items-center justify-center"
-							style="width: 90px;height: 40px;border-radius: 193px;background: #EBEBEB;right: 12rpx;top: 0;">
+							style="width: 180rpx;height: 80rpx;border-radius: 386rpx;background: #EBEBEB;right: 12rpx;top: 0;">
 							<u-icon label="草稿箱" size="40"
 								name="https://res-oss.elist.com.cn/wxImg/order/drafts.svg"></u-icon>
 						</view> -->
@@ -236,7 +236,7 @@
 				</view>
 			</view>
 
-			<scroll-view enhanced :show-scrollbar="false" scroll-y="true" style="background-color: #f4f4f4; max-height: 335px; margin-top: 12rpx">
+			<scroll-view enhanced :show-scrollbar="false" scroll-y="true" style="background-color: #f4f4f4; max-height: 670rpx; margin-top: 12rpx">
 				<view style="width: 100%; background-color: #ffffff" v-for="(item, index) in orderItemList" :key="index" @click="merchandiseInventory(false)" class="mb12 mt12">
 					<view class="flex-row pt24 pb24" style="width: 100%">
 						<view style="width: 10%" class="ml20">品名:</view>
@@ -289,7 +289,7 @@
 				</view>
 			</view>
 
-			<view class="form-inner-card flex-col" style="font-size: 14px; background-color: #ffffff">
+			<view class="form-inner-card flex-col" style="font-size: 28rpx; background-color: #ffffff">
 				<view v-if="recentlyData" class="flex-row justify-between items-center mt45 ft-bold">
 					<text class="line34 handcolor">相关图片/票据</text>
 				</view>
@@ -316,7 +316,7 @@
 
 				<view class="flex-col mt45" style="width: 95%">
 					<text class="handcolor line34" style="font-weight: bold">备注</text>
-					<view class="mt40" style="border-radius: 3px; box-sizing: border-box; border: 0.5px solid rgba(216, 216, 216, 0.5)">
+					<view class="mt40" style="border-radius: 6rpx; box-sizing: border-box; border: 1rpx solid rgba(216, 216, 216, 0.5)">
 						<input
 							v-model="receipts.signatureDescr"
 							type="text"
@@ -477,10 +477,10 @@ export default {
 			PhoneFocus: false,
 			uNoticeBarlist: ['当年创建的订单请在12月31日前完成收款，逾期将无法处理~'],
 			SearchCustomStyleWechat: {
-				width: '150px',
-				height: '45px',
+				width: '300rpx',
+				height: '90rpx',
 				padding: '24rpx',
-				fontSize: '12px',
+				fontSize: '24rpx',
 				color: '#01BB74'
 			},
 			newImg: [],
@@ -1770,7 +1770,7 @@ export default {
 		height: 199.7%;
 		-webkit-transform: scale(0.5, 0.5);
 		transform: scale(0.5, 0.5);
-		// border: 1px solid #333;
+		// border: 2rpx solid #333;
 		z-index: 1;
 		border-radius: 100rpx;
 		background: transparent;
@@ -1780,22 +1780,22 @@ export default {
 <style>
 .handcolor {
 	color: #333333;
-	font-size: 16px;
+	font-size: 32rpx;
 }
 
 .handcolorClear {
 	color: #666666;
-	font-size: 14px;
+	font-size: 28rpx;
 }
 
 .textcolor {
 	color: #666666;
-	font-size: 14px;
+	font-size: 28rpx;
 	font-weight: 500;
 }
 
 .endcolor {
-	font-size: 14px;
+	font-size: 28rpx;
 	font-weight: 500;
 }
 

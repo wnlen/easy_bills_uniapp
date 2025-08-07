@@ -4,25 +4,25 @@
 		<z-paging ref="paging" use-virtual-list :force-close-inner-list="true"
 			:cell-height-mode="1===0?'fixed':'dynamic'" @virtualListChange="virtualListChange" @query="queryList">
 			<view slot="top">
-				<u-navbar :custom-back="returnIndex" :border-bottom="false" :titleBold="true" title-color="#000000"
+				<u-navbar :autoBack="true" :placeholder="true" :custom-back="returnIndex" :border-bottom="false" :titleBold="true" title-color="#000000"
 					title="待办事项" title-size="34" bgColor="#ffffff"></u-navbar>
 				<!-- <u-notice-bar mode="horizontal" :list="uNoticeBarlist" padding="6rpx 12rpx"></u-notice-bar> -->
 				<u-tabs item-width="50%" active-color="#01BB74" inactive-color="#333333" :list="tabList"
 					@change="TabClick" :current="tab"></u-tabs>
 			</view>
 
-			<view slot="empty" v-show="vuex_user.workData.identity=='3'&&tab==1||vuex_user.workData.identity=='4'&&tab==0||vuex_user.data.work=='0'||vuex_user.workData.identity=='1'" style="padding-bottom: 500px;">
+			<view slot="empty" v-show="vuex_user.workData.identity=='3'&&tab==1||vuex_user.workData.identity=='4'&&tab==0||vuex_user.data.work=='0'||vuex_user.workData.identity=='1'" style="padding-bottom: 1000rpx;">
 				<u-empty src="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg" icon-size="400"
 					text="暂无待办事项~" mode="search" margin-top="200"></u-empty>
 			</view>
 
-			<view slot="empty" v-show="vuex_user.workData.identity=='3'&&tab==0||vuex_user.workData.identity=='4'&&tab==1||vuex_user.data.work=='1'&&vuex_user.workData.identity!='1'" style="padding-bottom: 500px;">
+			<view slot="empty" v-show="vuex_user.workData.identity=='3'&&tab==0||vuex_user.workData.identity=='4'&&tab==1||vuex_user.data.work=='1'&&vuex_user.workData.identity!='1'" style="padding-bottom: 1000rpx;">
 				<u-empty src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" icon-size="400"
 					text="无查看权限~" mode="search" margin-top="200"></u-empty>
 			</view>
 
 
-			<view class="ml24 mr24 mt24" style="background-color: white;border-radius: 12px;" :index="index"
+			<view class="ml24 mr24 mt24" style="background-color: white;border-radius: 24rpx;" :index="index"
 				v-for="(item, index) in list" :key="item.id">
 				<u-swipe-action class="" style="" @open="open(index)" :options="options" @click="click(item)"
 					:show="item.show">
@@ -31,11 +31,11 @@
 						<view class="u-body-item u-flex u-row-between u-p-b-0">
 							<view class="flex-row justify-center items-center" v-if="item.genre=='D'">
 								<u-icon name="https://res-oss.elist.com.cn/wxImg/index/del.svg" size="40"></u-icon>
-								<text class="ml20" style="font-size: 16px;font-weight: bold;">删除申请</text>
+								<text class="ml20" style="font-size: 32rpx;font-weight: bold;">删除申请</text>
 							</view>
 							<view class="flex-row justify-center items-center" v-if="item.genre=='P'">
 								<u-icon name="https://res-oss.elist.com.cn/wxImg/index/play.svg" size="40"></u-icon>
-								<text class="ml20" style="font-size: 16px;font-weight: bold;">确认付款申请</text>
+								<text class="ml20" style="font-size: 32rpx;font-weight: bold;">确认付款申请</text>
 							</view>
 							<div style="float: right;">
 								<u-button :custom-style="customStyle" type="success" shape="circle"
@@ -43,7 +43,7 @@
 							</div>
 						</view>
 						<view class="">
-							<!-- 				<view class="flex-col mt25" style="font-size: 14px;">
+							<!-- 				<view class="flex-col mt25" style="font-size: 28rpx;">
 								<text style="color: #666666;"
 									v-if="item.genre=='D'">{{item.aName||item.aUser}}申请删除{{item.port=="E"?"付款单":(item.port=="S"?"收款单":"订单")}}</text>
 								<text style="color: #666666;"
@@ -51,7 +51,7 @@
 								<text style="color: #666666;" class="mt10">订单编号：<text
 										style="color: #01BB74;">{{item.orderNumber}}</text></text>
 							</view>
-							<view class="flex-col mt25" style="font-size: 14px;">
+							<view class="flex-col mt25" style="font-size: 28rpx;">
 								<text style="color: #666666;"
 									v-if="item.genre=='D'">{{item.aName||item.aUser}}申请删除{{item.port=="E"?"付款单":(item.port=="S"?"收款单":"订单")}}</text>
 								<text style="color: #666666;"
@@ -59,7 +59,7 @@
 								<text style="color: #666666;" class="mt10">订单编号：<text
 										style="color: #01BB74;">{{item.orderNumber}}</text></text>
 							</view> -->
-							<view class="flex-col mt25" style="font-size: 14px;" v-if="item.port=='D'||item.port=='R'">
+							<view class="flex-col mt25" style="font-size: 28rpx;" v-if="item.port=='D'||item.port=='R'">
 								<text style="color: #666666;"
 									v-if="item.genre=='D'">{{item.aName||item.aUser}}申请删除订单</text>
 								<text style="color: #666666;"
@@ -67,7 +67,7 @@
 								<text style="color: #666666;" class="mt10">订单编号：<text
 										style="color: #01BB74;">{{item.orderNumber}}</text></text>
 							</view>
-							<view class="flex-col mt25" style="font-size: 14px;" v-if="item.port=='E'||item.port=='S'">
+							<view class="flex-col mt25" style="font-size: 28rpx;" v-if="item.port=='E'||item.port=='S'">
 								<text style="color: #666666;"
 									v-if="item.genre=='D'">{{item.aName||item.aUser}}申请删除{{(item.port=="E"?"收款单":"付款单")}}</text>
 								<text style="color: #666666;"
@@ -76,7 +76,7 @@
 										style="color: #01BB74;">{{item.orderNumber}}</text></text>
 							</view>
 
-							<view class="flex-row mt15" style="font-size: 14px;" v-if="item.port=='D'||item.port=='R'">
+							<view class="flex-row mt15" style="font-size: 28rpx;" v-if="item.port=='D'||item.port=='R'">
 								<text style="color: #AAAAAA;" v-if="item.orderState<=1">订单状态：</text>
 								<text style="color: #AAAAAA;" v-if="item.orderState>1">订单数：</text>
 								<text style="color: #AAAAAA;"
@@ -84,16 +84,16 @@
 								<text style="color: #AAAAAA;" v-if="item.orderState>1">{{item.orderState}}</text>
 							</view>
 
-							<view class="flex-row mt15" style="font-size: 14px;" v-if="item.port=='E'||item.port=='S'">
+							<view class="flex-row mt15" style="font-size: 28rpx;" v-if="item.port=='E'||item.port=='S'">
 								<text style="color: #AAAAAA;">订单数量：</text>
 								<text style="color: #AAAAAA;">{{item.billQuantity}}</text>
 							</view>
-							<view class="flex-row mt15" style="font-size: 14px;" v-if="item.port=='E'||item.port=='S'">
+							<view class="flex-row mt15" style="font-size: 28rpx;" v-if="item.port=='E'||item.port=='S'">
 								<text style="color: #AAAAAA;">订单金额：</text>
 								<text style="color: #AAAAAA;">￥{{parseFloat(item.totalPrices).toFixed(2)}}</text>
 							</view>
 
-							<view class="flex-row mb36 mt15" style="font-size: 14px;">
+							<view class="flex-row mb36 mt15" style="font-size: 28rpx;">
 								<text style="color: #AAAAAA;">申请时间：</text>
 								<text
 									style="color: #AAAAAA;">{{$u.timeFormat(item.createTime, 'yyyy-mm-dd hh:MM:ss')}}</text>
@@ -132,10 +132,10 @@
 				}],
 				identity: false,
 				customStyle: {
-					width: "54.1px",
-					height: "22.7px",
-					borderRadius: "227px",
-					fontSize: "12px"
+					width: "108.2rpx",
+					height: "45.4rpx",
+					borderRadius: "454rpx",
+					fontSize: "24rpx"
 				},
 				tabList: [{
 					name: '送货单',
