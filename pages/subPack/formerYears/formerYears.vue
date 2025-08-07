@@ -9,7 +9,7 @@
 			@virtualListChange="virtualListChange"
 			@query="queryList"
 		>
-			<view slot="top">
+			<template #top>
 				<u-navbar
 					:autoBack="true"
 					:placeholder="true"
@@ -37,7 +37,7 @@
 						<text class="mr24" @click="jumpnView">数据分析></text>
 					</view>
 				</view>
-			</view>
+			</template>
 
 			<view class="order-simple-list pl30 pr30" v-show="current == 0 && !moneyCALL">
 				<div class="bg-white pd20 mt20 radius flex-col justify-center items-center cardShow">

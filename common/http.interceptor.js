@@ -57,13 +57,7 @@ export const initRequest = () => {
 		if (res?.data?.code === 401 && !hasRedirectedToLogin) {
 			hasRedirectedToLogin = true
 			setTimeout(() => (hasRedirectedToLogin = false), 2000)
-
-			// uni.$u.vuex('vuex_token', '')
-			// uni.$u.vuex('vuex_userRole', 'D')
-			// uni.$u.vuex('vuex_user', {
-			// 	phone: undefined
-			// })
-
+			
 			uni.navigateTo({
 				url: '/pages/subUser/login'
 			})

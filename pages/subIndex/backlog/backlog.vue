@@ -1,16 +1,22 @@
 <template>
 	<view class="bg-gray vh100">
-
 		<z-paging ref="paging" use-virtual-list :force-close-inner-list="true"
 			:cell-height-mode="1===0?'fixed':'dynamic'" @virtualListChange="virtualListChange" @query="queryList">
-			<view slot="top">
-				<u-navbar :autoBack="true" :placeholder="true" :custom-back="returnIndex" :border-bottom="false" :titleBold="true" title-color="#000000"
+			<template #top>
+				<u-navbar :autoBack="true" :placeholder="true" :border-bottom="false" :titleBold="true" title-color="#000000"
 					title="待办事项" title-size="34" bgColor="#ffffff"></u-navbar>
 				<!-- <u-notice-bar mode="horizontal" :list="uNoticeBarlist" padding="6rpx 12rpx"></u-notice-bar> -->
-				<u-tabs item-width="50%" active-color="#01BB74" inactive-color="#333333" :list="tabList"
-					@change="TabClick" :current="tab"></u-tabs>
-			</view>
-
+				
+					<u-tabs
+					  :list="tabList"
+					  :current="tab"
+					  :lineColor="'#01BB74'"
+					  :activeStyle="{ color: '#01BB74' }"
+					  :inactiveStyle="{ color: '#333333' }"
+					  :itemStyle="{ width: '50%',height: '90rpx',backgroundColor: '#fff'}"
+					  @change="TabClick"
+					/>
+			</template>
 			<view slot="empty" v-show="vuex_user.workData.identity=='3'&&tab==1||vuex_user.workData.identity=='4'&&tab==0||vuex_user.data.work=='0'||vuex_user.workData.identity=='1'" style="padding-bottom: 1000rpx;">
 				<u-empty icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg" iconSize="400rpx"
 					text="暂无待办事项~" mode="search" margin-top="200"></u-empty>
@@ -187,12 +193,9 @@
 				}
 			},
 			TabClick(item) {
-				this.tab = item
+				this.tab = item.index
 				console.log(item);
 				this.$refs.paging.refresh();
-			},
-			returnIndex() {
-				uni.navigateBack()
 			},
 			jumpDetails(item) {
 

@@ -12,7 +12,6 @@
 			@virtualListChange="virtualListChange"
 			@query="queryList"
 		>
-			<!-- <view slot="top"> -->
 			<u-sticky>
 				<u-navbar :autoBack="true" :placeholder="true">
 					<template #center>
@@ -884,7 +883,10 @@ export default {
 			let role = this.vuex_user.data.work == '1' ? 1 : 2;
 			console.log(this.vuex_user.data.work);
 			var that = this;
-			this.$u.post('edo/user/renewal?phone=' + this.vuex_user.phone + '&role=' + role).then((res) => {
+			this.$api.user.refreshUser({
+			  phone: this.vuex_user.phone,
+			  role: role
+			}).then((res) => {
 				console.log('权限', res.data.data);
 				let a = that.vuex_user;
 				a.ac = res.data.data.ac;
