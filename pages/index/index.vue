@@ -271,13 +271,7 @@ export default {
 		// #ifdef MP-WEIXIN
 		wx.loadFontFace({
 			family: '阿里妈妈数黑体 Bold',
-			source: 'url("https://res-oss.elist.com.cn/wxImg/fonts/aliBold/Xizk3ttTNIiT.woff2")',
-			success(res) {
-			  console.log('loadFontFace success = ', res)
-			},
-			fail: function(res) {
-			  console.log('loadFontFace fail = ', res)
-			}
+			source: 'url("https://res-oss.elist.com.cn/wxImg/fonts/aliBold/Xizk3ttTNIiT.woff2")'
 		});
 		// #endif
 	},
@@ -816,7 +810,7 @@ export default {
 	width: 260rpx;
 	background: #fff;
 	border-radius: 214rpx;
-	border: 1px solid #fdb728;
+	border: 2rpx solid #fdb728;
 	color: #fdb728;
 	> view {
 		line-height: 54rpx;
@@ -833,7 +827,7 @@ export default {
 .indexbox {
 	width: 294rpx;
 	height: 146rpx;
-	border-radius: 13.77px;
+	border-radius: 27.54rpx;
 
 	image {
 		width: 72rpx;
@@ -842,19 +836,19 @@ export default {
 
 .indexbox1 {
 	background: #fff9ec;
-	border: 1.1px solid #ff8f1f;
+	border: 2.2rpx solid #ff8f1f;
 	color: #ff8f1f;
 }
 
 .indexbox2 {
 	background: #fff9ec;
-	border: 1.1px solid #ffc300;
+	border: 2.2rpx solid #ffc300;
 	color: #ffc300;
 }
 
 .indexbox3 {
 	background: #ecf3ff;
-	border: 1.1px solid #3465ff;
+	border: 2.2rpx solid #3465ff;
 	color: #3465ff;
 }
 </style>

@@ -8,9 +8,8 @@
 			<view class="handTab">
 				<view class="Tab">
 					<u-tabs
-						style="height: 40px;"
 						:inactiveStyle="{ color: '#D6AE83' }"
-						:itemStyle="{ backgroundColor: 'transparent' }"
+						:itemStyle="{ backgroundColor: 'transparent',height:'40px' }"
 						:activeStyle="{ color: '#D6AE83' }"
 						lineColor="#D6AE83"
 						:list="TabList"

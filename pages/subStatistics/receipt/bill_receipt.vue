@@ -74,28 +74,30 @@
 					<view class="billCardTimeStart">
 						<text class="mr10" style="color: #666666">开始日期</text>
 						<u-icon name="arrow-down-fill" size="10"></u-icon>
-						<view @click="time.startShow = true" class="ml24" style="border-box;border: 0.5px solid #999999;padding: 12rpx;border-radius: 3px;">
-							{{ time.start }}
+						<view @click="time.startShow=true" class="ml24"
+							style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
+							{{time.start}}
+
 						</view>
 					</view>
 					<view class="billCardTimeEnd">
 						<text class="mr10" style="color: #666666">结束日期</text>
 						<u-icon name="arrow-down-fill" size="10"></u-icon>
-						<view @click="time.endShow = true" class="ml24" style="border-box;border: 0.5px solid #999999;padding: 12rpx;border-radius: 3px;">
-							{{ time.end }}
+						<view @click="time.endShow=true" class="ml24"
+							style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
+							{{time.end}}
 						</view>
 					</view>
 				</view>
-			</view>
+
+			</template>
 
 			<view class="OrderCard" v-for="(item, index) in CBills" :key="item.id" @click="clickJump(item)">
-				<view class="OrderCard_Hand" @tap.stop v-if="item.billState == 0">
-					<view
-						class="flex-col justify-center items-center mr15 ml24"
-						:style="{ backgroundColor: item.check ? '#01BB74' : '#ffffff' }"
-						@click="checkboxGroupChange(item, index)"
-						style="border-radius: 50px; height: 20px; width: 20px; border: 1px solid #aaaaaa"
-					>
+				<view class="OrderCard_Hand" @tap.stop v-if="item.billState==0">
+					<view class="flex-col justify-center items-center mr15 ml24"
+						:style="{backgroundColor:item.check?'#01BB74':'#ffffff'}"
+						@click="checkboxGroupChange(item,index)"
+						style="border-radius: 100rpx;height: 40rpx;width: 40rpx;border: 2rpx solid #AAAAAA;">
 						<u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
 					</view>
 					<view class="OrderCard_Hand_time">
@@ -308,8 +310,8 @@ export default {
 				img: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADYAAAA2CAYAAACMRWrdAAAAAXNSR0IArs4c6QAAAARzQklUCAgICHwIZIgAAAF0SURBVGiB7dpBTsJAFAbg/01I45IjcAN7A2CNJHIC9ATiQsKOuCO4EG4gJ9BEXKM36BF6hG5tzIwLFyakbyAygyX5v+3rTN9Lm6bvtQAREf0Sb/RtcgWH4ZFy2Z+4As594GK+UA9RF6/HI4h5jJJYONfozZ6qAkZdItKOlU0wnrtJL+wUCHItpBdWyi2gL6yBHCXutaD/4fE8aqKRdGBMM3hah7C2wJfJMJjl/50KEREREZ2eHS/BkxYSDAG0jpLNvsQVcHaF3kOmHqIufp10YLCJklgoFl30Z+9VIb0fM+4mVj7BCKZaSC/MSb16sCriCi3kKUzvTmvDylIL7Ri/3aUQM6zh1ctRYsUOmoiIiIj+YncH3bBpkM9I1hboz18O3mdPemE/Y4ENgo4FXIbys4vBQu2jQtH7sQRTBJ91SIrk7DLsntV8jWYryhnFnUfZd4vnrwGsopzR2Tj7bvE/PNbjEUTaQTpocQWsLLWpEhERxfQNdghWBaM5y08AAAAASUVORK5CYII='
 			},
 			customStyleBill: {
-				width: '180px',
-				height: '40px',
+				width: '360rpx',
+				height: '80rpx',
 				backgroundColor: '#00B578',
 				boder: 'none',
 				color: '#ffffff'
@@ -319,17 +321,17 @@ export default {
 					text: '修改',
 					style: {
 						backgroundColor: '#FF8F1F',
-						borderRadius: '0px 0px 0px 0px'
+						borderRadius: '0rpx 0rpx 0rpx 0rpx'
 					},
-					radius: '0px 0px 0px 0px'
+					radius: '0rpx 0rpx 0rpx 0rpx'
 				},
 				{
 					text: '删除',
 					style: {
 						backgroundColor: '#FA5151',
-						borderRadius: '0px 0px 6px 0px'
+						borderRadius: '0rpx 0rpx 12rpx 0rpx'
 					},
-					radius: '0px 0px 0px 0px'
+					radius: '0rpx 0rpx 0rpx 0rpx'
 				}
 			],
 			operationBill: {
@@ -365,7 +367,7 @@ export default {
 				paddingBottom: '12rpx',
 				paddingLeft: '24rpx',
 				paddingRight: '24rpx',
-				fontSize: '12px',
+				fontSize: '24rpx',
 				color: '#666666'
 			},
 			identity: false,
@@ -912,7 +914,7 @@ export default {
 
 		.fixedBarLeftTop {
 			height: 50%;
-			font-size: 14px;
+			font-size: 28rpx;
 			display: flex;
 			flex-direction: row;
 			align-items: center;
@@ -920,7 +922,7 @@ export default {
 			padding-left: 24rpx;
 
 			text {
-				font-size: 20px;
+				font-size: 40rpx;
 				color: #01bb74;
 			}
 		}
@@ -934,7 +936,7 @@ export default {
 			padding-left: 24rpx;
 
 			text {
-				font-size: 11px;
+				font-size: 22rpx;
 				color: #fdb728;
 			}
 		}
@@ -964,12 +966,12 @@ export default {
 	margin-left: 24rpx;
 	margin-right: 24rpx;
 	border-radius: 15rpx;
-	box-shadow: 0px 3.5px 5px 0px rgba(51, 51, 51, 0.1);
+	box-shadow: 0rpx 7rpx 10rpx 0rpx rgba(51, 51, 51, 0.1);
 
 	background-color: white;
 
-	// width: 100px;
-	// height: 100px;
+	// width: 200rpx;
+	// height: 200rpx;
 
 	.OrderCard_Hand {
 		display: flex;
@@ -979,12 +981,12 @@ export default {
 
 		.OrderCard_Hand_time {
 			color: #666666;
-			font-size: 15px;
+			font-size: 30rpx;
 		}
 	}
 
 	.OrderCard_body {
-		font-size: 18px;
+		font-size: 36rpx;
 		font-weight: normal;
 		text-align: left;
 		color: #333333;
@@ -995,7 +997,7 @@ export default {
 	}
 
 	.OrderCard_body_ply {
-		font-size: 18px;
+		font-size: 36rpx;
 		font-weight: normal;
 		text-align: left;
 		color: #333333;
@@ -1010,21 +1012,21 @@ export default {
 		margin-right: 24rpx;
 		// margin-top: 15rpx;
 
-		padding: 15px;
+		padding: 30rpx;
 
-		border-radius: 6px;
+		border-radius: 12rpx;
 
 		background: rgba(244, 244, 244, 0.35);
 
 		color: #999999;
 
-		// height: 100px;
+		// height: 200rpx;
 
 		.OrderCard_card_a {
 			display: flex;
 			flex-direction: row;
 			align-items: center;
-			padding-bottom: 5px;
+			padding-bottom: 10rpx;
 
 			.a_t {
 				width: 80%;
@@ -1050,7 +1052,7 @@ export default {
 	.OrderCard_end {
 		// margin-top: 24rpx;
 		width: 100%;
-		height: 50px;
+		height: 100rpx;
 
 		display: flex;
 		flex-direction: row;
@@ -1058,10 +1060,10 @@ export default {
 		align-items: center;
 
 		// .OrderCard_end_slider {
-		// 	height: 50px;
+		// 	height: 100rpx;
 
 		// 	.detail {
-		// 		height: 50px;
+		// 		height: 100rpx;
 		// 		width: 100%;
 
 		// 		position: relative;
@@ -1088,7 +1090,7 @@ export default {
 
 	background-color: #ffffff;
 
-	border-radius: 6px;
+	border-radius: 12rpx;
 
 	margin: 24rpx;
 
@@ -1105,7 +1107,7 @@ export default {
 
 	background-color: #ffffff;
 
-	border-radius: 6px;
+	border-radius: 12rpx;
 
 	margin-right: 24rpx;
 	margin-left: 24rpx;
@@ -1117,7 +1119,7 @@ export default {
 
 	height: 6vh;
 
-	font-size: 14px;
+	font-size: 28rpx;
 
 	.billCardTimeStart {
 		width: 50%;
@@ -1126,7 +1128,7 @@ export default {
 		flex-direction: row;
 		align-items: center;
 		justify-content: left;
-		font-size: 14px;
+		font-size: 28rpx;
 	}
 
 	.billCardTimeEnd {
@@ -1136,17 +1138,17 @@ export default {
 		flex-direction: row;
 		align-items: center;
 		justify-content: left;
-		font-size: 14px;
+		font-size: 28rpx;
 
 		padding-left: 12rpx;
 	}
 
 	.timeInput {
 		box-sizing: border-box;
-		border: 0.5px solid #d8d8d8;
-		width: 100px;
-		border-radius: 3px;
-		height: 30px;
+		border: 1rpx solid #d8d8d8;
+		width: 200rpx;
+		border-radius: 6rpx;
+		height: 60rpx;
 		margin-left: 24rpx;
 		text-align: center;
 	}
@@ -1159,7 +1161,7 @@ export default {
 }
 
 .u-demo-block__title {
-	padding: 10px 0 2px 15px;
+	padding: 20rpx 0 4rpx 30rpx;
 }
 
 .swipe-action {
@@ -1167,10 +1169,11 @@ export default {
 		padding: 25rpx 0;
 
 		&__text {
-			font-size: 15px;
+			font-size: 30rpx;
 			color: $u-main-color;
 			padding-left: 30rpx;
 		}
 	}
 }
 </style>
+

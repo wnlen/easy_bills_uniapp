@@ -23,10 +23,7 @@
 				<up-navbar title="查询订单" :placeholder="true" leftIconColor="#fff" :titleBold="true" :titleStyle="titleStyle"></up-navbar>
 				<!-- #endif -->
 				<view style="width: 100%">
-					<!-- <u-tabs :item-style="{paddingBottom: '40rpx'}" :line-height="7"
-						gutter="55" :list="tabsList" v-model="current" :is-scroll="true" :current="current"
-						active-style="{'color':'#0FB076'}" @change="change" height="70"></u-tabs> -->
-					<up-tabs
+					<u-tabs
 						:list="tabsList"
 						lineWidth="30"
 						lineHeight="7"
@@ -44,7 +41,7 @@
 						itemStyle="padding-left: 30rpx; padding-right: 30rpx; height: 70rpx;font-size:32rpx;paddingBottom:20rpx;backgroundColor:#fff"
 						:current="current"
 						@change="changeTab"
-					></up-tabs>
+					></u-tabs>
 				</view>
 			</template>
 
