@@ -56,15 +56,16 @@
 						{{ vuex_userRole === 'R' ? '供应商选择' : '客户选择' }}
 					</text>
 					<u-icon class="ml10 mr10" name="/static/img/list/sx.svg" size="40"></u-icon>
-					<u-input
-						class="my-input"
-						style="width: 100%"
-						@input="InputTextOne"
-						v-model="InputOneText"
-						:custom-style="{ backgroundColor: 'transparent' }"
-						:placeholder="vuex_userRole === 'R' ? '请选择供应商' : '请选择客户'"
-						clearable="true"
-					/>
+					<view class="my-input">
+						<u-input
+							@change="InputTextOne"
+							v-model="InputOneText"
+							:customStyle="{ backgroundColor: 'transparent' }"
+							:placeholder="vuex_userRole === 'R' ? '请选择供应商' : '请选择客户'"
+							:clearable="true"
+						></u-input>
+					</view>
+					
 					<view class="flex-col justify-center items-center" style="height: 100%">
 						<u-icon class="ml40" name="/static/img/list/lxr.svg" size="45" @click="openTableChoice"></u-icon>
 					</view>

@@ -67,7 +67,7 @@
 						<view
 							@click="selectOrder"
 							class="flex-row justify-center items-center"
-							style="width: 62px; height: 24px; border-radius: 45px; background: #01bb74; color: #ffffff; font-size: 12px"
+							style="width: 124rpx; height: 48rpx; border-radius: 90rpx; background: #01bb74; color: #ffffff; font-size: 24rpx"
 						>
 							选择&nbsp;&gt;
 						</view>
@@ -159,17 +159,15 @@
 				<!-- #endif -->
 
 				<view class="FromFileTitle">备注说明</view>
-				<view class="FromFileTitleRemark" style="">
+				<view class="FromFileTitleRemark" style="height:'100%'">
 					<u-input
 						type="textarea"
 						border="none"
-						class=""
 						placeholder="请填写备注，字数不超过50字"
 						:modelValue="billFrom.billRemark"
-						placeholder-class="placeholder_class"
+						placeholderClass="placeholder_class"
 						maxlength="50"
-						height="100%"
-					/>
+					></u-input>
 				</view>
 			</view>
 
@@ -211,10 +209,10 @@
 				<u-image style="" width="100%" height="100%"
 					src="https://res-oss.elist.com.cn/wxImg/order/fscg.png"></u-image>
 			</view>
-			<view class="text-center mt20" style="color:#01BB74;font-size: 17px;font-weight: bold;width: 100%;">
+			<view class="text-center mt20" style="color:#01BB74;font-size: 34rpx;font-weight: bold;width: 100%;">
 				发送成功!
 			</view>
-			<view class="text-center mt10" style="color:#AAAAAA;font-size: 13px;font-weight: normal;">
+			<view class="text-center mt10" style="color:#AAAAAA;font-size: 26rpx;font-weight: normal;">
 				电子单据已发送给收货人
 			</view>
 			<view class="flex-row justify-center items-center mt40">
@@ -682,9 +680,9 @@ export default {
 		padding-bottom: 20%;
 
 		.BillReturnBtn {
-			width: 189.12px;
-			height: 44.43px;
-			border-radius: 188px;
+			width: 378.24rpx;
+			height: 88.86rpx;
+			border-radius: 376rpx;
 			background-color: #01bb74;
 			color: white;
 		}
@@ -722,8 +720,8 @@ export default {
 		padding-top: 30rpx;
 		border-style: dashed;
 		border-color: #d8d8d8;
-		border-width: 1px;
-		border-radius: 6px;
+		border-width: 2rpx;
+		border-radius: 12rpx;
 	}
 
 	.FilePdfList {
@@ -760,7 +758,7 @@ export default {
 	justify-content: left;
 	margin-top: 24rpx;
 
-	height: 300px;
+	height: 600rpx;
 
 	background-color: white;
 
@@ -819,11 +817,11 @@ export default {
 	.FromFileTitleRemark {
 		padding-bottom: 48rpx;
 		background-color: #f4f4f4;
-		border-radius: 6px;
+		border-radius: 12rpx;
 		margin-bottom: 24rpx;
 		padding-left: 24rpx;
 		padding-top: 24rpx;
-		height: 100px;
+		height: 200rpx;
 	}
 }
 

@@ -7,13 +7,14 @@
 					<view class="flex-row items-center justify-center pl10 pr10" style="background: #ffffff; border-radius: 254rpx; width: 75%; height: 60rpx">
 						<u-icon name="search" color="#01BB74" size="40rpx"></u-icon>
 						<u-input
-							:custom-style="{ backgroundColor: 'transparent', marginLeft: '10rpx' }"
+							:customStyle="{ backgroundColor: 'transparent', marginLeft: '10rpx' }"
 							:modelValue="SearchInventory"
 							placeholder="请输入商品名称/规格"
 							:clearable="true"
 							border="none"
 							@change="SearchInventoryChange"
-						/>
+						>
+						</u-input>
 					</view>
 					<u-button @click="jumpAddCommodity" :custom-style="SearchCustomStyle" type="success">添加商品</u-button>
 				</view>

@@ -58,7 +58,7 @@
 					<view class="InputOne">
 						<u-input
 							:modelValue="customer"
-							:custom-style="{ backgroundColor: 'transparent' }"
+							:customStyle="{ backgroundColor: 'transparent' }"
 							:placeholder="userStore.userRole === 'R' ? '请选择供应商' : '请选择客户'"
 							:clearable="true"
 							border="none"
@@ -85,7 +85,7 @@
 					<view class="InputOne" v-if="showTage !== '1'">
 						<u-input
 							:modelValue="field"
-							:custom-style="{ backgroundColor: 'transparent' }"
+							:customStyle="{ backgroundColor: 'transparent' }"
 							placeholder="输入关键字进行检索"
 							:clearable="true"
 							border="none"
@@ -111,7 +111,7 @@
 						<u-input
 							:modelValue="field"
 							maxlength="11"
-							:custom-style="{ backgroundColor: 'transparent' }"
+							:customStyle="{ backgroundColor: 'transparent' }"
 							placeholder="输入号码进行检索"
 							:clearable="true"
 							border="none"
