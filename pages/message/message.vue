@@ -4,6 +4,7 @@
 			<template #left>
 			</template>
 		</u-navbar>
+		<view>
 			<u-notice-bar direction="column" :text="list2"></u-notice-bar>
 		</view>
 
@@ -19,7 +20,7 @@
 					<view class="flex-row" style="width: 100%">
 						<view class="" style="width: 60%; font-size: 32rpx; margin-top: 4rpx">
 							<text>{{ item.name }}</text>
-						</view
+						</view>
 						<view class="" style="width: 40%;">
 							<text class="" style="font-size: 24rpx;color: #cccccc;margin-right: 0;width:20%;">
 								{{item.time}}
