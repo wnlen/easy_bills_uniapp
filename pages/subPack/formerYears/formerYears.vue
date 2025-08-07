@@ -26,8 +26,8 @@
 					<view class="absolute flex-col justify-center items-center" @click="selectionIconClick" style="width: 30%; left: 0; height: 100%">
 						<liu-data-select elementId="data-select1" :dataList="dataList" @change="dropdown" color="#965510">
 							<view id="data-select1" class="btn-info flex-row justify-center">
-								<u-icon class="mr10" v-show="!selectionIcon" name="arrow-down-fill" color=" #965510" size="15"></u-icon>
-								<u-icon class="mr10" v-show="selectionIcon" name="arrow-up-fill" color=" #965510" size="15"></u-icon>
+								<u-icon class="mr10" v-if="!selectionIcon" name="arrow-down-fill" color=" #965510" size="15"></u-icon>
+								<u-icon class="mr10" v-else name="arrow-up-fill" color=" #965510" size="15"></u-icon>
 								<text style="color: #965510">{{ dropdownName }}</text>
 								<text style="color: #965510" v-if="dropdownName != '请选择'">年</text>
 							</view>
@@ -45,7 +45,7 @@
 						<text class="ft30 ft-gray mb18" style="color: #999999">累计金额</text>
 						<view class="">
 							<text class="ft42 ft-bold">￥</text>
-							<u-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="40" decimals="2" bold></u-count-to>
+							<u-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="40rpx" decimals="2" bold></u-count-to>
 						</view>
 					</view>
 
@@ -58,7 +58,7 @@
 								color: showOrderTage == '0' ? '#965510' : '#999999',
 								border: '2rpx solid ' + (showOrderTage == '0' ? '#965510' : '#999999')
 							}"
-							style="color: #ffffff; background-color: #965510; width: 20%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
+							style="width: 20%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
 						>
 							全部
 						</view>
@@ -70,7 +70,7 @@
 								color: showOrderTage == '1' ? '#965510' : '#999999',
 								border: '2rpx solid ' + (showOrderTage == '1' ? '#965510' : '#999999')
 							}"
-							style="color: #965510; background-color: #f2fbf8; width: 20%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
+							style="width: 20%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
 						>
 							{{ vuex_userRole == 'R' ? '待确收' : '待签收' }}
 						</view>
@@ -82,7 +82,7 @@
 								color: showOrderTage == '2' ? '#965510' : '#999999',
 								border: '2rpx solid ' + (showOrderTage == '2' ? '#965510' : '#999999')
 							}"
-							style="color: #965510; background-color: #f2fbf8; width: 20%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
+							style="width: 20%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
 						>
 							已签收
 						</view>
@@ -94,7 +94,7 @@
 								color: showOrderTage == '3' ? '#965510' : '#999999',
 								border: '2rpx solid ' + (showOrderTage == '3' ? '#965510' : '#999999')
 							}"
-							style="color: #965510; background-color: #f2fbf8; width: 20%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
+							style="width: 20%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
 						>
 							{{ vuex_userRole == 'R' ? '已付款' : '已收款' }}
 						</view>
@@ -103,16 +103,12 @@
 					<div class="flex-row items-center radius pr20 mr10 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%">
 						<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
 							<text class="ft11 ft-gray ml36" @click="CustomerGet">{{ vuex_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
-							<u-input
-								border="none"
-								class="ml24"
-								style="width: 100%"
-								@input="changeCustomer"
-								:modelValue="customer"
-								:placeholder="vuex_userRole == 'R' ? '请选择供应商' : '请选择客户'"
-							/>
+							<view class="ml24">
+								<u-input border="none" @change="changeCustomer" :modelValue="customer" :placeholder="vuex_userRole == 'R' ? '请选择供应商' : '请选择客户'"></u-input>
+							</view>
+
 							<view class="flex-col justify-center items-center" style="height: 5vh">
-								<u-icon class="ml40" name="/static/img/list/lxr.svg" size="45" @click="CustomerGet"></u-icon>
+								<u-icon class="ml40" name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon>
 							</view>
 						</div>
 					</div>
@@ -122,26 +118,27 @@
 							<text class="ft11 ft-gray ml36" @click="filtrateGet">{{ Title }}</text>
 							<u-icon class="ml10" name="arrow-down-fill" size="10"></u-icon>
 
-							<u-input
-								border="none"
-								v-if="showTage != '1'"
-								class="ml24 my-input"
-								style="width: 100%"
-								:modelValue="field"
-								@input="searchListenner"
-								placeholder="输入关键字进行检索"
-							/>
-
-							<u-input
-								border="none"
-								v-if="showTage == '1'"
-								maxlength="11"
-								class="ml24 my-input"
-								style="width: 100%"
-								:modelValue="field"
-								@input="searchListenner"
-								placeholder="输入号码进行检索"
-							/>
+							<view class="ml24 my-input">
+								<u-input
+									border="none"
+									v-if="showTage != '1'"
+									:modelValue="field"
+									@change="searchListenner"
+									placeholder="输入关键字进行检索"
+								>
+								</u-input>
+							</view>
+							<view class="ml24 my-input">
+								<u-input
+									border="none"
+									v-if="showTage == '1'"
+									maxlength="11"
+									:modelValue="field"
+									@change="searchListenner"
+									placeholder="输入号码进行检索"
+								>
+								</u-input>
+							</view>
 						</div>
 					</div>
 				</div>

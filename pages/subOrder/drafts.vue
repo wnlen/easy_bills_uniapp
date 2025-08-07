@@ -8,7 +8,7 @@
 			@virtualListChange="virtualListChange"
 			@query="queryList"
 		>
-			<view slot="empty" style="padding-bottom: 100px">
+			<view slot="empty" style="padding-bottom: 200rpx">
 				<u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" label-color="#AAAAAA" label="暂无记录" size="180"></u-icon>
 			</view>
 			<view class="Card cardShow">
@@ -18,16 +18,18 @@
 							{{ vuex_userRole === 'R' ? '供应商选择' : '客户选择' }}
 						</text>
 						<u-icon class="ml10 mr10" name="/static/img/list/sx.svg" size="40"></u-icon>
-						<u-input
-							border="none"
-							class="my-input"
-							style="width: 100%"
-							@input="CustomerGetChange"
-							:modelValue="customer"
-							:custom-style="{ backgroundColor: 'transparent' }"
-							:placeholder="vuex_userRole === 'R' ? '请选择供应商' : '请选择客户'"
-							clearable="true"
-						/>
+						<view class="my-input">
+							<u-input
+								border="none"
+								@change="CustomerGetChange"
+								:modelValue="customer"
+								:customStyle="{ backgroundColor: 'transparent' }"
+								:placeholder="vuex_userRole === 'R' ? '请选择供应商' : '请选择客户'"
+								:clearable="true"
+							>
+							</u-input>
+						</view>
+						
 						<view class="flex-col justify-center items-center" style="height: 5vh">
 							<u-icon class="ml40" name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon>
 						</view>
@@ -38,25 +40,28 @@
 							{{ Title }}
 						</text>
 						<u-icon class="ml10 mr10" name="/static/img/list/sj.svg" size="40"></u-icon>
-						<u-input
-							border="none"
-							v-if="showTage !== '1'"
-							class="my-input"
-							style="width: 100%"
-							:modelValue="field"
-							@input="searchListenner"
-							placeholder="输入关键字进行检索"
-						/>
-						<u-input
-							border="none"
-							v-if="showTage === '1'"
-							maxlength="11"
-							class="ml24 my-input"
-							style="width: 100%"
-							:modelValue="field"
-							@input="searchListenner"
-							placeholder="输入号码进行检索"
-						/>
+						<view class="my-input">
+							<u-input
+								border="none"
+								v-if="showTage !== '1'"
+								:modelValue="field"
+								@change="searchListenner"
+								placeholder="输入关键字进行检索"
+							>
+							</u-input>
+						</view>
+						<view class="ml24 my-input">
+							<u-input
+								border="none"
+								v-if="showTage === '1'"
+								maxlength="11"
+								:modelValue="field"
+								@change="searchListenner"
+								placeholder="输入号码进行检索"
+							>
+							</u-input>
+						</view>
+						
 						<view class="flex-col justify-center items-center" style="height: 5vh">
 							<u-icon class="ml40" name="/static/img/list/ss.svg" size="45rpx"></u-icon>
 						</view>
@@ -75,7 +80,7 @@
 						:style="{ backgroundColor: item.check ? '#01BB74' : '#ffffff' }"
 						@click="checkboxGroupChange(item, index)"
 						@tap.stop
-						style="border-radius: 50px; height: 20px; width: 20px; border: 1px solid #aaaaaa"
+						style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 					>
 						<u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
 					</view>
@@ -101,7 +106,7 @@
 
 					<text class="ft-lighgray mt10 line25 flex-row items-center justify-end">
 						<text>订单金额：</text>
-						<text style="color: black; font-size: 12px">￥</text>
+						<text style="color: black; font-size: 24rpx">￥</text>
 						<text class="ft35" style="color: black; font-weight: 500">{{ item.price.toFixed(2) }}</text>
 					</text>
 
@@ -119,22 +124,22 @@
 
 			<view class="NullView" style="height: 5vh; background-color: transparent"></view>
 
-			<view class="" slot="bottom" style="background-color: #ffffff; box-shadow: 0px 2px 3px 0px rgba(51, 51, 51, 0.2); bottom: 0">
+			<view class="" slot="bottom" style="background-color: #ffffff; box-shadow: 0rpx 4rpx 6rpx 0rpx rgba(51, 51, 51, 0.2); bottom: 0">
 				<view class="flex-row justify-between items-center" style="height: 10vh">
 					<view class="flex-row items-center vw100">
 						<view class="items-center flex-row" style="width: 92%; display: flex; justify-content: space-between">
-							<view class="" style="text-align: left; font-size: 12px; color: #01bb74" :disabled="false">
+							<view class="" style="text-align: left; font-size: 24rpx; color: #01bb74" :disabled="false">
 								<view class="ml24" style="">
 									<view class="flex-row justify-center items-center">
 										<view
 											class="flex-col justify-center items-center"
 											@click="checkedAll"
 											:style="{ backgroundColor: checked ? '#01BB74' : '#ffffff' }"
-											style="border-radius: 50px; height: 20px; width: 20px; border: 1px solid #aaaaaa"
+											style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 										>
 											<u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
 										</view>
-										<view class="ml15" style="color: #333333; font-size: 14px">全选</view>
+										<view class="ml15" style="color: #333333; font-size: 28rpx">全选</view>
 									</view>
 								</view>
 							</view>
@@ -142,7 +147,7 @@
 								:disabled="!hasCheck"
 								@click="draftsDel"
 								class="flex-row justify-center items-center"
-								style="width: 140px; height: 40px; border-radius: 45px; opacity: 1; background-color: #01bb74; color: white; float: right; font-weight: 600"
+								style="width: 280rpx; height: 80rpx; border-radius: 90rpx; opacity: 1; background-color: #01bb74; color: white; float: right; font-weight: 600"
 							>
 								删除
 							</view>
@@ -160,10 +165,10 @@
 						<text
 							style="
 								font-family: Source Han Sans;
-								font-size: 14px;
+								font-size: 28rpx;
 								font-weight: bold;
-								line-height: 21.12px;
-								letter-spacing: 0px;
+								line-height: 42.24rpx;
+								letter-spacing: 0rpx;
 								font-feature-settings: 'kern' on;
 								color: #333333;
 							"
@@ -192,10 +197,10 @@
 							<text
 								style="
 									font-family: Source Han Sans;
-									font-size: 14px;
+									font-size: 28rpx;
 									font-weight: bold;
-									line-height: 21.12px;
-									letter-spacing: 0px;
+									line-height: 42.24rpx;
+									letter-spacing: 0rpx;
 									font-feature-settings: 'kern' on;
 									color: #333333;
 								"
@@ -208,7 +213,7 @@
 									class="flex-col justify-center items-center text-center mr24"
 									@click="Filtrate('0')"
 									:style="{ backgroundColor: showTage == '0' ? '#01BB74' : '#F2FBF8', color: showTage == '0' ? '#ffffff' : '#01BB74' }"
-									style="color: #ffffff; background-color: #01bb74; width: 30%; height: 27px; border-radius: 6px; height: 27.42px"
+									style="color: #ffffff; background-color: #01bb74; width: 30%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
 								>
 									联系人
 								</view>
@@ -216,7 +221,7 @@
 									class="flex-col justify-center items-center text-center mr24"
 									@click="Filtrate('1')"
 									:style="{ backgroundColor: showTage == '1' ? '#01BB74' : '#F2FBF8', color: showTage == '1' ? '#ffffff' : '#01BB74' }"
-									style="color: #01bb74; background-color: #f2fbf8; width: 30%; height: 27px; border-radius: 6px; height: 27.42px"
+									style="color: #01bb74; background-color: #f2fbf8; width: 30%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
 								>
 									联系号码
 								</view>
@@ -224,7 +229,7 @@
 									class="flex-col justify-center items-center text-center"
 									@click="Filtrate('2')"
 									:style="{ backgroundColor: showTage == '2' ? '#01BB74' : '#F2FBF8', color: showTage == '2' ? '#ffffff' : '#01BB74' }"
-									style="color: #01bb74; background-color: #f2fbf8; width: 30%; height: 27px; border-radius: 6px; height: 27.42px"
+									style="color: #01bb74; background-color: #f2fbf8; width: 30%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
 								>
 									{{ vuex_userRole == 'R' ? '收货地址' : '收货地址' }}
 								</view>
@@ -234,7 +239,7 @@
 									class="flex-col justify-center items-center text-center"
 									@click="Filtrate('3')"
 									:style="{ backgroundColor: showTage == '3' ? '#01BB74' : '#F2FBF8', color: showTage == '3' ? '#ffffff' : '#01BB74' }"
-									style="color: #01bb74; background-color: #f2fbf8; width: 30%; height: 27px; border-radius: 6px; height: 27.42px"
+									style="color: #01bb74; background-color: #f2fbf8; width: 30%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
 								>
 									产品名称
 								</view>
@@ -245,7 +250,7 @@
 
 				<!-- 按钮 -->
 				<view class="flex-row justify-end mt25 vw100" style="">
-					<view class="mt15" style="text-align: left; align-items: center; color: #ccc; font-size: 12px; float: left; margin-right: 15%">
+					<view class="mt15" style="text-align: left; align-items: center; color: #ccc; font-size: 24rpx; float: left; margin-right: 15%">
 						<!-- 保存偏好设置 -->
 					</view>
 					<view class="mr48" style="float: right">
@@ -868,7 +873,7 @@ export default {
 			display: flex;
 			flex-direction: column;
 			width: 100%;
-			margin-top: 5px;
+			margin-top: 10rpx;
 
 			.InputOne {
 				background-color: #f9f9f9;
@@ -876,9 +881,9 @@ export default {
 				flex-direction: row;
 				align-items: center;
 				justify-content: left;
-				border-radius: 12px;
-				margin-top: 10px;
-				padding-right: 10px;
+				border-radius: 24rpx;
+				margin-top: 20rpx;
+				padding-right: 20rpx;
 			}
 		}
 	}
@@ -893,7 +898,7 @@ export default {
 		padding-right: 30rpx;
 		padding-bottom: 10rpx;
 		padding-top: 30rpx;
-		letter-spacing: 1px;
+		letter-spacing: 2rpx;
 	}
 
 	.OrderCard {
@@ -909,7 +914,7 @@ export default {
 		margin-left: 24rpx;
 		margin-right: 24rpx;
 		border-radius: 15rpx;
-		box-shadow: 0px 3.5px 5px 0px rgba(51, 51, 51, 0.1);
+		box-shadow: 0rpx 7rpx 10rpx 0rpx rgba(51, 51, 51, 0.1);
 
 		.OrderCardHand {
 			margin-bottom: 10rpx;
@@ -1004,17 +1009,17 @@ export default {
 }
 
 .hl-btn.bg-gray {
-	border: 1px solid #d8d8d8;
+	border: 2rpx solid #d8d8d8;
 }
 
 .hl-btn.NY.bg-gray {
-	border: 1px solid #d8d8d8;
-	padding-left: 1px;
-	padding-right: 1px;
+	border: 2rpx solid #d8d8d8;
+	padding-left: 2rpx;
+	padding-right: 2rpx;
 }
 
 // .hl-btn.bg-gray {
-// 	border: 1px solid #D8D8D8;
+// 	border: 2rpx solid #D8D8D8;
 // }
 
 .u-img {
@@ -1023,7 +1028,7 @@ export default {
 
 .my-input .u-input-clear {
 	/* 调整清除按钮的样式，比如 margin 或 padding */
-	margin-right: 10px;
+	margin-right: 20rpx;
 	/* 或者其他你想要的样式 */
 }
 
@@ -1031,28 +1036,28 @@ export default {
 	width: 100%;
 	height: 40%;
 	color: #333333;
-	font-size: 18px;
+	font-size: 36rpx;
 	font-weight: 600;
 }
 
 .titlePas {
 	color: #333333;
-	font-size: 18px;
+	font-size: 36rpx;
 	font-weight: 600;
 }
 
 .titlePasOK {
 	color: #01bb74;
-	font-size: 18px;
+	font-size: 36rpx;
 	font-weight: 600;
 }
 
 .err {
 	font-family: Source Han Sans;
-	font-size: 13px;
+	font-size: 26rpx;
 	font-weight: normal;
-	line-height: 22.46px;
-	letter-spacing: 0.65px;
+	line-height: 44.92rpx;
+	letter-spacing: 1.3rpx;
 
 	font-feature-settings: 'kern' on;
 	color: #f53f3f;

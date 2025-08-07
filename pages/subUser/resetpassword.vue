@@ -21,7 +21,9 @@
 			<view class="mt30">
 				<view class="">验证码</view>
 				<view class="flex-row justify-center items-center u-border-bottom relative mt30 pb20" style="width: 100%; height: 60rpx">
-					<u-input border="none" class="absolute my-input" style="left: 0" :modelValue="form.code" type="text" placeholder="请输入您的验证码"></u-input>
+					<view class="absolute my-input" style="left: 0">
+						<u-input :modelValue="form.code" type="text" placeholder="请输入您的验证码"></u-input>
+					</view>
 					<text
 						class="absolute"
 						style="font-size: 24rpx; font-weight: normal; line-height: 42.24rpx; text-align: center; letter-spacing: 0rpx; color: #01bb74; right: 20rpx"

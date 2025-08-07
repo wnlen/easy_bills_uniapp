@@ -33,12 +33,12 @@
 					<u-input
 						type="text"
 						:modelValue="uploadingCommodity.description"
-						:custom-style="customStyle"
+						:customStyle="customStyle"
 						border="none"
 						inputAlign="right"
 						:clearable="true"
 						placeholder="请您填写商品名称"
-					/>
+					></u-input>
 				</view>
 			</view>
 			<view class="uploadingCommodityFromCardRow">
@@ -51,11 +51,11 @@
 						type="text"
 						:modelValue="uploadingCommodity.specification"
 						placeholder="请输入"
-						:custom-style="customStyle"
+						:customStyle="customStyle"
 						border="none"
 						inputAlign="right"
 						:clearable="true"
-					/>
+					></u-input>
 				</view>
 			</view>
 			<view class="uploadingCommodityFromCardRow">
@@ -69,11 +69,11 @@
 						:modelValue="uploadingCommodity.unit"
 						maxlength="10"
 						placeholder="请输入"
-						:custom-style="customStyle"
+						:customStyle="customStyle"
 						border="none"
 						inputAlign="right"
 						:clearable="true"
-					/>
+					></u-input>
 				</view>
 			</view>
 			<view class="uploadingCommodityFromCardRow">
@@ -87,16 +87,16 @@
 						type="digit"
 						maxlength="10"
 						placeholder="请输入"
-						:custom-style="customStyle"
+						:customStyle="customStyle"
 						border="none"
 						inputAlign="right"
 						:clearable="true"
-					/>
+					></u-input>
 				</view>
 			</view>
 			<view class="uploadingCommodityFromCard">
 				<text class="name">备注说明</text>
-				<u-input :modelValue="uploadingCommodity.remark" type="textarea" placeholder="请输入" border="none" />
+				<u-input :modelValue="uploadingCommodity.remark" type="textarea" placeholder="请输入" border="none" ></u-input>
 			</view>
 			<view class="flex-row justify-end items-center pr24 pt48" style="width: 100%">
 				<text class="name mr24">置于商品库顶部</text>

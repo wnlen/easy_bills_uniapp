@@ -1,117 +1,3 @@
-<style lang="scss">
-.root {
-	height: 100vh;
-	width: 100vw;
-	background: #f5f5f5;
-	overflow-y: auto;
-	align-items: center;
-
-	.Card {
-		width: 94%;
-		background-color: white;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		border-radius: 14rpx;
-		padding: 20rpx;
-		margin-left: 3%;
-		margin-top: 25rpx;
-		margin-bottom: 24rpx;
-
-		.HnadCard {
-			height: 10%;
-			width: 100%;
-			// background-color: aqua;
-
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			justify-content: left;
-
-			.HnadCardBtn {
-				border-radius: 12rpx;
-
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				justify-content: center;
-
-				font-size: 24rpx;
-
-				margin-right: 20rpx;
-			}
-		}
-
-		.priceCard {
-			display: flex;
-			flex-direction: column;
-			width: 100%;
-		}
-
-		.InputCard {
-			display: flex;
-			flex-direction: column;
-			width: 100%;
-			margin-top: 10rpx;
-
-			.InputOne {
-				background-color: #f9f9f9;
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				justify-content: left;
-				border-radius: 24rpx;
-				margin-top: 20rpx;
-				padding-right: 20rpx;
-			}
-		}
-	}
-
-	.NumOrder {
-		background-color: transparent;
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-		padding-left: 30rpx;
-		padding-right: 30rpx;
-		padding-bottom: 10rpx;
-		padding-top: 30rpx;
-		letter-spacing: 2rpx;
-	}
-
-	.OrderCard {
-		display: flex;
-		flex-direction: column;
-		padding-left: 20rpx;
-		padding-right: 20rpx;
-		padding-bottom: 24rpx;
-		padding-top: 25rpx;
-		background-color: white;
-		margin-bottom: 18rpx;
-		position: relative;
-		margin-left: 24rpx;
-		margin-right: 24rpx;
-		border-radius: 15rpx;
-		box-shadow: 0rpx 7rpx 10rpx 0rpx rgba(51, 51, 51, 0.1);
-
-		.OrderCardHand {
-			margin-bottom: 10rpx;
-			display: flex;
-			flex-direction: row;
-			width: 100%;
-
-			.title {
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				width: 70%;
-			}
-		}
-	}
-}
-</style>
 <template>
 	<view class="root">
 		<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" mode="search" margin-top="-200" v-if="!identity"></u-empty>
@@ -160,16 +46,17 @@
 								{{ vuex_userRole === 'R' ? '供应商选择' : '客户选择' }}
 							</text>
 							<u-icon class="ml10 mr10" name="/static/img/list/sx.svg" size="40"></u-icon>
-							<u-input
-								border="none"
-								class="my-input"
-								style="width: 100%"
-								@input="CustomerGetChange"
-								:modelValue="customer"
-								:custom-style="{ backgroundColor: 'transparent' }"
-								:placeholder="vuex_userRole === 'R' ? '请选择供应商' : '请选择客户'"
-								clearable="true"
-							/>
+							<view class="my-input">
+								<u-input
+									border="none"
+									@change="CustomerGetChange"
+									:modelValue="customer"
+									:customStyle="{ backgroundColor: 'transparent' }"
+									:placeholder="vuex_userRole === 'R' ? '请选择供应商' : '请选择客户'"
+									:clearable="true"
+								></u-input>
+							</view>
+							
 							<view class="flex-col justify-center items-center" style="height: 5vh">
 								<u-icon class="ml40" name="/static/img/list/lxr.svg" size="45" @click="CustomerGet"></u-icon>
 							</view>
@@ -180,25 +67,26 @@
 								{{ Title }}
 							</text>
 							<u-icon class="ml10 mr10" name="/static/img/list/sj.svg" size="40"></u-icon>
-							<u-input
-								border="none"
-								v-if="showTage !== '1'"
-								class="my-input"
-								style="width: 100%"
-								:modelValue="field"
-								@input="searchListenner"
-								placeholder="输入关键字进行检索"
-							/>
-							<u-input
-								border="none"
-								v-if="showTage === '1'"
-								maxlength="11"
-								class="ml24 my-input"
-								style="width: 100%"
-								:modelValue="field"
-								@input="searchListenner"
-								placeholder="输入号码进行检索"
-							/>
+							<view class="my-input">
+								<u-input
+									border="none"
+									v-if="showTage !== '1'"
+									:modelValue="field"
+									@change="searchListenner"
+									placeholder="输入关键字进行检索"
+								></u-input>
+							</view>
+							<view class="ml24 my-input">
+								<u-input
+									border="none"
+									v-if="showTage === '1'"
+									maxlength="11"
+									:modelValue="field"
+									@change="searchListenner"
+									placeholder="输入号码进行检索"
+								></u-input>
+							</view>
+							
 							<view class="flex-col justify-center items-center" style="height: 5vh">
 								<u-icon class="ml40" name="/static/img/list/ss.svg" size="45" @click="SearchBtn"></u-icon>
 							</view>
@@ -665,10 +553,9 @@ export default {
 		this.identity = identity;
 	},
 	onShow() {
+		console.log('identity', identity);
 		if (this.identity) {
 			this.checked = false;
-			this.loadData();
-			this.LoginIf();
 			this.SOCKETfLUSH();
 			this.Init();
 		}
@@ -925,16 +812,11 @@ export default {
 				this.realTimeSel.paymentState = this.vuex_tabIndex;
 			}
 
-			//console.log("(当前标记)this.current:", this.current);
-			//console.log("(储存标记)this.vuex_tabIndex:", this.vuex_tabIndex);
-
 			this.realTimeSel.getPhone = this.vuex_user.phone;
 
 			var ifwork = this.vuex_user.data.work == '0';
 			var timeEmp = this.realTimeSel.startDate == '' || this.realTimeSel.endDate == '';
 			var ifWorkPort = this.vuex_userRole == 'R';
-
-			//console.log("端口：", ifWorkPort);
 
 			if (ifWorkPort) {
 				this.tabsList[1].name = '待确收';
@@ -1750,5 +1632,119 @@ export default {
 
 	font-feature-settings: 'kern' on;
 	color: #f53f3f;
+}
+</style>
+<style lang="scss">
+.root {
+	height: 100vh;
+	width: 100vw;
+	background: #f5f5f5;
+	overflow-y: auto;
+	align-items: center;
+
+	.Card {
+		width: 94%;
+		background-color: white;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		border-radius: 14rpx;
+		padding: 20rpx;
+		margin-left: 3%;
+		margin-top: 25rpx;
+		margin-bottom: 24rpx;
+
+		.HnadCard {
+			height: 10%;
+			width: 100%;
+			// background-color: aqua;
+
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: left;
+
+			.HnadCardBtn {
+				border-radius: 12rpx;
+
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: center;
+
+				font-size: 24rpx;
+
+				margin-right: 20rpx;
+			}
+		}
+
+		.priceCard {
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+		}
+
+		.InputCard {
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+			margin-top: 10rpx;
+
+			.InputOne {
+				background-color: #f9f9f9;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: left;
+				border-radius: 24rpx;
+				margin-top: 20rpx;
+				padding-right: 20rpx;
+			}
+		}
+	}
+
+	.NumOrder {
+		background-color: transparent;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		padding-left: 30rpx;
+		padding-right: 30rpx;
+		padding-bottom: 10rpx;
+		padding-top: 30rpx;
+		letter-spacing: 2rpx;
+	}
+
+	.OrderCard {
+		display: flex;
+		flex-direction: column;
+		padding-left: 20rpx;
+		padding-right: 20rpx;
+		padding-bottom: 24rpx;
+		padding-top: 25rpx;
+		background-color: white;
+		margin-bottom: 18rpx;
+		position: relative;
+		margin-left: 24rpx;
+		margin-right: 24rpx;
+		border-radius: 15rpx;
+		box-shadow: 0rpx 7rpx 10rpx 0rpx rgba(51, 51, 51, 0.1);
+
+		.OrderCardHand {
+			margin-bottom: 10rpx;
+			display: flex;
+			flex-direction: row;
+			width: 100%;
+
+			.title {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				width: 70%;
+			}
+		}
+	}
 }
 </style>

@@ -25,16 +25,17 @@
 				<view class="ml24 mr24 flex-row items-center justify-center pb30">
 					<view class="flex-row items-center justify-center pl10 pr10" style="background: #ffffff; border-radius: 254rpx; width: 75%">
 						<u-icon class="ml6" name="search" color="#01BB74" size="40"></u-icon>
-						<u-input
-							border="none"
-							class="my-input ml6"
-							style="width: 100%"
-							@input="SearchInventoryChange"
-							:modelValue="SearchInventory"
-							:custom-style="{ backgroundColor: 'transparent' }"
-							placeholder="请输入商品名称/规格"
-							clearable="true"
-						/>
+						<view class="my-input ml6">
+							<u-input
+								border="none"
+								@change="SearchInventoryChange"
+								:modelValue="SearchInventory"
+								:customStyle="{ backgroundColor: 'transparent' }"
+								placeholder="请输入商品名称/规格"
+								:clearable="true"
+							>
+							</u-input>
+						</view>
 					</view>
 					<u-button @click="jumpAddCommodity" :custom-style="SearchCustomStyle" type="success">添加商品</u-button>
 				</view>

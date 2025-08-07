@@ -110,13 +110,15 @@
 					<div class="flex-row items-center radius pr20 mr10 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%">
 						<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
 							<text class="ft11 ft-gray ml36 mr20" @click="CustomerGet">{{ vuex_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
-							<u-input
-								border="none"
-								class="ml24 width100"
-								@input="changeCustomer"
-								:modelValue="customer"
-								:placeholder="vuex_userRole == 'R' ? '请选择供应商' : '请选择客户'"
-							/>
+							<view class="ml24 width100">
+								<u-input
+									border="none"
+									@change="changeCustomer"
+									:modelValue="customer"
+									:placeholder="vuex_userRole == 'R' ? '请选择供应商' : '请选择客户'"
+								></u-input>
+							</view>
+							
 							<div class="flex-col justify-center items-center" style="height: 5vh">
 								<u-icon class="ml48" name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon>
 							</div>
@@ -130,26 +132,26 @@
 							</text>
 							<u-icon name="arrow-down-fill" size="10"></u-icon>
 							<text class="mr20"></text>
-							<u-input
-								v-if="showTage != '1'"
-								border="none"
-								class="my-input"
-								style="width: 100%"
-								:modelValue="field"
-								@input="searchListenner"
-								placeholder="输入关键字进行检索"
-							/>
-
-							<u-input
-								border="none"
-								v-if="showTage == '1'"
-								maxlength="11"
-								class="ml24 my-input"
-								style="width: 100%"
-								:modelValue="field"
-								@input="searchListenner"
-								placeholder="输入号码进行检索"
-							/>
+							<view class="my-input">
+								<u-input
+									v-if="showTage != '1'"
+									border="none"
+									:modelValue="field"
+									@change="searchListenner"
+									placeholder="输入关键字进行检索"
+								></u-input>
+							</view>
+							<view class="ml24 my-input">
+								<u-input
+									border="none"
+									v-if="showTage == '1'"
+									maxlength="11"
+									:modelValue="field"
+									@change="searchListenner"
+									placeholder="输入号码进行检索"
+								></u-input>
+							</view>
+							
 
 							<div class="flex-col justify-center items-center" style="height: 5vh">
 								<u-icon class="ml48" name="/static/img/list/ss.svg" size="45rpx"></u-icon>

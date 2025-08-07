@@ -47,7 +47,7 @@
 					*
 					<text class="name">品名</text>
 				</text>
-				<u-input type="text" :modelValue="uploadingCommodity.description" border="none" placeholder="请您填写商品名称" />
+				<u-input type="text" :modelValue="uploadingCommodity.description" border="none" placeholder="请您填写商品名称" ></u-input>
 			</view>
 			<view class="uploadingCommodityFromCardRow">
 				<text class="sign">
@@ -55,7 +55,7 @@
 					<text class="name">规格</text>
 				</text>
 				<view class="uploadingCommodityFromCardRowInput" style="width: 600rpx">
-					<u-input type="text" :modelValue="uploadingCommodity.specification" border="none" placeholder="请输入" :custom-style="customStyle" />
+					<u-input type="text" :modelValue="uploadingCommodity.specification" border="none" placeholder="请输入" :customStyle="customStyle" ></u-input>
 				</view>
 			</view>
 			<view class="uploadingCommodityFromCardRow">
@@ -64,7 +64,7 @@
 					<text class="name">单位</text>
 				</text>
 				<view class="uploadingCommodityFromCardRowInput" style="width: 600rpx">
-					<u-input type="text" :modelValue="uploadingCommodity.unit" border="none" maxlength="10" placeholder="请输入" :custom-style="customStyle" />
+					<u-input type="text" :modelValue="uploadingCommodity.unit" border="none" maxlength="10" placeholder="请输入" :customStyle="customStyle" ></u-input>
 				</view>
 			</view>
 			<view class="uploadingCommodityFromCardRow">
