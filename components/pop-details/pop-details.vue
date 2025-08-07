@@ -1,5 +1,5 @@
 <template>
-	<u-popup mode="center" v-model="show" :border-radius="10">
+	<u-popup mode="center" :show="show" :round="10" :closeable="true" @close="show=false">
 		<view class="bossCiew" style="width: 100%;height: 100%;">
 			<scroll-view scroll-y="true" class="detail">
 				<view class="detailTitleHand"> {{popupShowText.headline}}</view>

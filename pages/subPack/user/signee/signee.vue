@@ -3,22 +3,23 @@
 		<view class="flex-col pt100" v-if="orderList.length == 0 && !identity">
 			<u-empty
 				:show="isEmpty"
-				src="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/empty.svg"
-				icon-size="400"
+				icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/empty.svg"
+				iconSize="400rpx"
 				text="暂无签收人~"
 				mode="search"
-				margin-top="200"
+				marginTop="200"
 			></u-empty>
-			<view class="mt25 vw100 text-center" style="font-size: 14px">
+			<view class="mt25 vw100 text-center" style="font-size: 28rpx">
 				<u-button
 					@click="goPath('/pages/subPack/user/signee/add')"
 					hover-class="none"
-					:custom-style="{ backgroundColor: '#01BB74' }"
+					:customStyle="{ backgroundColor: '#01BB74',width:'130px' }"
 					:disabled="orderList.length >= 1"
 					type="primary"
 					class=""
 					shape="circle"
 					size="medium"
+					color="#01BB74"
 				>
 					新增签收人
 				</u-button>
@@ -34,30 +35,30 @@
 			<view v-for="(item, index) in orderList" :key="index" class="flex-col pd24 ml24 mr24 mb24 bg-white radius">
 				<view class="flex-row items-center justify-between">
 					<view class="mr20">
-						<u-icon name="https://res-oss.elist.com.cn/wxImg/user/qm.svg" size="80"></u-icon>
+						<u-icon name="https://res-oss.elist.com.cn/wxImg/user/qm.svg" size="80rpx"></u-icon>
 					</view>
 					<view class="flex-col flex-1 pr35">
 						<view class="flex-row">
 							<text class="ft32 ft-bold ft-black">{{ item.name }}</text>
-							<u-icon class="ml24" name="eye" color="#999999" size="40" @click="show = true"></u-icon>
+							<u-icon class="ml24" name="eye" color="#999999" size="40rpx" @click="show = true"></u-icon>
 						</view>
 						<text class="ft25 line25 ft-gray mt10">{{ item.phone }}</text>
 					</view>
 					<!-- #ifdef MP-WEIXIN -->
-					<u-icon class="mr20" name="edit-pen" color="#aaa" size="34" @click.stop="goDetails(item, 1)"></u-icon>
-					<u-icon class="ml30 mr20" name="trash" color="#aaa" size="34" @click="goDetails(item.id, 2)"></u-icon>
+					<u-icon class="mr20" name="edit-pen" color="#aaa" size="34rpx" @click.stop="goDetails(item, 1)"></u-icon>
+					<u-icon class="ml30 mr20" name="trash" color="#aaa" size="34rpx" @click="goDetails(item.id, 2)"></u-icon>
 					<!-- #endif -->
 					<!-- #ifdef APP -->
-					<u-icon class="mr20" name="edit-pen" color="#aaa" size="34" @click="goDetails(item, 1)"></u-icon>
-					<u-icon class="ml30 mr20" name="trash" color="#aaa" size="34" @click="goDetails(item.id, 2)"></u-icon>
+					<u-icon class="mr20" name="edit-pen" color="#aaa" size="34rpx" @click="goDetails(item, 1)"></u-icon>
+					<u-icon class="ml30 mr20" name="trash" color="#aaa" size="34rpx" @click="goDetails(item.id, 2)"></u-icon>
 					<!-- #endif -->
 				</view>
 				<view class="u-border-top pt30 mt30 flex-row items-center justify-between">
-					<u-icon v-if="item.ifDefault != 'Y'" label-size="24" name="checkmark-circle-fill" color="#01BB74" size="38" label="默认签收人"></u-icon>
-					<u-icon @click="defaultItem(item.id)" v-else name="minus-circle" label-size="24" color="#ccc" size="38" label="默认签收人"></u-icon>
+					<u-icon v-if="item.ifDefault != 'Y'" label-size="24rpx" name="checkmark-circle-fill" color="#01BB74" size="38rpx" label="默认签收人"></u-icon>
+					<u-icon @click="defaultItem(item.id)" v-else name="minus-circle" label-size="24rpx" color="#ccc" size="38rpx" label="默认签收人"></u-icon>
 					<!-- 			<text class="ft-gray ft24" @click="deleteItem(item.id)">删除</text> -->
 				</view>
-				<u-popup v-model="show" mode="center" width="500rpx" height="400px" close-icon-size="30" :closeable="true" close-icon-color="#000000" close-icon-pos="top-right">
+				<u-popup v-model="show" mode="center" width="500rpx" height="400px" close-icon-size="30rpx" :closeable="true" close-icon-color="#000000" close-icon-pos="top-right">
 					<u-image style="transform: rotate(90deg)" width="500rpx" height="400px" :src="item.signatureImg"></u-image>
 				</u-popup>
 

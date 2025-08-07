@@ -12,12 +12,12 @@
 			</view>
 
 			<view slot="empty" v-show="vuex_user.workData.identity=='3'&&tab==1||vuex_user.workData.identity=='4'&&tab==0||vuex_user.data.work=='0'||vuex_user.workData.identity=='1'" style="padding-bottom: 1000rpx;">
-				<u-empty src="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg" icon-size="400"
+				<u-empty icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg" iconSize="400rpx"
 					text="暂无待办事项~" mode="search" margin-top="200"></u-empty>
 			</view>
 
 			<view slot="empty" v-show="vuex_user.workData.identity=='3'&&tab==0||vuex_user.workData.identity=='4'&&tab==1||vuex_user.data.work=='1'&&vuex_user.workData.identity!='1'" style="padding-bottom: 1000rpx;">
-				<u-empty src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" icon-size="400"
+				<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx"
 					text="无查看权限~" mode="search" margin-top="200"></u-empty>
 			</view>
 
