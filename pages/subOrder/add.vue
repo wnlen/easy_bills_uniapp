@@ -3,17 +3,17 @@
 		<!-- #ifdef MP-WEIXIN -->
 		<u-navbar :autoBack="true" :placeholder="true" bgColor="#ffffff">
 			<template #center>
-			<view class="flex-row items-center justify-center ml48" style="width: 100%">
-				<view class="" style="font-size: 34rpx; font-weight: 510">一键开单</view>
-				<view
-					@click="jumpVideo"
-					class="flex-row justify-center items-center ml12"
-					style="border: 1.1px solid #01bb74; height: 22px; width: 68px; border-radius: 8rpx; color: #01bb74; font-size: 11px"
-				>
-					<text class="mr6">使用方法</text>
-					<u-icon class="ml6" name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></u-icon>
+				<view class="flex-row items-center justify-center ml48" style="width: 100%">
+					<view class="" style="font-size: 34rpx; font-weight: 510">一键开单</view>
+					<view
+						@click="jumpVideo"
+						class="flex-row justify-center items-center ml12"
+						style="border: 1.1px solid #01bb74; height: 22px; width: 68px; border-radius: 8rpx; color: #01bb74; font-size: 11px"
+					>
+						<text class="mr6">使用方法</text>
+						<u-icon class="ml6" name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></u-icon>
+					</view>
 				</view>
-			</view>
 			</template>
 		</u-navbar>
 		<!-- #endif -->
@@ -144,7 +144,7 @@
 							placeholder="请输入客户手机号"
 							class="flex-1 endcolor"
 						/>
-						<u-button shape="circle" size="mini" hover-class="none" :custom-style="{ backgroundColor: '#01BB74', color: '#ffffff',width:'70rpx' }" @click="jumpTable">
+						<u-button shape="circle" size="mini" hover-class="none" :custom-style="{ backgroundColor: '#01BB74', color: '#ffffff', width: '70rpx' }" @click="jumpTable">
 							选择客户
 						</u-button>
 					</view>
@@ -168,7 +168,7 @@
 						</text>
 						<input
 							placeholder-class="placeholder_class"
-							@click="sendShow = true"
+							@click="$refs.calendars.open()"
 							:style="{ color: ifInput(receipts.creationTime) ? '#333333' : '#D8D8D8' }"
 							type="text"
 							v-model="receipts.creationTime"
@@ -176,21 +176,13 @@
 							placeholder="发货日期"
 							class="flex-1 ml15 endcolor"
 						/>
-						<view class="flex-row" @click="sendShow = true">
+						<view class="flex-row" @click="$refs.calendars.open()">
 							<view class="mr20">
 								<u-line class="" color="#D8D8D8" length="50" direction="col"></u-line>
 							</view>
-							<u-icon @click="sendShow = true" class="" size="45" name="https://res-oss.elist.com.cn/wxImg/order/time.png"></u-icon>
+							<u-icon @click="$refs.calendars.open()" class="" size="45rpx" name="https://res-oss.elist.com.cn/wxImg/order/time.png"></u-icon>
 							<view>
-								<u-calendar
-									btn-type="success"
-									v-model="sendShow"
-									:min-date="getCurrentDateMin()"
-									:max-date="getCurrentDate()"
-									mode="date"
-									active-bg-color="#01BB74"
-									@change="getConfirm"
-								></u-calendar>
+								<uv-calendars :startDate="getCurrentDateMin()" :endDate="getCurrentDate()" ref="calendars" @confirm="getConfirm" />
 							</view>
 						</view>
 					</view>
@@ -463,7 +455,6 @@ export default {
 			orderId: '', //创建订单后接口返回
 			shareShow: false,
 			recentlyData: [], //近期下单商品
-			sendShow: false, //发货日期弹窗
 			action: '',
 			fileList: [],
 			companyName: '请选择',
@@ -522,10 +513,7 @@ export default {
 		this.showShare = false;
 		// #endif
 
-		this.$loadUser(this);
-		this.loadData();
-		this.getOrderNumber();
-		this.defImg();
+		
 		// #ifdef MP-WEIXIN
 		this.addOrderIfOk();
 		// #endif
@@ -537,6 +525,10 @@ export default {
 				this.orderTotal = this.orderTotal + res.quantity * res.unitPrice;
 			});
 		}
+		this.$loadUser(this);
+		this.loadData();
+		this.getOrderNumber();
+		this.defImg();
 	},
 	onLoad(options) {
 		this.addEmp();
@@ -645,7 +637,9 @@ export default {
 				});
 		},
 		defImg() {
-			this.action = this.$u.http.config.baseUrl + '/edo/order/imgA';
+			if(this.$u.http){
+				this.action = this.$u.http.config.baseUrl + '/edo/order/imgA';
+			}
 			if (this.receipts.creationTime == '') {
 				this.receipts.creationTime = this.$u.timeFormat(new Date(), 'yyyy-mm-dd');
 			}
@@ -1410,8 +1404,8 @@ export default {
 		},
 		// 获取选择的时间
 		getConfirm(e) {
-			console.log('已经修改时间', e.result);
-			this.receipts.creationTime = e.result; //传给接口
+			console.log('已经修改时间', e.fulldate);
+			this.receipts.creationTime = e.fulldate; //传给接口
 		},
 		getOrderNumber() {
 			var ifphon = this.vuex_work == 'Y' ? this.vuex_user.workData.bossNumber : this.vuex_user.phone;

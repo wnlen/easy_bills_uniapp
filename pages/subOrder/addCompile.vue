@@ -1,6 +1,16 @@
 <template>
 	<view class="vh100 pb60 flex-col justify-center" style="background-color: #ffffff">
-		<u-navbar :autoBack="true" :placeholder="true" :custom-back="navBack" :border-bottom="false" :titleBold="true" title-color="#000000" title="订单修改" title-size="34" bgColor="#ffffff"></u-navbar>
+		<u-navbar
+			:autoBack="true"
+			:placeholder="true"
+			:custom-back="navBack"
+			:border-bottom="false"
+			:titleBold="true"
+			title-color="#000000"
+			title="订单修改"
+			title-size="34"
+			bgColor="#ffffff"
+		></u-navbar>
 
 		<view v-if="!identity" class="flex-row justify-center items-center absolute" style="width: 100%; top: 30%">
 			<u-image src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" width="600rpx" height="400rpx"></u-image>
@@ -70,22 +80,14 @@
 							<text style="color: #fa3534">*</text>
 							发货日期:
 						</text>
-						<input disabled placeholder-class="placeholder_class" type="text" v-model="receipts.creationTime" placeholder="发货日期" class="flex-1 ml15 endcolor" />
-						<view class="flex-row" @click="sendShow = true">
+						<input @click="$refs.calendars.open()" disabled placeholder-class="placeholder_class" type="text" v-model="receipts.creationTime" placeholder="发货日期" class="flex-1 ml15 endcolor" />
+						<view class="flex-row" @click="$refs.calendars.open()">
 							<view class="mr20">
 								<u-line class="" color="#D8D8D8" length="50" direction="col"></u-line>
 							</view>
-							<u-icon @click="sendShow = true" class="" size="45" name="https://res-oss.elist.com.cn/wxImg/order/time.png"></u-icon>
+							<u-icon @click="$refs.calendars.open()" class="" size="45rpx" name="https://res-oss.elist.com.cn/wxImg/order/time.png"></u-icon>
 							<view>
-								<u-calendar
-									btn-type="success"
-									v-model="sendShow"
-									:min-date="getCurrentDateMin()"
-									:max-date="getCurrentDate()"
-									mode="date"
-									active-bg-color="#01BB74"
-									@change="getConfirm"
-								></u-calendar>
+								<uv-calendars :startDate="getCurrentDateMin()" :endDate="getCurrentDate()" ref="calendars" @confirm="getConfirm" />
 							</view>
 						</view>
 					</view>
@@ -342,7 +344,6 @@ export default {
 			orderId: '', //创建订单后接口返回
 			shareShow: false,
 			recentlyData: [], //近期下单商品
-			sendShow: false, //发货日期弹窗
 			action: '',
 			fileList: [],
 			companyName: '请选择',
@@ -376,9 +377,11 @@ export default {
 	},
 	onLoad(options) {
 		uni.removeStorageSync('updInventoryStockpile');
-		this.$api.order.getOrderById({
-		  orderId: options.orderId
-		}).then((res) => {
+		this.$api.order
+			.getOrderById({
+				orderId: options.orderId
+			})
+			.then((res) => {
 				console.log('请求结果：' + res.data.data.post);
 				var data = res.data.data.post;
 				data.creationTime = this.$u.timeFormat(data.creationTime, 'yyyy-mm-dd');
@@ -635,7 +638,9 @@ export default {
 
 			if (this.limitingCondition) {
 				this.limitingCondition = false;
-				this.$api.order.editOrder(this.receipts).then((res) => {
+				this.$api.order
+					.editOrder(this.receipts)
+					.then((res) => {
 						console.log(res);
 						this.$u.toast(res.data.message);
 						if (res.data.data == 1) {
@@ -677,8 +682,7 @@ export default {
 		},
 		// 获取选择的时间
 		getConfirm(e) {
-			console.log('已经修改时间', e.result);
-			this.receipts.creationTime = e.result; //传给接口
+			this.receipts.creationTime = e.fulldate; //传给接口
 		},
 		digitUppercase(n = 0) {
 			if (n === 0) {

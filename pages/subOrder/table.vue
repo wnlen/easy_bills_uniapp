@@ -114,7 +114,7 @@
 			iconSize="200rpx"
 			text="暂无好友~"
 			mode="search"
-			margin-top="-200"
+			margin-top="200"
 		></u-empty>
 		<view v-for="(item, index) in client" :key="index">
 			<view class="ml20" style="border-bottom: 1px solid #f7f7f7; width: 110vw" v-show="show == 1">

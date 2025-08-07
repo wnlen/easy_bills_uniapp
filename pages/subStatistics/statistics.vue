@@ -382,14 +382,14 @@
 							<view class="flex-row items-center" style="width: 50%">
 								<text class="mr10" style="color: #999999">开始日期</text>
 								<u-icon name="arrow-down-fill" size="10rpx"></u-icon>
-								<view @click="calendar1Show = true" class="ml24" style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
+								<view @click="$refs.calendars.open()" class="ml24" style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
 									{{ date1 }}
 								</view>
 							</view>
 							<view class="flex-row items-center" style="width: 50%">
 								<text class="mr10 ml20" style="color: #999999">结束日期</text>
 								<u-icon name="arrow-down-fill" size="10rpx"></u-icon>
-								<view @click="calendar2Show = true" class="ml24" style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
+								<view @click="$refs.calendars.open()" class="ml24" style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
 									{{ date2 }}
 								</view>
 							</view>
@@ -457,31 +457,10 @@
 							<u-button class="ml20" type="success" @click="filterSubmit" shape="circle" size="medium" :custom-style="{ marginLeft: '20rpx' }" plain>确定</u-button>
 						</view>
 					</view>
+					<!-- 日历选择器 -->
+					<uv-calendars mode="range" :startDate="getMin()" :endDate="getMax()" ref="calendars" @confirm="date1Change" />
 				</view>
 			</u-popup>
-
-			<u-calendar
-				btn-type="success"
-				v-model="calendar1Show"
-				active-bg-color="#01BB74"
-				range-bg-color="#DFF9EF"
-				range-color="#333333"
-				mode="date"
-				:min-date="getMin()"
-				:max-date="getMax()"
-				@change="date1Change"
-			></u-calendar>
-			<u-calendar
-				btn-type="success"
-				v-model="calendar2Show"
-				active-bg-color="#01BB74"
-				range-bg-color="#DFF9EF"
-				range-color="#333333"
-				mode="date"
-				:min-date="getMin()"
-				:max-date="getMax()"
-				@change="date2Change"
-			></u-calendar>
 		</view>
 
 		<up-overlay :show="roleShow" @click="roleShow = false">
@@ -546,8 +525,6 @@ export default {
 			date1: '',
 			date2: '',
 			showTage: '0',
-			calendar1Show: false, //日期弹窗
-			calendar2Show: false, //日期弹窗
 			showOrderTage: 0,
 			totalMoney: 0,
 			checkedOrders: [],
@@ -883,25 +860,27 @@ export default {
 			let role = this.vuex_user.data.work == '1' ? 1 : 2;
 			console.log(this.vuex_user.data.work);
 			var that = this;
-			this.$api.user.refreshUser({
-			  phone: this.vuex_user.phone,
-			  role: role
-			}).then((res) => {
-				console.log('权限', res.data.data);
-				let a = that.vuex_user;
-				a.ac = res.data.data.ac;
-				a.data = res.data.data.data;
-				a.workData = res.data.data.workData;
-				a.jurisdiction = res.data.data.jurisdiction;
-				a.vuex_password = res.data.data.password;
-				that.$u.vuex('vuex_user', a);
-				if (res.data.data.data.work == '1') {
-					that.$u.vuex('vuex_work', 'Y');
-				} else {
-					that.$u.vuex('vuex_work', 'N');
-				}
-				this.loadVip();
-			});
+			this.$api.user
+				.refreshUser({
+					phone: this.vuex_user.phone,
+					role: role
+				})
+				.then((res) => {
+					console.log('权限', res.data.data);
+					let a = that.vuex_user;
+					a.ac = res.data.data.ac;
+					a.data = res.data.data.data;
+					a.workData = res.data.data.workData;
+					a.jurisdiction = res.data.data.jurisdiction;
+					a.vuex_password = res.data.data.password;
+					that.$u.vuex('vuex_user', a);
+					if (res.data.data.data.work == '1') {
+						that.$u.vuex('vuex_work', 'Y');
+					} else {
+						that.$u.vuex('vuex_work', 'N');
+					}
+					this.loadVip();
+				});
 
 			console.log('用户信息实时更新 ', this.vuex_user);
 		},
@@ -1341,34 +1320,37 @@ export default {
 		e1() {},
 		e2() {},
 		date1Change(e) {
-			this.date1 = e.result;
+			this.date1 = e.range.before;
+			this.realTimeSel.startDate = e.range.before;
+			this.realTimeSel.endDate = e.range.after;
+			this.date2 = e.range.after;
 			// this.searchList.start = e.result
-			if (this.date2 != '') {
-				if (this.date2 >= e.result) {
-					this.realTimeSel.startDate = this.date1;
-				} else {
-					this.$u.toast('开始日期不能大于结束日期~');
-					this.date1 = '';
-				}
-			} else {
-				this.realTimeSel.startDate = this.date1;
-			}
+			// if (this.date2 != '') {
+			// 	if (this.date2 >= e.result) {
+			// 		this.realTimeSel.startDate = this.date1;
+			// 	} else {
+			// 		this.$u.toast('开始日期不能大于结束日期~');
+			// 		this.date1 = '';
+			// 	}
+			// } else {
+			// 	this.realTimeSel.startDate = this.date1;
+			// }
 		},
-		date2Change(e) {
-			this.date2 = e.result;
-			// this.searchList.end = e.result
-			// this.realTimeSel.endDate = this.date1
-			if (this.date1 != '') {
-				if (this.date2 >= this.date1) {
-					this.realTimeSel.endDate = this.date2;
-				} else {
-					this.$u.toast('开始日期不能大于结束日期~');
-					this.date2 = '';
-				}
-			} else {
-				this.realTimeSel.endDate = this.date2;
-			}
-		},
+		// date2Change(e) {
+		// 	this.date2 = e.result;
+		// 	// this.searchList.end = e.result
+		// 	// this.realTimeSel.endDate = this.date1
+		// 	if (this.date1 != '') {
+		// 		if (this.date2 >= this.date1) {
+		// 			this.realTimeSel.endDate = this.date2;
+		// 		} else {
+		// 			this.$u.toast('开始日期不能大于结束日期~');
+		// 			this.date2 = '';
+		// 		}
+		// 	} else {
+		// 		this.realTimeSel.endDate = this.date2;
+		// 	}
+		// },
 		filterSubmit() {
 			this.show_start = false;
 			this.realTimeSel.startDate = this.date1 != '' ? this.date1 : this.$u.timeFormat(new Date(new Date().getFullYear(), 0, 1), 'yyyy-mm-dd');

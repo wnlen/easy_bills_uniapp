@@ -444,14 +444,14 @@
 							<view class="flex-row items-center flex-1">
 								<text class="mr10" style="color: #999999">开始日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="$refs.unicalendar.open()" class="ml14" style="border-box;border: 1rpx solid #999999;padding: 6rpx;border-radius: 6rpx;">
+								<view @click="calendars.open()" class="ml14" style="border: 1rpx solid #999999;padding: 6rpx;border-radius: 6rpx;">
 									{{ date1 }}
 								</view>
 							</view>
 							<view class="flex-row items-center flex-1">
 								<text class="mr10" style="color: #999999">结束日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="calendar2Show = true" class="ml14" style="border-box;border: 1rpx solid #999999;padding: 6rpx;border-radius: 6rpx;">
+								<view @click="calendars.open()" class="ml14" style="border: 1rpx solid #999999;padding: 6rpx;border-radius: 6rpx;">
 									{{ date2 }}
 								</view>
 							</view>
@@ -523,29 +523,10 @@
 					</u-button>
 					<u-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :custom-style="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
 				</view>
+				<!-- 日历选择器 -->
+				<uv-calendars mode="range" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="date1Change" />
 			</view>
 		</u-popup>
-		<u-calendar
-			:show="calendar1Show"
-			mode="range"
-			:maxDate="new Date('2025-08-21').getTime()"
-			:minDate="new Date('2025-01-01').getTime()"
-			:defaultDate="[getCurrentYearFirstDay(), getCurrentDate()]"
-			color="#01BB74"
-			@confirm="date1Change"
-			@close="calendar1Show = false"
-		></u-calendar>
-		<!-- <u-calendar
-			btn-type="success"
-			:show="calendar2Show"
-			active-bg-color="#01BB74"
-			range-bg-color="#DFF9EF"
-			range-color="#333333"
-			mode="date"
-			:min-date="getCurrentYearFirstDay()"
-			:max-date="getCurrentDate()"
-			@change="date2Change"
-		></u-calendar> -->
 
 		<!-- <u-tabbar :list="vuex_tabbar" active-color="#0FB076"></u-tabbar> -->
 
@@ -593,6 +574,7 @@ const globalStore = useGlobalStore();
 const { vuex_tabbar } = storeToRefs(systemStore);
 
 const paging = ref(null);
+const calendars = ref(null);
 const flushIndex = ref(systemStore.flush);
 
 const titleStyle = ref({
@@ -638,8 +620,6 @@ const loadText = ref({
 });
 const scrollTop = ref(0);
 const filterShow = ref(false);
-const calendar1Show = ref(false);
-const calendar2Show = ref(false);
 const date1 = ref('');
 const date2 = ref('');
 const totalMoney = ref(0);
@@ -916,10 +896,6 @@ function touchStart(e) {
 	startY.value = e.touches[0].pageY;
 }
 
-function date2Change(e) {
-	date2.value = e.result;
-}
-
 function changeList(e) {
 	password.value = e;
 }
@@ -1055,10 +1031,10 @@ function virtualListChange(vList) {
 }
 
 function date1Change(e) {
-	console.log(e);
-	// date1.value = e.result;
+	// 不是区间取 e.fulldate
+	date1.value = e.range.before;
+	date2.value = e.range.after;
 }
-
 function getCurrentYearFirstDay() {
 	const date = new Date();
 	const year = date.getFullYear();

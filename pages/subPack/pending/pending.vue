@@ -105,7 +105,7 @@
 					<text class="ft-gray mb18 ml10" style="color: #999999">累计金额</text>
 					<view class="">
 						<text class="ft40 ft-bold ml9">￥</text>
-						<u-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="40" decimals="2" bold></u-count-to>
+						<u-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="40rpx" decimals="2" bold></u-count-to>
 					</view>
 				</view>
 
@@ -114,7 +114,7 @@
 						<text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
 							{{ vuex_userRole === 'R' ? '供应商选择' : '客户选择' }}
 						</text>
-						<u-icon class="ml10 mr10" name="/static/img/list/sx.svg" size="40"></u-icon>
+						<u-icon class="ml10 mr10" name="/static/img/list/sx.svg" size="40rpx"></u-icon>
 						<!-- <view style="width: 12px;height: 16px;border-right: 1px solid #666666;"></view> -->
 						<u-input
 							border="none"
@@ -127,7 +127,7 @@
 							clearable="true"
 						/>
 						<view class="flex-col justify-center items-center" style="height: 5vh">
-							<u-icon class="ml40" name="/static/img/list/lxr.svg" size="45" @click="CustomerGet"></u-icon>
+							<u-icon class="ml40" name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon>
 						</view>
 					</view>
 
@@ -136,7 +136,7 @@
 							<!-- {{showTage==0?"联系人":(showTage==1?"联系号码":showTage==2?(vuex_userRole=='R'?'收货地址':'收货地址'):showTage==3?"产品名称":"条件筛选")}} -->
 							{{ Title }}
 						</text>
-						<u-icon class="ml10 mr10" name="/static/img/list/sj.svg" size="40"></u-icon>
+						<u-icon class="ml10 mr10" name="/static/img/list/sj.svg" size="40rpx"></u-icon>
 						<u-input
 							border="none"
 							v-if="showTage !== '1'"
@@ -157,7 +157,7 @@
 							placeholder="输入号码进行检索"
 						/>
 						<view class="flex-col justify-center items-center" style="height: 5vh">
-							<u-icon class="ml40" name="/static/img/list/ss.svg" size="45" @click="SearchBtn"></u-icon>
+							<u-icon class="ml40" name="/static/img/list/ss.svg" size="45rpx" @click="SearchBtn"></u-icon>
 						</view>
 					</view>
 				</view>
@@ -189,8 +189,8 @@
 								{{ item.orderNumber }}
 							</text>
 						</text>
-						<u-icon size="28" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
-						<u-icon class="ml15" size="28" v-if="item.lockOrder == 1 && item.paymentState != 2" :name="bat64.lock" color="#666666"></u-icon>
+						<u-icon size="28rpx" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
+						<u-icon class="ml15" size="28rpx" v-if="item.lockOrder == 1 && item.paymentState != 2" :name="bat64.lock" color="#666666"></u-icon>
 						<!-- 			<u-icon size="28" v-if="item.paymentState!=2" :name="bat64.bz" @click="remark(item)"></u-icon>
 						<u-icon class="ml15" size="28" v-if="item.lockOrder==1" :name="bat64.lock" color="#666666" @click="remark(item)"></u-icon> -->
 					</view>
@@ -298,7 +298,7 @@
 									<u-icon
 										top="1px"
 										name="zhuanfa"
-										size="25"
+										size="25rpx"
 										color="#666666"
 										label-color="#333333"
 										label-size="22"
@@ -319,7 +319,7 @@
 									<u-icon
 										top="1px"
 										name="zhuanfa"
-										size="25"
+										size="25rpx"
 										color="#666666"
 										label-color="#333333"
 										label-size="22"
@@ -338,7 +338,7 @@
 								<u-icon
 									v-show="OperatingSystem"
 									name="zhuanfa"
-									size="25"
+									size="25rpx"
 									v-if="vuex_userRole === 'D' || vuex_userRole === 'R'"
 									color="#666666"
 									label-color="#333333"
@@ -350,7 +350,7 @@
 									top="1px"
 									v-show="!OperatingSystem"
 									name="zhuanfa"
-									size="25"
+									size="25rpx"
 									v-if="vuex_userRole === 'D' || vuex_userRole === 'R'"
 									color="#666666"
 									label-color="#333333"
@@ -365,9 +365,9 @@
 								@click="goPath('/pages/subOrder/details?id=' + item.id)"
 							>
 								<!-- &&item.lockOrder!=1 -->
-								<u-icon name="order" v-if="OperatingSystem" size="25" color="#666666" label-size="22" label-color="#333333" label="确认签收"></u-icon>
+								<u-icon name="order" v-if="OperatingSystem" size="25rpx" color="#666666" label-size="22" label-color="#333333" label="确认签收"></u-icon>
 
-								<u-icon top="1px" name="order" v-if="!OperatingSystem" size="25" color="#666666" label-size="22" label-color="#333333" label="确认签收"></u-icon>
+								<u-icon top="1px" name="order" v-if="!OperatingSystem" size="25rpx" color="#666666" label-size="22" label-color="#333333" label="确认签收"></u-icon>
 							</button>
 							<button
 								v-if="vuex_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
@@ -376,7 +376,7 @@
 								@click="VerifyAdd(item, index, 2)"
 							>
 								<!-- &&item.lockOrder!=1 -->
-								<u-icon v-if="OperatingSystem" name="rmb-circle" size="30" color="#666666" label-size="22" label-color="#333333" :label="labText"></u-icon>
+								<u-icon v-if="OperatingSystem" name="rmb-circle" size="30rpx" color="#666666" label-size="22" label-color="#333333" :label="labText"></u-icon>
 
 								<u-icon
 									top="1px"
@@ -396,8 +396,8 @@
 								@click="VerifyAdd(item, index, 1)"
 							>
 								<!-- &&item.lockOrder!=1 -->
-								<u-icon v-if="OperatingSystem" name="trash" size="25" color="#666666" label-size="22" label-color="#333333" label="删除"></u-icon>
-								<u-icon v-if="!OperatingSystem" top="1px" name="trash" size="25" color="#666666" label-size="22" label-color="#333333" label="删除"></u-icon>
+								<u-icon v-if="OperatingSystem" name="trash" size="25rpx" color="#666666" label-size="22" label-color="#333333" label="删除"></u-icon>
+								<u-icon v-if="!OperatingSystem" top="1px" name="trash" size="25rpx" color="#666666" label-size="22" label-color="#333333" label="删除"></u-icon>
 							</button>
 						</view>
 					</view>
@@ -432,14 +432,14 @@
 							<view class="flex-row items-center" style="width: 50%">
 								<text class="mr10" style="color: #999999">开始日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="calendar1Show = true" class="ml24" style="border-box;border: 0.5px solid #999999;padding: 12rpx;border-radius: 3px;">
+								<view @click="$refs.calendars.open()" class="ml24" style="border-box;border: 0.5px solid #999999;padding: 12rpx;border-radius: 3px;">
 									{{ date1 }}
 								</view>
 							</view>
 							<view class="flex-row items-center" style="width: 50%">
 								<text class="mr10 ml20" style="color: #999999">结束日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="calendar2Show = true" class="ml24" style="border-box;border: 0.5px solid #999999;padding: 12rpx;border-radius: 3px;">
+								<view @click="$refs.calendars.open()" class="ml24" style="border-box;border: 0.5px solid #999999;padding: 12rpx;border-radius: 3px;">
 									{{ date2 }}
 								</view>
 							</view>
@@ -510,33 +510,10 @@
 						<u-button type="success" @click="filterSubmit" shape="circle" size="medium" :custom-style="{ marginLeft: '20rpx' }" plain>确定</u-button>
 					</view>
 				</view>
+				<!-- 日历选择器 -->
+				<uv-calendars mode="range" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="date1Change" />
 			</view>
 		</u-popup>
-
-		<u-calendar
-			btn-type="success"
-			v-model="calendar1Show"
-			active-bg-color="#01BB74"
-			range-bg-color="#DFF9EF"
-			range-color="#333333"
-			mode="date"
-			:min-date="getCurrentYearFirstDay()"
-			:max-date="getCurrentDate()"
-			@change="date1Change"
-		></u-calendar>
-		<u-calendar
-			btn-type="success"
-			v-model="calendar2Show"
-			active-bg-color="#01BB74"
-			range-bg-color="#DFF9EF"
-			range-color="#333333"
-			mode="date"
-			:min-date="getCurrentYearFirstDay()"
-			:max-date="getCurrentDate()"
-			@change="date2Change"
-		></u-calendar>
-
-		<!-- <u-tabbar :list="vuex_tabbar" active-color="#0FB076"></u-tabbar> -->
 
 		<up-overlay
 			:show="showMask"
@@ -608,8 +585,6 @@ export default {
 			scrollTop: 0, //返回顶部
 			//筛选弹窗
 			filterShow: false,
-			calendar1Show: false, //日期弹窗
-			calendar2Show: false, //日期弹窗
 			date1: '', // 开始日期
 			date2: '', //结束日期
 			totalMoney: 0, //当前订单总额
@@ -1586,10 +1561,8 @@ export default {
 			this.filterShow = true;
 		},
 		date1Change(e) {
-			this.date1 = e.result;
-		},
-		date2Change(e) {
-			this.date2 = e.result;
+			this.date1 = e.range.before;
+			this.date2 = e.range.after;
 		},
 		filterReset() {
 			const date = new Date();

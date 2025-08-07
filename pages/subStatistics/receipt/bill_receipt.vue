@@ -1,29 +1,8 @@
 <template>
 	<view class="billReceipt">
-		<u-calendar
-			btn-type="success"
-			v-model="time.startShow"
-			active-bg-color="#01BB74"
-			range-bg-color="#DFF9EF"
-			range-color="#333333"
-			mode="date"
-			:min-date="getCurrentYearFirstDay()"
-			:max-date="getCurrentDate()"
-			@change="ChangeTimeStart"
-		></u-calendar>
-		<u-calendar
-			btn-type="success"
-			v-model="time.endShow"
-			active-bg-color="#01BB74"
-			range-bg-color="#DFF9EF"
-			range-color="#333333"
-			mode="date"
-			:min-date="getCurrentYearFirstDay()"
-			:max-date="getCurrentDate()"
-			@change="ChangeTimeEnd"
-		></u-calendar>
-
-		<u-empty src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" icon-size="400" text="无查看权限~" mode="search" margin-top="-200" v-if="!identity"></u-empty>
+		<!-- 日历选择器 -->
+		<uv-calendars mode="range" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="ChangeTimeStart" />
+		<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" mode="search" margin-top="-200" v-if="!identity"></u-empty>
 
 		<z-paging
 			:paging-style="{ marginTop: '0' }"
@@ -57,10 +36,11 @@
 					</text>
 					<u-icon class="ml10 mr10" name="/static/img/list/sx.svg" size="40"></u-icon>
 					<u-input
+						border="none"
 						class="my-input"
 						style="width: 100%"
 						@input="InputTextOne"
-						v-model="InputOneText"
+						:modelValue="InputOneText"
 						:custom-style="{ backgroundColor: 'transparent' }"
 						:placeholder="vuex_userRole === 'R' ? '请选择供应商' : '请选择客户'"
 						clearable="true"
@@ -74,14 +54,14 @@
 					<view class="billCardTimeStart">
 						<text class="mr10" style="color: #666666">开始日期</text>
 						<u-icon name="arrow-down-fill" size="10"></u-icon>
-						<view @click="time.startShow = true" class="ml24" style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
+						<view @click="$refs.calendars.open()" class="ml24" style="border: 1rpx solid #999999; padding: 12rpx; border-radius: 6rpx">
 							{{ time.start }}
 						</view>
 					</view>
 					<view class="billCardTimeEnd">
 						<text class="mr10" style="color: #666666">结束日期</text>
 						<u-icon name="arrow-down-fill" size="10"></u-icon>
-						<view @click="time.endShow = true" class="ml24" style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
+						<view @click="$refs.calendars.open()" class="ml24" style="border: 1rpx solid #999999; padding: 12rpx; border-radius: 6rpx">
 							{{ time.end }}
 						</view>
 					</view>
@@ -483,28 +463,18 @@ export default {
 			});
 		},
 		ChangeTimeStart(e) {
-			if (this.EndBigStart(e.result, this.time.end)) {
-				this.$u.toast(`开始时间不能大于结束时间`);
-				return;
-			} else {
-				this.time.start = e.result;
-				this.billFrom.startTime = this.time.start;
-				this.billFrom.endTime = this.time.end;
-				//请求
-				this.$refs.paging.reload();
-			}
-		},
-		ChangeTimeEnd(e) {
-			if (this.EndBigStart(this.time.start, e.result)) {
-				this.$u.toast(`开始时间不能大于结束时间`);
-				return;
-			} else {
-				this.time.end = e.result;
-				this.billFrom.startTime = this.time.start;
-				this.billFrom.endTime = this.time.end;
-				//请求
-				this.$refs.paging.reload();
-			}
+			this.time.start = e.range.before;
+			this.time.end = e.range.after;
+			this.billFrom.startTime = this.time.start;
+			this.billFrom.endTime = this.time.end;
+			//请求
+			this.$refs.paging.reload();
+			// if (this.EndBigStart(e.result, this.time.end)) {
+			// 	this.$u.toast(`开始时间不能大于结束时间`);
+			// 	return;
+			// } else {
+
+			// }
 		},
 		EndBigStart(start, end) {
 			var s = new Date(start).getTime();
@@ -1174,5 +1144,3 @@ export default {
 	}
 }
 </style>
-
-

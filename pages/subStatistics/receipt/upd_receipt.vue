@@ -439,7 +439,7 @@
 								<text class="mr10" style="color: #999999">开始日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
 								<input
-									@click="calendar1Show = true"
+									@click="$refs.calendars.open()"
 									disabled
 									class="ml24"
 									style="
@@ -458,7 +458,7 @@
 								<text class="mr10 ml20" style="color: #999999">结束日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
 								<input
-									@click="calendar2Show = true"
+									@click="$refs.calendars.open()"
 									disabled
 									class="ml24"
 									style="
@@ -542,31 +542,10 @@
 						<u-button type="success" @click="filterSubmit" shape="circle" size="medium" :custom-style="{ marginLeft: '20rpx' }" plain>确定</u-button>
 					</view>
 				</view>
+				<!-- 日历选择器 -->
+				<uv-calendars mode="range" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="date1Change" />
 			</view>
 		</u-popup>
-
-		<u-calendar
-			btn-type="success"
-			v-model="calendar1Show"
-			active-bg-color="#01BB74"
-			range-bg-color="#DFF9EF"
-			range-color="#333333"
-			mode="date"
-			:min-date="getCurrentYearFirstDay()"
-			:max-date="getCurrentDate()"
-			@change="date1Change"
-		></u-calendar>
-		<u-calendar
-			btn-type="success"
-			v-model="calendar2Show"
-			active-bg-color="#01BB74"
-			range-bg-color="#DFF9EF"
-			range-color="#333333"
-			mode="date"
-			:min-date="getCurrentYearFirstDay()"
-			:max-date="getCurrentDate()"
-			@change="date2Change"
-		></u-calendar>
 	</view>
 </template>
 
@@ -1630,10 +1609,8 @@ export default {
 			this.$u.toast('请先到后台发货~');
 		},
 		date1Change(e) {
-			this.date1 = e.result;
-		},
-		date2Change(e) {
-			this.date2 = e.result;
+			this.date1 = e.range.before;
+			this.date2 = e.range.after;
 		},
 		filterReset() {
 			this.date1 = this.$u.timeFormat(new Date(new Date().getFullYear(), 0, 1), 'yyyy-mm-dd');
