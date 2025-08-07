@@ -12,7 +12,7 @@
 					<view class="" style="position: absolute; left: 0; top: 0">
 						<u-icon :name="item.img" size="80"></u-icon>
 					</view>
-					<view class="mt30" style="font-size: 12px; height: 100%; margin-left: 12vw">
+					<view class="mt30" style="font-size: 24rpx; height: 100%; margin-left: 12vw">
 						<view class="">
 							<text>{{ item.name }}</text>
 							<text class="ml10" style="color: #f1bf7b">{{ item.type }}</text>
@@ -24,11 +24,11 @@
 								background-color: #ffffff;
 								width: auto;
 								float: left;
-								border-radius: 0px 6px 6px 6px;
+								border-radius: 0rpx 12rpx 12rpx 12rpx;
 								max-width: 50vw;
 								white-space: normal;
 								word-wrap: break-word;
-								font-size: 14px;
+								font-size: 28rpx;
 							"
 						>
 							{{ item.message }}
@@ -37,10 +37,10 @@
 				</view>
 
 				<view class="mt45 mr30" v-if="item.formUserId == vuex_user.phone">
-					<view class="" style="position: absolute; right: 10px; top: 0">
+					<view class="" style="position: absolute; right: 20rpx; top: 0">
 						<u-icon :name="item.img" size="80"></u-icon>
 					</view>
-					<view class="" style="font-size: 12px; height: 100%; margin-right: 12vw"></view>
+					<view class="" style="font-size: 24rpx; height: 100%; margin-right: 12vw"></view>
 					<view
 						class="pd10 pr10 pb10 pt10 mt40"
 						v-if="item.message.img == undefined"
@@ -49,12 +49,12 @@
 							color: white;
 							width: auto;
 							float: right;
-							border-radius: 6px 0px 6px 6px;
+							border-radius: 12rpx 0rpx 12rpx 12rpx;
 							max-width: 50vw;
 							white-space: normal;
 							word-wrap: break-word;
 							margin-right: 12vw;
-							font-size: 14px;
+							font-size: 28rpx;
 						"
 					>
 						{{ item.message }}
@@ -67,15 +67,15 @@
 							color: white;
 							width: auto;
 							float: right;
-							border-radius: 6px 0px 6px 6px;
+							border-radius: 12rpx 0rpx 12rpx 12rpx;
 							max-width: 50vw;
 							white-space: normal;
 							word-wrap: break-word;
 							margin-right: 12vw;
-							font-size: 14px;
+							font-size: 28rpx;
 						"
 					>
-						<u-image :src="item.message.img" width="30px" height="50px"></u-image>
+						<u-image :src="item.message.img" width="60rpx" height="100rpx"></u-image>
 					</view>
 				</view>
 			</view>
@@ -96,15 +96,16 @@
 				<view class="mt10" style="height: 100%; align-items: center">
 					<u-icon class="mr10" name="mic" size="50"></u-icon>
 				</view>
-				<u-input
-					class=""
-					type="text"
-					border="true"
-					placeholde="输入您想咨询的问题"
-					:style="{ width: showFile == 1 ? '70%' : '80%' }"
-					@input="messageChange"
-					v-model="message"
-				/>
+				<view :style="{ width: showFile == 1 ? '70%' : '80%' }">
+					<u-input
+						type="text"
+						placeholde="输入您想咨询的问题"
+						:modelValue="message"
+						border="bottom"
+					>
+					</u-input>
+				</view>
+				
 				<view class="mt10 ml10" style="height: 100%; align-items: center">
 					<u-icon :style="{ display: showFile == 0 ? 'block' : 'none' }" class="mr10 ml10" name="plus-circle" size="50" @click="sendImg"></u-icon>
 					<button @click="send" :style="{ display: showFile == 1 ? 'block' : 'none' }" class="fsbtm">发送</button>
@@ -396,10 +397,10 @@ export default {
 
 .fsbtm {
 	background-color: #01bb74;
-	width: 60px;
-	height: 30px;
-	border-radius: 185px;
-	font-size: 12px;
+	width: 120rpx;
+	height: 60rpx;
+	border-radius: 370rpx;
+	font-size: 24rpx;
 	color: white;
 }
 </style>

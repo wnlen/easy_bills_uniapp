@@ -1,5 +1,5 @@
 <template>
-	<view class="bg-white" style="overflow-x: hidden; padding-bottom: 100px">
+	<view class="bg-white" style="overflow-x: hidden; padding-bottom: 200rpx">
 		<u-navbar :autoBack="true" :placeholder="true" bgColor="#ffffff">
 			<template #center>
 				<view class="flex-row items-center justify-center ml48" style="width: 100%">
@@ -9,7 +9,7 @@
 					<view
 						@click="jumpVideo"
 						class="flex-row justify-center items-center ml12"
-						style="border: 1.1px solid #01bb74; height: 22px; width: 68px; border-radius: 8rpx; color: #01bb74; font-size: 11px"
+						style="border: 2.2rpx solid #01bb74; height: 44rpx; width: 136rpx; border-radius: 8rpx; color: #01bb74; font-size: 22rpx"
 					>
 						<text class="mr6">使用方法</text>
 						<u-icon class="ml6" name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></u-icon>
@@ -54,25 +54,27 @@
 			</view>
 		</view>
 
-		<view class="mt24 flex-row ml24 mr24" style="background-color: #f8f8f8; border-radius: 6.12px">
+		<view class="mt24 flex-row ml24 mr24" style="background-color: #f8f8f8; border-radius: 12.24rpx">
 			<view class="flex-col justify-center pd12">
 				<u-icon class="mr10" name="search" color="#01BB74" size="30rpx"></u-icon>
 			</view>
-			<u-input
-				border="none"
-				style="width: 100%; padding: 10rpx"
-				:modelValue="searchValue"
-				@input="search"
-				:placeholder="
-					show != 1
-						? vuex_userRole == 'R'
-							? '请输入关键字进行供应商查找'
-							: '请输入关键字进行客户查找'
-						: vuex_userRole == 'R'
-						? '请输入关键字进行账单查询'
-						: '请输入关键字进行销售查询'
-				"
-			/>
+			<view class="pd10">
+				<u-input
+					border="none"
+					:modelValue="searchValue"
+					@change="search"
+					:placeholder="
+						show != 1
+							? vuex_userRole == 'R'
+								? '请输入关键字进行供应商查找'
+								: '请输入关键字进行客户查找'
+							: vuex_userRole == 'R'
+							? '请输入关键字进行账单查询'
+							: '请输入关键字进行销售查询'
+					"
+				>
+				</u-input>
+			</view>
 		</view>
 
 		<up-overlay :show="showSF" @click="showSF = false">
@@ -81,19 +83,19 @@
 				v-if="showSF"
 				class="flex-col relative"
 				:style="{ height: heig }"
-				style="background-color: white; width: 75%; margin-top: 70%; border-radius: 6.87px; margin-left: 46px"
+				style="background-color: white; width: 75%; margin-top: 70%; border-radius: 13.74rpx; margin-left: 92rpx"
 			>
-				<view class="flex-col justify-center items-center" style="font-size: 16px; height: 5vh">添加好友</view>
+				<view class="flex-col justify-center items-center" style="font-size: 32rpx; height: 5vh">添加好友</view>
 
 				<view class="flex-row text-center justify-center items-center" style="width: 100%; height: 8vh">
-					<view class="flex-col text-center justify-center items-center" style="color: #999999; font-size: 16px">申请添加对方为</view>
+					<view class="flex-col text-center justify-center items-center" style="color: #999999; font-size: 32rpx">申请添加对方为</view>
 					<view
 						@click="
 							showChecked = showChecked == true ? false : true;
 							!showChecked ? (heig = '20vh') : (heig = '29vh');
 						"
 						class="ml15 flex-col text-center justify-center items-center"
-						style="box-sizing: border-box; border: 0.57px solid #999999; border-radius: 6.87px; width: 79.58px; height: 30.23px"
+						style="box-sizing: border-box; border: 1.14rpx solid #999999; border-radius: 13.74rpx; width: 159.16rpx; height: 60.46rpx"
 					>
 						{{ role == 0 ? '客户' : '供应商' }}
 					</view>
@@ -124,11 +126,11 @@
 							heig = '20vh';
 						"
 						class="flex-row items-center pl20 relative"
-						style="height: 35px; width: 255px; border-radius: 3px"
+						style="height: 70rpx; width: 510rpx; border-radius: 6rpx"
 						:style="{ backgroundColor: role == 0 ? '#ECFAF4' : '#FBFBFB', color: role == 0 ? '#01BB74' : '#333333' }"
 					>
 						<view>客户</view>
-						<view v-if="role == 0" class="absolute" style="right: 10px">
+						<view v-if="role == 0" class="absolute" style="right: 20rpx">
 							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></u-icon>
 						</view>
 					</view>
@@ -139,11 +141,11 @@
 							heig = '20vh';
 						"
 						class="flex-row items-center mt10 pl20 relative"
-						style="height: 35px; width: 255px; border-radius: 3px"
+						style="height: 70rpx; width: 510rpx; border-radius: 6rpx"
 						:style="{ backgroundColor: role == 1 ? '#ECFAF4' : '#FBFBFB', color: role == 1 ? '#01BB74' : '#333333' }"
 					>
 						<view>供应商</view>
-						<view v-if="role == 1" class="absolute" style="right: 10px">
+						<view v-if="role == 1" class="absolute" style="right: 20rpx">
 							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></u-icon>
 						</view>
 					</view>
@@ -171,7 +173,7 @@
 					class="ml20 flex-row items-center vw100"
 					v-for="(item2, index2) in listO"
 					:key="index2"
-					style="border-bottom: 1px solid #f7f7f7; height: 9vh"
+					style="border-bottom: 2rpx solid #f7f7f7; height: 9vh"
 					@click="particulars(item2, false)"
 				>
 					<view class="" style="width: 10%">
@@ -212,9 +214,9 @@
 			></u-empty>
 			<view class="" :style="{ display: show != 0 ? 'none' : 'block' }">
 				<view v-for="(item, index) in client" :key="index" @click="particulars(item, true)">
-					<view class="ml20 mt15" style="border-bottom: 1px solid #f7f7f7; width: 110vw">
+					<view class="ml20 mt15" style="border-bottom: 2rpx solid #f7f7f7; width: 110vw">
 						<u-collapse arrow-color="#ffffff">
-							<view class="flex-col justify-center items-baseline" style="height: 40px" :style="{ color: ifZX(index) ? 'red' : 'black' }">
+							<view class="flex-col justify-center items-baseline" style="height: 80rpx" :style="{ color: ifZX(index) ? 'red' : 'black' }">
 								{{ getCompanyName(item) }}
 								<!-- {{ifCm(index)}} -->
 								<!-- {{ifZX(index)?index.replace("zx-'",''):ifCm(index)?ifCmStr(index):index}} -->
@@ -228,7 +230,7 @@
 		<view
 			:style="{ display: show != 1 ? 'none' : 'block' }"
 			class="vw100 pd30"
-			style="position: fixed; bottom: 0px; height: 50px; background-color: #01bb74; z-index: 999; align-items: center; border-radius: 6px 6px 0px 0px; opacity: 1"
+			style="position: fixed; bottom: 0rpx; height: 100rpx; background-color: #01bb74; z-index: 999; align-items: center; border-radius: 12rpx 12rpx 0rpx 0rpx; opacity: 1"
 		>
 			<view class="" style="float: right; color: white">
 				合计欠款：
@@ -267,18 +269,18 @@ export default {
 			heig: '20vh',
 			searchValue: '',
 			SearchCustomStyle: {
-				width: '110px',
-				height: '30px',
+				width: '220rpx',
+				height: '60rpx',
 				padding: '12rpx',
-				fontSize: '12px',
+				fontSize: '24rpx',
 				backgroundColor: '#FFAF38',
 				color: '#ffffff'
 			},
 			SearchCustomStyleWechat: {
-				width: '100px',
-				height: '30px',
+				width: '200rpx',
+				height: '60rpx',
 				padding: '12rpx',
-				fontSize: '12px',
+				fontSize: '24rpx',
 				color: '#01BB74'
 			},
 			identity: false,
@@ -588,13 +590,12 @@ export default {
 				this.all = Number(this.all); // 可选，如果你希望是数字
 			});
 		},
-		change(index) {
-			this.currents = index;
-			this.show = index;
+		change(item) {
+			this.currents = item.index;
+			this.show = item.index;
 			this.searchValue = '';
 			this.listO = this.listOCopy;
 			this.client = this.clientCopy;
-			console.log(this.show);
 		},
 		jump(e, item) {}
 	}
@@ -605,11 +606,11 @@ export default {
 	display: flex;
 	box-sizing: border-box;
 	width: 100%;
-	padding: 10px 24rpx;
+	padding: 20rpx 24rpx;
 	overflow: hidden;
 	color: #323233;
-	font-size: 14px;
-	line-height: 24px;
+	font-size: 28rpx;
+	line-height: 48rpx;
 	background-color: #fff;
 }
 
@@ -619,7 +620,7 @@ export default {
 
 .custom-style {
 	// width: 13%;
-	border-radius: 12px;
+	border-radius: 24rpx;
 	text-align: center;
 }
 </style>

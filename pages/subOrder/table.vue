@@ -6,19 +6,19 @@
 				v-if="showSF"
 				class="flex-col relative"
 				:style="{ height: heig }"
-				style="background-color: white; width: 75%; margin-top: 70%; border-radius: 6.87px; margin-left: 46px"
+				style="background-color: white; width: 75%; margin-top: 70%; border-radius: 13.74rpx; margin-left: 92rpx"
 			>
-				<view class="flex-col justify-center items-center" style="font-size: 16px; height: 5vh">添加好友</view>
+				<view class="flex-col justify-center items-center" style="font-size: 32rpx; height: 5vh">添加好友</view>
 
 				<view class="flex-row text-center justify-center items-center" style="width: 100%; height: 8vh">
-					<view class="flex-col text-center justify-center items-center" style="color: #999999; font-size: 16px">申请添加对方为</view>
+					<view class="flex-col text-center justify-center items-center" style="color: #999999; font-size: 32rpx">申请添加对方为</view>
 					<view
 						@click="
 							showChecked = showChecked == true ? false : true;
 							!showChecked ? (heig = '20vh') : (heig = '29vh');
 						"
 						class="ml15 flex-col text-center justify-center items-center"
-						style="box-sizing: border-box; border: 0.57px solid #999999; border-radius: 6.87px; width: 79.58px; height: 30.23px"
+						style="box-sizing: border-box; border: 1.14rpx solid #999999; border-radius: 13.74rpx; width: 159.16rpx; height: 60.46rpx"
 					>
 						{{ role == 0 ? '客户' : '供应商' }}
 					</view>
@@ -49,11 +49,11 @@
 							heig = '20vh';
 						"
 						class="flex-row items-center pl20 relative"
-						style="height: 35px; width: 255px; border-radius: 3px"
+						style="height: 70rpx; width: 510rpx; border-radius: 6rpx"
 						:style="{ backgroundColor: role == 0 ? '#ECFAF4' : '#FBFBFB', color: role == 0 ? '#01BB74' : '#333333' }"
 					>
 						<view>客户</view>
-						<view v-if="role == 0" class="absolute" style="right: 10px">
+						<view v-if="role == 0" class="absolute" style="right: 20rpx">
 							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></u-icon>
 						</view>
 					</view>
@@ -64,11 +64,11 @@
 							heig = '20vh';
 						"
 						class="flex-row items-center mt10 pl20 relative"
-						style="height: 35px; width: 255px; border-radius: 3px"
+						style="height: 70rpx; width: 510rpx; border-radius: 6rpx"
 						:style="{ backgroundColor: role == 1 ? '#ECFAF4' : '#FBFBFB', color: role == 1 ? '#01BB74' : '#333333' }"
 					>
 						<view>供应商</view>
-						<view v-if="role == 1" class="absolute" style="right: 10px">
+						<view v-if="role == 1" class="absolute" style="right: 20rpx">
 							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></u-icon>
 						</view>
 					</view>
@@ -103,7 +103,7 @@
 					<u-icon name="search" color="#01BB74" size="30rpx"></u-icon>
 				</view>
 				<view class="SearchTablePageInput">
-					<u-input placeholder="请输入关键字进行查找" border="none" @input="search" />
+					<u-input placeholder="请输入关键字进行查找" border="none" @change="search" ></u-input>
 				</view>
 			</view>
 		</view>
@@ -117,19 +117,19 @@
 			margin-top="-200"
 		></u-empty>
 		<view v-for="(item, index) in client" :key="index">
-			<view class="ml20" style="border-bottom: 1px solid #f7f7f7; width: 110vw" v-show="show == 1">
+			<view class="ml20" style="border-bottom: 2rpx solid #f7f7f7; width: 110vw" v-show="show == 1">
 				<u-collapse arrow-color="#ffffff">
 					<u-collapse-item v-if="!ifZX(index)" :title="getCompanyName(item)" arrow="false">
 						<view
 							v-for="(item2, index2) in item"
 							:key="index2"
-							style="border-bottom: 1px solid #f4f4f4; width: 85%; padding-top: 5px; padding-bottom: 5px"
+							style="border-bottom: 2rpx solid #f4f4f4; width: 85%; padding-top: 10rpx; padding-bottom: 10rpx"
 							class="anchor-text ml48"
 							:style="{ color: item.state == '2' ? '#FA5151' : '#333333' }"
 						>
 							<view
 								class=""
-								style="display: flex; flex-direction: row; padding-top: 5px; color: black"
+								style="display: flex; flex-direction: row; padding-top: 10rpx; color: black"
 								:style="{ color: item2.identity == '3' ? '#AAAAAA' : '#333333' }"
 								@click="jump(index, item2, item)"
 							>
@@ -139,7 +139,7 @@
 									:style="{
 										backgroundColor: item2.identity == '0' ? '#648AFF' : item2.identity == '1' ? '#FF8C8C' : '#FFE387',
 										color: '#ffffff',
-										width: item2.identity == '1' || item2.identity == '0' ? '50px' : '40px'
+										width: item2.identity == '1' || item2.identity == '0' ? '100rpx' : '80rpx'
 									}"
 								>
 									{{ item2.identity == '0' ? '主账号' : item2.identity == '1' ? '合伙人' : item2.identity == '3' ? '财务' : '员工' }}
@@ -149,9 +149,9 @@
 					</u-collapse-item>
 				</u-collapse>
 			</view>
-			<view class="ml20 clickBack" v-show="show == 0" style="border-bottom: 1px solid #f7f7f7; width: 110vw">
-				<view @click="jumpShow(item)" style="border-bottom: 1px solid #f4f4f4; width: 85%; padding-top: 5px; padding-bottom: 5px" class="anchor-text ml24">
-					<view class="" style="display: flex; flex-direction: row; padding-top: 5px; color: black">
+			<view class="ml20 clickBack" v-show="show == 0" style="border-bottom: 2rpx solid #f7f7f7; width: 110vw">
+				<view @click="jumpShow(item)" style="border-bottom: 2rpx solid #f4f4f4; width: 85%; padding-top: 10rpx; padding-bottom: 10rpx" class="anchor-text ml24">
+					<view class="" style="display: flex; flex-direction: row; padding-top: 10rpx; color: black">
 						{{ ifZX(index) ? index.replace("zx-'", '') : getCompanyName(item) }}
 					</view>
 				</view>
@@ -188,18 +188,18 @@ export default {
 			role: 0,
 			sm: '',
 			SearchCustomStyle: {
-				width: '100px',
-				height: '30px',
+				width: '200rpx',
+				height: '60rpx',
 				padding: '12rpx',
-				fontSize: '12px',
+				fontSize: '24rpx',
 				backgroundColor: '#FFAF38',
 				color: '#ffffff'
 			},
 			SearchCustomStyleWechat: {
-				width: '100px',
-				height: '30px',
+				width: '200rpx',
+				height: '60rpx',
 				padding: '12rpx',
-				fontSize: '12px',
+				fontSize: '24rpx',
 				color: '#01BB74'
 			}
 		};
@@ -448,11 +448,11 @@ export default {
 	display: flex;
 	box-sizing: border-box;
 	width: 100%;
-	padding: 10px 24rpx;
+	padding: 20rpx 24rpx;
 	overflow: hidden;
 	color: #323233;
-	font-size: 14px;
-	line-height: 24px;
+	font-size: 28rpx;
+	line-height: 48rpx;
 	background-color: #fff;
 }
 
@@ -476,7 +476,7 @@ export default {
 		justify-content: center;
 		align-items: center;
 
-		border-radius: 6.12px;
+		border-radius: 12.24rpx;
 		background: #f4f4f4;
 
 		.SearchTablePageIcon {
@@ -508,11 +508,11 @@ export default {
 }
 
 .custom-style {
-	// width: 100px;
-	border-radius: 12px;
+	// width: 200rpx;
+	border-radius: 24rpx;
 	text-align: center;
 	padding: 4rpx;
-	font-size: 12px;
+	font-size: 24rpx;
 }
 
 .clickBack:hover {

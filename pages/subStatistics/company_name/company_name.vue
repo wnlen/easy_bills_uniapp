@@ -1,13 +1,13 @@
 <template>
 	<view class="" style="width: 100%; height: 10vh">
 		<view class="anchor-text" style="width: 90%; text-align: center; background-color: #ffffff; margin-left: 5%; height: 7vh">
-			<view class="mt18" style="margin-left: 20px; border-radius: 6.12px; display: flex; flex-direction: row; width: 90%; border-radius: 6.12px">
-				<view class="flex-row justify-center" style="width: 95%; border-radius: 6.12px; background-color: #f8f8f8">
+			<view class="mt18" style="margin-left: 40rpx; border-radius: 12.24rpx; display: flex; flex-direction: row; width: 90%; border-radius: 12.24rpx">
+				<view class="flex-row justify-center" style="width: 95%; border-radius: 12.24rpx; background-color: #f8f8f8">
 					<view class="flex-col justify-center" style="width: 5%; height: 100%; height: 5vh">
 						<u-icon class="mr10" name="search" color="#01BB74" size="30"></u-icon>
 					</view>
 					<view class="ml20" style="width: 90%; height: 100%">
-						<u-input style="" border="none" />
+						<u-input border="none" ></u-input>
 					</view>
 				</view>
 
@@ -18,7 +18,7 @@
 		</view>
 
 		<u-index-list :scrollTop="scrollTop">
-			<view class="ml48" v-for="(item2, index2) in list" :key="index2" @click="jump()" style="border-bottom: 1px solid #f7f7f7; width: 110vw">
+			<view class="ml48" v-for="(item2, index2) in list" :key="index2" @click="jump()" style="border-bottom: 2rpx solid #f7f7f7; width: 110vw">
 				<u-collapse arrow-color="#ffffff">
 					<u-collapse-item :title="item2" arrow="false" @change="jump(item2)"></u-collapse-item>
 				</u-collapse>
@@ -71,11 +71,11 @@ export default {
 	display: flex;
 	box-sizing: border-box;
 	width: 100%;
-	padding: 10px 24rpx;
+	padding: 20rpx 24rpx;
 	overflow: hidden;
 	color: #323233;
-	font-size: 14px;
-	line-height: 24px;
+	font-size: 28rpx;
+	line-height: 48rpx;
 	background-color: #fff;
 }
 
@@ -85,7 +85,7 @@ export default {
 
 .custom-style {
 	// width: 13%;
-	border-radius: 12px;
+	border-radius: 24rpx;
 	text-align: center;
 }
 </style>

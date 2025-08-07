@@ -77,13 +77,12 @@
 						disabled
 						type="textarea"
 						border="none"
-						class=""
 						placeholder="(无备注)"
 						:modelValue="billFrom.billRemark"
-						placeholder-class="placeholder_class"
+						placeholderClass="placeholder_class"
 						maxlength="50"
 						height="100%"
-					/>
+					></u-input>
 				</view>
 			</view>
 
@@ -389,9 +388,9 @@ export default {
 		padding-bottom: 20%;
 
 		.BillReturnBtn {
-			width: 189.12px;
-			height: 44.43px;
-			border-radius: 188px;
+			width: 378.24rpx;
+			height: 88.86rpx;
+			border-radius: 376rpx;
 			background-color: #01bb74;
 			color: white;
 		}
@@ -429,8 +428,8 @@ export default {
 		padding-top: 30rpx;
 		border-style: dashed;
 		border-color: #d8d8d8;
-		border-width: 1px;
-		border-radius: 6px;
+		border-width: 2rpx;
+		border-radius: 12rpx;
 	}
 
 	.FilePdfList {
@@ -490,7 +489,7 @@ export default {
 			position: absolute;
 			left: 0;
 			color: #666666;
-			font-size: 14px;
+			font-size: 28rpx;
 		}
 
 		.OwnTextFromText {
@@ -499,7 +498,7 @@ export default {
 			position: absolute;
 			right: 0;
 			color: #333333;
-			font-size: 14px;
+			font-size: 28rpx;
 		}
 	}
 }
@@ -527,17 +526,17 @@ export default {
 		padding-top: 48rpx;
 		margin-bottom: 24rpx;
 		color: #666666;
-		font-size: 14px;
+		font-size: 28rpx;
 	}
 
 	.FromFileTitleRemark {
 		background-color: #f9f9f9;
-		border-radius: 6px;
+		border-radius: 12rpx;
 		margin-bottom: 24rpx;
 		padding-left: 24rpx;
 		padding-bottom: 12rpx;
 		padding-top: 12rpx;
-		// height: 50px;
+		// height: 100rpx;
 	}
 }
 
