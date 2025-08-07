@@ -3,22 +3,23 @@
 		<view class="flex-col pt100" v-if="orderList.length == 0 && !identity">
 			<u-empty
 				:show="isEmpty"
-				src="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/empty.svg"
-				icon-size="200"
+				icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/empty.svg"
+				iconSize="400rpx"
 				text="暂无签收人~"
 				mode="search"
-				margin-top="200"
+				marginTop="200"
 			></u-empty>
 			<view class="mt25 vw100 text-center" style="font-size: 28rpx">
 				<u-button
 					@click="goPath('/pages/subPack/user/signee/add')"
 					hover-class="none"
-					:custom-style="{ backgroundColor: '#01BB74' }"
+					:customStyle="{ backgroundColor: '#01BB74',width:'130px' }"
 					:disabled="orderList.length >= 1"
 					type="primary"
 					class=""
 					shape="circle"
 					size="medium"
+					color="#01BB74"
 				>
 					新增签收人
 				</u-button>

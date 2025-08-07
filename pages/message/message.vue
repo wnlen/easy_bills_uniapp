@@ -9,7 +9,7 @@
 		</view>
 
 		<view class="vw100" style="margin-top: 50%; height: 100px" v-if="!ifShow()">
-			<u-empty src="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg" icon-size="400rpx" text="暂无消息~" mode="search" margin-top="200"></u-empty>
+			<u-empty icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg" iconSize="400rpx" text="暂无消息~" mode="search" margin-top="200"></u-empty>
 
 		</view>
 

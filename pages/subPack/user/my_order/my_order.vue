@@ -1,17 +1,6 @@
 <template>
 	<view class="Myorder">
-		<u-navbar
-			:autoBack="true"
-			:placeholder="true"
-			:custom-back="rightClick"
-			back-icon-color="#ffffff"
-			:background="uNa"
-			:border-bottom="false"
-			:titleBold="true"
-			title-color="#ffffff"
-			title="我的订购"
-			title-size="34"
-		></u-navbar>
+		<u-navbar :autoBack="true" :placeholder="true" title="我的订购" leftIconColor="#fff" :bgColor="uNa" :titleStyle="{ color: '#fff' }"></u-navbar>
 
 		<pop-details ref="popDetails"></pop-details>
 
@@ -19,16 +8,15 @@
 			<view class="handTab">
 				<view class="Tab">
 					<u-tabs
-						:list="TabList"
-						:current="current"
-						:scrollable="false"
-						:showBar="true"
-						:activeStyle="{ backgroundColor: 'transparent', color: '#D6AE83' }"
 						:inactiveStyle="{ color: '#D6AE83' }"
-						:itemStyle="{ width: '50%', height: '90rpx', backgroundColor: '#323243' }"
-						:bgColor="'linear-gradient(270deg, #323243 0%, #47506C 72%)'"
+						:itemStyle="{ backgroundColor: 'transparent',height:'40px' }"
+						:activeStyle="{ color: '#D6AE83' }"
+						lineColor="#D6AE83"
+						:list="TabList"
+						:scrollable="false"
+						:current="current"
 						@change="TabChange"
-					/>
+					></u-tabs>
 				</view>
 			</view>
 		</view>
@@ -52,17 +40,17 @@
 						@click="checkboxClick(index)"
 					>
 						<view class="card_people_icon">
-							<u-icon size="90" name="https://res-oss.elist.com.cn/wxImg/vip/jyn.svg"></u-icon>
+							<u-icon size="90rpx" name="https://res-oss.elist.com.cn/wxImg/vip/jyn.svg"></u-icon>
 						</view>
 						<view class="card_people_title">
 							<view class="card_people_title_one">
-								<view class="relative">
-									{{ item.product || '' }}
+								<view class="relative flex-row items-start">
+									<text>{{ item.product || '' }}</text>
 									<!-- #ifdef MP-WEIXIN -->
-									<u-icon @tap.stop @click="popDetails(1, item)" class="mb10 ml5 absolute" size="23" name="question-circle" color="#AAAAAA"></u-icon>
+									<u-icon @tap.stop @click="popDetails(1, item)" class="mb10 ml5 absolute" size="23rpx" name="question-circle" color="#AAAAAA"></u-icon>
 									<!-- #endif -->
 									<!-- #ifdef APP -->
-									<u-icon @click="popDetails(1, item)" class="mb10 ml5 absolute" size="23" name="question-circle" color="#AAAAAA"></u-icon>
+									<u-icon @click="popDetails(1, item)" class="mb10 ml5 absolute" size="23rpx" name="question-circle" color="#AAAAAA"></u-icon>
 									<!-- #endif -->
 								</view>
 							</view>
@@ -81,7 +69,7 @@
 								:style="{ backgroundColor: (index == 0 ? check.A.checkA : check.A.checkB) ? '#EA7183' : '#ffffff' }"
 								style="border-radius: 100rpx; height: 32rpx; width: 32rpx; border: 2rpx solid #aaaaaa"
 							>
-								<u-icon name="checkbox-mark" color="#ffffff" size="20"></u-icon>
+								<u-icon name="checkbox-mark" color="#ffffff" size="20rpx"></u-icon>
 							</view>
 
 							<view class="absolute" style="right: 30rpx; top: -1rpx" v-if="index == 1">
@@ -110,7 +98,7 @@
 								</button> -->
 								<u-button hover-class="none" :hair-line="false" :custom-style="buttonStyle" open-type="contact">
 									报价咨询
-									<u-icon class="ml8 mt1" name="play-right-fill" color="#E7647F" size="16"></u-icon>
+									<u-icon class="ml8 mt1" name="play-right-fill" color="#E7647F" size="16rpx"></u-icon>
 								</u-button>
 							</view>
 						</view>
@@ -129,8 +117,8 @@
 						<view class="width40 flex-col mt20" @click="dropdownIcon" style="z-index: 98; height: 100%; text-align: center">
 							<liu-data-select elementId="data-select1" :dataList="dataListAll" @change="dropdown">
 								<view id="data-select1" class="btn-info flex-row justify-center">
-									<u-icon class="mr10" v-show="selectionIcon" name="arrow-down-fill" color="#333333" size="15"></u-icon>
-									<u-icon class="mr10" v-show="!selectionIcon" name="arrow-up-fill" color="#333333" size="15"></u-icon>
+									<u-icon class="mr10" v-show="selectionIcon" name="arrow-down-fill" color="#333333" size="15rpx"></u-icon>
+									<u-icon class="mr10" v-show="!selectionIcon" name="arrow-up-fill" color="#333333" size="15rpx"></u-icon>
 									<text>{{ dropdownName || '' }}</text>
 								</view>
 							</liu-data-select>
@@ -143,15 +131,15 @@
 										:style="{ backgroundColor: !check.B.checkA ? '#EA7183' : '#ffffff' }"
 										style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 									>
-										<u-icon name="checkbox-mark" color="#ffffff" size="25"></u-icon>
+										<u-icon name="checkbox-mark" color="#ffffff" size="25rpx"></u-icon>
 									</view>
-									<view class="ml15 relative mr48">
-										{{ c_product_old_data[0] ? c_product_old_data[0].product : 0 }}
+									<view class="ml15 relative mr48 flex-row items-start">
+										<text>{{ c_product_old_data[0] ? c_product_old_data[0].product : 0 }}</text>
 										<u-icon
 											@tap.stop
 											@click="popDetails(1, c_product_old_data[0])"
 											class="mb10 ml5 absolute"
-											size="23"
+											size="23rpx"
 											name="question-circle"
 											color="#AAAAAA"
 										></u-icon>
@@ -169,16 +157,16 @@
 										:style="{ backgroundColor: !check.B.checkB ? '#EA7183' : '#ffffff' }"
 										style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 									>
-										<u-icon name="checkbox-mark" color="#ffffff" size="25"></u-icon>
+										<u-icon name="checkbox-mark" color="#ffffff" size="25rpx"></u-icon>
 									</view>
 
-									<view class="ml15 relative mr48">
-										{{ c_product_old_data[1] ? c_product_old_data[1].product : '' }}
+									<view class="ml15 relative mr48 flex-row items-start">
+										<text>{{ c_product_old_data[1] ? c_product_old_data[1].product : '' }}</text>
 										<u-icon
 											@tap.stop
 											@click="popDetails(1, c_product_old_data[1])"
 											class="mb10 ml5 absolute"
-											size="23"
+											size="23rpx"
 											name="question-circle"
 											color="#AAAAAA"
 										></u-icon>
@@ -202,15 +190,15 @@
 						<!-- <view class="TabRY" :style="{backgroundImage:currentVip==0?tabUrlImg.bgUrlOne:tabUrlImg.bgUrlTow}"> -->
 						<view class="" style="width: 100%">
 							<u-tabs
-								:showBar="false"
-								bgColor="transparent"
-								:list="administrationManagement"
-								:current="currentVip"
-								:scrollable="false"
-								:activeStyle="{ backgroundColor: 'transparent', color: '#333333' }"
 								:inactiveStyle="{ color: '#D6AE83' }"
-								:itemStyle="{ width: '50%', height: '90rpx', backgroundColor: '#323243' }"
+								:itemStyle="{ backgroundColor: 'transparent' }"
+								:activeStyle="{ color: '#323243' }"
+								lineColor="#D6AE83"
+								:list="administrationManagement"
+								:scrollable="false"
+								:current="currentVip"
 								@change="changeVip"
+								:lineWidth="0"
 							></u-tabs>
 						</view>
 					</view>
@@ -221,7 +209,7 @@
 								合伙人
 								<u-icon
 									@click="popDetails(4, c_product_people[2])"
-									size="20"
+									size="20rpx"
 									name="question-circle"
 									color="#AAAAAA"
 									class="absolute ml5"
@@ -230,14 +218,16 @@
 							</view>
 							<view class="tabBodyOne_card_body_sum">
 								<u-number-box
+									:integer="true"
+									buttonWidth="40rpx"
+									buttonRadius="5px"
+									buttonSize="40rpx"
+									inputBgColor="transparent"
 									:min="0"
-									bgColorJ="#F7C6CD"
-									bgColorI="#ffffff"
-									colorJ="#FFFFFF"
-									colorA="#FFFFFF"
-									bgColorA="#EA7183"
-									v-model="playMoneyListSend.c_product_people.c"
+									bgColor="#EA7183"
+									:modelValue="playMoneyListSend.c_product_people.c"
 									@change="valChange"
+									:iconStyle="{ color: '#fff', fontSize: '20rpx' }"
 								></u-number-box>
 							</view>
 							<view class="tabBodyOne_card_body_price">
@@ -254,7 +244,7 @@
 									:style="{ backgroundColor: playMoneyListSend.c_product_people.c > 0 ? '#EA7183' : '#ffffff' }"
 									style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 								>
-									<u-icon name="checkbox-mark" color="#ffffff" size="20"></u-icon>
+									<u-icon name="checkbox-mark" color="#ffffff" size="20rpx"></u-icon>
 								</view>
 							</view>
 						</view>
@@ -264,7 +254,7 @@
 								财务
 								<u-icon
 									@click="popDetails(2, c_product_people[0])"
-									size="20"
+									size="20rpx"
 									name="question-circle"
 									color="#AAAAAA"
 									class="absolute ml5"
@@ -273,14 +263,16 @@
 							</view>
 							<view class="tabBodyOne_card_body_sum">
 								<u-number-box
+									:integer="true"
+									buttonWidth="40rpx"
+									buttonRadius="5px"
+									buttonSize="40rpx"
+									inputBgColor="transparent"
 									:min="0"
-									bgColorJ="#F7C6CD"
-									bgColorI="#ffffff"
-									colorJ="#FFFFFF"
-									colorA="#FFFFFF"
-									bgColorA="#EA7183"
-									v-model="playMoneyListSend.c_product_people.a"
+									bgColor="#EA7183"
+									:modelValue="playMoneyListSend.c_product_people.a"
 									@change="valChange"
+									:iconStyle="{ color: '#fff', fontSize: '20rpx' }"
 								></u-number-box>
 							</view>
 							<view class="tabBodyOne_card_body_price">
@@ -297,7 +289,7 @@
 									:style="{ backgroundColor: playMoneyListSend.c_product_people.a > 0 ? '#EA7183' : '#ffffff' }"
 									style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 								>
-									<u-icon name="checkbox-mark" color="#ffffff" size="20"></u-icon>
+									<u-icon name="checkbox-mark" color="#ffffff" size="20rpx"></u-icon>
 								</view>
 							</view>
 						</view>
@@ -307,7 +299,7 @@
 								员工
 								<u-icon
 									@click="popDetails(2, c_product_people[1])"
-									size="20"
+									size="20rpx"
 									name="question-circle"
 									color="#AAAAAA"
 									class="absolute ml5"
@@ -316,14 +308,16 @@
 							</view>
 							<view class="tabBodyOne_card_body_sum">
 								<u-number-box
+									:integer="true"
+									buttonWidth="40rpx"
+									buttonRadius="5px"
+									buttonSize="40rpx"
+									inputBgColor="transparent"
 									:min="0"
-									bgColorJ="#F7C6CD"
-									bgColorI="#ffffff"
-									colorJ="#FFFFFF"
-									colorA="#FFFFFF"
-									bgColorA="#EA7183"
-									v-model="playMoneyListSend.c_product_people.b"
+									bgColor="#EA7183"
+									:modelValue="playMoneyListSend.c_product_people.b"
 									@change="valChange"
+									:iconStyle="{ color: '#fff', fontSize: '20rpx' }"
 								></u-number-box>
 							</view>
 							<view class="tabBodyOne_card_body_price">
@@ -340,7 +334,7 @@
 									:style="{ backgroundColor: playMoneyListSend.c_product_people.b > 0 ? '#EA7183' : '#ffffff' }"
 									style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 								>
-									<u-icon name="checkbox-mark" color="#ffffff" size="20"></u-icon>
+									<u-icon name="checkbox-mark" color="#ffffff" size="20rpx"></u-icon>
 								</view>
 							</view>
 						</view>
@@ -356,7 +350,7 @@
 								合伙人
 								<u-icon
 									@click="popDetails(3, c_product_people[2])"
-									size="20"
+									size="20rpx"
 									name="question-circle"
 									color="#AAAAAA"
 									class="absolute ml32"
@@ -382,7 +376,7 @@
 									:style="{ backgroundColor: !item.check ? '#EA7183' : '#ffffff' }"
 									style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 								>
-									<u-icon name="checkbox-mark" color="#ffffff" size="20"></u-icon>
+									<u-icon name="checkbox-mark" color="#ffffff" size="20rpx"></u-icon>
 								</view>
 							</view>
 						</view>
@@ -393,7 +387,7 @@
 								财务
 								<u-icon
 									@click="popDetails(3, c_product_people[0])"
-									size="20"
+									size="20rpx"
 									name="question-circle"
 									color="#AAAAAA"
 									class="absolute ml5"
@@ -419,7 +413,7 @@
 									:style="{ backgroundColor: !item.check ? '#EA7183' : '#ffffff' }"
 									style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 								>
-									<u-icon name="checkbox-mark" color="#ffffff" size="20"></u-icon>
+									<u-icon name="checkbox-mark" color="#ffffff" size="20rpx"></u-icon>
 								</view>
 							</view>
 						</view>
@@ -429,7 +423,7 @@
 								员工
 								<u-icon
 									@click="popDetails(3, c_product_people[1])"
-									size="20"
+									size="20rpx"
 									name="question-circle"
 									color="#AAAAAA"
 									class="absolute ml5"
@@ -455,7 +449,7 @@
 									:style="{ backgroundColor: !item.check ? '#EA7183' : '#ffffff' }"
 									style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 								>
-									<u-icon name="checkbox-mark" color="#ffffff" size="20"></u-icon>
+									<u-icon name="checkbox-mark" color="#ffffff" size="20rpx"></u-icon>
 								</view>
 							</view>
 						</view>
@@ -468,8 +462,8 @@
 		<view class="BodyWDDD" v-show="current == 1">
 			<view class="vw100" style="margin-top: 50%; height: 200rpx" v-if="jurisdictionOrdder.length == 0">
 				<u-empty
-					src="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg"
-					icon-size="400"
+					icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg"
+					iconSize="400rpx"
 					text="暂无购买记录~"
 					mode="search"
 					margin-top="200"
@@ -747,11 +741,11 @@
 						<view class="flex-row justify-center mt30" style="width: 100%">
 							<view class="items-center dqsj" v-if="!item.open" @click="open(item, index)">
 								全部订单信息
-								<u-icon class="ml5" name="arrow-down" color="#999999" size="28"></u-icon>
+								<u-icon class="ml5" name="arrow-down" color="#999999" size="28rpx"></u-icon>
 							</view>
 							<view class="items-center dqsj" v-if="item.open" @click="close(item, index)">
 								收起
-								<u-icon class="ml5" name="arrow-up" color="#999999" size="28"></u-icon>
+								<u-icon class="ml5" name="arrow-up" color="#999999" size="28rpx"></u-icon>
 							</view>
 						</view>
 					</view>
@@ -946,6 +940,7 @@ export default {
 				this.$refs.popDetails.show = true;
 				this.$refs.popDetails.popupShowText = JSON.parse(JSON.parse(JSON.stringify(res.data.data)).json);
 				this.$refs.popDetails.type = type;
+				console.log(this.$refs.popDetails.show);
 			});
 		},
 		rightClick() {
@@ -1380,11 +1375,11 @@ export default {
 		getBackgroundStyle() {
 			return this.currentVip == 0 ? this.bgUrlOne : this.bgUrlTow;
 		},
-		TabChange(index) {
-			this.current = index;
+		TabChange(item) {
+			this.current = item.index;
 		},
-		changeVip(index) {
-			this.currentVip = index;
+		changeVip(item) {
+			this.currentVip = item.index;
 		},
 		checkboxChange(checkbox) {
 			console.log('checkbox:', checkbox);
@@ -1472,6 +1467,12 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+::v-deep .u-navbar__content {
+	background-color: transparent !important;
+}
+::v-deep .u-tabs__wrapper__nav__item{
+	height: 64rpx !important;
+}
 .Myorder {
 	width: 100vw;
 	height: 100vh;
@@ -1801,11 +1802,11 @@ export default {
 						.tabBodyOne_card_body_hand {
 							display: flex;
 							flex-direction: row;
-							align-items: center;
+							align-items: flex-start;
 
 							position: relative;
 
-							width: 15%;
+							width: 16%;
 							height: 100%;
 							// background-color: #AAAAAA;
 						}
@@ -1975,7 +1976,7 @@ export default {
 
 	.BodyWDDD {
 		position: absolute;
-		top: 15%;
+		top: 16%;
 		width: 100%;
 		height: 100%;
 		background-color: #f4f4f4;

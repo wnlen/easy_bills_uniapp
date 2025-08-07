@@ -7,7 +7,7 @@
 					<view class="flex-row items-center justify-center pl10 pr10" style="background: #ffffff; border-radius: 254rpx; width: 75%; height: 60rpx">
 						<u-icon name="search" color="#01BB74" size="40rpx"></u-icon>
 						<u-input
-							:custom-style="{ backgroundColor: 'transparent',marginLeft: '10rpx' }"
+							:custom-style="{ backgroundColor: 'transparent', marginLeft: '10rpx' }"
 							:modelValue="SearchInventory"
 							placeholder="请输入商品名称/规格"
 							:clearable="true"
@@ -124,7 +124,7 @@ export default {
 			this.$api.library
 				.getCommodityList(this.merchandiseInventory)
 				.then((res) => {
-					console.log('res111111111',res)
+					console.log('res111111111', res);
 					this.$refs.paging.complete(res.data.data);
 				})
 				.catch((res) => {

@@ -104,10 +104,11 @@
 						<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
 							<text class="ft11 ft-gray ml36" @click="CustomerGet">{{ vuex_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
 							<u-input
+								border="none"
 								class="ml24"
 								style="width: 100%"
 								@input="changeCustomer"
-								v-model="customer"
+								:modelValue="customer"
 								:placeholder="vuex_userRole == 'R' ? '请选择供应商' : '请选择客户'"
 							/>
 							<view class="flex-col justify-center items-center" style="height: 5vh">
@@ -121,14 +122,23 @@
 							<text class="ft11 ft-gray ml36" @click="filtrateGet">{{ Title }}</text>
 							<u-icon class="ml10" name="arrow-down-fill" size="10"></u-icon>
 
-							<u-input v-if="showTage != '1'" class="ml24 my-input" style="width: 100%" v-model="field" @input="searchListenner" placeholder="输入关键字进行检索" />
+							<u-input
+								border="none"
+								v-if="showTage != '1'"
+								class="ml24 my-input"
+								style="width: 100%"
+								:modelValue="field"
+								@input="searchListenner"
+								placeholder="输入关键字进行检索"
+							/>
 
 							<u-input
+								border="none"
 								v-if="showTage == '1'"
 								maxlength="11"
 								class="ml24 my-input"
 								style="width: 100%"
-								v-model="field"
+								:modelValue="field"
 								@input="searchListenner"
 								placeholder="输入号码进行检索"
 							/>
@@ -140,8 +150,8 @@
 			<view class="flex-col justify-center items-center" style="height: 80vh" v-show="current == 0 && moneyCALL">
 				<view class="vw100" style="height: 200rpx">
 					<u-empty
-						src="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/empty.svg"
-						icon-size="400"
+						icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/empty.svg"
+						iconSize="400rpx"
 						text="暂无数据~"
 						mode="search"
 						margin-top="-200"

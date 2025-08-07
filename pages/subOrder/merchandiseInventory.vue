@@ -26,10 +26,11 @@
 					<view class="flex-row items-center justify-center pl10 pr10" style="background: #ffffff; border-radius: 254rpx; width: 75%">
 						<u-icon class="ml6" name="search" color="#01BB74" size="40"></u-icon>
 						<u-input
+							border="none"
 							class="my-input ml6"
 							style="width: 100%"
 							@input="SearchInventoryChange"
-							v-model="SearchInventory"
+							:modelValue="SearchInventory"
 							:custom-style="{ backgroundColor: 'transparent' }"
 							placeholder="请输入商品名称/规格"
 							clearable="true"

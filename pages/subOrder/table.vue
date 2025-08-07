@@ -108,7 +108,14 @@
 			</view>
 		</view>
 
-		<u-empty v-if="isEmptyObject(client)" src="https://res-oss.elist.com.cn/wxImg/order/empty.svg" iconSize="200rpx" text="暂无好友~" mode="search" margin-top="-200"></u-empty>
+		<u-empty
+			v-if="isEmptyObject(client)"
+			icon="https://res-oss.elist.com.cn/wxImg/order/empty.svg"
+			iconSize="200rpx"
+			text="暂无好友~"
+			mode="search"
+			margin-top="-200"
+		></u-empty>
 		<view v-for="(item, index) in client" :key="index">
 			<view class="ml20" style="border-bottom: 1px solid #f7f7f7; width: 110vw" v-show="show == 1">
 				<u-collapse arrow-color="#ffffff">
@@ -217,17 +224,17 @@ export default {
 		let title = '',
 			imageUrl = '';
 		if (this.vuex_userRole == 'D') {
-			title="邀请您成为他的客户~";
-			imageUrl="https://res-oss.elist.com.cn/wxImg/message/shareD.png"
-		}else{
-			title="邀请您成为他的供应商~"
-			imageUrl="https://res-oss.elist.com.cn/wxImg/message/shareR.png"
+			title = '邀请您成为他的客户~';
+			imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareD.png';
+		} else {
+			title = '邀请您成为他的供应商~';
+			imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareR.png';
 		}
 		if (ops.from === 'button') {
 			var phone = this.vuex_user.data.work == '0' ? this.vuex_user.phone : this.vuex_user.workData.bossNumber;
 			return {
 				title: title,
-				path: '/pages/subMessage/friend_apply_for/shareFriend?phone=' + phone+'&invitationRole='+this.vuex_userRole,
+				path: '/pages/subMessage/friend_apply_for/shareFriend?phone=' + phone + '&invitationRole=' + this.vuex_userRole,
 				imageUrl: imageUrl
 				// imageUrl: 'https://res-oss.elist.com.cn/wxImg/message/share.png'
 			};
@@ -288,15 +295,17 @@ export default {
 			var that = this;
 			var port = this.vuex_userRole == 'R' ? '1' : '0';
 			var phone = this.vuex_work == 'Y' ? this.vuex_user.workData.bossNumber : this.vuex_user.phone;
-			this.$api.order.getDeliveryList({
-				sBossNumber:phone,
-				eBossNumber:phone,
-				port:port
-			}).then((res) => {
-				console.log(res.data.data);
-				that.client = res.data.data;
-				that.clientCopy = res.data.data;
-			});
+			this.$api.order
+				.getDeliveryList({
+					sBossNumber: phone,
+					eBossNumber: phone,
+					port: port
+				})
+				.then((res) => {
+					console.log(res.data.data);
+					that.client = res.data.data;
+					that.clientCopy = res.data.data;
+				});
 		},
 		jumpShow(item) {
 			console.log('item：', item);

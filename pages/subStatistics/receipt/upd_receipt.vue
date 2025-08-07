@@ -44,10 +44,11 @@
 							</text>
 							<u-icon class="ml10 mr10" name="/static/img/list/sx.svg" size="40"></u-icon>
 							<u-input
+								border="none"
 								class="my-input"
 								style="width: 100%"
 								@input="CustomerGetChange"
-								v-model="customer"
+								:modelValue="customer"
 								:custom-style="{ backgroundColor: 'transparent' }"
 								disabled="true"
 								:placeholder="vuex_userRole === 'R' ? '请选择供应商' : '请选择客户'"
@@ -63,13 +64,22 @@
 								{{ Title }}
 							</text>
 							<u-icon class="ml10 mr10" name="/static/img/list/sj.svg" size="40"></u-icon>
-							<u-input v-if="showTage !== '1'" class="my-input" style="width: 100%" v-model="field" @input="searchListenner" placeholder="输入关键字进行检索" />
 							<u-input
+								border="none"
+								v-if="showTage !== '1'"
+								class="my-input"
+								style="width: 100%"
+								:modelValue="field"
+								@input="searchListenner"
+								placeholder="输入关键字进行检索"
+							/>
+							<u-input
+								border="none"
 								v-if="showTage === '1'"
 								maxlength="11"
 								class="ml24 my-input"
 								style="width: 100%"
-								v-model="field"
+								:modelValue="field"
 								@input="searchListenner"
 								placeholder="输入号码进行检索"
 							/>
@@ -1113,7 +1123,9 @@ export default {
 		},
 		getCheck() {
 			// getFilterLockCheck
-			this.$api.bills.getCheckedLockedBills(this.realTimeSel).then((res) => {
+			this.$api.bills
+				.getCheckedLockedBills(this.realTimeSel)
+				.then((res) => {
 					console.log('getFilterLockCheck:', res.data.data);
 
 					var orderList = res.data.data.map((obj) => {

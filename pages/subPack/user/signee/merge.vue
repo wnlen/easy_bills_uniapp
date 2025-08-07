@@ -3,26 +3,26 @@
 		<view class="sign" style="color: #333333">企业信息</view>
 		<u-form class="vw100" :model="formDataFirm" ref="uFormQy" label-position="left" :label-style="{ 'line-height': 1 }" :error-type="['toast']">
 			<u-form-item label="姓名" prop="formDataFirm" required label-width="170">
-				<u-input v-model="formDataFirm.userName" placeholder="请输入姓名" maxlength="50" />
+				<u-input border="none" :modelValue="formDataFirm.userName" placeholder="请输入姓名" maxlength="50" />
 			</u-form-item>
 			<u-form-item label="企业名称" prop="password" required label-width="170">
-				<u-input v-model="formDataFirm.enterpriseName" placeholder="请输入企业名称" maxlength="50" />
+				<u-input border="none" :modelValue="formDataFirm.enterpriseName" placeholder="请输入企业名称" maxlength="50" />
 			</u-form-item>
 			<!-- <u-form-item label="企业简称" prop="password" required label-width="170">
-				<u-input v-model="formDataFirm.abbreviation" placeholder="请输入企业简称" />
+				<u-input border="none" :modelValue="formDataFirm.abbreviation" placeholder="请输入企业简称" />
 			</u-form-item> -->
 			<u-form-item label="企业地址" prop="password" required label-width="170">
-				<u-input v-model="formDataFirm.businessSite" placeholder="请输入企业地址" />
+				<u-input border="none" :modelValue="formDataFirm.businessSite" placeholder="请输入企业地址" />
 			</u-form-item>
 		</u-form>
 
 		<view class="sign" style="color: #333333">签收管理</view>
 		<u-form class="vw100" :model="formData" ref="uForm" label-position="left" :label-style="{ 'line-height': 1 }" :error-type="['toast']">
 			<u-form-item label="签收人姓名" prop="signeeName" required label-width="170">
-				<u-input v-model="formData.signeeName" placeholder="请输入签收人姓名" maxlength="50" />
+				<u-input border="none" :modelValue="formData.signeeName" placeholder="请输入签收人姓名" maxlength="50" />
 			</u-form-item>
 			<u-form-item label="签收密码" prop="password" required label-width="170">
-				<u-input v-model="formData.password" type="number" placeholder="请设置密码" maxlength="4" />
+				<u-input border="none" :modelValue="formData.password" type="number" placeholder="请设置密码" maxlength="4" />
 			</u-form-item>
 			<u-form-item label="手写签名" required prop="signeeImage" label-position="top" label-width="170">
 				<view v-if="formData.signeeImage" class="text-center width100" style="height: 50vw; border: 2px dashed #eee">

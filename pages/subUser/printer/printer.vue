@@ -1,7 +1,7 @@
 <template>
 	<view class="content pd15 bg-gray">
 		<view class="vw100 relative flex-col justify-center items-center" style="height: 30vh; margin-top: 60%" v-if="!allShow && !defShow">
-			<u-empty src="https://res-oss.elist.com.cn/wxImg/vip/print.svg" icon-size="400rpx" text="暂无打印机~" mode="search" margin-top="-200"></u-empty>
+			<u-empty icon="https://res-oss.elist.com.cn/wxImg/vip/print.svg" iconSize="400rpx" text="暂无打印机~" mode="search" margin-top="-200"></u-empty>
 
 			<u-button class="absolute" style="bottom: 0" size="medium" hover-class="none" :custom-style="{ backgroundColor: '#47506C' }" shape="circle" type="primary" @click="buy">
 				去购买
