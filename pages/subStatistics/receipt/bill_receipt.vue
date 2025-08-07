@@ -23,7 +23,7 @@
 			@change="ChangeTimeEnd"
 		></u-calendar>
 
-		<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" mode="search" margin-top="-200" v-if="!identity"></u-empty>
+		<u-empty src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" icon-size="400" text="无查看权限~" mode="search" margin-top="-200" v-if="!identity"></u-empty>
 
 		<z-paging
 			:paging-style="{ marginTop: '0' }"
@@ -39,16 +39,17 @@
 			:height="current == 0 ? '100%' : '100%'"
 			style=""
 		>
-			<view slot="top">
+			<template #top>
 				<u-tabs
-					:active-item-style="{ backgroundColor: 'transparent' }"
-					inactive-color="#333333"
-					active-color="#01BB74"
 					:list="TabList"
-					:is-scroll="false"
 					:current="current"
+					:scrollable="false"
+					:showBar="true"
+					:activeStyle="{ backgroundColor: 'transparent', color: '#01BB74' }"
+					:inactiveStyle="{ color: '#333333' }"
+					:itemStyle="{ width: '50%', height: '90rpx', backgroundColor: '#fff' }"
 					@change="TabChange"
-				></u-tabs>
+				/>
 
 				<view class="billCard cardShow">
 					<text @click="openTableChoice" style="color: #666666">
@@ -56,11 +57,10 @@
 					</text>
 					<u-icon class="ml10 mr10" name="/static/img/list/sx.svg" size="40"></u-icon>
 					<u-input
-						border="none"
 						class="my-input"
 						style="width: 100%"
 						@input="InputTextOne"
-						:modelValue="InputOneText"
+						v-model="InputOneText"
 						:custom-style="{ backgroundColor: 'transparent' }"
 						:placeholder="vuex_userRole === 'R' ? '请选择供应商' : '请选择客户'"
 						clearable="true"
@@ -74,30 +74,28 @@
 					<view class="billCardTimeStart">
 						<text class="mr10" style="color: #666666">开始日期</text>
 						<u-icon name="arrow-down-fill" size="10"></u-icon>
-						<view @click="time.startShow=true" class="ml24"
-							style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
-							{{time.start}}
-
+						<view @click="time.startShow = true" class="ml24" style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
+							{{ time.start }}
 						</view>
 					</view>
 					<view class="billCardTimeEnd">
 						<text class="mr10" style="color: #666666">结束日期</text>
 						<u-icon name="arrow-down-fill" size="10"></u-icon>
-						<view @click="time.endShow=true" class="ml24"
-							style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
-							{{time.end}}
+						<view @click="time.endShow = true" class="ml24" style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
+							{{ time.end }}
 						</view>
 					</view>
 				</view>
-
 			</template>
 
 			<view class="OrderCard" v-for="(item, index) in CBills" :key="item.id" @click="clickJump(item)">
-				<view class="OrderCard_Hand" @tap.stop v-if="item.billState==0">
-					<view class="flex-col justify-center items-center mr15 ml24"
-						:style="{backgroundColor:item.check?'#01BB74':'#ffffff'}"
-						@click="checkboxGroupChange(item,index)"
-						style="border-radius: 100rpx;height: 40rpx;width: 40rpx;border: 2rpx solid #AAAAAA;">
+				<view class="OrderCard_Hand" @tap.stop v-if="item.billState == 0">
+					<view
+						class="flex-col justify-center items-center mr15 ml24"
+						:style="{ backgroundColor: item.check ? '#01BB74' : '#ffffff' }"
+						@click="checkboxGroupChange(item, index)"
+						style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
+					>
 						<u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
 					</view>
 					<view class="OrderCard_Hand_time">
@@ -223,7 +221,7 @@
 				</view>
 			</view>
 
-			<view slot="empty" style="padding-bottom: 100px">
+			<view slot="empty" style="padding-bottom: 200rpx">
 				<u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" label-color="#AAAAAA" label="暂无记录" size="180"></u-icon>
 			</view>
 
@@ -1176,4 +1174,5 @@ export default {
 	}
 }
 </style>
+
 
