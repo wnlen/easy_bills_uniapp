@@ -163,7 +163,7 @@
 						</text>
 						<input
 							placeholder-class="placeholder_class"
-							@click="sendShow = true"
+							@click="$refs.calendars.open()"
 							:style="{ color: ifInput(receipts.creationTime) ? '#333333' : '#D8D8D8' }"
 							type="text"
 							v-model="receipts.creationTime"
@@ -171,21 +171,13 @@
 							placeholder="发货日期"
 							class="flex-1 ml15 endcolor"
 						/>
-						<view class="flex-row" @click="sendShow = true">
+						<view class="flex-row" @click="$refs.calendars.open()">
 							<view class="mr20">
 								<u-line class="" color="#D8D8D8" length="50" direction="col"></u-line>
 							</view>
-							<u-icon @click="sendShow = true" class="" size="45" name="https://res-oss.elist.com.cn/wxImg/order/time.png"></u-icon>
+							<u-icon @click="$refs.calendars.open()" class="" size="45" name="https://res-oss.elist.com.cn/wxImg/order/time.png"></u-icon>
 							<view>
-								<u-calendar
-									btn-type="success"
-									v-model="sendShow"
-									:min-date="getCurrentDateMin()"
-									:max-date="getCurrentDate()"
-									mode="date"
-									active-bg-color="#01BB74"
-									@change="getConfirm"
-								></u-calendar>
+								<uv-calendars :startDate="getCurrentDateMin()" :endDate="getCurrentDate()" ref="calendars" @confirm="getConfirm" />
 							</view>
 						</view>
 					</view>
@@ -456,7 +448,6 @@ export default {
 			orderId: '', //创建订单后接口返回
 			shareShow: false,
 			recentlyData: [], //近期下单商品
-			sendShow: false, //发货日期弹窗
 			action: '',
 			fileList: [],
 			companyName: '请选择',
@@ -1638,8 +1629,7 @@ export default {
 		},
 		// 获取选择的时间
 		getConfirm(e) {
-			console.log('已经修改时间', e.result);
-			this.receipts.creationTime = e.result; //传给接口
+			this.receipts.creationTime = e.fulldate; //传给接口
 		},
 		getOrderNumber() {
 			var ifphon = this.vuex_work == 'Y' ? this.vuex_user.workData.bossNumber : this.vuex_user.phone;

@@ -291,14 +291,14 @@
 							<view class="flex-row items-center" style="width: 50%">
 								<text class="mr10" style="color: #999999">开始日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="calendar1Show = true" class="ml24" style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
+								<view @click="$refs.calendars.open()" class="ml24" style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
 									{{ date1 }}
 								</view>
 							</view>
 							<view class="flex-row items-center" style="width: 50%">
 								<text class="mr10 ml20" style="color: #999999">结束日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="calendar2Show = true" class="ml24" style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
+								<view @click="$refs.calendars.open()" class="ml24" style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
 									{{ date2 }}
 								</view>
 							</view>
@@ -384,31 +384,10 @@
 						<u-button type="success" @click="filterSubmit" shape="circle" size="medium" :custom-style="{ marginLeft: '20rpx' }" plain>确定</u-button>
 					</view>
 				</view>
+				<!-- 日历选择器 -->
+				<uv-calendars mode="range" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="date1Change" />
 			</view>
 		</u-popup>
-
-		<u-calendar
-			btn-type="success"
-			v-model="calendar1Show"
-			active-bg-color="#01BB74"
-			range-bg-color="#DFF9EF"
-			range-color="#333333"
-			mode="date"
-			:min-date="getCurrentYearFirstDay()"
-			:max-date="getCurrentDate()"
-			@change="date1Change"
-		></u-calendar>
-		<u-calendar
-			btn-type="success"
-			v-model="calendar2Show"
-			active-bg-color="#01BB74"
-			range-bg-color="#DFF9EF"
-			range-color="#333333"
-			mode="date"
-			:min-date="getCurrentYearFirstDay()"
-			:max-date="getCurrentDate()"
-			@change="date2Change"
-		></u-calendar>
 	</view>
 </template>
 
@@ -455,8 +434,6 @@ export default {
 			scrollTop: 0, //返回顶部
 			//筛选弹窗
 			filterShow: false,
-			calendar1Show: false, //日期弹窗
-			calendar2Show: false, //日期弹窗
 			date1: '', // 开始日期
 			date2: '', //结束日期
 			totalMoney: 0, //当前订单总额
@@ -1447,10 +1424,8 @@ export default {
 			this.$u.toast('请先到后台发货~');
 		},
 		date1Change(e) {
-			this.date1 = e.result;
-		},
-		date2Change(e) {
-			this.date2 = e.result;
+			this.date1 = e.range.before;
+			this.date2 = e.range.after;
 		},
 		filterReset() {
 			const date = new Date();
