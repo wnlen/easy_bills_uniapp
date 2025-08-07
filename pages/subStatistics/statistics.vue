@@ -12,9 +12,8 @@
 			@virtualListChange="virtualListChange"
 			@query="queryList"
 		>
-
 			<!-- <view slot="top"> -->
-			<u-sticky >
+			<u-sticky>
 				<u-navbar :autoBack="true" :placeholder="true">
 					<template #center>
 						<view class="flex-row items-center justify-center ml50" style="width: 100%">
@@ -47,7 +46,6 @@
 					</view>
 				</view>
 			</u-sticky>
-
 
 			<view class="ml24 mr24 mb24">
 				<div class="bg-white pd20 mt20 radius flex-col justify-center items-center cardShow">
@@ -276,8 +274,8 @@
 			<view v-if="!orderList.length" style="padding-bottom: 200rpx">
 				<u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" label-color="#AAAAAA" label="暂无记录" size="180rpx"></u-icon>
 			</view>
-			<view style="height: 200rpx;"></view>
-			<view class="fixed"  style="background-color: #ffffff; box-shadow: 0rpx 4rpx 6rpx 0rpx rgba(51, 51, 51, 0.2); bottom: 0">
+			<view style="height: 200rpx"></view>
+			<view class="fixed" style="background-color: #ffffff; box-shadow: 0rpx 4rpx 6rpx 0rpx rgba(51, 51, 51, 0.2); bottom: 0">
 				<view class="flex-row justify-between items-center" style="height: 10vh">
 					<view class="flex-row items-center vw100">
 						<view class="items-center flex-row" style="width: 92%; display: flex; justify-content: space-between">
@@ -641,10 +639,9 @@ export default {
 			}
 			console.log('`````````````````', key);
 		}
-		if(text!==''){
+		if (text !== '') {
 			this.uNoticeBarlist.push(text);
 		}
-		
 	},
 	onReachBottom() {
 		console.log('lala ');
@@ -933,8 +930,7 @@ export default {
 			}
 			this.$refs.paging.reload();
 		},
-		refreshData() {
-		},
+		refreshData() {},
 		searchListenner() {
 			this.checked = false;
 			var filterIndex = this.showTage;
@@ -1026,7 +1022,9 @@ export default {
 			};
 
 			console.log(dx);
-			this.$api.order.generateOrderPDF(dx).then((res) => {
+			this.$api.order
+				.generateOrderPDF(dx)
+				.then((res) => {
 					// #ifdef APP-PLUS
 					console.log('pdf----------->', res.data.data);
 					uni.downloadFile({
@@ -1535,7 +1533,9 @@ export default {
 					};
 				}
 				console.log(dx);
-				this.$api.order.getOrders(dx).then((res) => {
+				this.$api.order
+					.getOrders(dx)
+					.then((res) => {
 						var resDate = res.data.data.map((item) => {
 							return {
 								...item,
@@ -1566,7 +1566,9 @@ export default {
 					};
 				}
 				console.log(dx);
-				this.$api.order.getOrders(dx).then((res) => {
+				this.$api.order
+					.getOrders(dx)
+					.then((res) => {
 						console.log(res.data.data);
 						this.orderList = res.data.data;
 						this.orderListCopy = res.data.data;
