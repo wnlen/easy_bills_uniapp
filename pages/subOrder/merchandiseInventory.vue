@@ -10,7 +10,7 @@
 			@virtualListChange="virtualListChange"
 			@query="queryList"
 		>
-			<view slot="top">
+			<template #top>
 				<u-navbar
 					:border-bottom="false"
 					:background="{ backgroundColor: 'transparent' }"
@@ -37,7 +37,7 @@
 					</view>
 					<u-button @click="jumpAddCommodity" :custom-style="SearchCustomStyle" type="success">添加商品</u-button>
 				</view>
-			</view>
+			</template>
 
 			<view class="items-center" v-if="invCardEmpty && hideEmptyView">
 				<view class="invCard" @click="jumpAddCommodity">

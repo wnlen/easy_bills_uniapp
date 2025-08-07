@@ -1,8 +1,17 @@
 <template>
 	<view class="Myorder">
-		<u-navbar :autoBack="true" :placeholder="true" :custom-back="rightClick" back-icon-color="#ffffff" :background="uNa" :border-bottom="false"
-			:titleBold="true" title-color="#ffffff" title="我的订购" title-size="34"></u-navbar>
-
+		<u-navbar
+			:autoBack="true"
+			:placeholder="true"
+			:custom-back="rightClick"
+			back-icon-color="#ffffff"
+			:background="uNa"
+			:border-bottom="false"
+			:titleBold="true"
+			title-color="#ffffff"
+			title="我的订购"
+			title-size="34"
+		></u-navbar>
 
 		<pop-details ref="popDetails"></pop-details>
 
@@ -10,16 +19,16 @@
 			<view class="handTab">
 				<view class="Tab">
 					<u-tabs
-						bg-color="linear-gradient(270deg, #323243 0%, #47506C 72%)"
-						:active-item-style="{ backgroundColor: 'transparent' }"
-						inactive-color="#D6AE83"
-						:itemStyle="{ backgroundColor: '#323243' }"
-						active-color="#D6AE83"
 						:list="TabList"
-						:is-scroll="false"
 						:current="current"
+						:scrollable="false"
+						:showBar="true"
+						:activeStyle="{ backgroundColor: 'transparent', color: '#D6AE83' }"
+						:inactiveStyle="{ color: '#D6AE83' }"
+						:itemStyle="{ width: '50%', height: '90rpx', backgroundColor: '#323243' }"
+						:bgColor="'linear-gradient(270deg, #323243 0%, #47506C 72%)'"
 						@change="TabChange"
-					></u-tabs>
+					/>
 				</view>
 			</view>
 		</view>
@@ -193,15 +202,14 @@
 						<!-- <view class="TabRY" :style="{backgroundImage:currentVip==0?tabUrlImg.bgUrlOne:tabUrlImg.bgUrlTow}"> -->
 						<view class="" style="width: 100%">
 							<u-tabs
-								:show-bar="false"
-								bg-color="transparent"
-								:active-item-style="{ backgroundColor: 'transparent' }"
-								inactive-color="#D6AE83"
-								:itemStyle="{ backgroundColor: '#323243' }"
-								active-color="#333333"
+								:showBar="false"
+								bgColor="transparent"
 								:list="administrationManagement"
-								:is-scroll="false"
 								:current="currentVip"
+								:scrollable="false"
+								:activeStyle="{ backgroundColor: 'transparent', color: '#333333' }"
+								:inactiveStyle="{ color: '#D6AE83' }"
+								:itemStyle="{ width: '50%', height: '90rpx', backgroundColor: '#323243' }"
 								@change="changeVip"
 							></u-tabs>
 						</view>

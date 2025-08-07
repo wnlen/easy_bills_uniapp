@@ -1,8 +1,5 @@
 <template>
 	<view class="billReceipt">
-
-
-
 		<u-calendar btn-type="success" v-model="time.startShow" active-bg-color="#01BB74" range-bg-color="#DFF9EF"
 			range-color="#333333" mode="date" :min-date="getCurrentYearFirstDay()" :max-date="getCurrentDate()"
 			@change="ChangeTimeStart"></u-calendar>
@@ -10,25 +7,23 @@
 			range-color="#333333" mode="date" :min-date="getCurrentYearFirstDay()" :max-date="getCurrentDate()"
 			@change="ChangeTimeEnd"></u-calendar>
 
-
-
-
 		<u-empty src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" icon-size="400" text="无查看权限~" mode="search"
 			margin-top="-200" v-if="!identity"></u-empty>
-
-
-
-
-
+			
 		<z-paging :paging-style="{'marginTop': '0'}" ref="paging" use-virtual-list :force-close-inner-list="true"
 			v-show="identity" :auto="true" :refresher-enabled="true" :cell-height-mode="0!=0?'fixed':'dynamic'"
 			@virtualListChange="virtualListChange" @query="queryList" :height="current==0?'100%':'100%'" style="">
-
-
-			<view slot="top">
-				<u-tabs :active-item-style="{backgroundColor: 'transparent'}" inactive-color="#333333"
-					active-color="#01BB74" :list="TabList" :is-scroll="false" :current="current"
-					@change="TabChange"></u-tabs>
+			<template #top>
+				<u-tabs
+				  :list="TabList"
+				  :current="current"
+				  :scrollable="false"
+				  :showBar="true"
+				  :activeStyle="{ backgroundColor: 'transparent', color: '#01BB74' }"
+				  :inactiveStyle="{ color: '#333333' }"
+				  :itemStyle="{ width: '50%', height: '90rpx', backgroundColor: '#fff' }"
+				  @change="TabChange"
+				/>
 
 				<view class="billCard cardShow">
 					<text @click="openTableChoice" style="color: #666666;">
@@ -49,7 +44,7 @@
 						<text class="mr10" style="color: #666666;">开始日期</text>
 						<u-icon name="arrow-down-fill" size="10"></u-icon>
 						<view @click="time.startShow=true" class="ml24"
-							style="border-box;border: 0.5px solid #999999;padding: 12rpx;border-radius: 3px;">
+							style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
 							{{time.start}}
 						</view>
 					</view>
@@ -57,20 +52,20 @@
 						<text class="mr10" style="color: #666666;">结束日期</text>
 						<u-icon name="arrow-down-fill" size="10"></u-icon>
 						<view @click="time.endShow=true" class="ml24"
-							style="border-box;border: 0.5px solid #999999;padding: 12rpx;border-radius: 3px;">
+							style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
 							{{time.end}}
 						</view>
 					</view>
 				</view>
 
-			</view>
+			</template>
 
 			<view class="OrderCard" v-for="(item, index) in CBills" :key="item.id" @click="clickJump(item)">
 				<view class="OrderCard_Hand" @tap.stop v-if="item.billState==0">
 					<view class="flex-col justify-center items-center mr15 ml24"
 						:style="{backgroundColor:item.check?'#01BB74':'#ffffff'}"
 						@click="checkboxGroupChange(item,index)"
-						style="border-radius: 50px;height: 20px;width: 20px;border: 1px solid #AAAAAA;">
+						style="border-radius: 100rpx;height: 40rpx;width: 40rpx;border: 2rpx solid #AAAAAA;">
 						<u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
 					</view>
 					<view class="OrderCard_Hand_time">
@@ -155,7 +150,7 @@
 				</view>
 			</view>
 
-			<view slot="empty" style="padding-bottom: 100px;">
+			<view slot="empty" style="padding-bottom: 200rpx;">
 				<u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl+'/wxImg/list/empty.svg'"
 					label-color="#AAAAAA" label="暂无记录" size="180"></u-icon>
 			</view>
@@ -244,8 +239,8 @@
 					img: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADYAAAA2CAYAAACMRWrdAAAAAXNSR0IArs4c6QAAAARzQklUCAgICHwIZIgAAAF0SURBVGiB7dpBTsJAFAbg/01I45IjcAN7A2CNJHIC9ATiQsKOuCO4EG4gJ9BEXKM36BF6hG5tzIwLFyakbyAygyX5v+3rTN9Lm6bvtQAREf0Sb/RtcgWH4ZFy2Z+4As594GK+UA9RF6/HI4h5jJJYONfozZ6qAkZdItKOlU0wnrtJL+wUCHItpBdWyi2gL6yBHCXutaD/4fE8aqKRdGBMM3hah7C2wJfJMJjl/50KEREREZ2eHS/BkxYSDAG0jpLNvsQVcHaF3kOmHqIufp10YLCJklgoFl30Z+9VIb0fM+4mVj7BCKZaSC/MSb16sCriCi3kKUzvTmvDylIL7Ri/3aUQM6zh1ctRYsUOmoiIiIj+YncH3bBpkM9I1hboz18O3mdPemE/Y4ENgo4FXIbys4vBQu2jQtH7sQRTBJ91SIrk7DLsntV8jWYryhnFnUfZd4vnrwGsopzR2Tj7bvE/PNbjEUTaQTpocQWsLLWpEhERxfQNdghWBaM5y08AAAAASUVORK5CYII="
 				},
 				customStyleBill: {
-					width: '180px',
-					height: '40px',
+					width: '360rpx',
+					height: '80rpx',
 					backgroundColor: "#00B578",
 					boder: "none",
 					color: "#ffffff"
@@ -254,17 +249,17 @@
 						text: '修改',
 						style: {
 							backgroundColor: '#FF8F1F',
-							borderRadius: "0px 0px 0px 0px"
+							borderRadius: "0rpx 0rpx 0rpx 0rpx"
 						},
-						radius: "0px 0px 0px 0px"
+						radius: "0rpx 0rpx 0rpx 0rpx"
 					},
 					{
 						text: '删除',
 						style: {
 							backgroundColor: '#FA5151',
-							borderRadius: "0px 0px 6px 0px"
+							borderRadius: "0rpx 0rpx 12rpx 0rpx"
 						},
-						radius: "0px 0px 0px 0px"
+						radius: "0rpx 0rpx 0rpx 0rpx"
 					}
 				],
 				operationBill: {
@@ -300,7 +295,7 @@
 					paddingBottom: "12rpx",
 					paddingLeft: "24rpx",
 					paddingRight: "24rpx",
-					fontSize: "12px",
+					fontSize: "24rpx",
 					color: "#666666",
 				},
 				identity: false,
@@ -861,7 +856,7 @@
 
 			.fixedBarLeftTop {
 				height: 50%;
-				font-size: 14px;
+				font-size: 28rpx;
 				display: flex;
 				flex-direction: row;
 				align-items: center;
@@ -869,7 +864,7 @@
 				padding-left: 24rpx;
 
 				text {
-					font-size: 20px;
+					font-size: 40rpx;
 					color: #01BB74;
 				}
 			}
@@ -883,7 +878,7 @@
 				padding-left: 24rpx;
 
 				text {
-					font-size: 11px;
+					font-size: 22rpx;
 					color: #FDB728;
 				}
 			}
@@ -916,12 +911,12 @@
 		margin-left: 24rpx;
 		margin-right: 24rpx;
 		border-radius: 15rpx;
-		box-shadow: 0px 3.5px 5px 0px rgba(51, 51, 51, 0.1);
+		box-shadow: 0rpx 7rpx 10rpx 0rpx rgba(51, 51, 51, 0.1);
 
 		background-color: white;
 
-		// width: 100px;
-		// height: 100px;
+		// width: 200rpx;
+		// height: 200rpx;
 
 		.OrderCard_Hand {
 			display: flex;
@@ -931,12 +926,12 @@
 
 			.OrderCard_Hand_time {
 				color: #666666;
-				font-size: 15px;
+				font-size: 30rpx;
 			}
 		}
 
 		.OrderCard_body {
-			font-size: 18px;
+			font-size: 36rpx;
 			font-weight: normal;
 			text-align: left;
 			color: #333333;
@@ -948,7 +943,7 @@
 		}
 
 		.OrderCard_body_ply {
-			font-size: 18px;
+			font-size: 36rpx;
 			font-weight: normal;
 			text-align: left;
 			color: #333333;
@@ -964,21 +959,21 @@
 			margin-right: 24rpx;
 			// margin-top: 15rpx;
 
-			padding: 15px;
+			padding: 30rpx;
 
-			border-radius: 6px;
+			border-radius: 12rpx;
 
 			background: rgba(244, 244, 244, 0.35);
 
 			color: #999999;
 
-			// height: 100px;
+			// height: 200rpx;
 
 			.OrderCard_card_a {
 				display: flex;
 				flex-direction: row;
 				align-items: center;
-				padding-bottom: 5px;
+				padding-bottom: 10rpx;
 
 				.a_t {
 					width: 80%;
@@ -1005,7 +1000,7 @@
 		.OrderCard_end {
 			// margin-top: 24rpx;
 			width: 100%;
-			height: 50px;
+			height: 100rpx;
 
 			display: flex;
 			flex-direction: row;
@@ -1013,10 +1008,10 @@
 			align-items: center;
 
 			// .OrderCard_end_slider {
-			// 	height: 50px;
+			// 	height: 100rpx;
 
 			// 	.detail {
-			// 		height: 50px;
+			// 		height: 100rpx;
 			// 		width: 100%;
 
 			// 		position: relative;
@@ -1045,7 +1040,7 @@
 
 		background-color: #ffffff;
 
-		border-radius: 6px;
+		border-radius: 12rpx;
 
 		margin: 24rpx;
 
@@ -1063,7 +1058,7 @@
 
 		background-color: #ffffff;
 
-		border-radius: 6px;
+		border-radius: 12rpx;
 
 
 		margin-right: 24rpx;
@@ -1076,7 +1071,7 @@
 
 		height: 6vh;
 
-		font-size: 14px;
+		font-size: 28rpx;
 
 		.billCardTimeStart {
 			width: 50%;
@@ -1085,7 +1080,7 @@
 			flex-direction: row;
 			align-items: center;
 			justify-content: left;
-			font-size: 14px;
+			font-size: 28rpx;
 
 
 		}
@@ -1097,17 +1092,17 @@
 			flex-direction: row;
 			align-items: center;
 			justify-content: left;
-			font-size: 14px;
+			font-size: 28rpx;
 
 			padding-left: 12rpx;
 		}
 
 		.timeInput {
 			box-sizing: border-box;
-			border: 0.5px solid #D8D8D8;
-			width: 100px;
-			border-radius: 3px;
-			height: 30px;
+			border: 1rpx solid #D8D8D8;
+			width: 200rpx;
+			border-radius: 6rpx;
+			height: 60rpx;
 			margin-left: 24rpx;
 			text-align: center;
 		}
@@ -1120,7 +1115,7 @@
 	}
 
 	.u-demo-block__title {
-		padding: 10px 0 2px 15px;
+		padding: 20rpx 0 4rpx 30rpx;
 	}
 
 	.swipe-action {
@@ -1128,7 +1123,7 @@
 			padding: 25rpx 0;
 
 			&__text {
-				font-size: 15px;
+				font-size: 30rpx;
 				color: $u-main-color;
 				padding-left: 30rpx;
 			}

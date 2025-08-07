@@ -4,12 +4,12 @@
 			<u-empty
 				:show="isEmpty"
 				src="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/empty.svg"
-				icon-size="400"
+				icon-size="200"
 				text="暂无签收人~"
 				mode="search"
 				margin-top="200"
 			></u-empty>
-			<view class="mt25 vw100 text-center" style="font-size: 14px">
+			<view class="mt25 vw100 text-center" style="font-size: 28rpx">
 				<u-button
 					@click="goPath('/pages/subPack/user/signee/add')"
 					hover-class="none"
@@ -26,39 +26,49 @@
 		</view>
 
 		<view class="flex-row justify-center items-center absolute" style="width: 100%; top: 25%" v-if="identity">
-			<u-image src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" width="300px" height="200px"></u-image>
-			<view class="absolute" style="bottom: -40px; color: #aaaaaa; font-size: 14px">当前无查看权限~</view>
+			<u-image src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" width="600rpx" height="400rpx"></u-image>
+			<view class="absolute" style="bottom: -80rpx; color: #aaaaaa; font-size: 28rpx">当前无查看权限~</view>
 		</view>
 
 		<view class="order-simple-list pt24" v-if="!identity">
 			<view v-for="(item, index) in orderList" :key="index" class="flex-col pd24 ml24 mr24 mb24 bg-white radius">
 				<view class="flex-row items-center justify-between">
 					<view class="mr20">
-						<u-icon name="https://res-oss.elist.com.cn/wxImg/user/qm.svg" size="80"></u-icon>
+						<u-icon name="https://res-oss.elist.com.cn/wxImg/user/qm.svg" size="80rpx"></u-icon>
 					</view>
 					<view class="flex-col flex-1 pr35">
 						<view class="flex-row">
 							<text class="ft32 ft-bold ft-black">{{ item.name }}</text>
-							<u-icon class="ml24" name="eye" color="#999999" size="40" @click="show = true"></u-icon>
+							<view style="margin-left: 24rpx">
+								<u-icon name="eye" color="#999999" size="40rpx" @click="show = true"></u-icon>
+							</view>
 						</view>
 						<text class="ft25 line25 ft-gray mt10">{{ item.phone }}</text>
 					</view>
 					<!-- #ifdef MP-WEIXIN -->
-					<u-icon class="mr20" name="edit-pen" color="#aaa" size="34" @click.stop="goDetails(item, 1)"></u-icon>
-					<u-icon class="ml30 mr20" name="trash" color="#aaa" size="34" @click="goDetails(item.id, 2)"></u-icon>
+					<view style="margin-right: 15rpx">
+						<u-icon class="mr20" name="edit-pen" color="#aaa" size="34rpx" @click.stop="goDetails(item, 1)"></u-icon>
+					</view>
+					<view style="margin-right: 24rpx; margin-left: 30rpx">
+						<u-icon class="ml30 mr20" name="trash" color="#aaa" size="34rpx" @click="goDetails(item.id, 2)"></u-icon>
+					</view>
 					<!-- #endif -->
 					<!-- #ifdef APP -->
-					<u-icon class="mr20" name="edit-pen" color="#aaa" size="34" @click="goDetails(item, 1)"></u-icon>
-					<u-icon class="ml30 mr20" name="trash" color="#aaa" size="34" @click="goDetails(item.id, 2)"></u-icon>
+					<view style="margin-right: 15rpx">
+						<u-icon class="mr20" name="edit-pen" color="#aaa" size="34rpx" @click="goDetails(item, 1)"></u-icon>
+					</view>
+					<view style="margin-right: 24rpx; margin-left: 30rpx">
+						<u-icon class="ml30 mr20" name="trash" color="#aaa" size="34rpx" @click="goDetails(item.id, 2)"></u-icon>
+					</view>
 					<!-- #endif -->
 				</view>
 				<view class="u-border-top pt30 mt30 flex-row items-center justify-between">
-					<u-icon v-if="item.ifDefault != 'Y'" label-size="24" name="checkmark-circle-fill" color="#01BB74" size="38" label="默认签收人"></u-icon>
-					<u-icon @click="defaultItem(item.id)" v-else name="minus-circle" label-size="24" color="#ccc" size="38" label="默认签收人"></u-icon>
+					<u-icon v-if="item.ifDefault != 'Y'" label-size="12" name="checkmark-circle-fill" color="#01BB74" size="38rpx" label="默认签收人"></u-icon>
+					<u-icon @click="defaultItem(item.id)" v-else name="minus-circle" label-size="12" color="#ccc" size="38rpx" label="默认签收人"></u-icon>
 					<!-- 			<text class="ft-gray ft24" @click="deleteItem(item.id)">删除</text> -->
 				</view>
-				<u-popup v-model="show" mode="center" width="500rpx" height="400px" close-icon-size="30" :closeable="true" close-icon-color="#000000" close-icon-pos="top-right">
-					<u-image style="transform: rotate(90deg)" width="500rpx" height="400px" :src="item.signatureImg"></u-image>
+				<u-popup v-model="show" mode="center" width="500rpx" height="800rpx" close-icon-size="30" :closeable="true" close-icon-color="#000000" close-icon-pos="top-right">
+					<u-image style="transform: rotate(90deg)" width="500rpx" height="800rpx" :src="item.signatureImg"></u-image>
 				</u-popup>
 
 				<up-overlay :show="showMask" @click="showMask = false">
@@ -183,9 +193,11 @@ export default {
 		},
 		del(id) {
 			var that = this;
-			this.$api.sign.deleteSignature({
-			  id: id
-			}).then((res) => {
+			this.$api.sign
+				.deleteSignature({
+					id: id
+				})
+				.then((res) => {
 					that.$u.toast(res.data.data == '1' ? '删除成功' : '删除失败');
 					this.loadData();
 				});
@@ -234,28 +246,28 @@ export default {
 	width: 100%;
 	height: 40%;
 	color: #333333;
-	font-size: 18px;
+	font-size: 36rpx;
 	font-weight: 600;
 }
 
 .titlePas {
 	color: #333333;
-	font-size: 18px;
+	font-size: 36rpx;
 	font-weight: 600;
 }
 
 .titlePasOK {
 	color: #01bb74;
-	font-size: 18px;
+	font-size: 36rpx;
 	font-weight: 600;
 }
 
 .err {
 	font-family: Source Han Sans;
-	font-size: 13px;
+	font-size: 26rpx;
 	font-weight: normal;
-	line-height: 22.46px;
-	letter-spacing: 0.65px;
+	line-height: 44.92rpx;
+	letter-spacing: 1.3rpx;
 
 	font-feature-settings: 'kern' on;
 	color: #f53f3f;
