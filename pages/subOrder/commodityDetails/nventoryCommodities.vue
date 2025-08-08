@@ -11,7 +11,7 @@
                                 backgroundColor: 'transparent',
                                 marginLeft: '10rpx'
                             }"
-                            :modelValue="SearchInventory"
+                            v-model="SearchInventory"
                             placeholder="请输入商品名称/规格"
                             :clearable="true"
                             border="none"

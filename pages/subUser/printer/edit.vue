@@ -1,17 +1,17 @@
 <template>
     <view class="Print flex-col justify-start items-center">
         <view class="mt20" style="width: 90%">
-            <u-input border="none" :modelValue="value" :placeholder="placeholder" maxlength="6" type="text" :border="true"></u-input>
+            <u-input border="none" v-model="value" :placeholder="placeholder" maxlength="6" type="text" :border="true"></u-input>
         </view>
 
         <view class="mt20" style="width: 90%">
             <u-collapse :head-style="headstyle" arrow-color="#CCC">
                 <u-collapse-item :title="item.head" v-for="(item, index) in itemList" :key="index">
                     <view class="mt20" style="width: 90%">
-                        <u-input border="none" :modelValue="wifiName" placeholder="请输入无线网名称" maxlength="30" type="text" :border="true"></u-input>
+                        <u-input border="none" v-model="wifiName" placeholder="请输入无线网名称" maxlength="30" type="text" :border="true"></u-input>
                     </view>
                     <view class="mt20" style="width: 90%">
-                        <u-input border="none" :modelValue="wifiPass" placeholder="请输入无线网密码" maxlength="20" type="password" :border="true"></u-input>
+                        <u-input border="none" v-model="wifiPass" placeholder="请输入无线网密码" maxlength="20" type="password" :border="true"></u-input>
                     </view>
                     <view class="mt20" style="width: 90%; color: red; font-size: 24rpx">修改后请联系客服进行配置修改!!!</view>
                 </u-collapse-item>

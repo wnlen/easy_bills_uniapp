@@ -113,7 +113,7 @@
                         type="textarea"
                         border="none"
                         placeholder="请填写备注，字数不超过50字"
-                        :modelValue="billFrom.billRemark"
+                        v-model="billFrom.billRemark"
                         placeholderClass="placeholder_class"
                         maxlength="50"
                     ></u-input>

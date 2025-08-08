@@ -236,7 +236,7 @@
                                     inputBgColor="transparent"
                                     :min="0"
                                     bgColor="#EA7183"
-                                    :modelValue="playMoneyListSend.c_product_people.c"
+                                    v-model="playMoneyListSend.c_product_people.c"
                                     @change="valChange"
                                     :iconStyle="{ color: '#fff', fontSize: '20rpx' }"
                                 ></u-number-box>
@@ -283,7 +283,7 @@
                                     inputBgColor="transparent"
                                     :min="0"
                                     bgColor="#EA7183"
-                                    :modelValue="playMoneyListSend.c_product_people.a"
+                                    v-model="playMoneyListSend.c_product_people.a"
                                     @change="valChange"
                                     :iconStyle="{ color: '#fff', fontSize: '20rpx' }"
                                 ></u-number-box>
@@ -330,7 +330,7 @@
                                     inputBgColor="transparent"
                                     :min="0"
                                     bgColor="#EA7183"
-                                    :modelValue="playMoneyListSend.c_product_people.b"
+                                    v-model="playMoneyListSend.c_product_people.b"
                                     @change="valChange"
                                     :iconStyle="{ color: '#fff', fontSize: '20rpx' }"
                                 ></u-number-box>
