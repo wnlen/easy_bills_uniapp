@@ -180,11 +180,9 @@
 							<view class="mr20">
 								<u-line class="" color="#D8D8D8" length="50" direction="col"></u-line>
 							</view>
-							<u-icon @click="$refs.calendars.open()" class="" size="45rpx" name="https://res-oss.elist.com.cn/wxImg/order/time.png"></u-icon>
-							<view>
-								<uv-calendars :startDate="getCurrentDateMin()" :endDate="getCurrentDate()" ref="calendars" @confirm="getConfirm" />
-							</view>
+							<u-icon class="" size="45rpx" name="https://res-oss.elist.com.cn/wxImg/order/time.png"></u-icon>
 						</view>
+						<uv-calendars ref="calendars" @confirm="getConfirm" :startDate="getCurrentDateMin()" :endDate="getCurrentDate()" />
 					</view>
 					<view class="flex-row items-center width100 pt20 pb20 u-border-bottom">
 						<text class="textcolor" style="width: 106rpx">收货人:</text>
@@ -513,7 +511,6 @@ export default {
 		this.showShare = false;
 		// #endif
 
-		
 		// #ifdef MP-WEIXIN
 		this.addOrderIfOk();
 		// #endif
@@ -637,7 +634,7 @@ export default {
 				});
 		},
 		defImg() {
-			if(this.$u.http){
+			if (this.$u.http) {
 				this.action = this.$u.http.config.baseUrl + '/edo/order/imgA';
 			}
 			if (this.receipts.creationTime == '') {
