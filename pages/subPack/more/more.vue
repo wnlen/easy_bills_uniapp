@@ -16,7 +16,7 @@
 					<template v-slot="{item, index}">
 						<view class="ml5 mr5 flex-col justify-center items-center relative"
 							style="background-color: transparent;">
-							<u-icon :label="item.name" size="100" :name="item.icon" label-pos="bottom" label-size="25"
+							<u-icon :label="item.name" size="100" :name="item.icon" labelPos="bottom" label-size="25"
 								label-color="#333333" @touchstart="handleTouchStart" @touchend="handleTouchEnd"
 								@touchcancel="handleTouchCancel"></u-icon>
 						</view>
@@ -33,7 +33,7 @@
 					<template v-slot="{item, index}">
 						<view class="ml5 mr5 flex-col justify-center items-center relative"
 							style="background-color: transparent;">
-							<u-icon :label="item.name" size="100rpx" :name="item.icon" label-pos="bottom" label-size="25rpx"
+							<u-icon :label="item.name" size="100rpx" :name="item.icon" labelPos="bottom" label-size="25rpx"
 								label-color="#333333" @touchstart="handleTouchStart" @touchend="handleTouchEnd"
 								@click="jump(item)" @touchcancel="handleTouchCancel"></u-icon>
 						</view>

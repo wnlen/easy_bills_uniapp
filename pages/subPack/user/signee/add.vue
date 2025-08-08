@@ -1,16 +1,16 @@
 <template>
 	<view class="pl48 pr48 pt38 pb38 vw100">
-		<u-form class="vw100" :model="formData" ref="uForm" label-position="left" :label-style="{ 'line-height': 1 }" :error-type="['toast']">
+		<u-form class="vw100" :model="formData" ref="uForm" labelPosition="left" :label-style="{ 'line-height': 1 }" :error-type="['toast']">
 			<u-form-item label="签收人姓名" prop="signeeName" required label-width="170">
-				<u-input border="none" :modelValue="formData.signeeName" placeholder="请输入签收人姓名" maxlength="50" ></u-input>
+				<u-input border="none" :modelValue="formData.signeeName" placeholder="请输入签收人姓名" maxlength="50"></u-input>
 			</u-form-item>
 			<u-form-item label="签收密码" prop="password" required label-width="170">
-				<u-input border="none" :modelValue="formData.password" type="number" placeholder="请设置密码" maxlength="4" ></u-input>
+				<u-input border="none" :modelValue="formData.password" type="number" placeholder="请设置密码" maxlength="4"></u-input>
 			</u-form-item>
 			<!-- 			<u-form-item label="其他备注" prop="remark" label-width="170">
 				<u-input border="none" :modelValue="formData.remark" placeholder="请输入备注" ></u-input>
 			</u-form-item> -->
-			<u-form-item label="手写签名" required prop="signeeImage" label-position="top" label-width="170">
+			<u-form-item label="手写签名" required prop="signeeImage" labelPosition="top" label-width="170">
 				<view v-if="formData.signeeImage" class="text-center width100" style="height: 50vw; border: 4rpx dashed #eee">
 					<image
 						@click="goPath('/pages/subSignature/signature')"
@@ -172,7 +172,7 @@ export default {
 					this.$api.sign.addSignature(dx).then((res) => {
 						this.$u.toast('保存成功～');
 						setTimeout(() => {
-							this.loadData();
+							// this.loadData();
 							uni.navigateBack({
 								delta: 1
 							});
