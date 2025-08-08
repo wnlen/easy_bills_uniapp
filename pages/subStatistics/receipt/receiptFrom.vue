@@ -291,7 +291,7 @@ export default {
 			this.imgFileList = lists;
 		},
 		Init() {
-			this.action = this.$u.http.config.baseUrl + '/edo/order/imgA';
+			this.action = uni.$http.config.baseURL + '/edo/order/imgA';
 			this.billFrom.billTime = this.$u.timeFormat(new Date(), 'yyyy-mm-dd');
 			this.getOrderNumber();
 
@@ -489,7 +489,7 @@ export default {
 			return new Promise((resolve, reject) => {
 				let that = this;
 				uni.uploadFile({
-					url: that.$u.http.config.baseUrl + '/edo/bills/file',
+					url: uni.$http.config.baseURL + '/edo/bills/file',
 					header: {
 						token: that.vuex_token,
 						phone: app ? that.vuex_user.phone : that.vuex_user.phone + '-app',

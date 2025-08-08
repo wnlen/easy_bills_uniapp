@@ -128,7 +128,7 @@
 						// 上传签名
 						let fileAvatar = res.tempFilePath;
 						uni.uploadFile({
-							url: that.$u.http.config.baseUrl + '/edo/user/modifyImage',
+							url: uni.$http.config.baseURL + '/edo/user/modifyImage',
 							header: {
 								phone: that.vuex_user.phone
 							},

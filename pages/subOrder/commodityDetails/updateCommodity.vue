@@ -130,7 +130,7 @@ export default {
 		this.getCommodityDetails();
 	},
 	onShow() {
-		this.action = this.$u.http.config.baseUrl + '/edo/order/imgA';
+		this.action = uni.$http.config.baseURL + '/edo/order/imgA';
 	},
 	methods: {
 		onRemove(e, list) {
@@ -255,7 +255,7 @@ export default {
 			this.uploadingCommodity.imgId = 'QD' + new Date().getTime();
 
 			uni.uploadFile({
-				url: this.$u.http.config.baseUrl + '/edo/uploading/img',
+				url: uni.$http.config.baseURL + '/edo/uploading/img',
 				header: {
 					phone: this.uploadingCommodity.staffNumber,
 					orderNumber: this.uploadingCommodity.imgId,

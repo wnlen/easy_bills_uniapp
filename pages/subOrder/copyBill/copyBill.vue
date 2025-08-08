@@ -676,7 +676,7 @@ export default {
 				});
 		},
 		defImg() {
-			this.action = this.$u.http.config.baseUrl + '/edo/order/imgA';
+			this.action = uni.$http.config.baseURL + '/edo/order/imgA';
 			if (this.receipts.creationTime == '') {
 				this.receipts.creationTime = this.$u.timeFormat(new Date(), 'yyyy-mm-dd');
 			}
@@ -1540,7 +1540,7 @@ export default {
 						for (let key in tempUrls) {
 							console.log('key======>', tempUrls[key].url);
 							uni.uploadFile({
-								url: that.$u.http.config.baseUrl + '/edo/order/img',
+								url: uni.$http.config.baseURL + '/edo/order/img',
 								header: {
 									phone: bossNumber,
 									orderNumber: that.receipts.orderNumber,

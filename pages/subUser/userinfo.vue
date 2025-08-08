@@ -58,7 +58,7 @@
 			<view class="flex-row pt35 pb35 u-border-bottom items-center justify-between">
 				<text class="ft-gray">注册时间</text>
 				<view class="flex-row justify-end items-center flex-1">
-					<text>{{ $u.timeFormat(time, 'yyyy-mm-dd') }}</text>
+					<text>{{ $u.timeFormat(new Date(time).getTime(), 'yyyy-mm-dd') }}</text>
 				</view>
 			</view>
 		</view>
@@ -96,11 +96,10 @@ export default {
 		// this.loadDataFlush();
 	},
 	onShow() {
-		this.userInfo.nickName = this.vuex_user.data.name;
-		this.userInfo.gender = this.vuex_user.data.gender;
-		this.gender = this.vuex_user.data.gender;
-		this.ac = this.vuex_user.ac;
-		this.time = this.vuex_user.data.registrationDate;
+		this.userInfo = this.$u.getPinia('user.user.data');
+		this.ac = this.userInfo.ac;
+		this.time = this.userInfo.registrationDate;
+		console.log('uni.$http.config.baseURL', uni.$http.config.baseURL);
 	},
 	methods: {
 		jump() {
@@ -157,8 +156,9 @@ export default {
 		onChooseAvatar(e) {
 			let that = this,
 				fileAvatar = e.detail.avatarUrl;
+
 			uni.uploadFile({
-				url: that.$u.http.config.baseUrl + '/edo/user/modifyImage',
+				url: uni.$http.config.baseURL + '/edo/user/modifyImage',
 				header: {
 					phone: that.vuex_user.phone
 				},
@@ -168,7 +168,7 @@ export default {
 					imageType: '0'
 				},
 				success: (uploadFileRes) => {
-					//console.log(uploadFileRes);
+					console.log('uploadFileResuploadFileRes', uploadFileRes);
 					if (uploadFileRes.statusCode == '200') {
 						that.userInfo.avatarUrl = uploadFileRes.data;
 						var data = {
@@ -189,6 +189,9 @@ export default {
 								that.$u.toast(res.data.message);
 							});
 					}
+				},
+				complete: (mess) => {
+					console.log('mess', mess);
 				}
 			});
 		},

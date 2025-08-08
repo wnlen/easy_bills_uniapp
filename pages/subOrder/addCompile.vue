@@ -437,7 +437,7 @@ export default {
 			});
 		},
 		defImg() {
-			this.action = this.$u.http.config.baseUrl + '/edo/order/imgA';
+			this.action = uni.$http.config.baseURL + '/edo/order/imgA';
 		},
 		ShareY(item) {
 			this.ShareDetails = 'Y';
@@ -618,7 +618,7 @@ export default {
 				for (let key in this.imgList) {
 					if (this.imgList[key].file && this.imgList[key].file.path) {
 						uni.uploadFile({
-							url: that.$u.http.config.baseUrl + '/edo/order/img',
+							url: uni.$http.config.baseURL + '/edo/order/img',
 							header: {
 								phone: bossNumber,
 								orderNumber: that.receipts.orderNumber,
