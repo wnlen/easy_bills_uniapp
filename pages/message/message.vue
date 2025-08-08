@@ -7,13 +7,14 @@
             <u-notice-bar direction="column" :text="list2"></u-notice-bar>
         </view>
 
-        <view class="vw100" style="margin-top: 50%; height: 100px" v-if="!ifShow()">
+        <view class="vw100" style="margin-top: 50%; height: 200rpx" v-if="!ifShow()">
             <u-empty icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg" iconSize="400rpx" text="暂无消息~" mode="search" margin-top="200"></u-empty>
         </view>
 
         <u-swipe-action :show="item.show" :index="index" v-for="(item, index) in list" :key="index" @click="click" disabled @open="open" :options="options">
             <view class="item u-border-bottom" v-show="item.number > 0" v-if="item.ifwork && showMess && ifShow()">
-                <u-icon class="mr30" :name="ImgUrl + item.images" size="100"></u-icon>
+                <view class="mr30"><u-icon :name="ImgUrl + item.images" size="100"></u-icon></view>
+
                 <view class="title-wrap flex-col" style="background-color: #ffffff; width: 80%" @click="jumpChat(item.name, item.images, item)">
                     <view class="flex-row" style="width: 100%">
                         <view class="" style="width: 60%; font-size: 32rpx; margin-top: 4rpx">
@@ -43,7 +44,7 @@
 export default {
     data() {
         return {
-            tabHight: '50px',
+            tabHight: '100rpx',
             backText: '选择客户',
             showMess: false,
             list: [
@@ -351,25 +352,25 @@ image {
 // 	display: flex;
 // 	justify-content: space-between;
 // 	align-items: flex-end;
-// 	height: 85px;
+// 	height: 170rpx;
 // 	width: 100vw;
 // 	background-color: #ffffff;
-// 	border-bottom: 1px solid #eee;
+// 	border-bottom: 2rpx solid #eee;
 // }
 
 // .header-left {
-// 	font-size: 15px;
+// 	font-size: 30rpx;
 // 	color: #333;
 // }
 
 // .header-title {
-// 	font-size: 16px;
+// 	font-size: 32rpx;
 // 	color: #333;
-// 	margin-right: 80px;
+// 	margin-right: 160rpx;
 // }
 
 // .header-message {
-// 	font-size: 14px;
+// 	font-size: 28rpx;
 // 	color: #999;
 // }
 

@@ -9,7 +9,7 @@
                 <view class="Tab">
                     <u-tabs
                         :inactiveStyle="{ color: '#D6AE83' }"
-                        :itemStyle="{ backgroundColor: 'transparent', height: '40px' }"
+                        :itemStyle="{ backgroundColor: 'transparent', height: '80rpx' }"
                         :activeStyle="{ color: '#D6AE83' }"
                         lineColor="#D6AE83"
                         :list="TabList"
@@ -100,7 +100,7 @@
 								</button> -->
                                 <u-button hover-class="none" :hair-line="false" :custom-style="buttonStyle" open-type="contact">
                                     报价咨询
-                                    <u-icon class="ml8 mt1" name="play-right-fill" color="#E7647F" size="16rpx"></u-icon>
+                                    <view class="ml8 mt1"><u-icon name="play-right-fill" color="#E7647F" size="16rpx"></u-icon></view>
                                 </u-button>
                             </view>
                         </view>
@@ -119,8 +119,8 @@
                         <view class="width40 flex-col mt20" @click="dropdownIcon" style="z-index: 98; height: 100%; text-align: center">
                             <liu-data-select elementId="data-select1" :dataList="dataListAll" @change="dropdown">
                                 <view id="data-select1" class="btn-info flex-row justify-center">
-                                    <u-icon class="mr10" v-show="selectionIcon" name="arrow-down-fill" color="#333333" size="15rpx"></u-icon>
-                                    <u-icon class="mr10" v-show="!selectionIcon" name="arrow-up-fill" color="#333333" size="15rpx"></u-icon>
+                                    <view class="mr10"><u-icon v-show="selectionIcon" name="arrow-down-fill" color="#333333" size="15rpx"></u-icon></view>
+                                    <view class="mr10"><u-icon v-show="!selectionIcon" name="arrow-up-fill" color="#333333" size="15rpx"></u-icon></view>
                                     <text>{{ dropdownName || '' }}</text>
                                 </view>
                             </liu-data-select>
@@ -231,7 +231,7 @@
                                 <u-number-box
                                     :integer="true"
                                     buttonWidth="40rpx"
-                                    buttonRadius="5px"
+                                    buttonRadius="10rpx"
                                     buttonSize="40rpx"
                                     inputBgColor="transparent"
                                     :min="0"
@@ -278,7 +278,7 @@
                                 <u-number-box
                                     :integer="true"
                                     buttonWidth="40rpx"
-                                    buttonRadius="5px"
+                                    buttonRadius="10rpx"
                                     buttonSize="40rpx"
                                     inputBgColor="transparent"
                                     :min="0"
@@ -325,7 +325,7 @@
                                 <u-number-box
                                     :integer="true"
                                     buttonWidth="40rpx"
-                                    buttonRadius="5px"
+                                    buttonRadius="10rpx"
                                     buttonSize="40rpx"
                                     inputBgColor="transparent"
                                     :min="0"
@@ -764,11 +764,15 @@
                         <view class="flex-row justify-center mt30" style="width: 100%">
                             <view class="items-center dqsj" v-if="!item.open" @click="open(item, index)">
                                 全部订单信息
-                                <u-icon class="ml5" name="arrow-down" color="#999999" size="28rpx"></u-icon>
+                                <view class="ml5">
+                                    <u-icon name="arrow-down" color="#999999" size="28rpx"></u-icon>
+                                </view>
                             </view>
                             <view class="items-center dqsj" v-if="item.open" @click="close(item, index)">
                                 收起
-                                <u-icon class="ml5" name="arrow-up" color="#999999" size="28rpx"></u-icon>
+                                <view class="ml5">
+                                    <u-icon name="arrow-up" color="#999999" size="28rpx"></u-icon>
+                                </view>
                             </view>
                         </view>
                     </view>

@@ -2,8 +2,9 @@
     <view @tap.stop v-show="roleShow" class="flex-col justify-center items-center pop-renew">
         <view class="relative flex-col justify-center items-center" style="height: 100%; width: 100%; margin-top: 100px">
             <u-image class="" :showLoading="true" :src="src" width="360px" height="360px"></u-image>
+            <view class="absolute" style="top: 5%; right: 10%"></view>
 
-            <u-icon @click="close" class="absolute" style="top: 5%; right: 10%" name="close-circle" color="#ffffff" size="40"></u-icon>
+            <u-icon @click="close" name="close-circle" color="#ffffff" size="40rpx"></u-icon>
 
             <view class="absolute flex-row justify-center items-center mt30" style="width: 100%; height: 120px">
                 <view

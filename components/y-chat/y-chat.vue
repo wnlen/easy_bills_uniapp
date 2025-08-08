@@ -155,7 +155,9 @@
                     <!-- #endif -->
                     <!-- #ifdef MP-WEIXIN -->
                     <u-transition :show="!sendVal">
-                        <u-icon customStyle="padding: 0 10rpx;" :size="iconSize" name="plus" @click="showHideBox" v-if="!sendVal"></u-icon>
+                        <view style="padding: 0 10rpx"></view>
+
+                        <u-icon :size="iconSize" name="plus" @click="showHideBox" v-if="!sendVal"></u-icon>
                     </u-transition>
                     <u-transition :show="sendVal">
                         <button

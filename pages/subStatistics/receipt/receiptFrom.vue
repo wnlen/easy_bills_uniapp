@@ -98,12 +98,12 @@
 
                 <!-- #ifdef MP-WEIXIN -->
                 <view v-if="fileList.length < 3" class="uploadView" @click="uploadFile">
-                    <u-icon label-color="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100"></u-icon>
+                    <u-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100"></u-icon>
                 </view>
                 <!-- #endif -->
                 <!-- #ifdef APP -->
                 <view class="uploadView" @click="chooseFile">
-                    <u-icon label-color="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100"></u-icon>
+                    <u-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100"></u-icon>
                 </view>
                 <!-- #endif -->
 

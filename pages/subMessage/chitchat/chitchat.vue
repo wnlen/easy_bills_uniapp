@@ -96,7 +96,7 @@
 
             <view class="flex-row mt10 mb20 ml20" style="height: 60%">
                 <view class="mt10" style="height: 100%; align-items: center">
-                    <u-icon class="mr10" name="mic" size="50"></u-icon>
+                    <view class=></view><u-icon me="mic" size="50"></u-icon></view>
                 </view>
                 <view :style="{ width: showFile == 1 ? '70%' : '80%' }">
                     <u-input type="text" placeholde="输入您想咨询的问题" v-model="message" border="bottom"></u-input>

@@ -72,11 +72,11 @@
                         <!-- 此层wrap在此为必写的，否则可能会出现标题定位错误 -->
                         <view class="u-body-item u-flex u-row-between u-p-b-0">
                             <view class="flex-row justify-center items-center" v-if="item.genre == 'D'">
-                                <u-icon name="https://res-oss.elist.com.cn/wxImg/index/del.svg" size="40"></u-icon>
+                                <u-icon name="https://res-oss.elist.com.cn/wxImg/index/del.svg" size="40rpx"></u-icon>
                                 <text class="ml20" style="font-size: 32rpx; font-weight: bold">删除申请</text>
                             </view>
                             <view class="flex-row justify-center items-center" v-if="item.genre == 'P'">
-                                <u-icon name="https://res-oss.elist.com.cn/wxImg/index/play.svg" size="40"></u-icon>
+                                <u-icon name="https://res-oss.elist.com.cn/wxImg/index/play.svg" size="40rpx"></u-icon>
                                 <text class="ml20" style="font-size: 32rpx; font-weight: bold">确认付款申请</text>
                             </view>
                             <div style="float: right">
@@ -143,7 +143,7 @@
                         <view class="u-body-item u-flex u-row-between u-p-b-0 u-border-top" @click="jumpDetails(item)">
                             <view class="u-body-item-title u-line-0 mt15" style="color: #01bb74">查看订单</view>
                             <view class="mt15" style="float: right">
-                                <u-icon class="u-body-item-title u-line-1" name="arrow-right" color="#666666" size="28"></u-icon>
+                                <view class="u-body-item-title u-line-1"><u-icon name="arrow-right" color="#666666" size="28"></u-icon></view>
                             </view>
                         </view>
                     </view>

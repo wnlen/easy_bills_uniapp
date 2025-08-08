@@ -9,7 +9,7 @@
             @query="queryList"
         >
             <view slot="empty" style="padding-bottom: 200rpx">
-                <u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" label-color="#AAAAAA" label="暂无记录" size="180"></u-icon>
+                <u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="360rpx"></u-icon>
             </view>
             <view class="Card cardShow">
                 <view class="InputCard">
@@ -17,7 +17,7 @@
                         <text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
                             {{ vuex_userRole === 'R' ? '供应商选择' : '客户选择' }}
                         </text>
-                        <u-icon class="ml10 mr10" name="/static/img/list/sx.svg" size="40"></u-icon>
+                        <view class="ml10 mr10"><u-icon name="/static/img/list/sx.svg" size="40rpx"></u-icon></view>
                         <view class="my-input">
                             <u-input
                                 border="none"
@@ -30,7 +30,7 @@
                         </view>
 
                         <view class="flex-col justify-center items-center" style="height: 5vh">
-                            <u-icon class="ml40" name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon>
+                            <view class="ml40"><u-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon></view>
                         </view>
                     </view>
 
@@ -38,7 +38,7 @@
                         <text class="ft11 ft-gray ml20" @click="filtrateGet">
                             {{ Title }}
                         </text>
-                        <u-icon class="ml10 mr10" name="/static/img/list/sj.svg" size="40"></u-icon>
+                        <view class="ml10 mr10"><u-icon name="/static/img/list/sj.svg" size="40rpx"></u-icon></view>
                         <view class="my-input">
                             <u-input border="none" v-if="showTage !== '1'" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
                         </view>
@@ -47,7 +47,9 @@
                         </view>
 
                         <view class="flex-col justify-center items-center" style="height: 5vh">
-                            <u-icon class="ml40" name="/static/img/list/ss.svg" size="45rpx"></u-icon>
+                            <view class="ml40">
+                                <u-icon name="/static/img/list/ss.svg" size="45rpx"></u-icon>
+                            </view>
                         </view>
                     </view>
                 </view>
@@ -66,7 +68,7 @@
                         @tap.stop
                         style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
                     >
-                        <u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
+                        <u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
                     </view>
                     <view class="flex-col text-left" style="width: 90%" @tap.stop @click="jumpDraftsOrder(item.id)">
                         <text
@@ -123,7 +125,7 @@
                                             }"
                                             style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
                                         >
-                                            <u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
+                                            <u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
                                         </view>
                                         <view class="ml15" style="color: #333333; font-size: 28rpx">全选</view>
                                     </view>
@@ -166,14 +168,14 @@
                             <view class="flex-row items-center" style="width: 50%">
                                 <text class="mr10" style="color: #999999">开始日期</text>
                                 <u-icon name="arrow-down-fill" size="10"></u-icon>
-                                <view @click="$refs.calendars.open()" class="ml24" style="border: 0.5px solid #999999; padding: 12rpx; border-radius: 3px">
+                                <view @click="$refs.calendars.open()" class="ml24" style="border: 1rpx solid #999999; padding: 12rpx; border-radius: 6rpx">
                                     {{ date1 }}
                                 </view>
                             </view>
                             <view class="flex-row items-center" style="width: 50%">
                                 <text class="mr10 ml20" style="color: #999999">结束日期</text>
                                 <u-icon name="arrow-down-fill" size="10"></u-icon>
-                                <view @click="$refs.calendars.open()" class="ml24" style="border: 0.5px solid #999999; padding: 12rpx; border-radius: 3px">
+                                <view @click="$refs.calendars.open()" class="ml24" style="border: 1rpx solid #999999; padding: 12rpx; border-radius: 6rpx">
                                     {{ date2 }}
                                 </view>
                             </view>

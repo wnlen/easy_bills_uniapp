@@ -7,7 +7,9 @@
     >
         <view class="u-radio__icon-wrap cursor-pointer" @tap.stop="iconClickHandler" :class="iconClasses" :style="[iconWrapStyle]">
             <slot name="icon" :elIconSize="elIconSize" :elIconColor="elIconColor">
-                <u-icon class="u-radio__icon-wrap__icon" name="checkbox-mark" :size="elIconSize" :color="elIconColor" />
+                <view class="u-radio__icon-wrap__icon">
+                    <u-icon name="checkbox-mark" :size="elIconSize" :color="elIconColor" />
+                </view>
             </slot>
         </view>
         <view class="u-radio__label-wrap cursor-pointer" @tap.stop="labelClickHandler">
@@ -88,11 +90,11 @@ export default {
         elLabelDisabled() {
             return this.labelDisabled !== '' ? this.labelDisabled : this.parentData.labelDisabled !== null ? this.parentData.labelDisabled : false;
         },
-        // 组件尺寸，对应size的值，默认值为21px
+        // 组件尺寸，对应size的值，默认值为42rpx
         elSize() {
             return this.size ? this.size : this.parentData.size ? this.parentData.size : 21;
         },
-        // 组件的勾选图标的尺寸，默认12px
+        // 组件的勾选图标的尺寸，默认24rpx
         elIconSize() {
             return this.iconSize ? this.iconSize : this.parentData.iconSize ? this.parentData.iconSize : 12;
         },
@@ -163,7 +165,7 @@ export default {
             // 当父组件设置了显示下边框并且排列形式为纵向时，给内容和边框之间加上一定间隔
             if (this.parentData.borderBottom && this.parentData.placement === 'column') {
                 // ios像素密度高，需要多一点的距离
-                style.paddingBottom = os() === 'ios' ? '12px' : '8px';
+                style.paddingBottom = os() === 'ios' ? '24rpx' : '16rpx';
             }
             return deepMerge(style, addStyle(this.customStyle));
         }
@@ -234,22 +236,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$u-radio-wrap-margin-right: 6px !default;
-$u-radio-wrap-font-size: 20px !default;
-$u-radio-wrap-border-width: 1px !default;
+$u-radio-wrap-margin-right: 12rpx !default;
+$u-radio-wrap-font-size: 40rpx !default;
+$u-radio-wrap-border-width: 2rpx !default;
 $u-radio-wrap-border-color: #c8c9cc !default;
 $u-radio-line-height: 0 !default;
 $u-radio-circle-border-radius: 100% !default;
-$u-radio-square-border-radius: 3px !default;
+$u-radio-square-border-radius: 6rpx !default;
 $u-radio-checked-color: #fff !default;
 $u-radio-checked-background-color: red !default;
 $u-radio-checked-border-color: #2979ff !default;
 $u-radio-disabled-background-color: #ebedf0 !default;
 $u-radio-disabled--checked-color: #c8c9cc !default;
-$u-radio-label-margin-left: 5px !default;
-$u-radio-label-margin-right: 12px !default;
+$u-radio-label-margin-left: 10rpx !default;
+$u-radio-label-margin-right: 24rpx !default;
 $u-radio-label-color: $u-content-color !default;
-$u-radio-label-font-size: 15px !default;
+$u-radio-label-font-size: 30rpx !default;
 $u-radio-label-disabled-color: #c8c9cc !default;
 
 .u-radio {
@@ -259,8 +261,8 @@ $u-radio-label-disabled-color: #c8c9cc !default;
     overflow: hidden;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 5px;
-    margin-top: 5px;
+    margin-bottom: 10rpx;
+    margin-top: 10rpx;
 
     &-label--left {
         flex-direction: row;

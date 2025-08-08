@@ -354,7 +354,7 @@
                             style="width: 48%; color: #aaaaaa; background-color: #f5fcf9; border-radius: 6rpx; height: 80rpx"
                         >
                             <view class="flex-row justify-between ml10 mb4" style="border-bottom: 2rpx solid #01bb74; left: 20rpx" @click="print">
-                                <u-icon name="https://res-oss.elist.com.cn/wxImg/print/print.svg" label-color="#01BB74" label="打印单据" size="40"></u-icon>
+                                <u-icon name="https://res-oss.elist.com.cn/wxImg/print/print.svg" labelColor="#01BB74" label="打印单据" size="40rpx"></u-icon>
                             </view>
                             <view class="flex-end absolute" style="right: 20rpx">已打印{{ PrintNum }}次</view>
                         </view>
@@ -407,12 +407,12 @@
                 <view class="width100 mb54" style="color: #999999; font-weight: bold; text-align: center; font-size: 32rpx">请输入双方任意手机号后四位</view>
                 <u-message-input mode="bottomLine" maxlength="4" @change="change" @finish="finish" :inactive-color="colorT" :active-color="color"></u-message-input>
                 <view v-if="colorT == '#F9393A'" class="mt25" style="text-align: center; font-size: 20rpx">
-                    <u-icon name="error-circle-fill" color="#FF8181" label-color="#FF8181" label="手机号错误，请重新输入" size="28" label-size="20"></u-icon>
+                    <u-icon name="error-circle-fill" color="#FF8181" labelColor="#FF8181" label="手机号错误，请重新输入" size="28" labelSize="20"></u-icon>
                 </view>
 
                 <view class="mt36 flex-row justify-center items-center" style="color: #aaaaaa; width: 100%" @click="exit">
                     关闭单据
-                    <u-icon name="arrow-right" color="#aaaaaa" size="28"></u-icon>
+                    <u-icon name="arrow-right" color="#aaaaaa" size="28rpx"></u-icon>
                 </view>
             </view>
 
@@ -434,7 +434,7 @@
 
                 <view class="mt20 flex-row" style="color: #aaaaaa" @click="exit">
                     关闭单据
-                    <u-icon name="arrow-right" color="#aaaaaa" size="28"></u-icon>
+                    <u-icon name="arrow-right" color="#aaaaaa" size="28rpx"></u-icon>
                 </view>
 
                 <!-- <u-button v-if="text" class="mt20" shape="circle" :custom-style="customStyle"

@@ -11,7 +11,9 @@
                 margin-top: 200px;
             "
         >
-            <u-icon @click="close" name="https://res-oss.elist.com.cn/wxImg/order/cha.png" style="right: 0; top: 20px" class="absolute" size="40"></u-icon>
+            <view class="absolute" style="right: 0; top: 20px">
+                <u-icon @click="close" name="https://res-oss.elist.com.cn/wxImg/order/cha.png" size="40"></u-icon>
+            </view>
 
             <view class="flex-col justify-center items-center absolute" style="bottom: 10px">
                 <view class="color">完善开单信息</view>

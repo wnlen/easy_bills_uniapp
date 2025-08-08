@@ -67,7 +67,7 @@
             </view>
             <view class="flex-row justify-center pb20">
                 <u-button hover-class="none" :active="false" :hair-line="false" class="no-shadow-button" :custom-style="buttonStyle" open-type="contact">
-                    <u-icon name="kefu-ermai" size="14"></u-icon>
+                    <u-icon name="kefu-ermai" size="28rpx"></u-icon>
                     <text class="ft28 ml10">客服咨询 ></text>
                 </u-button>
             </view>

@@ -12,7 +12,9 @@
                         style="border: 2.2rpx solid #01bb74; height: 44rpx; width: 136rpx; border-radius: 8rpx; color: #01bb74; font-size: 22rpx"
                     >
                         <text class="mr6">使用方法</text>
-                        <u-icon class="ml6" name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></u-icon>
+                        <view class="ml6">
+                            <u-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></u-icon>
+                        </view>
                     </view>
                 </view>
             </template>
@@ -32,7 +34,7 @@
         <view class="flex-row ml24 mr24 mt24" style="display: flex">
             <view class="ml5 mr5" style="flex: 1">
                 <u-button openType="share" :custom-style="SearchCustomStyleWechat" hover-class="none" shape="circle" :plain="true">
-                    <u-icon class="pr10" name="weixin-fill" color="#01BB74" size="30rpx"></u-icon>
+                    <view class="weixin-fill"><u-icon color="#01BB74" size="30rpx"></u-icon></view></view>
                     <text class="pl10">微信邀请</text>
                 </u-button>
             </view>
@@ -44,7 +46,7 @@
 			</view> -->
             <view class="ml5 mr5" style="flex: 1">
                 <!-- 	<u-button :custom-style="SearchCustomStyle" hover-class="none" shape="circle" @click="scanQRcodes">
-					<u-icon class="pr10" name="scan" color="#ffffff" size="30"></u-icon>
+					<view class=></view><u-icon  "pr10" name="scan" color="#ffffff" size="30rpx"></u-icon>
 					扫一扫邀请
 				</u-button> -->
                 <u-button :custom-style="SearchCustomStyle" hover-class="none" shape="circle" @click="establish">
@@ -56,7 +58,7 @@
 
         <view class="mt24 flex-row ml24 mr24" style="background-color: #f8f8f8; border-radius: 12.24rpx">
             <view class="flex-col justify-center pd12">
-                <u-icon class="mr10" name="search" color="#01BB74" size="30rpx"></u-icon>
+                <view class="search"></view><u-icon color="#01BB74" size="30rpx"></u-icon></view>
             </view>
             <view class="pd10">
                 <u-input

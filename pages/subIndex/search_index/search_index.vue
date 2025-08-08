@@ -27,7 +27,7 @@
 						<u-icon v-else name="eye-off" size="35"></u-icon>
 					</view>
 					<view class="flex-col justify-start" style="font-size: 14px;font-weight: normal;float: right;">
-						<u-icon name="trash" color="#000000" size="28"></u-icon>
+						<u-icon name="trash" color="#000000" size="28rpx"></u-icon>
 					</view>
 				</view>
 			</view> -->
@@ -42,7 +42,7 @@
 
                 <view class="flex-col justify-start" style="font-size: 14px; font-weight: normal">
                     <view class="flex-row justify-between" style="font-size: 14px; font-weight: normal; float: right">
-                        <u-icon name="trash" color="#000000" size="40"></u-icon>
+                        <u-icon name="trash" color="#000000" size="40rpx"></u-icon>
                     </view>
                 </view>
             </view>
@@ -61,7 +61,7 @@
 
             <view class="flex-col justify-start" style="font-size: 14px; font-weight: normal">
                 <view class="flex-row justify-between" style="font-size: 14px; font-weight: normal; float: right">
-                    <u-icon name="reload" color="#000000" size="40"></u-icon>
+                    <u-icon name="reload" color="#000000" size="40rpx"></u-icon>
                 </view>
             </view>
         </view>

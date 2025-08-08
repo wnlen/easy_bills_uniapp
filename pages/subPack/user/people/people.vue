@@ -1,6 +1,6 @@
 <template>
     <view class="vw100 vh100 bg-gray" style="overflow: hidden">
-        <view v-if="vuex_work == 'Y'" class="ml24 mr24 pd24 mt24 bg-white" style="height: auto; border-radius: 12px">
+        <view v-if="vuex_work == 'Y'" class="ml24 mr24 pd24 mt24 bg-white" style="height: auto; border-radius: 24rpx">
             <view class="flex-row justify-left" style="height: 10%; width: 100%">
                 <view class="" style="width: 20vw">
                     <text class="ml20" style="font-weight: bold">老板信息</text>
@@ -23,7 +23,7 @@
             </view>
         </view>
 
-        <view v-if="vuex_work == 'N'" class="ml24 mr24 pt25 pd24 bg-white mt30" @click="clear()" style="height: auto; border-radius: 12px">
+        <view v-if="vuex_work == 'N'" class="ml24 mr24 pt25 pd24 bg-white mt30" @click="clear()" style="height: auto; border-radius: 24rpx">
             <view class="flex-row justify-left" style="height: 10%; width: 100%">
                 <view class="" style="width: 20vw">
                     <text class="" style="font-weight: bold">合伙人</text>
@@ -34,13 +34,13 @@
                         @click.stop="addRoleSet(1)"
                         style="
                             background-color: #00b578;
-                            width: 60px;
-                            height: 25px;
-                            border-radius: 254px;
-                            font-size: 12px;
+                            width: 120rpx;
+                            height: 50rpx;
+                            border-radius: 508rpx;
+                            font-size: 24rpx;
                             color: white;
                             float: right;
-                            border: 1px solid transparent;
+                            border: 2rpx solid transparent;
                             border: none;
                             border-style: none;
                         "
@@ -53,14 +53,14 @@
                         v-show="showAl == 1"
                         style="
                             background-color: #666666;
-                            width: 143px;
-                            height: 100px;
+                            width: 286rpx;
+                            height: 200rpx;
                             position: absolute;
-                            right: 18px;
-                            top: 51px;
+                            right: 36rpx;
+                            top: 102rpx;
                             z-index: 999;
                             color: #ffffff;
-                            border-radius: 4px;
+                            border-radius: 8rpx;
                             opacity: 1;
                             transition: opacity 10s ease-in-out;
                         "
@@ -70,20 +70,20 @@
                             style="
                                 width: 0;
                                 height: 0;
-                                border-left: 10px solid transparent;
-                                border-right: 10px solid transparent;
-                                border-bottom: 10px solid #666666;
+                                border-left: 20rpx solid transparent;
+                                border-right: 20rpx solid transparent;
+                                border-bottom: 20rpx solid #666666;
                                 position: absolute;
-                                right: 5px;
-                                top: -8px;
+                                right: 10rpx;
+                                top: -16rpx;
                             "
                         ></view>
                         <view class="flex-row u-border-bottom pd20" @click="getPhone(1)">
-                            <u-icon class="mr15" name="phone" color="#ffffff" size="35"></u-icon>
+                            <view class="mr15"><u-icon name="phone" color="#ffffff" size="35"></u-icon></view>
                             <text style="font-weight: normal">手机号</text>
                         </view>
                         <view class="mt20 pd10" @click="scanQRcodes(1)">
-                            <u-icon class="mr15" name="scan" color="#ffffff" size="35"></u-icon>
+                            <view class="mr15"><u-icon name="scan" color="#ffffff" size="35"></u-icon></view>
                             <text style="font-weight: normal">扫一扫</text>
                         </view>
                     </view>
@@ -91,7 +91,7 @@
             </view>
             <view class="flex-row justify-left" v-if="userUrl['1'].length == 0" style="height: 90%; width: 100%">
                 <view class="flex-row justify-center items-center" style="width: 10%">
-                    <u-icon class="mt20" name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" :label="item.name" shape="circle" size="80" @click=""></u-icon>
+                    <view class="mt20"><u-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" :label="item.name" shape="circle" size="80" @click=""></u-icon></view>
                 </view>
             </view>
             <view class="flex-col justify-left pt20 pb20" v-for="(item, index) in userUrl['1']" :key="index" style="height: 90%; width: 100%">
@@ -104,7 +104,7 @@
                     </view>
 
                     <view v-else class="flex-row justify-left items-center" style="width: 10%">
-                        <u-image class="" width="50px" height="50px" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></u-image>
+                        <u-image class="" width="100rpx" height="100rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></u-image>
                         <view class="flex-col ml20">
                             <view class="flex-row items-center">
                                 <text class="ml10 ft16">{{ item.name }}</text>
@@ -126,7 +126,7 @@
             </view>
         </view>
 
-        <view v-if="vuex_work == 'N'" class="ml24 mr24 pt25 pd24 bg-white mt30" @click="clear()" style="height: auto; border-radius: 12px">
+        <view v-if="vuex_work == 'N'" class="ml24 mr24 pt25 pd24 bg-white mt30" @click="clear()" style="height: auto; border-radius: 24rpx">
             <view class="flex-row justify-left" style="height: 10%; width: 100%">
                 <view class="" style="width: 20vw">
                     <text class="" style="font-weight: bold">财务</text>
@@ -137,13 +137,13 @@
                         @click.stop="addRoleSet(3)"
                         style="
                             background-color: #00b578;
-                            width: 60px;
-                            height: 25px;
-                            border-radius: 254px;
-                            font-size: 12px;
+                            width: 120rpx;
+                            height: 50rpx;
+                            border-radius: 508rpx;
+                            font-size: 24rpx;
                             color: white;
                             float: right;
-                            border: 1px solid transparent;
+                            border: 2rpx solid transparent;
                             border: none;
                             border-style: none;
                         "
@@ -156,14 +156,14 @@
                         v-show="showAl == 3"
                         style="
                             background-color: #666666;
-                            width: 143px;
-                            height: 100px;
+                            width: 286rpx;
+                            height: 200rpx;
                             position: absolute;
-                            right: 18px;
-                            top: 51px;
+                            right: 36rpx;
+                            top: 102rpx;
                             z-index: 999;
                             color: #ffffff;
-                            border-radius: 4px;
+                            border-radius: 8rpx;
                             opacity: 1;
                             transition: opacity 10s ease-in-out;
                         "
@@ -173,20 +173,20 @@
                             style="
                                 width: 0;
                                 height: 0;
-                                border-left: 10px solid transparent;
-                                border-right: 10px solid transparent;
-                                border-bottom: 10px solid #666666;
+                                border-left: 20rpx solid transparent;
+                                border-right: 20rpx solid transparent;
+                                border-bottom: 20rpx solid #666666;
                                 position: absolute;
-                                right: 5px;
-                                top: -8px;
+                                right: 10rpx;
+                                top: -16rpx;
                             "
                         ></view>
                         <view class="flex-row u-border-bottom pd20" @click="getPhone(3)">
-                            <u-icon class="mr15" name="phone" color="#ffffff" size="35"></u-icon>
+                            <view class="mr15"><u-icon name="phone" color="#ffffff" size="35"></u-icon></view>
                             <text style="font-weight: normal">手机号</text>
                         </view>
                         <view class="mt20 pd10" @click="scanQRcodes(3)">
-                            <u-icon class="mr15" name="scan" color="#ffffff" size="35"></u-icon>
+                            <view class="mr15"><u-icon name="scan" color="#ffffff" size="35"></u-icon></view>
                             <text style="font-weight: normal">扫一扫</text>
                         </view>
                     </view>
@@ -194,7 +194,7 @@
             </view>
             <view class="flex-row justify-left" v-if="userUrl['3'].length == 0" style="height: 90%; width: 100%">
                 <view class="flex-row justify-center items-center" style="width: 10%">
-                    <u-icon class="mt20" name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" :label="item.name" shape="circle" size="80" @click=""></u-icon>
+                    <view class="mt20"><u-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" :label="item.name" shape="circle" size="80" @click=""></u-icon></view>
                 </view>
             </view>
             <view class="flex-col justify-left pt20 pb20" v-for="(item, index) in userUrl['3']" :key="index" style="height: 90%; width: 100%">
@@ -207,7 +207,7 @@
                     </view>
 
                     <view v-else class="flex-row justify-left items-center" style="width: 10%">
-                        <u-image class="" width="50px" height="50px" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></u-image>
+                        <u-image class="" width="100rpx" height="100rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></u-image>
                         <view class="flex-col ml20">
                             <view class="flex-row items-center">
                                 <text class="ml10 ft16">{{ item.name }}</text>
@@ -229,7 +229,7 @@
             </view>
         </view>
 
-        <view v-if="vuex_work == 'N'" class="ml24 mr24 pt25 pd24 bg-white mt30" @click="clear()" style="height: auto; border-radius: 12px">
+        <view v-if="vuex_work == 'N'" class="ml24 mr24 pt25 pd24 bg-white mt30" @click="clear()" style="height: auto; border-radius: 24rpx">
             <view class="flex-row justify-left" style="height: 10%; width: 100%">
                 <view class="" style="width: 24vw">
                     <text class="" style="font-weight: bold">员工</text>
@@ -240,13 +240,13 @@
                         @click.stop="addRoleSet(4)"
                         style="
                             background-color: #00b578;
-                            width: 60px;
-                            height: 25px;
-                            border-radius: 254px;
-                            font-size: 12px;
+                            width: 120rpx;
+                            height: 50rpx;
+                            border-radius: 508rpx;
+                            font-size: 24rpx;
                             color: white;
                             float: right;
-                            border: 1px solid transparent;
+                            border: 2rpx solid transparent;
                             border: none;
                             border-style: none;
                         "
@@ -258,14 +258,14 @@
                         v-show="showAl == 4"
                         style="
                             background-color: #666666;
-                            width: 143px;
-                            height: 100px;
+                            width: 286rpx;
+                            height: 200rpx;
                             position: absolute;
-                            right: 18px;
-                            top: 51px;
+                            right: 36rpx;
+                            top: 102rpx;
                             z-index: 999;
                             color: #ffffff;
-                            border-radius: 4px;
+                            border-radius: 8rpx;
                             opacity: 1;
                             transition: opacity 10s ease-in-out;
                         "
@@ -275,20 +275,20 @@
                             style="
                                 width: 0;
                                 height: 0;
-                                border-left: 10px solid transparent;
-                                border-right: 10px solid transparent;
-                                border-bottom: 10px solid #666666;
+                                border-left: 20rpx solid transparent;
+                                border-right: 20rpx solid transparent;
+                                border-bottom: 20rpx solid #666666;
                                 position: absolute;
-                                right: 5px;
-                                top: -8px;
+                                right: 10rpx;
+                                top: -16rpx;
                             "
                         ></view>
                         <view class="flex-row u-border-bottom pd20" @click="getPhone(4)">
-                            <u-icon class="mr15" name="phone" color="#ffffff" size="35"></u-icon>
+                            <view class="mr15"><u-icon name="phone" color="#ffffff" size="35"></u-icon></view>
                             <text style="font-weight: normal">手机号</text>
                         </view>
                         <view class="mt20 pd10" @click="scanQRcodes(4)">
-                            <u-icon class="mr15" name="scan" color="#ffffff" size="35"></u-icon>
+                            <view class="mr15"><u-icon name="scan" color="#ffffff" size="35"></u-icon></view>
                             <text style="font-weight: normal">扫一扫</text>
                         </view>
                     </view>
@@ -297,7 +297,7 @@
 
             <view class="flex-row justify-left" v-if="userUrl['4'].length == 0" style="height: 90%; width: 100%">
                 <view class="flex-row justify-center items-center" style="width: 10%">
-                    <u-icon class="mt20" name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" :label="item.name" shape="circle" size="80" @click=""></u-icon>
+                    <view class="mt20"><u-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" :label="item.name" shape="circle" size="80" @click=""></u-icon></view>
                 </view>
             </view>
             <view class="flex-col justify-left mt14 pt20 pb20" v-for="(item, index) in userUrl['4']" :key="index" style="height: 90%; width: 100%">
@@ -333,8 +333,8 @@
         </view>
         <!-- </view> -->
 
-        <u-popup border-radius="14" v-model="show" mode="center" width="600rpx" height="150px" :closeable="false" style="overflow: inherit">
-            <view class="u-border-top flex-col justify-center items-center pt15" style="height: 20%; color: #01bb74; font-size: 18px; font-weight: 500; color: #333333">提示</view>
+        <u-popup border-radius="14" v-model="show" mode="center" width="600rpx" height="300rpx" :closeable="false" style="overflow: inherit">
+            <view class="u-border-top flex-col justify-center items-center pt15" style="height: 20%; color: #01bb74; font-size: 36rpx; font-weight: 500; color: #333333">提示</view>
             <view
                 v-if="gs != undefined && gs != ''"
                 class="flex-col justify-center items-center pl24 pr24"
@@ -342,11 +342,11 @@
                     height: 50%;
                     width: 100%;
                     font-family: Source Han Sans;
-                    font-size: 18px;
+                    font-size: 36rpx;
                     font-weight: normal;
-                    line-height: 25.18px;
+                    line-height: 50.36rpx;
                     text-align: center;
-                    letter-spacing: 0px;
+                    letter-spacing: 0rpx;
                     font-feature-settings: 'kern' on;
                     color: #666666;
                 "
@@ -360,11 +360,11 @@
                     height: 40%;
                     width: 100%;
                     font-family: Source Han Sans;
-                    font-size: 18px;
+                    font-size: 36rpx;
                     font-weight: normal;
-                    line-height: 25.18px;
+                    line-height: 50.36rpx;
                     text-align: center;
-                    letter-spacing: 0px;
+                    letter-spacing: 0rpx;
                     font-feature-settings: 'kern' on;
                     color: #666666;
                 "
@@ -377,7 +377,7 @@
                     gs = '';
                 "
                 class="u-border-top flex-col justify-center items-center pb25"
-                style="height: 40%; color: #01bb74; font-size: 18px; font-weight: 500; width: 100%"
+                style="height: 40%; color: #01bb74; font-size: 36rpx; font-weight: 500; width: 100%"
             >
                 我知道了
             </view>
@@ -938,18 +938,18 @@ export default {
 <style>
 .jzzh {
     color: #999999;
-    font-size: 14px;
+    font-size: 28rpx;
     font-weight: normal;
     letter-spacing: 0.05em;
 }
 
 .xf {
     background: linear-gradient(286deg, #f9d2aa 7%, #ffecd3 82%);
-    border-radius: 198.66px;
-    width: 52px;
-    height: 22px;
+    border-radius: 397.32rpx;
+    width: 104rpx;
+    height: 44rpx;
     color: #a47a4d;
-    font-size: 12px;
+    font-size: 24rpx;
     font-weight: normal;
 }
 </style>

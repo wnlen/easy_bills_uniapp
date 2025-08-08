@@ -29,7 +29,7 @@
         <view class="ml24 mr24 mt30" style="width: 94%">
             <view class="relative flex-row justify-center items-center height48 w100" @click="index = index == 0 ? 1 : 0">
                 <view class="absolute flex-row justify-center items-center" style="left: 0">
-                    <u-icon name="https://res-oss.elist.com.cn/wxImg/user/wx.svg" size="40"></u-icon>
+                    <u-icon name="https://res-oss.elist.com.cn/wxImg/user/wx.svg" size="40rpx"></u-icon>
                     <u-text class="ml10">微信支付</u-text>
                 </view>
                 <view class="absolute flex-row justify-center items-center" style="right: 0; width: 0">
