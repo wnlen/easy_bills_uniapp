@@ -263,103 +263,103 @@ export default {
                         });
                     }
 
-                    //  //选择成功之后上传
-                }
-            });
-        },
-        UploadFileVerify(res) {
-            var name = res.tempFiles[0].name;
-            var suffix = name.split('.')[1];
-            var file =
-                suffix == 'xls' ||
-                suffix == 'xlsx' ||
-                suffix == 'et' ||
-                suffix == 'doc' ||
-                suffix == 'docx' ||
-                suffix == 'pdf' ||
-                suffix == 'jpg' ||
-                suffix == 'jpeg' ||
-                suffix == 'png' ||
-                suffix == 'gif';
-            return file;
-        },
-        UploadFileVerifCyHttp(name) {
-            var suffix = name.split('.')[1];
-            var file =
-                suffix == 'xls' ||
-                suffix == 'xlsx' ||
-                suffix == 'et' ||
-                suffix == 'doc' ||
-                suffix == 'docx' ||
-                suffix == 'pdf' ||
-                suffix == 'jpg' ||
-                suffix == 'jpeg' ||
-                suffix == 'png' ||
-                suffix == 'gif';
-            return file;
-        },
-        FileVerifySize(res) {
-            var file = res.tempFiles[0].size;
-            if (file > 5242880) {
-                return true;
-            }
-            return false;
-        },
-        FileType(res) {
-            var name = res.tempFiles[0].name;
-            var suffix = name.split('.')[1];
-            if (suffix == 'pdf') {
-                return 0;
-            } else if (suffix == 'doc' || suffix == 'docx') {
-                return 1;
-            } else if (suffix == 'xls' || suffix == 'xlsx') {
-                return 2;
-            } else if (suffix == 'jpg' || suffix == 'jpeg' || suffix == 'png' || suffix == 'gif') {
-                return 3;
-            } else {
-                return 3;
-            }
-        },
-        FileTypeName(name) {
-            var split = name.split('.');
-            var suffix = split[split.length - 1];
-            if (suffix == 'pdf') {
-                return 0;
-            } else if (suffix == 'doc' || suffix == 'docx') {
-                return 1;
-            } else if (suffix == 'xls' || suffix == 'xlsx') {
-                return 2;
-            } else if (suffix == 'jpg' || suffix == 'jpeg' || suffix == 'png' || suffix == 'gif') {
-                return 3;
-            } else {
-                return 3;
-            }
-        },
-        UploadFilePdf(fileAvatar, billNumber, type) {
-            return new Promise((resolve, reject) => {
-                let that = this;
-                uni.uploadFile({
-                    url: that.$u.http.config.baseUrl + '/edo/bills/file',
-                    header: {
-                        token: that.vuex_token,
-                        phone: that.vuex_user.phone,
-                        number: billNumber
-                    },
-                    filePath: fileAvatar,
-                    name: 'file',
-                    success: (uploadFileRes) => {
-                        if (type) {
-                            // that.billFrom.fileAliList.push()
-                            resolve(uploadFileRes.data);
-                        } else {
-                            resolve(uploadFileRes.data);
-                            // that.billFrom.imgAliList.push(uploadFileRes.data)
-                        }
-                    }
-                });
-            });
-        }
-    }
+					//  //选择成功之后上传
+				}
+			});
+		},
+		UploadFileVerify(res) {
+			var name = res.tempFiles[0].name;
+			var suffix = name.split('.')[1];
+			var file =
+				suffix == 'xls' ||
+				suffix == 'xlsx' ||
+				suffix == 'et' ||
+				suffix == 'doc' ||
+				suffix == 'docx' ||
+				suffix == 'pdf' ||
+				suffix == 'jpg' ||
+				suffix == 'jpeg' ||
+				suffix == 'png' ||
+				suffix == 'gif';
+			return file;
+		},
+		UploadFileVerifCyHttp(name) {
+			var suffix = name.split('.')[1];
+			var file =
+				suffix == 'xls' ||
+				suffix == 'xlsx' ||
+				suffix == 'et' ||
+				suffix == 'doc' ||
+				suffix == 'docx' ||
+				suffix == 'pdf' ||
+				suffix == 'jpg' ||
+				suffix == 'jpeg' ||
+				suffix == 'png' ||
+				suffix == 'gif';
+			return file;
+		},
+		FileVerifySize(res) {
+			var file = res.tempFiles[0].size;
+			if (file > 5242880) {
+				return true;
+			}
+			return false;
+		},
+		FileType(res) {
+			var name = res.tempFiles[0].name;
+			var suffix = name.split('.')[1];
+			if (suffix == 'pdf') {
+				return 0;
+			} else if (suffix == 'doc' || suffix == 'docx') {
+				return 1;
+			} else if (suffix == 'xls' || suffix == 'xlsx') {
+				return 2;
+			} else if (suffix == 'jpg' || suffix == 'jpeg' || suffix == 'png' || suffix == 'gif') {
+				return 3;
+			} else {
+				return 3;
+			}
+		},
+		FileTypeName(name) {
+			var split = name.split('.');
+			var suffix = split[split.length - 1];
+			if (suffix == 'pdf') {
+				return 0;
+			} else if (suffix == 'doc' || suffix == 'docx') {
+				return 1;
+			} else if (suffix == 'xls' || suffix == 'xlsx') {
+				return 2;
+			} else if (suffix == 'jpg' || suffix == 'jpeg' || suffix == 'png' || suffix == 'gif') {
+				return 3;
+			} else {
+				return 3;
+			}
+		},
+		UploadFilePdf(fileAvatar, billNumber, type) {
+			return new Promise((resolve, reject) => {
+				let that = this;
+				uni.uploadFile({
+					url: uni.$http.config.baseURL + '/edo/bills/file',
+					header: {
+						token: that.vuex_token,
+						phone: that.vuex_user.phone,
+						number: billNumber
+					},
+					filePath: fileAvatar,
+					name: 'file',
+					success: (uploadFileRes) => {
+						if (type) {
+							// that.billFrom.fileAliList.push()
+							resolve(uploadFileRes.data);
+						} else {
+							resolve(uploadFileRes.data);
+							// that.billFrom.imgAliList.push(uploadFileRes.data)
+						}
+					}
+				});
+			});
+		}
+	}
 };
 </script>
 

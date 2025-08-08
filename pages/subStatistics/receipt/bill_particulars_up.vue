@@ -347,33 +347,33 @@ export default {
                 this.fileList.push(dx);
             });
 
-            console.log('图片', imgList);
-            console.log('附件', fileList);
-        });
-    },
-    onShow() {
-        var bill = uni.getStorageSync('bill');
-        console.log(bill);
-        if (bill != null && bill != undefined && bill != '') {
-            var jo = JSON.parse(bill);
-            console.log(jo);
-            this.billFrom.billPrice = jo.priceNumber;
-            this.billFrom.searchJson = JSON.stringify(JSON.parse(JSON.stringify(jo.searchJson)));
-            this.billFrom.billAfterPrice = (this.billFrom.billPrice * (1 - this.billFrom.billDiscountPrice / 100)).toFixed(2);
-            this.billFrom.orders = jo.ids.join(',');
-            this.billFrom.oldId = jo.oldId;
-            this.billFrom.nowId = jo.nowIds;
-            this.billFrom.check = jo.check;
-            uni.removeStorageSync('bill');
-        }
-        this.action = this.$u.http.config.baseUrl + '/edo/order/imgA';
-        console.log('bill', bill);
-    },
-    methods: {
-        async sendOrder(app) {
-            console.log('', this.imgFileList);
-            console.log('', this.fileList);
-            console.log('要删除的元素', this.removeList);
+			console.log('图片', imgList);
+			console.log('附件', fileList);
+		});
+	},
+	onShow() {
+		var bill = uni.getStorageSync('bill');
+		console.log(bill);
+		if (bill != null && bill != undefined && bill != '') {
+			var jo = JSON.parse(bill);
+			console.log(jo);
+			this.billFrom.billPrice = jo.priceNumber;
+			this.billFrom.searchJson = JSON.stringify(JSON.parse(JSON.stringify(jo.searchJson)));
+			this.billFrom.billAfterPrice = (this.billFrom.billPrice * (1 - this.billFrom.billDiscountPrice / 100)).toFixed(2);
+			this.billFrom.orders = jo.ids.join(',');
+			this.billFrom.oldId = jo.oldId;
+			this.billFrom.nowId = jo.nowIds;
+			this.billFrom.check = jo.check;
+			uni.removeStorageSync('bill');
+		}
+		this.action = uni.$http.config.baseURL + '/edo/order/imgA';
+		console.log('bill', bill);
+	},
+	methods: {
+		async sendOrder(app) {
+			console.log('', this.imgFileList);
+			console.log('', this.fileList);
+			console.log('要删除的元素', this.removeList);
 
             if (this.checkSend) {
                 this.checkSend = false;
@@ -547,111 +547,111 @@ export default {
                         });
                     }
 
-                    //  //选择成功之后上传
-                }
-            });
-        },
-        UploadFileVerify(res) {
-            var name = res.tempFiles[0].name;
-            var suffix = name.split('.')[1];
-            var file =
-                suffix == 'xls' ||
-                suffix == 'xlsx' ||
-                suffix == 'et' ||
-                suffix == 'doc' ||
-                suffix == 'docx' ||
-                suffix == 'pdf' ||
-                suffix == 'jpg' ||
-                suffix == 'jpeg' ||
-                suffix == 'png' ||
-                suffix == 'gif';
-            return file;
-        },
-        UploadFileVerifCyHttp(name) {
-            var suffix = name.split('.')[1];
-            var file =
-                suffix == 'xls' ||
-                suffix == 'xlsx' ||
-                suffix == 'et' ||
-                suffix == 'doc' ||
-                suffix == 'docx' ||
-                suffix == 'pdf' ||
-                suffix == 'jpg' ||
-                suffix == 'jpeg' ||
-                suffix == 'png' ||
-                suffix == 'gif';
-            return file;
-        },
-        FileVerifySize(res) {
-            var file = res.tempFiles[0].size;
-            if (file > 5242880) {
-                return true;
-            }
-            return false;
-        },
-        FileType(res) {
-            var name = res.tempFiles[0].name;
-            var suffix = name.split('.')[1];
-            if (suffix == 'pdf') {
-                return 0;
-            } else if (suffix == 'doc' || suffix == 'docx') {
-                return 1;
-            } else if (suffix == 'xls' || suffix == 'xlsx') {
-                return 2;
-            } else if (suffix == 'jpg' || suffix == 'jpeg' || suffix == 'png' || suffix == 'gif') {
-                return 3;
-            } else {
-                return 3;
-            }
-        },
-        FileTypeName(name) {
-            var split = name.split('.');
-            var suffix = split[split.length - 1];
-            if (suffix == 'pdf') {
-                return 0;
-            } else if (suffix == 'doc' || suffix == 'docx') {
-                return 1;
-            } else if (suffix == 'xls' || suffix == 'xlsx') {
-                return 2;
-            } else if (suffix == 'jpg' || suffix == 'jpeg' || suffix == 'png' || suffix == 'gif') {
-                return 3;
-            } else {
-                return 3;
-            }
-        },
-        UploadFilePdf(fileAvatar, billNumber, type, size, app) {
-            return new Promise((resolve, reject) => {
-                let that = this;
-                uni.uploadFile({
-                    url: that.$u.http.config.baseUrl + '/edo/bills/file',
-                    header: {
-                        token: that.vuex_token,
-                        phone: app ? that.vuex_user.phone : that.vuex_user.phone + '-app',
-                        number: billNumber
-                    },
-                    filePath: fileAvatar,
-                    name: 'file',
-                    success: (uploadFileRes) => {
-                        var dx = {
-                            url: '',
-                            size: size
-                        };
-                        console.log('文件大小', fileAvatar);
-                        console.log('文件大小', size);
-                        if (type) {
-                            // that.billFrom.fileAliList.push()
-                            dx.url = uploadFileRes.data;
-                            resolve(dx);
-                        } else {
-                            dx.url = uploadFileRes.data;
-                            resolve(dx);
-                            // that.billFrom.imgAliList.push(uploadFileRes.data)
-                        }
-                    }
-                });
-            });
-        }
-    }
+					//  //选择成功之后上传
+				}
+			});
+		},
+		UploadFileVerify(res) {
+			var name = res.tempFiles[0].name;
+			var suffix = name.split('.')[1];
+			var file =
+				suffix == 'xls' ||
+				suffix == 'xlsx' ||
+				suffix == 'et' ||
+				suffix == 'doc' ||
+				suffix == 'docx' ||
+				suffix == 'pdf' ||
+				suffix == 'jpg' ||
+				suffix == 'jpeg' ||
+				suffix == 'png' ||
+				suffix == 'gif';
+			return file;
+		},
+		UploadFileVerifCyHttp(name) {
+			var suffix = name.split('.')[1];
+			var file =
+				suffix == 'xls' ||
+				suffix == 'xlsx' ||
+				suffix == 'et' ||
+				suffix == 'doc' ||
+				suffix == 'docx' ||
+				suffix == 'pdf' ||
+				suffix == 'jpg' ||
+				suffix == 'jpeg' ||
+				suffix == 'png' ||
+				suffix == 'gif';
+			return file;
+		},
+		FileVerifySize(res) {
+			var file = res.tempFiles[0].size;
+			if (file > 5242880) {
+				return true;
+			}
+			return false;
+		},
+		FileType(res) {
+			var name = res.tempFiles[0].name;
+			var suffix = name.split('.')[1];
+			if (suffix == 'pdf') {
+				return 0;
+			} else if (suffix == 'doc' || suffix == 'docx') {
+				return 1;
+			} else if (suffix == 'xls' || suffix == 'xlsx') {
+				return 2;
+			} else if (suffix == 'jpg' || suffix == 'jpeg' || suffix == 'png' || suffix == 'gif') {
+				return 3;
+			} else {
+				return 3;
+			}
+		},
+		FileTypeName(name) {
+			var split = name.split('.');
+			var suffix = split[split.length - 1];
+			if (suffix == 'pdf') {
+				return 0;
+			} else if (suffix == 'doc' || suffix == 'docx') {
+				return 1;
+			} else if (suffix == 'xls' || suffix == 'xlsx') {
+				return 2;
+			} else if (suffix == 'jpg' || suffix == 'jpeg' || suffix == 'png' || suffix == 'gif') {
+				return 3;
+			} else {
+				return 3;
+			}
+		},
+		UploadFilePdf(fileAvatar, billNumber, type, size, app) {
+			return new Promise((resolve, reject) => {
+				let that = this;
+				uni.uploadFile({
+					url: uni.$http.config.baseURL + '/edo/bills/file',
+					header: {
+						token: that.vuex_token,
+						phone: app ? that.vuex_user.phone : that.vuex_user.phone + '-app',
+						number: billNumber
+					},
+					filePath: fileAvatar,
+					name: 'file',
+					success: (uploadFileRes) => {
+						var dx = {
+							url: '',
+							size: size
+						};
+						console.log('文件大小', fileAvatar);
+						console.log('文件大小', size);
+						if (type) {
+							// that.billFrom.fileAliList.push()
+							dx.url = uploadFileRes.data;
+							resolve(dx);
+						} else {
+							dx.url = uploadFileRes.data;
+							resolve(dx);
+							// that.billFrom.imgAliList.push(uploadFileRes.data)
+						}
+					}
+				});
+			});
+		}
+	}
 };
 </script>
 

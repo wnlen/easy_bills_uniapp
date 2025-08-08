@@ -241,59 +241,59 @@ export default {
         this.billFrom.orders = JSON.stringify(data.list);
         this.billFrom.billList = data.list;
 
-        this.billFrom.workPhone = this.vuex_user.phone;
-    },
-    onShow() {
-        if (this.vuex_userRole == 'D') {
-            uni.setNavigationBarTitle({
-                title: '收款单开具'
-            });
-        } else {
-            uni.setNavigationBarTitle({
-                title: '付款单开具'
-            });
-        }
-        this.Init();
-    },
-    methods: {
-        chooseFile() {
-            chooseFile((path) => {
-                console.log('111111111', path);
-                uni.getFileInfo({
-                    //读取文件大小
-                    filePath: path,
-                    success: (res) => {
-                        console.log('11111111', res);
-                        const binSize = res.size;
-                        console.log('size', binSize);
-                        console.log('size', path.split('.')[path.split('.').length - 1]);
-                        var dx = {
-                            type: path.split('.')[path.split('.').length - 1],
-                            name: path,
-                            size: binSize,
-                            path: path,
-                            http: false
-                        };
-                        this.fileList.push(dx);
-                        console.log(this.fileList);
-                    },
-                    fail: (err) => {
-                        console.log('222222222', err);
-                    }
-                });
-            });
-        },
-        ContinueBilling() {
-            uni.navigateBack();
-        },
-        moveImgFileList(index, lists) {
-            console.log(index, lists);
-            this.imgFileList = lists;
-        },
-        Init() {
-            this.action = this.$u.http.config.baseUrl + '/edo/order/imgA';
-            this.billFrom.billTime = this.$u.timeFormat(new Date(), 'yyyy-mm-dd');
-            this.getOrderNumber();
+		this.billFrom.workPhone = this.vuex_user.phone;
+	},
+	onShow() {
+		if (this.vuex_userRole == 'D') {
+			uni.setNavigationBarTitle({
+				title: '收款单开具'
+			});
+		} else {
+			uni.setNavigationBarTitle({
+				title: '付款单开具'
+			});
+		}
+		this.Init();
+	},
+	methods: {
+		chooseFile() {
+			chooseFile((path) => {
+				console.log('111111111', path);
+				uni.getFileInfo({
+					//读取文件大小
+					filePath: path,
+					success: (res) => {
+						console.log('11111111', res);
+						const binSize = res.size;
+						console.log('size', binSize);
+						console.log('size', path.split('.')[path.split('.').length - 1]);
+						var dx = {
+							type: path.split('.')[path.split('.').length - 1],
+							name: path,
+							size: binSize,
+							path: path,
+							http: false
+						};
+						this.fileList.push(dx);
+						console.log(this.fileList);
+					},
+					fail: (err) => {
+						console.log('222222222', err);
+					}
+				});
+			});
+		},
+		ContinueBilling() {
+			uni.navigateBack();
+		},
+		moveImgFileList(index, lists) {
+			console.log(index, lists);
+			this.imgFileList = lists;
+		},
+		Init() {
+			this.action = uni.$http.config.baseURL + '/edo/order/imgA';
+			this.billFrom.billTime = this.$u.timeFormat(new Date(), 'yyyy-mm-dd');
+			this.getOrderNumber();
 
             var ifwork = this.vuex_user.data.work == '0';
             var ifWorkPort = this.vuex_userRole == 'R';
@@ -440,80 +440,80 @@ export default {
             });
             // #endif
 
-            // #ifdef APP
-            this.appGetFile();
-            // #endif
-        },
-        appGetFile() {
-            uni.uploadFile();
-        },
-        UploadFileVerify(res) {
-            var name = res.tempFiles[0].name;
-            var suffix = name.split('.')[1];
-            var file =
-                suffix == 'xls' ||
-                suffix == 'xlsx' ||
-                suffix == 'et' ||
-                suffix == 'doc' ||
-                suffix == 'docx' ||
-                suffix == 'pdf' ||
-                suffix == 'jpg' ||
-                suffix == 'jpeg' ||
-                suffix == 'png' ||
-                suffix == 'gif';
-            return file;
-        },
-        FileVerifySize(res) {
-            var file = res.tempFiles[0].size;
-            if (file > 5242880) {
-                return true;
-            }
-            return false;
-        },
-        FileType(res) {
-            var name = res.tempFiles[0].name;
-            var suffix = name.split('.')[name.split('.').length - 1];
-            if (suffix == 'pdf') {
-                return 0;
-            } else if (suffix == 'doc' || suffix == 'docx') {
-                return 1;
-            } else if (suffix == 'xls' || suffix == 'xlsx') {
-                return 2;
-            } else if (suffix == 'jpg' || suffix == 'jpeg' || suffix == 'png' || suffix == 'gif') {
-                return 3;
-            } else {
-                return 3;
-            }
-        },
-        UploadFilePdf(fileAvatar, billNumber, type, size, app) {
-            return new Promise((resolve, reject) => {
-                let that = this;
-                uni.uploadFile({
-                    url: that.$u.http.config.baseUrl + '/edo/bills/file',
-                    header: {
-                        token: that.vuex_token,
-                        phone: app ? that.vuex_user.phone : that.vuex_user.phone + '-app',
-                        number: billNumber
-                    },
-                    filePath: fileAvatar,
-                    name: 'file',
-                    success: (uploadFileRes) => {
-                        var dx = {
-                            file: '',
-                            size: size
-                        };
-                        if (type) {
-                            dx.file = uploadFileRes.data;
-                            resolve(dx);
-                        } else {
-                            dx.file = uploadFileRes.data;
-                            resolve(dx);
-                        }
-                    }
-                });
-            });
-        }
-    }
+			// #ifdef APP
+			this.appGetFile();
+			// #endif
+		},
+		appGetFile() {
+			uni.uploadFile();
+		},
+		UploadFileVerify(res) {
+			var name = res.tempFiles[0].name;
+			var suffix = name.split('.')[1];
+			var file =
+				suffix == 'xls' ||
+				suffix == 'xlsx' ||
+				suffix == 'et' ||
+				suffix == 'doc' ||
+				suffix == 'docx' ||
+				suffix == 'pdf' ||
+				suffix == 'jpg' ||
+				suffix == 'jpeg' ||
+				suffix == 'png' ||
+				suffix == 'gif';
+			return file;
+		},
+		FileVerifySize(res) {
+			var file = res.tempFiles[0].size;
+			if (file > 5242880) {
+				return true;
+			}
+			return false;
+		},
+		FileType(res) {
+			var name = res.tempFiles[0].name;
+			var suffix = name.split('.')[name.split('.').length - 1];
+			if (suffix == 'pdf') {
+				return 0;
+			} else if (suffix == 'doc' || suffix == 'docx') {
+				return 1;
+			} else if (suffix == 'xls' || suffix == 'xlsx') {
+				return 2;
+			} else if (suffix == 'jpg' || suffix == 'jpeg' || suffix == 'png' || suffix == 'gif') {
+				return 3;
+			} else {
+				return 3;
+			}
+		},
+		UploadFilePdf(fileAvatar, billNumber, type, size, app) {
+			return new Promise((resolve, reject) => {
+				let that = this;
+				uni.uploadFile({
+					url: uni.$http.config.baseURL + '/edo/bills/file',
+					header: {
+						token: that.vuex_token,
+						phone: app ? that.vuex_user.phone : that.vuex_user.phone + '-app',
+						number: billNumber
+					},
+					filePath: fileAvatar,
+					name: 'file',
+					success: (uploadFileRes) => {
+						var dx = {
+							file: '',
+							size: size
+						};
+						if (type) {
+							dx.file = uploadFileRes.data;
+							resolve(dx);
+						} else {
+							dx.file = uploadFileRes.data;
+							resolve(dx);
+						}
+					}
+				});
+			});
+		}
+	}
 };
 </script>
 
