@@ -44,7 +44,9 @@
                     <view class="u-body-item u-flex u-row-between u-p-b-0" @click="jump(item.jump.url)">
                         <view class="u-body-item-title u-line-2 mt40" style="color: #01bb74">{{ item.jump.titel }}</view>
                         <view class="" style="float: right">
-                            <view class=></view><u-icon e u-line-2 mt40"><u-icon name="arrow-right" color="#666666" size="28"></u-icon></view>
+                            <view class="u-line-2 mt40">
+                                <u-icon name="arrow-right" color="#666666" size="28"></u-icon>
+                            </view>
                         </view>
                     </view>
                 </view>
