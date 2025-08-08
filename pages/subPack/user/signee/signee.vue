@@ -72,7 +72,7 @@
                     <u-icon @click="defaultItem(item.id)" v-else name="minus-circle" labelSize="12" color="#ccc" size="38rpx" label="默认签收人"></u-icon>
                     <!-- 			<text class="ft-gray ft24" @click="deleteItem(item.id)">删除</text> -->
                 </view>
-                <u-popup v-model="show" mode="center" width="500rpx" height="800rpx" close-icon-size="30" :closeable="true" close-icon-color="#000000" close-icon-pos="top-right">
+                <u-popup :show="show" mode="center" width="500rpx" height="800rpx" close-icon-size="30" :closeable="true" close-icon-color="#000000" close-icon-pos="top-right">
                     <u-image style="transform: rotate(90deg)" width="500rpx" height="800rpx" :src="item.signatureImg"></u-image>
                 </u-popup>
 

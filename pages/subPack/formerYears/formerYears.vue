@@ -367,7 +367,7 @@
             </view>
         </z-paging>
 
-        <u-popup v-model="show_start" mode="top" width="550rpx">
+        <u-popup :show="show_start" mode="top" width="550rpx">
             <view class="flex-col pd30 justify-between height100 pt100">
                 <view>
                     <view class="flex-col mt40">

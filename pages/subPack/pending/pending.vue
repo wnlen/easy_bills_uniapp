@@ -400,7 +400,7 @@
         <!-- 		<u-empty :show="orderList.length==0" src="https://res-oss.elist.com.cn/wxImg/list/empty.svg" text="暂无记录~"
 			mode="search" margin-top="150"></u-empty> -->
         <u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" />
-        <u-popup v-model="show_start" mode="top" width="550rpx">
+        <u-popup :show="show_start" mode="top" width="550rpx">
             <view class="flex-col pd30 justify-between height100">
                 <view>
                     <view class="flex-col mt40">

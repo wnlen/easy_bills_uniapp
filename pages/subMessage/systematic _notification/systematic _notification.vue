@@ -23,7 +23,7 @@
             </view>
         </u-card>
 
-        <u-popup v-model="showAlertSJ" mode="center" border-radius="16">
+        <u-popup :show="showAlertSJ" mode="center" border-radius="16">
             <view class="flex-col justify-center items-center" style="width: 600rpx; height: 800rpx; text-align: center">
                 <view class="" style="height: 300rpx; width: 300rpx">
                     <u-image width="100%" height="100%" src="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/obj/sj.svg"></u-image>

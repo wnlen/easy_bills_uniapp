@@ -42,20 +42,22 @@
 		</view>
 
 		<view class="uploadingCommodityFrom">
-			<view class="uploadingCommodityFromCard">
+			<view class="uploadingCommodityFromCardRow">
 				<text class="sign">
 					*
 					<text class="name">品名</text>
 				</text>
-				<u-input type="text" v-model="uploadingCommodity.description" border="none" placeholder="请您填写商品名称"></u-input>
+				<view class="uploadingCommodityFromCardRowInput">
+					<u-input type="text" v-model="uploadingCommodity.description" border="none" placeholder="请您填写商品名称" inputAlign="right"></u-input>
+				</view>
 			</view>
 			<view class="uploadingCommodityFromCardRow">
 				<text class="sign">
 					*
 					<text class="name">规格</text>
 				</text>
-				<view class="uploadingCommodityFromCardRowInput" style="width: 600rpx">
-					<u-input type="text" v-model="uploadingCommodity.specification" border="none" placeholder="请输入" :customStyle="customStyle"></u-input>
+				<view class="uploadingCommodityFromCardRowInput">
+					<u-input type="text" v-model="uploadingCommodity.specification" border="none" placeholder="请输入" inputAlign="right"></u-input>
 				</view>
 			</view>
 			<view class="uploadingCommodityFromCardRow">
@@ -63,8 +65,8 @@
 					*
 					<text class="name">单位</text>
 				</text>
-				<view class="uploadingCommodityFromCardRowInput" style="width: 600rpx">
-					<u-input type="text" v-model="uploadingCommodity.unit" border="none" maxlength="10" placeholder="请输入" :customStyle="customStyle"></u-input>
+				<view class="uploadingCommodityFromCardRowInput">
+					<u-input type="text" v-model="uploadingCommodity.unit" border="none" maxlength="10" placeholder="请输入" inputAlign="right"></u-input>
 				</view>
 			</view>
 			<view class="uploadingCommodityFromCardRow">
@@ -72,8 +74,8 @@
 					*
 					<text class="name">单价</text>
 				</text>
-				<view class="uploadingCommodityFromCardRowInput" style="width: 600rpx">
-					<u-input type="digit" v-model="uploadingCommodity.unitPrice" border="none" maxlength="10" placeholder="请输入" :customStyle="customStyle"></u-input>
+				<view class="uploadingCommodityFromCardRowInput">
+					<u-input type="digit" v-model="uploadingCommodity.unitPrice" border="none" maxlength="10" placeholder="请输入" inputAlign="right"></u-input>
 				</view>
 			</view>
 			<view class="uploadingCommodityFromCard">
@@ -82,7 +84,7 @@
 			</view>
 			<view class="flex-row justify-end items-center pr24 pt48" style="width: 100%">
 				<text class="name mr24">置于商品库顶部</text>
-				<u-switch size="35" active-color="#01BB74" v-model="uploadingCommodity.top"></u-switch>
+				<u-switch size="20" active-color="#01BB74" v-model="uploadingCommodity.top"></u-switch>
 			</view>
 		</view>
 
@@ -114,9 +116,6 @@ export default {
 				staffNumber: '',
 				imgId: '',
 				img: 'definde'
-			},
-			customStyle: {
-				textAlign: 'right'
 			},
 			getByID: {
 				id: null,
