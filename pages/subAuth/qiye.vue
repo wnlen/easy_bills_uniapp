@@ -133,7 +133,7 @@ export default {
 					console.log(tempFilePaths);
 					var bossNumber = that.vuex_work == 'Y' ? that.vuex_user.workData.bossNumber : that.vuex_user.phone || that.vuex_user.data.phoneNumber;
 					uni.uploadFile({
-						url: that.$u.http.config.baseUrl + '/edo/user/modifyImage',
+						url: uni.$http.config.baseURL + '/edo/user/modifyImage',
 						header: {
 							phone: bossNumber,
 							token: that.vuex_token

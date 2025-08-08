@@ -339,7 +339,7 @@ export default {
 			return new Promise((resolve, reject) => {
 				let that = this;
 				uni.uploadFile({
-					url: that.$u.http.config.baseUrl + '/edo/bills/file',
+					url: uni.$http.config.baseURL + '/edo/bills/file',
 					header: {
 						token: that.vuex_token,
 						phone: that.vuex_user.phone,

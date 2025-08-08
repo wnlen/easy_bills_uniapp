@@ -366,7 +366,7 @@ export default {
 			this.billFrom.check = jo.check;
 			uni.removeStorageSync('bill');
 		}
-		this.action = this.$u.http.config.baseUrl + '/edo/order/imgA';
+		this.action = uni.$http.config.baseURL + '/edo/order/imgA';
 		console.log('bill', bill);
 	},
 	methods: {
@@ -623,7 +623,7 @@ export default {
 			return new Promise((resolve, reject) => {
 				let that = this;
 				uni.uploadFile({
-					url: that.$u.http.config.baseUrl + '/edo/bills/file',
+					url: uni.$http.config.baseURL + '/edo/bills/file',
 					header: {
 						token: that.vuex_token,
 						phone: app ? that.vuex_user.phone : that.vuex_user.phone + '-app',

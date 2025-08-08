@@ -319,7 +319,7 @@
 
 				var that = this;
 				uni.uploadFile({
-					url: that.$u.http.config.baseUrl + '/edo/uploading/chat',
+					url: uni.$http.config.baseURL + '/edo/uploading/chat',
 					header: {
 						phone: phone,
 						token: this.vuex_user.loginToken
@@ -434,7 +434,7 @@
 
 				var that = this;
 				uni.uploadFile({
-					url: that.$u.http.config.baseUrl + '/edo/uploading/chat',
+					url: uni.$http.config.baseURL + '/edo/uploading/chat',
 					header: {
 						phone: phone,
 						token: this.vuex_user.loginToken
