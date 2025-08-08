@@ -21,4 +21,4 @@ export default {
         loadingColor: '#C8C8C8',
         zIndex: 10
     }
-}
+};

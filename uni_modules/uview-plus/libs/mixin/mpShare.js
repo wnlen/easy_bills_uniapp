@@ -1,14 +1,14 @@
-import { defineMixin } from '../vue'
-import { queryParams } from '../function/index'
+import { defineMixin } from '../vue';
+import { queryParams } from '../function/index';
 export const mpShare = defineMixin({
     data() {
         return {
             mpShare: {
                 title: '', // 默认为小程序名称
                 path: '', // 默认为当前页面路径
-                imageUrl: '' // 默认为当前页面的截图 
+                imageUrl: '' // 默认为当前页面的截图
             }
-        }
+        };
     },
     async onLoad(options) {
         var pages = getCurrentPages();
@@ -16,11 +16,12 @@ export const mpShare = defineMixin({
         this.mpShare.path = page.route + queryParams(options);
     },
     onShareAppMessage(res) {
-        if (res.from === 'button') {// 来自页面内分享按钮
-            console.log(res.target)
+        if (res.from === 'button') {
+            // 来自页面内分享按钮
+            console.log(res.target);
         }
         return this.mpShare;
     }
-})
+});
 
-export default mpShare
+export default mpShare;

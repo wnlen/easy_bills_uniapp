@@ -35,5 +35,4 @@ export default {
         loading: false,
         showTitle: false
     }
-
-}
+};

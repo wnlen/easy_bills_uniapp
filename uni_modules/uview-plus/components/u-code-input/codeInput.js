@@ -10,7 +10,7 @@
 export default {
     // codeInput 组件
     codeInput: {
-		adjustPosition: true,
+        adjustPosition: true,
         maxlength: 6,
         dot: false,
         mode: 'box',
@@ -24,6 +24,6 @@ export default {
         size: 35,
         disabledKeyboard: false,
         borderColor: '#c9cacc',
-		disabledDot: true
+        disabledDot: true
     }
-}
+};

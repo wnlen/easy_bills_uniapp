@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue'
-import defProps from '../../libs/config/props.js'
+import { defineMixin } from '../../libs/vue';
+import defProps from '../../libs/config/props.js';
 export const props = defineMixin({
     props: {
         color: {
@@ -32,4 +32,4 @@ export const props = defineMixin({
             default: () => defProps.line.dashed
         }
     }
-})
+});

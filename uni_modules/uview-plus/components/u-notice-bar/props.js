@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue'
-import defProps from '../../libs/config/props.js'
+import { defineMixin } from '../../libs/vue';
+import defProps from '../../libs/config/props.js';
 export const props = defineMixin({
     props: {
         // 显示的内容，数组
@@ -68,9 +68,9 @@ export const props = defineMixin({
             type: String,
             default: () => defProps.noticeBar.linkType
         },
-		justifyContent: {
+        justifyContent: {
             type: String,
             default: () => defProps.noticeBar.justifyContent
-        },
+        }
     }
-})
+});

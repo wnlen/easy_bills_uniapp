@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue'
-import defProps from '../../libs/config/props.js'
+import { defineMixin } from '../../libs/vue';
+import defProps from '../../libs/config/props.js';
 export const props = defineMixin({
     props: {
         // 分成几列
@@ -23,4 +23,4 @@ export const props = defineMixin({
             default: '0px'
         }
     }
-})
+});

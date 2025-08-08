@@ -22,5 +22,4 @@ export default {
         show: true,
         marginTop: 0
     }
-
-}
+};

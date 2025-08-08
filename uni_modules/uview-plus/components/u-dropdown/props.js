@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue'
-import defProps from '../../libs/config/props.js'
+import { defineMixin } from '../../libs/vue';
+import defProps from '../../libs/config/props.js';
 export const props = defineMixin({
     props: {
         // 菜单标题和选项的激活态颜色
@@ -58,4 +58,4 @@ export const props = defineMixin({
             default: 14
         }
     }
-})
+});

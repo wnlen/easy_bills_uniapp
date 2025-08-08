@@ -53,18 +53,20 @@ interface PersistedStateOptions {
      */
     debug?: boolean;
 }
-type PersistedStateFactoryOptions = Prettify<Pick<PersistedStateOptions, 'storage' | 'serializer' | 'afterRestore' | 'beforeRestore' | 'debug'> & {
-    /**
-     * Global key generator, allows pre/postfixing store keys.
-     * @default storeKey => storeKey
-     */
-    key?: (storeKey: string) => string;
-    /**
-     * Automatically persists all stores, opt-out individually.
-     * @default false
-     */
-    auto?: boolean;
-}>;
+type PersistedStateFactoryOptions = Prettify<
+    Pick<PersistedStateOptions, 'storage' | 'serializer' | 'afterRestore' | 'beforeRestore' | 'debug'> & {
+        /**
+         * Global key generator, allows pre/postfixing store keys.
+         * @default storeKey => storeKey
+         */
+        key?: (storeKey: string) => string;
+        /**
+         * Automatically persists all stores, opt-out individually.
+         * @default false
+         */
+        auto?: boolean;
+    }
+>;
 declare module 'pinia' {
     interface DefineStoreOptionsBase<S extends StateTree, Store> {
         /**
@@ -80,9 +82,7 @@ declare module 'pinia' {
          * Warning: this is for advances usecases, make sure you know what you're doing.
          * @see https://prazdevs.github.io/pinia-plugin-persistedstate/guide/advanced.html#forcing-the-rehydration
          */
-        $hydrate: (opts?: {
-            runHooks?: boolean;
-        }) => void;
+        $hydrate: (opts?: { runHooks?: boolean }) => void;
         /**
          * Persists store into configured storage
          * Warning: this is for advances usecases, make sure you know what you're doing.
@@ -109,4 +109,3 @@ export { PersistedStateFactoryOptions, PersistedStateOptions, Serializer, Storag
  * @returns pinia plugin
  */
 declare function createUnistorage(factoryOptions?: PersistedStateFactoryOptions): PiniaPlugin;
-      

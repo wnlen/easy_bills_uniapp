@@ -23,6 +23,6 @@ export default {
         showMore: true,
         autoWrap: false,
         unit: 'px',
-        stop: true,
+        stop: true
     }
-}
+};

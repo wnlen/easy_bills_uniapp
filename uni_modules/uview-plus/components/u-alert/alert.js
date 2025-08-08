@@ -19,4 +19,4 @@ export default {
         center: false,
         fontSize: 14
     }
-}
+};

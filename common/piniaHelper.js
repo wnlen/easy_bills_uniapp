@@ -1,51 +1,41 @@
 // common/piniaHelper.js
-import {
-	useUserStore
-} from '@/store/user'
-import {
-	useGlobalStore
-} from '@/store/global'
-import {
-	useGuideStore
-} from '@/store/guide'
-import {
-	useDraftStore
-} from '@/store/draft'
-import {
-	useSystemStore
-} from '@/store/system'
+import { useUserStore } from '@/store/user';
+import { useGlobalStore } from '@/store/global';
+import { useGuideStore } from '@/store/guide';
+import { useDraftStore } from '@/store/draft';
+import { useSystemStore } from '@/store/system';
 
 const storeMap = {
-	user: useUserStore,
-	global: useGlobalStore,
-	guide: useGuideStore,
-	draft: useDraftStore,
-	system: useSystemStore
-}
+    user: useUserStore,
+    global: useGlobalStore,
+    guide: useGuideStore,
+    draft: useDraftStore,
+    system: useSystemStore
+};
 
 /**
  * 使用示例
  const token = getPinia('user.token');
  */
 export function getPinia(path) {
-	if (!path) return undefined
+    if (!path) return undefined;
 
-	const storeMap = {
-		user: useUserStore(),
-		global: useGlobalStore(),
-		guide: useGuideStore(),
-		draft: useDraftStore(),
-		system: useSystemStore()
-	}
+    const storeMap = {
+        user: useUserStore(),
+        global: useGlobalStore(),
+        guide: useGuideStore(),
+        draft: useDraftStore(),
+        system: useSystemStore()
+    };
 
-	const [storeName, ...keys] = path.split('.')
-	const store = storeMap[storeName]
-	if (!store) return undefined
+    const [storeName, ...keys] = path.split('.');
+    const store = storeMap[storeName];
+    if (!store) return undefined;
 
-	return keys.reduce((acc, key) => {
-		if (acc === undefined || acc === null) return undefined
-		return acc[key]
-	}, store)
+    return keys.reduce((acc, key) => {
+        if (acc === undefined || acc === null) return undefined;
+        return acc[key];
+    }, store);
 }
 
 /**
@@ -56,32 +46,32 @@ export function getPinia(path) {
  });
  */
 export function setPinia(payload) {
-	for (const [storeName, storeData] of Object.entries(payload)) {
-		const useStore = storeMap[storeName]
-		if (!useStore) continue
-		const store = useStore()
+    for (const [storeName, storeData] of Object.entries(payload)) {
+        const useStore = storeMap[storeName];
+        if (!useStore) continue;
+        const store = useStore();
 
-		const patchData = {}
+        const patchData = {};
 
-		for (const key in storeData) {
-			const originValue = store[key]
-			const newValue = storeData[key]
+        for (const key in storeData) {
+            const originValue = store[key];
+            const newValue = storeData[key];
 
-			// 处理数组合并：保留原值，更新指定项
-			if (Array.isArray(originValue) && Array.isArray(newValue)) {
-				const merged = [...originValue]
-				newValue.forEach((partialItem, index) => {
-					merged[index] = {
-						...(originValue[index] || {}),
-						...(partialItem || {})
-					}
-				})
-				patchData[key] = merged
-			} else {
-				patchData[key] = newValue
-			}
-		}
+            // 处理数组合并：保留原值，更新指定项
+            if (Array.isArray(originValue) && Array.isArray(newValue)) {
+                const merged = [...originValue];
+                newValue.forEach((partialItem, index) => {
+                    merged[index] = {
+                        ...(originValue[index] || {}),
+                        ...(partialItem || {})
+                    };
+                });
+                patchData[key] = merged;
+            } else {
+                patchData[key] = newValue;
+            }
+        }
 
-		store.$patch(patchData)
-	}
+        store.$patch(patchData);
+    }
 }

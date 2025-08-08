@@ -26,5 +26,4 @@ export default {
         callback: null,
         back: false
     }
-
-}
+};

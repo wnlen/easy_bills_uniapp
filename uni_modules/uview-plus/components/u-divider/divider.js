@@ -19,5 +19,4 @@ export default {
         textColor: '#909399',
         lineColor: '#dcdfe6'
     }
-
-}
+};

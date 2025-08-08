@@ -17,4 +17,4 @@ export default {
         text: '',
         badgeStyle: 'top: 6px;right:2px;'
     }
-}
+};

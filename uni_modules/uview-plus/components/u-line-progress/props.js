@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue'
-import defProps from '../../libs/config/props.js'
+import { defineMixin } from '../../libs/vue';
+import defProps from '../../libs/config/props.js';
 export const props = defineMixin({
     props: {
         // 激活部分的颜色
@@ -26,10 +26,10 @@ export const props = defineMixin({
             type: [String, Number],
             default: () => defProps.lineProgress.height
         },
-		// 是否从右往左加载
-		fromRight: {
+        // 是否从右往左加载
+        fromRight: {
             type: Boolean,
             default: () => defProps.lineProgress.fromRight
         }
     }
-})
+});

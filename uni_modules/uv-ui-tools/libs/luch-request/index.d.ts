@@ -6,17 +6,7 @@ export type HttpUploadTask = UniApp.UploadTask;
 
 export type HttpDownloadTask = UniApp.DownloadTask;
 
-export type HttpMethod =
-    "GET"
-    | "POST"
-    | "PUT"
-    | "DELETE"
-    | "CONNECT"
-    | "HEAD"
-    | "OPTIONS"
-    | "TRACE"
-    | "UPLOAD"
-    | "DOWNLOAD";
+export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'HEAD' | 'OPTIONS' | 'TRACE' | 'UPLOAD' | 'DOWNLOAD';
 
 export type HttpRequestHeader = Record<string, string>;
 
@@ -33,7 +23,7 @@ export type HttpFileType = 'image' | 'video' | 'audio';
 export type HttpFormData = Record<string, any>;
 
 export type HttpResponseHeader = Record<string, string> & {
-    "set-cookie"?: string[]
+    'set-cookie'?: string[];
 };
 
 export interface HttpRequestConfig<T = HttpTask> {
@@ -57,7 +47,6 @@ export interface HttpRequestConfig<T = HttpTask> {
     responseType?: HttpResponseType;
     /** @desc 全局自定义验证器 */
     validateStatus?: ((statusCode: number) => boolean) | null;
-
 
     /** params 参数自定义处理 */
     paramsSerializer?: (params: AnyObject) => string | void;
@@ -98,7 +87,7 @@ export interface HttpRequestConfig<T = HttpTask> {
     getTask?: (task: T, options: HttpRequestConfig<T>) => void;
 
     /** @desc 需要上传的文件列表，使用 files 时，filePath 和 name 不生效，仅支持 App、H5 (2.6.15+) */
-    files?: { name?: string; file?: File; uri: string; }[];
+    files?: { name?: string; file?: File; uri: string }[];
     /** @desc 文件类型，仅支付宝小程序支持且为必填项 */
     fileType?: HttpFileType;
     /** @desc 要上传的文件对象，仅 H5 (2.6.15+) 支持 */
@@ -145,8 +134,7 @@ export interface HttpError<T = any, D = HttpTask> {
     errMsg: string;
 }
 
-export interface HttpPromise<T = any> extends Promise<HttpResponse<T>> {
-}
+export interface HttpPromise<T = any> extends Promise<HttpResponse<T>> {}
 
 export interface HttpInterceptorManager<V, E = V> {
     use(onFulfilled?: (value: V) => V | Promise<V>, onRejected?: (error: E) => T | Promise<E>): void;
@@ -160,7 +148,7 @@ export abstract class HttpRequestAbstract {
     interceptors: {
         request: HttpInterceptorManager<HttpRequestConfig>;
         response: HttpInterceptorManager<HttpResponse, HttpError>;
-    }
+    };
 
     request<T = any, R = HttpResponse<T>, D = HttpRequestTask>(config: HttpRequestConfig<D>): Promise<R>;
 
@@ -191,7 +179,6 @@ export abstract class HttpRequestAbstract {
     middleware<T = any, R = HttpResponse<T>, D = HttpTask>(config: HttpRequestConfig<D>): Promise<R>;
 }
 
-declare class HttpRequest extends HttpRequestAbstract {
-}
+declare class HttpRequest extends HttpRequestAbstract {}
 
 export default HttpRequest;

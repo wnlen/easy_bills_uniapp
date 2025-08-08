@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue'
-import defProps from '../../libs/config/props.js'
+import { defineMixin } from '../../libs/vue';
+import defProps from '../../libs/config/props.js';
 export const props = defineMixin({
     props: {
         // 组件状态，loadmore-加载前的状态，loading-加载中的状态，nomore-没有更多的状态
@@ -22,7 +22,7 @@ export const props = defineMixin({
             type: [String, Number],
             default: () => defProps.loadmore.fontSize
         },
-		    // 图标大小
+        // 图标大小
         iconSize: {
             type: [String, Number],
             default: () => defProps.loadmore.iconSize
@@ -93,4 +93,4 @@ export const props = defineMixin({
             default: () => defProps.loadmore.dashed
         }
     }
-})
+});

@@ -18,4 +18,4 @@ export default {
         keepRunning: false,
         uniqueKey: ''
     }
-}
+};

@@ -6,13 +6,13 @@
 
 新版骨架屏与老版本使用参数有很大的区别，所以才有了新版本，无法替换老版本。
 
-新版骨架屏比老版本骨架屏更加灵活，理论上简单的左右上下布局结构均可以轻松实现，样式自由度较高，只要你会写css，推荐使用新版。
+新版骨架屏比老版本骨架屏更加灵活，理论上简单的左右上下布局结构均可以轻松实现，样式自由度较高，只要你会写 css，推荐使用新版。
 
 # <a href="https://www.uvui.cn/components/skeletons.html" target="_blank">查看文档</a>
 
-## [下载完整示例项目](https://ext.dcloud.net.cn/plugin?name=uv-ui) <small>（请不要 下载插件ZIP）</small>
+## [下载完整示例项目](https://ext.dcloud.net.cn/plugin?name=uv-ui) <small>（请不要 下载插件 ZIP）</small>
 
-### [更多插件，请关注uv-ui组件库](https://ext.dcloud.net.cn/plugin?name=uv-ui)
+### [更多插件，请关注 uv-ui 组件库](https://ext.dcloud.net.cn/plugin?name=uv-ui)
 
 <a href="https://ext.dcloud.net.cn/plugin?name=uv-ui" target="_blank">
 
@@ -20,4 +20,4 @@
 
 </a>
 
-#### 如使用过程中有任何问题反馈，或者您对uv-ui有一些好的建议，欢迎加入uv-ui官方交流群：<a href="https://www.uvui.cn/components/addQQGroup.html" target="_blank">官方QQ群</a>
+#### 如使用过程中有任何问题反馈，或者您对 uv-ui 有一些好的建议，欢迎加入 uv-ui 官方交流群：<a href="https://www.uvui.cn/components/addQQGroup.html" target="_blank">官方 QQ 群</a>

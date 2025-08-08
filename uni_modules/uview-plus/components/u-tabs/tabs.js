@@ -26,8 +26,8 @@ export default {
             height: '44px'
         },
         scrollable: true,
-		current: 0,
-		keyName: 'name',
+        current: 0,
+        keyName: 'name',
         iconStyle: {}
     }
-}
+};

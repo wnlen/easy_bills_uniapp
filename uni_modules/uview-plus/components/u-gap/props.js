@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue'
-import defProps from '../../libs/config/props.js'
+import { defineMixin } from '../../libs/vue';
+import defProps from '../../libs/config/props.js';
 export const props = defineMixin({
     props: {
         // 背景颜色（默认transparent）
@@ -23,4 +23,4 @@ export const props = defineMixin({
             default: () => defProps.gap.marginBottom
         }
     }
-})
+});

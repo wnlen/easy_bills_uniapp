@@ -1,19 +1,24 @@
 <template>
     <view scroll-x class="u-table2" :style="{ height: height ? height + 'px' : 'auto' }">
         <!-- 表头 -->
-        <view v-if="showHeader" class="u-table-header" :class="{ 'u-table-sticky': fixedHeader }" :style="{minWidth: scrollWidth}">
+        <view v-if="showHeader" class="u-table-header" :class="{ 'u-table-sticky': fixedHeader }" :style="{ minWidth: scrollWidth }">
             <view class="u-table-row">
-                <view v-for="(col, colIndex) in columns" :key="col.key" class="u-table-cell"
+                <view
+                    v-for="(col, colIndex) in columns"
+                    :key="col.key"
+                    class="u-table-cell"
                     :style="headerColStyle(col)"
-					:class="[
+                    :class="[
                         col.align ? 'u-text-' + col.align : '',
                         headerCellClassName ? headerCellClassName(col) : '',
                         col.fixed === 'left' ? 'u-table-fixed-left' : '',
                         col.fixed === 'right' ? 'u-table-fixed-right' : ''
-                    ]" @click="handleHeaderClick(col)">
-					<slot name="header" :column="col" :columnIndex="colIndex" :level="1">
-					    {{ col.title }}
-					</slot>
+                    ]"
+                    @click="handleHeaderClick(col)"
+                >
+                    <slot name="header" :column="col" :columnIndex="colIndex" :level="1">
+                        {{ col.title }}
+                    </slot>
                     <view v-if="col.sortable">
                         {{ getSortIcon(col.key) }}
                     </view>
@@ -22,37 +27,56 @@
         </view>
 
         <!-- 表体 -->
-        <view class="u-table-body" :style="{ minWidth: scrollWidth, maxHeight: maxHeight ? maxHeight + 'px' : 'none' }">
+        <view
+            class="u-table-body"
+            :style="{
+                minWidth: scrollWidth,
+                maxHeight: maxHeight ? maxHeight + 'px' : 'none'
+            }"
+        >
             <template v-if="data && data.length > 0">
                 <template v-for="(row, index) in sortedData" :key="row[rowKey] || index">
-                    <view class="u-table-row" :class="[
-                        highlightCurrentRow && currentRow === row ? 'u-table-row-highlight' : '',
-                        rowClassName ? rowClassName(row, index) : '',
-                        stripe && index % 2 === 1 ? 'u-table-row-zebra' : ''
-                    ]" @click="handleRowClick(row)">
-                        <view v-for="(col, colIndex) in columns" :key="col.key"
-							class="u-table-cell" :class="[
-                            col.align ? 'u-text-' + col.align : '',
-                            cellClassName ? cellClassName(row, col) : '',
-                            col.fixed === 'left' ? 'u-table-fixed-left' : '',
-                            col.fixed === 'right' ? 'u-table-fixed-right' : ''
-                        ]" :style="cellStyleInner({row: row, column: col,
-							rowIndex: index, columnIndex: colIndex, level: 0})">
+                    <view
+                        class="u-table-row"
+                        :class="[
+                            highlightCurrentRow && currentRow === row ? 'u-table-row-highlight' : '',
+                            rowClassName ? rowClassName(row, index) : '',
+                            stripe && index % 2 === 1 ? 'u-table-row-zebra' : ''
+                        ]"
+                        @click="handleRowClick(row)"
+                    >
+                        <view
+                            v-for="(col, colIndex) in columns"
+                            :key="col.key"
+                            class="u-table-cell"
+                            :class="[
+                                col.align ? 'u-text-' + col.align : '',
+                                cellClassName ? cellClassName(row, col) : '',
+                                col.fixed === 'left' ? 'u-table-fixed-left' : '',
+                                col.fixed === 'right' ? 'u-table-fixed-right' : ''
+                            ]"
+                            :style="
+                                cellStyleInner({
+                                    row: row,
+                                    column: col,
+                                    rowIndex: index,
+                                    columnIndex: colIndex,
+                                    level: 0
+                                })
+                            "
+                        >
                             <!-- 复选框列 -->
                             <view v-if="col.type === 'selection'">
-                                <checkbox :checked="isSelected(row)"
-									@click.stop="toggleSelect(row)" />
+                                <checkbox :checked="isSelected(row)" @click.stop="toggleSelect(row)" />
                             </view>
 
                             <!-- 树形结构展开图标 -->
-                            <view v-else-if="col.type === 'expand'"
-								@click.stop="toggleExpand(row)">
+                            <view v-else-if="col.type === 'expand'" @click.stop="toggleExpand(row)">
                                 {{ isExpanded(row) ? '▼' : '▶' }}
                             </view>
 
                             <!-- 默认插槽或文本 -->
-                            <slot name="cell" :row="row" :column="col"
-								:rowIndex="index" :columnIndex="colIndex">
+                            <slot name="cell" :row="row" :column="col" :rowIndex="index" :columnIndex="colIndex">
                                 <view class="u-table-cell_content">
                                     {{ row[col.key] }}
                                 </view>
@@ -62,13 +86,22 @@
 
                     <!-- 子级渲染 -->
                     <template v-if="isExpanded(row) && row[treeProps.children] && row[treeProps.children].length">
-                        <view v-for="childRow in row[treeProps.children]" :key="childRow[rowKey]"
-                            class="u-table-row u-table-row-child">
-                            <view v-for="(col2, col2Index) in columns" :key="col2.key" class="u-table-cell"
-                                :style="cellStyleInner({row: childRow, column: col2,
-									rowIndex: index, columnIndex: col2Index, level: 1})">
-                                <slot name="cell" :row="childRow" :column="col2" :prow="row"
-									:rowIndex="index" :columnIndex="col2Index" :level="1">
+                        <view v-for="childRow in row[treeProps.children]" :key="childRow[rowKey]" class="u-table-row u-table-row-child">
+                            <view
+                                v-for="(col2, col2Index) in columns"
+                                :key="col2.key"
+                                class="u-table-cell"
+                                :style="
+                                    cellStyleInner({
+                                        row: childRow,
+                                        column: col2,
+                                        rowIndex: index,
+                                        columnIndex: col2Index,
+                                        level: 1
+                                    })
+                                "
+                            >
+                                <slot name="cell" :row="childRow" :column="col2" :prow="row" :rowIndex="index" :columnIndex="col2Index" :level="1">
                                     <view class="u-table-cell_content">
                                         {{ childRow[col2.key] }}
                                     </view>
@@ -88,7 +121,7 @@
 </template>
 
 <script>
-import { ref, watch, computed } from 'vue'
+import { ref, watch, computed } from 'vue';
 import { addUnit, sleep } from '../../libs/function/index';
 
 export default {
@@ -98,19 +131,16 @@ export default {
             type: Array,
             required: true,
             default: () => {
-                return []
+                return [];
             }
         },
         columns: {
             type: Array,
             required: true,
             default: () => {
-                return []
+                return [];
             },
-            validator: cols =>
-                cols.every(col =>
-                    ['default', 'selection', 'expand'].includes(col.type || 'default')
-                )
+            validator: (cols) => cols.every((col) => ['default', 'selection', 'expand'].includes(col.type || 'default'))
         },
         stripe: {
             type: Boolean,
@@ -152,10 +182,10 @@ export default {
             type: Function,
             default: null
         },
-		cellStyle: {
-		    type: Function,
-		    default: null
-		},
+        cellStyle: {
+            type: Function,
+            default: null
+        },
         headerCellClassName: {
             type: Function,
             default: null
@@ -226,61 +256,67 @@ export default {
         emptyText: {
             type: String,
             default: '暂无数据'
-        },
+        }
     },
     emits: [
-        'select', 'select-all', 'selection-change',
-        'cell-click', 'row-click', 'row-dblclick',
-        'header-click', 'sort-change', 'filter-change',
-        'current-change', 'expand-change'
+        'select',
+        'select-all',
+        'selection-change',
+        'cell-click',
+        'row-click',
+        'row-dblclick',
+        'header-click',
+        'sort-change',
+        'filter-change',
+        'current-change',
+        'expand-change'
     ],
     data() {
         return {
             scrollWidth: 'auto'
-        }
+        };
     },
     mounted() {
-        this.getComponentWidth()
+        this.getComponentWidth();
     },
-	computed: {
-	},
+    computed: {},
     methods: {
         addUnit,
-		headerColStyle(col) {
-			let style = {
-				width: col.width ? addUnit(col.width) : 'auto',
-				flex: col.width ? 'none' : 1
-			};
-			if (col?.style) {
-				style = {...style, ...col?.style};
-			}
-			return style;
-		},
-		setCellStyle(e) {
-			this.cellStyle = e
-		},
-		cellStyleInner(scope) {
-			let style = {
-				width: scope.column?.width ? addUnit(scope.column.width) : 'auto',
-				flex: scope.column?.width ? 'none' : 1,
-				paddingLeft: (24 * scope.level) + 'px'
-			};
-			if (this.cellStyle != null) {
-				let styleCalc = this.cellStyle(scope)
-				if (styleCalc != null) {
-					style = {...style, ...styleCalc}
-				}
-			}
-			return style;
-		},
+        headerColStyle(col) {
+            let style = {
+                width: col.width ? addUnit(col.width) : 'auto',
+                flex: col.width ? 'none' : 1
+            };
+            if (col?.style) {
+                style = { ...style, ...col?.style };
+            }
+            return style;
+        },
+        setCellStyle(e) {
+            this.cellStyle = e;
+        },
+        cellStyleInner(scope) {
+            let style = {
+                width: scope.column?.width ? addUnit(scope.column.width) : 'auto',
+                flex: scope.column?.width ? 'none' : 1,
+                paddingLeft: 24 * scope.level + 'px'
+            };
+            if (this.cellStyle != null) {
+                let styleCalc = this.cellStyle(scope);
+                if (styleCalc != null) {
+                    style = { ...style, ...styleCalc };
+                }
+            }
+            return style;
+        },
         // 获取组件的宽度
-		async getComponentWidth() {
-			// 延时一定时间，以获取dom尺寸
-			await sleep(30)
-			this.$uGetRect('.u-table-row').then(size => {
-				this.scrollWidth = size.width + 'px'
-			})
-		},
+        async getComponentWidth() {
+            // 延时一定时间，以获取dom尺寸
+            await sleep(30);
+            this.$uGetRect('.u-table-row').then((size) => {
+                this.scrollWidth = size.width + 'px';
+            });
+        }
     },
     setup(props, { emit }) {
         const expandedKeys = ref([...props.expandRowKeys]);
@@ -292,15 +328,15 @@ export default {
 
         watch(
             () => props.expandRowKeys,
-            newVal => {
+            (newVal) => {
                 expandedKeys.value = [...newVal];
             }
         );
 
         watch(
             () => props.currentRowKey,
-            newVal => {
-                const found = props.data.find(item => item[props.rowKey] === newVal);
+            (newVal) => {
+                const found = props.data.find((item) => item[props.rowKey] === newVal);
                 if (found) {
                     currentRow.value = found;
                 }
@@ -309,8 +345,8 @@ export default {
 
         // 过滤后的数据
         const filteredData = computed(() => {
-            return props.data.filter(row => {
-                return Object.keys(props.filters).every(key => {
+            return props.data.filter((row) => {
+                return Object.keys(props.filters).every((key) => {
                     const filter = props.filters[key];
                     if (!filter) return true;
                     return row[key]?.toString().includes(filter.toString());
@@ -354,7 +390,7 @@ export default {
         function handleHeaderClick(column) {
             if (!column.sortable) return;
 
-            const index = sortConditions.value.findIndex(c => c.field === column.key);
+            const index = sortConditions.value.findIndex((c) => c.field === column.key);
             let newOrder = 'ascending';
 
             if (index >= 0) {
@@ -381,13 +417,13 @@ export default {
         }
 
         function getSortIcon(field) {
-            const cond = sortConditions.value.find(c => c.field === field);
+            const cond = sortConditions.value.find((c) => c.field === field);
             if (!cond) return '';
             return cond.order === 'ascending' ? '↑' : '↓';
         }
 
         function toggleSelect(row) {
-            const index = selectedRows.value.findIndex(r => r[props.rowKey] === row[props.rowKey]);
+            const index = selectedRows.value.findIndex((r) => r[props.rowKey] === row[props.rowKey]);
             if (index >= 0) {
                 selectedRows.value.splice(index, 1);
             } else {
@@ -398,7 +434,7 @@ export default {
         }
 
         function isSelected(row) {
-            return selectedRows.value.some(r => r[props.rowKey] === row[props.rowKey]);
+            return selectedRows.value.some((r) => r[props.rowKey] === row[props.rowKey]);
         }
 
         function toggleExpand(row) {

@@ -15,4 +15,4 @@ export default {
         duration: '300',
         timingFunction: 'ease-out'
     }
-}
+};

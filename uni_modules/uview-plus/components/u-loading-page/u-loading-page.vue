@@ -21,27 +21,23 @@
                         :src="image"
                         class="u-loading-page__warpper__loading-icon__img"
                         mode="widthFit"
-						:style="{
-							width: addUnit(iconSize),
-						    height: addUnit(iconSize)
-						}"
+                        :style="{
+                            width: addUnit(iconSize),
+                            height: addUnit(iconSize)
+                        }"
                     ></image>
-                    <up-loading-icon
-                        v-else
-                        :mode="loadingMode"
-                        :size="addUnit(iconSize)"
-                        :color="loadingColor"
-                    ></up-loading-icon>
+                    <up-loading-icon v-else :mode="loadingMode" :size="addUnit(iconSize)" :color="loadingColor"></up-loading-icon>
                 </view>
                 <slot>
                     <text
                         class="u-loading-page__warpper__text"
                         :style="{
                             fontSize: addUnit(fontSize),
-                            color: color,
+                            color: color
                         }"
-                        >{{ loadingText }}</text
                     >
+                        {{ loadingText }}
+                    </text>
                 </slot>
             </view>
         </view>
@@ -49,7 +45,7 @@
 </template>
 
 <script>
-import { props } from "./props";
+import { props } from './props';
 import { mpMixin } from '../../libs/mixin/mpMixin';
 import { mixin } from '../../libs/mixin/mixin';
 import { addUnit } from '../../libs/function/index';
@@ -71,7 +67,7 @@ import { addUnit } from '../../libs/function/index';
  * @example <u-loading mode="circle"></u-loading>
  */
 export default {
-    name: "u-loading-page",
+    name: 'u-loading-page',
     mixins: [mpMixin, mixin, props],
     data() {
         return {};

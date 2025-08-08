@@ -14,4 +14,4 @@ export default {
         border: false,
         align: 'left'
     }
-}
+};

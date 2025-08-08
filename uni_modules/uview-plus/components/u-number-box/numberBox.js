@@ -36,4 +36,4 @@ export default {
         iconStyle: '',
         miniMode: false
     }
-}
+};

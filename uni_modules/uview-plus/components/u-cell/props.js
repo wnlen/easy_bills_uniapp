@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue'
-import defProps from '../../libs/config/props.js'
+import { defineMixin } from '../../libs/vue';
+import defProps from '../../libs/config/props.js';
 export const props = defineMixin({
     props: {
         // 标题
@@ -76,22 +76,22 @@ export const props = defineMixin({
         iconStyle: {
             type: [Object, String],
             default: () => {
-				return defProps.cell.iconStyle
-			}
+                return defProps.cell.iconStyle;
+            }
         },
         // 右侧箭头图标的样式
         rightIconStyle: {
             type: [Object, String],
             default: () => {
-				return defProps.cell.rightIconStyle
-			}
+                return defProps.cell.rightIconStyle;
+            }
         },
         // 标题的样式
         titleStyle: {
             type: [Object, String],
-			default: () => {
-				return defProps.cell.titleStyle
-			}
+            default: () => {
+                return defProps.cell.titleStyle;
+            }
         },
         // 单位元的大小，可选值为large
         size: {
@@ -109,4 +109,4 @@ export const props = defineMixin({
             default: () => defProps.cell.name
         }
     }
-})
+});

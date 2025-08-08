@@ -4,15 +4,15 @@
 
 弹出模态框，常用于消息提示、消息确认、在当前页面内完成特定的交互操作。
 
-特性：支持自定义内容，与uniapp提供的API `uni.showModal` 类似，但是功能更强大，更加灵活。
+特性：支持自定义内容，与 uniapp 提供的 API `uni.showModal` 类似，但是功能更强大，更加灵活。
 
 运用场景：弹窗验证码输入等场景
 
 # <a href="https://www.uvui.cn/components/modal.html" target="_blank">查看文档</a>
 
-## [下载完整示例项目](https://ext.dcloud.net.cn/plugin?name=uv-ui) <small>（请不要 下载插件ZIP）</small>
+## [下载完整示例项目](https://ext.dcloud.net.cn/plugin?name=uv-ui) <small>（请不要 下载插件 ZIP）</small>
 
-### [更多插件，请关注uv-ui组件库](https://ext.dcloud.net.cn/plugin?name=uv-ui)
+### [更多插件，请关注 uv-ui 组件库](https://ext.dcloud.net.cn/plugin?name=uv-ui)
 
 <a href="https://ext.dcloud.net.cn/plugin?name=uv-ui" target="_blank">
 
@@ -20,4 +20,4 @@
 
 </a>
 
-#### 如使用过程中有任何问题反馈，或者您对uv-ui有一些好的建议，欢迎加入uv-ui官方交流群：<a href="https://www.uvui.cn/components/addQQGroup.html" target="_blank">官方QQ群</a>
+#### 如使用过程中有任何问题反馈，或者您对 uv-ui 有一些好的建议，欢迎加入 uv-ui 官方交流群：<a href="https://www.uvui.cn/components/addQQGroup.html" target="_blank">官方 QQ 群</a>

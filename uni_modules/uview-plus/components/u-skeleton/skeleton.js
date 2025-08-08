@@ -22,4 +22,4 @@ export default {
         avatarSize: 32,
         avatarShape: 'circle'
     }
-}
+};

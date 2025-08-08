@@ -1,264 +1,269 @@
 function _extends() {
-    _extends = Object.assign || function (target) {
-        for (let i = 1; i < arguments.length; i++) {
-            const source = arguments[i]
+    _extends =
+        Object.assign ||
+        function (target) {
+            for (let i = 1; i < arguments.length; i++) {
+                const source = arguments[i];
 
-            for (const key in source) {
-                if (Object.prototype.hasOwnProperty.call(source, key)) {
-                    target[key] = source[key]
+                for (const key in source) {
+                    if (Object.prototype.hasOwnProperty.call(source, key)) {
+                        target[key] = source[key];
+                    }
                 }
             }
-        }
 
-        return target
-    }
+            return target;
+        };
 
-    return _extends.apply(this, arguments)
+    return _extends.apply(this, arguments);
 }
 
 /* eslint no-console:0 */
-const formatRegExp = /%[sdj%]/g
-let warning = function warning() {} // don't print warning message when in production env or node runtime
+const formatRegExp = /%[sdj%]/g;
+let warning = function warning() {}; // don't print warning message when in production env or node runtime
 
-if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV !== 'production' && typeof window
-	!== 'undefined' && typeof document !== 'undefined') {
+if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && typeof document !== 'undefined') {
     warning = function warning(type, errors) {
         if (typeof console !== 'undefined' && console.warn) {
             if (errors.every((e) => typeof e === 'string')) {
-                console.warn(type, errors)
+                console.warn(type, errors);
             }
         }
-    }
+    };
 }
 
 function convertFieldsError(errors) {
-    if (!errors || !errors.length) return null
-    const fields = {}
+    if (!errors || !errors.length) return null;
+    const fields = {};
     errors.forEach((error) => {
-        const { field } = error
-        fields[field] = fields[field] || []
-        fields[field].push(error)
-    })
-    return fields
+        const { field } = error;
+        fields[field] = fields[field] || [];
+        fields[field].push(error);
+    });
+    return fields;
 }
 
 function format() {
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key]
+        args[_key] = arguments[_key];
     }
 
-    let i = 1
-    const f = args[0]
-    const len = args.length
+    let i = 1;
+    const f = args[0];
+    const len = args.length;
 
     if (typeof f === 'function') {
-        return f.apply(null, args.slice(1))
+        return f.apply(null, args.slice(1));
     }
 
     if (typeof f === 'string') {
         let str = String(f).replace(formatRegExp, (x) => {
             if (x === '%%') {
-                return '%'
+                return '%';
             }
 
             if (i >= len) {
-                return x
+                return x;
             }
 
             switch (x) {
-            case '%s':
-                return String(args[i++])
+                case '%s':
+                    return String(args[i++]);
 
-            case '%d':
-                return Number(args[i++])
+                case '%d':
+                    return Number(args[i++]);
 
-            case '%j':
-                try {
-                    return JSON.stringify(args[i++])
-                } catch (_) {
-                    return '[Circular]'
-                }
+                case '%j':
+                    try {
+                        return JSON.stringify(args[i++]);
+                    } catch (_) {
+                        return '[Circular]';
+                    }
 
-                break
+                    break;
 
-            default:
-                return x
+                default:
+                    return x;
             }
-        })
+        });
 
         for (let arg = args[i]; i < len; arg = args[++i]) {
-            str += ` ${arg}`
+            str += ` ${arg}`;
         }
 
-        return str
+        return str;
     }
 
-    return f
+    return f;
 }
 
 function isNativeStringType(type) {
-    return type === 'string' || type === 'url' || type === 'hex' || type === 'email' || type === 'pattern'
+    return type === 'string' || type === 'url' || type === 'hex' || type === 'email' || type === 'pattern';
 }
 
 function isEmptyValue(value, type) {
     if (value === undefined || value === null) {
-        return true
+        return true;
     }
 
     if (type === 'array' && Array.isArray(value) && !value.length) {
-        return true
+        return true;
     }
 
     if (isNativeStringType(type) && typeof value === 'string' && !value) {
-        return true
+        return true;
     }
 
-    return false
+    return false;
 }
 
 function asyncParallelArray(arr, func, callback) {
-    const results = []
-    let total = 0
-    const arrLength = arr.length
+    const results = [];
+    let total = 0;
+    const arrLength = arr.length;
 
     function count(errors) {
-        results.push.apply(results, errors)
-        total++
+        results.push.apply(results, errors);
+        total++;
 
         if (total === arrLength) {
-            callback(results)
+            callback(results);
         }
     }
 
     arr.forEach((a) => {
-        func(a, count)
-    })
+        func(a, count);
+    });
 }
 
 function asyncSerialArray(arr, func, callback) {
-    let index = 0
-    const arrLength = arr.length
+    let index = 0;
+    const arrLength = arr.length;
 
     function next(errors) {
         if (errors && errors.length) {
-            callback(errors)
-            return
+            callback(errors);
+            return;
         }
 
-        const original = index
-        index += 1
+        const original = index;
+        index += 1;
 
         if (original < arrLength) {
-            func(arr[original], next)
+            func(arr[original], next);
         } else {
-            callback([])
+            callback([]);
         }
     }
 
-    next([])
+    next([]);
 }
 
 function flattenObjArr(objArr) {
-    const ret = []
+    const ret = [];
     Object.keys(objArr).forEach((k) => {
-        ret.push.apply(ret, objArr[k])
-    })
-    return ret
+        ret.push.apply(ret, objArr[k]);
+    });
+    return ret;
 }
 
 function asyncMap(objArr, option, func, callback) {
     if (option.first) {
         const _pending = new Promise((resolve, reject) => {
             const next = function next(errors) {
-                callback(errors)
-                return errors.length ? reject({
-                    errors,
-                    fields: convertFieldsError(errors)
-                }) : resolve()
-            }
+                callback(errors);
+                return errors.length
+                    ? reject({
+                          errors,
+                          fields: convertFieldsError(errors)
+                      })
+                    : resolve();
+            };
 
-            const flattenArr = flattenObjArr(objArr)
-            asyncSerialArray(flattenArr, func, next)
-        })
+            const flattenArr = flattenObjArr(objArr);
+            asyncSerialArray(flattenArr, func, next);
+        });
 
-        _pending.catch((e) => e)
+        _pending.catch((e) => e);
 
-        return _pending
+        return _pending;
     }
 
-    let firstFields = option.firstFields || []
+    let firstFields = option.firstFields || [];
 
     if (firstFields === true) {
-        firstFields = Object.keys(objArr)
+        firstFields = Object.keys(objArr);
     }
 
-    const objArrKeys = Object.keys(objArr)
-    const objArrLength = objArrKeys.length
-    let total = 0
-    const results = []
+    const objArrKeys = Object.keys(objArr);
+    const objArrLength = objArrKeys.length;
+    let total = 0;
+    const results = [];
     const pending = new Promise((resolve, reject) => {
         const next = function next(errors) {
-            results.push.apply(results, errors)
-            total++
+            results.push.apply(results, errors);
+            total++;
 
             if (total === objArrLength) {
-                callback(results)
-                return results.length ? reject({
-                    errors: results,
-                    fields: convertFieldsError(results)
-                }) : resolve()
+                callback(results);
+                return results.length
+                    ? reject({
+                          errors: results,
+                          fields: convertFieldsError(results)
+                      })
+                    : resolve();
             }
-        }
+        };
 
         if (!objArrKeys.length) {
-            callback(results)
-            resolve()
+            callback(results);
+            resolve();
         }
 
         objArrKeys.forEach((key) => {
-            const arr = objArr[key]
+            const arr = objArr[key];
 
             if (firstFields.indexOf(key) !== -1) {
-                asyncSerialArray(arr, func, next)
+                asyncSerialArray(arr, func, next);
             } else {
-                asyncParallelArray(arr, func, next)
+                asyncParallelArray(arr, func, next);
             }
-        })
-    })
-    pending.catch((e) => e)
-    return pending
+        });
+    });
+    pending.catch((e) => e);
+    return pending;
 }
 
 function complementError(rule) {
     return function (oe) {
         if (oe && oe.message) {
-            oe.field = oe.field || rule.fullField
-            return oe
+            oe.field = oe.field || rule.fullField;
+            return oe;
         }
 
         return {
             message: typeof oe === 'function' ? oe() : oe,
             field: oe.field || rule.fullField
-        }
-    }
+        };
+    };
 }
 
 function deepMerge(target, source) {
     if (source) {
         for (const s in source) {
             if (source.hasOwnProperty(s)) {
-                const value = source[s]
+                const value = source[s];
 
                 if (typeof value === 'object' && typeof target[s] === 'object') {
-                    target[s] = { ...target[s], ...value }
+                    target[s] = { ...target[s], ...value };
                 } else {
-                    target[s] = value
+                    target[s] = value;
                 }
             }
         }
     }
 
-    return target
+    return target;
 }
 
 /**
@@ -275,7 +280,7 @@ function deepMerge(target, source) {
 
 function required(rule, value, source, errors, options, type) {
     if (rule.required && (!source.hasOwnProperty(rule.field) || isEmptyValue(value, type || rule.type))) {
-        errors.push(format(options.messages.required, rule.fullField))
+        errors.push(format(options.messages.required, rule.fullField));
     }
 }
 
@@ -293,7 +298,7 @@ function required(rule, value, source, errors, options, type) {
 
 function whitespace(rule, value, source, errors, options) {
     if (/^\s+$/.test(value) || value === '') {
-        errors.push(format(options.messages.whitespace, rule.fullField))
+        errors.push(format(options.messages.whitespace, rule.fullField));
     }
 }
 
@@ -307,7 +312,7 @@ const pattern = {
         'i'
     ),
     hex: /^#?([a-f0-9]{6}|[a-f0-9]{3})$/i
-}
+};
 var types = {
     integer: function integer(value) {
         return /^(-)?\d+$/.test(value);
@@ -316,47 +321,46 @@ var types = {
         return /^(-)?\d+(\.\d+)?$/.test(value);
     },
     array: function array(value) {
-        return Array.isArray(value)
+        return Array.isArray(value);
     },
     regexp: function regexp(value) {
         if (value instanceof RegExp) {
-            return true
+            return true;
         }
 
         try {
-            return !!new RegExp(value)
+            return !!new RegExp(value);
         } catch (e) {
-            return false
+            return false;
         }
     },
     date: function date(value) {
-        return typeof value.getTime === 'function' && typeof value.getMonth === 'function' && typeof value.getYear
-			=== 'function'
+        return typeof value.getTime === 'function' && typeof value.getMonth === 'function' && typeof value.getYear === 'function';
     },
     number: function number(value) {
         if (isNaN(value)) {
-            return false
+            return false;
         }
 
         // 修改源码，将字符串数值先转为数值
-        return typeof +value === 'number'
+        return typeof +value === 'number';
     },
     object: function object(value) {
-        return typeof value === 'object' && !types.array(value)
+        return typeof value === 'object' && !types.array(value);
     },
     method: function method(value) {
-        return typeof value === 'function'
+        return typeof value === 'function';
     },
     email: function email(value) {
-        return typeof value === 'string' && !!value.match(pattern.email) && value.length < 255
+        return typeof value === 'string' && !!value.match(pattern.email) && value.length < 255;
     },
     url: function url(value) {
-        return typeof value === 'string' && !!value.match(pattern.url)
+        return typeof value === 'string' && !!value.match(pattern.url);
     },
     hex: function hex(value) {
-        return typeof value === 'string' && !!value.match(pattern.hex)
+        return typeof value === 'string' && !!value.match(pattern.hex);
     }
-}
+};
 /**
  *  Rule for validating the type of a value.
  *
@@ -371,19 +375,19 @@ var types = {
 
 function type(rule, value, source, errors, options) {
     if (rule.required && value === undefined) {
-        required(rule, value, source, errors, options)
-        return
+        required(rule, value, source, errors, options);
+        return;
     }
 
-    const custom = ['integer', 'float', 'array', 'regexp', 'object', 'method', 'email', 'number', 'date', 'url', 'hex']
-    const ruleType = rule.type
+    const custom = ['integer', 'float', 'array', 'regexp', 'object', 'method', 'email', 'number', 'date', 'url', 'hex'];
+    const ruleType = rule.type;
 
     if (custom.indexOf(ruleType) > -1) {
         if (!types[ruleType](value)) {
-            errors.push(format(options.messages.types[ruleType], rule.fullField, rule.type))
+            errors.push(format(options.messages.types[ruleType], rule.fullField, rule.type));
         } // straight typeof check
     } else if (ruleType && typeof value !== rule.type) {
-        errors.push(format(options.messages.types[ruleType], rule.fullField, rule.type))
+        errors.push(format(options.messages.types[ruleType], rule.fullField, rule.type));
     }
 }
 
@@ -400,54 +404,54 @@ function type(rule, value, source, errors, options) {
  */
 
 function range(rule, value, source, errors, options) {
-    const len = typeof rule.len === 'number'
-    const min = typeof rule.min === 'number'
-    const max = typeof rule.max === 'number' // 正则匹配码点范围从U+010000一直到U+10FFFF的文字（补充平面Supplementary Plane）
+    const len = typeof rule.len === 'number';
+    const min = typeof rule.min === 'number';
+    const max = typeof rule.max === 'number'; // 正则匹配码点范围从U+010000一直到U+10FFFF的文字（补充平面Supplementary Plane）
 
-    const spRegexp = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g
-    let val = value
-    let key = null
-    const num = typeof value === 'number'
-    const str = typeof value === 'string'
-    const arr = Array.isArray(value)
+    const spRegexp = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
+    let val = value;
+    let key = null;
+    const num = typeof value === 'number';
+    const str = typeof value === 'string';
+    const arr = Array.isArray(value);
 
     if (num) {
-        key = 'number'
+        key = 'number';
     } else if (str) {
-        key = 'string'
+        key = 'string';
     } else if (arr) {
-        key = 'array'
+        key = 'array';
     } // if the value is not of a supported type for range validation
     // the validation rule rule should use the
     // type property to also test for a particular type
 
     if (!key) {
-        return false
+        return false;
     }
 
     if (arr) {
-        val = value.length
+        val = value.length;
     }
 
     if (str) {
         // 处理码点大于U+010000的文字length属性不准确的bug，如"𠮷𠮷𠮷".lenght !== 3
-        val = value.replace(spRegexp, '_').length
+        val = value.replace(spRegexp, '_').length;
     }
 
     if (len) {
         if (val !== rule.len) {
-            errors.push(format(options.messages[key].len, rule.fullField, rule.len))
+            errors.push(format(options.messages[key].len, rule.fullField, rule.len));
         }
     } else if (min && !max && val < rule.min) {
-        errors.push(format(options.messages[key].min, rule.fullField, rule.min))
+        errors.push(format(options.messages[key].min, rule.fullField, rule.min));
     } else if (max && !min && val > rule.max) {
-        errors.push(format(options.messages[key].max, rule.fullField, rule.max))
+        errors.push(format(options.messages[key].max, rule.fullField, rule.max));
     } else if (min && max && (val < rule.min || val > rule.max)) {
-        errors.push(format(options.messages[key].range, rule.fullField, rule.min, rule.max))
+        errors.push(format(options.messages[key].range, rule.fullField, rule.min, rule.max));
     }
 }
 
-const ENUM = 'enum'
+const ENUM = 'enum';
 /**
  *  Rule for validating a value exists in an enumerable list.
  *
@@ -461,10 +465,10 @@ const ENUM = 'enum'
  */
 
 function enumerable(rule, value, source, errors, options) {
-    rule[ENUM] = Array.isArray(rule[ENUM]) ? rule[ENUM] : []
+    rule[ENUM] = Array.isArray(rule[ENUM]) ? rule[ENUM] : [];
 
     if (rule[ENUM].indexOf(value) === -1) {
-        errors.push(format(options.messages[ENUM], rule.fullField, rule[ENUM].join(', ')))
+        errors.push(format(options.messages[ENUM], rule.fullField, rule[ENUM].join(', ')));
     }
 }
 
@@ -486,16 +490,16 @@ function pattern$1(rule, value, source, errors, options) {
             // if a RegExp instance is passed, reset `lastIndex` in case its `global`
             // flag is accidentally set to `true`, which in a validation scenario
             // is not necessary and the result might be misleading
-            rule.pattern.lastIndex = 0
+            rule.pattern.lastIndex = 0;
 
             if (!rule.pattern.test(value)) {
-                errors.push(format(options.messages.pattern.mismatch, rule.fullField, value, rule.pattern))
+                errors.push(format(options.messages.pattern.mismatch, rule.fullField, value, rule.pattern));
             }
         } else if (typeof rule.pattern === 'string') {
-            const _pattern = new RegExp(rule.pattern)
+            const _pattern = new RegExp(rule.pattern);
 
             if (!_pattern.test(value)) {
-                errors.push(format(options.messages.pattern.mismatch, rule.fullField, value, rule.pattern))
+                errors.push(format(options.messages.pattern.mismatch, rule.fullField, value, rule.pattern));
             }
         }
     }
@@ -508,7 +512,7 @@ const rules = {
     range,
     enum: enumerable,
     pattern: pattern$1
-}
+};
 
 /**
  *  Performs validation for string types.
@@ -522,28 +526,28 @@ const rules = {
  */
 
 function string(rule, value, callback, source, options) {
-    const errors = []
-    const validate = rule.required || !rule.required && source.hasOwnProperty(rule.field)
+    const errors = [];
+    const validate = rule.required || (!rule.required && source.hasOwnProperty(rule.field));
 
     if (validate) {
         if (isEmptyValue(value, 'string') && !rule.required) {
-            return callback()
+            return callback();
         }
 
-        rules.required(rule, value, source, errors, options, 'string')
+        rules.required(rule, value, source, errors, options, 'string');
 
         if (!isEmptyValue(value, 'string')) {
-            rules.type(rule, value, source, errors, options)
-            rules.range(rule, value, source, errors, options)
-            rules.pattern(rule, value, source, errors, options)
+            rules.type(rule, value, source, errors, options);
+            rules.range(rule, value, source, errors, options);
+            rules.pattern(rule, value, source, errors, options);
 
             if (rule.whitespace === true) {
-                rules.whitespace(rule, value, source, errors, options)
+                rules.whitespace(rule, value, source, errors, options);
             }
         }
     }
 
-    callback(errors)
+    callback(errors);
 }
 
 /**
@@ -558,22 +562,22 @@ function string(rule, value, callback, source, options) {
  */
 
 function method(rule, value, callback, source, options) {
-    const errors = []
-    const validate = rule.required || !rule.required && source.hasOwnProperty(rule.field)
+    const errors = [];
+    const validate = rule.required || (!rule.required && source.hasOwnProperty(rule.field));
 
     if (validate) {
         if (isEmptyValue(value) && !rule.required) {
-            return callback()
+            return callback();
         }
 
-        rules.required(rule, value, source, errors, options)
+        rules.required(rule, value, source, errors, options);
 
         if (value !== undefined) {
-            rules.type(rule, value, source, errors, options)
+            rules.type(rule, value, source, errors, options);
         }
     }
 
-    callback(errors)
+    callback(errors);
 }
 
 /**
@@ -588,27 +592,27 @@ function method(rule, value, callback, source, options) {
  */
 
 function number(rule, value, callback, source, options) {
-    const errors = []
-    const validate = rule.required || !rule.required && source.hasOwnProperty(rule.field)
+    const errors = [];
+    const validate = rule.required || (!rule.required && source.hasOwnProperty(rule.field));
 
     if (validate) {
         if (value === '') {
-            value = undefined
+            value = undefined;
         }
 
         if (isEmptyValue(value) && !rule.required) {
-            return callback()
+            return callback();
         }
 
-        rules.required(rule, value, source, errors, options)
+        rules.required(rule, value, source, errors, options);
 
         if (value !== undefined) {
-            rules.type(rule, value, source, errors, options)
-            rules.range(rule, value, source, errors, options)
+            rules.type(rule, value, source, errors, options);
+            rules.range(rule, value, source, errors, options);
         }
     }
 
-    callback(errors)
+    callback(errors);
 }
 
 /**
@@ -623,22 +627,22 @@ function number(rule, value, callback, source, options) {
  */
 
 function _boolean(rule, value, callback, source, options) {
-    const errors = []
-    const validate = rule.required || !rule.required && source.hasOwnProperty(rule.field)
+    const errors = [];
+    const validate = rule.required || (!rule.required && source.hasOwnProperty(rule.field));
 
     if (validate) {
         if (isEmptyValue(value) && !rule.required) {
-            return callback()
+            return callback();
         }
 
-        rules.required(rule, value, source, errors, options)
+        rules.required(rule, value, source, errors, options);
 
         if (value !== undefined) {
-            rules.type(rule, value, source, errors, options)
+            rules.type(rule, value, source, errors, options);
         }
     }
 
-    callback(errors)
+    callback(errors);
 }
 
 /**
@@ -653,22 +657,22 @@ function _boolean(rule, value, callback, source, options) {
  */
 
 function regexp(rule, value, callback, source, options) {
-    const errors = []
-    const validate = rule.required || !rule.required && source.hasOwnProperty(rule.field)
+    const errors = [];
+    const validate = rule.required || (!rule.required && source.hasOwnProperty(rule.field));
 
     if (validate) {
         if (isEmptyValue(value) && !rule.required) {
-            return callback()
+            return callback();
         }
 
-        rules.required(rule, value, source, errors, options)
+        rules.required(rule, value, source, errors, options);
 
         if (!isEmptyValue(value)) {
-            rules.type(rule, value, source, errors, options)
+            rules.type(rule, value, source, errors, options);
         }
     }
 
-    callback(errors)
+    callback(errors);
 }
 
 /**
@@ -683,23 +687,23 @@ function regexp(rule, value, callback, source, options) {
  */
 
 function integer(rule, value, callback, source, options) {
-    const errors = []
-    const validate = rule.required || !rule.required && source.hasOwnProperty(rule.field)
+    const errors = [];
+    const validate = rule.required || (!rule.required && source.hasOwnProperty(rule.field));
 
     if (validate) {
         if (isEmptyValue(value) && !rule.required) {
-            return callback()
+            return callback();
         }
 
-        rules.required(rule, value, source, errors, options)
+        rules.required(rule, value, source, errors, options);
 
         if (value !== undefined) {
-            rules.type(rule, value, source, errors, options)
-            rules.range(rule, value, source, errors, options)
+            rules.type(rule, value, source, errors, options);
+            rules.range(rule, value, source, errors, options);
         }
     }
 
-    callback(errors)
+    callback(errors);
 }
 
 /**
@@ -714,23 +718,23 @@ function integer(rule, value, callback, source, options) {
  */
 
 function floatFn(rule, value, callback, source, options) {
-    const errors = []
-    const validate = rule.required || !rule.required && source.hasOwnProperty(rule.field)
+    const errors = [];
+    const validate = rule.required || (!rule.required && source.hasOwnProperty(rule.field));
 
     if (validate) {
         if (isEmptyValue(value) && !rule.required) {
-            return callback()
+            return callback();
         }
 
-        rules.required(rule, value, source, errors, options)
+        rules.required(rule, value, source, errors, options);
 
         if (value !== undefined) {
-            rules.type(rule, value, source, errors, options)
-            rules.range(rule, value, source, errors, options)
+            rules.type(rule, value, source, errors, options);
+            rules.range(rule, value, source, errors, options);
         }
     }
 
-    callback(errors)
+    callback(errors);
 }
 
 /**
@@ -745,23 +749,23 @@ function floatFn(rule, value, callback, source, options) {
  */
 
 function array(rule, value, callback, source, options) {
-    const errors = []
-    const validate = rule.required || !rule.required && source.hasOwnProperty(rule.field)
+    const errors = [];
+    const validate = rule.required || (!rule.required && source.hasOwnProperty(rule.field));
 
     if (validate) {
         if (isEmptyValue(value, 'array') && !rule.required) {
-            return callback()
+            return callback();
         }
 
-        rules.required(rule, value, source, errors, options, 'array')
+        rules.required(rule, value, source, errors, options, 'array');
 
         if (!isEmptyValue(value, 'array')) {
-            rules.type(rule, value, source, errors, options)
-            rules.range(rule, value, source, errors, options)
+            rules.type(rule, value, source, errors, options);
+            rules.range(rule, value, source, errors, options);
         }
     }
 
-    callback(errors)
+    callback(errors);
 }
 
 /**
@@ -776,25 +780,25 @@ function array(rule, value, callback, source, options) {
  */
 
 function object(rule, value, callback, source, options) {
-    const errors = []
-    const validate = rule.required || !rule.required && source.hasOwnProperty(rule.field)
+    const errors = [];
+    const validate = rule.required || (!rule.required && source.hasOwnProperty(rule.field));
 
     if (validate) {
         if (isEmptyValue(value) && !rule.required) {
-            return callback()
+            return callback();
         }
 
-        rules.required(rule, value, source, errors, options)
+        rules.required(rule, value, source, errors, options);
 
         if (value !== undefined) {
-            rules.type(rule, value, source, errors, options)
+            rules.type(rule, value, source, errors, options);
         }
     }
 
-    callback(errors)
+    callback(errors);
 }
 
-const ENUM$1 = 'enum'
+const ENUM$1 = 'enum';
 /**
  *  Validates an enumerable list.
  *
@@ -807,22 +811,22 @@ const ENUM$1 = 'enum'
  */
 
 function enumerable$1(rule, value, callback, source, options) {
-    const errors = []
-    const validate = rule.required || !rule.required && source.hasOwnProperty(rule.field)
+    const errors = [];
+    const validate = rule.required || (!rule.required && source.hasOwnProperty(rule.field));
 
     if (validate) {
         if (isEmptyValue(value) && !rule.required) {
-            return callback()
+            return callback();
         }
 
-        rules.required(rule, value, source, errors, options)
+        rules.required(rule, value, source, errors, options);
 
         if (value !== undefined) {
-            rules[ENUM$1](rule, value, source, errors, options)
+            rules[ENUM$1](rule, value, source, errors, options);
         }
     }
 
-    callback(errors)
+    callback(errors);
 }
 
 /**
@@ -840,80 +844,80 @@ function enumerable$1(rule, value, callback, source, options) {
  */
 
 function pattern$2(rule, value, callback, source, options) {
-    const errors = []
-    const validate = rule.required || !rule.required && source.hasOwnProperty(rule.field)
+    const errors = [];
+    const validate = rule.required || (!rule.required && source.hasOwnProperty(rule.field));
 
     if (validate) {
         if (isEmptyValue(value, 'string') && !rule.required) {
-            return callback()
+            return callback();
         }
 
-        rules.required(rule, value, source, errors, options)
+        rules.required(rule, value, source, errors, options);
 
         if (!isEmptyValue(value, 'string')) {
-            rules.pattern(rule, value, source, errors, options)
+            rules.pattern(rule, value, source, errors, options);
         }
     }
 
-    callback(errors)
+    callback(errors);
 }
 
 function date(rule, value, callback, source, options) {
-    const errors = []
-    const validate = rule.required || !rule.required && source.hasOwnProperty(rule.field)
+    const errors = [];
+    const validate = rule.required || (!rule.required && source.hasOwnProperty(rule.field));
 
     if (validate) {
         if (isEmptyValue(value) && !rule.required) {
-            return callback()
+            return callback();
         }
 
-        rules.required(rule, value, source, errors, options)
+        rules.required(rule, value, source, errors, options);
 
         if (!isEmptyValue(value)) {
-            let dateObject
+            let dateObject;
 
             if (typeof value === 'number') {
-                dateObject = new Date(value)
+                dateObject = new Date(value);
             } else {
-                dateObject = value
+                dateObject = value;
             }
 
-            rules.type(rule, dateObject, source, errors, options)
+            rules.type(rule, dateObject, source, errors, options);
 
             if (dateObject) {
-                rules.range(rule, dateObject.getTime(), source, errors, options)
+                rules.range(rule, dateObject.getTime(), source, errors, options);
             }
         }
     }
 
-    callback(errors)
+    callback(errors);
 }
 
 function required$1(rule, value, callback, source, options) {
-    const errors = []
-    const type = Array.isArray(value) ? 'array' : typeof value
-    rules.required(rule, value, source, errors, options, type)
-    callback(errors)
+    const errors = [];
+    const type = Array.isArray(value) ? 'array' : typeof value;
+    rules.required(rule, value, source, errors, options, type);
+    callback(errors);
 }
 
 function type$1(rule, value, callback, source, options) {
-    const ruleType = rule.type
-    const errors = []
-    const validate = rule.required || !rule.required && source.hasOwnProperty(rule.field)
+    const ruleType = rule.type;
+    const errors = [];
+    const validate = rule.required || (!rule.required && source.hasOwnProperty(rule.field));
 
     if (validate) {
         if (isEmptyValue(value, ruleType) && !rule.required) {
-            return callback()
+            return callback();
         }
 
-        rules.required(rule, value, source, errors, options, ruleType)
+        rules.required(rule, value, source, errors, options, ruleType);
 
         if (!isEmptyValue(value, ruleType)) {
-            rules.type(rule, value, source, errors, options)
+            rules.type(rule, value, source, errors, options);
         }
     }
 
-    callback(errors)
+    callback(errors);
 }
 
 /**
@@ -928,18 +932,18 @@ function type$1(rule, value, callback, source, options) {
  */
 
 function any(rule, value, callback, source, options) {
-    const errors = []
-    const validate = rule.required || !rule.required && source.hasOwnProperty(rule.field)
+    const errors = [];
+    const validate = rule.required || (!rule.required && source.hasOwnProperty(rule.field));
 
     if (validate) {
         if (isEmptyValue(value) && !rule.required) {
-            return callback()
+            return callback();
         }
 
-        rules.required(rule, value, source, errors, options)
+        rules.required(rule, value, source, errors, options);
     }
 
-    callback(errors)
+    callback(errors);
 }
 
 const validators = {
@@ -960,7 +964,7 @@ const validators = {
     email: type$1,
     required: required$1,
     any
-}
+};
 
 function newMessages() {
     return {
@@ -1010,13 +1014,13 @@ function newMessages() {
             mismatch: '%s value %s does not match pattern %s'
         },
         clone: function clone() {
-            const cloned = JSON.parse(JSON.stringify(this))
-            cloned.clone = this.clone
-            return cloned
+            const cloned = JSON.parse(JSON.stringify(this));
+            cloned.clone = this.clone;
+            return cloned;
         }
-    }
+    };
 }
-const messages = newMessages()
+const messages = newMessages();
 
 /**
  *  Encapsulates a validation schema.
@@ -1026,318 +1030,325 @@ const messages = newMessages()
  */
 
 function Schema(descriptor) {
-    this.rules = null
-    this._messages = messages
-    this.define(descriptor)
+    this.rules = null;
+    this._messages = messages;
+    this.define(descriptor);
 }
 
 Schema.prototype = {
     messages: function messages(_messages) {
         if (_messages) {
-            this._messages = deepMerge(newMessages(), _messages)
+            this._messages = deepMerge(newMessages(), _messages);
         }
 
-        return this._messages
+        return this._messages;
     },
     define: function define(rules) {
         if (!rules) {
-            throw new Error('Cannot configure a schema with no rules')
+            throw new Error('Cannot configure a schema with no rules');
         }
 
         if (typeof rules !== 'object' || Array.isArray(rules)) {
-            throw new Error('Rules must be an object')
+            throw new Error('Rules must be an object');
         }
 
-        this.rules = {}
-        let z
-        let item
+        this.rules = {};
+        let z;
+        let item;
 
         for (z in rules) {
             if (rules.hasOwnProperty(z)) {
-                item = rules[z]
-                this.rules[z] = Array.isArray(item) ? item : [item]
+                item = rules[z];
+                this.rules[z] = Array.isArray(item) ? item : [item];
             }
         }
     },
     validate: function validate(source_, o, oc) {
-        const _this = this
+        const _this = this;
 
         if (o === void 0) {
-            o = {}
+            o = {};
         }
 
         if (oc === void 0) {
-            oc = function oc() {}
+            oc = function oc() {};
         }
 
-        let source = source_
-        let options = o
-        let callback = oc
+        let source = source_;
+        let options = o;
+        let callback = oc;
 
         if (typeof options === 'function') {
-            callback = options
-            options = {}
+            callback = options;
+            options = {};
         }
 
         if (!this.rules || Object.keys(this.rules).length === 0) {
             if (callback) {
-                callback()
+                callback();
             }
 
-            return Promise.resolve()
+            return Promise.resolve();
         }
 
         function complete(results) {
-            let i
-            let errors = []
-            let fields = {}
+            let i;
+            let errors = [];
+            let fields = {};
 
             function add(e) {
                 if (Array.isArray(e)) {
-                    let _errors
+                    let _errors;
 
-                    errors = (_errors = errors).concat.apply(_errors, e)
+                    errors = (_errors = errors).concat.apply(_errors, e);
                 } else {
-                    errors.push(e)
+                    errors.push(e);
                 }
             }
 
             for (i = 0; i < results.length; i++) {
-                add(results[i])
+                add(results[i]);
             }
 
             if (!errors.length) {
-                errors = null
-                fields = null
+                errors = null;
+                fields = null;
             } else {
-                fields = convertFieldsError(errors)
+                fields = convertFieldsError(errors);
             }
 
-            callback(errors, fields)
+            callback(errors, fields);
         }
 
         if (options.messages) {
-            let messages$1 = this.messages()
+            let messages$1 = this.messages();
 
             if (messages$1 === messages) {
-                messages$1 = newMessages()
+                messages$1 = newMessages();
             }
 
-            deepMerge(messages$1, options.messages)
-            options.messages = messages$1
+            deepMerge(messages$1, options.messages);
+            options.messages = messages$1;
         } else {
-            options.messages = this.messages()
+            options.messages = this.messages();
         }
 
-        let arr
-        let value
-        const series = {}
-        const keys = options.keys || Object.keys(this.rules)
+        let arr;
+        let value;
+        const series = {};
+        const keys = options.keys || Object.keys(this.rules);
         keys.forEach((z) => {
-            arr = _this.rules[z]
-            value = source[z]
+            arr = _this.rules[z];
+            value = source[z];
             arr.forEach((r) => {
-                let rule = r
+                let rule = r;
 
                 if (typeof rule.transform === 'function') {
                     if (source === source_) {
-                        source = { ...source }
+                        source = { ...source };
                     }
 
-                    value = source[z] = rule.transform(value)
+                    value = source[z] = rule.transform(value);
                 }
 
                 if (typeof rule === 'function') {
                     rule = {
                         validator: rule
-                    }
+                    };
                 } else {
-                    rule = { ...rule }
+                    rule = { ...rule };
                 }
 
-                rule.validator = _this.getValidationMethod(rule)
-                rule.field = z
-                rule.fullField = rule.fullField || z
-                rule.type = _this.getType(rule)
+                rule.validator = _this.getValidationMethod(rule);
+                rule.field = z;
+                rule.fullField = rule.fullField || z;
+                rule.type = _this.getType(rule);
 
                 if (!rule.validator) {
-                    return
+                    return;
                 }
 
-                series[z] = series[z] || []
+                series[z] = series[z] || [];
                 series[z].push({
                     rule,
                     value,
                     source,
                     field: z
-                })
-            })
-        })
-        const errorFields = {}
-        return asyncMap(series, options, (data, doIt) => {
-            const { rule } = data
-            let deep = (rule.type === 'object' || rule.type === 'array') && (typeof rule.fields === 'object' || typeof rule.defaultField
-				=== 'object')
-            deep = deep && (rule.required || !rule.required && data.value)
-            rule.field = data.field
+                });
+            });
+        });
+        const errorFields = {};
+        return asyncMap(
+            series,
+            options,
+            (data, doIt) => {
+                const { rule } = data;
+                let deep = (rule.type === 'object' || rule.type === 'array') && (typeof rule.fields === 'object' || typeof rule.defaultField === 'object');
+                deep = deep && (rule.required || (!rule.required && data.value));
+                rule.field = data.field;
 
-            function addFullfield(key, schema) {
-                return { ...schema, fullField: `${rule.fullField}.${key}` }
-            }
-
-            function cb(e) {
-                if (e === void 0) {
-                    e = []
+                function addFullfield(key, schema) {
+                    return { ...schema, fullField: `${rule.fullField}.${key}` };
                 }
 
-                let errors = e
-
-                if (!Array.isArray(errors)) {
-                    errors = [errors]
-                }
-
-                if (!options.suppressWarning && errors.length) {
-                    Schema.warning('async-validator:', errors)
-                }
-
-                if (errors.length && rule.message) {
-                    errors = [].concat(rule.message)
-                }
-
-                errors = errors.map(complementError(rule))
-
-                if (options.first && errors.length) {
-                    errorFields[rule.field] = 1
-                    return doIt(errors)
-                }
-
-                if (!deep) {
-                    doIt(errors)
-                } else {
-                    // if rule is required but the target object
-                    // does not exist fail at the rule level and don't
-                    // go deeper
-                    if (rule.required && !data.value) {
-                        if (rule.message) {
-                            errors = [].concat(rule.message).map(complementError(rule))
-                        } else if (options.error) {
-                            errors = [options.error(rule, format(options.messages.required, rule.field))]
-                        } else {
-                            errors = []
-                        }
-
-                        return doIt(errors)
+                function cb(e) {
+                    if (e === void 0) {
+                        e = [];
                     }
 
-                    let fieldsSchema = {}
+                    let errors = e;
 
-                    if (rule.defaultField) {
-                        for (const k in data.value) {
-                            if (data.value.hasOwnProperty(k)) {
-                                fieldsSchema[k] = rule.defaultField
+                    if (!Array.isArray(errors)) {
+                        errors = [errors];
+                    }
+
+                    if (!options.suppressWarning && errors.length) {
+                        Schema.warning('async-validator:', errors);
+                    }
+
+                    if (errors.length && rule.message) {
+                        errors = [].concat(rule.message);
+                    }
+
+                    errors = errors.map(complementError(rule));
+
+                    if (options.first && errors.length) {
+                        errorFields[rule.field] = 1;
+                        return doIt(errors);
+                    }
+
+                    if (!deep) {
+                        doIt(errors);
+                    } else {
+                        // if rule is required but the target object
+                        // does not exist fail at the rule level and don't
+                        // go deeper
+                        if (rule.required && !data.value) {
+                            if (rule.message) {
+                                errors = [].concat(rule.message).map(complementError(rule));
+                            } else if (options.error) {
+                                errors = [options.error(rule, format(options.messages.required, rule.field))];
+                            } else {
+                                errors = [];
+                            }
+
+                            return doIt(errors);
+                        }
+
+                        let fieldsSchema = {};
+
+                        if (rule.defaultField) {
+                            for (const k in data.value) {
+                                if (data.value.hasOwnProperty(k)) {
+                                    fieldsSchema[k] = rule.defaultField;
+                                }
                             }
                         }
-                    }
 
-                    fieldsSchema = { ...fieldsSchema, ...data.rule.fields }
+                        fieldsSchema = { ...fieldsSchema, ...data.rule.fields };
 
-                    for (const f in fieldsSchema) {
-                        if (fieldsSchema.hasOwnProperty(f)) {
-                            const fieldSchema = Array.isArray(fieldsSchema[f]) ? fieldsSchema[f] : [fieldsSchema[f]]
-                            fieldsSchema[f] = fieldSchema.map(addFullfield.bind(null, f))
-                        }
-                    }
-
-                    const schema = new Schema(fieldsSchema)
-                    schema.messages(options.messages)
-
-                    if (data.rule.options) {
-                        data.rule.options.messages = options.messages
-                        data.rule.options.error = options.error
-                    }
-
-                    schema.validate(data.value, data.rule.options || options, (errs) => {
-                        const finalErrors = []
-
-                        if (errors && errors.length) {
-                            finalErrors.push.apply(finalErrors, errors)
+                        for (const f in fieldsSchema) {
+                            if (fieldsSchema.hasOwnProperty(f)) {
+                                const fieldSchema = Array.isArray(fieldsSchema[f]) ? fieldsSchema[f] : [fieldsSchema[f]];
+                                fieldsSchema[f] = fieldSchema.map(addFullfield.bind(null, f));
+                            }
                         }
 
-                        if (errs && errs.length) {
-                            finalErrors.push.apply(finalErrors, errs)
+                        const schema = new Schema(fieldsSchema);
+                        schema.messages(options.messages);
+
+                        if (data.rule.options) {
+                            data.rule.options.messages = options.messages;
+                            data.rule.options.error = options.error;
                         }
 
-                        doIt(finalErrors.length ? finalErrors : null)
-                    })
+                        schema.validate(data.value, data.rule.options || options, (errs) => {
+                            const finalErrors = [];
+
+                            if (errors && errors.length) {
+                                finalErrors.push.apply(finalErrors, errors);
+                            }
+
+                            if (errs && errs.length) {
+                                finalErrors.push.apply(finalErrors, errs);
+                            }
+
+                            doIt(finalErrors.length ? finalErrors : null);
+                        });
+                    }
                 }
-            }
 
-            let res
+                let res;
 
-            if (rule.asyncValidator) {
-                res = rule.asyncValidator(rule, data.value, cb, data.source, options)
-            } else if (rule.validator) {
-                res = rule.validator(rule, data.value, cb, data.source, options)
+                if (rule.asyncValidator) {
+                    res = rule.asyncValidator(rule, data.value, cb, data.source, options);
+                } else if (rule.validator) {
+                    res = rule.validator(rule, data.value, cb, data.source, options);
 
-                if (res === true) {
-                    cb()
-                } else if (res === false) {
-                    cb(rule.message || `${rule.field} fails`)
-                } else if (res instanceof Array) {
-                    cb(res)
-                } else if (res instanceof Error) {
-                    cb(res.message)
+                    if (res === true) {
+                        cb();
+                    } else if (res === false) {
+                        cb(rule.message || `${rule.field} fails`);
+                    } else if (res instanceof Array) {
+                        cb(res);
+                    } else if (res instanceof Error) {
+                        cb(res.message);
+                    }
                 }
-            }
 
-            if (res && res.then) {
-                res.then(() => cb(), (e) => cb(e))
+                if (res && res.then) {
+                    res.then(
+                        () => cb(),
+                        (e) => cb(e)
+                    );
+                }
+            },
+            (results) => {
+                complete(results);
             }
-        }, (results) => {
-            complete(results)
-        })
+        );
     },
     getType: function getType(rule) {
         if (rule.type === undefined && rule.pattern instanceof RegExp) {
-            rule.type = 'pattern'
+            rule.type = 'pattern';
         }
 
         if (typeof rule.validator !== 'function' && rule.type && !validators.hasOwnProperty(rule.type)) {
-            throw new Error(format('Unknown rule type %s', rule.type))
+            throw new Error(format('Unknown rule type %s', rule.type));
         }
 
-        return rule.type || 'string'
+        return rule.type || 'string';
     },
     getValidationMethod: function getValidationMethod(rule) {
         if (typeof rule.validator === 'function') {
-            return rule.validator
+            return rule.validator;
         }
 
-        const keys = Object.keys(rule)
-        const messageIndex = keys.indexOf('message')
+        const keys = Object.keys(rule);
+        const messageIndex = keys.indexOf('message');
 
         if (messageIndex !== -1) {
-            keys.splice(messageIndex, 1)
+            keys.splice(messageIndex, 1);
         }
 
         if (keys.length === 1 && keys[0] === 'required') {
-            return validators.required
+            return validators.required;
         }
 
-        return validators[this.getType(rule)] || false
+        return validators[this.getType(rule)] || false;
     }
-}
+};
 
 Schema.register = function register(type, validator) {
     if (typeof validator !== 'function') {
-        throw new Error('Cannot register a validator by type, validator is not a function')
+        throw new Error('Cannot register a validator by type, validator is not a function');
     }
 
-    validators[type] = validator
-}
+    validators[type] = validator;
+};
 
-Schema.warning = warning
-Schema.messages = messages
+Schema.warning = warning;
+Schema.messages = messages;
 
-export default Schema
+export default Schema;
 // # sourceMappingURL=index.js.map

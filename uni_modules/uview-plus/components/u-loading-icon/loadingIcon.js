@@ -7,11 +7,9 @@
  * @lastTime     : 2021-08-20 17:45:47
  * @FilePath     : /u-view2.0/uview-ui/libs/config/props/loadingIcon.js
  */
-import config from '../../libs/config/config'
+import config from '../../libs/config/config';
 
-const {
-    color
-} = config
+const { color } = config;
 export default {
     // loading-icon加载中图标组件
     loadingIcon: {
@@ -27,4 +25,4 @@ export default {
         duration: 1200,
         inactiveColor: ''
     }
-}
+};

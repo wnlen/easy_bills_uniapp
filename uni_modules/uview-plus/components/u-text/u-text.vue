@@ -1,27 +1,19 @@
 <template>
-    <view
-        class="u-text"
-        :class="[customClass]"
-        v-if="show"
-        :style="wrapStyle"
-        @tap="clickHandler"
-    >
-        <text
-            :class="['u-text__price', type && `u-text__value--${type}`]"
-            v-if="mode === 'price'"
-            :style="[valueStyle]"
-            >￥</text
-        >
+    <view class="u-text" :class="[customClass]" v-if="show" :style="wrapStyle" @tap="clickHandler">
+        <text :class="['u-text__price', type && `u-text__value--${type}`]" v-if="mode === 'price'" :style="[valueStyle]">￥</text>
         <view class="u-text__prefix-icon" v-if="prefixIcon">
-            <u-icon
-                :name="prefixIcon"
-                :customStyle="addStyle(iconStyle)"
-            ></u-icon>
+            <u-icon :name="prefixIcon" :customStyle="addStyle(iconStyle)"></u-icon>
         </view>
         <u-link
-            v-if="mode === 'link'" class="u-text__value"
-            :style="{fontWeight: valueStyle.fontWeight, wordWrap: valueStyle.wordWrap, fontSize: valueStyle.fontSize}"
-            :class="[type && `u-text__value--${type}`,lines && `u-line-${lines}`]" :text="value"
+            v-if="mode === 'link'"
+            class="u-text__value"
+            :style="{
+                fontWeight: valueStyle.fontWeight,
+                wordWrap: valueStyle.wordWrap,
+                fontSize: valueStyle.fontSize
+            }"
+            :class="[type && `u-text__value--${type}`, lines && `u-line-${lines}`]"
+            :text="value"
             :href="href"
             underLine
         ></u-link>
@@ -48,28 +40,16 @@
                 {{ value }}
             </button>
         </template>
-        <text
-            v-else
-            class="u-text__value"
-            :style="[valueStyle]"
-            :class="[
-                type && `u-text__value--${type}`,
-                lines && `u-line-${lines}`
-            ]"
-            >{{ value }}</text
-        >
+        <text v-else class="u-text__value" :style="[valueStyle]" :class="[type && `u-text__value--${type}`, lines && `u-line-${lines}`]">{{ value }}</text>
         <view class="u-text__suffix-icon" v-if="suffixIcon">
-            <u-icon
-                :name="suffixIcon"
-                :customStyle="addStyle(iconStyle)"
-            ></u-icon>
+            <u-icon :name="suffixIcon" :customStyle="addStyle(iconStyle)"></u-icon>
         </view>
     </view>
 </template>
 
 <script>
-import { props } from './props'
-import value from './value.js'
+import { props } from './props';
+import value from './value.js';
 import { mpMixin } from '../../libs/mixin/mpMixin';
 import { mixin } from '../../libs/mixin/mixin';
 import { buttonMixin } from '../../libs/mixin/button';
@@ -111,21 +91,21 @@ export default {
     // #ifndef MP
     mixins: [mpMixin, mixin, value, props],
     // #endif
-	emits: ['click'],
+    emits: ['click'],
     computed: {
         wrapStyle() {
             let style = {
                 margin: this.margin,
-			    justifyContent: this.align === 'left' ? 'flex-start' : this.align === 'center' ? 'center' : 'flex-end'
-            }
+                justifyContent: this.align === 'left' ? 'flex-start' : this.align === 'center' ? 'center' : 'flex-end'
+            };
             // 占满剩余空间
             if (this.flex1) {
                 style.flex = 1;
-				// #ifndef APP-NVUE
-				style.width = '100%';
-				// #endif
+                // #ifndef APP-NVUE
+                style.width = '100%';
+                // #endif
             }
-			return style;
+            return style;
         },
         valueStyle() {
             const style = {
@@ -133,31 +113,30 @@ export default {
                 fontWeight: this.bold ? 'bold' : 'normal',
                 wordWrap: this.wordWrap,
                 fontSize: addUnit(this.size)
-            }
-            !this.type && (style.color = this.color)
-            this.isNvue && this.lines && (style.lines = this.lines)
-            this.lineHeight &&
-                (style.lineHeight = addUnit(this.lineHeight))
-            !this.isNvue && this.block && (style.display = 'block')
-            return deepMerge(style, addStyle(this.customStyle))
+            };
+            !this.type && (style.color = this.color);
+            this.isNvue && this.lines && (style.lines = this.lines);
+            this.lineHeight && (style.lineHeight = addUnit(this.lineHeight));
+            !this.isNvue && this.block && (style.display = 'block');
+            return deepMerge(style, addStyle(this.customStyle));
         },
         isNvue() {
-            let nvue = false
+            let nvue = false;
             // #ifdef APP-NVUE
-            nvue = true
+            nvue = true;
             // #endif
-            return nvue
+            return nvue;
         },
         isMp() {
-            let mp = false
+            let mp = false;
             // #ifdef MP
-            mp = true
+            mp = true;
             // #endif
-            return mp
+            return mp;
         }
     },
     data() {
-        return {}
+        return {};
     },
     methods: {
         addStyle,
@@ -166,12 +145,12 @@ export default {
             if (this.call && this.mode === 'phone') {
                 uni.makePhoneCall({
                     phoneNumber: this.text
-                })
+                });
             }
-            this.$emit('click', e)
+            this.$emit('click', e);
         }
     }
-}
+};
 </script>
 
 <style lang="scss" scoped>

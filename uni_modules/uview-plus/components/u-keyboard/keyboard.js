@@ -27,4 +27,4 @@ export default {
         confirmText: '确定',
         autoChange: false
     }
-}
+};

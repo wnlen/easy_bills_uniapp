@@ -1,4 +1,4 @@
-import { deepMerge, isUndefined } from '../utils'
+import { deepMerge, isUndefined } from '../utils';
 
 /**
  * 合并局部配置优先的配置，如果局部有该配置项则用局部，如果全局有该配置项则用全局
@@ -8,16 +8,16 @@ import { deepMerge, isUndefined } from '../utils'
  * @return {{}}
  */
 const mergeKeys = (keys, globalsConfig, config2) => {
-    const config = {}
+    const config = {};
     keys.forEach((prop) => {
         if (!isUndefined(config2[prop])) {
-            config[prop] = config2[prop]
+            config[prop] = config2[prop];
         } else if (!isUndefined(globalsConfig[prop])) {
-            config[prop] = globalsConfig[prop]
+            config[prop] = globalsConfig[prop];
         }
-    })
-    return config
-}
+    });
+    return config;
+};
 /**
  *
  * @param globalsConfig - 当前实例的全局配置
@@ -25,7 +25,7 @@ const mergeKeys = (keys, globalsConfig, config2) => {
  * @return - 合并后的配置
  */
 export default (globalsConfig, config2 = {}) => {
-    const method = config2.method || globalsConfig.method || 'GET'
+    const method = config2.method || globalsConfig.method || 'GET';
     let config = {
         baseURL: globalsConfig.baseURL || '',
         method,
@@ -33,22 +33,25 @@ export default (globalsConfig, config2 = {}) => {
         params: config2.params || {},
         custom: { ...(globalsConfig.custom || {}), ...(config2.custom || {}) },
         header: deepMerge(globalsConfig.header || {}, config2.header || {})
-    }
-    const defaultToConfig2Keys = ['getTask', 'validateStatus']
-    config = { ...config, ...mergeKeys(defaultToConfig2Keys, globalsConfig, config2) }
+    };
+    const defaultToConfig2Keys = ['getTask', 'validateStatus'];
+    config = {
+        ...config,
+        ...mergeKeys(defaultToConfig2Keys, globalsConfig, config2)
+    };
 
     // eslint-disable-next-line no-empty
     if (method === 'DOWNLOAD') {
-    // #ifdef H5 || APP-PLUS
+        // #ifdef H5 || APP-PLUS
         if (!isUndefined(config2.timeout)) {
-            config.timeout = config2.timeout
+            config.timeout = config2.timeout;
         } else if (!isUndefined(globalsConfig.timeout)) {
-            config.timeout = globalsConfig.timeout
+            config.timeout = globalsConfig.timeout;
         }
-    // #endif
+        // #endif
     } else if (method === 'UPLOAD') {
-        delete config.header['content-type']
-        delete config.header['Content-Type']
+        delete config.header['content-type'];
+        delete config.header['Content-Type'];
         const uploadKeys = [
             // #ifdef APP-PLUS || H5
             'files',
@@ -65,17 +68,17 @@ export default (globalsConfig, config2 = {}) => {
             'timeout',
             // #endif
             'formData'
-        ]
+        ];
         uploadKeys.forEach((prop) => {
             if (!isUndefined(config2[prop])) {
-                config[prop] = config2[prop]
+                config[prop] = config2[prop];
             }
-        })
+        });
         // #ifdef H5 || APP-PLUS
         if (isUndefined(config.timeout) && !isUndefined(globalsConfig.timeout)) {
-            config.timeout = globalsConfig.timeout
+            config.timeout = globalsConfig.timeout;
         }
-    // #endif
+        // #endif
     } else {
         const defaultsKeys = [
             'data',
@@ -95,9 +98,9 @@ export default (globalsConfig, config2 = {}) => {
             // #ifdef APP-PLUS
             'firstIpv4'
             // #endif
-        ]
-        config = { ...config, ...mergeKeys(defaultsKeys, globalsConfig, config2) }
+        ];
+        config = { ...config, ...mergeKeys(defaultsKeys, globalsConfig, config2) };
     }
 
-    return config
-}
+    return config;
+};

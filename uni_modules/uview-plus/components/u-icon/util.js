@@ -4,7 +4,7 @@ function once(fn) {
     let called = false;
     let result;
 
-    return function(...args) {
+    return function (...args) {
         if (!called) {
             result = fn.apply(this, args);
             called = true;
@@ -21,13 +21,13 @@ const loadFont = once(() => {
     // https://weex.apache.org/zh/docs/modules/dom.html#addrule
     const domModule = weex.requireModule('dom');
     domModule.addRule('fontFace', {
-        'fontFamily': "uicon-iconfont",
-        'src': `url('${config.iconUrl}')`
+        fontFamily: 'uicon-iconfont',
+        src: `url('${config.iconUrl}')`
     });
     if (config.customIcon.family) {
         domModule.addRule('fontFace', {
-            'fontFamily': config.customIcon.family,
-            'src': `url('${config.customIcon.url}')`
+            fontFamily: config.customIcon.family,
+            src: `url('${config.customIcon.url}')`
         });
     }
     // #endif
@@ -60,9 +60,9 @@ const loadFont = once(() => {
     // #ifdef APP-NVUE
     if (this.customFontFamily) {
         domModule.addRule('fontFace', {
-            'fontFamily': `${this.customPrefix}-${this.customFontFamily}`,
-            'src': `url('${this.customFontUrl}')`
-        })
+            fontFamily: `${this.customPrefix}-${this.customFontFamily}`,
+            src: `url('${this.customFontUrl}')`
+        });
     }
     // #endif
     return true;
@@ -70,6 +70,6 @@ const loadFont = once(() => {
 
 let fontUtil = {
     loadFont
-}
+};
 
-export default fontUtil
+export default fontUtil;

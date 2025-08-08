@@ -23,6 +23,6 @@ export default {
         disableTouch: true,
         url: '',
         linkType: 'navigateTo',
-		justifyContent: 'flex-start'
+        justifyContent: 'flex-start'
     }
-}
+};

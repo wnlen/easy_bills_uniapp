@@ -1,20 +1,19 @@
 <style scoped lang="scss">
-    .u-title {
-		.u-title-prefix {
-		    width: 4px;
-		    height: 18px;
-		    border-radius: 2px;
-		    background: $u-primary;
-		    margin-right: 12px;
-		    margin-right :10px;
-		}
+.u-title {
+    .u-title-prefix {
+        width: 4px;
+        height: 18px;
+        border-radius: 2px;
+        background: $u-primary;
+        margin-right: 12px;
+        margin-right: 10px;
     }
+}
 </style>
 <template>
     <view class="u-title u-flex-row u-flex-y-center">
         <slot name="prefix">
-            <view class="u-title-prefix">
-            </view>
+            <view class="u-title-prefix"></view>
         </slot>
         <slot></slot>
     </view>
@@ -22,15 +21,11 @@
 <script>
 export default {
     name: 'u-title',
-    props: {
-    },
+    props: {},
     data() {
-        return {
-        }
+        return {};
     },
-    created: function () {
-    },
-    methods: {
-    }
-}
+    created: function () {},
+    methods: {}
+};
 </script>

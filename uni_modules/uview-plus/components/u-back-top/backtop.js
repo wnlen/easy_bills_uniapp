@@ -24,4 +24,4 @@ export default {
             fontSize: '19px'
         }
     }
-}
+};

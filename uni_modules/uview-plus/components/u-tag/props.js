@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue'
-import defProps from '../../libs/config/props.js'
+import { defineMixin } from '../../libs/vue';
+import defProps from '../../libs/config/props.js';
 export const props = defineMixin({
     props: {
         // 标签类型info、primary、success、warning、error
@@ -80,15 +80,15 @@ export const props = defineMixin({
         // 内置图标，或绝对路径的图片
         icon: {
             type: String,
-            default: () => defProps.tag.icon,
-		},
+            default: () => defProps.tag.icon
+        },
         // 图标颜色
         iconColor: {
             type: String,
-            default: () => defProps.tag.iconColor,
-		},
+            default: () => defProps.tag.iconColor
+        },
         // 自定义尺寸字体大小
-		textSize: {
+        textSize: {
             type: String,
             default: () => defProps.tag.textSize
         },
@@ -111,6 +111,6 @@ export const props = defineMixin({
         autoBgColor: {
             type: Number,
             default: () => defProps.tag.autoBgColor
-        },
+        }
     }
-})
+});

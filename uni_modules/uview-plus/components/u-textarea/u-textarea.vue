@@ -29,21 +29,22 @@
             @confirm="onConfirm"
             @keyboardheightchange="onKeyboardheightchange"
         ></textarea>
-		<!-- #ifndef MP-ALIPAY -->
+        <!-- #ifndef MP-ALIPAY -->
         <text
             class="u-textarea__count"
             :style="{
-                'background-color': disabled ? 'transparent' : '#fff',
+                'background-color': disabled ? 'transparent' : '#fff'
             }"
             v-if="count"
-            >{{ innerValue.length }}/{{ maxlength }}</text
         >
-		<!-- #endif -->
+            {{ innerValue.length }}/{{ maxlength }}
+        </text>
+        <!-- #endif -->
     </view>
 </template>
 
 <script>
-import { props } from "./props.js";
+import { props } from './props.js';
 import { mpMixin } from '../../libs/mixin/mpMixin';
 import { mixin } from '../../libs/mixin/mixin';
 import { addStyle, addUnit, deepMerge, formValidate, os } from '../../libs/function/index';
@@ -85,104 +86,92 @@ import { addStyle, addUnit, deepMerge, formValidate, os } from '../../libs/funct
  * @example <up-textarea v-model="value1" placeholder="请输入内容" ></up-textarea>
  */
 export default {
-    name: "u-textarea",
+    name: 'u-textarea',
     mixins: [mpMixin, mixin, props],
-	data() {
-		return {
-			// 输入框的值
-			innerValue: "",
-			// 是否处于获得焦点状态
-			focused: false,
-			// value是否第一次变化，在watch中，由于加入immediate属性，会在第一次触发，此时不应该认为value发生了变化
-			firstChange: true,
-			// value绑定值的变化是由内部还是外部引起的
-			changeFromInner: false,
-			// 过滤处理方法
-			innerFormatter: value => value
-		}
-	},
-	created() {
-	},
-	watch: {
+    data() {
+        return {
+            // 输入框的值
+            innerValue: '',
+            // 是否处于获得焦点状态
+            focused: false,
+            // value是否第一次变化，在watch中，由于加入immediate属性，会在第一次触发，此时不应该认为value发生了变化
+            firstChange: true,
+            // value绑定值的变化是由内部还是外部引起的
+            changeFromInner: false,
+            // 过滤处理方法
+            innerFormatter: (value) => value
+        };
+    },
+    created() {},
+    watch: {
         // #ifdef VUE2
-	    value: {
-	        immediate: true,
-	        handler(newVal, oldVal) {
-	            this.innerValue = newVal;
-	            /* #ifdef H5 */
-	            // 在H5中，外部value变化后，修改input中的值，不会触发@input事件，此时手动调用值变化方法
-	            if (
-	                this.firstChange === false &&
-	                this.changeFromInner === false
-	            ) {
-	                this.valueChange();
-	            }
-	            /* #endif */
-	            this.firstChange = false;
-	            // 重置changeFromInner的值为false，标识下一次引起默认为外部引起的
-	            this.changeFromInner = false;
-	        },
-	    },
+        value: {
+            immediate: true,
+            handler(newVal, oldVal) {
+                this.innerValue = newVal;
+                /* #ifdef H5 */
+                // 在H5中，外部value变化后，修改input中的值，不会触发@input事件，此时手动调用值变化方法
+                if (this.firstChange === false && this.changeFromInner === false) {
+                    this.valueChange();
+                }
+                /* #endif */
+                this.firstChange = false;
+                // 重置changeFromInner的值为false，标识下一次引起默认为外部引起的
+                this.changeFromInner = false;
+            }
+        },
         // #endif
         // #ifdef VUE3
         modelValue: {
-	        immediate: true,
-	        handler(newVal, oldVal) {
-	            this.innerValue = newVal;
-	            /* #ifdef H5 */
-	            // 在H5中，外部value变化后，修改input中的值，不会触发@input事件，此时手动调用值变化方法
-	            if (
-	                this.firstChange === false &&
-	                this.changeFromInner === false
-	            ) {
-	                this.valueChange();
-	            }
-	            /* #endif */
-	            this.firstChange = false;
-	            // 重置changeFromInner的值为false，标识下一次引起默认为外部引起的
-	            this.changeFromInner = false;
-	        },
-	    }
+            immediate: true,
+            handler(newVal, oldVal) {
+                this.innerValue = newVal;
+                /* #ifdef H5 */
+                // 在H5中，外部value变化后，修改input中的值，不会触发@input事件，此时手动调用值变化方法
+                if (this.firstChange === false && this.changeFromInner === false) {
+                    this.valueChange();
+                }
+                /* #endif */
+                this.firstChange = false;
+                // 重置changeFromInner的值为false，标识下一次引起默认为外部引起的
+                this.changeFromInner = false;
+            }
+        }
         // #endif
-	},
+    },
     computed: {
-		fieldStyle() {
-			let style = {};
-			style['height'] = addUnit(this.height);
-			if (this.autoHeight) {
-				style['height'] = 'auto';
-				style['minHeight'] = addUnit(this.height);
-			}
-			return style;
-		},
+        fieldStyle() {
+            let style = {};
+            style['height'] = addUnit(this.height);
+            if (this.autoHeight) {
+                style['height'] = 'auto';
+                style['minHeight'] = addUnit(this.height);
+            }
+            return style;
+        },
         // 组件的类名
         textareaClass() {
             let classes = [],
                 { border, disabled } = this;
-            border === "surround" &&
-                (classes = classes.concat(["u-border", "u-textarea--radius"]));
-            border === "bottom" &&
-                (classes = classes.concat([
-                    "u-border-bottom",
-                    "u-textarea--no-radius",
-                ]));
-            disabled && classes.push("u-textarea--disabled");
-            return classes.join(" ");
+            border === 'surround' && (classes = classes.concat(['u-border', 'u-textarea--radius']));
+            border === 'bottom' && (classes = classes.concat(['u-border-bottom', 'u-textarea--no-radius']));
+            disabled && classes.push('u-textarea--disabled');
+            return classes.join(' ');
         },
         // 组件的样式
         textareaStyle() {
             const style = {};
             // #ifdef APP-NVUE
             // 由于textarea在安卓nvue上的差异性，需要额外再调整其内边距
-            if (os() === "android") {
-                style.paddingTop = "6px";
-                style.paddingLeft = "9px";
-                style.paddingBottom = "3px";
-                style.paddingRight = "6px";
+            if (os() === 'android') {
+                style.paddingTop = '6px';
+                style.paddingLeft = '9px';
+                style.paddingBottom = '3px';
+                style.paddingRight = '6px';
             }
             // #endif
             return deepMerge(style, addStyle(this.customStyle));
-        },
+        }
     },
     // #ifdef VUE3
     emits: ['update:modelValue', 'linechange', 'focus', 'blur', 'change', 'confirm', 'keyboardheightchange'],
@@ -190,57 +179,57 @@ export default {
     methods: {
         addStyle,
         addUnit,
-		// 在微信小程序中，不支持将函数当做props参数，故只能通过ref形式调用
-		setFormatter(e) {
-			this.innerFormatter = e
-		},
+        // 在微信小程序中，不支持将函数当做props参数，故只能通过ref形式调用
+        setFormatter(e) {
+            this.innerFormatter = e;
+        },
         onFocus(e) {
-            this.$emit("focus", e);
+            this.$emit('focus', e);
         },
         onBlur(e) {
-            this.$emit("blur", e);
+            this.$emit('blur', e);
             // 尝试调用u-form的验证方法
-            formValidate(this, "blur");
+            formValidate(this, 'blur');
         },
         onLinechange(e) {
-            this.$emit("linechange", e);
+            this.$emit('linechange', e);
         },
         onInput(e) {
-			let { value = "" } = e.detail || {};
-			// 格式化过滤方法
-			const formatter = this.formatter || this.innerFormatter
-			const formatValue = formatter(value)
-			// 为了避免props的单向数据流特性，需要先将innerValue值设置为当前值，再在$nextTick中重新赋予设置后的值才有效
-			this.innerValue = value
-			this.$nextTick(() => {
-				this.innerValue = formatValue;
-				this.valueChange();
-			})
+            let { value = '' } = e.detail || {};
+            // 格式化过滤方法
+            const formatter = this.formatter || this.innerFormatter;
+            const formatValue = formatter(value);
+            // 为了避免props的单向数据流特性，需要先将innerValue值设置为当前值，再在$nextTick中重新赋予设置后的值才有效
+            this.innerValue = value;
+            this.$nextTick(() => {
+                this.innerValue = formatValue;
+                this.valueChange();
+            });
         },
-		// 内容发生变化，进行处理
-		valueChange() {
-		    const value = this.innerValue;
-		    this.$nextTick(() => {
+        // 内容发生变化，进行处理
+        valueChange() {
+            const value = this.innerValue;
+            this.$nextTick(() => {
                 // #ifdef VUE3
-                this.$emit("update:modelValue", value);
+                this.$emit('update:modelValue', value);
                 // #endif
                 // #ifdef VUE2
-                this.$emit("input", value);
+                this.$emit('input', value);
                 // #endif
-		        // 标识value值的变化是由内部引起的
-		        this.changeFromInner = true;
-		        this.$emit("change", value);
-		        // 尝试调用u-form的验证方法
-		        formValidate(this, "change");
-		    });
-		},
+                // 标识value值的变化是由内部引起的
+                this.changeFromInner = true;
+                this.$emit('change', value);
+                // 尝试调用u-form的验证方法
+                formValidate(this, 'change');
+            });
+        },
         onConfirm(e) {
-            this.$emit("confirm", e);
+            this.$emit('confirm', e);
         },
         onKeyboardheightchange(e) {
-            this.$emit("keyboardheightchange", e);
-        },
-    },
+            this.$emit('keyboardheightchange', e);
+        }
+    }
 };
 </script>
 
@@ -251,7 +240,7 @@ export default {
     position: relative;
     @include flex;
     flex: 1;
-	padding: 9px;
+    padding: 9px;
 
     &--radius {
         border-radius: 4px;
@@ -269,7 +258,7 @@ export default {
         flex: 1;
         font-size: 15px;
         color: $u-content-color;
-		width: 100%;
+        width: 100%;
     }
 
     &__count {

@@ -25,4 +25,4 @@ export default {
         width: 0,
         preLoadScreen: 1
     }
-}
+};

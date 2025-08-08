@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue'
-import defProps from '../../libs/config/props.js'
+import { defineMixin } from '../../libs/vue';
+import defProps from '../../libs/config/props.js';
 export const props = defineMixin({
     props: {
         // 控制打开或者关闭
@@ -35,7 +35,7 @@ export const props = defineMixin({
         options: {
             type: Array,
             default() {
-                return defProps.swipeActionItem.rightOptions
+                return defProps.swipeActionItem.rightOptions;
             }
         },
         // 动画过渡时间，单位ms
@@ -44,4 +44,4 @@ export const props = defineMixin({
             default: () => defProps.swipeActionItem.duration
         }
     }
-})
+});

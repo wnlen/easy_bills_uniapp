@@ -15,6 +15,6 @@ export default {
         percentage: 0,
         showText: true,
         height: 12,
-		fromRight: false,
+        fromRight: false
     }
-}
+};

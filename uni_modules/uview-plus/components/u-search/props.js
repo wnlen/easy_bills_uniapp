@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue'
-import defProps from '../../libs/config/props.js'
+import { defineMixin } from '../../libs/vue';
+import defProps from '../../libs/config/props.js';
 export const props = defineMixin({
     props: {
         // 搜索框形状，round-圆形，square-方形
@@ -101,10 +101,10 @@ export const props = defineMixin({
             type: String,
             default: () => defProps.search.value
         },
-		value: {
-		    type: String,
-		    default: () => defProps.search.value
-		},
+        value: {
+            type: String,
+            default: () => defProps.search.value
+        },
         // 输入框最大能输入的长度，-1为不限制长度(来自uniapp文档)
         maxlength: {
             type: [String, Number],
@@ -120,12 +120,12 @@ export const props = defineMixin({
             type: [String, Number, null],
             default: () => defProps.search.label
         },
-        // 键盘弹起时，是否自动上推页面	
+        // 键盘弹起时，是否自动上推页面
         adjustPosition: {
             type: Boolean,
             default: () => true
         },
-        // 键盘收起时，是否自动失去焦点	
+        // 键盘收起时，是否自动失去焦点
         autoBlur: {
             type: Boolean,
             default: () => false
@@ -135,4 +135,4 @@ export const props = defineMixin({
             default: () => defProps.search.iconPosition
         }
     }
-})
+});

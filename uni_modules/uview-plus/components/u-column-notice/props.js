@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue'
-import defProps from '../../libs/config/props.js'
+import { defineMixin } from '../../libs/vue';
+import defProps from '../../libs/config/props.js';
 export const props = defineMixin({
     props: {
         // 显示的内容，字符串
@@ -53,9 +53,9 @@ export const props = defineMixin({
             type: Boolean,
             default: () => defProps.columnNotice.disableTouch
         },
-		justifyContent: {
-			type: String,
-			default: () => defProps.columnNotice.justifyContent
-		}
+        justifyContent: {
+            type: String,
+            default: () => defProps.columnNotice.justifyContent
+        }
     }
-})
+});

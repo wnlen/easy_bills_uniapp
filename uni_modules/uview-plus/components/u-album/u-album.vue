@@ -6,24 +6,12 @@
             v-for="(arr, index) in showUrls"
             :forComputedUse="albumWidth"
             :key="index"
-            :style="{flexWrap: autoWrap ? 'wrap' : 'nowrap'}"
+            :style="{ flexWrap: autoWrap ? 'wrap' : 'nowrap' }"
         >
-            <view
-                class="u-album__row__wrapper"
-                v-for="(item, index1) in arr"
-                :key="index1"
-                :style="[imageStyle(index + 1, index1 + 1)]"
-                @tap="onPreviewTap($event, getSrc(item))"
-            >
+            <view class="u-album__row__wrapper" v-for="(item, index1) in arr" :key="index1" :style="[imageStyle(index + 1, index1 + 1)]" @tap="onPreviewTap($event, getSrc(item))">
                 <image
                     :src="getSrc(item)"
-                    :mode="
-                        urls.length === 1
-                            ? imageHeight > 0
-                                ? singleMode
-                                : 'widthFix'
-                            : multipleMode
-                    "
+                    :mode="urls.length === 1 ? (imageHeight > 0 ? singleMode : 'widthFix') : multipleMode"
                     :style="[
                         {
                             width: imageWidth,
@@ -33,24 +21,13 @@
                     ]"
                 ></image>
                 <view
-                    v-if="
-                        showMore &&
-                        urls.length > rowCount * showUrls.length &&
-                        index === showUrls.length - 1 &&
-                        index1 === showUrls[showUrls.length - 1].length - 1
-                    "
+                    v-if="showMore && urls.length > rowCount * showUrls.length && index === showUrls.length - 1 && index1 === showUrls[showUrls.length - 1].length - 1"
                     class="u-album__row__wrapper__text"
                     :style="{
-					    borderRadius: shape == 'circle' ? '50%' : addUnit(radius),
-				    }"
+                        borderRadius: shape == 'circle' ? '50%' : addUnit(radius)
+                    }"
                 >
-                    <up-text
-                        :text="`+${urls.length - maxCount}`"
-                        color="#fff"
-                        :size="multipleSize * 0.3"
-                        align="center"
-                        customStyle="justify-content: center"
-                    ></up-text>
+                    <up-text :text="`+${urls.length - maxCount}`" color="#fff" :size="multipleSize * 0.3" align="center" customStyle="justify-content: center"></up-text>
                 </view>
             </view>
         </view>
@@ -65,7 +42,7 @@ import { addUnit, sleep } from '../../libs/function/index';
 import test from '../../libs/function/test';
 // #ifdef APP-NVUE
 // 由于weex为阿里的KPI业绩考核的产物，所以不支持百分比单位，这里需要通过dom查询组件的宽度
-const dom = uni.requireNativePlugin('dom')
+const dom = uni.requireNativePlugin('dom');
 // #endif
 
 /**
@@ -102,87 +79,76 @@ export default {
             singleHeight: 0,
             // 单图时，如果无法获取图片的尺寸信息，让图片宽度默认为容器的一定百分比
             singlePercent: 0.6
-        }
+        };
     },
     watch: {
         urls: {
             immediate: true,
             handler(newVal) {
                 if (newVal.length === 1) {
-                    this.getImageRect()
+                    this.getImageRect();
                 }
             }
         }
     },
-	emits: ["albumWidth"],
+    emits: ['albumWidth'],
     computed: {
         imageStyle() {
             return (index1, index2) => {
                 const { space, rowCount, multipleSize, urls } = this,
                     rowLen = this.showUrls.length,
-                    allLen = this.urls.length
+                    allLen = this.urls.length;
                 const style = {
                     marginRight: addUnit(space),
                     marginBottom: addUnit(space)
-                }
+                };
                 // 如果为最后一行，则每个图片都无需下边框
-                if (index1 === rowLen && !this.autoWrap) style.marginBottom = 0
+                if (index1 === rowLen && !this.autoWrap) style.marginBottom = 0;
                 // 每行的最右边一张和总长度的最后一张无需右边框
                 if (!this.autoWrap) {
-                    if (
-                        index2 === rowCount ||
-                        (index1 === rowLen &&
-                            index2 === this.showUrls[index1 - 1].length)
-                    )
-                        style.marginRight = 0
+                    if (index2 === rowCount || (index1 === rowLen && index2 === this.showUrls[index1 - 1].length)) style.marginRight = 0;
                 }
-                return style
-            }
+                return style;
+            };
         },
         // 将数组划分为二维数组
         showUrls() {
             if (this.autoWrap) {
-                return [ this.urls.slice(0, this.maxCount) ];
+                return [this.urls.slice(0, this.maxCount)];
             } else {
-                const arr = []
+                const arr = [];
                 this.urls.map((item, index) => {
                     // 限制最大展示数量
                     if (index + 1 <= this.maxCount) {
                         // 计算该元素为第几个素组内
-                        const itemIndex = Math.floor(index / this.rowCount)
+                        const itemIndex = Math.floor(index / this.rowCount);
                         // 判断对应的索引是否存在
                         if (!arr[itemIndex]) {
-                            arr[itemIndex] = []
+                            arr[itemIndex] = [];
                         }
-                        arr[itemIndex].push(item)
+                        arr[itemIndex].push(item);
                     }
-                })
-                return arr
+                });
+                return arr;
             }
         },
         imageWidth() {
-            return addUnit(
-                this.urls.length === 1 ? this.singleWidth : this.multipleSize, this.unit
-            )
+            return addUnit(this.urls.length === 1 ? this.singleWidth : this.multipleSize, this.unit);
         },
         imageHeight() {
-            return addUnit(
-                this.urls.length === 1 ? this.singleHeight : this.multipleSize, this.unit
-            )
+            return addUnit(this.urls.length === 1 ? this.singleHeight : this.multipleSize, this.unit);
         },
         // 此变量无实际用途，仅仅是为了利用computed特性，让其在urls长度等变化时，重新计算图片的宽度
         // 因为用户在某些特殊的情况下，需要让文字与相册的宽度相等，所以这里事件的形式对外发送
         albumWidth() {
-            let width = 0
+            let width = 0;
             if (this.urls.length === 1) {
-                width = this.singleWidth
+                width = this.singleWidth;
             } else {
-                width =
-                    this.showUrls[0].length * this.multipleSize +
-                    this.space * (this.showUrls[0].length - 1)
+                width = this.showUrls[0].length * this.multipleSize + this.space * (this.showUrls[0].length - 1);
             }
-            this.$emit('albumWidth', width)
-            return width
+            this.$emit('albumWidth', width);
+            return width;
         }
     },
     emits: ['preview', 'albumWidth'],
@@ -191,33 +157,31 @@ export default {
         // 预览图片
         onPreviewTap(e, url) {
             const urls = this.urls.map((item) => {
-                return this.getSrc(item)
-            })
+                return this.getSrc(item);
+            });
             if (this.previewFullImage) {
                 uni.previewImage({
                     current: url,
                     urls
-                })
+                });
                 // 是否阻止事件传播
-                this.stop && this.preventEvent(e)
+                this.stop && this.preventEvent(e);
             } else {
                 this.$emit('preview', {
                     urls,
                     currentIndex: urls.indexOf(url)
-                })
+                });
             }
         },
         // 获取图片的路径
         getSrc(item) {
-            return test.object(item)
-                ? (this.keyName && item[this.keyName]) || item.src
-                : item
+            return test.object(item) ? (this.keyName && item[this.keyName]) || item.src : item;
         },
         // 单图时，获取图片的尺寸
         // 在小程序中，需要将网络图片的的域名添加到小程序的download域名才可能获取尺寸
         // 在没有添加的情况下，让单图宽度默认为盒子的一定宽度(singlePercent)
         getImageRect() {
-            const src = this.getSrc(this.urls[0])
+            const src = this.getSrc(this.urls[0]);
             uni.getImageInfo({
                 src,
                 success: (res) => {
@@ -231,46 +195,42 @@ export default {
                     }
 
                     // 判断图片横向还是竖向展示方式
-                    const isHorizotal = res.width >= res.height
-                    this.singleWidth = isHorizotal
-                        ? singleSize
-                        : (res.width / res.height) * singleSize
-                    this.singleHeight = !isHorizotal
-                        ? singleSize
-                        : (res.height / res.width) * this.singleWidth
+                    const isHorizotal = res.width >= res.height;
+                    this.singleWidth = isHorizotal ? singleSize : (res.width / res.height) * singleSize;
+                    this.singleHeight = !isHorizotal ? singleSize : (res.height / res.width) * this.singleWidth;
 
                     // 如果有单位统一设置单位
-                    if(unit != null && unit !== ''){
-                        this.singleWidth = this.singleWidth + unit
-                        this.singleHeight = this.singleHeight + unit
+                    if (unit != null && unit !== '') {
+                        this.singleWidth = this.singleWidth + unit;
+                        this.singleHeight = this.singleHeight + unit;
                     }
                 },
                 fail: () => {
-                    this.getComponentWidth()
+                    this.getComponentWidth();
                 }
-            })
+            });
         },
         // 获取组件的宽度
         async getComponentWidth() {
             // 延时一定时间，以获取dom尺寸
-            await sleep(30)
+            await sleep(30);
             // #ifndef APP-NVUE
             this.$uGetRect('.u-album__row').then((size) => {
-                this.singleWidth = size.width * this.singlePercent
-            })
+                this.singleWidth = size.width * this.singlePercent;
+            });
             // #endif
 
             // #ifdef APP-NVUE
             // 这里ref="u-album__row"所在的标签为通过for循环出来，导致this.$refs['u-album__row']是一个数组
-            const ref = this.$refs['u-album__row'][0]
+            const ref = this.$refs['u-album__row'][0];
             ref &&
                 dom.getComponentRect(ref, (res) => {
-                    this.singleWidth = res.size.width * this.singlePercent
-                })
+                    this.singleWidth = res.size.width * this.singlePercent;
+                });
             // #endif
         }
     }
-}
+};
 </script>
 
 <style lang="scss" scoped>

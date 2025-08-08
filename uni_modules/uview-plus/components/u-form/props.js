@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue'
-import defProps from '../../libs/config/props.js'
+import { defineMixin } from '../../libs/vue';
+import defProps from '../../libs/config/props.js';
 export const props = defineMixin({
     props: {
         // 当前form的需要验证字段的集合
@@ -44,4 +44,4 @@ export const props = defineMixin({
             default: () => defProps.form.labelStyle
         }
     }
-})
+});

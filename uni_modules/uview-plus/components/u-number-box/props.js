@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue'
-import defProps from '../../libs/config/props.js'
+import { defineMixin } from '../../libs/vue';
+import defProps from '../../libs/config/props.js';
 export const props = defineMixin({
     props: {
         // 步进器标识符，在change回调返回
@@ -135,6 +135,6 @@ export const props = defineMixin({
         miniMode: {
             type: Boolean,
             default: () => defProps.numberBox.miniMode
-        },
+        }
     }
-})
+});

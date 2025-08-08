@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue'
-import defProps from '../../libs/config/props.js'
+import { defineMixin } from '../../libs/vue';
+import defProps from '../../libs/config/props.js';
 export const props = defineMixin({
     props: {
         // 列表锚点文本内容
@@ -28,4 +28,4 @@ export const props = defineMixin({
             default: () => defProps.indexAnchor.height
         }
     }
-})
+});

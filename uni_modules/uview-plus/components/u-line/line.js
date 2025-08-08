@@ -17,4 +17,4 @@ export default {
         margin: 0,
         dashed: false
     }
-}
+};

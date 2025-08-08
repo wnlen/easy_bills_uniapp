@@ -19,4 +19,4 @@ export default {
         fontSize: 15,
         safeAreaInsetTop: false
     }
-}
+};

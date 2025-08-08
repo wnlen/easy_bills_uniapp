@@ -26,4 +26,4 @@ export default {
         iconPlacement: 'left',
         borderBottom: false
     }
-}
+};

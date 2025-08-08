@@ -19,9 +19,9 @@ export default {
         inactiveColor: '#c0c4cc',
         blockColor: '#ffffff',
         showValue: false,
-		disabled:false,
+        disabled: false,
         blockStyle: {},
         useNative: false,
         height: '2px'
     }
-}
+};

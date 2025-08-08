@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue'
-import defProps from '../../libs/config/props.js'
+import { defineMixin } from '../../libs/vue';
+import defProps from '../../libs/config/props.js';
 export const props = defineMixin({
     props: {
         // checkbox的名称
@@ -67,10 +67,10 @@ export const props = defineMixin({
             type: [String, Boolean],
             default: () => defProps.checkbox.labelDisabled
         },
-		// 是否独立使用
+        // 是否独立使用
         usedAlone: {
             type: [Boolean],
             default: () => false
         }
     }
-})
+});

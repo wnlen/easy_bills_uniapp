@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue'
-import defProps from '../../libs/config/props.js'
+import { defineMixin } from '../../libs/vue';
+import defProps from '../../libs/config/props.js';
 export const props = defineMixin({
     props: {
         // 控制是否出现滚动条，仅nvue有效
@@ -77,7 +77,7 @@ export const props = defineMixin({
             type: Boolean,
             default: () => false
         },
-        // 设置自定义下拉刷新阈值	
+        // 设置自定义下拉刷新阈值
         refresherThreshold: {
             type: Number,
             default: () => 45
@@ -98,4 +98,4 @@ export const props = defineMixin({
             default: () => false
         }
     }
-})
+});

@@ -1,4 +1,4 @@
-import { defineMixin } from '../vue'
+import { defineMixin } from '../vue';
 
 export const mpMixin = defineMixin({
     // #ifdef MP-WEIXIN
@@ -7,7 +7,6 @@ export const mpMixin = defineMixin({
         virtualHost: true
     }
     // #endif
-})
+});
 
-export default mpMixin
-
+export default mpMixin;

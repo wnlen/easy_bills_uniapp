@@ -1,6 +1,6 @@
-'use strict'
+'use strict';
 
-import * as utils from '../utils'
+import * as utils from '../utils';
 
 function encode(val) {
     return encodeURIComponent(val)
@@ -10,7 +10,7 @@ function encode(val) {
         .replace(/%2C/gi, ',')
         .replace(/%20/g, '+')
         .replace(/%5B/gi, '[')
-        .replace(/%5D/gi, ']')
+        .replace(/%5D/gi, ']');
 }
 
 /**
@@ -23,47 +23,47 @@ function encode(val) {
 export default function buildURL(url, params) {
     /* eslint no-param-reassign:0 */
     if (!params) {
-        return url
+        return url;
     }
 
-    let serializedParams
+    let serializedParams;
     if (utils.isURLSearchParams(params)) {
-        serializedParams = params.toString()
+        serializedParams = params.toString();
     } else {
-        const parts = []
+        const parts = [];
 
         utils.forEach(params, (val, key) => {
             if (val === null || typeof val === 'undefined') {
-                return
+                return;
             }
 
             if (utils.isArray(val)) {
-                key = `${key}[]`
+                key = `${key}[]`;
             } else {
-                val = [val]
+                val = [val];
             }
 
             utils.forEach(val, (v) => {
                 if (utils.isDate(v)) {
-                    v = v.toISOString()
+                    v = v.toISOString();
                 } else if (utils.isObject(v)) {
-                    v = JSON.stringify(v)
+                    v = JSON.stringify(v);
                 }
-                parts.push(`${encode(key)}=${encode(v)}`)
-            })
-        })
+                parts.push(`${encode(key)}=${encode(v)}`);
+            });
+        });
 
-        serializedParams = parts.join('&')
+        serializedParams = parts.join('&');
     }
 
     if (serializedParams) {
-        const hashmarkIndex = url.indexOf('#')
+        const hashmarkIndex = url.indexOf('#');
         if (hashmarkIndex !== -1) {
-            url = url.slice(0, hashmarkIndex)
+            url = url.slice(0, hashmarkIndex);
         }
 
-        url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams
+        url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams;
     }
 
-    return url
+    return url;
 }

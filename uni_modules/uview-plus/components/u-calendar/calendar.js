@@ -36,10 +36,10 @@ export default {
         rangePrompt: '',
         showRangePrompt: true,
         allowSameDay: false,
-		round: 0,
-		monthNum: 3,
+        round: 0,
+        monthNum: 3,
         weekText: ['一', '二', '三', '四', '五', '六', '日'],
         forbidDays: [],
-        forbidDaysToast: '该日期已禁用',
+        forbidDaysToast: '该日期已禁用'
     }
-}
+};

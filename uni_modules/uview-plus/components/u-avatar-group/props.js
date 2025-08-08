@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue'
-import defProps from '../../libs/config/props.js'
+import { defineMixin } from '../../libs/vue';
+import defProps from '../../libs/config/props.js';
 export const props = defineMixin({
     props: {
         // 头像图片组
@@ -37,18 +37,18 @@ export const props = defineMixin({
             type: String,
             default: () => defProps.avatarGroup.keyName
         },
-		// 头像之间的遮挡比例
+        // 头像之间的遮挡比例
         gap: {
             type: [String, Number],
             validator(value) {
-                return value >= 0 && value <= 1
+                return value >= 0 && value <= 1;
             },
             default: () => defProps.avatarGroup.gap
         },
-		// 需额外显示的值
-		extraValue: {
-			type: [Number, String],
-			default: () => defProps.avatarGroup.extraValue
-		}
+        // 需额外显示的值
+        extraValue: {
+            type: [Number, String],
+            default: () => defProps.avatarGroup.extraValue
+        }
     }
-})
+});

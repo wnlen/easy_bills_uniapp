@@ -15,4 +15,4 @@ export default {
         iconSize: 17,
         error: false
     }
-}
+};

@@ -26,4 +26,4 @@ export default {
         bgColor: '',
         overlayOpacity: 0.5
     }
-}
+};

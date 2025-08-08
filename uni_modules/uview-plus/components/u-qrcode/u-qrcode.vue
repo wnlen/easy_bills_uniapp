@@ -1,64 +1,45 @@
 <template>
-    <view class="u-qrcode"
-          :id="rootId"
-          :style="{
-              width: useRootHeightAndWidth ? '100%' : 'auto',
-              height: useRootHeightAndWidth ? '100%' : 'auto',
-          }"
-          @longpress="longpress">
+    <view
+        class="u-qrcode"
+        :id="rootId"
+        :style="{
+            width: useRootHeightAndWidth ? '100%' : 'auto',
+            height: useRootHeightAndWidth ? '100%' : 'auto'
+        }"
+        @longpress="longpress"
+    >
         <view class="u-qrcode__content" @click="preview">
-
             <!-- #ifndef APP-NVUE || APP-PLUS -->
-            <canvas
-                class="u-qrcode__canvas"
-                :id="cid"
-                :canvas-id="cid"
-                type="2d"
-                :style="{ width: sizeLocal + unit, height: sizeLocal + unit }" />
+            <canvas class="u-qrcode__canvas" :id="cid" :canvas-id="cid" type="2d" :style="{ width: sizeLocal + unit, height: sizeLocal + unit }" />
             <!-- #endif -->
 
             <!-- #ifdef APP-PLUS -->
-            <canvas
-                class="u-qrcode__canvas"
-                :id="cid"
-                :canvas-id="cid"
-                :style="{ width: sizeLocal + unit, height: sizeLocal + unit }" />
+            <canvas class="u-qrcode__canvas" :id="cid" :canvas-id="cid" :style="{ width: sizeLocal + unit, height: sizeLocal + unit }" />
             <!-- #endif -->
 
             <!-- #ifdef APP-PLUS -->
-            <canvas
-                class="u-qrcode__canvas"
-                :id="cid"
-                :canvas-id="cid"
-                :style="{ width: sizeLocal + unit, height: sizeLocal + unit }" />
+            <canvas class="u-qrcode__canvas" :id="cid" :canvas-id="cid" :style="{ width: sizeLocal + unit, height: sizeLocal + unit }" />
             <!-- #endif -->
 
             <!-- #ifdef APP-NVUE -->
-            <gcanvas class="u-qrcode__canvas" ref="gcanvess"
-                     :style="{ width: sizeLocal + unit, height: sizeLocal + unit }">
-            </gcanvas>
+            <gcanvas class="u-qrcode__canvas" ref="gcanvess" :style="{ width: sizeLocal + unit, height: sizeLocal + unit }"></gcanvas>
             <!-- #endif -->
-            <view v-if="showLoading && loading" class="u-qrcode__loading"
-                  :style="{ width: sizeLocal + unit, height: sizeLocal + unit }">
+            <view v-if="showLoading && loading" class="u-qrcode__loading" :style="{ width: sizeLocal + unit, height: sizeLocal + unit }">
                 <up-loading-icon vertical :text="loadingText" textSize="14px"></up-loading-icon>
             </view>
         </view>
-
     </view>
 </template>
 
 <script>
-import QRCode from "./qrcode.js"
+import QRCode from './qrcode.js';
 // #ifdef APP-NVUE
 // https://github.com/dcloudio/NvueCanvasDemo/blob/master/README.md
-import {
-    enable,
-    WeexBridge
-} from '../../libs/util/gcanvas/index.js';
+import { enable, WeexBridge } from '../../libs/util/gcanvas/index.js';
 // #endif
-let qrcode
+let qrcode;
 export default {
-    name: "u-qrcode",
+    name: 'u-qrcode',
     props: {
         cid: {
             type: String,
@@ -132,7 +113,7 @@ export default {
         useRootHeightAndWidth: {
             type: Boolean,
             default: () => false
-        },
+        }
     },
     emits: ['result', 'longpressCallback'],
     data() {
@@ -142,7 +123,7 @@ export default {
             popupShow: false,
             list: [
                 {
-                    name: '保存二维码',
+                    name: '保存二维码'
                 }
             ],
             rootId: `rootId${Number(Math.random() * 100).toFixed(0)}`,
@@ -151,42 +132,42 @@ export default {
             canvasObj: {},
             sizeLocal: this.size,
             ctx: null, // ctx 在new Qrcode 时js文件内部设置
-            canvas: null, // ctx 在new Qrcode 时js文件内部设置
-        }
+            canvas: null // ctx 在new Qrcode 时js文件内部设置
+        };
     },
-    async mounted(){
+    async mounted() {
         // 如果使用根节点的宽高 则 重新设置 size
-        if(this.useRootHeightAndWidth){
-            await this.setNewSize()
+        if (this.useRootHeightAndWidth) {
+            await this.setNewSize();
         }
 
         // #ifdef APP-NVUE
         /*获取元素引用*/
-        this.ganvas = this.$refs["gcanvess"]
+        this.ganvas = this.$refs['gcanvess'];
         /*通过元素引用获取canvas对象*/
         this.canvasObj = enable(this.ganvas, {
             bridge: WeexBridge
-        })
+        });
         /*获取绘图所需的上下文，目前不支持3d*/
-        this.context = this.canvasObj.getContext('2d')
+        this.context = this.canvasObj.getContext('2d');
         // #endif
 
         if (this.loadMake) {
             if (!this._empty(this.val)) {
                 setTimeout(() => {
-                    setTimeout(()=>{
-                        this._makeCode()
-                    })
+                    setTimeout(() => {
+                        this._makeCode();
+                    });
                 }, 0);
             }
         }
     },
     methods: {
         _makeCode() {
-            let that = this
+            let that = this;
             if (!this._empty(this.val)) {
                 // #ifndef APP-NVUE
-                this.loading = true
+                this.loading = true;
                 // #endif
                 qrcode = new QRCode({
                     context: that, // 上下文环境
@@ -202,10 +183,11 @@ export default {
                     pdground: that.pdground, // 定位角点颜色
                     correctLevel: that.lv, // 容错级别
                     image: that.icon, // 二维码图标
-                    imageSize: that.iconSize,// 二维码图标大小
-                    cbResult: function (res) { // 生成二维码的回调
-                        that._result(res)
-                    },
+                    imageSize: that.iconSize, // 二维码图标大小
+                    cbResult: function (res) {
+                        // 生成二维码的回调
+                        that._result(res);
+                    }
                 });
             } else {
                 uni.showToast({
@@ -216,12 +198,12 @@ export default {
             }
         },
         _clearCode() {
-            this._result('')
-            qrcode.clear()
+            this._result('');
+            qrcode.clear();
         },
         _saveCode() {
             let that = this;
-            if (this.result != "") {
+            if (this.result != '') {
                 uni.saveImageToPhotosAlbum({
                     filePath: that.result,
                     success: function () {
@@ -242,7 +224,7 @@ export default {
                     urls: [this.result],
                     longPressActions: {
                         itemList: ['保存二维码图片'],
-                        success: function(data) {
+                        success: function (data) {
                             // console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
                             switch (data.tapIndex) {
                                 case 0:
@@ -250,82 +232,71 @@ export default {
                                     break;
                             }
                         },
-                        fail: function(err) {
+                        fail: function (err) {
                             console.log(err.errMsg);
                         }
                     }
                 });
             }
-            this.$emit('preview', {
-                url: this.result
-            }, e)
+            this.$emit(
+                'preview',
+                {
+                    url: this.result
+                },
+                e
+            );
         },
         async longpress() {
             if (this.context) {
-                this.ctx.toTempFilePath(
-                    0,
-                    0,
-                    this.sizeLocal,
-                    this.sizeLocal,
-                    this.sizeLocal,
-                    this.sizeLocal,
-                    "",
-                    1,
-                    res => {
-                        this.$emit('longpressCallback', res.tempFilePath)
-                    }
-                );
-            }
-            else {
-
+                this.ctx.toTempFilePath(0, 0, this.sizeLocal, this.sizeLocal, this.sizeLocal, this.sizeLocal, '', 1, (res) => {
+                    this.$emit('longpressCallback', res.tempFilePath);
+                });
+            } else {
                 // #ifdef MP-TOUTIAO || H5
-                this.$emit('longpressCallback', this.ctx.canvas.toDataURL("image/png", 1));
+                this.$emit('longpressCallback', this.ctx.canvas.toDataURL('image/png', 1));
                 // #endif
 
                 // #ifdef APP-PLUS
                 uni.canvasToTempFilePath(
                     {
                         canvasId: this.cid,
-                        success :res => {
-                            this.$emit('longpressCallback', res.tempFilePath)
+                        success: (res) => {
+                            this.$emit('longpressCallback', res.tempFilePath);
                         },
-                        fail: err =>{
-                        }
+                        fail: (err) => {}
                     },
-                    this)
+                    this
+                );
                 // #endif
 
                 // #ifndef MP-TOUTIAO || H5 || APP-PLUS
-                const canvas = await this.getNode(this.cId,true);
+                const canvas = await this.getNode(this.cId, true);
                 uni.canvasToTempFilePath(
                     {
                         canvas,
-                        success :res => {
-                            this.$emit('longpressCallback', res.tempFilePath)
+                        success: (res) => {
+                            this.$emit('longpressCallback', res.tempFilePath);
                         },
-                        fail: err =>{
-                        }
+                        fail: (err) => {}
                     },
-                    this)
+                    this
+                );
                 // #endif
-
             }
-
         },
 
         /**
          * 使用根节点宽高 设置新的size
          * @return {Promise<void>}
          */
-        async setNewSize(){
-            const rootNode = await this.getNode(this.rootId,false);
-            const { width , height } = rootNode;
+        async setNewSize() {
+            const rootNode = await this.getNode(this.rootId, false);
+            const { width, height } = rootNode;
             // 将最短的设置为二维码 的size
-            if(width > height){
-                this.sizeLocal = height
-            }
-            else{
-                this.sizeLocal = width
+            if (width > height) {
+                this.sizeLocal = height;
+            } else {
+                this.sizeLocal = width;
             }
         },
 
@@ -335,32 +306,30 @@ export default {
          * @param isCanvas 是否为Canvas节点
          * @return {Promise<unknown>}
          */
-        async getNode(id,isCanvas){
-            return new Promise((resolve, reject)=>{
+        async getNode(id, isCanvas) {
+            return new Promise((resolve, reject) => {
                 try {
                     const query = uni.createSelectorQuery().in(this);
-                    query.select(`#${id}`)
-                    .fields({ node: true, size: true })
-                    .exec((res) => {
-                        if(isCanvas){
-                            resolve(res[0].node)
-                        }
-                        else{
-                            resolve(res[0])
-                        }
-
-                    })
+                    query
+                        .select(`#${id}`)
+                        .fields({ node: true, size: true })
+                        .exec((res) => {
+                            if (isCanvas) {
+                                resolve(res[0].node);
+                            } else {
+                                resolve(res[0]);
+                            }
+                        });
+                } catch (e) {
+                    console.error('获取节点失败', e);
                 }
-                catch (e) {
-                    console.error("获取节点失败",e)
-                }
-            })
+            });
         },
 
         selectClick(index) {
             switch (index) {
                 case 0:
-                    alert('保存二维码')
+                    alert('保存二维码');
                     this._saveCode();
                     break;
             }
@@ -373,27 +342,27 @@ export default {
         _empty(v) {
             let tp = typeof v,
                 rt = false;
-            if (tp == "number" && String(v) == "") {
-                rt = true
-            } else if (tp == "undefined") {
-                rt = true
-            } else if (tp == "object") {
-                if (JSON.stringify(v) == "{}" || JSON.stringify(v) == "[]" || v == null) rt = true
-            } else if (tp == "string") {
-                if (v == "" || v == "undefined" || v == "null" || v == "{}" || v == "[]") rt = true
-            } else if (tp == "function") {
-                rt = false
+            if (tp == 'number' && String(v) == '') {
+                rt = true;
+            } else if (tp == 'undefined') {
+                rt = true;
+            } else if (tp == 'object') {
+                if (JSON.stringify(v) == '{}' || JSON.stringify(v) == '[]' || v == null) rt = true;
+            } else if (tp == 'string') {
+                if (v == '' || v == 'undefined' || v == 'null' || v == '{}' || v == '[]') rt = true;
+            } else if (tp == 'function') {
+                rt = false;
             }
-            return rt
-        },
+            return rt;
+        }
     },
     watch: {
         size: function (n, o) {
             if (n != o && !this._empty(n)) {
-                this.cSize = n
+                this.cSize = n;
                 if (!this._empty(this.val)) {
                     setTimeout(() => {
-                        this._makeCode()
+                        this._makeCode();
                     }, 100);
                 }
             }
@@ -402,15 +371,14 @@ export default {
             if (this.onval) {
                 if (n != o && !this._empty(n)) {
                     setTimeout(() => {
-                        this._makeCode()
+                        this._makeCode();
                     }, 0);
                 }
             }
         }
     },
-    computed: {
-    }
-}
+    computed: {}
+};
 </script>
 <style lang="scss" scoped>
 .u-qrcode {

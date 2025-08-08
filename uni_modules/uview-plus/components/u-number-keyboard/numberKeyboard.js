@@ -14,4 +14,4 @@ export default {
         dotDisabled: false,
         random: false
     }
-}
+};

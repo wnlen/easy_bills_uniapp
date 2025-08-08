@@ -23,4 +23,4 @@ export default {
         round: 0,
         wrapMaxHeight: '600px'
     }
-}
+};

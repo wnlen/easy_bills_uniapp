@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue'
-import defProps from '../../libs/config/props.js'
+import { defineMixin } from '../../libs/vue';
+import defProps from '../../libs/config/props.js';
 export const props = defineMixin({
     props: {
         modelValue: {
@@ -13,17 +13,17 @@ export const props = defineMixin({
         inputProps: {
             type: Object,
             default: () => {
-                return {}
+                return {};
             }
         },
         disabled: {
             type: Boolean,
             default: () => defProps.picker.disabled
         },
-		disabledColor:{
-			type: String,
-			default: () => defProps.picker.disabledColor
-		},
+        disabledColor: {
+            type: String,
+            default: () => defProps.picker.disabledColor
+        },
         placeholder: {
             type: String,
             default: () => defProps.picker.placeholder
@@ -33,7 +33,7 @@ export const props = defineMixin({
             type: Boolean,
             default: () => defProps.picker.show
         },
-		// 弹出的方向，可选值为 top bottom right left center
+        // 弹出的方向，可选值为 top bottom right left center
         popupMode: {
             type: String,
             default: () => defProps.picker.popupMode
@@ -93,11 +93,11 @@ export const props = defineMixin({
             type: String,
             default: () => defProps.picker.keyName
         },
-		// 选项对象中，需要获取的属性值键名
-		valueName: {
-		    type: String,
-		    default: () => defProps.picker.valueName
-		},
+        // 选项对象中，需要获取的属性值键名
+        valueName: {
+            type: String,
+            default: () => defProps.picker.valueName
+        },
         // 是否允许点击遮罩关闭选择器
         closeOnClickOverlay: {
             type: Boolean,
@@ -108,21 +108,21 @@ export const props = defineMixin({
             type: Array,
             default: () => defProps.picker.defaultIndex
         },
-		// 是否在手指松开时立即触发 change 事件。若不开启则会在滚动动画结束后触发 change 事件，只在微信2.21.1及以上有效
-		immediateChange: {
-			type: Boolean,
-			default: () => defProps.picker.immediateChange
-		},
+        // 是否在手指松开时立即触发 change 事件。若不开启则会在滚动动画结束后触发 change 事件，只在微信2.21.1及以上有效
+        immediateChange: {
+            type: Boolean,
+            default: () => defProps.picker.immediateChange
+        },
         // 工具栏右侧插槽是否开启
         toolbarRightSlot: {
-			type: Boolean,
-			default: false
-		},
-		// 层级
-		zIndex: {
-		    type: [String, Number],
-		    default: () => defProps.picker.zIndex
-		},
+            type: Boolean,
+            default: false
+        },
+        // 层级
+        zIndex: {
+            type: [String, Number],
+            default: () => defProps.picker.zIndex
+        },
         // 弹窗背景色，设置为transparent可去除白色背景
         bgColor: {
             type: String,
@@ -144,4 +144,4 @@ export const props = defineMixin({
             default: () => defProps.picker.overlayOpacity
         }
     }
-})
+});

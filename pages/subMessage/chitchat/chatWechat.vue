@@ -1,6 +1,6 @@
 <template>
-    <view style="padding-top: 200px;">
-       <button open-type="contact" class="pos" >客服</button>
+    <view style="padding-top: 200px">
+        <button open-type="contact" class="pos">客服</button>
     </view>
 </template>
 
@@ -20,4 +20,4 @@ export default {
         }
     }
 };
-</script>    
+</script>

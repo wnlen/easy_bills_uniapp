@@ -1,43 +1,57 @@
 <template>
     <view
-        class="u-float-button" :style="{
+        class="u-float-button"
+        :style="{
             position: 'fixed',
             top: top,
             bottom: bottom,
-            right: right,
-        }">
-        <view class="u-float-button__main" @click="clickHandler" :style="{
-            backgroundColor: backgroundColor,
-            color: color,
-			display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: width,
-            height: height,
-            borderRadius: '50%',
-            borderColor: borderColor,
-        }">
+            right: right
+        }"
+    >
+        <view
+            class="u-float-button__main"
+            @click="clickHandler"
+            :style="{
+                backgroundColor: backgroundColor,
+                color: color,
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: width,
+                height: height,
+                borderRadius: '50%',
+                borderColor: borderColor
+            }"
+        >
             <slot :showList="showList">
-                <up-icon class="cursor-pointer" :class="{'show-list': showList}" name="plus" :color="color"></up-icon>
+                <up-icon class="cursor-pointer" :class="{ 'show-list': showList }" name="plus" :color="color"></up-icon>
             </slot>
-            <view v-if="showList" class="u-float-button__list" :style="{
-                bottom: height
-            }">
+            <view
+                v-if="showList"
+                class="u-float-button__list"
+                :style="{
+                    bottom: height
+                }"
+            >
                 <slot name="list">
                     <template :key="index" v-for="(item, index) in list">
-                        <view class="u-float-button__item" :style="{
-                            backgroundColor: item?.backgroundColor ? item?.backgroundColor : backgroundColor,
-                            color: item?.color ? item?.color : color,
-							display: 'flex',
-                            flexDirection: 'row',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            width: width,
-                            height: height,
-                            borderRadius: '50%',
-                            borderColor: item?.borderColor ? item?.borderColor :  borderColor,
-                        }" @click="itemClick(item, index)">
+                        <view
+                            class="u-float-button__item"
+                            :style="{
+                                backgroundColor: item?.backgroundColor ? item?.backgroundColor : backgroundColor,
+                                color: item?.color ? item?.color : color,
+                                display: 'flex',
+                                flexDirection: 'row',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                width: width,
+                                height: height,
+                                borderRadius: '50%',
+                                borderColor: item?.borderColor ? item?.borderColor : borderColor
+                            }"
+                            @click="itemClick(item, index)"
+                        >
                             <up-icon :name="item.name" :color="item?.color ? item?.color : color"></up-icon>
                         </view>
                     </template>
@@ -67,9 +81,8 @@ export default {
     // #ifndef MP
     mixins: [mpMixin, mixin],
     // #endif
-   emits: ['click', 'item-click'],
-    computed: {
-    },
+    emits: ['click', 'item-click'],
+    computed: {},
     props: {
         // 背景颜色
         backgroundColor: {
@@ -104,7 +117,7 @@ export default {
         // 顶部偏移量，未提供默认值，可能需要根据具体情况设置
         top: {
             type: [String, Number],
-            default: '',
+            default: ''
         },
         // 底部偏移量
         bottom: {
@@ -119,33 +132,33 @@ export default {
         list: {
             type: Array,
             default: () => {
-                return []
+                return [];
             }
         }
     },
     data() {
         return {
             showList: false
-        }
+        };
     },
     methods: {
         addStyle,
         clickHandler(e) {
             if (this.isMenu) {
-                this.showList = !this.showList
-                this.$emit('click', e)
+                this.showList = !this.showList;
+                this.$emit('click', e);
             } else {
-                this.$emit('click', e)
+                this.$emit('click', e);
             }
         },
         itemClick(item, index) {
             this.$emit('item-click', {
                 ...item,
                 index
-            })
+            });
         }
     }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -159,7 +172,7 @@ export default {
         bottom: 0px;
         display: flex;
         flex-direction: column;
-        >view {
+        > view {
             margin: 5px 0px;
         }
     }
