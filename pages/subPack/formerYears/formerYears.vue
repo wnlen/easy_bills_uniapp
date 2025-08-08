@@ -26,8 +26,8 @@
                     <view class="absolute flex-col justify-center items-center" @click="selectionIconClick" style="width: 30%; left: 0; height: 100%">
                         <liu-data-select elementId="data-select1" :dataList="dataList" @change="dropdown" color="#965510">
                             <view id="data-select1" class="btn-info flex-row justify-center">
-                                <view class="mr10"><u-icon v-if="!selectionIcon" name="arrow-down-fill" color=" #965510" size="15"></u-icon></view>
-                                <view class="mr10"><u-icon v-else name="arrow-up-fill" color=" #965510" size="15"></u-icon></view>
+                                <view class="mr10" v-if="!selectionIcon"><u-icon name="arrow-down-fill" color=" #965510" size="15"></u-icon></view>
+                                <view class="mr10" v-else><u-icon name="arrow-up-fill" color=" #965510" size="15"></u-icon></view>
                                 <text style="color: #965510">{{ dropdownName }}</text>
                                 <text style="color: #965510" v-if="dropdownName != '请选择'">年</text>
                             </view>
@@ -104,12 +104,7 @@
                         <div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
                             <text class="ft11 ft-gray ml36" @click="CustomerGet">{{ vuex_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
                             <view class="ml24">
-                                <u-input
-                                    border="none"
-                                    @change="changeCustomer"
-                                    v-model="customer"
-                                    :placeholder="vuex_userRole == 'R' ? '请选择供应商' : '请选择客户'"
-                                ></u-input>
+                                <u-input border="none" @change="changeCustomer" v-model="customer" :placeholder="vuex_userRole == 'R' ? '请选择供应商' : '请选择客户'"></u-input>
                             </view>
 
                             <view class="flex-col justify-center items-center" style="height: 5vh">

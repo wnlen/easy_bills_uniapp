@@ -34,7 +34,7 @@
         <view class="flex-row ml24 mr24 mt24" style="display: flex">
             <view class="ml5 mr5" style="flex: 1">
                 <u-button openType="share" :custom-style="SearchCustomStyleWechat" hover-class="none" shape="circle" :plain="true">
-                    <view class="weixin-fill"><u-icon color="#01BB74" size="30rpx"></u-icon></view></view>
+                    <view class="weixin-fill"><u-icon color="#01BB74" size="30rpx"></u-icon></view>
                     <text class="pl10">微信邀请</text>
                 </u-button>
             </view>
@@ -58,7 +58,7 @@
 
         <view class="mt24 flex-row ml24 mr24" style="background-color: #f8f8f8; border-radius: 12.24rpx">
             <view class="flex-col justify-center pd12">
-                <view class="search"></view><u-icon color="#01BB74" size="30rpx"></u-icon></view>
+                <view class="search"><u-icon color="#01BB74" size="30rpx"></u-icon></view>
             </view>
             <view class="pd10">
                 <u-input

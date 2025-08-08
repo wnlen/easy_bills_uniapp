@@ -96,14 +96,15 @@
 
             <view class="flex-row mt10 mb20 ml20" style="height: 60%">
                 <view class="mt10" style="height: 100%; align-items: center">
-                    <view class=></view><u-icon me="mic" size="50"></u-icon></view>
+                    <view class="mic"><u-icon size="50"></u-icon></view>
                 </view>
                 <view :style="{ width: showFile == 1 ? '70%' : '80%' }">
                     <u-input type="text" placeholde="输入您想咨询的问题" v-model="message" border="bottom"></u-input>
                 </view>
 
                 <view class="mt10 ml10" style="height: 100%; align-items: center">
-                    <u-icon :style="{ display: showFile == 0 ? 'block' : 'none' }" class="mr10 ml10" name="plus-circle" size="50" @click="sendImg"></u-icon>
+                    <view :style="{ display: showFile == 0 ? 'block' : 'none' }" class="mr10 ml10"><u-icon name="plus-circle" size="50" @click="sendImg"></u-icon></view>
+
                     <button @click="send" :style="{ display: showFile == 1 ? 'block' : 'none' }" class="fsbtm">发送</button>
                 </view>
             </view>
