@@ -26,7 +26,7 @@
                         {{ vuex_user.data.name }}
                         <view class="width100 flex-row justify-center items-center">
                             <view class="flex-row justify-center items-center">
-                                <u-icon name="phone" color="#AAAAAA" size="28"></u-icon>
+                                <u-icon name="phone" color="#AAAAAA" size="28rpx"></u-icon>
                             </view>
                             <view class="ml2 ft14" style="color: #aaaaaa; font-weight: 400">
                                 {{ vuex_user.phone }}
@@ -50,7 +50,7 @@
                             label="保存"
                             margin-top="20"
                             labelPos="bottom"
-                            label-color="#ffffff"
+                            labelColor="#ffffff"
                             @click="uiconGet('1')"
                         ></u-icon>
                     </view>
@@ -61,7 +61,7 @@
                             label="扫一扫"
                             margin-top="20"
                             labelPos="bottom"
-                            label-color="#ffffff"
+                            labelColor="#ffffff"
                             @click="uiconGet('2')"
                         ></u-icon>
                     </view>
@@ -72,7 +72,7 @@
                             label="分享"
                             margin-top="20"
                             labelPos="bottom"
-                            label-color="#ffffff"
+                            labelColor="#ffffff"
                             @click="uiconGet('3')"
                         ></u-icon>
                     </view>
@@ -135,7 +135,7 @@
                     >
                         <view>客户</view>
                         <view v-if="role == 1" class="absolute" style="right: 20rpx">
-                            <u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28"></u-icon>
+                            <u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></u-icon>
                         </view>
                     </view>
                     <view
@@ -153,7 +153,7 @@
                     >
                         <view>供应商</view>
                         <view v-if="role == 0" class="absolute" style="right: 20rpx">
-                            <u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28"></u-icon>
+                            <u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></u-icon>
                         </view>
                     </view>
                 </view>
