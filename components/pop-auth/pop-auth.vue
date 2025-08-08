@@ -6,16 +6,16 @@
                 height: 37vh;
                 background-image: url('https://res-oss.elist.com.cn/wxImg/order/auth.png');
                 background-size: cover;
-                border-radius: 19px;
+                border-radius: 38rpx;
                 width: 75%;
-                margin-top: 200px;
+                margin-top: 400rpx;
             "
         >
-            <view class="absolute" style="right: 0; top: 20px">
-                <u-icon @click="close" name="https://res-oss.elist.com.cn/wxImg/order/cha.png" size="40"></u-icon>
+            <view class="absolute" style="right: 0; top: 40rpx">
+                <u-icon @click="close" name="https://res-oss.elist.com.cn/wxImg/order/cha.png" size="40rpx"></u-icon>
             </view>
 
-            <view class="flex-col justify-center items-center absolute" style="bottom: 10px">
+            <view class="flex-col justify-center items-center absolute" style="bottom: 20rpx">
                 <view class="color">完善开单信息</view>
                 <view class="mt15 title ml60 mr60">您还未填写公司信息，为保证单据信息的完整性，请您填写信息</view>
 
@@ -25,9 +25,9 @@
                         background-image: url(https://res-oss.elist.com.cn/wxImg/order/auth-btn.png);
                         background-size: cover;
                         width: 70%;
-                        height: 60px;
+                        height: 120rpx;
                         color: #ffffff;
-                        font-size: 14px;
+                        font-size: 28rpx;
                         font-weight: bold;
                         line-height: normal;
                         letter-spacing: 0em;
@@ -75,7 +75,7 @@ export default {
 <style lang="scss">
 .pop-wrap {
     position: fixed;
-    top: -220px;
+    top: -440rpx;
     bottom: 0;
     left: 0;
     right: 0;
@@ -91,7 +91,7 @@ export default {
 
 .color {
     color: #333333;
-    font-size: 20px;
+    font-size: 40rpx;
     font-weight: 500;
     line-height: normal;
     text-align: center;
@@ -100,7 +100,7 @@ export default {
 
 .title {
     font-family: Source Han Sans;
-    font-size: 14px;
+    font-size: 28rpx;
     font-weight: normal;
     line-height: normal;
     text-align: center;

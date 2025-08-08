@@ -143,7 +143,7 @@
                         <view class="u-body-item u-flex u-row-between u-p-b-0 u-border-top" @click="jumpDetails(item)">
                             <view class="u-body-item-title u-line-0 mt15" style="color: #01bb74">查看订单</view>
                             <view class="mt15" style="float: right">
-                                <view class="u-body-item-title u-line-1"><u-icon name="arrow-right" color="#666666" size="28"></u-icon></view>
+                                <view class="u-body-item-title u-line-1"><u-icon name="arrow-right" color="#666666" size="28rpx"></u-icon></view>
                             </view>
                         </view>
                     </view>
