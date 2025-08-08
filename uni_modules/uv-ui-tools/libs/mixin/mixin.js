@@ -79,8 +79,9 @@ export default {
                         // 支付宝，头条小程序无法动态绑定一个数组类名，否则解析出来的结果会带有","，而导致失效
                         // #ifdef MP-ALIPAY || MP-TOUTIAO || MP-LARK || MP-BAIDU
                         .join(' ')
+						 // #endif
                 );
-                // #endif
+               
             };
         }
     },
