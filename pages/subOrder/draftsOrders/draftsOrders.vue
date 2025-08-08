@@ -184,11 +184,9 @@
 							<view class="mr20">
 								<u-line class="" color="#D8D8D8" length="50" direction="col"></u-line>
 							</view>
-							<u-icon @click="$refs.calendars.open()" class="" size="45" name="https://res-oss.elist.com.cn/wxImg/order/time.png"></u-icon>
-							<view>
-								<uv-calendars :startDate="getCurrentDateMin()" :endDate="getCurrentDate()" ref="calendars" @confirm="getConfirm" />
-							</view>
+							<u-icon class="" size="45rpx" name="https://res-oss.elist.com.cn/wxImg/order/time.png"></u-icon>
 						</view>
+						<uv-calendars :startDate="getCurrentDateMin()" :endDate="getCurrentDate()" ref="calendars" @confirm="getConfirm" />
 					</view>
 					<view class="flex-row items-center width100 pt20 pb20 u-border-bottom">
 						<text class="textcolor" style="width: 106rpx">收货人:</text>

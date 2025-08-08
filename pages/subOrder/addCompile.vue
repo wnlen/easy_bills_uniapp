@@ -80,16 +80,22 @@
 							<text style="color: #fa3534">*</text>
 							发货日期:
 						</text>
-						<input @click="$refs.calendars.open()" disabled placeholder-class="placeholder_class" type="text" v-model="receipts.creationTime" placeholder="发货日期" class="flex-1 ml15 endcolor" />
+						<input
+							@click="$refs.calendars.open()"
+							disabled
+							placeholder-class="placeholder_class"
+							type="text"
+							v-model="receipts.creationTime"
+							placeholder="发货日期"
+							class="flex-1 ml15 endcolor"
+						/>
 						<view class="flex-row" @click="$refs.calendars.open()">
 							<view class="mr20">
 								<u-line class="" color="#D8D8D8" length="50" direction="col"></u-line>
 							</view>
-							<u-icon @click="$refs.calendars.open()" class="" size="45rpx" name="https://res-oss.elist.com.cn/wxImg/order/time.png"></u-icon>
-							<view>
-								<uv-calendars :startDate="getCurrentDateMin()" :endDate="getCurrentDate()" ref="calendars" @confirm="getConfirm" />
-							</view>
+							<u-icon class="" size="45rpx" name="https://res-oss.elist.com.cn/wxImg/order/time.png"></u-icon>
 						</view>
+						<uv-calendars :startDate="getCurrentDateMin()" :endDate="getCurrentDate()" ref="calendars" @confirm="getConfirm" />
 					</view>
 					<view class="flex-row items-center width100 pt20 pb20 u-border-bottom">
 						<text class="textcolor" style="width: 106rpx">收货人:</text>
