@@ -1,31 +1,20 @@
 <template>
-  <u-transition mode="fade" :customStyle="backTopStyle" :show="show">
-    <view
-      class="u-back-top"
-      :style="[contentStyle]"
-      v-if="!$slots.default && !$slots.$default"
-      @click="backToTop"
-    >
-      <u-icon :name="icon" :custom-style="iconStyle"></u-icon>
-      <text v-if="text" class="u-back-top__text">{{ text }}</text>
-    </view>
-    <slot v-else />
-  </u-transition>
+    <u-transition mode="fade" :customStyle="backTopStyle" :show="show">
+        <view class="u-back-top" :style="[contentStyle]" v-if="!$slots.default && !$slots.$default" @click="backToTop">
+            <u-icon :name="icon" :custom-style="iconStyle"></u-icon>
+            <text v-if="text" class="u-back-top__text">{{ text }}</text>
+        </view>
+        <slot v-else />
+    </u-transition>
 </template>
 
 <script>
-import { props } from "./props";
-import { mpMixin } from "../../libs/mixin/mpMixin";
-import { mixin } from "../../libs/mixin/mixin";
-import {
-  addUnit,
-  addStyle,
-  getPx,
-  deepMerge,
-  error,
-} from "../../libs/function/index";
+import { props } from './props';
+import { mpMixin } from '../../libs/mixin/mpMixin';
+import { mixin } from '../../libs/mixin/mixin';
+import { addUnit, addStyle, getPx, deepMerge, error } from '../../libs/function/index';
 // #ifdef APP-NVUE
-const dom = weex.requireModule("dom");
+const dom = weex.requireModule('dom');
 // #endif
 /**
  * backTop 返回顶部
@@ -47,62 +36,62 @@ const dom = weex.requireModule("dom");
  * @example <u-back-top :scrollTop="scrollTop"></u-back-top>
  */
 export default {
-  name: "u-back-top",
-  mixins: [mpMixin, mixin, props],
-  computed: {
-    backTopStyle() {
-      // 动画组件样式
-      const style = {
-        bottom: addUnit(this.bottom),
-        right: addUnit(this.right),
-        width: "40px",
-        height: "40px",
-        position: "fixed",
-        zIndex: 10,
-      };
-      return style;
+    name: 'u-back-top',
+    mixins: [mpMixin, mixin, props],
+    computed: {
+        backTopStyle() {
+            // 动画组件样式
+            const style = {
+                bottom: addUnit(this.bottom),
+                right: addUnit(this.right),
+                width: '40px',
+                height: '40px',
+                position: 'fixed',
+                zIndex: 10
+            };
+            return style;
+        },
+        show() {
+            return getPx(this.scrollTop) > getPx(this.top);
+        },
+        contentStyle() {
+            const style = {};
+            let radius = 0;
+            // 是否圆形
+            if (this.mode === 'circle') {
+                radius = '100px';
+            } else {
+                radius = '4px';
+            }
+            // 为了兼容安卓nvue，只能这么分开写
+            style.borderTopLeftRadius = radius;
+            style.borderTopRightRadius = radius;
+            style.borderBottomLeftRadius = radius;
+            style.borderBottomRightRadius = radius;
+            return deepMerge(style, addStyle(this.customStyle));
+        }
     },
-    show() {
-      return getPx(this.scrollTop) > getPx(this.top);
-    },
-    contentStyle() {
-      const style = {};
-      let radius = 0;
-      // 是否圆形
-      if (this.mode === "circle") {
-        radius = "100px";
-      } else {
-        radius = "4px";
-      }
-      // 为了兼容安卓nvue，只能这么分开写
-      style.borderTopLeftRadius = radius;
-      style.borderTopRightRadius = radius;
-      style.borderBottomLeftRadius = radius;
-      style.borderBottomRightRadius = radius;
-      return deepMerge(style, addStyle(this.customStyle));
-    },
-  },
-  emits: ["click"],
-  methods: {
-    backToTop() {
-      // #ifdef APP-NVUE
-      if (!this.$parent.$refs["u-back-top"]) {
-        error(`nvue页面需要给页面最外层元素设置"ref='u-back-top'`);
-      }
-      dom.scrollToElement(this.$parent.$refs["u-back-top"], {
-        offset: 0,
-      });
-      // #endif
+    emits: ['click'],
+    methods: {
+        backToTop() {
+            // #ifdef APP-NVUE
+            if (!this.$parent.$refs['u-back-top']) {
+                error(`nvue页面需要给页面最外层元素设置"ref='u-back-top'`);
+            }
+            dom.scrollToElement(this.$parent.$refs['u-back-top'], {
+                offset: 0
+            });
+            // #endif
 
-      // #ifndef APP-NVUE
-      uni.pageScrollTo({
-        scrollTop: 0,
-        duration: this.duration,
-      });
-      // #endif
-      this.$emit("click");
-    },
-  },
+            // #ifndef APP-NVUE
+            uni.pageScrollTo({
+                scrollTop: 0,
+                duration: this.duration
+            });
+            // #endif
+            this.$emit('click');
+        }
+    }
 };
 </script>
 
@@ -112,17 +101,17 @@ $u-back-top-height: 100% !default;
 $u-back-top-background-color: #e1e1e1 !default;
 $u-back-top-tips-font-size: 12px !default;
 .u-back-top {
-  @include flex;
-  flex-direction: column;
-  align-items: center;
-  flex: $u-back-top-flex;
-  height: $u-back-top-height;
-  justify-content: center;
-  background-color: $u-back-top-background-color;
+    @include flex;
+    flex-direction: column;
+    align-items: center;
+    flex: $u-back-top-flex;
+    height: $u-back-top-height;
+    justify-content: center;
+    background-color: $u-back-top-background-color;
 
-  &__tips {
-    font-size: $u-back-top-tips-font-size;
-    transform: scale(0.8);
-  }
+    &__tips {
+        font-size: $u-back-top-tips-font-size;
+        transform: scale(0.8);
+    }
 }
 </style>

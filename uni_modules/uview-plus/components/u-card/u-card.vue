@@ -1,92 +1,84 @@
 <template>
-  <view
-    class="u-card"
-    @tap.stop="click"
-    :class="{
-      'u-border': border,
-      'u-card-full': full,
-      'u-card--border': getPx(borderRadius) > 0,
-    }"
-    :style="{
-      borderRadius: addUnit(borderRadius),
-      margin: margin,
-      boxShadow: boxShadow,
-    }"
-  >
     <view
-      v-if="showHead"
-      class="u-card__head"
-      :style="[{ padding: addUnit(paddingHead || padding) }, headStyle]"
-      :class="{
-        'u-border-bottom': headBorderBottom,
-      }"
-      @tap="headClick"
+        class="u-card"
+        @tap.stop="click"
+        :class="{
+            'u-border': border,
+            'u-card-full': full,
+            'u-card--border': getPx(borderRadius) > 0
+        }"
+        :style="{
+            borderRadius: addUnit(borderRadius),
+            margin: margin,
+            boxShadow: boxShadow
+        }"
     >
-      <view v-if="!$slots.head" class="u-flex u-flex-between">
-        <view class="u-card__head--left u-flex u-line-1" v-if="title">
-          <image
-            :src="thumb"
-            class="u-card__head--left__thumb"
-            mode="aspectFill"
-            v-if="thumb"
-            :style="{
-              height: addUnit(thumbWidth),
-              width: addUnit(thumbWidth),
-              borderRadius: thumbCircle ? '50px' : '4px',
+        <view
+            v-if="showHead"
+            class="u-card__head"
+            :style="[{ padding: addUnit(paddingHead || padding) }, headStyle]"
+            :class="{
+                'u-border-bottom': headBorderBottom
             }"
-          ></image>
-          <text
-            class="u-card__head--left__title u-line-1"
-            :style="{
-              fontSize: addUnit(titleSize),
-              color: titleColor,
-            }"
-          >
-            {{ title }}
-          </text>
+            @tap="headClick"
+        >
+            <view v-if="!$slots.head" class="u-flex u-flex-between">
+                <view class="u-card__head--left u-flex u-line-1" v-if="title">
+                    <image
+                        :src="thumb"
+                        class="u-card__head--left__thumb"
+                        mode="aspectFill"
+                        v-if="thumb"
+                        :style="{
+                            height: addUnit(thumbWidth),
+                            width: addUnit(thumbWidth),
+                            borderRadius: thumbCircle ? '50px' : '4px'
+                        }"
+                    ></image>
+                    <text
+                        class="u-card__head--left__title u-line-1"
+                        :style="{
+                            fontSize: addUnit(titleSize),
+                            color: titleColor
+                        }"
+                    >
+                        {{ title }}
+                    </text>
+                </view>
+                <view class="u-card__head--right u-line-1" v-if="subTitle">
+                    <text
+                        class="u-card__head__title__text"
+                        :style="{
+                            fontSize: addUnit(subTitleSize),
+                            color: subTitleColor
+                        }"
+                    >
+                        {{ subTitle }}
+                    </text>
+                </view>
+            </view>
+            <slot name="head" v-else />
         </view>
-        <view class="u-card__head--right u-line-1" v-if="subTitle">
-          <text
-            class="u-card__head__title__text"
-            :style="{
-              fontSize: addUnit(subTitleSize),
-              color: subTitleColor,
+        <view @tap="bodyClick" class="u-card__body" :style="[{ padding: addUnit(paddingBody || padding) }, bodyStyle]"><slot name="body" /></view>
+        <view
+            v-if="showFoot"
+            class="u-card__foot"
+            @tap="footClick"
+            :style="[{ padding: $slots.foot ? addUnit(paddingFoot || padding) : 0 }, footStyle]"
+            :class="{
+                'u-border-top': footBorderTop
             }"
-          >
-            {{ subTitle }}
-          </text>
+        >
+            <slot name="foot" />
         </view>
-      </view>
-      <slot name="head" v-else />
     </view>
-    <view
-      @tap="bodyClick"
-      class="u-card__body"
-      :style="[{ padding: addUnit(paddingBody || padding) }, bodyStyle]"
-      ><slot name="body"
-    /></view>
-    <view
-      v-if="showFoot"
-      class="u-card__foot"
-      @tap="footClick"
-      :style="[
-        { padding: $slots.foot ? addUnit(paddingFoot || padding) : 0 },
-        footStyle,
-      ]"
-      :class="{
-        'u-border-top': footBorderTop,
-      }"
-    >
-      <slot name="foot" />
-    </view>
-  </view>
 </template>
 
 <script>
-import { propsCard } from "./props";
-import { mpMixin } from "../../libs/mixin/mpMixin";
-import { mixin } from "../../libs/mixin/mixin";
-import { addStyle, addUnit, getPx } from "../../libs/function/index";
+import { propsCard } from './props';
+import { mpMixin } from '../../libs/mixin/mpMixin';
+import { mixin } from '../../libs/mixin/mixin';
+import { addStyle, addUnit, getPx } from '../../libs/function/index';
 /**
  * card 卡片
  * @description 卡片组件一般用于多个列表条目，且风格统一的场景
@@ -120,76 +112,76 @@ import { addStyle, addUnit, getPx } from "../../libs/function/index";
  * @example <u-card paddingFoot="2px 15px" title="card"></u-card>
  */
 export default {
-  name: "up-card",
-  data() {
-    return {};
-  },
-  mixins: [mpMixin, mixin, propsCard],
-  emits: ["click", "head-click", "body-click", "foot-click"],
-  methods: {
-    addStyle,
-    addUnit,
-    getPx,
-    click() {
-      this.$emit("click", this.index);
+    name: 'up-card',
+    data() {
+        return {};
     },
-    headClick() {
-      this.$emit("head-click", this.index);
-    },
-    bodyClick() {
-      this.$emit("body-click", this.index);
-    },
-    footClick() {
-      this.$emit("foot-click", this.index);
-    },
-  },
+    mixins: [mpMixin, mixin, propsCard],
+    emits: ['click', 'head-click', 'body-click', 'foot-click'],
+    methods: {
+        addStyle,
+        addUnit,
+        getPx,
+        click() {
+            this.$emit('click', this.index);
+        },
+        headClick() {
+            this.$emit('head-click', this.index);
+        },
+        bodyClick() {
+            this.$emit('body-click', this.index);
+        },
+        footClick() {
+            this.$emit('foot-click', this.index);
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
 .u-card {
-  position: relative;
-  overflow: hidden;
-  font-size: 28rpx;
-  background-color: #ffffff;
-  box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    font-size: 28rpx;
+    background-color: #ffffff;
+    box-sizing: border-box;
 
-  &-full {
-    // 如果是与屏幕之间不留空隙，应该设置左右边距为0
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    width: 100%;
-  }
-
-  &--border:after {
-    border-radius: 16rpx;
-  }
-
-  &__head {
-    &--left {
-      color: $u-main-color;
-
-      &__thumb {
-        margin-right: 16rpx;
-      }
-
-      &__title {
-        max-width: 400rpx;
-      }
+    &-full {
+        // 如果是与屏幕之间不留空隙，应该设置左右边距为0
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100%;
     }
 
-    &--right {
-      color: $u-tips-color;
-      margin-left: 6rpx;
+    &--border:after {
+        border-radius: 16rpx;
     }
-  }
 
-  &__body {
-    color: $u-content-color;
-  }
+    &__head {
+        &--left {
+            color: $u-main-color;
 
-  &__foot {
-    color: $u-tips-color;
-  }
+            &__thumb {
+                margin-right: 16rpx;
+            }
+
+            &__title {
+                max-width: 400rpx;
+            }
+        }
+
+        &--right {
+            color: $u-tips-color;
+            margin-left: 6rpx;
+        }
+    }
+
+    &__body {
+        color: $u-content-color;
+    }
+
+    &__foot {
+        color: $u-tips-color;
+    }
 }
 </style>

@@ -1,17 +1,13 @@
 <template>
-  <view
-    class="uv-radio-group"
-    :class="bemClass"
-    :style="[$uv.addStyle(this.customStyle)]"
-  >
-    <slot></slot>
-  </view>
+    <view class="uv-radio-group" :class="bemClass" :style="[$uv.addStyle(this.customStyle)]">
+        <slot></slot>
+    </view>
 </template>
 
 <script>
-import mpMixin from "@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js";
-import mixin from "@/uni_modules/uv-ui-tools/libs/mixin/mixin.js";
-import props from "./props.js";
+import mpMixin from '@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js';
+import mixin from '@/uni_modules/uv-ui-tools/libs/mixin/mixin.js';
+import props from './props.js';
 /**
  * radioRroup 单选框父组件
  * @description 单选框用于有一个选择，用户只能选择其中一个的场景。搭配uv-radio使用
@@ -37,85 +33,74 @@ import props from "./props.js";
  * @example <uv-radio-group v-model="value"></uv-radio-group>
  */
 export default {
-  name: "uv-radio-group",
-  mixins: [mpMixin, mixin, props],
-  computed: {
-    // 这里computed的变量，都是子组件uv-radio需要用到的，由于头条小程序的兼容性差异，子组件无法实时监听父组件参数的变化
-    // 所以需要手动通知子组件，这里返回一个parentData变量，供watch监听，在其中去通知每一个子组件重新从父组件(uv-radio-group)
-    // 拉取父组件新的变化后的参数
-    parentData() {
-      const value = this.value || this.modelValue;
-      return [
-        value,
-        this.disabled,
-        this.inactiveColor,
-        this.activeColor,
-        this.size,
-        this.labelDisabled,
-        this.shape,
-        this.iconSize,
-        this.borderBottom,
-        this.placement,
-      ];
-    },
-    bemClass() {
-      // this.bem为一个computed变量，在mixin中
-      return this.bem("radio-group", ["placement"]);
-    },
-  },
-  watch: {
-    // 当父组件需要子组件需要共享的参数发生了变化，手动通知子组件
-    parentData() {
-      if (this.children.length) {
-        this.children.map((child) => {
-          // 判断子组件(uv-radio)如果有init方法的话，就就执行(执行的结果是子组件重新从父组件拉取了最新的值)
-          typeof child.init === "function" && child.init();
-        });
-      }
-    },
-  },
-  data() {
-    return {};
-  },
-  created() {
-    this.children = [];
-  },
-  methods: {
-    // 将其他的radio设置为未选中的状态
-    unCheckedOther(childInstance) {
-      this.children.map((child) => {
-        // 所有子radio中，被操作组件实例的checked的值无需修改
-        if (childInstance !== child) {
-          child.checked = false;
+    name: 'uv-radio-group',
+    mixins: [mpMixin, mixin, props],
+    computed: {
+        // 这里computed的变量，都是子组件uv-radio需要用到的，由于头条小程序的兼容性差异，子组件无法实时监听父组件参数的变化
+        // 所以需要手动通知子组件，这里返回一个parentData变量，供watch监听，在其中去通知每一个子组件重新从父组件(uv-radio-group)
+        // 拉取父组件新的变化后的参数
+        parentData() {
+            const value = this.value || this.modelValue;
+            return [value, this.disabled, this.inactiveColor, this.activeColor, this.size, this.labelDisabled, this.shape, this.iconSize, this.borderBottom, this.placement];
+        },
+        bemClass() {
+            // this.bem为一个computed变量，在mixin中
+            return this.bem('radio-group', ['placement']);
         }
-      });
-      const { name } = childInstance;
-      // 通过emit事件，设置父组件通过v-model双向绑定的值
-      // #ifdef VUE2
-      this.$emit("input", name);
-      // #endif
-      // #ifdef VUE3
-      this.$emit("update:modelValue", name);
-      // #endif
-      // 发出事件
-      this.$emit("change", name);
     },
-  },
+    watch: {
+        // 当父组件需要子组件需要共享的参数发生了变化，手动通知子组件
+        parentData() {
+            if (this.children.length) {
+                this.children.map((child) => {
+                    // 判断子组件(uv-radio)如果有init方法的话，就就执行(执行的结果是子组件重新从父组件拉取了最新的值)
+                    typeof child.init === 'function' && child.init();
+                });
+            }
+        }
+    },
+    data() {
+        return {};
+    },
+    created() {
+        this.children = [];
+    },
+    methods: {
+        // 将其他的radio设置为未选中的状态
+        unCheckedOther(childInstance) {
+            this.children.map((child) => {
+                // 所有子radio中，被操作组件实例的checked的值无需修改
+                if (childInstance !== child) {
+                    child.checked = false;
+                }
+            });
+            const { name } = childInstance;
+            // 通过emit事件，设置父组件通过v-model双向绑定的值
+            // #ifdef VUE2
+            this.$emit('input', name);
+            // #endif
+            // #ifdef VUE3
+            this.$emit('update:modelValue', name);
+            // #endif
+            // 发出事件
+            this.$emit('change', name);
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
-@import "@/uni_modules/uv-ui-tools/libs/css/components.scss";
+@import '@/uni_modules/uv-ui-tools/libs/css/components.scss';
 .uv-radio-group {
-  flex: 1;
+    flex: 1;
 
-  &--row {
-    @include flex;
-    flex-wrap: wrap;
-  }
+    &--row {
+        @include flex;
+        flex-wrap: wrap;
+    }
 
-  &--column {
-    @include flex(column);
-  }
+    &--column {
+        @include flex(column);
+    }
 }
 </style>

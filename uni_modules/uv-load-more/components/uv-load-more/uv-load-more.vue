@@ -1,65 +1,40 @@
 <template>
-  <view
-    class="uv-loadmore"
-    :style="[
-      {
-        backgroundColor: bgColor,
-        marginBottom: $uv.addUnit(marginBottom),
-        marginTop: $uv.addUnit(marginTop),
-        height: $uv.addUnit(height),
-      },
-      $uv.addStyle(customStyle),
-    ]"
-  >
-    <uv-line
-      length="140rpx"
-      :color="lineColor"
-      :hairline="false"
-      :dashed="dashed"
-      v-if="line"
-    ></uv-line>
-    <!-- 加载中和没有更多的状态才显示两边的横线 -->
     <view
-      :class="status == 'loadmore' || status == 'nomore' ? 'uv-more' : ''"
-      class="uv-loadmore__content"
-    >
-      <view
-        class="uv-loadmore__content__icon-wrap"
-        v-if="status === 'loading' && icon"
-      >
-        <uv-loading-icon
-          :color="iconColor"
-          :size="iconSize"
-          :mode="loadingIcon"
-        ></uv-loading-icon>
-      </view>
-      <!-- 如果没有更多的状态下，显示内容为dot（粗点），加载特定样式 -->
-      <text
-        class="uv-line-1"
-        :style="[loadTextStyle]"
-        :class="[
-          status == 'nomore' && isDot == true
-            ? 'uv-loadmore__content__dot-text'
-            : 'uv-loadmore__content__text',
+        class="uv-loadmore"
+        :style="[
+            {
+                backgroundColor: bgColor,
+                marginBottom: $uv.addUnit(marginBottom),
+                marginTop: $uv.addUnit(marginTop),
+                height: $uv.addUnit(height)
+            },
+            $uv.addStyle(customStyle)
         ]"
-        @tap="loadMore"
-        >{{ showText }}</text
-      >
+    >
+        <uv-line length="140rpx" :color="lineColor" :hairline="false" :dashed="dashed" v-if="line"></uv-line>
+        <!-- 加载中和没有更多的状态才显示两边的横线 -->
+        <view :class="status == 'loadmore' || status == 'nomore' ? 'uv-more' : ''" class="uv-loadmore__content">
+            <view class="uv-loadmore__content__icon-wrap" v-if="status === 'loading' && icon">
+                <uv-loading-icon :color="iconColor" :size="iconSize" :mode="loadingIcon"></uv-loading-icon>
+            </view>
+            <!-- 如果没有更多的状态下，显示内容为dot（粗点），加载特定样式 -->
+            <text
+                class="uv-line-1"
+                :style="[loadTextStyle]"
+                :class="[status == 'nomore' && isDot == true ? 'uv-loadmore__content__dot-text' : 'uv-loadmore__content__text']"
+                @tap="loadMore"
+            >
+                {{ showText }}
+            </text>
+        </view>
+        <uv-line length="140rpx" :color="lineColor" :hairline="false" :dashed="dashed" v-if="line"></uv-line>
     </view>
-    <uv-line
-      length="140rpx"
-      :color="lineColor"
-      :hairline="false"
-      :dashed="dashed"
-      v-if="line"
-    ></uv-line>
-  </view>
 </template>
 
 <script>
-import mpMixin from "@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js";
-import mixin from "@/uni_modules/uv-ui-tools/libs/mixin/mixin.js";
-import props from "./props.js";
+import mpMixin from '@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js';
+import mixin from '@/uni_modules/uv-ui-tools/libs/mixin/mixin.js';
+import props from './props.js';
 
 /**
  * loadmore 加载更多
@@ -87,73 +62,73 @@ import props from "./props.js";
  * @example <uv-loadmore :status="status" icon-type="iconType" load-text="loadText" />
  */
 export default {
-  name: "uv-loadmore",
-  mixins: [mpMixin, mixin, props],
-  data() {
-    return {
-      // 粗点
-      dotText: "●",
-    };
-  },
-  computed: {
-    // 加载的文字显示的样式
-    loadTextStyle() {
-      return {
-        color: this.color,
-        fontSize: this.$uv.addUnit(this.fontSize),
-        lineHeight: this.$uv.addUnit(this.fontSize),
-        backgroundColor: this.bgColor,
-      };
+    name: 'uv-loadmore',
+    mixins: [mpMixin, mixin, props],
+    data() {
+        return {
+            // 粗点
+            dotText: '●'
+        };
     },
-    // 显示的提示文字
-    showText() {
-      let text = "";
-      if (this.status == "loadmore") text = this.loadmoreText;
-      else if (this.status == "loading") text = this.loadingText;
-      else if (this.status == "nomore" && this.isDot) text = this.dotText;
-      else text = this.nomoreText;
-      return text;
+    computed: {
+        // 加载的文字显示的样式
+        loadTextStyle() {
+            return {
+                color: this.color,
+                fontSize: this.$uv.addUnit(this.fontSize),
+                lineHeight: this.$uv.addUnit(this.fontSize),
+                backgroundColor: this.bgColor
+            };
+        },
+        // 显示的提示文字
+        showText() {
+            let text = '';
+            if (this.status == 'loadmore') text = this.loadmoreText;
+            else if (this.status == 'loading') text = this.loadingText;
+            else if (this.status == 'nomore' && this.isDot) text = this.dotText;
+            else text = this.nomoreText;
+            return text;
+        }
     },
-  },
-  methods: {
-    loadMore() {
-      // 只有在“加载更多”的状态下才发送点击事件，内容不满一屏时无法触发底部上拉事件，所以需要点击来触发
-      if (this.status == "loadmore") this.$emit("loadmore");
-    },
-  },
+    methods: {
+        loadMore() {
+            // 只有在“加载更多”的状态下才发送点击事件，内容不满一屏时无法触发底部上拉事件，所以需要点击来触发
+            if (this.status == 'loadmore') this.$emit('loadmore');
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
 $show-lines: 1;
-@import "@/uni_modules/uv-ui-tools/libs/css/variable.scss";
-@import "@/uni_modules/uv-ui-tools/libs/css/components.scss";
-@import "@/uni_modules/uv-ui-tools/libs/css/color.scss";
+@import '@/uni_modules/uv-ui-tools/libs/css/variable.scss';
+@import '@/uni_modules/uv-ui-tools/libs/css/components.scss';
+@import '@/uni_modules/uv-ui-tools/libs/css/color.scss';
 .uv-loadmore {
-  @include flex(row);
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-
-  &__content {
-    margin: 0 15px;
     @include flex(row);
     align-items: center;
     justify-content: center;
+    flex: 1;
 
-    &__icon-wrap {
-      margin-right: 8px;
-    }
+    &__content {
+        margin: 0 15px;
+        @include flex(row);
+        align-items: center;
+        justify-content: center;
 
-    &__text {
-      font-size: 14px;
-      color: $uv-content-color;
-    }
+        &__icon-wrap {
+            margin-right: 8px;
+        }
 
-    &__dot-text {
-      font-size: 15px;
-      color: $uv-tips-color;
+        &__text {
+            font-size: 14px;
+            color: $uv-content-color;
+        }
+
+        &__dot-text {
+            font-size: 15px;
+            color: $uv-tips-color;
+        }
     }
-  }
 }
 </style>

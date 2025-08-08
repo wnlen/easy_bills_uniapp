@@ -1,11 +1,11 @@
 ## 1.0.3（2023-12-06）
 
-1. 增加z-index参数
-2. 增加overlay参数
+1. 增加 z-index 参数
+2. 增加 overlay 参数
 
 ## 1.0.2（2023-10-13）
 
-1. unmounted兼容vue3
+1. unmounted 兼容 vue3
 
 ## 1.0.1（2023-05-16）
 

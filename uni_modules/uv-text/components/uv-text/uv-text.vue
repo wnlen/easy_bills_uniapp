@@ -1,81 +1,54 @@
 <template>
-  <view
-    class="uv-text"
-    :class="[]"
-    v-if="show"
-    :style="{
-      margin: margin,
-      justifyContent:
-        align === 'left'
-          ? 'flex-start'
-          : align === 'center'
-            ? 'center'
-            : 'flex-end',
-    }"
-    @tap="clickHandler"
-  >
-    <text
-      :class="['uv-text__price', type && `uv-text__value--${type}`]"
-      v-if="mode === 'price'"
-      :style="[valueStyle]"
-      >￥</text
+    <view
+        class="uv-text"
+        :class="[]"
+        v-if="show"
+        :style="{
+            margin: margin,
+            justifyContent: align === 'left' ? 'flex-start' : align === 'center' ? 'center' : 'flex-end'
+        }"
+        @tap="clickHandler"
     >
-    <view class="uv-text__prefix-icon" v-if="prefixIcon">
-      <uv-icon
-        :name="prefixIcon"
-        :customStyle="$uv.addStyle(iconStyle)"
-      ></uv-icon>
+        <text :class="['uv-text__price', type && `uv-text__value--${type}`]" v-if="mode === 'price'" :style="[valueStyle]">￥</text>
+        <view class="uv-text__prefix-icon" v-if="prefixIcon">
+            <uv-icon :name="prefixIcon" :customStyle="$uv.addStyle(iconStyle)"></uv-icon>
+        </view>
+        <uv-link v-if="mode === 'link'" :text="value" :href="href" underLine></uv-link>
+        <template v-else-if="openType && isMp">
+            <button
+                class="uv-reset-button uv-text__value"
+                :style="[valueStyle]"
+                :openType="openType"
+                @getuserinfo="onGetUserInfo"
+                @contact="onContact"
+                @getphonenumber="onGetPhoneNumber"
+                @error="onError"
+                @launchapp="onLaunchApp"
+                @opensetting="onOpenSetting"
+                :lang="lang"
+                :session-from="sessionFrom"
+                :send-message-title="sendMessageTitle"
+                :send-message-path="sendMessagePath"
+                :send-message-img="sendMessageImg"
+                :show-message-card="showMessageCard"
+                :app-parameter="appParameter"
+            >
+                {{ value }}
+            </button>
+        </template>
+        <text v-else class="uv-text__value" :style="[valueStyle]" :class="[type && `uv-text__value--${type}`, lines && `uv-line-${lines}`]">{{ value }}</text>
+        <view class="uv-text__suffix-icon" v-if="suffixIcon">
+            <uv-icon :name="suffixIcon" :customStyle="$uv.addStyle(iconStyle)"></uv-icon>
+        </view>
     </view>
-    <uv-link
-      v-if="mode === 'link'"
-      :text="value"
-      :href="href"
-      underLine
-    ></uv-link>
-    <template v-else-if="openType && isMp">
-      <button
-        class="uv-reset-button uv-text__value"
-        :style="[valueStyle]"
-        :openType="openType"
-        @getuserinfo="onGetUserInfo"
-        @contact="onContact"
-        @getphonenumber="onGetPhoneNumber"
-        @error="onError"
-        @launchapp="onLaunchApp"
-        @opensetting="onOpenSetting"
-        :lang="lang"
-        :session-from="sessionFrom"
-        :send-message-title="sendMessageTitle"
-        :send-message-path="sendMessagePath"
-        :send-message-img="sendMessageImg"
-        :show-message-card="showMessageCard"
-        :app-parameter="appParameter"
-      >
-        {{ value }}
-      </button>
-    </template>
-    <text
-      v-else
-      class="uv-text__value"
-      :style="[valueStyle]"
-      :class="[type && `uv-text__value--${type}`, lines && `uv-line-${lines}`]"
-      >{{ value }}</text
-    >
-    <view class="uv-text__suffix-icon" v-if="suffixIcon">
-      <uv-icon
-        :name="suffixIcon"
-        :customStyle="$uv.addStyle(iconStyle)"
-      ></uv-icon>
-    </view>
-  </view>
 </template>
 <script>
-import value from "./value.js";
-import mpMixin from "@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js";
-import mixin from "@/uni_modules/uv-ui-tools/libs/mixin/mixin.js";
-import button from "@/uni_modules/uv-ui-tools/libs/mixin/button.js";
-import openType from "@/uni_modules/uv-ui-tools/libs/mixin/openType.js";
-import props from "./props.js";
+import value from './value.js';
+import mpMixin from '@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js';
+import mixin from '@/uni_modules/uv-ui-tools/libs/mixin/mixin.js';
+import button from '@/uni_modules/uv-ui-tools/libs/mixin/button.js';
+import openType from '@/uni_modules/uv-ui-tools/libs/mixin/openType.js';
+import props from './props.js';
 /**
  * Text 文本
  * @description 此组件集成了文本类在项目中的常用功能，包括状态，拨打电话，格式化日期，*替换，超链接...等功能。 您大可不必在使用特殊文本时自己定义，text组件几乎涵盖您能使用的大部分场景。
@@ -105,126 +78,116 @@ import props from "./props.js";
  * @example <uv-text text="我用十年青春,赴你最后之约"></uv-text>
  */
 export default {
-  name: "uv-text",
-  emits: ["click"],
-  // #ifdef MP
-  mixins: [mpMixin, mixin, value, button, openType, props],
-  // #endif
-  // #ifndef MP
-  mixins: [mpMixin, mixin, value, props],
-  // #endif
-  computed: {
-    valueStyle() {
-      const style = {
-        textDecoration: this.decoration,
-        fontWeight: this.bold ? "bold" : "normal",
-        wordWrap: this.wordWrap,
-        fontSize: this.$uv.addUnit(this.size),
-      };
-      !this.type && (style.color = this.color);
-      this.isNvue && this.lines && (style.lines = this.lines);
-      if (
-        this.isNvue &&
-        this.mode != "price" &&
-        !this.prefixIcon &&
-        !this.suffixIcon
-      ) {
-        style.flex = 1;
-        style.textAlign =
-          this.align === "left"
-            ? "flex-start"
-            : this.align === "center"
-              ? "center"
-              : "right";
-      }
-      this.lineHeight && (style.lineHeight = this.$uv.addUnit(this.lineHeight));
-      !this.isNvue && this.block && (style.display = "block");
-      return this.$uv.deepMerge(style, this.$uv.addStyle(this.customStyle));
+    name: 'uv-text',
+    emits: ['click'],
+    // #ifdef MP
+    mixins: [mpMixin, mixin, value, button, openType, props],
+    // #endif
+    // #ifndef MP
+    mixins: [mpMixin, mixin, value, props],
+    // #endif
+    computed: {
+        valueStyle() {
+            const style = {
+                textDecoration: this.decoration,
+                fontWeight: this.bold ? 'bold' : 'normal',
+                wordWrap: this.wordWrap,
+                fontSize: this.$uv.addUnit(this.size)
+            };
+            !this.type && (style.color = this.color);
+            this.isNvue && this.lines && (style.lines = this.lines);
+            if (this.isNvue && this.mode != 'price' && !this.prefixIcon && !this.suffixIcon) {
+                style.flex = 1;
+                style.textAlign = this.align === 'left' ? 'flex-start' : this.align === 'center' ? 'center' : 'right';
+            }
+            this.lineHeight && (style.lineHeight = this.$uv.addUnit(this.lineHeight));
+            !this.isNvue && this.block && (style.display = 'block');
+            return this.$uv.deepMerge(style, this.$uv.addStyle(this.customStyle));
+        },
+        isNvue() {
+            let nvue = false;
+            // #ifdef APP-NVUE
+            nvue = true;
+            // #endif
+            return nvue;
+        },
+        isMp() {
+            let mp = false;
+            // #ifdef MP
+            mp = true;
+            // #endif
+            return mp;
+        }
     },
-    isNvue() {
-      let nvue = false;
-      // #ifdef APP-NVUE
-      nvue = true;
-      // #endif
-      return nvue;
+    data() {
+        return {};
     },
-    isMp() {
-      let mp = false;
-      // #ifdef MP
-      mp = true;
-      // #endif
-      return mp;
-    },
-  },
-  data() {
-    return {};
-  },
-  methods: {
-    clickHandler() {
-      // 如果为手机号模式，拨打电话
-      if (this.call && this.mode === "phone") {
-        uni.makePhoneCall({
-          phoneNumber: this.text,
-        });
-      }
-      this.$emit("click");
-    },
-  },
+    methods: {
+        clickHandler() {
+            // 如果为手机号模式，拨打电话
+            if (this.call && this.mode === 'phone') {
+                uni.makePhoneCall({
+                    phoneNumber: this.text
+                });
+            }
+            this.$emit('click');
+        }
+    }
 };
 </script>
 <style lang="scss" scoped>
 $show-lines: 1;
 $show-reset-button: 1;
-@import "@/uni_modules/uv-ui-tools/libs/css/variable.scss";
-@import "@/uni_modules/uv-ui-tools/libs/css/components.scss";
-@import "@/uni_modules/uv-ui-tools/libs/css/color.scss";
+@import '@/uni_modules/uv-ui-tools/libs/css/variable.scss';
+@import '@/uni_modules/uv-ui-tools/libs/css/components.scss';
+@import '@/uni_modules/uv-ui-tools/libs/css/color.scss';
 .uv-text {
-  @include flex(row);
-  align-items: center;
-  flex-wrap: nowrap;
-  flex: 1;
-  /* #ifndef APP-NVUE */
-  width: 100%;
-  /* #endif */
-  &__price {
-    font-size: 14px;
-    color: $uv-content-color;
-  }
-  &__value {
-    font-size: 14px;
-    @include flex;
-    color: $uv-content-color;
-    flex-wrap: wrap;
-    // flex: 1;
-    text-overflow: ellipsis;
+    @include flex(row);
     align-items: center;
-    &--primary {
-      color: $uv-primary;
+    flex-wrap: nowrap;
+    flex: 1;
+    /* #ifndef APP-NVUE */
+    width: 100%;
+    /* #endif */
+    &__price {
+        font-size: 14px;
+        color: $uv-content-color;
     }
-    &--warning {
-      color: $uv-warning;
+    &__value {
+        font-size: 14px;
+        @include flex;
+        color: $uv-content-color;
+        flex-wrap: wrap;
+        // flex: 1;
+        text-overflow: ellipsis;
+        align-items: center;
+        &--primary {
+            color: $uv-primary;
+        }
+        &--warning {
+            color: $uv-warning;
+        }
+        &--success {
+            color: $uv-success;
+        }
+        &--info {
+            color: $uv-info;
+        }
+        &--error {
+            color: $uv-error;
+        }
+        &--main {
+            color: $uv-main-color;
+        }
+        &--content {
+            color: $uv-content-color;
+        }
+        &--tips {
+            color: $uv-tips-color;
+        }
+        &--light {
+            color: $uv-light-color;
+        }
     }
-    &--success {
-      color: $uv-success;
-    }
-    &--info {
-      color: $uv-info;
-    }
-    &--error {
-      color: $uv-error;
-    }
-    &--main {
-      color: $uv-main-color;
-    }
-    &--content {
-      color: $uv-content-color;
-    }
-    &--tips {
-      color: $uv-tips-color;
-    }
-    &--light {
-      color: $uv-light-color;
-    }
-  }
 }
 </style>

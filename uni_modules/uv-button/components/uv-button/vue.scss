@@ -1,4 +1,4 @@
-@import "@/uni_modules/uv-ui-tools/libs/css/color.scss";
+@import '@/uni_modules/uv-ui-tools/libs/css/color.scss';
 // nvue下hover-class无效
 $uv-button-before-top: 50% !default;
 $uv-button-before-left: 50% !default;
@@ -16,78 +16,78 @@ $uv-button-plain-uv-button-error-color: $uv-error;
 $uv-button-plain-uv-button-warning-color: $uv-warning;
 
 .uv-button-wrapper {
-  position: relative;
-  &--dis {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 9;
-  }
+    position: relative;
+    &--dis {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 9;
+    }
 }
 
 .uv-button {
-  width: 100%;
+    width: 100%;
 
-  &__text {
-    white-space: nowrap;
-    line-height: 1;
-  }
+    &__text {
+        white-space: nowrap;
+        line-height: 1;
+    }
 
-  &:before {
-    position: absolute;
-    top: $uv-button-before-top;
-    left: $uv-button-before-left;
-    width: $uv-button-before-width;
-    height: $uv-button-before-height;
-    border: inherit;
-    border-radius: inherit;
-    transform: $uv-button-before-transform;
-    opacity: $uv-button-before-opacity;
-    content: " ";
-    background-color: $uv-button-before-background-color;
-    border-color: $uv-button-before-border-color;
-  }
-
-  &--active {
     &:before {
-      opacity: 0.15;
+        position: absolute;
+        top: $uv-button-before-top;
+        left: $uv-button-before-left;
+        width: $uv-button-before-width;
+        height: $uv-button-before-height;
+        border: inherit;
+        border-radius: inherit;
+        transform: $uv-button-before-transform;
+        opacity: $uv-button-before-opacity;
+        content: ' ';
+        background-color: $uv-button-before-background-color;
+        border-color: $uv-button-before-border-color;
     }
-  }
 
-  &__icon + &__text:not(:empty),
-  &__loading-text {
-    margin-left: $uv-button-icon-margin-left;
-  }
-
-  &--plain {
-    &.uv-button--primary {
-      color: $uv-primary;
+    &--active {
+        &:before {
+            opacity: 0.15;
+        }
     }
-  }
 
-  &--plain {
-    &.uv-button--info {
-      color: $uv-button-plain-uv-button-info-color;
+    &__icon + &__text:not(:empty),
+    &__loading-text {
+        margin-left: $uv-button-icon-margin-left;
     }
-  }
 
-  &--plain {
-    &.uv-button--success {
-      color: $uv-button-plain-uv-button-success-color;
+    &--plain {
+        &.uv-button--primary {
+            color: $uv-primary;
+        }
     }
-  }
 
-  &--plain {
-    &.uv-button--error {
-      color: $uv-button-plain-uv-button-error-color;
+    &--plain {
+        &.uv-button--info {
+            color: $uv-button-plain-uv-button-info-color;
+        }
     }
-  }
 
-  &--plain {
-    &.uv-button--warning {
-      color: $uv-button-plain-uv-button-warning-color;
+    &--plain {
+        &.uv-button--success {
+            color: $uv-button-plain-uv-button-success-color;
+        }
     }
-  }
+
+    &--plain {
+        &.uv-button--error {
+            color: $uv-button-plain-uv-button-error-color;
+        }
+    }
+
+    &--plain {
+        &.uv-button--warning {
+            color: $uv-button-plain-uv-button-warning-color;
+        }
+    }
 }

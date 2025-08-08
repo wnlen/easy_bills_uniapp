@@ -1,81 +1,56 @@
 <template>
-  <uv-popup
-    ref="keyboardPopup"
-    mode="bottom"
-    :overlay="overlay"
-    :closeOnClickOverlay="closeOnClickOverlay"
-    :safeAreaInsetBottom="safeAreaInsetBottom"
-    :zIndex="zIndex"
-    :customStyle="{ backgroundColor: 'rgb(214, 218, 220)' }"
-    @change="popupChange"
-  >
-    <view class="uv-keyboard">
-      <slot />
-      <view class="uv-keyboard__tooltip" v-if="tooltip">
-        <view hover-class="uv-hover-class" :hover-stay-time="100">
-          <text
-            class="uv-keyboard__tooltip__item uv-keyboard__tooltip__cancel"
-            v-if="showCancel"
-            @tap="onCancel"
-            >{{ showCancel && cancelText }}</text
-          >
+    <uv-popup
+        ref="keyboardPopup"
+        mode="bottom"
+        :overlay="overlay"
+        :closeOnClickOverlay="closeOnClickOverlay"
+        :safeAreaInsetBottom="safeAreaInsetBottom"
+        :zIndex="zIndex"
+        :customStyle="{ backgroundColor: 'rgb(214, 218, 220)' }"
+        @change="popupChange"
+    >
+        <view class="uv-keyboard">
+            <slot />
+            <view class="uv-keyboard__tooltip" v-if="tooltip">
+                <view hover-class="uv-hover-class" :hover-stay-time="100">
+                    <text class="uv-keyboard__tooltip__item uv-keyboard__tooltip__cancel" v-if="showCancel" @tap="onCancel">{{ showCancel && cancelText }}</text>
+                </view>
+                <view>
+                    <text v-if="showTips" class="uv-keyboard__tooltip__item uv-keyboard__tooltip__tips">
+                        {{ tips ? tips : mode == 'number' ? '数字键盘' : mode == 'card' ? '身份证键盘' : '车牌号键盘' }}
+                    </text>
+                </view>
+                <view hover-class="uv-hover-class" :hover-stay-time="100">
+                    <text v-if="showConfirm" @tap="onConfirm" class="uv-keyboard__tooltip__item uv-keyboard__tooltip__submit" hover-class="uv-hover-class">
+                        {{ showConfirm && confirmText }}
+                    </text>
+                </view>
+            </view>
+            <template v-if="mode == 'number' || mode == 'card'">
+                <uv-keyboard-number :random="random" @backspace="backspace" @change="change" :mode="mode" :dotDisabled="dotDisabled"></uv-keyboard-number>
+            </template>
+            <template v-else>
+                <uv-keyboard-car
+                    ref="uvKeyboardCarRef"
+                    :random="random"
+                    :autoChange="autoChange"
+                    :disKeys="disKeys"
+                    :customabc="customabc"
+                    @backspace="backspace"
+                    @change="change"
+                    @changeCarInputMode="changeCarInputMode"
+                >
+                    <slot name="abc"></slot>
+                </uv-keyboard-car>
+            </template>
         </view>
-        <view>
-          <text
-            v-if="showTips"
-            class="uv-keyboard__tooltip__item uv-keyboard__tooltip__tips"
-            >{{
-              tips
-                ? tips
-                : mode == "number"
-                  ? "数字键盘"
-                  : mode == "card"
-                    ? "身份证键盘"
-                    : "车牌号键盘"
-            }}</text
-          >
-        </view>
-        <view hover-class="uv-hover-class" :hover-stay-time="100">
-          <text
-            v-if="showConfirm"
-            @tap="onConfirm"
-            class="uv-keyboard__tooltip__item uv-keyboard__tooltip__submit"
-            hover-class="uv-hover-class"
-            >{{ showConfirm && confirmText }}</text
-          >
-        </view>
-      </view>
-      <template v-if="mode == 'number' || mode == 'card'">
-        <uv-keyboard-number
-          :random="random"
-          @backspace="backspace"
-          @change="change"
-          :mode="mode"
-          :dotDisabled="dotDisabled"
-        ></uv-keyboard-number>
-      </template>
-      <template v-else>
-        <uv-keyboard-car
-          ref="uvKeyboardCarRef"
-          :random="random"
-          :autoChange="autoChange"
-          :disKeys="disKeys"
-          :customabc="customabc"
-          @backspace="backspace"
-          @change="change"
-          @changeCarInputMode="changeCarInputMode"
-        >
-          <slot name="abc"></slot>
-        </uv-keyboard-car>
-      </template>
-    </view>
-  </uv-popup>
+    </uv-popup>
 </template>
 
 <script>
-import mpMixin from "@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js";
-import mixin from "@/uni_modules/uv-ui-tools/libs/mixin/mixin.js";
-import props from "./props.js";
+import mpMixin from '@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js';
+import mixin from '@/uni_modules/uv-ui-tools/libs/mixin/mixin.js';
+import props from './props.js';
 /**
  * keyboard 键盘
  * @description 此为uViw自定义的键盘面板，内含了数字键盘，车牌号键，身份证号键盘3中模式，都有可以打乱按键顺序的选项。
@@ -103,87 +78,79 @@ import props from "./props.js";
  * @example <uv-keyboard mode="number" v-model="show"></uv-keyboard>
  */
 export default {
-  name: "uv-keyboard",
-  mixins: [mpMixin, mixin, props],
-  emits: [
-    "close",
-    "change",
-    "confirm",
-    "cancel",
-    "backspace",
-    "changeCarInputMode",
-  ],
-  methods: {
-    open() {
-      this.$refs.keyboardPopup.open();
-    },
-    close() {
-      this.$refs.keyboardPopup.close();
-    },
-    popupChange(e) {
-      if (!e.show) this.$emit("close");
-    },
-    change(e) {
-      this.$emit("change", e);
-    },
-    // 输入完成
-    onConfirm() {
-      this.$emit("confirm");
-      if (this.closeOnClickConfirm) this.close();
-    },
-    // 取消输入
-    onCancel() {
-      this.$emit("cancel");
-      this.close();
-    },
-    // 退格键
-    backspace() {
-      this.$emit("backspace");
-    },
-    // car模式切换中文|英文方法
-    changeCarInputMode(e) {
-      this.$emit("changeCarInputMode", e);
-    },
-    changeCarMode() {
-      this.$refs.uvKeyboardCarRef &&
-        this.$refs.uvKeyboardCarRef.changeCarInputMode();
-    },
-  },
+    name: 'uv-keyboard',
+    mixins: [mpMixin, mixin, props],
+    emits: ['close', 'change', 'confirm', 'cancel', 'backspace', 'changeCarInputMode'],
+    methods: {
+        open() {
+            this.$refs.keyboardPopup.open();
+        },
+        close() {
+            this.$refs.keyboardPopup.close();
+        },
+        popupChange(e) {
+            if (!e.show) this.$emit('close');
+        },
+        change(e) {
+            this.$emit('change', e);
+        },
+        // 输入完成
+        onConfirm() {
+            this.$emit('confirm');
+            if (this.closeOnClickConfirm) this.close();
+        },
+        // 取消输入
+        onCancel() {
+            this.$emit('cancel');
+            this.close();
+        },
+        // 退格键
+        backspace() {
+            this.$emit('backspace');
+        },
+        // car模式切换中文|英文方法
+        changeCarInputMode(e) {
+            this.$emit('changeCarInputMode', e);
+        },
+        changeCarMode() {
+            this.$refs.uvKeyboardCarRef && this.$refs.uvKeyboardCarRef.changeCarInputMode();
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
 $show-hover: 1;
-@import "@/uni_modules/uv-ui-tools/libs/css/variable.scss";
-@import "@/uni_modules/uv-ui-tools/libs/css/components.scss";
-@import "@/uni_modules/uv-ui-tools/libs/css/color.scss";
+@import '@/uni_modules/uv-ui-tools/libs/css/variable.scss';
+@import '@/uni_modules/uv-ui-tools/libs/css/components.scss';
+@import '@/uni_modules/uv-ui-tools/libs/css/color.scss';
 .uv-keyboard {
-  &__tooltip {
-    @include flex;
-    justify-content: space-between;
-    background-color: #ffffff;
-    padding: 14px 12px;
+    &__tooltip {
+        @include flex;
+        justify-content: space-between;
+        background-color: #ffffff;
+        padding: 14px 12px;
 
-    &__item {
-      color: #333333;
-      flex: 1;
-      text-align: center;
-      font-size: 15px;
-    }
+        &__item {
+            color: #333333;
+            flex: 1;
+            text-align: center;
+            font-size: 15px;
+        }
 
-    &__submit {
-      text-align: right;
-      color: $uv-primary;
-    }
+        &__submit {
+            text-align: right;
+            color: $uv-primary;
+        }
 
-    &__cancel {
-      text-align: left;
-      color: #888888;
-    }
+        &__cancel {
+            text-align: left;
+            color: #888888;
+        }
 
-    &__tips {
-      color: $uv-tips-color;
+        &__tips {
+            color: $uv-tips-color;
+        }
     }
-  }
 }
 </style>

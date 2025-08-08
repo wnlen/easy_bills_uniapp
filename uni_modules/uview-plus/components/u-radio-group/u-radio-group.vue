@@ -1,14 +1,14 @@
 <template>
-  <view class="u-radio-group" :class="bemClass" :style="radioGroupStyle">
-    <slot></slot>
-  </view>
+    <view class="u-radio-group" :class="bemClass" :style="radioGroupStyle">
+        <slot></slot>
+    </view>
 </template>
 
 <script>
-import { props } from "./props";
-import { mpMixin } from "../../libs/mixin/mpMixin";
-import { mixin } from "../../libs/mixin/mixin";
-import { addUnit, addStyle, deepMerge } from "../../libs/function/index";
+import { props } from './props';
+import { mpMixin } from '../../libs/mixin/mpMixin';
+import { mixin } from '../../libs/mixin/mixin';
+import { addUnit, addStyle, deepMerge } from '../../libs/function/index';
 
 /**
  * radioRroup 单选框父组件
@@ -36,110 +36,99 @@ import { addUnit, addStyle, deepMerge } from "../../libs/function/index";
  * @example <u-radio-group v-model="value"></u-radio-group>
  */
 export default {
-  name: "u-radio-group",
-  mixins: [mpMixin, mixin, props],
-  computed: {
-    // 这里computed的变量，都是子组件u-radio需要用到的，由于头条小程序的兼容性差异，子组件无法实时监听父组件参数的变化
-    // 所以需要手动通知子组件，这里返回一个parentData变量，供watch监听，在其中去通知每一个子组件重新从父组件(u-radio-group)
-    // 拉取父组件新的变化后的参数
-    parentData() {
-      // #ifdef VUE3
-      return [
-        this.modelValue,
-        this.disabled,
-        this.inactiveColor,
-        this.activeColor,
-        this.size,
-        this.labelDisabled,
-        this.shape,
-        this.iconSize,
-        this.borderBottom,
-        this.placement,
-      ];
-      // #endif
-      // #ifdef VUE2
-      return [
-        this.value,
-        this.disabled,
-        this.inactiveColor,
-        this.activeColor,
-        this.size,
-        this.labelDisabled,
-        this.shape,
-        this.iconSize,
-        this.borderBottom,
-        this.placement,
-      ];
-      // #endif
-    },
-    bemClass() {
-      // this.bem为一个computed变量，在mixin中
-      return this.bem("radio-group", ["placement"]);
-    },
-    radioGroupStyle() {
-      const style = {
-        gap: addUnit(this.gap),
-      };
-      return deepMerge(style, addStyle(this.customStyle));
-    },
-  },
-  watch: {
-    // 当父组件需要子组件需要共享的参数发生了变化，手动通知子组件
-    parentData() {
-      if (this.children.length) {
-        this.children.map((child) => {
-          // 判断子组件(u-radio)如果有init方法的话，就就执行(执行的结果是子组件重新从父组件拉取了最新的值)
-          typeof child.init === "function" && child.init();
-        });
-      }
-    },
-  },
-  data() {
-    return {};
-  },
-  created() {
-    this.children = [];
-  },
-  // #ifdef VUE3
-  emits: ["update:modelValue", "change"],
-  // #endif
-  methods: {
-    // 将其他的radio设置为未选中的状态
-    unCheckedOther(childInstance) {
-      this.children.map((child) => {
-        // 所有子radio中，被操作组件实例的checked的值无需修改
-        if (childInstance !== child) {
-          child.checked = false;
+    name: 'u-radio-group',
+    mixins: [mpMixin, mixin, props],
+    computed: {
+        // 这里computed的变量，都是子组件u-radio需要用到的，由于头条小程序的兼容性差异，子组件无法实时监听父组件参数的变化
+        // 所以需要手动通知子组件，这里返回一个parentData变量，供watch监听，在其中去通知每一个子组件重新从父组件(u-radio-group)
+        // 拉取父组件新的变化后的参数
+        parentData() {
+            // #ifdef VUE3
+            return [
+                this.modelValue,
+                this.disabled,
+                this.inactiveColor,
+                this.activeColor,
+                this.size,
+                this.labelDisabled,
+                this.shape,
+                this.iconSize,
+                this.borderBottom,
+                this.placement
+            ];
+            // #endif
+            // #ifdef VUE2
+            return [this.value, this.disabled, this.inactiveColor, this.activeColor, this.size, this.labelDisabled, this.shape, this.iconSize, this.borderBottom, this.placement];
+            // #endif
+        },
+        bemClass() {
+            // this.bem为一个computed变量，在mixin中
+            return this.bem('radio-group', ['placement']);
+        },
+        radioGroupStyle() {
+            const style = {
+                gap: addUnit(this.gap)
+            };
+            return deepMerge(style, addStyle(this.customStyle));
         }
-      });
-      const { name } = childInstance;
-      // 通过emit事件，设置父组件通过v-model双向绑定的值
-      // #ifdef VUE3
-      this.$emit("update:modelValue", name);
-      // #endif
-      // #ifdef VUE2
-      this.$emit("input", name);
-      // #endif
-      // 发出事件
-      this.$emit("change", name);
     },
-  },
+    watch: {
+        // 当父组件需要子组件需要共享的参数发生了变化，手动通知子组件
+        parentData() {
+            if (this.children.length) {
+                this.children.map((child) => {
+                    // 判断子组件(u-radio)如果有init方法的话，就就执行(执行的结果是子组件重新从父组件拉取了最新的值)
+                    typeof child.init === 'function' && child.init();
+                });
+            }
+        }
+    },
+    data() {
+        return {};
+    },
+    created() {
+        this.children = [];
+    },
+    // #ifdef VUE3
+    emits: ['update:modelValue', 'change'],
+    // #endif
+    methods: {
+        // 将其他的radio设置为未选中的状态
+        unCheckedOther(childInstance) {
+            this.children.map((child) => {
+                // 所有子radio中，被操作组件实例的checked的值无需修改
+                if (childInstance !== child) {
+                    child.checked = false;
+                }
+            });
+            const { name } = childInstance;
+            // 通过emit事件，设置父组件通过v-model双向绑定的值
+            // #ifdef VUE3
+            this.$emit('update:modelValue', name);
+            // #endif
+            // #ifdef VUE2
+            this.$emit('input', name);
+            // #endif
+            // 发出事件
+            this.$emit('change', name);
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
 .u-radio-group {
-  flex: 1;
+    flex: 1;
 
-  &--row {
-    /* #ifndef APP-NVUE */
-    display: flex;
-    /* #endif */
-    flex-flow: row wrap;
-  }
+    &--row {
+        /* #ifndef APP-NVUE */
+        display: flex;
+        /* #endif */
+        flex-flow: row wrap;
+    }
 
-  &--column {
-    @include flex(column);
-  }
+    &--column {
+        @include flex(column);
+    }
 }
 </style>

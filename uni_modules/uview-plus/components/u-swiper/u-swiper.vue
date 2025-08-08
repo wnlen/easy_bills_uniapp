@@ -1,108 +1,91 @@
 <template>
-  <view
-    class="u-swiper"
-    :style="{
-      backgroundColor: bgColor,
-      height: addUnit(height),
-      borderRadius: addUnit(radius),
-    }"
-  >
-    <view class="u-swiper__loading" v-if="loading">
-      <up-loading-icon mode="circle"></up-loading-icon>
-    </view>
-    <swiper
-      v-else
-      class="u-swiper__wrapper"
-      :style="{
-        flex: '1',
-        height: addUnit(height),
-      }"
-      @change="change"
-      :circular="circular"
-      :interval="interval"
-      :duration="duration"
-      :autoplay="autoplay"
-      :current="current"
-      :currentItemId="currentItemId"
-      :previousMargin="addUnit(previousMargin)"
-      :nextMargin="addUnit(nextMargin)"
-      :acceleration="acceleration"
-      :displayMultipleItems="list.length > 0 ? displayMultipleItems : 0"
-      :easingFunction="easingFunction"
+    <view
+        class="u-swiper"
+        :style="{
+            backgroundColor: bgColor,
+            height: addUnit(height),
+            borderRadius: addUnit(radius)
+        }"
     >
-      <swiper-item
-        class="u-swiper__wrapper__item"
-        v-for="(item, index) in list"
-        :key="index"
-      >
-        <slot :item="item" :index="index">
-          <view
-            class="u-swiper__wrapper__item__wrapper"
-            :style="[itemStyle(index)]"
-          >
-            <!-- 在nvue中，image图片的宽度默认为屏幕宽度，需要通过flex:1撑开，另外必须设置高度才能显示图片 -->
-            <image
-              class="u-swiper__wrapper__item__wrapper__image"
-              v-if="getItemType(item) === 'image'"
-              :src="getSource(item)"
-              :mode="imgMode"
-              @tap="clickHandler(index)"
-              :style="{
-                height: addUnit(height),
-                borderRadius: addUnit(radius),
-              }"
-            ></image>
-            <video
-              class="u-swiper__wrapper__item__wrapper__video"
-              v-if="getItemType(item) === 'video'"
-              :id="`video-${index}`"
-              :enable-progress-gesture="false"
-              :src="getSource(item)"
-              :poster="getPoster(item)"
-              :title="
-                showTitle && testObject(item) && item.title ? item.title : ''
-              "
-              :style="{
-                height: addUnit(height),
-              }"
-              controls
-              @tap="clickHandler(index)"
-            ></video>
-            <view
-              v-if="
-                showTitle &&
-                testObject(item) &&
-                item.title &&
-                testImage(getSource(item))
-              "
-              class="u-swiper__wrapper__item__wrapper__title"
-            >
-              <text class="u-line-1">{{ item.title }}</text>
-            </view>
-          </view>
-        </slot>
-      </swiper-item>
-    </swiper>
-    <view class="u-swiper__indicator" :style="[addStyle(indicatorStyle)]">
-      <slot name="indicator">
-        <up-swiper-indicator
-          v-if="!loading && indicator && !showTitle"
-          :indicatorActiveColor="indicatorActiveColor"
-          :indicatorInactiveColor="indicatorInactiveColor"
-          :length="list.length"
-          :current="currentIndex"
-          :indicatorMode="indicatorMode"
-        ></up-swiper-indicator>
-      </slot>
+        <view class="u-swiper__loading" v-if="loading">
+            <up-loading-icon mode="circle"></up-loading-icon>
+        </view>
+        <swiper
+            v-else
+            class="u-swiper__wrapper"
+            :style="{
+                flex: '1',
+                height: addUnit(height)
+            }"
+            @change="change"
+            :circular="circular"
+            :interval="interval"
+            :duration="duration"
+            :autoplay="autoplay"
+            :current="current"
+            :currentItemId="currentItemId"
+            :previousMargin="addUnit(previousMargin)"
+            :nextMargin="addUnit(nextMargin)"
+            :acceleration="acceleration"
+            :displayMultipleItems="list.length > 0 ? displayMultipleItems : 0"
+            :easingFunction="easingFunction"
+        >
+            <swiper-item class="u-swiper__wrapper__item" v-for="(item, index) in list" :key="index">
+                <slot :item="item" :index="index">
+                    <view class="u-swiper__wrapper__item__wrapper" :style="[itemStyle(index)]">
+                        <!-- 在nvue中，image图片的宽度默认为屏幕宽度，需要通过flex:1撑开，另外必须设置高度才能显示图片 -->
+                        <image
+                            class="u-swiper__wrapper__item__wrapper__image"
+                            v-if="getItemType(item) === 'image'"
+                            :src="getSource(item)"
+                            :mode="imgMode"
+                            @tap="clickHandler(index)"
+                            :style="{
+                                height: addUnit(height),
+                                borderRadius: addUnit(radius)
+                            }"
+                        ></image>
+                        <video
+                            class="u-swiper__wrapper__item__wrapper__video"
+                            v-if="getItemType(item) === 'video'"
+                            :id="`video-${index}`"
+                            :enable-progress-gesture="false"
+                            :src="getSource(item)"
+                            :poster="getPoster(item)"
+                            :title="showTitle && testObject(item) && item.title ? item.title : ''"
+                            :style="{
+                                height: addUnit(height)
+                            }"
+                            controls
+                            @tap="clickHandler(index)"
+                        ></video>
+                        <view v-if="showTitle && testObject(item) && item.title && testImage(getSource(item))" class="u-swiper__wrapper__item__wrapper__title">
+                            <text class="u-line-1">{{ item.title }}</text>
+                        </view>
+                    </view>
+                </slot>
+            </swiper-item>
+        </swiper>
+        <view class="u-swiper__indicator" :style="[addStyle(indicatorStyle)]">
+            <slot name="indicator">
+                <up-swiper-indicator
+                    v-if="!loading && indicator && !showTitle"
+                    :indicatorActiveColor="indicatorActiveColor"
+                    :indicatorInactiveColor="indicatorInactiveColor"
+                    :length="list.length"
+                    :current="currentIndex"
+                    :indicatorMode="indicatorMode"
+                ></up-swiper-indicator>
+            </slot>
+        </view>
     </view>
-  </view>
 </template>
 <script>
-import { props } from "./props.js";
-import { mpMixin } from "../../libs/mixin/mpMixin";
-import { mixin } from "../../libs/mixin/mixin";
-import { addUnit, addStyle, error } from "../../libs/function/index";
-import test from "../../libs/function/test";
+import { props } from './props.js';
+import { mpMixin } from '../../libs/mixin/mpMixin';
+import { mixin } from '../../libs/mixin/mixin';
+import { addUnit, addStyle, error } from '../../libs/function/index';
+import test from '../../libs/function/test';
 /**
  * Swiper 轮播图
  * @description 该组件一般用于导航轮播，广告展示等场景,可开箱即用，
@@ -136,139 +119,137 @@ import test from "../../libs/function/test";
  * @example	<u-swiper :list="list4" keyName="url" :autoplay="false"></u-swiper>
  */
 export default {
-  name: "u-swiper",
-  mixins: [mpMixin, mixin, props],
-  data() {
-    return {
-      currentIndex: 0,
-    };
-  },
-  watch: {
-    current(val, preVal) {
-      if (val === preVal) return;
-      this.currentIndex = val; // 和上游数据关联上
+    name: 'u-swiper',
+    mixins: [mpMixin, mixin, props],
+    data() {
+        return {
+            currentIndex: 0
+        };
     },
-  },
-  emits: ["click", "change", "update:current"],
-  computed: {
-    itemStyle() {
-      return (index) => {
-        const style = {};
-        // #ifndef APP-NVUE || MP-TOUTIAO
-        // 左右流出空间的写法不支持nvue和头条
-        // 只有配置了此二值，才加上对应的圆角，以及缩放
-        if (this.nextMargin && this.previousMargin) {
-          style.borderRadius = addUnit(this.radius);
-          if (index !== this.currentIndex) style.transform = "scale(0.92)";
+    watch: {
+        current(val, preVal) {
+            if (val === preVal) return;
+            this.currentIndex = val; // 和上游数据关联上
         }
-        // #endif
-        return style;
-      };
     },
-  },
-  methods: {
-    addStyle,
-    addUnit,
-    testObject: test.object,
-    testImage: test.image,
-    getItemType(item) {
-      if (typeof item === "string")
-        return test.video(this.getSource(item)) ? "video" : "image";
-      if (typeof item === "object" && this.keyName) {
-        if (!item.type)
-          return test.video(this.getSource(item)) ? "video" : "image";
-        if (item.type === "image") return "image";
-        if (item.type === "video") return "video";
-        return "image";
-      }
+    emits: ['click', 'change', 'update:current'],
+    computed: {
+        itemStyle() {
+            return (index) => {
+                const style = {};
+                // #ifndef APP-NVUE || MP-TOUTIAO
+                // 左右流出空间的写法不支持nvue和头条
+                // 只有配置了此二值，才加上对应的圆角，以及缩放
+                if (this.nextMargin && this.previousMargin) {
+                    style.borderRadius = addUnit(this.radius);
+                    if (index !== this.currentIndex) style.transform = 'scale(0.92)';
+                }
+                // #endif
+                return style;
+            };
+        }
     },
-    // 获取目标路径，可能数组中为字符串，对象的形式，额外可指定对象的目标属性名keyName
-    getSource(item) {
-      if (typeof item === "string") return item;
-      if (typeof item === "object" && this.keyName) return item[this.keyName];
-      else error("请按格式传递列表参数");
-      return "";
-    },
-    // 轮播切换事件
-    change(e) {
-      // 当前的激活索引
-      const { current } = e.detail;
-      this.pauseVideo(this.currentIndex);
-      this.currentIndex = current;
-      this.$emit("update:current", this.currentIndex);
-      this.$emit("change", e.detail);
-    },
-    // 切换轮播时，暂停视频播放
-    pauseVideo(index) {
-      const lastItem = this.getSource(this.list[index]);
-      if (test.video(lastItem)) {
-        // 当视频隐藏时，暂停播放
-        const video = uni.createVideoContext(`video-${index}`, this);
-        video.pause();
-      }
-    },
-    // 当一个轮播item为视频时，获取它的视频海报
-    getPoster(item) {
-      return typeof item === "object" && item.poster ? item.poster : "";
-    },
-    // 点击某个item
-    clickHandler(index) {
-      this.$emit("click", index);
-    },
-  },
+    methods: {
+        addStyle,
+        addUnit,
+        testObject: test.object,
+        testImage: test.image,
+        getItemType(item) {
+            if (typeof item === 'string') return test.video(this.getSource(item)) ? 'video' : 'image';
+            if (typeof item === 'object' && this.keyName) {
+                if (!item.type) return test.video(this.getSource(item)) ? 'video' : 'image';
+                if (item.type === 'image') return 'image';
+                if (item.type === 'video') return 'video';
+                return 'image';
+            }
+        },
+        // 获取目标路径，可能数组中为字符串，对象的形式，额外可指定对象的目标属性名keyName
+        getSource(item) {
+            if (typeof item === 'string') return item;
+            if (typeof item === 'object' && this.keyName) return item[this.keyName];
+            else error('请按格式传递列表参数');
+            return '';
+        },
+        // 轮播切换事件
+        change(e) {
+            // 当前的激活索引
+            const { current } = e.detail;
+            this.pauseVideo(this.currentIndex);
+            this.currentIndex = current;
+            this.$emit('update:current', this.currentIndex);
+            this.$emit('change', e.detail);
+        },
+        // 切换轮播时，暂停视频播放
+        pauseVideo(index) {
+            const lastItem = this.getSource(this.list[index]);
+            if (test.video(lastItem)) {
+                // 当视频隐藏时，暂停播放
+                const video = uni.createVideoContext(`video-${index}`, this);
+                video.pause();
+            }
+        },
+        // 当一个轮播item为视频时，获取它的视频海报
+        getPoster(item) {
+            return typeof item === 'object' && item.poster ? item.poster : '';
+        },
+        // 点击某个item
+        clickHandler(index) {
+            this.$emit('click', index);
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
 .u-swiper__wrapper {
-  flex: 1;
+    flex: 1;
 }
 .u-swiper {
-  @include flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
+    @include flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
 
-  &__wrapper {
-    flex: 1;
-
-    &__item {
-      flex: 1;
-
-      &__wrapper {
-        @include flex;
-        position: relative;
-        overflow: hidden;
-        transition: transform 0.3s;
+    &__wrapper {
         flex: 1;
 
-        &__image {
-          flex: 1;
-        }
+        &__item {
+            flex: 1;
 
-        &__video {
-          flex: 1;
-        }
+            &__wrapper {
+                @include flex;
+                position: relative;
+                overflow: hidden;
+                transition: transform 0.3s;
+                flex: 1;
 
-        &__title {
-          position: absolute;
-          background-color: rgba(0, 0, 0, 0.3);
-          bottom: 0;
-          left: 0;
-          right: 0;
-          font-size: 28rpx;
-          padding: 12rpx 24rpx;
-          color: #ffffff;
-          flex: 1;
+                &__image {
+                    flex: 1;
+                }
+
+                &__video {
+                    flex: 1;
+                }
+
+                &__title {
+                    position: absolute;
+                    background-color: rgba(0, 0, 0, 0.3);
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    font-size: 28rpx;
+                    padding: 12rpx 24rpx;
+                    color: #ffffff;
+                    flex: 1;
+                }
+            }
         }
-      }
     }
-  }
 
-  &__indicator {
-    position: absolute;
-    bottom: 10px;
-  }
+    &__indicator {
+        position: absolute;
+        bottom: 10px;
+    }
 }
 </style>

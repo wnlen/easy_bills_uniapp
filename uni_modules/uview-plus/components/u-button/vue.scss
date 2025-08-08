@@ -15,67 +15,67 @@ $u-button-plain-u-button-error-color: $u-error;
 $u-button-plain-u-button-warning-color: $u-warning;
 
 .u-button {
-  width: 100%;
-  white-space: nowrap;
-
-  &__text {
+    width: 100%;
     white-space: nowrap;
-    line-height: 1;
-  }
 
-  &:before {
-    position: absolute;
-    top: $u-button-before-top;
-    left: $u-button-before-left;
-    width: $u-button-before-width;
-    height: $u-button-before-height;
-    border: inherit;
-    border-radius: inherit;
-    transform: $u-button-before-transform;
-    opacity: $u-button-before-opacity;
-    content: " ";
-    background-color: $u-button-before-background-color;
-    border-color: $u-button-before-border-color;
-  }
+    &__text {
+        white-space: nowrap;
+        line-height: 1;
+    }
 
-  &--active {
     &:before {
-      opacity: 0.15;
+        position: absolute;
+        top: $u-button-before-top;
+        left: $u-button-before-left;
+        width: $u-button-before-width;
+        height: $u-button-before-height;
+        border: inherit;
+        border-radius: inherit;
+        transform: $u-button-before-transform;
+        opacity: $u-button-before-opacity;
+        content: ' ';
+        background-color: $u-button-before-background-color;
+        border-color: $u-button-before-border-color;
     }
-  }
 
-  &__icon + &__text:not(:empty),
-  &__loading-text {
-    margin-left: $u-button-icon-margin-left;
-  }
-
-  &--plain {
-    &.u-button--primary {
-      color: $u-primary;
+    &--active {
+        &:before {
+            opacity: 0.15;
+        }
     }
-  }
 
-  &--plain {
-    &.u-button--info {
-      color: $u-button-plain-u-button-info-color;
+    &__icon + &__text:not(:empty),
+    &__loading-text {
+        margin-left: $u-button-icon-margin-left;
     }
-  }
 
-  &--plain {
-    &.u-button--success {
-      color: $u-button-plain-u-button-success-color;
+    &--plain {
+        &.u-button--primary {
+            color: $u-primary;
+        }
     }
-  }
 
-  &--plain {
-    &.u-button--error {
-      color: $u-button-plain-u-button-error-color;
+    &--plain {
+        &.u-button--info {
+            color: $u-button-plain-u-button-info-color;
+        }
     }
-  }
 
-  &--plain {
-    &.u-button--warning {
-      color: $u-button-plain-u-button-warning-color;
+    &--plain {
+        &.u-button--success {
+            color: $u-button-plain-u-button-success-color;
+        }
     }
-  }
+
+    &--plain {
+        &.u-button--error {
+            color: $u-button-plain-u-button-error-color;
+        }
+    }
+
+    &--plain {
+        &.u-button--warning {
+            color: $u-button-plain-u-button-warning-color;
+        }
+    }
 }

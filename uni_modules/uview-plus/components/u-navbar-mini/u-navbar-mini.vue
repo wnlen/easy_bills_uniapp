@@ -1,49 +1,37 @@
 <template>
-  <view class="u-navbar-mini" :class="[customClass]">
-    <view
-      class="u-navbar-mini__inner"
-      :class="[fixed && 'u-navbar-mini--fixed']"
-    >
-      <u-status-bar v-if="safeAreaInsetTop"></u-status-bar>
-      <view
-        class="u-navbar-mini__content"
-        :style="{
-          height: addUnit(height),
-          backgroundColor: bgColor,
-        }"
-      >
-        <view
-          class="u-navbar-mini__content__left"
-          hover-class="u-navbar-mini__content__left--hover"
-          hover-start-time="150"
-          @tap="leftClick"
-        >
-          <slot name="left">
-            <up-icon
-              :name="leftIcon"
-              :size="iconSize"
-              :color="iconColor"
-            ></up-icon>
-          </slot>
+    <view class="u-navbar-mini" :class="[customClass]">
+        <view class="u-navbar-mini__inner" :class="[fixed && 'u-navbar-mini--fixed']">
+            <u-status-bar v-if="safeAreaInsetTop"></u-status-bar>
+            <view
+                class="u-navbar-mini__content"
+                :style="{
+                    height: addUnit(height),
+                    backgroundColor: bgColor
+                }"
+            >
+                <view class="u-navbar-mini__content__left" hover-class="u-navbar-mini__content__left--hover" hover-start-time="150" @tap="leftClick">
+                    <slot name="left">
+                        <up-icon :name="leftIcon" :size="iconSize" :color="iconColor"></up-icon>
+                    </slot>
+                </view>
+                <view style="padding: 10px 10px">
+                    <up-line direction="col" color="#fff" length="16px"></up-line>
+                </view>
+                <view class="u-navbar-mini__content__center" @tap="homeClick">
+                    <slot name="center">
+                        <up-icon name="home" :size="iconSize" :color="iconColor"></up-icon>
+                    </slot>
+                </view>
+            </view>
         </view>
-        <view style="padding: 10px 10px">
-          <up-line direction="col" color="#fff" length="16px"></up-line>
-        </view>
-        <view class="u-navbar-mini__content__center" @tap="homeClick">
-          <slot name="center">
-            <up-icon name="home" :size="iconSize" :color="iconColor"></up-icon>
-          </slot>
-        </view>
-      </view>
     </view>
-  </view>
 </template>
 
 <script>
-import { props } from "./props";
-import { mpMixin } from "../../libs/mixin/mpMixin";
-import { mixin } from "../../libs/mixin/mixin";
-import { addUnit, addStyle, getPx, sys } from "../../libs/function/index";
+import { props } from './props';
+import { mpMixin } from '../../libs/mixin/mpMixin';
+import { mixin } from '../../libs/mixin/mixin';
+import { addUnit, addStyle, getPx, sys } from '../../libs/function/index';
 /**
  * NavbarMini 迷你导航栏
  * @description 此组件一般用于在全屏页面中，典型的如微信小程序左上角。
@@ -64,70 +52,70 @@ import { addUnit, addStyle, getPx, sys } from "../../libs/function/index";
  * @example <u-navbar-mini @click-left="onClickBack"></u-navbar-mini>
  */
 export default {
-  name: "u-navbar-mini",
-  mixins: [mpMixin, mixin, props],
-  data() {
-    return {};
-  },
-  emits: ["leftClick", "homeClick"],
-  created() {},
-  methods: {
-    addStyle,
-    addUnit,
-    sys,
-    getPx,
-    // 点击左侧区域
-    leftClick() {
-      // 如果配置了autoBack，自动返回上一页
-      this.$emit("leftClick");
-      if (this.autoBack) {
-        uni.navigateBack();
-      }
+    name: 'u-navbar-mini',
+    mixins: [mpMixin, mixin, props],
+    data() {
+        return {};
     },
-    homeClick() {
-      if (this.homeUrl) {
-        uni.reLaunch({ url: this.homeUrl });
-      }
-    },
-  },
+    emits: ['leftClick', 'homeClick'],
+    created() {},
+    methods: {
+        addStyle,
+        addUnit,
+        sys,
+        getPx,
+        // 点击左侧区域
+        leftClick() {
+            // 如果配置了autoBack，自动返回上一页
+            this.$emit('leftClick');
+            if (this.autoBack) {
+                uni.navigateBack();
+            }
+        },
+        homeClick() {
+            if (this.homeUrl) {
+                uni.reLaunch({ url: this.homeUrl });
+            }
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
 .u-navbar-mini {
-  &__inner {
-    width: 180rpx;
-    overflow: hidden;
-  }
-
-  &--fixed {
-    position: fixed;
-    left: 20px;
-    right: 0;
-    top: 10px;
-    z-index: 11;
-  }
-
-  &__content {
-    @include flex(row);
-    padding: 0 15px;
-    border-radius: 20px;
-    align-items: center;
-    height: 36px;
-    background-color: #9acafc;
-    position: relative;
-    justify-content: space-between;
-
-    &__left {
-      @include flex(row);
-      align-items: center;
+    &__inner {
+        width: 180rpx;
+        overflow: hidden;
     }
 
-    &__left {
-      &--hover {
-        opacity: 0.7;
-      }
+    &--fixed {
+        position: fixed;
+        left: 20px;
+        right: 0;
+        top: 10px;
+        z-index: 11;
     }
-  }
+
+    &__content {
+        @include flex(row);
+        padding: 0 15px;
+        border-radius: 20px;
+        align-items: center;
+        height: 36px;
+        background-color: #9acafc;
+        position: relative;
+        justify-content: space-between;
+
+        &__left {
+            @include flex(row);
+            align-items: center;
+        }
+
+        &__left {
+            &--hover {
+                opacity: 0.7;
+            }
+        }
+    }
 }
 </style>

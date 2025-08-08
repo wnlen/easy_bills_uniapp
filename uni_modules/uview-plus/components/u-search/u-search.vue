@@ -1,93 +1,73 @@
 <template>
-  <view
-    class="u-search"
-    :class="[iconPosition === 'right' && 'u-search__reverse']"
-    @tap="clickHandler"
-    :style="[
-      {
-        margin: margin,
-      },
-      addStyle(customStyle),
-    ]"
-  >
     <view
-      class="u-search__content"
-      :style="{
-        backgroundColor: bgColor,
-        borderRadius: shape == 'round' ? '100px' : '4px',
-        borderColor: borderColor,
-      }"
-    >
-      <template v-if="$slots.label || label !== null">
-        <slot name="label">
-          <text class="u-search__content__label">{{ label }}</text>
-        </slot>
-      </template>
-      <view class="u-search__content__icon">
-        <u-icon
-          @tap="clickIcon"
-          :size="searchIconSize"
-          :name="searchIcon"
-          :color="searchIconColor ? searchIconColor : color"
-        ></u-icon>
-      </view>
-      <input
-        confirm-type="search"
-        @blur="blur"
-        :value="keyword"
-        @confirm="search"
-        @input="inputChange"
-        :disabled="disabled"
-        @focus="getFocus"
-        :focus="focus"
-        :maxlength="maxlength"
-        :adjust-position="adjustPosition"
-        :auto-blur="autoBlur"
-        placeholder-class="u-search__content__input--placeholder"
-        :placeholder="placeholder"
-        :placeholder-style="`color: ${placeholderColor}`"
-        class="u-search__content__input"
-        type="text"
+        class="u-search"
+        :class="[iconPosition === 'right' && 'u-search__reverse']"
+        @tap="clickHandler"
         :style="[
-          {
-            pointerEvents: disabled ? 'none' : 'auto',
-            textAlign: inputAlign,
-            color: color,
-            backgroundColor: bgColor,
-            height: addUnit(height),
-          },
-          inputStyle,
+            {
+                margin: margin
+            },
+            addStyle(customStyle)
         ]"
-      />
-      <view
-        class="u-search__content__icon u-search__content__close"
-        v-if="keyword && clearabled && focused"
-        @click="clear"
-      >
-        <u-icon
-          name="close"
-          size="11"
-          color="#ffffff"
-          customStyle="line-height: 12px"
-        ></u-icon>
-      </view>
-      <slot name="inputRight"></slot>
-    </view>
-    <text
-      :style="[actionStyle]"
-      class="u-search__action"
-      :class="[(showActionBtn || show) && 'u-search__action--active']"
-      @tap.stop.prevent="custom"
-      >{{ actionText }}</text
     >
-  </view>
+        <view
+            class="u-search__content"
+            :style="{
+                backgroundColor: bgColor,
+                borderRadius: shape == 'round' ? '100px' : '4px',
+                borderColor: borderColor
+            }"
+        >
+            <template v-if="$slots.label || label !== null">
+                <slot name="label">
+                    <text class="u-search__content__label">{{ label }}</text>
+                </slot>
+            </template>
+            <view class="u-search__content__icon">
+                <u-icon @tap="clickIcon" :size="searchIconSize" :name="searchIcon" :color="searchIconColor ? searchIconColor : color"></u-icon>
+            </view>
+            <input
+                confirm-type="search"
+                @blur="blur"
+                :value="keyword"
+                @confirm="search"
+                @input="inputChange"
+                :disabled="disabled"
+                @focus="getFocus"
+                :focus="focus"
+                :maxlength="maxlength"
+                :adjust-position="adjustPosition"
+                :auto-blur="autoBlur"
+                placeholder-class="u-search__content__input--placeholder"
+                :placeholder="placeholder"
+                :placeholder-style="`color: ${placeholderColor}`"
+                class="u-search__content__input"
+                type="text"
+                :style="[
+                    {
+                        pointerEvents: disabled ? 'none' : 'auto',
+                        textAlign: inputAlign,
+                        color: color,
+                        backgroundColor: bgColor,
+                        height: addUnit(height)
+                    },
+                    inputStyle
+                ]"
+            />
+            <view class="u-search__content__icon u-search__content__close" v-if="keyword && clearabled && focused" @click="clear">
+                <u-icon name="close" size="11" color="#ffffff" customStyle="line-height: 12px"></u-icon>
+            </view>
+            <slot name="inputRight"></slot>
+        </view>
+        <text :style="[actionStyle]" class="u-search__action" :class="[(showActionBtn || show) && 'u-search__action--active']" @tap.stop.prevent="custom">{{ actionText }}</text>
+    </view>
 </template>
 
 <script>
-import { props } from "./props";
-import { mpMixin } from "../../libs/mixin/mpMixin";
-import { mixin } from "../../libs/mixin/mixin";
-import { addUnit, addStyle } from "../../libs/function/index";
+import { props } from './props';
+import { mpMixin } from '../../libs/mixin/mpMixin';
+import { mixin } from '../../libs/mixin/mixin';
+import { addUnit, addStyle } from '../../libs/function/index';
 /**
  * search 搜索框
  * @description 搜索组件，集成了常见搜索框所需功能，用户可以一键引入，开箱即用。
@@ -127,126 +107,116 @@ import { addUnit, addStyle } from "../../libs/function/index";
  * @example <u-search placeholder="日照香炉生紫烟" v-model="keyword"></u-search>
  */
 export default {
-  name: "u-search",
-  mixins: [mpMixin, mixin, props],
-  data() {
-    return {
-      keyword: "",
-      showClear: false, // 是否显示右边的清除图标
-      show: false,
-      // 标记input当前状态是否处于聚焦中，如果是，才会显示右侧的清除控件
-      focused: this.focus,
-      // 绑定输入框的值
-      // inputValue: this.value
-    };
-  },
-  watch: {
-    keyword(nVal) {
-      // 双向绑定值，让v-model绑定的值双向变化
-      // #ifdef VUE3
-      this.$emit("update:modelValue", nVal);
-      // #endif
-      // #ifdef VUE2
-      this.$emit("input", nVal);
-      // #endif
-      // 触发change事件，事件效果和v-model双向绑定的效果一样，让用户多一个选择
-      this.$emit("change", nVal);
+    name: 'u-search',
+    mixins: [mpMixin, mixin, props],
+    data() {
+        return {
+            keyword: '',
+            showClear: false, // 是否显示右边的清除图标
+            show: false,
+            // 标记input当前状态是否处于聚焦中，如果是，才会显示右侧的清除控件
+            focused: this.focus
+            // 绑定输入框的值
+            // inputValue: this.value
+        };
     },
-    // #ifdef VUE3
-    modelValue: {
-      immediate: true,
-      handler(nVal) {
-        this.keyword = nVal;
-      },
+    watch: {
+        keyword(nVal) {
+            // 双向绑定值，让v-model绑定的值双向变化
+            // #ifdef VUE3
+            this.$emit('update:modelValue', nVal);
+            // #endif
+            // #ifdef VUE2
+            this.$emit('input', nVal);
+            // #endif
+            // 触发change事件，事件效果和v-model双向绑定的效果一样，让用户多一个选择
+            this.$emit('change', nVal);
+        },
+        // #ifdef VUE3
+        modelValue: {
+            immediate: true,
+            handler(nVal) {
+                this.keyword = nVal;
+            }
+        },
+        // #endif
+        // #ifdef VUE2
+        value: {
+            immediate: true,
+            handler(nVal) {
+                this.keyword = nVal;
+            }
+        }
+        // #endif
     },
-    // #endif
-    // #ifdef VUE2
-    value: {
-      immediate: true,
-      handler(nVal) {
-        this.keyword = nVal;
-      },
+    computed: {
+        showActionBtn() {
+            return !this.animation && this.showAction;
+        }
     },
-    // #endif
-  },
-  computed: {
-    showActionBtn() {
-      return !this.animation && this.showAction;
-    },
-  },
-  emits: [
-    "clear",
-    "search",
-    "custom",
-    "focus",
-    "blur",
-    "click",
-    "clickIcon",
-    "update:modelValue",
-    "change",
-  ],
-  methods: {
-    addStyle,
-    addUnit,
-    // 目前HX2.6.9 v-model双向绑定无效，故监听input事件获取输入框内容的变化
-    inputChange(e) {
-      this.keyword = e.detail.value;
-    },
-    // 清空输入
-    // 也可以作为用户通过this.$refs形式调用清空输入框内容
-    clear() {
-      this.keyword = "";
-      // 延后发出事件，避免在父组件监听clear事件时，value为更新前的值(不为空)
-      this.$nextTick(() => {
-        this.$emit("clear");
-      });
-    },
-    // 确定搜索
-    search(e) {
-      this.$emit("search", e.detail.value);
-      try {
-        // 收起键盘
-        uni.hideKeyboard();
-      } catch (e) {}
-    },
-    // 点击右边自定义按钮的事件
-    custom() {
-      this.$emit("custom", this.keyword);
-      try {
-        // 收起键盘
-        uni.hideKeyboard();
-      } catch (e) {}
-    },
-    // 获取焦点
-    getFocus() {
-      this.focused = true;
-      // 开启右侧搜索按钮展开的动画效果
-      if (this.animation && this.showAction) this.show = true;
-      this.$emit("focus", this.keyword);
-    },
-    // 失去焦点
-    blur() {
-      // 最开始使用的是监听图标@touchstart事件，自从hx2.8.4后，此方法在微信小程序出错
-      // 这里改为监听点击事件，手点击清除图标时，同时也发生了@blur事件，导致图标消失而无法点击，这里做一个延时
-      setTimeout(() => {
-        this.focused = false;
-      }, 100);
-      this.show = false;
-      this.$emit("blur", this.keyword);
-    },
-    // 点击搜索框，只有disabled=true时才发出事件，因为禁止了输入，意味着是想跳转真正的搜索页
-    clickHandler() {
-      if (this.disabled) this.$emit("click");
-    },
-    // 点击左边图标
-    clickIcon(e) {
-      this.$emit("clickIcon", this.keyword);
-      try {
-        // 收起键盘
-        uni.hideKeyboard();
-      } catch (e) {}
-    },
-  },
+    emits: ['clear', 'search', 'custom', 'focus', 'blur', 'click', 'clickIcon', 'update:modelValue', 'change'],
+    methods: {
+        addStyle,
+        addUnit,
+        // 目前HX2.6.9 v-model双向绑定无效，故监听input事件获取输入框内容的变化
+        inputChange(e) {
+            this.keyword = e.detail.value;
+        },
+        // 清空输入
+        // 也可以作为用户通过this.$refs形式调用清空输入框内容
+        clear() {
+            this.keyword = '';
+            // 延后发出事件，避免在父组件监听clear事件时，value为更新前的值(不为空)
+            this.$nextTick(() => {
+                this.$emit('clear');
+            });
+        },
+        // 确定搜索
+        search(e) {
+            this.$emit('search', e.detail.value);
+            try {
+                // 收起键盘
+                uni.hideKeyboard();
+            } catch (e) {}
+        },
+        // 点击右边自定义按钮的事件
+        custom() {
+            this.$emit('custom', this.keyword);
+            try {
+                // 收起键盘
+                uni.hideKeyboard();
+            } catch (e) {}
+        },
+        // 获取焦点
+        getFocus() {
+            this.focused = true;
+            // 开启右侧搜索按钮展开的动画效果
+            if (this.animation && this.showAction) this.show = true;
+            this.$emit('focus', this.keyword);
+        },
+        // 失去焦点
+        blur() {
+            // 最开始使用的是监听图标@touchstart事件，自从hx2.8.4后，此方法在微信小程序出错
+            // 这里改为监听点击事件，手点击清除图标时，同时也发生了@blur事件，导致图标消失而无法点击，这里做一个延时
+            setTimeout(() => {
+                this.focused = false;
+            }, 100);
+            this.show = false;
+            this.$emit('blur', this.keyword);
+        },
+        // 点击搜索框，只有disabled=true时才发出事件，因为禁止了输入，意味着是想跳转真正的搜索页
+        clickHandler() {
+            if (this.disabled) this.$emit('click');
+        },
+        // 点击左边图标
+        clickIcon(e) {
+            this.$emit('clickIcon', this.keyword);
+            try {
+                // 收起键盘
+                uni.hideKeyboard();
+            } catch (e) {}
+        }
+    }
 };
 </script>
 
@@ -271,89 +241,89 @@ $u-search-action-margin-left: 5px !default;
 
 /* #ifdef H5 */
 // iOS15在H5下，hx的某些版本，input type=search时，会多了一个搜索图标，进行移除
-[type="search"]::-webkit-search-decoration {
-  display: none;
+[type='search']::-webkit-search-decoration {
+    display: none;
 }
 /* #endif */
 
 .u-search {
-  @include flex(row);
-  align-items: center;
-  flex: 1;
-
-  &__content {
-    @include flex;
+    @include flex(row);
     align-items: center;
-    padding: $u-search-content-padding;
     flex: 1;
-    justify-content: space-between;
-    border-width: 1px;
-    border-color: transparent;
-    border-style: solid;
-    overflow: hidden;
 
-    &__icon {
-      @include flex;
-      align-items: center;
+    &__content {
+        @include flex;
+        align-items: center;
+        padding: $u-search-content-padding;
+        flex: 1;
+        justify-content: space-between;
+        border-width: 1px;
+        border-color: transparent;
+        border-style: solid;
+        overflow: hidden;
+
+        &__icon {
+            @include flex;
+            align-items: center;
+        }
+
+        &__label {
+            color: $u-search-label-color;
+            font-size: $u-search-label-font-size;
+            margin: $u-search-label-margin;
+        }
+
+        &__close {
+            width: $u-search-close-size;
+            height: $u-search-close-size;
+            border-top-left-radius: $u-search-close-radius;
+            border-top-right-radius: $u-search-close-radius;
+            border-bottom-left-radius: $u-search-close-radius;
+            border-bottom-right-radius: $u-search-close-radius;
+            background-color: $u-search-close-bgColor;
+            @include flex(row);
+            align-items: center;
+            justify-content: center;
+            transform: $u-search-close-transform;
+        }
+
+        &__input {
+            flex: 1;
+            font-size: $u-search-input-font-size;
+            line-height: 1;
+            margin: $u-search-input-margin;
+            color: $u-search-input-color;
+
+            &--placeholder {
+                color: $u-search-input-placeholder-color;
+            }
+        }
     }
 
-    &__label {
-      color: $u-search-label-color;
-      font-size: $u-search-label-font-size;
-      margin: $u-search-label-margin;
+    &__action {
+        font-size: $u-search-action-font-size;
+        color: $u-search-action-color;
+        width: $u-search-action-width;
+        overflow: hidden;
+        transition-property: width;
+        transition-duration: 0.3s;
+        /* #ifndef APP-NVUE */
+        white-space: nowrap;
+        /* #endif */
+        text-align: center;
+
+        &--active {
+            width: $u-search-action-active-width;
+            margin-left: $u-search-action-margin-left;
+        }
     }
 
-    &__close {
-      width: $u-search-close-size;
-      height: $u-search-close-size;
-      border-top-left-radius: $u-search-close-radius;
-      border-top-right-radius: $u-search-close-radius;
-      border-bottom-left-radius: $u-search-close-radius;
-      border-bottom-right-radius: $u-search-close-radius;
-      background-color: $u-search-close-bgColor;
-      @include flex(row);
-      align-items: center;
-      justify-content: center;
-      transform: $u-search-close-transform;
+    &__reverse &__content__icon {
+        order: 3;
     }
 
-    &__input {
-      flex: 1;
-      font-size: $u-search-input-font-size;
-      line-height: 1;
-      margin: $u-search-input-margin;
-      color: $u-search-input-color;
-
-      &--placeholder {
-        color: $u-search-input-placeholder-color;
-      }
+    &__reverse &__content__close {
+        order: 2;
     }
-  }
-
-  &__action {
-    font-size: $u-search-action-font-size;
-    color: $u-search-action-color;
-    width: $u-search-action-width;
-    overflow: hidden;
-    transition-property: width;
-    transition-duration: 0.3s;
-    /* #ifndef APP-NVUE */
-    white-space: nowrap;
-    /* #endif */
-    text-align: center;
-
-    &--active {
-      width: $u-search-action-active-width;
-      margin-left: $u-search-action-margin-left;
-    }
-  }
-
-  &__reverse &__content__icon {
-    order: 3;
-  }
-
-  &__reverse &__content__close {
-    order: 2;
-  }
 }
 </style>

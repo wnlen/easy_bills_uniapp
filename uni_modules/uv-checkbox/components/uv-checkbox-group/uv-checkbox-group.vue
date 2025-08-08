@@ -1,17 +1,13 @@
 <template>
-  <view
-    class="uv-checkbox-group"
-    :class="bemClass"
-    :style="[$uv.addStyle(this.customStyle)]"
-  >
-    <slot></slot>
-  </view>
+    <view class="uv-checkbox-group" :class="bemClass" :style="[$uv.addStyle(this.customStyle)]">
+        <slot></slot>
+    </view>
 </template>
 
 <script>
-import mpMixin from "@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js";
-import mixin from "@/uni_modules/uv-ui-tools/libs/mixin/mixin.js";
-import props from "./props.js";
+import mpMixin from '@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js';
+import mixin from '@/uni_modules/uv-ui-tools/libs/mixin/mixin.js';
+import props from './props.js';
 /**
  * checkboxGroup 复选框组
  * @description 复选框组件一般用于需要多个选择的场景，该组件功能完整，使用方便
@@ -36,94 +32,94 @@ import props from "./props.js";
  * @example <uv-checkbox-group></uv-checkbox-group>
  */
 export default {
-  name: "uv-checkbox-group",
-  mixins: [mpMixin, mixin, props],
-  computed: {
-    // 这里computed的变量，都是子组件uv-checkbox需要用到的，由于头条小程序的兼容性差异，子组件无法实时监听父组件参数的变化
-    // 所以需要手动通知子组件，这里返回一个parentData变量，供watch监听，在其中去通知每一个子组件重新从父组件(uv-checkbox-group)
-    // 拉取父组件新的变化后的参数
-    parentData() {
-      let value = [];
-      if (this.value.length) {
-        value = this.value;
-      } else if (this.modelValue.length) {
-        value = this.modelValue;
-      }
-      return [
-        value,
-        this.disabled,
-        this.inactiveColor,
-        this.activeColor,
-        this.size,
-        this.labelDisabled,
-        this.shape,
-        this.iconSize,
-        this.borderBottom,
-        this.placement,
-        this.labelSize,
-        this.labelColor,
-      ];
-    },
-    bemClass() {
-      // this.bem为一个computed变量，在mixin中
-      return this.bem("checkbox-group", ["placement"]);
-    },
-  },
-  watch: {
-    // 当父组件需要子组件需要共享的参数发生了变化，手动通知子组件
-    parentData() {
-      if (this.children.length) {
-        this.children.map((child) => {
-          // 判断子组件(uv-checkbox)如果有init方法的话，就就执行(执行的结果是子组件重新从父组件拉取了最新的值)
-          typeof child.init === "function" && child.init();
-        });
-      }
-    },
-  },
-  data() {
-    return {};
-  },
-  created() {
-    this.children = [];
-  },
-  methods: {
-    // 将其他的checkbox设置为未选中的状态
-    unCheckedOther(childInstance) {
-      const values = [];
-      this.children.map((child) => {
-        // 将被选中的checkbox，放到数组中返回
-        if (child.isChecked) {
-          values.push(child.name);
+    name: 'uv-checkbox-group',
+    mixins: [mpMixin, mixin, props],
+    computed: {
+        // 这里computed的变量，都是子组件uv-checkbox需要用到的，由于头条小程序的兼容性差异，子组件无法实时监听父组件参数的变化
+        // 所以需要手动通知子组件，这里返回一个parentData变量，供watch监听，在其中去通知每一个子组件重新从父组件(uv-checkbox-group)
+        // 拉取父组件新的变化后的参数
+        parentData() {
+            let value = [];
+            if (this.value.length) {
+                value = this.value;
+            } else if (this.modelValue.length) {
+                value = this.modelValue;
+            }
+            return [
+                value,
+                this.disabled,
+                this.inactiveColor,
+                this.activeColor,
+                this.size,
+                this.labelDisabled,
+                this.shape,
+                this.iconSize,
+                this.borderBottom,
+                this.placement,
+                this.labelSize,
+                this.labelColor
+            ];
+        },
+        bemClass() {
+            // this.bem为一个computed变量，在mixin中
+            return this.bem('checkbox-group', ['placement']);
         }
-      });
-      // 修改通过v-model绑定的值
-      // #ifdef VUE2
-      this.$emit("input", values);
-      // #endif
-      // #ifdef VUE3
-      this.$emit("update:modelValue", values);
-      // #endif
-      // 发出事件
-      this.$emit("change", values);
     },
-  },
+    watch: {
+        // 当父组件需要子组件需要共享的参数发生了变化，手动通知子组件
+        parentData() {
+            if (this.children.length) {
+                this.children.map((child) => {
+                    // 判断子组件(uv-checkbox)如果有init方法的话，就就执行(执行的结果是子组件重新从父组件拉取了最新的值)
+                    typeof child.init === 'function' && child.init();
+                });
+            }
+        }
+    },
+    data() {
+        return {};
+    },
+    created() {
+        this.children = [];
+    },
+    methods: {
+        // 将其他的checkbox设置为未选中的状态
+        unCheckedOther(childInstance) {
+            const values = [];
+            this.children.map((child) => {
+                // 将被选中的checkbox，放到数组中返回
+                if (child.isChecked) {
+                    values.push(child.name);
+                }
+            });
+            // 修改通过v-model绑定的值
+            // #ifdef VUE2
+            this.$emit('input', values);
+            // #endif
+            // #ifdef VUE3
+            this.$emit('update:modelValue', values);
+            // #endif
+            // 发出事件
+            this.$emit('change', values);
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
-@import "@/uni_modules/uv-ui-tools/libs/css/components.scss";
-@import "@/uni_modules/uv-ui-tools/libs/css/color.scss";
+@import '@/uni_modules/uv-ui-tools/libs/css/components.scss';
+@import '@/uni_modules/uv-ui-tools/libs/css/color.scss';
 
 .uv-checkbox-group {
-  flex: 1;
+    flex: 1;
 
-  &--row {
-    @include flex;
-    flex-wrap: wrap;
-  }
+    &--row {
+        @include flex;
+        flex-wrap: wrap;
+    }
 
-  &--column {
-    @include flex(column);
-  }
+    &--column {
+        @include flex(column);
+    }
 }
 </style>

@@ -4,11 +4,11 @@
 
 ## 1.0.3（2023-10-23）
 
-1. 修复报错的BUG
+1. 修复报错的 BUG
 
 ## 1.0.2（2023-10-23）
 
-1. 修复设置singleSize、multipleSize、space等值带单位，存在不显示的BUG
+1. 修复设置 singleSize、multipleSize、space 等值带单位，存在不显示的 BUG
 
 ## 1.0.1（2023-09-13）
 
@@ -16,4 +16,4 @@
 
 ## 1.0.0（2023-08-30）
 
-1. 新增uv-album相册组件
+1. 新增 uv-album 相册组件

@@ -1,14 +1,14 @@
 ## 1.0.5（2023-12-06）
 
-1. 修复uv-cell right-icon插槽编译到APP端不显示的BUG，问题来源：https://gitee.com/climblee/uv-ui/issues/I8LXZI
+1. 修复 uv-cell right-icon 插槽编译到 APP 端不显示的 BUG，问题来源：https://gitee.com/climblee/uv-ui/issues/I8LXZI
 
 ## 1.0.4（2023-09-19）
 
-1. 增加cellStyle参数，方便自定义单元格的样式
+1. 增加 cellStyle 参数，方便自定义单元格的样式
 
 ## 1.0.3（2023-07-03）
 
-去除插槽判断，避免某些平台不显示的BUG
+去除插槽判断，避免某些平台不显示的 BUG
 
 ## 1.0.2（2023-06-21）
 

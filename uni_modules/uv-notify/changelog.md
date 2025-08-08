@@ -1,10 +1,10 @@
 ## 1.0.3（2023-10-13）
 
-1. unmounted兼容vue3
+1. unmounted 兼容 vue3
 
 ## 1.0.2（2023-07-02）
 
-uv-notify 由于弹出层uv-popup的修改，打开和关闭方法更改，详情参考文档：https://www.uvui.cn/components/notify.html
+uv-notify 由于弹出层 uv-popup 的修改，打开和关闭方法更改，详情参考文档：https://www.uvui.cn/components/notify.html
 
 ## 1.0.1（2023-05-16）
 

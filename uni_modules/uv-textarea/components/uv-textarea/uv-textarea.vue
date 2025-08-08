@@ -1,55 +1,53 @@
 <template>
-  <view class="uv-textarea" :class="textareaClass" :style="[textareaStyle]">
-    <textarea
-      class="uv-textarea__field"
-      :value="innerValue"
-      :style="[
-        { height: autoHeight ? 'auto' : $uv.addUnit(height) },
-        $uv.addStyle(textStyle),
-      ]"
-      :placeholder="placeholder"
-      :placeholder-style="$uv.addStyle(placeholderStyle, 'string')"
-      :placeholder-class="placeholderClass"
-      :disabled="disabled"
-      :focus="focus"
-      :autoHeight="autoHeight"
-      :fixed="fixed"
-      :cursorSpacing="cursorSpacing"
-      :cursor="cursor"
-      :showConfirmBar="showConfirmBar"
-      :selectionStart="selectionStart"
-      :selectionEnd="selectionEnd"
-      :adjustPosition="adjustPosition"
-      :disableDefaultPadding="disableDefaultPadding"
-      :holdKeyboard="holdKeyboard"
-      :maxlength="maxlen"
-      :confirmType="confirmType"
-      :ignoreCompositionEvent="ignoreCompositionEvent"
-      :confirm-hold="confirmHold"
-      @focus="onFocus"
-      @blur="onBlur"
-      @linechange="onLinechange"
-      @input="onInput"
-      @confirm="onConfirm"
-      @keyboardheightchange="onKeyboardheightchange"
-    ></textarea>
-    <text
-      class="uv-textarea__count"
-      :style="[
-        {
-          'background-color': disabled ? 'transparent' : '#fff',
-        },
-        $uv.addStyle(countStyle),
-      ]"
-      v-if="count && maxlen != -1"
-      >{{ getCount }}/{{ maxlen }}</text
-    >
-  </view>
+    <view class="uv-textarea" :class="textareaClass" :style="[textareaStyle]">
+        <textarea
+            class="uv-textarea__field"
+            :value="innerValue"
+            :style="[{ height: autoHeight ? 'auto' : $uv.addUnit(height) }, $uv.addStyle(textStyle)]"
+            :placeholder="placeholder"
+            :placeholder-style="$uv.addStyle(placeholderStyle, 'string')"
+            :placeholder-class="placeholderClass"
+            :disabled="disabled"
+            :focus="focus"
+            :autoHeight="autoHeight"
+            :fixed="fixed"
+            :cursorSpacing="cursorSpacing"
+            :cursor="cursor"
+            :showConfirmBar="showConfirmBar"
+            :selectionStart="selectionStart"
+            :selectionEnd="selectionEnd"
+            :adjustPosition="adjustPosition"
+            :disableDefaultPadding="disableDefaultPadding"
+            :holdKeyboard="holdKeyboard"
+            :maxlength="maxlen"
+            :confirmType="confirmType"
+            :ignoreCompositionEvent="ignoreCompositionEvent"
+            :confirm-hold="confirmHold"
+            @focus="onFocus"
+            @blur="onBlur"
+            @linechange="onLinechange"
+            @input="onInput"
+            @confirm="onConfirm"
+            @keyboardheightchange="onKeyboardheightchange"
+        ></textarea>
+        <text
+            class="uv-textarea__count"
+            :style="[
+                {
+                    'background-color': disabled ? 'transparent' : '#fff'
+                },
+                $uv.addStyle(countStyle)
+            ]"
+            v-if="count && maxlen != -1"
+        >
+            {{ getCount }}/{{ maxlen }}
+        </text>
+    </view>
 </template>
 <script>
-import mpMixin from "@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js";
-import mixin from "@/uni_modules/uv-ui-tools/libs/mixin/mixin.js";
-import props from "./props.js";
+import mpMixin from '@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js';
+import mixin from '@/uni_modules/uv-ui-tools/libs/mixin/mixin.js';
+import props from './props.js';
 /**
  * Textarea 文本域
  * @description 文本域此组件满足了可能出现的表单信息补充，编辑等实际逻辑的功能，内置了字数校验等
@@ -91,165 +89,154 @@ import props from "./props.js";
  * @example <uv--textarea v-model="value1" placeholder="请输入内容" ></uv--textarea>
  */
 export default {
-  name: "uv-textarea",
-  mixins: [mpMixin, mixin, props],
-  data() {
-    return {
-      // 输入框的值
-      innerValue: "",
-      // 是否处于获得焦点状态
-      focused: false,
-      // 过滤处理方法
-      innerFormatter: (value) => value,
-    };
-  },
-  created() {
-    // #ifndef VUE3
-    this.innerValue = this.value;
-    // #endif
-    // #ifdef VUE3
-    this.innerValue = this.modelValue;
-    // #endif
-  },
-  watch: {
-    value(newVal) {
-      this.innerValue = newVal;
+    name: 'uv-textarea',
+    mixins: [mpMixin, mixin, props],
+    data() {
+        return {
+            // 输入框的值
+            innerValue: '',
+            // 是否处于获得焦点状态
+            focused: false,
+            // 过滤处理方法
+            innerFormatter: (value) => value
+        };
     },
-    modelValue(newVal) {
-      this.innerValue = newVal;
+    created() {
+        // #ifndef VUE3
+        this.innerValue = this.value;
+        // #endif
+        // #ifdef VUE3
+        this.innerValue = this.modelValue;
+        // #endif
     },
-  },
-  computed: {
-    // 组件的类名
-    textareaClass() {
-      let classes = [],
-        { border, disabled } = this;
-      border === "surround" &&
-        (classes = classes.concat(["uv-border", "uv-textarea--radius"]));
-      border === "bottom" &&
-        (classes = classes.concat([
-          "uv-border-bottom",
-          "uv-textarea--no-radius",
-        ]));
-      disabled && classes.push("uv-textarea--disabled");
-      return classes.join(" ");
+    watch: {
+        value(newVal) {
+            this.innerValue = newVal;
+        },
+        modelValue(newVal) {
+            this.innerValue = newVal;
+        }
     },
-    // 组件的样式
-    textareaStyle() {
-      const style = {};
-      // #ifdef APP-NVUE
-      // 由于textarea在安卓nvue上的差异性，需要额外再调整其内边距
-      if (this.$uv.os() === "android") {
-        style.paddingTop = "6px";
-        style.paddingLeft = "9px";
-        style.paddingBottom = "3px";
-        style.paddingRight = "6px";
-      }
-      // #endif
-      return this.$uv.deepMerge(style, this.$uv.addStyle(this.customStyle));
+    computed: {
+        // 组件的类名
+        textareaClass() {
+            let classes = [],
+                { border, disabled } = this;
+            border === 'surround' && (classes = classes.concat(['uv-border', 'uv-textarea--radius']));
+            border === 'bottom' && (classes = classes.concat(['uv-border-bottom', 'uv-textarea--no-radius']));
+            disabled && classes.push('uv-textarea--disabled');
+            return classes.join(' ');
+        },
+        // 组件的样式
+        textareaStyle() {
+            const style = {};
+            // #ifdef APP-NVUE
+            // 由于textarea在安卓nvue上的差异性，需要额外再调整其内边距
+            if (this.$uv.os() === 'android') {
+                style.paddingTop = '6px';
+                style.paddingLeft = '9px';
+                style.paddingBottom = '3px';
+                style.paddingRight = '6px';
+            }
+            // #endif
+            return this.$uv.deepMerge(style, this.$uv.addStyle(this.customStyle));
+        },
+        maxlen() {
+            return this.maxlength < 0 ? (this.maxlength < 0 ? -1 : 140) : this.maxlength;
+        },
+        getCount() {
+            try {
+                return this.innerValue.length > this.maxlen ? this.maxlen : this.innerValue.length;
+            } catch (e) {
+                return 0;
+            }
+        }
     },
-    maxlen() {
-      return this.maxlength < 0
-        ? this.maxlength < 0
-          ? -1
-          : 140
-        : this.maxlength;
-    },
-    getCount() {
-      try {
-        return this.innerValue.length > this.maxlen
-          ? this.maxlen
-          : this.innerValue.length;
-      } catch (e) {
-        return 0;
-      }
-    },
-  },
-  methods: {
-    // 在微信小程序中，不支持将函数当做props参数，故只能通过ref形式调用
-    setFormatter(e) {
-      this.innerFormatter = e;
-    },
-    onFocus(e) {
-      this.$emit("focus", e);
-    },
-    onBlur(e) {
-      this.$emit("blur", e);
-      // 尝试调用uv-form的验证方法
-      this.$uv.formValidate(this, "blur");
-    },
-    onLinechange(e) {
-      this.$emit("linechange", e);
-    },
-    onInput(e) {
-      let { value = "" } = e.detail || {};
-      // 格式化过滤方法
-      const formatter = this.formatter || this.innerFormatter;
-      const formatValue = formatter(value);
-      // 为了避免props的单向数据流特性，需要先将innerValue值设置为当前值，再在$nextTick中重新赋予设置后的值才有效
-      this.innerValue = value;
-      this.$nextTick(() => {
-        this.innerValue = formatValue;
-        this.valueChange();
-      });
-    },
-    // 内容发生变化，进行处理
-    valueChange() {
-      const value = this.innerValue;
-      this.$nextTick(() => {
-        this.$emit("input", value);
-        this.$emit("update:modelValue", value);
-        this.$emit("change", value);
-        // 尝试调用uv-form的验证方法
-        this.$uv.formValidate(this, "change");
-      });
-    },
-    onConfirm(e) {
-      this.$emit("confirm", e);
-    },
-    onKeyboardheightchange(e) {
-      this.$emit("keyboardheightchange", e);
-    },
-  },
+    methods: {
+        // 在微信小程序中，不支持将函数当做props参数，故只能通过ref形式调用
+        setFormatter(e) {
+            this.innerFormatter = e;
+        },
+        onFocus(e) {
+            this.$emit('focus', e);
+        },
+        onBlur(e) {
+            this.$emit('blur', e);
+            // 尝试调用uv-form的验证方法
+            this.$uv.formValidate(this, 'blur');
+        },
+        onLinechange(e) {
+            this.$emit('linechange', e);
+        },
+        onInput(e) {
+            let { value = '' } = e.detail || {};
+            // 格式化过滤方法
+            const formatter = this.formatter || this.innerFormatter;
+            const formatValue = formatter(value);
+            // 为了避免props的单向数据流特性，需要先将innerValue值设置为当前值，再在$nextTick中重新赋予设置后的值才有效
+            this.innerValue = value;
+            this.$nextTick(() => {
+                this.innerValue = formatValue;
+                this.valueChange();
+            });
+        },
+        // 内容发生变化，进行处理
+        valueChange() {
+            const value = this.innerValue;
+            this.$nextTick(() => {
+                this.$emit('input', value);
+                this.$emit('update:modelValue', value);
+                this.$emit('change', value);
+                // 尝试调用uv-form的验证方法
+                this.$uv.formValidate(this, 'change');
+            });
+        },
+        onConfirm(e) {
+            this.$emit('confirm', e);
+        },
+        onKeyboardheightchange(e) {
+            this.$emit('keyboardheightchange', e);
+        }
+    }
 };
 </script>
 <style lang="scss" scoped>
 $show-border: 1;
 $show-border-surround: 1;
 $show-border-bottom: 1;
-@import "@/uni_modules/uv-ui-tools/libs/css/variable.scss";
-@import "@/uni_modules/uv-ui-tools/libs/css/components.scss";
-@import "@/uni_modules/uv-ui-tools/libs/css/color.scss";
+@import '@/uni_modules/uv-ui-tools/libs/css/variable.scss';
+@import '@/uni_modules/uv-ui-tools/libs/css/components.scss';
+@import '@/uni_modules/uv-ui-tools/libs/css/color.scss';
 .uv-textarea {
-  border-radius: 4px;
-  background-color: #fff;
-  position: relative;
-  @include flex;
-  flex: 1;
-  padding: 9px;
-  &--radius {
     border-radius: 4px;
-  }
-  &--no-radius {
-    border-radius: 0;
-  }
-  &--disabled {
-    background-color: #f5f7fa;
-  }
-  &__field {
+    background-color: #fff;
+    position: relative;
+    @include flex;
     flex: 1;
-    font-size: 15px;
-    color: $uv-content-color;
-    width: 100%;
-  }
-  &__count {
-    position: absolute;
-    right: 5px;
-    bottom: 2px;
-    font-size: 12px;
-    color: $uv-tips-color;
-    background-color: #ffffff;
-    padding: 1px 4px;
-  }
+    padding: 9px;
+    &--radius {
+        border-radius: 4px;
+    }
+    &--no-radius {
+        border-radius: 0;
+    }
+    &--disabled {
+        background-color: #f5f7fa;
+    }
+    &__field {
+        flex: 1;
+        font-size: 15px;
+        color: $uv-content-color;
+        width: 100%;
+    }
+    &__count {
+        position: absolute;
+        right: 5px;
+        bottom: 2px;
+        font-size: 12px;
+        color: $uv-tips-color;
+        background-color: #ffffff;
+        padding: 1px 4px;
+    }
 }
 </style>

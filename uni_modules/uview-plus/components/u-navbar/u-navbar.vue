@@ -1,89 +1,67 @@
 <template>
-  <view class="u-navbar" :class="[customClass]">
-    <view
-      class="u-navbar__placeholder"
-      v-if="fixed && placeholder"
-      :style="{
-        height: addUnit(getPx(height) + getWindowInfo().statusBarHeight, 'px'),
-      }"
-    ></view>
-    <view :class="[fixed && 'u-navbar--fixed']">
-      <u-status-bar
-        v-if="safeAreaInsetTop"
-        :bgColor="statusBarBgColor ? statusBarBgColor : bgColor"
-      ></u-status-bar>
-      <view
-        class="u-navbar__content"
-        :class="[border && 'u-border-bottom']"
-        :style="{
-          height: addUnit(height),
-          backgroundColor: bgColor,
-        }"
-      >
+    <view class="u-navbar" :class="[customClass]">
         <view
-          class="u-navbar__content__left"
-          hover-class="u-navbar__content__left--hover"
-          hover-start-time="150"
-          @tap="leftClick"
-        >
-          <slot name="left">
-            <u-icon
-              v-if="leftIcon"
-              :name="leftIcon"
-              :size="leftIconSize"
-              :color="leftIconColor"
-            ></u-icon>
-            <text
-              v-if="leftText"
-              :style="{
-                color: leftIconColor,
-              }"
-              class="u-navbar__content__left__text"
-              >{{ leftText }}</text
+            class="u-navbar__placeholder"
+            v-if="fixed && placeholder"
+            :style="{
+                height: addUnit(getPx(height) + getWindowInfo().statusBarHeight, 'px')
+            }"
+        ></view>
+        <view :class="[fixed && 'u-navbar--fixed']">
+            <u-status-bar v-if="safeAreaInsetTop" :bgColor="statusBarBgColor ? statusBarBgColor : bgColor"></u-status-bar>
+            <view
+                class="u-navbar__content"
+                :class="[border && 'u-border-bottom']"
+                :style="{
+                    height: addUnit(height),
+                    backgroundColor: bgColor
+                }"
             >
-          </slot>
+                <view class="u-navbar__content__left" hover-class="u-navbar__content__left--hover" hover-start-time="150" @tap="leftClick">
+                    <slot name="left">
+                        <u-icon v-if="leftIcon" :name="leftIcon" :size="leftIconSize" :color="leftIconColor"></u-icon>
+                        <text
+                            v-if="leftText"
+                            :style="{
+                                color: leftIconColor
+                            }"
+                            class="u-navbar__content__left__text"
+                        >
+                            {{ leftText }}
+                        </text>
+                    </slot>
+                </view>
+                <slot name="center">
+                    <text
+                        class="u-line-1 u-navbar__content__title"
+                        :style="[
+                            {
+                                width: addUnit(titleWidth),
+                                color: titleColor
+                            },
+                            addStyle(titleStyle)
+                        ]"
+                    >
+                        {{ title }}
+                    </text>
+                </slot>
+                <view class="u-navbar__content__right" v-if="$slots.right || rightIcon || rightText" @tap="rightClick">
+                    <slot name="right">
+                        <u-icon v-if="rightIcon" :name="rightIcon" size="20"></u-icon>
+                        <text v-if="rightText" class="u-navbar__content__right__text">{{ rightText }}</text>
+                    </slot>
+                </view>
+            </view>
         </view>
-        <slot name="center">
-          <text
-            class="u-line-1 u-navbar__content__title"
-            :style="[
-              {
-                width: addUnit(titleWidth),
-                color: titleColor,
-              },
-              addStyle(titleStyle),
-            ]"
-            >{{ title }}</text
-          >
-        </slot>
-        <view
-          class="u-navbar__content__right"
-          v-if="$slots.right || rightIcon || rightText"
-          @tap="rightClick"
-        >
-          <slot name="right">
-            <u-icon v-if="rightIcon" :name="rightIcon" size="20"></u-icon>
-            <text v-if="rightText" class="u-navbar__content__right__text">{{
-              rightText
-            }}</text>
-          </slot>
-        </view>
-      </view>
     </view>
-  </view>
 </template>
 
 <script>
-import { props } from "./props";
-import { mpMixin } from "../../libs/mixin/mpMixin";
-import { mixin } from "../../libs/mixin/mixin";
-import config from "../../libs/config/config";
-import {
-  addUnit,
-  addStyle,
-  getPx,
-  getWindowInfo,
-} from "../../libs/function/index";
+import { props } from './props';
+import { mpMixin } from '../../libs/mixin/mpMixin';
+import { mixin } from '../../libs/mixin/mixin';
+import config from '../../libs/config/config';
+import { addUnit, addStyle, getPx, getWindowInfo } from '../../libs/function/index';
 /**
  * Navbar 自定义导航栏
  * @description 此组件一般用于在特殊情况下，需要自定义导航栏的时候用到，一般建议使用uni-app带的导航栏。
@@ -111,92 +89,92 @@ import {
  * @example <u-navbar title="剑未配妥，出门已是江湖" left-text="返回" right-text="帮助" @click-left="onClickBack" @click-right="onClickRight"></u-navbar>
  */
 export default {
-  name: "u-navbar",
-  mixins: [mpMixin, mixin, props],
-  data() {
-    return {};
-  },
-  emits: ["leftClick", "rightClick"],
-  methods: {
-    addStyle,
-    addUnit,
-    getWindowInfo,
-    getPx,
-    // 点击左侧区域
-    leftClick() {
-      // 如果配置了autoBack，自动返回上一页
-      this.$emit("leftClick");
-      if (config.interceptor.navbarLeftClick != null) {
-        config.interceptor.navbarLeftClick();
-      } else {
-        if (this.autoBack) {
-          uni.navigateBack();
+    name: 'u-navbar',
+    mixins: [mpMixin, mixin, props],
+    data() {
+        return {};
+    },
+    emits: ['leftClick', 'rightClick'],
+    methods: {
+        addStyle,
+        addUnit,
+        getWindowInfo,
+        getPx,
+        // 点击左侧区域
+        leftClick() {
+            // 如果配置了autoBack，自动返回上一页
+            this.$emit('leftClick');
+            if (config.interceptor.navbarLeftClick != null) {
+                config.interceptor.navbarLeftClick();
+            } else {
+                if (this.autoBack) {
+                    uni.navigateBack();
+                }
+            }
+        },
+        // 点击右侧区域
+        rightClick() {
+            this.$emit('rightClick');
         }
-      }
-    },
-    // 点击右侧区域
-    rightClick() {
-      this.$emit("rightClick");
-    },
-  },
+    }
 };
 </script>
 
 <style lang="scss" scoped>
 .u-navbar {
-  &--fixed {
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    z-index: 11;
-  }
-
-  &__content {
-    @include flex(row);
-    align-items: center;
-    height: 44px;
-    background-color: #9acafc;
-    position: relative;
-    justify-content: center;
-
-    &__left,
-    &__right {
-      padding: 0 13px;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      @include flex(row);
-      align-items: center;
+    &--fixed {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: 11;
     }
 
-    &__left {
-      left: 0;
+    &__content {
+        @include flex(row);
+        align-items: center;
+        height: 44px;
+        background-color: #9acafc;
+        position: relative;
+        justify-content: center;
 
-      &--hover {
-        opacity: 0.7;
-      }
+        &__left,
+        &__right {
+            padding: 0 13px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            @include flex(row);
+            align-items: center;
+        }
 
-      &__text {
-        font-size: 15px;
-        margin-left: 3px;
-      }
+        &__left {
+            left: 0;
+
+            &--hover {
+                opacity: 0.7;
+            }
+
+            &__text {
+                font-size: 15px;
+                margin-left: 3px;
+            }
+        }
+
+        &__title {
+            text-align: center;
+            font-size: 16px;
+            color: $u-main-color;
+        }
+
+        &__right {
+            right: 0;
+
+            &__text {
+                font-size: 15px;
+                margin-left: 3px;
+            }
+        }
     }
-
-    &__title {
-      text-align: center;
-      font-size: 16px;
-      color: $u-main-color;
-    }
-
-    &__right {
-      right: 0;
-
-      &__text {
-        font-size: 15px;
-        margin-left: 3px;
-      }
-    }
-  }
 }
 </style>

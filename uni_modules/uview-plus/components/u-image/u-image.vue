@@ -1,67 +1,58 @@
 <template>
-  <u-transition
-    mode="fade"
-    :show="show"
-    :style="transStyle"
-    :duration="fade ? 1000 : 0"
-  >
-    <view
-      class="u-image box-border"
-      @tap="onClick"
-      :style="[wrapStyle, backgroundStyle]"
-    >
-      <image
-        v-if="!isError"
-        :src="src"
-        :mode="mode"
-        @error="onErrorHandler"
-        @load="onLoadHandler"
-        :show-menu-by-longpress="showMenuByLongpress"
-        :lazy-load="lazyLoad"
-        class="u-image__image"
-        :style="{
-          width: addUnit(width),
-          height: addUnit(height),
-          borderRadius: shape == 'circle' ? '10000px' : addUnit(radius),
-        }"
-      ></image>
-      <view
-        v-if="showLoading && loading"
-        class="u-image__loading"
-        :style="{
-          borderRadius: shape == 'circle' ? '50%' : addUnit(radius),
-          backgroundColor: this.bgColor,
-          width: addUnit(width),
-          height: addUnit(height),
-        }"
-      >
-        <slot name="loading">
-          <u-icon :name="loadingIcon"></u-icon>
-        </slot>
-      </view>
-      <view
-        v-if="showError && isError && !loading"
-        class="u-image__error"
-        :style="{
-          borderRadius: shape == 'circle' ? '50%' : addUnit(radius),
-          backgroundColor: this.bgColor,
-          width: addUnit(width),
-          height: addUnit(height),
-        }"
-      >
-        <slot name="error">
-          <u-icon :name="errorIcon"></u-icon>
-        </slot>
-      </view>
-    </view>
-  </u-transition>
+    <u-transition mode="fade" :show="show" :style="transStyle" :duration="fade ? 1000 : 0">
+        <view class="u-image box-border" @tap="onClick" :style="[wrapStyle, backgroundStyle]">
+            <image
+                v-if="!isError"
+                :src="src"
+                :mode="mode"
+                @error="onErrorHandler"
+                @load="onLoadHandler"
+                :show-menu-by-longpress="showMenuByLongpress"
+                :lazy-load="lazyLoad"
+                class="u-image__image"
+                :style="{
+                    width: addUnit(width),
+                    height: addUnit(height),
+                    borderRadius: shape == 'circle' ? '10000px' : addUnit(radius)
+                }"
+            ></image>
+            <view
+                v-if="showLoading && loading"
+                class="u-image__loading"
+                :style="{
+                    borderRadius: shape == 'circle' ? '50%' : addUnit(radius),
+                    backgroundColor: this.bgColor,
+                    width: addUnit(width),
+                    height: addUnit(height)
+                }"
+            >
+                <slot name="loading">
+                    <u-icon :name="loadingIcon"></u-icon>
+                </slot>
+            </view>
+            <view
+                v-if="showError && isError && !loading"
+                class="u-image__error"
+                :style="{
+                    borderRadius: shape == 'circle' ? '50%' : addUnit(radius),
+                    backgroundColor: this.bgColor,
+                    width: addUnit(width),
+                    height: addUnit(height)
+                }"
+            >
+                <slot name="error">
+                    <u-icon :name="errorIcon"></u-icon>
+                </slot>
+            </view>
+        </view>
+    </u-transition>
 </template>
 
 <script>
-import { props } from "./props";
-import { mpMixin } from "../../libs/mixin/mpMixin";
-import { mixin } from "../../libs/mixin/mixin";
-import { addUnit, addStyle, deepMerge } from "../../libs/function/index";
+import { props } from './props';
+import { mpMixin } from '../../libs/mixin/mpMixin';
+import { mixin } from '../../libs/mixin/mixin';
+import { addUnit, addStyle, deepMerge } from '../../libs/function/index';
 /**
  * Image 图片
  * @description 此组件为uni-app的image组件的加强版，在继承了原有功能外，还支持淡入动画、加载中、加载失败提示、圆角值和形状等。
@@ -89,161 +80,140 @@ import { addUnit, addStyle, deepMerge } from "../../libs/function/index";
  * @example <u-image width="100%" height="300px" :src="src"></u-image>
  */
 export default {
-  name: "u-image",
-  mixins: [mpMixin, mixin, props],
-  data() {
-    return {
-      // 图片是否加载错误，如果是，则显示错误占位图
-      isError: false,
-      // 初始化组件时，默认为加载中状态
-      loading: true,
-      // 不透明度，为了实现淡入淡出的效果
-      opacity: 1,
-      // 过渡时间，因为props的值无法修改，故需要一个中间值
-      durationTime: this.duration,
-      // 图片加载完成时，去掉背景颜色，因为如果是png图片，就会显示灰色的背景
-      backgroundStyle: {},
-      // 用于fade模式的控制组件显示与否
-      show: false,
-    };
-  },
-  watch: {
-    src: {
-      immediate: true,
-      handler(n) {
-        if (!n) {
-          // 如果传入null或者''，或者false，或者undefined，标记为错误状态
-          this.isError = true;
-        } else {
-          this.isError = false;
-          this.loading = true;
+    name: 'u-image',
+    mixins: [mpMixin, mixin, props],
+    data() {
+        return {
+            // 图片是否加载错误，如果是，则显示错误占位图
+            isError: false,
+            // 初始化组件时，默认为加载中状态
+            loading: true,
+            // 不透明度，为了实现淡入淡出的效果
+            opacity: 1,
+            // 过渡时间，因为props的值无法修改，故需要一个中间值
+            durationTime: this.duration,
+            // 图片加载完成时，去掉背景颜色，因为如果是png图片，就会显示灰色的背景
+            backgroundStyle: {},
+            // 用于fade模式的控制组件显示与否
+            show: false
+        };
+    },
+    watch: {
+        src: {
+            immediate: true,
+            handler(n) {
+                if (!n) {
+                    // 如果传入null或者''，或者false，或者undefined，标记为错误状态
+                    this.isError = true;
+                } else {
+                    this.isError = false;
+                    this.loading = true;
+                }
+            }
         }
-      },
     },
-  },
-  computed: {
-    transStyle() {
-      let style = {};
-      // 通过调用addUnit()方法，如果有单位，如百分比，px单位等，直接返回，如果是纯粹的数值，则加上rpx单位
-      // #ifdef APP-NVUE
-      style.width = addUnit(this.width);
-      style.height = addUnit(this.height);
-      // #endif
-      // #ifndef APP-NVUE
-      if (
-        this.loading ||
-        this.isError ||
-        this.width == "100%" ||
-        this.mode != "heightFix"
-      ) {
-        style.width = addUnit(this.width);
-      } else {
-        style.width = "fit-content";
-      }
-      if (
-        this.loading ||
-        this.isError ||
-        this.height == "100%" ||
-        this.mode != "widthFix"
-      ) {
-        style.height = addUnit(this.height);
-      } else {
-        style.height = "fit-content";
-      }
-      // #endif
-      return style;
+    computed: {
+        transStyle() {
+            let style = {};
+            // 通过调用addUnit()方法，如果有单位，如百分比，px单位等，直接返回，如果是纯粹的数值，则加上rpx单位
+            // #ifdef APP-NVUE
+            style.width = addUnit(this.width);
+            style.height = addUnit(this.height);
+            // #endif
+            // #ifndef APP-NVUE
+            if (this.loading || this.isError || this.width == '100%' || this.mode != 'heightFix') {
+                style.width = addUnit(this.width);
+            } else {
+                style.width = 'fit-content';
+            }
+            if (this.loading || this.isError || this.height == '100%' || this.mode != 'widthFix') {
+                style.height = addUnit(this.height);
+            } else {
+                style.height = 'fit-content';
+            }
+            // #endif
+            return style;
+        },
+        wrapStyle() {
+            let style = {};
+            // 通过调用addUnit()方法，如果有单位，如百分比，px单位等，直接返回，如果是纯粹的数值，则加上rpx单位
+            // #ifdef APP-NVUE
+            style.width = addUnit(this.width);
+            style.height = addUnit(this.height);
+            // #endif
+            // #ifndef APP-NVUE
+            if (this.loading || this.isError || this.width == '100%' || this.mode != 'heightFix') {
+                style.width = addUnit(this.width);
+            } else {
+                style.width = 'fit-content';
+            }
+            if (this.loading || this.isError || this.height == '100%' || this.mode != 'widthFix') {
+                style.height = addUnit(this.height);
+            } else {
+                style.height = 'fit-content';
+            }
+            // #endif
+            // 如果是显示圆形，设置一个很多的半径值即可
+            style.borderRadius = this.shape == 'circle' ? '10000px' : addUnit(this.radius);
+            // 如果设置圆角，必须要有hidden，否则可能圆角无效
+            style.overflow = this.radius > 0 ? 'hidden' : 'visible';
+            // if (this.fade) {
+            // 	style.opacity = this.opacity
+            // 	// nvue下，这几个属性必须要分开写
+            // 	style.transitionDuration = `${this.durationTime}ms`
+            // 	style.transitionTimingFunction = 'ease-in-out'
+            // 	style.transitionProperty = 'opacity'
+            // }
+            return deepMerge(style, addStyle(this.customStyle));
+        }
     },
-    wrapStyle() {
-      let style = {};
-      // 通过调用addUnit()方法，如果有单位，如百分比，px单位等，直接返回，如果是纯粹的数值，则加上rpx单位
-      // #ifdef APP-NVUE
-      style.width = addUnit(this.width);
-      style.height = addUnit(this.height);
-      // #endif
-      // #ifndef APP-NVUE
-      if (
-        this.loading ||
-        this.isError ||
-        this.width == "100%" ||
-        this.mode != "heightFix"
-      ) {
-        style.width = addUnit(this.width);
-      } else {
-        style.width = "fit-content";
-      }
-      if (
-        this.loading ||
-        this.isError ||
-        this.height == "100%" ||
-        this.mode != "widthFix"
-      ) {
-        style.height = addUnit(this.height);
-      } else {
-        style.height = "fit-content";
-      }
-      // #endif
-      // 如果是显示圆形，设置一个很多的半径值即可
-      style.borderRadius =
-        this.shape == "circle" ? "10000px" : addUnit(this.radius);
-      // 如果设置圆角，必须要有hidden，否则可能圆角无效
-      style.overflow = this.radius > 0 ? "hidden" : "visible";
-      // if (this.fade) {
-      // 	style.opacity = this.opacity
-      // 	// nvue下，这几个属性必须要分开写
-      // 	style.transitionDuration = `${this.durationTime}ms`
-      // 	style.transitionTimingFunction = 'ease-in-out'
-      // 	style.transitionProperty = 'opacity'
-      // }
-      return deepMerge(style, addStyle(this.customStyle));
+    mounted() {
+        this.show = true;
     },
-  },
-  mounted() {
-    this.show = true;
-  },
-  emits: ["click", "error", "load"],
-  methods: {
-    addUnit,
-    // 点击图片
-    onClick(e) {
-      this.$emit("click", e);
-    },
-    // 图片加载失败
-    onErrorHandler(err) {
-      this.loading = false;
-      this.isError = true;
-      this.$emit("error", err);
-    },
-    // 图片加载完成，标记loading结束
-    onLoadHandler(event) {
-      this.loading = false;
-      this.isError = false;
-      this.$emit("load", event);
-      this.removeBgColor();
-      // 如果不需要动画效果，就不执行下方代码，同时移除加载时的背景颜色
-      // 否则无需fade效果时，png图片依然能看到下方的背景色
-      // if (!this.fade) return this.removeBgColor();
-      // // 原来opacity为1(不透明，是为了显示占位图)，改成0(透明，意味着该元素显示的是背景颜色，默认的灰色)，再改成1，是为了获得过渡效果
-      // this.opacity = 0;
-      // // 这里设置为0，是为了图片展示到背景全透明这个过程时间为0，延时之后延时之后重新设置为duration，是为了获得背景透明(灰色)
-      // // 到图片展示的过程中的淡入效果
-      // this.durationTime = 0;
-      // // 延时50ms，否则在浏览器H5，过渡效果无效
-      // setTimeout(() => {
-      // 	this.durationTime = this.duration;
-      // 	this.opacity = 1;
-      // 	setTimeout(() => {
-      // 		this.removeBgColor();
-      // 	}, this.durationTime);
-      // }, 50);
-    },
-    // 移除图片的背景色
-    removeBgColor() {
-      // 淡入动画过渡完成后，将背景设置为透明色，否则png图片会看到灰色的背景
-      // this.backgroundStyle = {
-      // 	backgroundColor: this.bgColor || '#ffffff'
-      // };
-    },
-  },
+    emits: ['click', 'error', 'load'],
+    methods: {
+        addUnit,
+        // 点击图片
+        onClick(e) {
+            this.$emit('click', e);
+        },
+        // 图片加载失败
+        onErrorHandler(err) {
+            this.loading = false;
+            this.isError = true;
+            this.$emit('error', err);
+        },
+        // 图片加载完成，标记loading结束
+        onLoadHandler(event) {
+            this.loading = false;
+            this.isError = false;
+            this.$emit('load', event);
+            this.removeBgColor();
+            // 如果不需要动画效果，就不执行下方代码，同时移除加载时的背景颜色
+            // 否则无需fade效果时，png图片依然能看到下方的背景色
+            // if (!this.fade) return this.removeBgColor();
+            // // 原来opacity为1(不透明，是为了显示占位图)，改成0(透明，意味着该元素显示的是背景颜色，默认的灰色)，再改成1，是为了获得过渡效果
+            // this.opacity = 0;
+            // // 这里设置为0，是为了图片展示到背景全透明这个过程时间为0，延时之后延时之后重新设置为duration，是为了获得背景透明(灰色)
+            // // 到图片展示的过程中的淡入效果
+            // this.durationTime = 0;
+            // // 延时50ms，否则在浏览器H5，过渡效果无效
+            // setTimeout(() => {
+            // 	this.durationTime = this.duration;
+            // 	this.opacity = 1;
+            // 	setTimeout(() => {
+            // 		this.removeBgColor();
+            // 	}, this.durationTime);
+            // }, 50);
+        },
+        // 移除图片的背景色
+        removeBgColor() {
+            // 淡入动画过渡完成后，将背景设置为透明色，否则png图片会看到灰色的背景
+            // this.backgroundStyle = {
+            // 	backgroundColor: this.bgColor || '#ffffff'
+            // };
+        }
+    }
 };
 </script>
 
@@ -257,27 +227,27 @@ $u-image-error-color: $u-tips-color !default;
 $u-image-error-font-size: 46rpx !default;
 
 .u-image {
-  position: relative;
-  transition: opacity 0.5s ease-in-out;
+    position: relative;
+    transition: opacity 0.5s ease-in-out;
 
-  &__image {
-    width: 100%;
-    height: 100%;
-  }
+    &__image {
+        width: 100%;
+        height: 100%;
+    }
 
-  &__loading,
-  &__error {
-    position: absolute;
-    top: $u-image-error-top;
-    left: $u-image-error-left;
-    width: $u-image-error-width;
-    height: $u-image-error-hight;
-    @include flex;
-    align-items: center;
-    justify-content: center;
-    background-color: $u-image-error-background-color;
-    color: $u-image-error-color;
-    font-size: $u-image-error-font-size;
-  }
+    &__loading,
+    &__error {
+        position: absolute;
+        top: $u-image-error-top;
+        left: $u-image-error-left;
+        width: $u-image-error-width;
+        height: $u-image-error-hight;
+        @include flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $u-image-error-background-color;
+        color: $u-image-error-color;
+        font-size: $u-image-error-font-size;
+    }
 }
 </style>

@@ -8,7 +8,7 @@
 
 ## 1.0.2（2023-07-02）
 
-uv-loading-page 由于弹出层uv-transition的修改，组件内部做了相应的修改，参数不变。
+uv-loading-page 由于弹出层 uv-transition 的修改，组件内部做了相应的修改，参数不变。
 
 ## 1.0.1（2023-05-16）
 

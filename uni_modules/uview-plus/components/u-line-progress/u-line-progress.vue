@@ -1,35 +1,30 @@
 <template>
-  <view class="u-line-progress" :style="[addStyle(customStyle)]">
-    <view
-      class="u-line-progress__background"
-      ref="u-line-progress__background"
-      :style="[
-        {
-          backgroundColor: inactiveColor,
-          height: addUnit(height),
-        },
-      ]"
-    >
+    <view class="u-line-progress" :style="[addStyle(customStyle)]">
+        <view
+            class="u-line-progress__background"
+            ref="u-line-progress__background"
+            :style="[
+                {
+                    backgroundColor: inactiveColor,
+                    height: addUnit(height)
+                }
+            ]"
+        ></view>
+        <view class="u-line-progress__line" :style="[progressStyle]">
+            <slot>
+                <text v-if="showText && percentage >= 10" class="u-line-progress__text">{{ innserPercentage + '%' }}</text>
+            </slot>
+        </view>
     </view>
-    <view class="u-line-progress__line" :style="[progressStyle]">
-      <slot>
-        <text
-          v-if="showText && percentage >= 10"
-          class="u-line-progress__text"
-          >{{ innserPercentage + "%" }}</text
-        >
-      </slot>
-    </view>
-  </view>
 </template>
 
 <script>
-import { props } from "./props";
-import { mpMixin } from "../../libs/mixin/mpMixin";
-import { mixin } from "../../libs/mixin/mixin";
-import { addUnit, addStyle, sleep, range } from "../../libs/function/index";
+import { props } from './props';
+import { mpMixin } from '../../libs/mixin/mpMixin';
+import { mixin } from '../../libs/mixin/mixin';
+import { addUnit, addStyle, sleep, range } from '../../libs/function/index';
 // #ifdef APP-NVUE
-const dom = uni.requireNativePlugin("dom");
+const dom = uni.requireNativePlugin('dom');
 // #endif
 /**
  * lineProgress 线型进度条
@@ -44,109 +39,106 @@ const dom = uni.requireNativePlugin("dom");
  * @example <u-line-progress :percent="70" :show-percent="true"></u-line-progress>
  */
 export default {
-  name: "u-line-progress",
-  mixins: [mpMixin, mixin, props],
-  data() {
-    return {
-      lineWidth: 0,
-    };
-  },
-  watch: {
-    percentage(n) {
-      this.resizeProgressWidth();
+    name: 'u-line-progress',
+    mixins: [mpMixin, mixin, props],
+    data() {
+        return {
+            lineWidth: 0
+        };
     },
-  },
-  computed: {
-    progressStyle() {
-      let style = {};
-      style.width = this.lineWidth;
-      style.backgroundColor = this.activeColor;
-      style.height = addUnit(this.height);
-      if (this.fromRight) {
-        style.right = 0;
-      } else {
-        style.left = 0;
-      }
-      return style;
+    watch: {
+        percentage(n) {
+            this.resizeProgressWidth();
+        }
     },
-    innserPercentage() {
-      // 控制范围在0-100之间
-      return range(0, 100, this.percentage);
+    computed: {
+        progressStyle() {
+            let style = {};
+            style.width = this.lineWidth;
+            style.backgroundColor = this.activeColor;
+            style.height = addUnit(this.height);
+            if (this.fromRight) {
+                style.right = 0;
+            } else {
+                style.left = 0;
+            }
+            return style;
+        },
+        innserPercentage() {
+            // 控制范围在0-100之间
+            return range(0, 100, this.percentage);
+        }
     },
-  },
-  mounted() {
-    this.init();
-  },
-  methods: {
-    addStyle,
-    addUnit,
-    init() {
-      sleep(20).then(() => {
-        this.resizeProgressWidth();
-      });
+    mounted() {
+        this.init();
     },
-    getProgressWidth() {
-      // #ifndef APP-NVUE
-      return this.$uGetRect(".u-line-progress__background");
-      // #endif
+    methods: {
+        addStyle,
+        addUnit,
+        init() {
+            sleep(20).then(() => {
+                this.resizeProgressWidth();
+            });
+        },
+        getProgressWidth() {
+            // #ifndef APP-NVUE
+            return this.$uGetRect('.u-line-progress__background');
+            // #endif
 
-      // #ifdef APP-NVUE
-      // 返回一个promise
-      return new Promise((resolve) => {
-        dom.getComponentRect(
-          this.$refs["u-line-progress__background"],
-          (res) => {
-            resolve(res.size);
-          },
-        );
-      });
-      // #endif
-    },
-    resizeProgressWidth() {
-      this.getProgressWidth().then((size) => {
-        const { width } = size;
-        // 通过设置的percentage值，计算其所占总长度的百分比
-        this.lineWidth = (width * this.innserPercentage) / 100 + "px";
-      });
-    },
-  },
+            // #ifdef APP-NVUE
+            // 返回一个promise
+            return new Promise((resolve) => {
+                dom.getComponentRect(this.$refs['u-line-progress__background'], (res) => {
+                    resolve(res.size);
+                });
+            });
+            // #endif
+        },
+        resizeProgressWidth() {
+            this.getProgressWidth().then((size) => {
+                const { width } = size;
+                // 通过设置的percentage值，计算其所占总长度的百分比
+                this.lineWidth = (width * this.innserPercentage) / 100 + 'px';
+            });
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
 .u-line-progress {
-  align-items: stretch;
-  position: relative;
-  @include flex(row);
-  flex: 1;
-  overflow: hidden;
-  border-radius: 100px;
-
-  &__background {
-    background-color: #ececec;
-    border-radius: 100px;
-    flex: 1;
-  }
-
-  &__line {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    align-items: center;
+    align-items: stretch;
+    position: relative;
     @include flex(row);
-    color: #ffffff;
+    flex: 1;
+    overflow: hidden;
     border-radius: 100px;
-    transition: width 0.5s ease;
-    justify-content: flex-end;
-  }
 
-  &__text {
-    font-size: 10px;
-    align-items: center;
-    text-align: right;
-    color: #ffffff;
-    margin-right: 5px;
-    transform: scale(0.9);
-  }
+    &__background {
+        background-color: #ececec;
+        border-radius: 100px;
+        flex: 1;
+    }
+
+    &__line {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        align-items: center;
+        @include flex(row);
+        color: #ffffff;
+        border-radius: 100px;
+        transition: width 0.5s ease;
+        justify-content: flex-end;
+    }
+
+    &__text {
+        font-size: 10px;
+        align-items: center;
+        text-align: right;
+        color: #ffffff;
+        margin-right: 5px;
+        transform: scale(0.9);
+    }
 }
 </style>

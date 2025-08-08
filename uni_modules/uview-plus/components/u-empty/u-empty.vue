@@ -1,35 +1,27 @@
 <template>
-  <view class="u-empty" :style="[emptyStyle]" v-if="show">
-    <u-icon
-      v-if="!isSrc"
-      :name="mode === 'message' ? 'chat' : `empty-${mode}`"
-      :size="iconSize"
-      :color="iconColor"
-      margin-top="14"
-    ></u-icon>
-    <image
-      v-else
-      :style="{
-        width: addUnit(width),
-        height: addUnit(height),
-      }"
-      :src="icon"
-      mode="widthFix"
-    ></image>
-    <text class="u-empty__text" :style="[textStyle]">{{
-      text ? text : icons[mode]
-    }}</text>
-    <view class="u-empty__wrap" v-if="$slots.default || $slots.$default">
-      <slot />
+    <view class="u-empty" :style="[emptyStyle]" v-if="show">
+        <u-icon v-if="!isSrc" :name="mode === 'message' ? 'chat' : `empty-${mode}`" :size="iconSize" :color="iconColor" margin-top="14"></u-icon>
+        <image
+            v-else
+            :style="{
+                width: addUnit(width),
+                height: addUnit(height)
+            }"
+            :src="icon"
+            mode="widthFix"
+        ></image>
+        <text class="u-empty__text" :style="[textStyle]">{{ text ? text : icons[mode] }}</text>
+        <view class="u-empty__wrap" v-if="$slots.default || $slots.$default">
+            <slot />
+        </view>
     </view>
-  </view>
 </template>
 
 <script>
-import { props } from "./props";
-import { mpMixin } from "../../libs/mixin/mpMixin";
-import { mixin } from "../../libs/mixin/mixin";
-import { addUnit, addStyle, deepMerge } from "../../libs/function/index";
+import { props } from './props';
+import { mpMixin } from '../../libs/mixin/mpMixin';
+import { mixin } from '../../libs/mixin/mixin';
+import { addUnit, addStyle, deepMerge } from '../../libs/function/index';
 /**
  * empty 内容为空
  * @description 该组件用于需要加载内容，但是加载的第一页数据就为空，提示一个"没有内容"的场景， 我们精心挑选了十几个场景的图标，方便您使用。
@@ -52,52 +44,52 @@ import { addUnit, addStyle, deepMerge } from "../../libs/function/index";
  * @example <u-empty text="所谓伊人，在水一方" mode="list"></u-empty>
  */
 export default {
-  name: "u-empty",
-  mixins: [mpMixin, mixin, props],
-  data() {
-    return {
-      icons: {
-        car: "购物车为空",
-        page: "页面不存在",
-        search: "没有搜索结果",
-        address: "没有收货地址",
-        wifi: "没有WiFi",
-        order: "订单为空",
-        coupon: "没有优惠券",
-        favor: "暂无收藏",
-        permission: "无权限",
-        history: "无历史记录",
-        news: "无新闻列表",
-        message: "消息列表为空",
-        list: "列表为空",
-        data: "数据为空",
-        comment: "暂无评论",
-      },
-    };
-  },
-  computed: {
-    // 组件样式
-    emptyStyle() {
-      const style = {};
-      style.marginTop = addUnit(this.marginTop);
-      // 合并customStyle样式，此参数通过mixin中的props传递
-      return deepMerge(addStyle(this.customStyle), style);
+    name: 'u-empty',
+    mixins: [mpMixin, mixin, props],
+    data() {
+        return {
+            icons: {
+                car: '购物车为空',
+                page: '页面不存在',
+                search: '没有搜索结果',
+                address: '没有收货地址',
+                wifi: '没有WiFi',
+                order: '订单为空',
+                coupon: '没有优惠券',
+                favor: '暂无收藏',
+                permission: '无权限',
+                history: '无历史记录',
+                news: '无新闻列表',
+                message: '消息列表为空',
+                list: '列表为空',
+                data: '数据为空',
+                comment: '暂无评论'
+            }
+        };
     },
-    // 文本样式
-    textStyle() {
-      const style = {};
-      style.color = this.textColor;
-      style.fontSize = addUnit(this.textSize);
-      return style;
+    computed: {
+        // 组件样式
+        emptyStyle() {
+            const style = {};
+            style.marginTop = addUnit(this.marginTop);
+            // 合并customStyle样式，此参数通过mixin中的props传递
+            return deepMerge(addStyle(this.customStyle), style);
+        },
+        // 文本样式
+        textStyle() {
+            const style = {};
+            style.color = this.textColor;
+            style.fontSize = addUnit(this.textSize);
+            return style;
+        },
+        // 判断icon是否图片路径
+        isSrc() {
+            return this.icon.indexOf('/') >= 0;
+        }
     },
-    // 判断icon是否图片路径
-    isSrc() {
-      return this.icon.indexOf("/") >= 0;
-    },
-  },
-  methods: {
-    addUnit,
-  },
+    methods: {
+        addUnit
+    }
 };
 </script>
 
@@ -106,22 +98,22 @@ $u-empty-text-margin-top: 20rpx !default;
 $u-empty-slot-margin-top: 20rpx !default;
 
 .u-empty {
-  @include flex;
-  flex-direction: column !important;
-  justify-content: center;
-  align-items: center;
+    @include flex;
+    flex-direction: column !important;
+    justify-content: center;
+    align-items: center;
 
-  &__text {
+    &__text {
+        @include flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: $u-empty-text-margin-top;
+    }
+}
+.u-slot-wrap {
     @include flex;
     justify-content: center;
     align-items: center;
-    margin-top: $u-empty-text-margin-top;
-  }
-}
-.u-slot-wrap {
-  @include flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: $u-empty-slot-margin-top;
+    margin-top: $u-empty-slot-margin-top;
 }
 </style>

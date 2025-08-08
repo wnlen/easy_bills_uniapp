@@ -1,52 +1,52 @@
 <template>
-  <view
-    class="uv-notice-bar"
-    v-if="show"
-    :style="[
-      {
-        backgroundColor: bgColor,
-      },
-      $uv.addStyle(customStyle),
-    ]"
-  >
-    <template v-if="direction === 'column' || (direction === 'row' && step)">
-      <uv-column-notice
-        :color="color"
-        :bgColor="bgColor"
-        :text="text"
-        :mode="mode"
-        :step="step"
-        :icon="icon"
-        :disable-touch="disableTouch"
-        :disable-scroll="disableScroll"
-        :fontSize="fontSize"
-        :duration="duration"
-        @close="close"
-        @click="click"
-        @change="change"
-      ></uv-column-notice>
-    </template>
-    <template v-else>
-      <uv-row-notice
-        :color="color"
-        :bgColor="bgColor"
-        :text="text"
-        :mode="mode"
-        :fontSize="fontSize"
-        :speed="speed"
-        :url="url"
-        :linkType="linkType"
-        :icon="icon"
-        @close="close"
-        @click="click"
-      ></uv-row-notice>
-    </template>
-  </view>
+    <view
+        class="uv-notice-bar"
+        v-if="show"
+        :style="[
+            {
+                backgroundColor: bgColor
+            },
+            $uv.addStyle(customStyle)
+        ]"
+    >
+        <template v-if="direction === 'column' || (direction === 'row' && step)">
+            <uv-column-notice
+                :color="color"
+                :bgColor="bgColor"
+                :text="text"
+                :mode="mode"
+                :step="step"
+                :icon="icon"
+                :disable-touch="disableTouch"
+                :disable-scroll="disableScroll"
+                :fontSize="fontSize"
+                :duration="duration"
+                @close="close"
+                @click="click"
+                @change="change"
+            ></uv-column-notice>
+        </template>
+        <template v-else>
+            <uv-row-notice
+                :color="color"
+                :bgColor="bgColor"
+                :text="text"
+                :mode="mode"
+                :fontSize="fontSize"
+                :speed="speed"
+                :url="url"
+                :linkType="linkType"
+                :icon="icon"
+                @close="close"
+                @click="click"
+            ></uv-row-notice>
+        </template>
+    </view>
 </template>
 <script>
-import mpMixin from "@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js";
-import mixin from "@/uni_modules/uv-ui-tools/libs/mixin/mixin.js";
-import props from "./props.js";
+import mpMixin from '@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js';
+import mixin from '@/uni_modules/uv-ui-tools/libs/mixin/mixin.js';
+import props from './props.js';
 
 /**
  * noticeBar 滚动通知
@@ -72,42 +72,42 @@ import props from "./props.js";
  * @example <uv-notice-bar :more-icon="true" :list="list"></uv-notice-bar>
  */
 export default {
-  name: "uv-notice-bar",
-  emits: ["click", "close", "change"],
-  mixins: [mpMixin, mixin, props],
-  data() {
-    return {
-      show: true,
-    };
-  },
-  methods: {
-    // 点击通告栏
-    click(index) {
-      this.$emit("click", index);
-      if (this.url && this.linkType) {
-        // 此方法写在mixin中，另外跳转的url和linkType参数也在mixin的props中
-        this.openPage();
-      }
+    name: 'uv-notice-bar',
+    emits: ['click', 'close', 'change'],
+    mixins: [mpMixin, mixin, props],
+    data() {
+        return {
+            show: true
+        };
     },
-    // 点击关闭按钮
-    close() {
-      this.show = false;
-      this.$emit("close");
-    },
-    // 竖向滚动时触发
-    change(index) {
-      this.$emit("change", index);
-    },
-  },
+    methods: {
+        // 点击通告栏
+        click(index) {
+            this.$emit('click', index);
+            if (this.url && this.linkType) {
+                // 此方法写在mixin中，另外跳转的url和linkType参数也在mixin的props中
+                this.openPage();
+            }
+        },
+        // 点击关闭按钮
+        close() {
+            this.show = false;
+            this.$emit('close');
+        },
+        // 竖向滚动时触发
+        change(index) {
+            this.$emit('change', index);
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
-@import "@/uni_modules/uv-ui-tools/libs/css/components.scss";
+@import '@/uni_modules/uv-ui-tools/libs/css/components.scss';
 
 .uv-notice-bar {
-  overflow: hidden;
-  padding: 9px 12px;
-  flex: 1;
+    overflow: hidden;
+    padding: 9px 12px;
+    flex: 1;
 }
 </style>

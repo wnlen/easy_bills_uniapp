@@ -8,28 +8,28 @@
  * @FilePath     : /u-view2.0/uview-ui/libs/config/props/modal.js
  */
 export default {
-  // modal 组件
-  modal: {
-    show: false,
-    title: "",
-    content: "",
-    confirmText: "确认",
-    cancelText: "取消",
-    showConfirmButton: true,
-    showCancelButton: false,
-    confirmColor: "#2979ff",
-    cancelColor: "#606266",
-    buttonReverse: false,
-    zoom: true,
-    asyncClose: false,
-    closeOnClickOverlay: false,
-    negativeTop: 0,
-    width: "650rpx",
-    confirmButtonShape: "",
-    duration: 400,
-    contentTextAlign: "left",
-    asyncCloseTip: "操作中...",
-    asyncCancelClose: false,
-    contentStyle: {},
-  },
+    // modal 组件
+    modal: {
+        show: false,
+        title: '',
+        content: '',
+        confirmText: '确认',
+        cancelText: '取消',
+        showConfirmButton: true,
+        showCancelButton: false,
+        confirmColor: '#2979ff',
+        cancelColor: '#606266',
+        buttonReverse: false,
+        zoom: true,
+        asyncClose: false,
+        closeOnClickOverlay: false,
+        negativeTop: 0,
+        width: '650rpx',
+        confirmButtonShape: '',
+        duration: 400,
+        contentTextAlign: 'left',
+        asyncCloseTip: '操作中...',
+        asyncCancelClose: false,
+        contentStyle: {}
+    }
 };

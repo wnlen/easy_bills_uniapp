@@ -1,14 +1,14 @@
 ## 1.0.5（2023-08-05）
 
-在vue2模式下，v-model设置为0时不生效的BUG
+在 vue2 模式下，v-model 设置为 0 时不生效的 BUG
 
 ## 1.0.4（2023-07-13）
 
-1. 修复value/v-model更改不生效的BUG
+1. 修复 value/v-model 更改不生效的 BUG
 
 ## 1.0.3（2023-06-28）
 
-修复：使用:disabledKeyboard="true"属性，事件全部失效的BUG
+修复：使用:disabledKeyboard="true"属性，事件全部失效的 BUG
 
 ## 1.0.2（2023-06-23）
 

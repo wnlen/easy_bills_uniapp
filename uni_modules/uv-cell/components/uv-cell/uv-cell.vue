@@ -1,93 +1,54 @@
 <template>
-  <view
-    class="uv-cell"
-    :class="[customClass]"
-    :style="[$uv.addStyle(customStyle)]"
-    :hover-class="
-      !disabled && (clickable || isLink) ? 'uv-cell--clickable' : ''
-    "
-    :hover-stay-time="250"
-    @click="clickHandler"
-  >
     <view
-      class="uv-cell__body"
-      :class="[
-        center && 'uv-cell--center',
-        size === 'large' && 'uv-cell__body--large',
-      ]"
-      :style="[cellStyle]"
+        class="uv-cell"
+        :class="[customClass]"
+        :style="[$uv.addStyle(customStyle)]"
+        :hover-class="!disabled && (clickable || isLink) ? 'uv-cell--clickable' : ''"
+        :hover-stay-time="250"
+        @click="clickHandler"
     >
-      <view class="uv-cell__body__content">
-        <view class="uv-cell__left-icon-wrap">
-          <slot name="icon">
-            <uv-icon
-              v-if="icon"
-              :name="icon"
-              :custom-style="iconStyle"
-              :size="size === 'large' ? 22 : 18"
-            ></uv-icon>
-          </slot>
+        <view class="uv-cell__body" :class="[center && 'uv-cell--center', size === 'large' && 'uv-cell__body--large']" :style="[cellStyle]">
+            <view class="uv-cell__body__content">
+                <view class="uv-cell__left-icon-wrap">
+                    <slot name="icon">
+                        <uv-icon v-if="icon" :name="icon" :custom-style="iconStyle" :size="size === 'large' ? 22 : 18"></uv-icon>
+                    </slot>
+                </view>
+                <view class="uv-cell__title">
+                    <slot name="title">
+                        <text
+                            v-if="title"
+                            class="uv-cell__title-text"
+                            :style="[titleTextStyle]"
+                            :class="[disabled && 'uv-cell--disabled', size === 'large' && 'uv-cell__title-text--large']"
+                        >
+                            {{ title }}
+                        </text>
+                    </slot>
+                    <slot name="label">
+                        <text class="uv-cell__label" v-if="label" :class="[disabled && 'uv-cell--disabled', size === 'large' && 'uv-cell__label--large']">{{ label }}</text>
+                    </slot>
+                </view>
+            </view>
+            <slot name="value">
+                <text class="uv-cell__value" :class="[disabled && 'uv-cell--disabled', size === 'large' && 'uv-cell__value--large']" v-if="!$uv.test.empty(value)">
+                    {{ value }}
+                </text>
+            </slot>
+            <view class="uv-cell__right-icon-wrap" :class="[`uv-cell__right-icon-wrap--${arrowDirection}`]">
+                <slot name="right-icon">
+                    <uv-icon v-if="isLink" :name="rightIcon" :custom-style="rightIconStyle" :color="disabled ? '#c8c9cc' : 'info'" :size="size === 'large' ? 18 : 16"></uv-icon>
+                </slot>
+            </view>
         </view>
-        <view class="uv-cell__title">
-          <slot name="title">
-            <text
-              v-if="title"
-              class="uv-cell__title-text"
-              :style="[titleTextStyle]"
-              :class="[
-                disabled && 'uv-cell--disabled',
-                size === 'large' && 'uv-cell__title-text--large',
-              ]"
-              >{{ title }}</text
-            >
-          </slot>
-          <slot name="label">
-            <text
-              class="uv-cell__label"
-              v-if="label"
-              :class="[
-                disabled && 'uv-cell--disabled',
-                size === 'large' && 'uv-cell__label--large',
-              ]"
-              >{{ label }}</text
-            >
-          </slot>
-        </view>
-      </view>
-      <slot name="value">
-        <text
-          class="uv-cell__value"
-          :class="[
-            disabled && 'uv-cell--disabled',
-            size === 'large' && 'uv-cell__value--large',
-          ]"
-          v-if="!$uv.test.empty(value)"
-          >{{ value }}</text
-        >
-      </slot>
-      <view
-        class="uv-cell__right-icon-wrap"
-        :class="[`uv-cell__right-icon-wrap--${arrowDirection}`]"
-      >
-        <slot name="right-icon">
-          <uv-icon
-            v-if="isLink"
-            :name="rightIcon"
-            :custom-style="rightIconStyle"
-            :color="disabled ? '#c8c9cc' : 'info'"
-            :size="size === 'large' ? 18 : 16"
-          ></uv-icon>
-        </slot>
-      </view>
+        <uv-line v-if="border"></uv-line>
     </view>
-    <uv-line v-if="border"></uv-line>
-  </view>
 </template>
 
 <script>
-import mpMixin from "@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js";
-import mixin from "@/uni_modules/uv-ui-tools/libs/mixin/mixin.js";
-import props from "./props.js";
+import mpMixin from '@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js';
+import mixin from '@/uni_modules/uv-ui-tools/libs/mixin/mixin.js';
+import props from './props.js';
 /**
  * cell  单元格
  * @description cell单元格一般用于一组列表的情况，比如个人中心页，设置页等。
@@ -118,33 +79,33 @@ import props from "./props.js";
  * @example 该组件需要搭配cell-group组件使用，见官方文档示例
  */
 export default {
-  name: "uv-cell",
-  emits: ["click"],
-  mixins: [mpMixin, mixin, props],
-  computed: {
-    titleTextStyle() {
-      return this.$uv.addStyle(this.titleStyle);
+    name: 'uv-cell',
+    emits: ['click'],
+    mixins: [mpMixin, mixin, props],
+    computed: {
+        titleTextStyle() {
+            return this.$uv.addStyle(this.titleStyle);
+        }
     },
-  },
-  methods: {
-    // 点击cell
-    clickHandler(e) {
-      if (this.disabled) return;
-      this.$emit("click", {
-        name: this.name,
-      });
-      // 如果配置了url(此props参数通过mixin引入)参数，跳转页面
-      this.openPage();
-      // 是否阻止事件传播
-      this.stop && this.preventEvent(e);
-    },
-  },
+    methods: {
+        // 点击cell
+        clickHandler(e) {
+            if (this.disabled) return;
+            this.$emit('click', {
+                name: this.name
+            });
+            // 如果配置了url(此props参数通过mixin引入)参数，跳转页面
+            this.openPage();
+            // 是否阻止事件传播
+            this.stop && this.preventEvent(e);
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
-@import "@/uni_modules/uv-ui-tools/libs/css/components.scss";
-@import "@/uni_modules/uv-ui-tools/libs/css/color.scss";
+@import '@/uni_modules/uv-ui-tools/libs/css/components.scss';
+@import '@/uni_modules/uv-ui-tools/libs/css/color.scss';
 $uv-cell-padding: 10px 15px !default;
 $uv-cell-font-size: 15px !default;
 $uv-cell-line-height: 24px !default;
@@ -170,84 +131,84 @@ $uv-cell-right-icon-wrap-margin-left: 4px !default;
 $uv-cell-title-flex: 1 !default;
 $uv-cell-label-margin-top: 5px !default;
 .uv-cell {
-  &__body {
-    @include flex();
-    /* #ifndef APP-NVUE */
-    box-sizing: border-box;
-    /* #endif */
-    padding: $uv-cell-padding;
-    font-size: $uv-cell-font-size;
-    color: $uv-cell-color;
-    &__content {
-      @include flex(row);
-      align-items: center;
-      flex: 1;
+    &__body {
+        @include flex();
+        /* #ifndef APP-NVUE */
+        box-sizing: border-box;
+        /* #endif */
+        padding: $uv-cell-padding;
+        font-size: $uv-cell-font-size;
+        color: $uv-cell-color;
+        &__content {
+            @include flex(row);
+            align-items: center;
+            flex: 1;
+        }
+        &--large {
+            padding-top: $uv-cell-padding-top-large;
+            padding-bottom: $uv-cell-padding-bottom-large;
+        }
     }
-    &--large {
-      padding-top: $uv-cell-padding-top-large;
-      padding-bottom: $uv-cell-padding-bottom-large;
+    &__left-icon-wrap,
+    &__right-icon-wrap {
+        @include flex();
+        align-items: center;
+        // height: $uv-cell-line-height;
+        font-size: $uv-cell-icon-size;
     }
-  }
-  &__left-icon-wrap,
-  &__right-icon-wrap {
-    @include flex();
-    align-items: center;
-    // height: $uv-cell-line-height;
-    font-size: $uv-cell-icon-size;
-  }
-  &__left-icon-wrap {
-    margin-right: $uv-cell-left-icon-wrap-margin-right;
-  }
-  &__right-icon-wrap {
-    margin-left: $uv-cell-right-icon-wrap-margin-left;
-    transition: transform 0.3s;
-    &--up {
-      transform: rotate(-90deg);
+    &__left-icon-wrap {
+        margin-right: $uv-cell-left-icon-wrap-margin-right;
     }
-    &--down {
-      transform: rotate(90deg);
+    &__right-icon-wrap {
+        margin-left: $uv-cell-right-icon-wrap-margin-left;
+        transition: transform 0.3s;
+        &--up {
+            transform: rotate(-90deg);
+        }
+        &--down {
+            transform: rotate(90deg);
+        }
     }
-  }
-  &__title {
-    flex: $uv-cell-title-flex;
-    &-text {
-      font-size: $uv-cell-title-font-size;
-      line-height: $uv-cell-title-line-height;
-      color: $uv-cell-title-color;
-      &--large {
-        font-size: $uv-cell-title-font-size-large;
-      }
+    &__title {
+        flex: $uv-cell-title-flex;
+        &-text {
+            font-size: $uv-cell-title-font-size;
+            line-height: $uv-cell-title-line-height;
+            color: $uv-cell-title-color;
+            &--large {
+                font-size: $uv-cell-title-font-size-large;
+            }
+        }
     }
-  }
-  &__label {
-    margin-top: $uv-cell-label-margin-top;
-    font-size: $uv-cell-label-font-size;
-    color: $uv-cell-label-color;
-    line-height: $uv-cell-label-line-height;
-    &--large {
-      font-size: $uv-cell-label-font-size-large;
+    &__label {
+        margin-top: $uv-cell-label-margin-top;
+        font-size: $uv-cell-label-font-size;
+        color: $uv-cell-label-color;
+        line-height: $uv-cell-label-line-height;
+        &--large {
+            font-size: $uv-cell-label-font-size-large;
+        }
     }
-  }
-  &__value {
-    text-align: right;
-    font-size: $uv-cell-value-font-size;
-    line-height: $uv-cell-line-height;
-    color: $uv-cell-value-color;
-    &--large {
-      font-size: $uv-cell-value-font-size-large;
+    &__value {
+        text-align: right;
+        font-size: $uv-cell-value-font-size;
+        line-height: $uv-cell-line-height;
+        color: $uv-cell-value-color;
+        &--large {
+            font-size: $uv-cell-value-font-size-large;
+        }
     }
-  }
-  &--clickable {
-    background-color: $uv-cell-clickable-color;
-  }
-  &--disabled {
-    color: $uv-cell-disabled-color;
-    /* #ifndef APP-NVUE */
-    cursor: not-allowed;
-    /* #endif */
-  }
-  &--center {
-    align-items: center;
-  }
+    &--clickable {
+        background-color: $uv-cell-clickable-color;
+    }
+    &--disabled {
+        color: $uv-cell-disabled-color;
+        /* #ifndef APP-NVUE */
+        cursor: not-allowed;
+        /* #endif */
+    }
+    &--center {
+        align-items: center;
+    }
 }
 </style>

@@ -9,4 +9,4 @@
 
 ## 1.0.0（2023-05-10）
 
-1. 新增uv-status-bar组件
+1. 新增 uv-status-bar 组件

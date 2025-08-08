@@ -1,57 +1,39 @@
 <template>
-  <view
-    v-if="showPopup"
-    class="uv-popup"
-    :class="[popupClass, isDesktop ? 'fixforpc-z-index' : '']"
-    :style="[{ zIndex: zIndex }]"
-  >
-    <view @touchstart="touchstart">
-      <!-- 遮罩层 -->
-      <uv-overlay
-        key="1"
-        v-if="maskShow && overlay"
-        :show="showTrans"
-        :duration="duration"
-        :custom-style="overlayStyle"
-        :opacity="overlayOpacity"
-        :zIndex="zIndex"
-        @click="onTap"
-      ></uv-overlay>
-      <uv-transition
-        key="2"
-        :mode="ani"
-        name="content"
-        :custom-style="transitionStyle"
-        :duration="duration"
-        :show="showTrans"
-        @click="onTap"
-      >
-        <view
-          class="uv-popup__content"
-          :style="[contentStyle]"
-          :class="[popupClass]"
-          @click="clear"
-        >
-          <uv-status-bar v-if="safeAreaInsetTop"></uv-status-bar>
-          <slot />
-          <uv-safe-bottom v-if="safeAreaInsetBottom"></uv-safe-bottom>
-          <view
-            v-if="closeable"
-            @tap.stop="close"
-            class="uv-popup__content__close"
-            :class="['uv-popup__content__close--' + closeIconPos]"
-            hover-class="uv-popup__content__close--hover"
-            hover-stay-time="150"
-          >
-            <uv-icon name="close" color="#909399" size="18" bold></uv-icon>
-          </view>
+    <view v-if="showPopup" class="uv-popup" :class="[popupClass, isDesktop ? 'fixforpc-z-index' : '']" :style="[{ zIndex: zIndex }]">
+        <view @touchstart="touchstart">
+            <!-- 遮罩层 -->
+            <uv-overlay
+                key="1"
+                v-if="maskShow && overlay"
+                :show="showTrans"
+                :duration="duration"
+                :custom-style="overlayStyle"
+                :opacity="overlayOpacity"
+                :zIndex="zIndex"
+                @click="onTap"
+            ></uv-overlay>
+            <uv-transition key="2" :mode="ani" name="content" :custom-style="transitionStyle" :duration="duration" :show="showTrans" @click="onTap">
+                <view class="uv-popup__content" :style="[contentStyle]" :class="[popupClass]" @click="clear">
+                    <uv-status-bar v-if="safeAreaInsetTop"></uv-status-bar>
+                    <slot />
+                    <uv-safe-bottom v-if="safeAreaInsetBottom"></uv-safe-bottom>
+                    <view
+                        v-if="closeable"
+                        @tap.stop="close"
+                        class="uv-popup__content__close"
+                        :class="['uv-popup__content__close--' + closeIconPos]"
+                        hover-class="uv-popup__content__close--hover"
+                        hover-stay-time="150"
+                    >
+                        <uv-icon name="close" color="#909399" size="18" bold></uv-icon>
+                    </view>
+                </view>
+            </uv-transition>
         </view>
-      </uv-transition>
+        <!-- #ifdef H5 -->
+        <keypress v-if="maskShow" @esc="onTap" />
+        <!-- #endif -->
     </view>
-    <!-- #ifdef H5 -->
-    <keypress v-if="maskShow" @esc="onTap" />
-    <!-- #endif -->
-  </view>
 </template>
 
 <script>
@@ -459,76 +441,76 @@ export default {
 </script>
 <style lang="scss" scoped>
 .uv-popup {
-  position: fixed;
-  /* #ifndef APP-NVUE */
-  z-index: 99;
-
-  /* #endif */
-  &.top,
-  &.left,
-  &.right {
-    /* #ifdef H5 */
-    top: var(--window-top);
-    /* #endif */
-    /* #ifndef H5 */
-    top: 0;
-    /* #endif */
-  }
-
-  .uv-popup__content {
+    position: fixed;
     /* #ifndef APP-NVUE */
-    display: block;
-    overflow: hidden;
-    /* #endif */
-    position: relative;
+    z-index: 99;
 
+    /* #endif */
+    &.top,
     &.left,
     &.right {
-      /* #ifdef H5 */
-      padding-top: var(--window-top);
-      /* #endif */
-      /* #ifndef H5 */
-      padding-top: 0;
-      /* #endif */
-      flex: 1;
-    }
-    &__close {
-      position: absolute;
-
-      &--hover {
-        opacity: 0.4;
-      }
+        /* #ifdef H5 */
+        top: var(--window-top);
+        /* #endif */
+        /* #ifndef H5 */
+        top: 0;
+        /* #endif */
     }
 
-    &__close--top-left {
-      top: 15px;
-      left: 15px;
-    }
+    .uv-popup__content {
+        /* #ifndef APP-NVUE */
+        display: block;
+        overflow: hidden;
+        /* #endif */
+        position: relative;
 
-    &__close--top-right {
-      top: 15px;
-      right: 15px;
-    }
+        &.left,
+        &.right {
+            /* #ifdef H5 */
+            padding-top: var(--window-top);
+            /* #endif */
+            /* #ifndef H5 */
+            padding-top: 0;
+            /* #endif */
+            flex: 1;
+        }
+        &__close {
+            position: absolute;
 
-    &__close--bottom-left {
-      bottom: 15px;
-      left: 15px;
-    }
+            &--hover {
+                opacity: 0.4;
+            }
+        }
 
-    &__close--bottom-right {
-      right: 15px;
-      bottom: 15px;
+        &__close--top-left {
+            top: 15px;
+            left: 15px;
+        }
+
+        &__close--top-right {
+            top: 15px;
+            right: 15px;
+        }
+
+        &__close--bottom-left {
+            bottom: 15px;
+            left: 15px;
+        }
+
+        &__close--bottom-right {
+            right: 15px;
+            bottom: 15px;
+        }
     }
-  }
 }
 
 .fixforpc-z-index {
-  /* #ifndef APP-NVUE */
-  z-index: 999;
-  /* #endif */
+    /* #ifndef APP-NVUE */
+    z-index: 999;
+    /* #endif */
 }
 
 .fixforpc-top {
-  top: 0;
+    top: 0;
 }
 </style>

@@ -1,65 +1,52 @@
 <template>
-  <view class="u-skeleton">
-    <view
-      class="u-skeleton__wrapper"
-      ref="u-skeleton__wrapper"
-      v-if="loading"
-      style="display: flex; flex-direction: row"
-    >
-      <view
-        class="u-skeleton__wrapper__avatar"
-        v-if="avatar"
-        :class="[
-          `u-skeleton__wrapper__avatar--${avatarShape}`,
-          animate && 'animate',
-        ]"
-        :style="{
-          height: addUnit(avatarSize),
-          width: addUnit(avatarSize),
-        }"
-      ></view>
-      <view
-        class="u-skeleton__wrapper__content"
-        ref="u-skeleton__wrapper__content"
-        style="flex: 1"
-      >
-        <view
-          class="u-skeleton__wrapper__content__title"
-          v-if="title"
-          :style="{
-            width: uTitleWidth,
-            height: addUnit(titleHeight),
-          }"
-          :class="[animate && 'animate']"
-        ></view>
-        <view
-          class="u-skeleton__wrapper__content__rows"
-          :class="[animate && 'animate']"
-          v-for="(item, index) in rowsArray"
-          :key="index"
-          :style="{
-            width: item.width,
-            height: item.height,
-            marginTop: item.marginTop,
-          }"
-        >
+    <view class="u-skeleton">
+        <view class="u-skeleton__wrapper" ref="u-skeleton__wrapper" v-if="loading" style="display: flex; flex-direction: row">
+            <view
+                class="u-skeleton__wrapper__avatar"
+                v-if="avatar"
+                :class="[`u-skeleton__wrapper__avatar--${avatarShape}`, animate && 'animate']"
+                :style="{
+                    height: addUnit(avatarSize),
+                    width: addUnit(avatarSize)
+                }"
+            ></view>
+            <view class="u-skeleton__wrapper__content" ref="u-skeleton__wrapper__content" style="flex: 1">
+                <view
+                    class="u-skeleton__wrapper__content__title"
+                    v-if="title"
+                    :style="{
+                        width: uTitleWidth,
+                        height: addUnit(titleHeight)
+                    }"
+                    :class="[animate && 'animate']"
+                ></view>
+                <view
+                    class="u-skeleton__wrapper__content__rows"
+                    :class="[animate && 'animate']"
+                    v-for="(item, index) in rowsArray"
+                    :key="index"
+                    :style="{
+                        width: item.width,
+                        height: item.height,
+                        marginTop: item.marginTop
+                    }"
+                ></view>
+            </view>
         </view>
-      </view>
+        <slot v-else />
     </view>
-    <slot v-else />
-  </view>
 </template>
 
 <script>
-import { props } from "./props";
-import { mpMixin } from "../../libs/mixin/mpMixin";
-import { mixin } from "../../libs/mixin/mixin";
-import { addUnit, sleep, error } from "../../libs/function/index";
-import test from "../../libs/function/test";
+import { props } from './props';
+import { mpMixin } from '../../libs/mixin/mpMixin';
+import { mixin } from '../../libs/mixin/mixin';
+import { addUnit, sleep, error } from '../../libs/function/index';
+import test from '../../libs/function/test';
 // #ifdef APP-NVUE
 // 由于weex为阿里的KPI业绩考核的产物，所以不支持百分比单位，这里需要通过dom查询组件的宽度
-const dom = uni.requireNativePlugin("dom");
-const animation = uni.requireNativePlugin("animation");
+const dom = uni.requireNativePlugin('dom');
+const animation = uni.requireNativePlugin('animation');
 // #endif
 /**
  * Skeleton 骨架屏
@@ -79,187 +66,180 @@ const animation = uni.requireNativePlugin("animation");
  * @example <u-search placeholder="日照香炉生紫烟" v-model="keyword"></u-search>
  */
 export default {
-  name: "u-skeleton",
-  mixins: [mpMixin, mixin, props],
-  data() {
-    return {
-      width: 0,
-    };
-  },
-  watch: {
-    loading() {
-      this.getComponentWidth();
+    name: 'u-skeleton',
+    mixins: [mpMixin, mixin, props],
+    data() {
+        return {
+            width: 0
+        };
     },
-  },
-  computed: {
-    rowsArray() {
-      if (/%$/.test(this.rowsHeight)) {
-        error("rowsHeight参数不支持百分比单位");
-      }
-      const rows = [];
-      for (let i = 0; i < this.rows; i++) {
-        let item = {},
-          // 需要预防超出数组边界的情况
-          rowWidth = test.array(this.rowsWidth)
-            ? this.rowsWidth[i] || (i === this.rows - 1 ? "70%" : "100%")
-            : i === this.rows - 1
-              ? "70%"
-              : this.rowsWidth,
-          rowHeight = test.array(this.rowsHeight)
-            ? this.rowsHeight[i] || "18px"
-            : this.rowsHeight;
-        // 如果有title占位图，第一个段落占位图的外边距需要大一些，如果没有title占位图，第一个段落占位图则无需外边距
-        // 之所以需要这么做，是因为weex的无能，以提升性能为借口不支持css的一些伪类
-        item.marginTop =
-          !this.title && i === 0 ? 0 : this.title && i === 0 ? "20px" : "12px";
-        // 如果设置的为百分比的宽度，转换为px值，因为nvue不支持百分比单位
-        if (/%$/.test(rowWidth)) {
-          // 通过parseInt提取出百分比单位中的数值部分，除以100得到百分比的小数值
-          item.width = addUnit((this.width * parseInt(rowWidth)) / 100);
-        } else {
-          item.width = addUnit(rowWidth);
+    watch: {
+        loading() {
+            this.getComponentWidth();
         }
-        item.height = addUnit(rowHeight);
-        rows.push(item);
-      }
-      // console.log(rows);
-      return rows;
     },
-    uTitleWidth() {
-      let tWidth = 0;
-      if (/%$/.test(this.titleWidth)) {
-        // 通过parseInt提取出百分比单位中的数值部分，除以100得到百分比的小数值
-        tWidth = addUnit((this.width * parseInt(this.titleWidth)) / 100);
-      } else {
-        tWidth = addUnit(this.titleWidth);
-      }
-      return addUnit(tWidth);
+    computed: {
+        rowsArray() {
+            if (/%$/.test(this.rowsHeight)) {
+                error('rowsHeight参数不支持百分比单位');
+            }
+            const rows = [];
+            for (let i = 0; i < this.rows; i++) {
+                let item = {},
+                    // 需要预防超出数组边界的情况
+                    rowWidth = test.array(this.rowsWidth) ? this.rowsWidth[i] || (i === this.rows - 1 ? '70%' : '100%') : i === this.rows - 1 ? '70%' : this.rowsWidth,
+                    rowHeight = test.array(this.rowsHeight) ? this.rowsHeight[i] || '18px' : this.rowsHeight;
+                // 如果有title占位图，第一个段落占位图的外边距需要大一些，如果没有title占位图，第一个段落占位图则无需外边距
+                // 之所以需要这么做，是因为weex的无能，以提升性能为借口不支持css的一些伪类
+                item.marginTop = !this.title && i === 0 ? 0 : this.title && i === 0 ? '20px' : '12px';
+                // 如果设置的为百分比的宽度，转换为px值，因为nvue不支持百分比单位
+                if (/%$/.test(rowWidth)) {
+                    // 通过parseInt提取出百分比单位中的数值部分，除以100得到百分比的小数值
+                    item.width = addUnit((this.width * parseInt(rowWidth)) / 100);
+                } else {
+                    item.width = addUnit(rowWidth);
+                }
+                item.height = addUnit(rowHeight);
+                rows.push(item);
+            }
+            // console.log(rows);
+            return rows;
+        },
+        uTitleWidth() {
+            let tWidth = 0;
+            if (/%$/.test(this.titleWidth)) {
+                // 通过parseInt提取出百分比单位中的数值部分，除以100得到百分比的小数值
+                tWidth = addUnit((this.width * parseInt(this.titleWidth)) / 100);
+            } else {
+                tWidth = addUnit(this.titleWidth);
+            }
+            return addUnit(tWidth);
+        }
     },
-  },
-  mounted() {
-    this.init();
-  },
-  methods: {
-    addUnit,
-    init() {
-      this.getComponentWidth();
-      // #ifdef APP-NVUE
-      this.loading && this.animate && this.setNvueAnimation();
-      // #endif
+    mounted() {
+        this.init();
     },
-    async setNvueAnimation() {
-      // #ifdef APP-NVUE
-      // 为了让opacity:1的状态保持一定时间，这里做一个延时
-      await sleep(500);
-      const skeleton = this.$refs["u-skeleton__wrapper"];
-      skeleton &&
-        this.loading &&
-        this.animate &&
-        animation.transition(
-          skeleton,
-          {
-            styles: {
-              opacity: 0.5,
-            },
-            duration: 600,
-          },
-          () => {
-            // 这里无需判断是否loading和开启动画状态，因为最终的状态必须达到opacity: 1，否则可能
-            // 会停留在opacity: 0.5的状态中
-            animation.transition(
-              skeleton,
-              {
-                styles: {
-                  opacity: 1,
-                },
-                duration: 600,
-              },
-              () => {
-                // 只有在loading中时，才执行动画
-                this.loading && this.animate && this.setNvueAnimation();
-              },
-            );
-          },
-        );
-      // #endif
-    },
-    // 获取组件的宽度
-    async getComponentWidth() {
-      // 延时一定时间，以获取dom尺寸
-      await sleep(20);
-      // #ifndef APP-NVUE
-      this.$uGetRect(".u-skeleton__wrapper__content").then((size) => {
-        this.width = size.width;
-      });
-      // #endif
+    methods: {
+        addUnit,
+        init() {
+            this.getComponentWidth();
+            // #ifdef APP-NVUE
+            this.loading && this.animate && this.setNvueAnimation();
+            // #endif
+        },
+        async setNvueAnimation() {
+            // #ifdef APP-NVUE
+            // 为了让opacity:1的状态保持一定时间，这里做一个延时
+            await sleep(500);
+            const skeleton = this.$refs['u-skeleton__wrapper'];
+            skeleton &&
+                this.loading &&
+                this.animate &&
+                animation.transition(
+                    skeleton,
+                    {
+                        styles: {
+                            opacity: 0.5
+                        },
+                        duration: 600
+                    },
+                    () => {
+                        // 这里无需判断是否loading和开启动画状态，因为最终的状态必须达到opacity: 1，否则可能
+                        // 会停留在opacity: 0.5的状态中
+                        animation.transition(
+                            skeleton,
+                            {
+                                styles: {
+                                    opacity: 1
+                                },
+                                duration: 600
+                            },
+                            () => {
+                                // 只有在loading中时，才执行动画
+                                this.loading && this.animate && this.setNvueAnimation();
+                            }
+                        );
+                    }
+                );
+            // #endif
+        },
+        // 获取组件的宽度
+        async getComponentWidth() {
+            // 延时一定时间，以获取dom尺寸
+            await sleep(20);
+            // #ifndef APP-NVUE
+            this.$uGetRect('.u-skeleton__wrapper__content').then((size) => {
+                this.width = size.width;
+            });
+            // #endif
 
-      // #ifdef APP-NVUE
-      const ref = this.$refs["u-skeleton__wrapper__content"];
-      ref &&
-        dom.getComponentRect(ref, (res) => {
-          this.width = res.size.width;
-        });
-      // #endif
-    },
-  },
+            // #ifdef APP-NVUE
+            const ref = this.$refs['u-skeleton__wrapper__content'];
+            ref &&
+                dom.getComponentRect(ref, (res) => {
+                    this.width = res.size.width;
+                });
+            // #endif
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
 @mixin background {
-  /* #ifdef APP-NVUE */
-  background-color: #f1f2f4;
-  /* #endif */
-  /* #ifndef APP-NVUE */
-  background: linear-gradient(90deg, #f1f2f4 25%, #e6e6e6 37%, #f1f2f4 50%);
-  background-size: 400% 100%;
-  /* #endif */
+    /* #ifdef APP-NVUE */
+    background-color: #f1f2f4;
+    /* #endif */
+    /* #ifndef APP-NVUE */
+    background: linear-gradient(90deg, #f1f2f4 25%, #e6e6e6 37%, #f1f2f4 50%);
+    background-size: 400% 100%;
+    /* #endif */
 }
 
 .u-skeleton {
-  flex: 1;
+    flex: 1;
 
-  &__wrapper {
-    @include flex(row);
+    &__wrapper {
+        @include flex(row);
 
-    &__avatar {
-      @include background;
-      margin-right: 15px;
+        &__avatar {
+            @include background;
+            margin-right: 15px;
 
-      &--circle {
-        border-radius: 100px;
-      }
+            &--circle {
+                border-radius: 100px;
+            }
 
-      &--square {
-        border-radius: 4px;
-      }
+            &--square {
+                border-radius: 4px;
+            }
+        }
+
+        &__content {
+            flex: 1;
+
+            &__rows,
+            &__title {
+                @include background;
+                border-radius: 3px;
+            }
+        }
     }
-
-    &__content {
-      flex: 1;
-
-      &__rows,
-      &__title {
-        @include background;
-        border-radius: 3px;
-      }
-    }
-  }
 }
 
 /* #ifndef APP-NVUE */
 .animate {
-  animation: skeleton 1.8s ease infinite;
+    animation: skeleton 1.8s ease infinite;
 }
 
 @keyframes skeleton {
-  0% {
-    background-position: 100% 50%;
-  }
+    0% {
+        background-position: 100% 50%;
+    }
 
-  100% {
-    background-position: 0 50%;
-  }
+    100% {
+        background-position: 0 50%;
+    }
 }
 
 /* #endif */

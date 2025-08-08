@@ -1,12 +1,7 @@
 <!-- 图标组件 -->
 
 <template>
-  <i
-    class="iconfont"
-    :class="[icon, extraClass]"
-    :style="[iconStyle, { color: color, fontSize: size }]"
-    @click="$emit('active')"
-  ></i>
+    <i class="iconfont" :class="[icon, extraClass]" :style="[iconStyle, { color: color, fontSize: size }]" @click="$emit('active')"></i>
 </template>
 
 <script>
@@ -24,55 +19,55 @@
  */
 
 export default {
-  // 小程序样式穿透
-  options: {
-    styleIsolation: "shared",
-  },
-  name: "albb-icon",
-  props: {
-    icon: {
-      //矢量图标代码
-      type: String,
-      default: "",
+    // 小程序样式穿透
+    options: {
+        styleIsolation: 'shared'
     },
-    extraClass: {
-      // 样式
-      type: String,
-      default: "",
-    },
-    iconStyle: {
-      // 样式
-      type: Object,
-      default: () => {},
-    },
-    size: {
-      // 图标大小
-      type: String,
-      default: "",
-    },
-    color: {
-      // 图标颜色
-      type: String,
-      default: "",
-    },
-  },
+    name: 'albb-icon',
+    props: {
+        icon: {
+            //矢量图标代码
+            type: String,
+            default: ''
+        },
+        extraClass: {
+            // 样式
+            type: String,
+            default: ''
+        },
+        iconStyle: {
+            // 样式
+            type: Object,
+            default: () => {}
+        },
+        size: {
+            // 图标大小
+            type: String,
+            default: ''
+        },
+        color: {
+            // 图标颜色
+            type: String,
+            default: ''
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
 page {
-  background: #f9f9f9;
-  font-family: "微软雅黑", sans-serif;
-  font-size: 28rpx;
-  min-height: 100%;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
+    background: #f9f9f9;
+    font-family: '微软雅黑', sans-serif;
+    font-size: 28rpx;
+    min-height: 100%;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
 }
 
 // 本地地址，需从阿里矢量图中下载相关文件
-@import url("./iconfont.css");
+@import url('./iconfont.css');
 
 .iconfont {
-  font-size: 32rpx;
+    font-size: 32rpx;
 }
 </style>

@@ -4,20 +4,20 @@
 
 ## 1.0.5（2023-07-02）
 
-uv-calendar 由于弹出层uv-popup的修改，打开和关闭方法更改，详情参考文档：https://www.uvui.cn/components/calendar.html
+uv-calendar 由于弹出层 uv-popup 的修改，打开和关闭方法更改，详情参考文档：https://www.uvui.cn/components/calendar.html
 
 ## 1.0.4（2023-06-15）
 
-1. formatter格式化中增加topInfo参数
+1. formatter 格式化中增加 topInfo 参数
 
 ## 1.0.3（2023-06-08）
 
-1. 增加点击日期change回调
+1. 增加点击日期 change 回调
 2. 优化
 
 ## 1.0.2（2023-06-05）
 
-1. 修改多个时间选择的时候存在反选的BUG
+1. 修改多个时间选择的时候存在反选的 BUG
 
 ## 1.0.1（2023-05-16）
 

@@ -1,29 +1,17 @@
 <template>
-  <view class="u-divider" :style="[addStyle(customStyle)]" @tap="click">
-    <u-line
-      :color="lineColor"
-      :customStyle="leftLineStyle"
-      :hairline="hairline"
-      :dashed="dashed"
-    ></u-line>
-    <text v-if="dot" class="u-divider__dot">●</text>
-    <text v-else-if="text" class="u-divider__text" :style="[textStyle]">{{
-      text
-    }}</text>
-    <u-line
-      :color="lineColor"
-      :customStyle="rightLineStyle"
-      :hairline="hairline"
-      :dashed="dashed"
-    ></u-line>
-  </view>
+    <view class="u-divider" :style="[addStyle(customStyle)]" @tap="click">
+        <u-line :color="lineColor" :customStyle="leftLineStyle" :hairline="hairline" :dashed="dashed"></u-line>
+        <text v-if="dot" class="u-divider__dot">●</text>
+        <text v-else-if="text" class="u-divider__text" :style="[textStyle]">{{ text }}</text>
+        <u-line :color="lineColor" :customStyle="rightLineStyle" :hairline="hairline" :dashed="dashed"></u-line>
+    </view>
 </template>
 
 <script>
-import { props } from "./props";
-import { mpMixin } from "../../libs/mixin/mpMixin";
-import { mixin } from "../../libs/mixin/mixin";
-import { addStyle, addUnit } from "../../libs/function/index";
+import { props } from './props';
+import { mpMixin } from '../../libs/mixin/mpMixin';
+import { mixin } from '../../libs/mixin/mixin';
+import { addStyle, addUnit } from '../../libs/function/index';
 /**
  * divider 分割线
  * @description 区隔内容的分割线，一般用于页面底部"没有更多"的提示。
@@ -42,46 +30,46 @@ import { addStyle, addUnit } from "../../libs/function/index";
  * @example <u-divider :color="color">锦瑟无端五十弦</u-divider>
  */
 export default {
-  name: "u-divider",
-  mixins: [mpMixin, mixin, props],
-  computed: {
-    textStyle() {
-      const style = {};
-      style.fontSize = addUnit(this.textSize);
-      style.color = this.textColor;
-      return style;
+    name: 'u-divider',
+    mixins: [mpMixin, mixin, props],
+    computed: {
+        textStyle() {
+            const style = {};
+            style.fontSize = addUnit(this.textSize);
+            style.color = this.textColor;
+            return style;
+        },
+        // 左边线条的的样式
+        leftLineStyle() {
+            const style = {};
+            // 如果是在左边，设置左边的宽度为固定值
+            if (this.textPosition === 'left') {
+                style.width = '80rpx';
+            } else {
+                style.flex = 1;
+            }
+            return style;
+        },
+        // 右边线条的的样式
+        rightLineStyle() {
+            const style = {};
+            // 如果是在右边，设置右边的宽度为固定值
+            if (this.textPosition === 'right') {
+                style.width = '80rpx';
+            } else {
+                style.flex = 1;
+            }
+            return style;
+        }
     },
-    // 左边线条的的样式
-    leftLineStyle() {
-      const style = {};
-      // 如果是在左边，设置左边的宽度为固定值
-      if (this.textPosition === "left") {
-        style.width = "80rpx";
-      } else {
-        style.flex = 1;
-      }
-      return style;
-    },
-    // 右边线条的的样式
-    rightLineStyle() {
-      const style = {};
-      // 如果是在右边，设置右边的宽度为固定值
-      if (this.textPosition === "right") {
-        style.width = "80rpx";
-      } else {
-        style.flex = 1;
-      }
-      return style;
-    },
-  },
-  emits: ["click"],
-  methods: {
-    addStyle,
-    // divider组件被点击时触发
-    click() {
-      this.$emit("click");
-    },
-  },
+    emits: ['click'],
+    methods: {
+        addStyle,
+        // divider组件被点击时触发
+        click() {
+            this.$emit('click');
+        }
+    }
 };
 </script>
 
@@ -93,19 +81,19 @@ $u-divider-dot-margin: 0 12px !default;
 $u-divider-dot-color: #c0c4cc !default;
 
 .u-divider {
-  @include flex;
-  flex-direction: row;
-  align-items: center;
-  margin: $u-divider-margin;
+    @include flex;
+    flex-direction: row;
+    align-items: center;
+    margin: $u-divider-margin;
 
-  &__text {
-    margin: $u-divider-text-margin;
-  }
+    &__text {
+        margin: $u-divider-text-margin;
+    }
 
-  &__dot {
-    font-size: $u-divider-dot-font-size;
-    margin: $u-divider-dot-margin;
-    color: $u-divider-dot-color;
-  }
+    &__dot {
+        font-size: $u-divider-dot-font-size;
+        margin: $u-divider-dot-margin;
+        color: $u-divider-dot-color;
+    }
 }
 </style>

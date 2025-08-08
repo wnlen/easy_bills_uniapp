@@ -1,99 +1,61 @@
 <template>
-  <view
-    class="u-cell"
-    :class="[customClass]"
-    :style="[addStyle(customStyle)]"
-    :hover-class="!disabled && (clickable || isLink) ? 'u-cell--clickable' : ''"
-    :hover-stay-time="250"
-    @tap="clickHandler"
-  >
     <view
-      class="u-cell__body"
-      :class="[
-        center && 'u-cell--center',
-        size === 'large' && 'u-cell__body--large',
-      ]"
+        class="u-cell"
+        :class="[customClass]"
+        :style="[addStyle(customStyle)]"
+        :hover-class="!disabled && (clickable || isLink) ? 'u-cell--clickable' : ''"
+        :hover-stay-time="250"
+        @tap="clickHandler"
     >
-      <view class="u-cell__body__content">
-        <view class="u-cell__left-icon-wrap" v-if="$slots.icon || icon">
-          <slot name="icon" v-if="$slots.icon"> </slot>
-          <u-icon
-            v-else
-            :name="icon"
-            :custom-style="iconStyle"
-            :size="size === 'large' ? 22 : 18"
-          ></u-icon>
+        <view class="u-cell__body" :class="[center && 'u-cell--center', size === 'large' && 'u-cell__body--large']">
+            <view class="u-cell__body__content">
+                <view class="u-cell__left-icon-wrap" v-if="$slots.icon || icon">
+                    <slot name="icon" v-if="$slots.icon"></slot>
+                    <u-icon v-else :name="icon" :custom-style="iconStyle" :size="size === 'large' ? 22 : 18"></u-icon>
+                </view>
+                <view class="u-cell__title">
+                    <!-- 将slot与默认内容用if/else分开主要是因为微信小程序不支持slot嵌套传递，这样才能解决collapse组件的slot不失效问题，label暂时未用到。 -->
+                    <slot name="title" v-if="$slots.title || !title"></slot>
+                    <text
+                        v-else
+                        class="u-cell__title-text"
+                        :style="[titleTextStyle]"
+                        :class="[required && 'u-cell--required', disabled && 'u-cell--disabled', size === 'large' && 'u-cell__title-text--large']"
+                    >
+                        {{ title }}
+                    </text>
+                    <slot name="label">
+                        <text class="u-cell__label" v-if="label" :class="[disabled && 'u-cell--disabled', size === 'large' && 'u-cell__label--large']">{{ label }}</text>
+                    </slot>
+                </view>
+            </view>
+            <slot name="value">
+                <text class="u-cell__value" :class="[disabled && 'u-cell--disabled', size === 'large' && 'u-cell__value--large']" v-if="!testEmpty(value)">{{ value }}</text>
+            </slot>
+            <view class="u-cell__right-icon-wrap" v-if="$slots['right-icon'] || isLink" :class="[`u-cell__right-icon-wrap--${arrowDirection}`]">
+                <u-icon
+                    v-if="rightIcon && !$slots['right-icon']"
+                    :name="rightIcon"
+                    :custom-style="rightIconStyle"
+                    :color="disabled ? '#c8c9cc' : 'info'"
+                    :size="size === 'large' ? 18 : 16"
+                ></u-icon>
+                <slot v-else name="right-icon"></slot>
+            </view>
+            <view class="u-cell__right-icon-wrap" v-if="$slots['righticon']" :class="[`u-cell__right-icon-wrap--${arrowDirection}`]">
+                <slot name="righticon"></slot>
+            </view>
         </view>
-        <view class="u-cell__title">
-          <!-- 将slot与默认内容用if/else分开主要是因为微信小程序不支持slot嵌套传递，这样才能解决collapse组件的slot不失效问题，label暂时未用到。 -->
-          <slot name="title" v-if="$slots.title || !title"> </slot>
-          <text
-            v-else
-            class="u-cell__title-text"
-            :style="[titleTextStyle]"
-            :class="[
-              required && 'u-cell--required',
-              disabled && 'u-cell--disabled',
-              size === 'large' && 'u-cell__title-text--large',
-            ]"
-            >{{ title }}</text
-          >
-          <slot name="label">
-            <text
-              class="u-cell__label"
-              v-if="label"
-              :class="[
-                disabled && 'u-cell--disabled',
-                size === 'large' && 'u-cell__label--large',
-              ]"
-              >{{ label }}</text
-            >
-          </slot>
-        </view>
-      </view>
-      <slot name="value">
-        <text
-          class="u-cell__value"
-          :class="[
-            disabled && 'u-cell--disabled',
-            size === 'large' && 'u-cell__value--large',
-          ]"
-          v-if="!testEmpty(value)"
-          >{{ value }}</text
-        >
-      </slot>
-      <view
-        class="u-cell__right-icon-wrap"
-        v-if="$slots['right-icon'] || isLink"
-        :class="[`u-cell__right-icon-wrap--${arrowDirection}`]"
-      >
-        <u-icon
-          v-if="rightIcon && !$slots['right-icon']"
-          :name="rightIcon"
-          :custom-style="rightIconStyle"
-          :color="disabled ? '#c8c9cc' : 'info'"
-          :size="size === 'large' ? 18 : 16"
-        ></u-icon>
-        <slot v-else name="right-icon"> </slot>
-      </view>
-      <view
-        class="u-cell__right-icon-wrap"
-        v-if="$slots['righticon']"
-        :class="[`u-cell__right-icon-wrap--${arrowDirection}`]"
-      >
-        <slot name="righticon"> </slot>
-      </view>
+        <u-line v-if="border"></u-line>
     </view>
-    <u-line v-if="border"></u-line>
-  </view>
 </template>
 
 <script>
-import { props } from "./props";
-import { mpMixin } from "../../libs/mixin/mpMixin";
-import { mixin } from "../../libs/mixin/mixin";
-import { addStyle } from "../../libs/function/index";
-import test from "../../libs/function/test";
+import { props } from './props';
+import { mpMixin } from '../../libs/mixin/mpMixin';
+import { mixin } from '../../libs/mixin/mixin';
+import { addStyle } from '../../libs/function/index';
+import test from '../../libs/function/test';
 /**
  * cell  单元格
  * @description cell单元格一般用于一组列表的情况，比如个人中心页，设置页等。
@@ -123,32 +85,32 @@ import test from "../../libs/function/test";
  * @example 该组件需要搭配cell-group组件使用，见官方文档示例
  */
 export default {
-  name: "u-cell",
-  data() {
-    return {};
-  },
-  mixins: [mpMixin, mixin, props],
-  computed: {
-    titleTextStyle() {
-      return addStyle(this.titleStyle);
+    name: 'u-cell',
+    data() {
+        return {};
     },
-  },
-  emits: ["click"],
-  methods: {
-    addStyle,
-    testEmpty: test.empty,
-    // 点击cell
-    clickHandler(e) {
-      if (this.disabled) return;
-      this.$emit("click", {
-        name: this.name,
-      });
-      // 如果配置了url(此props参数通过mixin引入)参数，跳转页面
-      this.openPage();
-      // 是否阻止事件传播
-      this.stop && this.preventEvent(e);
+    mixins: [mpMixin, mixin, props],
+    computed: {
+        titleTextStyle() {
+            return addStyle(this.titleStyle);
+        }
     },
-  },
+    emits: ['click'],
+    methods: {
+        addStyle,
+        testEmpty: test.empty,
+        // 点击cell
+        clickHandler(e) {
+            if (this.disabled) return;
+            this.$emit('click', {
+                name: this.name
+            });
+            // 如果配置了url(此props参数通过mixin引入)参数，跳转页面
+            this.openPage();
+            // 是否阻止事件传播
+            this.stop && this.preventEvent(e);
+        }
+    }
 };
 </script>
 
@@ -179,126 +141,126 @@ $u-cell-title-flex: 1 !default;
 $u-cell-label-margin-top: 5px !default;
 
 .u-cell {
-  &__body {
-    @include flex();
-    /* #ifndef APP-NVUE */
-    box-sizing: border-box;
-    /* #endif */
-    padding: $u-cell-padding;
-    font-size: $u-cell-font-size;
-    color: $u-cell-color;
-    // line-height: $u-cell-line-height;
-    align-items: center;
+    &__body {
+        @include flex();
+        /* #ifndef APP-NVUE */
+        box-sizing: border-box;
+        /* #endif */
+        padding: $u-cell-padding;
+        font-size: $u-cell-font-size;
+        color: $u-cell-color;
+        // line-height: $u-cell-line-height;
+        align-items: center;
 
-    &__content {
-      @include flex(row);
-      align-items: center;
-      flex: 1;
+        &__content {
+            @include flex(row);
+            align-items: center;
+            flex: 1;
+        }
+
+        &--large {
+            padding-top: $u-cell-padding-top-large;
+            padding-bottom: $u-cell-padding-bottom-large;
+        }
     }
 
-    &--large {
-      padding-top: $u-cell-padding-top-large;
-      padding-bottom: $u-cell-padding-bottom-large;
-    }
-  }
-
-  &__left-icon-wrap,
-  &__right-icon-wrap {
-    @include flex();
-    align-items: center;
-    // height: $u-cell-line-height;
-    font-size: $u-cell-icon-size;
-  }
-
-  &__left-icon-wrap {
-    margin-right: $u-cell-left-icon-wrap-margin-right;
-  }
-
-  &__right-icon-wrap {
-    margin-left: $u-cell-right-icon-wrap-margin-left;
-    transition: transform 0.3s;
-
-    &--up {
-      transform: rotate(-90deg);
+    &__left-icon-wrap,
+    &__right-icon-wrap {
+        @include flex();
+        align-items: center;
+        // height: $u-cell-line-height;
+        font-size: $u-cell-icon-size;
     }
 
-    &--down {
-      transform: rotate(90deg);
+    &__left-icon-wrap {
+        margin-right: $u-cell-left-icon-wrap-margin-right;
     }
-  }
 
-  &__title {
-    flex: $u-cell-title-flex;
-    display: flex;
-    flex-direction: column;
+    &__right-icon-wrap {
+        margin-left: $u-cell-right-icon-wrap-margin-left;
+        transition: transform 0.3s;
 
-    &-text {
-      font-size: $u-cell-title-font-size;
-      line-height: $u-cell-title-line-height;
-      color: $u-cell-title-color;
+        &--up {
+            transform: rotate(-90deg);
+        }
 
-      &--large {
-        font-size: $u-cell-title-font-size-large;
-      }
+        &--down {
+            transform: rotate(90deg);
+        }
     }
-  }
 
-  &__label {
-    margin-top: $u-cell-label-margin-top;
-    font-size: $u-cell-label-font-size;
-    color: $u-cell-label-color;
-    line-height: $u-cell-label-line-height;
+    &__title {
+        flex: $u-cell-title-flex;
+        display: flex;
+        flex-direction: column;
 
-    &--large {
-      font-size: $u-cell-label-font-size-large;
+        &-text {
+            font-size: $u-cell-title-font-size;
+            line-height: $u-cell-title-line-height;
+            color: $u-cell-title-color;
+
+            &--large {
+                font-size: $u-cell-title-font-size-large;
+            }
+        }
     }
-  }
 
-  &__value {
-    text-align: right;
-    /* #ifndef APP-NVUE */
-    margin-left: auto;
-    /* #endif */
-    font-size: $u-cell-value-font-size;
-    line-height: $u-cell-line-height;
-    color: $u-cell-value-color;
-    &--large {
-      font-size: $u-cell-value-font-size-large;
+    &__label {
+        margin-top: $u-cell-label-margin-top;
+        font-size: $u-cell-label-font-size;
+        color: $u-cell-label-color;
+        line-height: $u-cell-label-line-height;
+
+        &--large {
+            font-size: $u-cell-label-font-size-large;
+        }
     }
-  }
 
-  &--required {
-    /* #ifndef APP-NVUE */
-    overflow: visible;
-    /* #endif */
-    @include flex;
-    align-items: center;
-  }
+    &__value {
+        text-align: right;
+        /* #ifndef APP-NVUE */
+        margin-left: auto;
+        /* #endif */
+        font-size: $u-cell-value-font-size;
+        line-height: $u-cell-line-height;
+        color: $u-cell-value-color;
+        &--large {
+            font-size: $u-cell-value-font-size-large;
+        }
+    }
 
-  &--required:before {
-    position: absolute;
-    /* #ifndef APP-NVUE */
-    content: "*";
-    /* #endif */
-    left: -8px;
-    margin-top: 4rpx;
-    font-size: 14px;
-    color: $u-error;
-  }
+    &--required {
+        /* #ifndef APP-NVUE */
+        overflow: visible;
+        /* #endif */
+        @include flex;
+        align-items: center;
+    }
 
-  &--clickable {
-    background-color: $u-cell-clickable-color;
-  }
+    &--required:before {
+        position: absolute;
+        /* #ifndef APP-NVUE */
+        content: '*';
+        /* #endif */
+        left: -8px;
+        margin-top: 4rpx;
+        font-size: 14px;
+        color: $u-error;
+    }
 
-  &--disabled {
-    color: $u-cell-disabled-color;
-    /* #ifndef APP-NVUE */
-    cursor: not-allowed;
-    /* #endif */
-  }
+    &--clickable {
+        background-color: $u-cell-clickable-color;
+    }
 
-  &--center {
-    align-items: center;
-  }
+    &--disabled {
+        color: $u-cell-disabled-color;
+        /* #ifndef APP-NVUE */
+        cursor: not-allowed;
+        /* #endif */
+    }
+
+    &--center {
+        align-items: center;
+    }
 }
 </style>

@@ -1,52 +1,52 @@
 <template>
-  <view
-    class="u-notice-bar"
-    v-if="show"
-    :style="[
-      {
-        backgroundColor: bgColor,
-      },
-      addStyle(customStyle),
-    ]"
-  >
-    <template v-if="direction === 'column' || (direction === 'row' && step)">
-      <u-column-notice
-        :color="color"
-        :bgColor="bgColor"
-        :text="text"
-        :mode="mode"
-        :step="step"
-        :icon="icon"
-        :disable-touch="disableTouch"
-        :fontSize="fontSize"
-        :duration="duration"
-        :justifyContent="justifyContent"
-        @close="close"
-        @click="click"
-      ></u-column-notice>
-    </template>
-    <template v-else>
-      <u-row-notice
-        :color="color"
-        :bgColor="bgColor"
-        :text="text"
-        :mode="mode"
-        :fontSize="fontSize"
-        :speed="speed"
-        :url="url"
-        :linkType="linkType"
-        :icon="icon"
-        @close="close"
-        @click="click"
-      ></u-row-notice>
-    </template>
-  </view>
+    <view
+        class="u-notice-bar"
+        v-if="show"
+        :style="[
+            {
+                backgroundColor: bgColor
+            },
+            addStyle(customStyle)
+        ]"
+    >
+        <template v-if="direction === 'column' || (direction === 'row' && step)">
+            <u-column-notice
+                :color="color"
+                :bgColor="bgColor"
+                :text="text"
+                :mode="mode"
+                :step="step"
+                :icon="icon"
+                :disable-touch="disableTouch"
+                :fontSize="fontSize"
+                :duration="duration"
+                :justifyContent="justifyContent"
+                @close="close"
+                @click="click"
+            ></u-column-notice>
+        </template>
+        <template v-else>
+            <u-row-notice
+                :color="color"
+                :bgColor="bgColor"
+                :text="text"
+                :mode="mode"
+                :fontSize="fontSize"
+                :speed="speed"
+                :url="url"
+                :linkType="linkType"
+                :icon="icon"
+                @close="close"
+                @click="click"
+            ></u-row-notice>
+        </template>
+    </view>
 </template>
 <script>
-import { props } from "./props";
-import { mpMixin } from "../../libs/mixin/mpMixin";
-import { mixin } from "../../libs/mixin/mixin";
-import { addStyle } from "../../libs/function/index";
+import { props } from './props';
+import { mpMixin } from '../../libs/mixin/mpMixin';
+import { mixin } from '../../libs/mixin/mixin';
+import { addStyle } from '../../libs/function/index';
 /**
  * noticeBar 滚动通知
  * @description 该组件用于滚动通告场景，有多种模式可供选择
@@ -71,37 +71,37 @@ import { addStyle } from "../../libs/function/index";
  * @example <u-notice-bar :more-icon="true" :list="list"></u-notice-bar>
  */
 export default {
-  name: "u-notice-bar",
-  mixins: [mpMixin, mixin, props],
-  data() {
-    return {
-      show: true,
-    };
-  },
-  emits: ["click", "close"],
-  methods: {
-    addStyle,
-    // 点击通告栏
-    click(index) {
-      this.$emit("click", index);
-      if (this.url && this.linkType) {
-        // 此方法写在mixin中，另外跳转的url和linkType参数也在mixin的props中
-        this.openPage();
-      }
+    name: 'u-notice-bar',
+    mixins: [mpMixin, mixin, props],
+    data() {
+        return {
+            show: true
+        };
     },
-    // 点击关闭按钮
-    close() {
-      this.show = false;
-      this.$emit("close");
-    },
-  },
+    emits: ['click', 'close'],
+    methods: {
+        addStyle,
+        // 点击通告栏
+        click(index) {
+            this.$emit('click', index);
+            if (this.url && this.linkType) {
+                // 此方法写在mixin中，另外跳转的url和linkType参数也在mixin的props中
+                this.openPage();
+            }
+        },
+        // 点击关闭按钮
+        close() {
+            this.show = false;
+            this.$emit('close');
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
 .u-notice-bar {
-  overflow: hidden;
-  padding: 9px 12px;
-  flex: 1;
+    overflow: hidden;
+    padding: 9px 12px;
+    flex: 1;
 }
 </style>

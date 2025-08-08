@@ -1,6 +1,6 @@
 ## 1.0.2（2023-07-02）
 
-uv-action-sheet 由于弹出层uv-popup的修改，打开和关闭方法更改，详情参考文档：https://www.uvui.cn/components/actionSheet.html
+uv-action-sheet 由于弹出层 uv-popup 的修改，打开和关闭方法更改，详情参考文档：https://www.uvui.cn/components/actionSheet.html
 
 ## 1.0.1（2023-05-16）
 

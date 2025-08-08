@@ -1,21 +1,13 @@
 <template>
-  <uv-transition
-    :show="show"
-    mode="fade"
-    custom-class="uv-overlay"
-    :duration="duration"
-    :custom-style="overlayStyle"
-    @click="clickHandler"
-    @touchmove.stop.prevent="clear"
-  >
-    <slot />
-  </uv-transition>
+    <uv-transition :show="show" mode="fade" custom-class="uv-overlay" :duration="duration" :custom-style="overlayStyle" @click="clickHandler" @touchmove.stop.prevent="clear">
+        <slot />
+    </uv-transition>
 </template>
 
 <script>
-import mpMixin from "@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js";
-import mixin from "@/uni_modules/uv-ui-tools/libs/mixin/mixin.js";
-import props from "./props.js";
+import mpMixin from '@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js';
+import mixin from '@/uni_modules/uv-ui-tools/libs/mixin/mixin.js';
+import props from './props.js';
 
 /**
  * overlay 遮罩
@@ -30,40 +22,40 @@ import props from "./props.js";
  * @example <uv-overlay :show="show" @click="show = false"></uv-overlay>
  */
 export default {
-  name: "uv-overlay",
-  emits: ["click"],
-  mixins: [mpMixin, mixin, props],
-  watch: {
-    show(newVal) {
-      // #ifdef H5
-      if (newVal) {
-        document.querySelector("body").style.overflow = "hidden";
-      } else {
-        document.querySelector("body").style.overflow = "";
-      }
-      // #endif
+    name: 'uv-overlay',
+    emits: ['click'],
+    mixins: [mpMixin, mixin, props],
+    watch: {
+        show(newVal) {
+            // #ifdef H5
+            if (newVal) {
+                document.querySelector('body').style.overflow = 'hidden';
+            } else {
+                document.querySelector('body').style.overflow = '';
+            }
+            // #endif
+        }
     },
-  },
-  computed: {
-    overlayStyle() {
-      const style = {
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: this.zIndex,
-        bottom: 0,
-        "background-color": `rgba(0, 0, 0, ${this.opacity})`,
-      };
-      return this.$uv.deepMerge(style, this.$uv.addStyle(this.customStyle));
+    computed: {
+        overlayStyle() {
+            const style = {
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                zIndex: this.zIndex,
+                bottom: 0,
+                'background-color': `rgba(0, 0, 0, ${this.opacity})`
+            };
+            return this.$uv.deepMerge(style, this.$uv.addStyle(this.customStyle));
+        }
     },
-  },
-  methods: {
-    clickHandler() {
-      this.$emit("click");
-    },
-    clear() {},
-  },
+    methods: {
+        clickHandler() {
+            this.$emit('click');
+        },
+        clear() {}
+    }
 };
 </script>
 <style lang="scss" scoped>
@@ -74,12 +66,12 @@ $uv-overlay-width: 100% !default;
 $uv-overlay-height: 100% !default;
 $uv-overlay-background-color: rgba(0, 0, 0, 0.7) !default;
 .uv-overlay {
-  position: fixed;
-  top: $uv-overlay-top;
-  left: $uv-overlay-left;
-  width: $uv-overlay-width;
-  height: $uv-overlay-height;
-  background-color: $uv-overlay-background-color;
+    position: fixed;
+    top: $uv-overlay-top;
+    left: $uv-overlay-left;
+    width: $uv-overlay-width;
+    height: $uv-overlay-height;
+    background-color: $uv-overlay-background-color;
 }
 /* #endif */
 </style>

@@ -1,59 +1,28 @@
 <template>
-  <view class="u-notice" @tap="clickHandler">
-    <slot name="icon">
-      <view class="u-notice__left-icon" v-if="icon">
-        <u-icon :name="icon" :color="color" size="19"></u-icon>
-      </view>
-    </slot>
-    <swiper
-      :disable-touch="disableTouch"
-      :vertical="step ? false : true"
-      circular
-      :interval="duration"
-      :autoplay="true"
-      class="u-notice__swiper"
-      @change="noticeChange"
-    >
-      <swiper-item
-        v-for="(item, index) in text"
-        :key="index"
-        class="u-notice__swiper__item"
-        :style="{ justifyContent: justifyContent }"
-      >
-        <text
-          class="u-notice__swiper__item__text u-line-1"
-          :style="[textStyle]"
-          >{{ item }}</text
-        >
-      </swiper-item>
-    </swiper>
-    <view
-      class="u-notice__right-icon"
-      v-if="['link', 'closable'].includes(mode)"
-    >
-      <u-icon
-        v-if="mode === 'link'"
-        name="arrow-right"
-        :size="17"
-        :color="color"
-      ></u-icon>
-      <u-icon
-        v-if="mode === 'closable'"
-        name="close"
-        :size="16"
-        :color="color"
-        @click="close"
-      ></u-icon>
+    <view class="u-notice" @tap="clickHandler">
+        <slot name="icon">
+            <view class="u-notice__left-icon" v-if="icon">
+                <u-icon :name="icon" :color="color" size="19"></u-icon>
+            </view>
+        </slot>
+        <swiper :disable-touch="disableTouch" :vertical="step ? false : true" circular :interval="duration" :autoplay="true" class="u-notice__swiper" @change="noticeChange">
+            <swiper-item v-for="(item, index) in text" :key="index" class="u-notice__swiper__item" :style="{ justifyContent: justifyContent }">
+                <text class="u-notice__swiper__item__text u-line-1" :style="[textStyle]">{{ item }}</text>
+            </swiper-item>
+        </swiper>
+        <view class="u-notice__right-icon" v-if="['link', 'closable'].includes(mode)">
+            <u-icon v-if="mode === 'link'" name="arrow-right" :size="17" :color="color"></u-icon>
+            <u-icon v-if="mode === 'closable'" name="close" :size="16" :color="color" @click="close"></u-icon>
+        </view>
     </view>
-  </view>
 </template>
 
 <script>
-import { props } from "./props";
-import { mpMixin } from "../../libs/mixin/mpMixin";
-import { mixin } from "../../libs/mixin/mixin";
-import { addUnit, error } from "../../libs/function/index";
-import test from "../../libs/function/test";
+import { props } from './props';
+import { mpMixin } from '../../libs/mixin/mpMixin';
+import { mixin } from '../../libs/mixin/mixin';
+import { addUnit, error } from '../../libs/function/index';
+import test from '../../libs/function/test';
 /**
  * ColumnNotice 滚动通知中的垂直滚动 内部组件
  * @description 该组件用于滚动通告场景，是其中的垂直滚动方式
@@ -71,85 +40,85 @@ import test from "../../libs/function/test";
  * @example
  */
 export default {
-  mixins: [mpMixin, mixin, props],
-  watch: {
-    text: {
-      immediate: true,
-      handler(newValue, oldValue) {
-        if (!test.array(newValue)) {
-          error("noticebar组件direction为column时，要求text参数为数组形式");
+    mixins: [mpMixin, mixin, props],
+    watch: {
+        text: {
+            immediate: true,
+            handler(newValue, oldValue) {
+                if (!test.array(newValue)) {
+                    error('noticebar组件direction为column时，要求text参数为数组形式');
+                }
+            }
         }
-      },
     },
-  },
-  computed: {
-    // 文字内容的样式
-    textStyle() {
-      let style = {};
-      style.color = this.color;
-      style.fontSize = addUnit(this.fontSize);
-      return style;
+    computed: {
+        // 文字内容的样式
+        textStyle() {
+            let style = {};
+            style.color = this.color;
+            style.fontSize = addUnit(this.fontSize);
+            return style;
+        },
+        // 垂直或者水平滚动
+        vertical() {
+            if (this.mode == 'horizontal') return false;
+            else return true;
+        }
     },
-    // 垂直或者水平滚动
-    vertical() {
-      if (this.mode == "horizontal") return false;
-      else return true;
+    data() {
+        return {
+            index: 0
+        };
     },
-  },
-  data() {
-    return {
-      index: 0,
-    };
-  },
-  emits: ["click", "close"],
-  methods: {
-    noticeChange(e) {
-      this.index = e.detail.current;
-    },
-    // 点击通告栏
-    clickHandler() {
-      this.$emit("click", this.index);
-    },
-    // 点击关闭按钮
-    close() {
-      this.$emit("close");
-    },
-  },
+    emits: ['click', 'close'],
+    methods: {
+        noticeChange(e) {
+            this.index = e.detail.current;
+        },
+        // 点击通告栏
+        clickHandler() {
+            this.$emit('click', this.index);
+        },
+        // 点击关闭按钮
+        close() {
+            this.$emit('close');
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
 .u-notice {
-  @include flex;
-  align-items: center;
-  justify-content: space-between;
-
-  &__left-icon {
-    align-items: center;
-    margin-right: 5px;
-  }
-
-  &__right-icon {
-    margin-left: 5px;
-    align-items: center;
-  }
-
-  &__swiper {
-    height: 16px;
     @include flex;
     align-items: center;
-    flex: 1;
+    justify-content: space-between;
 
-    &__item {
-      @include flex;
-      align-items: center;
-      overflow: hidden;
-
-      &__text {
-        font-size: 14px;
-        color: $u-warning;
-      }
+    &__left-icon {
+        align-items: center;
+        margin-right: 5px;
     }
-  }
+
+    &__right-icon {
+        margin-left: 5px;
+        align-items: center;
+    }
+
+    &__swiper {
+        height: 16px;
+        @include flex;
+        align-items: center;
+        flex: 1;
+
+        &__item {
+            @include flex;
+            align-items: center;
+            overflow: hidden;
+
+            &__text {
+                font-size: 14px;
+                color: $u-warning;
+            }
+        }
+    }
 }
 </style>

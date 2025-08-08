@@ -1,22 +1,23 @@
 <template>
-  <text
-    v-if="show && ((Number(value) === 0 ? showZero : true) || isDot)"
-    :class="[
-      isDot ? 'uv-badge--dot' : 'uv-badge--not-dot',
-      inverted && 'uv-badge--inverted',
-      shape === 'horn' && 'uv-badge--horn',
-      `uv-badge--${propsType}${inverted ? '--inverted' : ''}`,
-    ]"
-    :style="[$uv.addStyle(customStyle), badgeStyle]"
-    class="uv-badge"
-    >{{ isDot ? "" : showValue }}</text
-  >
+    <text
+        v-if="show && ((Number(value) === 0 ? showZero : true) || isDot)"
+        :class="[
+            isDot ? 'uv-badge--dot' : 'uv-badge--not-dot',
+            inverted && 'uv-badge--inverted',
+            shape === 'horn' && 'uv-badge--horn',
+            `uv-badge--${propsType}${inverted ? '--inverted' : ''}`
+        ]"
+        :style="[$uv.addStyle(customStyle), badgeStyle]"
+        class="uv-badge"
+    >
+        {{ isDot ? '' : showValue }}
+    </text>
 </template>
 
 <script>
-import mpMixin from "@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js";
-import mixin from "@/uni_modules/uv-ui-tools/libs/mixin/mixin.js";
-import props from "./props.js";
+import mpMixin from '@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js';
+import mixin from '@/uni_modules/uv-ui-tools/libs/mixin/mixin.js';
+import props from './props.js';
 /**
  * badge 徽标数
  * @description 该组件一般用于图标右上角显示未读的消息数量，提示用户点击，有圆点和圆包含文字两种形式。
@@ -39,67 +40,65 @@ import props from "./props.js";
  * @example <uv-badge :type="type" :count="count"></uv-badge>
  */
 export default {
-  name: "uv-badge",
-  mixins: [mpMixin, mixin, props],
-  computed: {
-    // 是否将badge中心与父组件右上角重合
-    boxStyle() {
-      let style = {};
-      return style;
-    },
-    // 整个组件的样式
-    badgeStyle() {
-      const style = {};
-      if (this.color) {
-        style.color = this.color;
-      }
-      if (this.bgColor && !this.inverted) {
-        style.backgroundColor = this.bgColor;
-      }
-      if (this.absolute) {
-        style.position = "absolute";
-        // 如果有设置offset参数
-        if (this.offset.length) {
-          // top和right分为为offset的第一个和第二个值，如果没有第二个值，则right等于top
-          const top = this.offset[0];
-          const right = this.offset[1] || top;
-          style.top = this.$uv.addUnit(top);
-          style.right = this.$uv.addUnit(right);
+    name: 'uv-badge',
+    mixins: [mpMixin, mixin, props],
+    computed: {
+        // 是否将badge中心与父组件右上角重合
+        boxStyle() {
+            let style = {};
+            return style;
+        },
+        // 整个组件的样式
+        badgeStyle() {
+            const style = {};
+            if (this.color) {
+                style.color = this.color;
+            }
+            if (this.bgColor && !this.inverted) {
+                style.backgroundColor = this.bgColor;
+            }
+            if (this.absolute) {
+                style.position = 'absolute';
+                // 如果有设置offset参数
+                if (this.offset.length) {
+                    // top和right分为为offset的第一个和第二个值，如果没有第二个值，则right等于top
+                    const top = this.offset[0];
+                    const right = this.offset[1] || top;
+                    style.top = this.$uv.addUnit(top);
+                    style.right = this.$uv.addUnit(right);
+                }
+            }
+            return style;
+        },
+        showValue() {
+            switch (this.numberType) {
+                case 'overflow':
+                    return Number(this.value) > Number(this.max) ? this.max + '+' : this.value;
+                    break;
+                case 'ellipsis':
+                    return Number(this.value) > Number(this.max) ? '...' : this.value;
+                    break;
+                case 'limit':
+                    return Number(this.value) > 999
+                        ? Number(this.value) >= 9999
+                            ? Math.floor((this.value / 1e4) * 100) / 100 + 'w'
+                            : Math.floor((this.value / 1e3) * 100) / 100 + 'k'
+                        : this.value;
+                    break;
+                default:
+                    return Number(this.value);
+            }
+        },
+        propsType() {
+            return this.type || 'error';
         }
-      }
-      return style;
-    },
-    showValue() {
-      switch (this.numberType) {
-        case "overflow":
-          return Number(this.value) > Number(this.max)
-            ? this.max + "+"
-            : this.value;
-          break;
-        case "ellipsis":
-          return Number(this.value) > Number(this.max) ? "..." : this.value;
-          break;
-        case "limit":
-          return Number(this.value) > 999
-            ? Number(this.value) >= 9999
-              ? Math.floor((this.value / 1e4) * 100) / 100 + "w"
-              : Math.floor((this.value / 1e3) * 100) / 100 + "k"
-            : this.value;
-          break;
-        default:
-          return Number(this.value);
-      }
-    },
-    propsType() {
-      return this.type || "error";
-    },
-  },
+    }
 };
 </script>
 
 <style lang="scss" scoped>
-@import "@/uni_modules/uv-ui-tools/libs/css/components.scss";
-@import "@/uni_modules/uv-ui-tools/libs/css/color.scss";
+@import '@/uni_modules/uv-ui-tools/libs/css/components.scss';
+@import '@/uni_modules/uv-ui-tools/libs/css/color.scss';
 $uv-badge-primary: $uv-primary !default;
 $uv-badge-error: $uv-error !default;
 $uv-badge-success: $uv-success !default;
@@ -116,71 +115,71 @@ $uv-badge-text-align: center !default;
 $uv-badge-text-color: #ffffff !default;
 
 .uv-badge {
-  border-top-right-radius: $uv-badge-dot-radius;
-  border-top-left-radius: $uv-badge-dot-radius;
-  border-bottom-left-radius: $uv-badge-dot-radius;
-  border-bottom-right-radius: $uv-badge-dot-radius;
-  @include flex;
-  line-height: $uv-badge-text-font-size;
-  text-align: $uv-badge-text-align;
-  font-size: $uv-badge-text-font-size;
-  color: $uv-badge-text-color;
+    border-top-right-radius: $uv-badge-dot-radius;
+    border-top-left-radius: $uv-badge-dot-radius;
+    border-bottom-left-radius: $uv-badge-dot-radius;
+    border-bottom-right-radius: $uv-badge-dot-radius;
+    @include flex;
+    line-height: $uv-badge-text-font-size;
+    text-align: $uv-badge-text-align;
+    font-size: $uv-badge-text-font-size;
+    color: $uv-badge-text-color;
 
-  &--dot {
-    height: $uv-badge-dot-size;
-    width: $uv-badge-dot-size;
-  }
+    &--dot {
+        height: $uv-badge-dot-size;
+        width: $uv-badge-dot-size;
+    }
 
-  &--inverted {
-    font-size: 13px;
-  }
+    &--inverted {
+        font-size: 13px;
+    }
 
-  &--not-dot {
-    padding: $uv-badge-text-padding;
-  }
+    &--not-dot {
+        padding: $uv-badge-text-padding;
+    }
 
-  &--horn {
-    border-bottom-left-radius: 0;
-  }
+    &--horn {
+        border-bottom-left-radius: 0;
+    }
 
-  &--primary {
-    background-color: $uv-badge-primary;
-  }
+    &--primary {
+        background-color: $uv-badge-primary;
+    }
 
-  &--primary--inverted {
-    color: $uv-badge-primary;
-  }
+    &--primary--inverted {
+        color: $uv-badge-primary;
+    }
 
-  &--error {
-    background-color: $uv-badge-error;
-  }
+    &--error {
+        background-color: $uv-badge-error;
+    }
 
-  &--error--inverted {
-    color: $uv-badge-error;
-  }
+    &--error--inverted {
+        color: $uv-badge-error;
+    }
 
-  &--success {
-    background-color: $uv-badge-success;
-  }
+    &--success {
+        background-color: $uv-badge-success;
+    }
 
-  &--success--inverted {
-    color: $uv-badge-success;
-  }
+    &--success--inverted {
+        color: $uv-badge-success;
+    }
 
-  &--info {
-    background-color: $uv-badge-info;
-  }
+    &--info {
+        background-color: $uv-badge-info;
+    }
 
-  &--info--inverted {
-    color: $uv-badge-info;
-  }
+    &--info--inverted {
+        color: $uv-badge-info;
+    }
 
-  &--warning {
-    background-color: $uv-badge-warning;
-  }
+    &--warning {
+        background-color: $uv-badge-warning;
+    }
 
-  &--warning--inverted {
-    color: $uv-badge-warning;
-  }
+    &--warning--inverted {
+        color: $uv-badge-warning;
+    }
 }
 </style>

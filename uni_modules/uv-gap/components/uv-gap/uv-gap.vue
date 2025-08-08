@@ -1,11 +1,11 @@
 <template>
-  <view class="uv-gap" :style="[gapStyle]"></view>
+    <view class="uv-gap" :style="[gapStyle]"></view>
 </template>
 
 <script>
-import mpMixin from "@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js";
-import mixin from "@/uni_modules/uv-ui-tools/libs/mixin/mixin.js";
-import props from "./props.js";
+import mpMixin from '@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js';
+import mixin from '@/uni_modules/uv-ui-tools/libs/mixin/mixin.js';
+import props from './props.js';
 /**
  * gap 间隔槽
  * @description 该组件一般用于内容块之间的用一个灰色块隔开的场景，方便用户风格统一，减少工作量
@@ -19,18 +19,18 @@ import props from "./props.js";
  * @example <uv-gap height="80" bg-color="#bbb"></uv-gap>
  */
 export default {
-  name: "uv-gap",
-  mixins: [mpMixin, mixin, props],
-  computed: {
-    gapStyle() {
-      const style = {
-        backgroundColor: this.bgColor,
-        height: this.$uv.addUnit(this.height),
-        marginTop: this.$uv.addUnit(this.marginTop),
-        marginBottom: this.$uv.addUnit(this.marginBottom),
-      };
-      return this.$uv.deepMerge(style, this.$uv.addStyle(this.customStyle));
-    },
-  },
+    name: 'uv-gap',
+    mixins: [mpMixin, mixin, props],
+    computed: {
+        gapStyle() {
+            const style = {
+                backgroundColor: this.bgColor,
+                height: this.$uv.addUnit(this.height),
+                marginTop: this.$uv.addUnit(this.marginTop),
+                marginBottom: this.$uv.addUnit(this.marginBottom)
+            };
+            return this.$uv.deepMerge(style, this.$uv.addStyle(this.customStyle));
+        }
+    }
 };
 </script>

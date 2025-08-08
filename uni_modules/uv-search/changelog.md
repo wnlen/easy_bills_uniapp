@@ -1,38 +1,38 @@
 ## 1.0.11（2023-11-10）
 
-1. 调整清除按钮样式的marginLeft，避免微信上多数情况触发不了的BUG
+1. 调整清除按钮样式的 marginLeft，避免微信上多数情况触发不了的 BUG
 
 ## 1.0.10（2023-11-04）
 
-1. 修复设置disabled情况下，@click回调事件触发不了的bug
+1. 修复设置 disabled 情况下，@click 回调事件触发不了的 bug
 
 ## 1.0.9（2023-08-18）
 
-1. 修复boxStyle失效的BUG
+1. 修复 boxStyle 失效的 BUG
 
 ## 1.0.8（2023-08-07）
 
-修复值为null或undefined时显示错误的bug
+修复值为 null 或 undefined 时显示错误的 bug
 
 ## 1.0.7（2023-08-05）
 
-1.  修复在vue2模式下，v-model设置为0时不生效的BUG
+1.  修复在 vue2 模式下，v-model 设置为 0 时不生效的 BUG
 
 ## 1.0.6（2023-07-26）
 
-1. 增加boxStyle参数，方便控制输入框部分的样式
+1. 增加 boxStyle 参数，方便控制输入框部分的样式
 
 ## 1.0.5（2023-07-26）
 
-1. 增加prefix和suffix 前置和后置插槽
+1. 增加 prefix 和 suffix 前置和后置插槽
 
 ## 1.0.4（2023-07-13）
 
-1. 修复value值清空不生效的BUG
+1. 修复 value 值清空不生效的 BUG
 
 ## 1.0.3（2023-07-13）
 
-1. 修复value/v-model更改不生效的BUG
+1. 修复 value/v-model 更改不生效的 BUG
 
 ## 1.0.2（2023-07-03）
 

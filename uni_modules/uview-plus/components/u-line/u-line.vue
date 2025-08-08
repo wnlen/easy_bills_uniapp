@@ -1,12 +1,12 @@
 <template>
-  <view class="u-line" :style="[lineStyle]"> </view>
+    <view class="u-line" :style="[lineStyle]"></view>
 </template>
 
 <script>
-import { props } from "./props";
-import { mpMixin } from "../../libs/mixin/mpMixin";
-import { mixin } from "../../libs/mixin/mixin";
-import { addUnit, addStyle, deepMerge } from "../../libs/function/index";
+import { props } from './props';
+import { mpMixin } from '../../libs/mixin/mpMixin';
+import { mixin } from '../../libs/mixin/mixin';
+import { addUnit, addStyle, deepMerge } from '../../libs/function/index';
 /**
  * line 线条
  * @description 此组件一般用于显示一根线条，用于分隔内容块，有横向和竖向两种模式，且能设置0.5px线条，使用也很简单
@@ -21,38 +21,38 @@ import { addUnit, addStyle, deepMerge } from "../../libs/function/index";
  * @example <u-line color="red"></u-line>
  */
 export default {
-  name: "u-line",
-  mixins: [mpMixin, mixin, props],
-  computed: {
-    lineStyle() {
-      const style = {};
-      style.margin = this.margin;
-      // 如果是水平线条，边框高度为1px，再通过transform缩小一半，就是0.5px了
-      if (this.direction === "row") {
-        // 此处采用兼容分开写，兼容nvue的写法
-        style.borderBottomWidth = "1px";
-        style.borderBottomStyle = this.dashed ? "dashed" : "solid";
-        style.width = addUnit(this.length);
-        if (this.hairline) style.transform = "scaleY(0.5)";
-      } else {
-        // 如果是竖向线条，边框宽度为1px，再通过transform缩小一半，就是0.5px了
-        style.borderLeftWidth = "1px";
-        style.borderLeftStyle = this.dashed ? "dashed" : "solid";
-        style.height = addUnit(this.length);
-        if (this.hairline) style.transform = "scaleX(0.5)";
-      }
+    name: 'u-line',
+    mixins: [mpMixin, mixin, props],
+    computed: {
+        lineStyle() {
+            const style = {};
+            style.margin = this.margin;
+            // 如果是水平线条，边框高度为1px，再通过transform缩小一半，就是0.5px了
+            if (this.direction === 'row') {
+                // 此处采用兼容分开写，兼容nvue的写法
+                style.borderBottomWidth = '1px';
+                style.borderBottomStyle = this.dashed ? 'dashed' : 'solid';
+                style.width = addUnit(this.length);
+                if (this.hairline) style.transform = 'scaleY(0.5)';
+            } else {
+                // 如果是竖向线条，边框宽度为1px，再通过transform缩小一半，就是0.5px了
+                style.borderLeftWidth = '1px';
+                style.borderLeftStyle = this.dashed ? 'dashed' : 'solid';
+                style.height = addUnit(this.length);
+                if (this.hairline) style.transform = 'scaleX(0.5)';
+            }
 
-      style.borderColor = this.color;
-      return deepMerge(style, addStyle(this.customStyle));
-    },
-  },
+            style.borderColor = this.color;
+            return deepMerge(style, addStyle(this.customStyle));
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
 .u-line {
-  /* #ifndef APP-NVUE */
-  vertical-align: middle;
-  /* #endif */
+    /* #ifndef APP-NVUE */
+    vertical-align: middle;
+    /* #endif */
 }
 </style>

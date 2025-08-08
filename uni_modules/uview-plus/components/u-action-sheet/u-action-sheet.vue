@@ -1,118 +1,82 @@
 <template>
-  <u-popup
-    :show="show"
-    mode="bottom"
-    @close="closeHandler"
-    :safeAreaInsetBottom="safeAreaInsetBottom"
-    :round="round"
-  >
-    <view class="u-action-sheet">
-      <view class="u-action-sheet__header" v-if="title">
-        <text class="u-action-sheet__header__title u-line-1">{{ title }}</text>
-        <view class="u-action-sheet__header__icon-wrap" @tap.stop="cancel">
-          <u-icon name="close" size="17" color="#c8c9cc" bold></u-icon>
-        </view>
-      </view>
-      <text
-        class="u-action-sheet__description"
-        :style="[
-          {
-            marginTop: `${title && description ? 0 : '18px'}`,
-          },
-        ]"
-        v-if="description"
-        >{{ description }}</text
-      >
-      <slot>
-        <u-line v-if="description"></u-line>
-        <scroll-view
-          scroll-y
-          class="u-action-sheet__item-wrap"
-          :style="{ maxHeight: wrapMaxHeight }"
-        >
-          <view :key="index" v-for="(item, index) in actions">
-            <!-- #ifdef MP -->
-            <button
-              class="u-reset-button"
-              :openType="item.openType"
-              @getuserinfo="onGetUserInfo"
-              @contact="onContact"
-              @getphonenumber="onGetPhoneNumber"
-              @error="onError"
-              @launchapp="onLaunchApp"
-              @opensetting="onOpenSetting"
-              :lang="lang"
-              :session-from="sessionFrom"
-              :send-message-title="sendMessageTitle"
-              :send-message-path="sendMessagePath"
-              :send-message-img="sendMessageImg"
-              :show-message-card="showMessageCard"
-              :app-parameter="appParameter"
-              @tap="selectHandler(index)"
-              :hover-class="
-                !item.disabled && !item.loading ? 'u-action-sheet--hover' : ''
-              "
+    <u-popup :show="show" mode="bottom" @close="closeHandler" :safeAreaInsetBottom="safeAreaInsetBottom" :round="round">
+        <view class="u-action-sheet">
+            <view class="u-action-sheet__header" v-if="title">
+                <text class="u-action-sheet__header__title u-line-1">{{ title }}</text>
+                <view class="u-action-sheet__header__icon-wrap" @tap.stop="cancel">
+                    <u-icon name="close" size="17" color="#c8c9cc" bold></u-icon>
+                </view>
+            </view>
+            <text
+                class="u-action-sheet__description"
+                :style="[
+                    {
+                        marginTop: `${title && description ? 0 : '18px'}`
+                    }
+                ]"
+                v-if="description"
             >
-              <!-- #endif -->
-              <view
-                class="u-action-sheet__item-wrap__item"
-                @tap.stop="selectHandler(index)"
-                :hover-class="
-                  !item.disabled && !item.loading ? 'u-action-sheet--hover' : ''
-                "
-                :hover-stay-time="150"
-              >
-                <template v-if="!item.loading">
-                  <text
-                    class="u-action-sheet__item-wrap__item__name"
-                    :style="[itemStyle(index)]"
-                    >{{ item.name }}</text
-                  >
-                  <text
-                    v-if="item.subname"
-                    class="u-action-sheet__item-wrap__item__subname"
-                    >{{ item.subname }}</text
-                  >
-                </template>
-                <up-loading-icon
-                  v-else
-                  custom-class="van-action-sheet__loading"
-                  size="18"
-                  mode="circle"
-                />
-              </view>
-              <!-- #ifdef MP -->
-            </button>
-            <!-- #endif -->
-            <u-line v-if="index !== actions.length - 1"></u-line>
-          </view>
-        </scroll-view>
-      </slot>
-      <u-gap bgColor="#eaeaec" height="6" v-if="cancelText"></u-gap>
-      <view
-        class="u-action-sheet__item-wrap__item u-action-sheet__cancel"
-        hover-class="u-action-sheet--hover"
-        @tap="cancel"
-        v-if="cancelText"
-      >
-        <text
-          @touchmove.stop.prevent
-          :hover-stay-time="150"
-          class="u-action-sheet__cancel-text"
-          >{{ cancelText }}</text
-        >
-      </view>
-    </view>
-  </u-popup>
+                {{ description }}
+            </text>
+            <slot>
+                <u-line v-if="description"></u-line>
+                <scroll-view scroll-y class="u-action-sheet__item-wrap" :style="{ maxHeight: wrapMaxHeight }">
+                    <view :key="index" v-for="(item, index) in actions">
+                        <!-- #ifdef MP -->
+                        <button
+                            class="u-reset-button"
+                            :openType="item.openType"
+                            @getuserinfo="onGetUserInfo"
+                            @contact="onContact"
+                            @getphonenumber="onGetPhoneNumber"
+                            @error="onError"
+                            @launchapp="onLaunchApp"
+                            @opensetting="onOpenSetting"
+                            :lang="lang"
+                            :session-from="sessionFrom"
+                            :send-message-title="sendMessageTitle"
+                            :send-message-path="sendMessagePath"
+                            :send-message-img="sendMessageImg"
+                            :show-message-card="showMessageCard"
+                            :app-parameter="appParameter"
+                            @tap="selectHandler(index)"
+                            :hover-class="!item.disabled && !item.loading ? 'u-action-sheet--hover' : ''"
+                        >
+                            <!-- #endif -->
+                            <view
+                                class="u-action-sheet__item-wrap__item"
+                                @tap.stop="selectHandler(index)"
+                                :hover-class="!item.disabled && !item.loading ? 'u-action-sheet--hover' : ''"
+                                :hover-stay-time="150"
+                            >
+                                <template v-if="!item.loading">
+                                    <text class="u-action-sheet__item-wrap__item__name" :style="[itemStyle(index)]">{{ item.name }}</text>
+                                    <text v-if="item.subname" class="u-action-sheet__item-wrap__item__subname">{{ item.subname }}</text>
+                                </template>
+                                <up-loading-icon v-else custom-class="van-action-sheet__loading" size="18" mode="circle" />
+                            </view>
+                            <!-- #ifdef MP -->
+                        </button>
+                        <!-- #endif -->
+                        <u-line v-if="index !== actions.length - 1"></u-line>
+                    </view>
+                </scroll-view>
+            </slot>
+            <u-gap bgColor="#eaeaec" height="6" v-if="cancelText"></u-gap>
+            <view class="u-action-sheet__item-wrap__item u-action-sheet__cancel" hover-class="u-action-sheet--hover" @tap="cancel" v-if="cancelText">
+                <text @touchmove.stop.prevent :hover-stay-time="150" class="u-action-sheet__cancel-text">{{ cancelText }}</text>
+            </view>
+        </view>
+    </u-popup>
 </template>
 
 <script>
-import { openType } from "../../libs/mixin/openType";
-import { buttonMixin } from "../../libs/mixin/button";
-import { props } from "./props";
-import { mpMixin } from "../../libs/mixin/mpMixin";
-import { mixin } from "../../libs/mixin/mixin";
-import { addUnit } from "../../libs/function/index";
+import { openType } from '../../libs/mixin/openType';
+import { buttonMixin } from '../../libs/mixin/button';
+import { props } from './props';
+import { mpMixin } from '../../libs/mixin/mpMixin';
+import { mixin } from '../../libs/mixin/mixin';
+import { addUnit } from '../../libs/function/index';
 /**
  * ActionSheet 操作菜单
  * @description 本组件用于从底部弹出一个操作菜单，供用户选择并返回结果。本组件功能类似于uni的uni.showActionSheetAPI，配置更加灵活，所有平台都表现一致。
@@ -147,51 +111,50 @@ import { addUnit } from "../../libs/function/index";
  * @example <u-action-sheet :actions="list" :title="title" :show="show"></u-action-sheet>
  */
 export default {
-  name: "u-action-sheet",
-  // 一些props参数和methods方法，通过mixin混入，因为其他文件也会用到
-  mixins: [openType, buttonMixin, mixin, props],
-  data() {
-    return {};
-  },
-  computed: {
-    // 操作项目的样式
-    itemStyle() {
-      return (index) => {
-        let style = {};
-        if (this.actions[index].color) style.color = this.actions[index].color;
-        if (this.actions[index].fontSize)
-          style.fontSize = addUnit(this.actions[index].fontSize);
-        // 选项被禁用的样式
-        if (this.actions[index].disabled) style.color = "#c0c4cc";
-        return style;
-      };
+    name: 'u-action-sheet',
+    // 一些props参数和methods方法，通过mixin混入，因为其他文件也会用到
+    mixins: [openType, buttonMixin, mixin, props],
+    data() {
+        return {};
     },
-  },
-  emits: ["close", "select", "update:show"],
-  methods: {
-    closeHandler() {
-      // 允许点击遮罩关闭时，才发出close事件
-      if (this.closeOnClickOverlay) {
-        this.$emit("update:show", false);
-        this.$emit("close");
-      }
-    },
-    // 点击取消按钮
-    cancel() {
-      this.$emit("update:show", false);
-      this.$emit("close");
-    },
-    selectHandler(index) {
-      const item = this.actions[index];
-      if (item && !item.disabled && !item.loading) {
-        this.$emit("select", item);
-        if (this.closeOnClickAction) {
-          this.$emit("update:show", false);
-          this.$emit("close");
+    computed: {
+        // 操作项目的样式
+        itemStyle() {
+            return (index) => {
+                let style = {};
+                if (this.actions[index].color) style.color = this.actions[index].color;
+                if (this.actions[index].fontSize) style.fontSize = addUnit(this.actions[index].fontSize);
+                // 选项被禁用的样式
+                if (this.actions[index].disabled) style.color = '#c0c4cc';
+                return style;
+            };
         }
-      }
     },
-  },
+    emits: ['close', 'select', 'update:show'],
+    methods: {
+        closeHandler() {
+            // 允许点击遮罩关闭时，才发出close事件
+            if (this.closeOnClickOverlay) {
+                this.$emit('update:show', false);
+                this.$emit('close');
+            }
+        },
+        // 点击取消按钮
+        cancel() {
+            this.$emit('update:show', false);
+            this.$emit('close');
+        },
+        selectHandler(index) {
+            const item = this.actions[index];
+            if (item && !item.disabled && !item.loading) {
+                this.$emit('select', item);
+                if (this.closeOnClickAction) {
+                    this.$emit('update:show', false);
+                    this.$emit('close');
+                }
+            }
+        }
+    }
 };
 </script>
 
@@ -216,67 +179,67 @@ $u-action-sheet-cancel-text-font-size: 15px !default;
 $u-action-sheet-cancel-text-hover-background-color: rgb(242, 243, 245) !default;
 
 .u-reset-button {
-  width: $u-action-sheet-reset-button-width;
+    width: $u-action-sheet-reset-button-width;
 }
 
 .u-action-sheet {
-  text-align: center;
-  &__header {
-    position: relative;
-    padding: $u-action-sheet-title-padding;
-    &__title {
-      font-size: $u-action-sheet-title-font-size;
-      color: $u-action-sheet-title-color;
-      font-weight: bold;
-      text-align: center;
-    }
-
-    &__icon-wrap {
-      position: absolute;
-      right: $u-action-sheet-header-icon-wrap-right;
-      top: $u-action-sheet-header-icon-wrap-top;
-    }
-  }
-
-  &__description {
-    font-size: $u-action-sheet-description-font-size;
-    color: $u-tips-color;
-    margin: $u-action-sheet-description-margin;
     text-align: center;
-  }
+    &__header {
+        position: relative;
+        padding: $u-action-sheet-title-padding;
+        &__title {
+            font-size: $u-action-sheet-title-font-size;
+            color: $u-action-sheet-title-color;
+            font-weight: bold;
+            text-align: center;
+        }
 
-  &__item-wrap {
-    &__item {
-      padding: $u-action-sheet-item-wrap-item-padding;
-      @include flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-
-      &__name {
-        font-size: $u-action-sheet-item-wrap-name-font-size;
-        color: $u-main-color;
-        text-align: center;
-      }
-
-      &__subname {
-        font-size: $u-action-sheet-item-wrap-subname-font-size;
-        color: $u-action-sheet-item-wrap-subname-color;
-        margin-top: $u-action-sheet-item-wrap-subname-margin-top;
-        text-align: center;
-      }
+        &__icon-wrap {
+            position: absolute;
+            right: $u-action-sheet-header-icon-wrap-right;
+            top: $u-action-sheet-header-icon-wrap-top;
+        }
     }
-  }
 
-  &__cancel-text {
-    font-size: $u-action-sheet-cancel-text-font-size;
-    color: $u-action-sheet-cancel-text-color;
-    text-align: center;
-    // padding: $u-action-sheet-cancel-text-font-size;
-  }
+    &__description {
+        font-size: $u-action-sheet-description-font-size;
+        color: $u-tips-color;
+        margin: $u-action-sheet-description-margin;
+        text-align: center;
+    }
 
-  &--hover {
-    background-color: $u-action-sheet-cancel-text-hover-background-color;
-  }
+    &__item-wrap {
+        &__item {
+            padding: $u-action-sheet-item-wrap-item-padding;
+            @include flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            &__name {
+                font-size: $u-action-sheet-item-wrap-name-font-size;
+                color: $u-main-color;
+                text-align: center;
+            }
+
+            &__subname {
+                font-size: $u-action-sheet-item-wrap-subname-font-size;
+                color: $u-action-sheet-item-wrap-subname-color;
+                margin-top: $u-action-sheet-item-wrap-subname-margin-top;
+                text-align: center;
+            }
+        }
+    }
+
+    &__cancel-text {
+        font-size: $u-action-sheet-cancel-text-font-size;
+        color: $u-action-sheet-cancel-text-color;
+        text-align: center;
+        // padding: $u-action-sheet-cancel-text-font-size;
+    }
+
+    &--hover {
+        background-color: $u-action-sheet-cancel-text-hover-background-color;
+    }
 }
 </style>

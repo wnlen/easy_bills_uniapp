@@ -1,46 +1,25 @@
 <template>
-  <view class="uv-avatar-group">
-    <view
-      class="uv-avatar-group__item"
-      v-for="(item, index) in showUrl"
-      :key="index"
-      :style="{
-        marginLeft: index === 0 ? 0 : $uv.addUnit(-size * gap),
-      }"
-    >
-      <uv-avatar
-        :size="size"
-        :shape="shape"
-        :mode="mode"
-        :src="
-          $uv.test.object(item) ? (keyName && item[keyName]) || item.url : item
-        "
-      ></uv-avatar>
-      <view
-        class="uv-avatar-group__item__show-more"
-        v-if="
-          showMore &&
-          index === showUrl.length - 1 &&
-          (urls.length > maxCount || extraValue > 0)
-        "
-        @tap="clickHandler"
-      >
-        <uv-text
-          color="#ffffff"
-          :size="size * 0.4"
-          :text="`+${extraValue || urls.length - showUrl.length}`"
-          align="center"
-          customStyle="justify-content: center"
-        ></uv-text>
-      </view>
+    <view class="uv-avatar-group">
+        <view
+            class="uv-avatar-group__item"
+            v-for="(item, index) in showUrl"
+            :key="index"
+            :style="{
+                marginLeft: index === 0 ? 0 : $uv.addUnit(-size * gap)
+            }"
+        >
+            <uv-avatar :size="size" :shape="shape" :mode="mode" :src="$uv.test.object(item) ? (keyName && item[keyName]) || item.url : item"></uv-avatar>
+            <view class="uv-avatar-group__item__show-more" v-if="showMore && index === showUrl.length - 1 && (urls.length > maxCount || extraValue > 0)" @tap="clickHandler">
+                <uv-text color="#ffffff" :size="size * 0.4" :text="`+${extraValue || urls.length - showUrl.length}`" align="center" customStyle="justify-content: center"></uv-text>
+            </view>
+        </view>
     </view>
-  </view>
 </template>
 
 <script>
-import mpMixin from "@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js";
-import mixin from "@/uni_modules/uv-ui-tools/libs/mixin/mixin.js";
-import props from "./props.js";
+import mpMixin from '@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js';
+import mixin from '@/uni_modules/uv-ui-tools/libs/mixin/mixin.js';
+import props from './props.js';
 /**
  * AvatarGroup  头像组
  * @description 本组件一般用于展示头像的地方，如个人中心，或者评论列表页的用户头像展示等场所。
@@ -59,52 +38,52 @@ import props from "./props.js";
  * @example  <uv-avatar-group:urls="urls" size="35" gap="0.4" ></uv-avatar-group:urls=>
  */
 export default {
-  name: "uv-avatar-group",
-  mixins: [mpMixin, mixin, props],
-  data() {
-    return {};
-  },
-  computed: {
-    showUrl() {
-      return this.urls.slice(0, this.maxCount);
+    name: 'uv-avatar-group',
+    mixins: [mpMixin, mixin, props],
+    data() {
+        return {};
     },
-  },
-  methods: {
-    clickHandler() {
-      this.$emit("showMore");
+    computed: {
+        showUrl() {
+            return this.urls.slice(0, this.maxCount);
+        }
     },
-  },
+    methods: {
+        clickHandler() {
+            this.$emit('showMore');
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
-@import "@/uni_modules/uv-ui-tools/libs/css/components.scss";
-@import "@/uni_modules/uv-ui-tools/libs/css/color.scss";
+@import '@/uni_modules/uv-ui-tools/libs/css/components.scss';
+@import '@/uni_modules/uv-ui-tools/libs/css/color.scss';
 
 .uv-avatar-group {
-  @include flex;
+    @include flex;
 
-  &__item {
-    margin-left: -10px;
-    position: relative;
+    &__item {
+        margin-left: -10px;
+        position: relative;
 
-    &--no-indent {
-      // 如果你想质疑作者不会使用:first-child，说明你太年轻，因为nvue不支持
-      margin-left: 0;
+        &--no-indent {
+            // 如果你想质疑作者不会使用:first-child，说明你太年轻，因为nvue不支持
+            margin-left: 0;
+        }
+
+        &__show-more {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.3);
+            @include flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 100px;
+        }
     }
-
-    &__show-more {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background-color: rgba(0, 0, 0, 0.3);
-      @include flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 100px;
-    }
-  }
 }
 </style>

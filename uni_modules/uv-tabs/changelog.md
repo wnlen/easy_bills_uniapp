@@ -1,11 +1,11 @@
 ## 1.0.9（2023-12-01）
 
-1. 修复current为字符串activeStyle不生效的BUG
+1. 修复 current 为字符串 activeStyle 不生效的 BUG
 2. 优化文档
 
 ## 1.0.8（2023-10-13）
 
-1. 优化点击一个选项，change事件重复派发的问题
+1. 优化点击一个选项，change 事件重复派发的问题
 
 ## 1.0.7（2023-09-14）
 
@@ -13,23 +13,23 @@
 
 ## 1.0.6（2023-09-13）
 
-1. 修复设置lineWidth未带单位产生的误差BUG
+1. 修复设置 lineWidth 未带单位产生的误差 BUG
 
 ## 1.0.5（2023-06-23）
 
-添加uv-icon依赖
+添加 uv-icon 依赖
 
 ## 1.0.4（2023-06-16）
 
-1. 增加customStyle参数
+1. 增加 customStyle 参数
 
 ## 1.0.3（2023-06-12）
 
-1. activeStyle设置字体大小，导致下划线位置不对的BUG，增加this.$nextTick机制
+1. activeStyle 设置字体大小，导致下划线位置不对的 BUG，增加 this.$nextTick 机制
 
 ## 1.0.2（2023-05-23）
 
-1. 修复nvue中不滚动的BUG
+1. 修复 nvue 中不滚动的 BUG
 
 ## 1.0.1（2023-05-16）
 

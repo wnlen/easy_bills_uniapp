@@ -1,39 +1,33 @@
 <template>
-  <view class="u-swiper-indicator">
-    <view
-      class="u-swiper-indicator__wrapper"
-      v-if="indicatorMode === 'line'"
-      :class="[`u-swiper-indicator__wrapper--${indicatorMode}`]"
-      :style="{
-        width: addUnit(lineWidth * length),
-        backgroundColor: indicatorInactiveColor,
-      }"
-    >
-      <view
-        class="u-swiper-indicator__wrapper--line__bar"
-        :style="[lineStyle]"
-      ></view>
+    <view class="u-swiper-indicator">
+        <view
+            class="u-swiper-indicator__wrapper"
+            v-if="indicatorMode === 'line'"
+            :class="[`u-swiper-indicator__wrapper--${indicatorMode}`]"
+            :style="{
+                width: addUnit(lineWidth * length),
+                backgroundColor: indicatorInactiveColor
+            }"
+        >
+            <view class="u-swiper-indicator__wrapper--line__bar" :style="[lineStyle]"></view>
+        </view>
+        <view class="u-swiper-indicator__wrapper" v-if="indicatorMode === 'dot'">
+            <view
+                class="u-swiper-indicator__wrapper__dot"
+                v-for="(item, index) in length"
+                :key="index"
+                :class="[index === current && 'u-swiper-indicator__wrapper__dot--active']"
+                :style="[dotStyle(index)]"
+            ></view>
+        </view>
     </view>
-    <view class="u-swiper-indicator__wrapper" v-if="indicatorMode === 'dot'">
-      <view
-        class="u-swiper-indicator__wrapper__dot"
-        v-for="(item, index) in length"
-        :key="index"
-        :class="[
-          index === current && 'u-swiper-indicator__wrapper__dot--active',
-        ]"
-        :style="[dotStyle(index)]"
-      >
-      </view>
-    </view>
-  </view>
 </template>
 
 <script>
-import { props } from "./props";
-import { mpMixin } from "../../libs/mixin/mpMixin";
-import { mixin } from "../../libs/mixin/mixin";
-import { addUnit } from "../../libs/function/index";
+import { props } from './props';
+import { mpMixin } from '../../libs/mixin/mpMixin';
+import { mixin } from '../../libs/mixin/mixin';
+import { addUnit } from '../../libs/function/index';
 /**
  * SwiperIndicator 轮播图指示器
  * @description 该组件一般用于导航轮播，广告展示等场景,可开箱即用，
@@ -46,68 +40,65 @@ import { addUnit } from "../../libs/function/index";
  * @example	<u-swiper :list="list4" indicator keyName="url" :autoplay="false"></u-swiper>
  */
 export default {
-  name: "u-swiper-indicator",
-  mixins: [mpMixin, mixin, props],
-  data() {
-    return {
-      lineWidth: 22,
-    };
-  },
-  computed: {
-    // 指示器为线型的样式
-    lineStyle() {
-      let style = {};
-      style.width = addUnit(this.lineWidth);
-      style.transform = `translateX(${addUnit(this.current * this.lineWidth)})`;
-      style.backgroundColor = this.indicatorActiveColor;
-      return style;
+    name: 'u-swiper-indicator',
+    mixins: [mpMixin, mixin, props],
+    data() {
+        return {
+            lineWidth: 22
+        };
     },
-    // 指示器为点型的样式
-    dotStyle() {
-      return (index) => {
-        let style = {};
-        style.backgroundColor =
-          index === this.current
-            ? this.indicatorActiveColor
-            : this.indicatorInactiveColor;
-        return style;
-      };
+    computed: {
+        // 指示器为线型的样式
+        lineStyle() {
+            let style = {};
+            style.width = addUnit(this.lineWidth);
+            style.transform = `translateX(${addUnit(this.current * this.lineWidth)})`;
+            style.backgroundColor = this.indicatorActiveColor;
+            return style;
+        },
+        // 指示器为点型的样式
+        dotStyle() {
+            return (index) => {
+                let style = {};
+                style.backgroundColor = index === this.current ? this.indicatorActiveColor : this.indicatorInactiveColor;
+                return style;
+            };
+        }
     },
-  },
-  methods: {
-    addUnit,
-  },
+    methods: {
+        addUnit
+    }
 };
 </script>
 
 <style lang="scss" scoped>
 .u-swiper-indicator {
-  &__wrapper {
-    @include flex;
+    &__wrapper {
+        @include flex;
 
-    &--line {
-      border-radius: 100px;
-      height: 4px;
+        &--line {
+            border-radius: 100px;
+            height: 4px;
 
-      &__bar {
-        width: 22px;
-        height: 4px;
-        border-radius: 100px;
-        background-color: #ffffff;
-        transition: transform 0.3s;
-      }
+            &__bar {
+                width: 22px;
+                height: 4px;
+                border-radius: 100px;
+                background-color: #ffffff;
+                transition: transform 0.3s;
+            }
+        }
+
+        &__dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 100px;
+            margin: 0 4px;
+
+            &--active {
+                width: 12px;
+            }
+        }
     }
-
-    &__dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 100px;
-      margin: 0 4px;
-
-      &--active {
-        width: 12px;
-      }
-    }
-  }
 }
 </style>

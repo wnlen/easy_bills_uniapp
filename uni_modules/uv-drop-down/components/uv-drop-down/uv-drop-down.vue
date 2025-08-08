@@ -1,19 +1,15 @@
 <template>
-  <uv-sticky :disabled="!isSticky">
-    <view
-      ref="dropDownRef"
-      class="uv-drop-down"
-      :style="[$uv.addStyle(customStyle)]"
-    >
-      <slot></slot>
-    </view>
-  </uv-sticky>
+    <uv-sticky :disabled="!isSticky">
+        <view ref="dropDownRef" class="uv-drop-down" :style="[$uv.addStyle(customStyle)]">
+            <slot></slot>
+        </view>
+    </uv-sticky>
 </template>
 <script>
-import mpMixin from "@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js";
-import mixin from "@/uni_modules/uv-ui-tools/libs/mixin/mixin.js";
+import mpMixin from '@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js';
+import mixin from '@/uni_modules/uv-ui-tools/libs/mixin/mixin.js';
 // #ifdef APP-NVUE
-const dom = uni.requireNativePlugin("dom");
+const dom = uni.requireNativePlugin('dom');
 // #endif
 /**
  * DropDown 下拉框
@@ -30,120 +26,120 @@ const dom = uni.requireNativePlugin("dom");
  * @property {Object} extraActiveIcon 每项选中后右侧图标
  */
 export default {
-  name: "uv-drop-down",
-  mixins: [mpMixin, mixin],
-  emits: ["click"],
-  props: {
-    isSticky: {
-      type: Boolean,
-      default: true,
+    name: 'uv-drop-down',
+    mixins: [mpMixin, mixin],
+    emits: ['click'],
+    props: {
+        isSticky: {
+            type: Boolean,
+            default: true
+        },
+        sign: {
+            type: [String, Number],
+            default: 'UVDROPDOWN'
+        },
+        defaultValue: {
+            type: Array,
+            default: () => [0, '0', 'all']
+        },
+        textSize: {
+            type: String,
+            default: '30rpx'
+        },
+        textColor: {
+            type: String,
+            default: '#333'
+        },
+        textActiveSize: {
+            type: String,
+            default: '30rpx'
+        },
+        textActiveColor: {
+            type: String,
+            default: '#3c9cff'
+        },
+        extraIcon: {
+            type: Object,
+            default() {
+                return {
+                    name: 'arrow-down',
+                    size: '30rpx',
+                    color: '#333'
+                };
+            }
+        },
+        extraActiveIcon: {
+            type: Object,
+            default() {
+                return {
+                    name: 'arrow-up',
+                    size: '30rpx',
+                    color: '#3c9cff'
+                };
+            }
+        }
     },
-    sign: {
-      type: [String, Number],
-      default: "UVDROPDOWN",
+    computed: {
+        parentData() {
+            return [
+                this.defaultValue,
+                this.textSize,
+                this.textColor,
+                this.textActiveColor,
+                this.textActiveSize,
+                this.extraIcon,
+                this.extraActiveIcon,
+                this.sign,
+                this.clickHandler
+            ];
+        }
     },
-    defaultValue: {
-      type: Array,
-      default: () => [0, "0", "all"],
+    mounted() {
+        this.init();
     },
-    textSize: {
-      type: String,
-      default: "30rpx",
-    },
-    textColor: {
-      type: String,
-      default: "#333",
-    },
-    textActiveSize: {
-      type: String,
-      default: "30rpx",
-    },
-    textActiveColor: {
-      type: String,
-      default: "#3c9cff",
-    },
-    extraIcon: {
-      type: Object,
-      default() {
-        return {
-          name: "arrow-down",
-          size: "30rpx",
-          color: "#333",
-        };
-      },
-    },
-    extraActiveIcon: {
-      type: Object,
-      default() {
-        return {
-          name: "arrow-up",
-          size: "30rpx",
-          color: "#3c9cff",
-        };
-      },
-    },
-  },
-  computed: {
-    parentData() {
-      return [
-        this.defaultValue,
-        this.textSize,
-        this.textColor,
-        this.textActiveColor,
-        this.textActiveSize,
-        this.extraIcon,
-        this.extraActiveIcon,
-        this.sign,
-        this.clickHandler,
-      ];
-    },
-  },
-  mounted() {
-    this.init();
-  },
-  methods: {
-    init() {
-      uni.$emit(`${this.sign}_CLICKMENU`, {
-        show: false,
-      });
-      this.$nextTick(async () => {
-        const rect = await this.queryRect();
-        uni.$emit(`${this.sign}_GETRECT`, rect);
-      });
-    },
-    // 查询内容高度
-    queryRect() {
-      // #ifndef APP-NVUE
-      // 组件内部一般用this.$uvGetRect，对外的为getRect，二者功能一致，名称不同
-      return new Promise((resolve) => {
-        this.$uvGetRect(`.uv-drop-down`).then((size) => {
-          resolve(size);
-        });
-      });
-      // #endif
-      // #ifdef APP-NVUE
-      // nvue下，使用dom模块查询元素高度
-      // 返回一个promise，让调用此方法的主体能使用then回调
-      return new Promise((resolve) => {
-        dom.getComponentRect(this.$refs.dropDownRef, (res) => {
-          res.size.top = res.size.top <= 0 ? 0 : res.size.top;
-          resolve(res.size);
-        });
-      });
-      // #endif
-    },
-    clickHandler(data) {
-      this.$emit("click", data);
-    },
-  },
+    methods: {
+        init() {
+            uni.$emit(`${this.sign}_CLICKMENU`, {
+                show: false
+            });
+            this.$nextTick(async () => {
+                const rect = await this.queryRect();
+                uni.$emit(`${this.sign}_GETRECT`, rect);
+            });
+        },
+        // 查询内容高度
+        queryRect() {
+            // #ifndef APP-NVUE
+            // 组件内部一般用this.$uvGetRect，对外的为getRect，二者功能一致，名称不同
+            return new Promise((resolve) => {
+                this.$uvGetRect(`.uv-drop-down`).then((size) => {
+                    resolve(size);
+                });
+            });
+            // #endif
+            // #ifdef APP-NVUE
+            // nvue下，使用dom模块查询元素高度
+            // 返回一个promise，让调用此方法的主体能使用then回调
+            return new Promise((resolve) => {
+                dom.getComponentRect(this.$refs.dropDownRef, (res) => {
+                    res.size.top = res.size.top <= 0 ? 0 : res.size.top;
+                    resolve(res.size);
+                });
+            });
+            // #endif
+        },
+        clickHandler(data) {
+            this.$emit('click', data);
+        }
+    }
 };
 </script>
 <style scoped lang="scss">
-@import "@/uni_modules/uv-ui-tools/libs/css/components.scss";
+@import '@/uni_modules/uv-ui-tools/libs/css/components.scss';
 .uv-drop-down {
-  @include flex;
-  justify-content: space-between;
-  background-color: #fff;
-  border-bottom: 1px solid #dadbde;
+    @include flex;
+    justify-content: space-between;
+    background-color: #fff;
+    border-bottom: 1px solid #dadbde;
 }
 </style>

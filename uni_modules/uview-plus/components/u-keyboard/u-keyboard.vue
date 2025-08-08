@@ -1,78 +1,48 @@
 <template>
-  <u-popup
-    :overlay="overlay"
-    :closeOnClickOverlay="closeOnClickOverlay"
-    mode="bottom"
-    :popup="false"
-    :show="show"
-    :safeAreaInsetBottom="safeAreaInsetBottom"
-    @close="popupClose"
-    :zIndex="zIndex"
-    :customStyle="{
-      backgroundColor: 'rgb(214, 218, 220)',
-    }"
-  >
-    <view class="u-keyboard">
-      <slot />
-      <view class="u-keyboard__tooltip" v-if="tooltip">
-        <view hover-class="u-hover-class" :hover-stay-time="100">
-          <text
-            class="u-keyboard__tooltip__item u-keyboard__tooltip__cancel"
-            v-if="showCancel"
-            @tap="onCancel"
-            >{{ showCancel && cancelText }}</text
-          >
+    <u-popup
+        :overlay="overlay"
+        :closeOnClickOverlay="closeOnClickOverlay"
+        mode="bottom"
+        :popup="false"
+        :show="show"
+        :safeAreaInsetBottom="safeAreaInsetBottom"
+        @close="popupClose"
+        :zIndex="zIndex"
+        :customStyle="{
+            backgroundColor: 'rgb(214, 218, 220)'
+        }"
+    >
+        <view class="u-keyboard">
+            <slot />
+            <view class="u-keyboard__tooltip" v-if="tooltip">
+                <view hover-class="u-hover-class" :hover-stay-time="100">
+                    <text class="u-keyboard__tooltip__item u-keyboard__tooltip__cancel" v-if="showCancel" @tap="onCancel">{{ showCancel && cancelText }}</text>
+                </view>
+                <view>
+                    <text v-if="showTips" class="u-keyboard__tooltip__item u-keyboard__tooltip__tips">
+                        {{ tips ? tips : mode == 'number' ? '数字键盘' : mode == 'card' ? '身份证键盘' : '车牌号键盘' }}
+                    </text>
+                </view>
+                <view hover-class="u-hover-class" :hover-stay-time="100">
+                    <text v-if="showConfirm" @tap="onConfirm" class="u-keyboard__tooltip__item u-keyboard__tooltip__submit" hover-class="u-hover-class">
+                        {{ showConfirm && confirmText }}
+                    </text>
+                </view>
+            </view>
+            <template v-if="mode == 'number' || mode == 'card'">
+                <u-number-keyboard :random="random" @backspace="backspace" @change="change" :mode="mode" :dotDisabled="dotDisabled"></u-number-keyboard>
+            </template>
+            <template v-else>
+                <u-car-keyboard :random="random" :autoChange="autoChange" @backspace="backspace" @change="change"></u-car-keyboard>
+            </template>
         </view>
-        <view>
-          <text
-            v-if="showTips"
-            class="u-keyboard__tooltip__item u-keyboard__tooltip__tips"
-            >{{
-              tips
-                ? tips
-                : mode == "number"
-                  ? "数字键盘"
-                  : mode == "card"
-                    ? "身份证键盘"
-                    : "车牌号键盘"
-            }}</text
-          >
-        </view>
-        <view hover-class="u-hover-class" :hover-stay-time="100">
-          <text
-            v-if="showConfirm"
-            @tap="onConfirm"
-            class="u-keyboard__tooltip__item u-keyboard__tooltip__submit"
-            hover-class="u-hover-class"
-            >{{ showConfirm && confirmText }}</text
-          >
-        </view>
-      </view>
-      <template v-if="mode == 'number' || mode == 'card'">
-        <u-number-keyboard
-          :random="random"
-          @backspace="backspace"
-          @change="change"
-          :mode="mode"
-          :dotDisabled="dotDisabled"
-        ></u-number-keyboard>
-      </template>
-      <template v-else>
-        <u-car-keyboard
-          :random="random"
-          :autoChange="autoChange"
-          @backspace="backspace"
-          @change="change"
-        ></u-car-keyboard>
-      </template>
-    </view>
-  </u-popup>
+    </u-popup>
 </template>
 
 <script>
-import { props } from "./props";
-import { mpMixin } from "../../libs/mixin/mpMixin";
-import { mixin } from "../../libs/mixin/mixin";
+import { props } from './props';
+import { mpMixin } from '../../libs/mixin/mpMixin';
+import { mixin } from '../../libs/mixin/mixin';
 
 /**
  * keyboard 键盘
@@ -101,64 +71,64 @@ import { mixin } from "../../libs/mixin/mixin";
  * @example <u-keyboard mode="number" v-model="show"></u-keyboard>
  */
 export default {
-  name: "u-keyboard",
-  data() {
-    return {};
-  },
-  mixins: [mpMixin, mixin, props],
-  emits: ["change", "close", "confirm", "cancel", "backspace"],
-  methods: {
-    change(e) {
-      this.$emit("change", e);
+    name: 'u-keyboard',
+    data() {
+        return {};
     },
-    // 键盘关闭
-    popupClose() {
-      this.$emit("close");
-    },
-    // 输入完成
-    onConfirm() {
-      this.$emit("confirm");
-    },
-    // 取消输入
-    onCancel() {
-      this.$emit("cancel");
-    },
-    // 退格键
-    backspace() {
-      this.$emit("backspace");
-    },
-  },
+    mixins: [mpMixin, mixin, props],
+    emits: ['change', 'close', 'confirm', 'cancel', 'backspace'],
+    methods: {
+        change(e) {
+            this.$emit('change', e);
+        },
+        // 键盘关闭
+        popupClose() {
+            this.$emit('close');
+        },
+        // 输入完成
+        onConfirm() {
+            this.$emit('confirm');
+        },
+        // 取消输入
+        onCancel() {
+            this.$emit('cancel');
+        },
+        // 退格键
+        backspace() {
+            this.$emit('backspace');
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
 .u-keyboard {
-  &__tooltip {
-    @include flex;
-    justify-content: space-between;
-    background-color: #ffffff;
-    padding: 14px 12px;
+    &__tooltip {
+        @include flex;
+        justify-content: space-between;
+        background-color: #ffffff;
+        padding: 14px 12px;
 
-    &__item {
-      color: #333333;
-      flex: 1;
-      text-align: center;
-      font-size: 15px;
-    }
+        &__item {
+            color: #333333;
+            flex: 1;
+            text-align: center;
+            font-size: 15px;
+        }
 
-    &__submit {
-      text-align: right;
-      color: $u-primary;
-    }
+        &__submit {
+            text-align: right;
+            color: $u-primary;
+        }
 
-    &__cancel {
-      text-align: left;
-      color: #888888;
-    }
+        &__cancel {
+            text-align: left;
+            color: #888888;
+        }
 
-    &__tips {
-      color: $u-tips-color;
+        &__tips {
+            color: $u-tips-color;
+        }
     }
-  }
 }
 </style>

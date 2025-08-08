@@ -1,23 +1,24 @@
 <template>
-  <text
-    v-if="show && ((Number(value) === 0 ? showZero : true) || isDot)"
-    :class="[
-      isDot ? 'u-badge--dot' : 'u-badge--not-dot',
-      inverted && 'u-badge--inverted',
-      shape === 'horn' && 'u-badge--horn',
-      `u-badge--${type}${inverted ? '--inverted' : ''}`,
-    ]"
-    :style="[addStyle(customStyle), badgeStyle]"
-    class="u-badge"
-    >{{ isDot ? "" : showValue }}</text
-  >
+    <text
+        v-if="show && ((Number(value) === 0 ? showZero : true) || isDot)"
+        :class="[
+            isDot ? 'u-badge--dot' : 'u-badge--not-dot',
+            inverted && 'u-badge--inverted',
+            shape === 'horn' && 'u-badge--horn',
+            `u-badge--${type}${inverted ? '--inverted' : ''}`
+        ]"
+        :style="[addStyle(customStyle), badgeStyle]"
+        class="u-badge"
+    >
+        {{ isDot ? '' : showValue }}
+    </text>
 </template>
 
 <script>
-import { props } from "./props";
-import { mpMixin } from "../../libs/mixin/mpMixin";
-import { mixin } from "../../libs/mixin/mixin";
-import { addStyle, addUnit } from "../../libs/function/index";
+import { props } from './props';
+import { mpMixin } from '../../libs/mixin/mpMixin';
+import { mixin } from '../../libs/mixin/mixin';
+import { addStyle, addUnit } from '../../libs/function/index';
 /**
  * badge 徽标数
  * @description 该组件一般用于图标右上角显示未读的消息数量，提示用户点击，有圆点和圆包含文字两种形式。
@@ -40,61 +41,59 @@ import { addStyle, addUnit } from "../../libs/function/index";
  * @example <u-badge :type="type" :count="count"></u-badge>
  */
 export default {
-  name: "u-badge",
-  mixins: [mpMixin, props, mixin],
-  computed: {
-    // 是否将badge中心与父组件右上角重合
-    boxStyle() {
-      let style = {};
-      return style;
-    },
-    // 整个组件的样式
-    badgeStyle() {
-      const style = {};
-      if (this.color) {
-        style.color = this.color;
-      }
-      if (this.bgColor && !this.inverted) {
-        style.backgroundColor = this.bgColor;
-      }
-      if (this.absolute) {
-        style.position = "absolute";
-        // 如果有设置offset参数
-        if (this.offset.length) {
-          // top和right分为为offset的第一个和第二个值，如果没有第二个值，则right等于top
-          const top = this.offset[0];
-          const right = this.offset[1] || top;
-          style.top = addUnit(top);
-          style.right = addUnit(right);
+    name: 'u-badge',
+    mixins: [mpMixin, props, mixin],
+    computed: {
+        // 是否将badge中心与父组件右上角重合
+        boxStyle() {
+            let style = {};
+            return style;
+        },
+        // 整个组件的样式
+        badgeStyle() {
+            const style = {};
+            if (this.color) {
+                style.color = this.color;
+            }
+            if (this.bgColor && !this.inverted) {
+                style.backgroundColor = this.bgColor;
+            }
+            if (this.absolute) {
+                style.position = 'absolute';
+                // 如果有设置offset参数
+                if (this.offset.length) {
+                    // top和right分为为offset的第一个和第二个值，如果没有第二个值，则right等于top
+                    const top = this.offset[0];
+                    const right = this.offset[1] || top;
+                    style.top = addUnit(top);
+                    style.right = addUnit(right);
+                }
+            }
+            return style;
+        },
+        showValue() {
+            switch (this.numberType) {
+                case 'overflow':
+                    return Number(this.value) > Number(this.max) ? this.max + '+' : this.value;
+                    break;
+                case 'ellipsis':
+                    return Number(this.value) > Number(this.max) ? '...' : this.value;
+                    break;
+                case 'limit':
+                    return Number(this.value) > 999
+                        ? Number(this.value) >= 9999
+                            ? Math.floor((this.value / 1e4) * 100) / 100 + 'w'
+                            : Math.floor((this.value / 1e3) * 100) / 100 + 'k'
+                        : this.value;
+                    break;
+                default:
+                    return Number(this.value);
+            }
         }
-      }
-      return style;
     },
-    showValue() {
-      switch (this.numberType) {
-        case "overflow":
-          return Number(this.value) > Number(this.max)
-            ? this.max + "+"
-            : this.value;
-          break;
-        case "ellipsis":
-          return Number(this.value) > Number(this.max) ? "..." : this.value;
-          break;
-        case "limit":
-          return Number(this.value) > 999
-            ? Number(this.value) >= 9999
-              ? Math.floor((this.value / 1e4) * 100) / 100 + "w"
-              : Math.floor((this.value / 1e3) * 100) / 100 + "k"
-            : this.value;
-          break;
-        default:
-          return Number(this.value);
-      }
-    },
-  },
-  methods: {
-    addStyle,
-  },
+    methods: {
+        addStyle
+    }
 };
 </script>
 
@@ -115,71 +114,71 @@ $u-badge-text-align: center !default;
 $u-badge-text-color: #ffffff !default;
 
 .u-badge {
-  border-top-right-radius: $u-badge-dot-radius;
-  border-top-left-radius: $u-badge-dot-radius;
-  border-bottom-left-radius: $u-badge-dot-radius;
-  border-bottom-right-radius: $u-badge-dot-radius;
-  @include flex;
-  line-height: $u-badge-text-font-size;
-  text-align: $u-badge-text-align;
-  font-size: $u-badge-text-font-size;
-  color: $u-badge-text-color;
+    border-top-right-radius: $u-badge-dot-radius;
+    border-top-left-radius: $u-badge-dot-radius;
+    border-bottom-left-radius: $u-badge-dot-radius;
+    border-bottom-right-radius: $u-badge-dot-radius;
+    @include flex;
+    line-height: $u-badge-text-font-size;
+    text-align: $u-badge-text-align;
+    font-size: $u-badge-text-font-size;
+    color: $u-badge-text-color;
 
-  &--dot {
-    height: $u-badge-dot-size;
-    width: $u-badge-dot-size;
-  }
+    &--dot {
+        height: $u-badge-dot-size;
+        width: $u-badge-dot-size;
+    }
 
-  &--inverted {
-    font-size: 13px;
-  }
+    &--inverted {
+        font-size: 13px;
+    }
 
-  &--not-dot {
-    padding: $u-badge-text-padding;
-  }
+    &--not-dot {
+        padding: $u-badge-text-padding;
+    }
 
-  &--horn {
-    border-bottom-left-radius: 0;
-  }
+    &--horn {
+        border-bottom-left-radius: 0;
+    }
 
-  &--primary {
-    background-color: $u-badge-primary;
-  }
+    &--primary {
+        background-color: $u-badge-primary;
+    }
 
-  &--primary--inverted {
-    color: $u-badge-primary;
-  }
+    &--primary--inverted {
+        color: $u-badge-primary;
+    }
 
-  &--error {
-    background-color: $u-badge-error;
-  }
+    &--error {
+        background-color: $u-badge-error;
+    }
 
-  &--error--inverted {
-    color: $u-badge-error;
-  }
+    &--error--inverted {
+        color: $u-badge-error;
+    }
 
-  &--success {
-    background-color: $u-badge-success;
-  }
+    &--success {
+        background-color: $u-badge-success;
+    }
 
-  &--success--inverted {
-    color: $u-badge-success;
-  }
+    &--success--inverted {
+        color: $u-badge-success;
+    }
 
-  &--info {
-    background-color: $u-badge-info;
-  }
+    &--info {
+        background-color: $u-badge-info;
+    }
 
-  &--info--inverted {
-    color: $u-badge-info;
-  }
+    &--info--inverted {
+        color: $u-badge-info;
+    }
 
-  &--warning {
-    background-color: $u-badge-warning;
-  }
+    &--warning {
+        background-color: $u-badge-warning;
+    }
 
-  &--warning--inverted {
-    color: $u-badge-warning;
-  }
+    &--warning--inverted {
+        color: $u-badge-warning;
+    }
 }
 </style>

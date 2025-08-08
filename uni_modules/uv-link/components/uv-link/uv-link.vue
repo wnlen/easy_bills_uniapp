@@ -1,16 +1,11 @@
 <template>
-  <text
-    class="uv-link"
-    @tap.stop="openLink"
-    :style="[linkStyle, $uv.addStyle(customStyle)]"
-    >{{ text }}</text
-  >
+    <text class="uv-link" @tap.stop="openLink" :style="[linkStyle, $uv.addStyle(customStyle)]">{{ text }}</text>
 </template>
 
 <script>
-import mpMixin from "@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js";
-import mixin from "@/uni_modules/uv-ui-tools/libs/mixin/mixin.js";
-import props from "./props.js";
+import mpMixin from '@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js';
+import mixin from '@/uni_modules/uv-ui-tools/libs/mixin/mixin.js';
+import props from './props.js';
 /**
  * link 超链接
  * @description 该组件为超链接组件，在不同平台有不同表现形式：在APP平台会通过plus环境打开内置浏览器，在小程序中把链接复制到粘贴板，同时提示信息，在H5中通过window.open打开链接。
@@ -27,58 +22,58 @@ import props from "./props.js";
  * @example <uv-link href="http://www.uvui.cn">蜀道难，难于上青天</uv-link>
  */
 export default {
-  name: "uv-link",
-  emits: ["click"],
-  mixins: [mpMixin, mixin, props],
-  computed: {
-    linkStyle() {
-      const style = {
-        color: this.color,
-        fontSize: this.$uv.addUnit(this.fontSize),
-        // line-height设置为比字体大小多2px
-        lineHeight: this.$uv.addUnit(this.$uv.getPx(this.fontSize) + 2),
-        textDecoration: this.underLine ? "underline" : "none",
-      };
-      return style;
+    name: 'uv-link',
+    emits: ['click'],
+    mixins: [mpMixin, mixin, props],
+    computed: {
+        linkStyle() {
+            const style = {
+                color: this.color,
+                fontSize: this.$uv.addUnit(this.fontSize),
+                // line-height设置为比字体大小多2px
+                lineHeight: this.$uv.addUnit(this.$uv.getPx(this.fontSize) + 2),
+                textDecoration: this.underLine ? 'underline' : 'none'
+            };
+            return style;
+        }
     },
-  },
-  methods: {
-    openLink() {
-      // #ifdef APP-PLUS
-      plus.runtime.openURL(this.href);
-      // #endif
-      // #ifdef H5
-      window.open(this.href);
-      // #endif
-      // #ifdef MP
-      uni.setClipboardData({
-        data: this.href,
-        success: () => {
-          uni.hideToast();
-          this.$nextTick(() => {
-            this.$uv.toast(this.mpTips);
-          });
-        },
-      });
-      // #endif
-      this.$emit("click");
-    },
-  },
+    methods: {
+        openLink() {
+            // #ifdef APP-PLUS
+            plus.runtime.openURL(this.href);
+            // #endif
+            // #ifdef H5
+            window.open(this.href);
+            // #endif
+            // #ifdef MP
+            uni.setClipboardData({
+                data: this.href,
+                success: () => {
+                    uni.hideToast();
+                    this.$nextTick(() => {
+                        this.$uv.toast(this.mpTips);
+                    });
+                }
+            });
+            // #endif
+            this.$emit('click');
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
-@import "@/uni_modules/uv-ui-tools/libs/css/components.scss";
-@import "@/uni_modules/uv-ui-tools/libs/css/color.scss";
+@import '@/uni_modules/uv-ui-tools/libs/css/components.scss';
+@import '@/uni_modules/uv-ui-tools/libs/css/color.scss';
 $uv-link-line-height: 1 !default;
 
 .uv-link {
-  /* #ifndef APP-NVUE */
-  line-height: $uv-link-line-height;
-  /* #endif */
-  @include flex;
-  flex-wrap: wrap;
-  flex: 1;
-  color: $uv-primary;
+    /* #ifndef APP-NVUE */
+    line-height: $uv-link-line-height;
+    /* #endif */
+    @include flex;
+    flex-wrap: wrap;
+    flex: 1;
+    color: $uv-primary;
 }
 </style>

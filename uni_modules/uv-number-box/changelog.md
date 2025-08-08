@@ -1,6 +1,6 @@
 ## 1.0.2（2023-07-13）
 
-1. 修复 uv-number-box设置value属性不生效的BUG
+1. 修复 uv-number-box 设置 value 属性不生效的 BUG
 
 ## 1.0.1（2023-05-16）
 

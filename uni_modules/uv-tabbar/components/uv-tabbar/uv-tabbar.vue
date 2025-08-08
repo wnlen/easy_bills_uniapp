@@ -1,33 +1,33 @@
 <template>
-  <view class="uv-tabbar">
-    <view
-      class="uv-tabbar__content"
-      ref="uv-tabbar__content"
-      @touchmove.stop.prevent="noop"
-      :class="[border && 'uv-border-top', fixed && 'uv-tabbar--fixed']"
-      :style="[tabbarStyle]"
-    >
-      <view class="uv-tabbar__content__item-wrapper">
-        <slot />
-      </view>
-      <uv-safe-bottom v-if="safeAreaInsetBottom"></uv-safe-bottom>
+    <view class="uv-tabbar">
+        <view
+            class="uv-tabbar__content"
+            ref="uv-tabbar__content"
+            @touchmove.stop.prevent="noop"
+            :class="[border && 'uv-border-top', fixed && 'uv-tabbar--fixed']"
+            :style="[tabbarStyle]"
+        >
+            <view class="uv-tabbar__content__item-wrapper">
+                <slot />
+            </view>
+            <uv-safe-bottom v-if="safeAreaInsetBottom"></uv-safe-bottom>
+        </view>
+        <view
+            class="uv-tabbar__placeholder"
+            v-if="placeholder"
+            :style="{
+                height: placeholderHeight + 'px'
+            }"
+        ></view>
     </view>
-    <view
-      class="uv-tabbar__placeholder"
-      v-if="placeholder"
-      :style="{
-        height: placeholderHeight + 'px',
-      }"
-    ></view>
-  </view>
 </template>
 
 <script>
-import mpMixin from "@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js";
-import mixin from "@/uni_modules/uv-ui-tools/libs/mixin/mixin.js";
-import props from "./props.js";
+import mpMixin from '@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js';
+import mixin from '@/uni_modules/uv-ui-tools/libs/mixin/mixin.js';
+import props from './props.js';
 // #ifdef APP-NVUE
-const dom = uni.requireNativePlugin("dom");
+const dom = uni.requireNativePlugin('dom');
 // #endif
 /**
  * Tabbar 底部导航栏
@@ -46,100 +46,99 @@ const dom = uni.requireNativePlugin("dom");
  * @example <uv-tabbar :value="value2" :placeholder="false" @change="name => value2 = name" :fixed="false" :safeAreaInsetBottom="false"><uv-tabbar-item text="首页" icon="home" dot ></uv-tabbar-item></uv-tabbar>
  */
 export default {
-  name: "uv-tabbar",
-  mixins: [mpMixin, mixin, props],
-  data() {
-    return {
-      placeholderHeight: 0,
-    };
-  },
-  computed: {
-    tabbarStyle() {
-      const style = {
-        zIndex: this.zIndex,
-      };
-      // 合并来自父组件的customStyle样式
-      return this.$uv.deepMerge(style, this.$uv.addStyle(this.customStyle));
+    name: 'uv-tabbar',
+    mixins: [mpMixin, mixin, props],
+    data() {
+        return {
+            placeholderHeight: 0
+        };
     },
-    // 监听多个参数的变化，通过在computed执行对应的操作
-    updateChild() {
-      return [this.value, this.activeColor, this.inactiveColor];
+    computed: {
+        tabbarStyle() {
+            const style = {
+                zIndex: this.zIndex
+            };
+            // 合并来自父组件的customStyle样式
+            return this.$uv.deepMerge(style, this.$uv.addStyle(this.customStyle));
+        },
+        // 监听多个参数的变化，通过在computed执行对应的操作
+        updateChild() {
+            return [this.value, this.activeColor, this.inactiveColor];
+        },
+        updatePlaceholder() {
+            return [this.fixed, this.placeholder];
+        }
     },
-    updatePlaceholder() {
-      return [this.fixed, this.placeholder];
+    watch: {
+        updateChild() {
+            // 如果updateChildren中的元素发生了变化，则执行子元素初始化操作
+            this.updateChildren();
+        },
+        updatePlaceholder() {
+            // 如果fixed，placeholder等参数发生变化，重新计算占位元素的高度
+            this.setPlaceholderHeight();
+        }
     },
-  },
-  watch: {
-    updateChild() {
-      // 如果updateChildren中的元素发生了变化，则执行子元素初始化操作
-      this.updateChildren();
+    created() {
+        this.children = [];
     },
-    updatePlaceholder() {
-      // 如果fixed，placeholder等参数发生变化，重新计算占位元素的高度
-      this.setPlaceholderHeight();
+    mounted() {
+        this.setPlaceholderHeight();
     },
-  },
-  created() {
-    this.children = [];
-  },
-  mounted() {
-    this.setPlaceholderHeight();
-  },
-  methods: {
-    updateChildren() {
-      // 如果存在子元素，则执行子元素的updateFromParent进行更新数据
-      this.children.length &&
-        this.children.map((child) => child.updateFromParent());
-    },
-    // 设置用于防止塌陷元素的高度
-    async setPlaceholderHeight() {
-      if (!this.fixed || !this.placeholder) return;
-      // 延时一定时间
-      await this.$uv.sleep(20);
-      // #ifndef APP-NVUE
-      this.$uvGetRect(".uv-tabbar__content").then(({ height = 50 }) => {
-        // 修复IOS safearea bottom 未填充高度
-        this.placeholderHeight = height;
-      });
-      // #endif
+    methods: {
+        updateChildren() {
+            // 如果存在子元素，则执行子元素的updateFromParent进行更新数据
+            this.children.length && this.children.map((child) => child.updateFromParent());
+        },
+        // 设置用于防止塌陷元素的高度
+        async setPlaceholderHeight() {
+            if (!this.fixed || !this.placeholder) return;
+            // 延时一定时间
+            await this.$uv.sleep(20);
+            // #ifndef APP-NVUE
+            this.$uvGetRect('.uv-tabbar__content').then(({ height = 50 }) => {
+                // 修复IOS safearea bottom 未填充高度
+                this.placeholderHeight = height;
+            });
+            // #endif
 
-      // #ifdef APP-NVUE
-      dom.getComponentRect(this.$refs["uv-tabbar__content"], (res) => {
-        const { size } = res;
-        this.placeholderHeight = size.height;
-      });
-      // #endif
-    },
-  },
+            // #ifdef APP-NVUE
+            dom.getComponentRect(this.$refs['uv-tabbar__content'], (res) => {
+                const { size } = res;
+                this.placeholderHeight = size.height;
+            });
+            // #endif
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
 $show-border: 1;
 $show-border-top: 1;
-@import "@/uni_modules/uv-ui-tools/libs/css/variable.scss";
-@import "@/uni_modules/uv-ui-tools/libs/css/components.scss";
-@import "@/uni_modules/uv-ui-tools/libs/css/color.scss";
+@import '@/uni_modules/uv-ui-tools/libs/css/variable.scss';
+@import '@/uni_modules/uv-ui-tools/libs/css/components.scss';
+@import '@/uni_modules/uv-ui-tools/libs/css/color.scss';
 .uv-tabbar {
-  @include flex(column);
-  flex: 1;
-  justify-content: center;
-
-  &__content {
     @include flex(column);
-    background-color: #fff;
+    flex: 1;
+    justify-content: center;
 
-    &__item-wrapper {
-      height: 50px;
-      @include flex(row);
+    &__content {
+        @include flex(column);
+        background-color: #fff;
+
+        &__item-wrapper {
+            height: 50px;
+            @include flex(row);
+        }
     }
-  }
 
-  &--fixed {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
+    &--fixed {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
 }
 </style>

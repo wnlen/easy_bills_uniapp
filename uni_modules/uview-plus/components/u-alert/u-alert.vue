@@ -1,67 +1,56 @@
 <template>
-  <u-transition mode="fade" :show="show">
-    <view
-      class="u-alert"
-      :class="[`u-alert--${type}--${effect}`]"
-      @tap.stop="clickHandler"
-      :style="[addStyle(customStyle)]"
-    >
-      <view class="u-alert__icon" v-if="showIcon">
-        <u-icon :name="iconName" size="18" :color="iconColor"></u-icon>
-      </view>
-      <view
-        class="u-alert__content"
-        :style="[
-          {
-            paddingRight: closable ? '20px' : 0,
-          },
-        ]"
-      >
-        <text
-          class="u-alert__content__title"
-          v-if="title"
-          :style="[
-            {
-              fontSize: addUnit(fontSize),
-              textAlign: center ? 'center' : 'left',
-            },
-          ]"
-          :class="[
-            effect === 'dark'
-              ? 'u-alert__text--dark'
-              : `u-alert__text--${type}--light`,
-          ]"
-          >{{ title }}</text
-        >
-        <text
-          class="u-alert__content__desc"
-          v-if="description"
-          :style="[
-            {
-              fontSize: addUnit(fontSize),
-              textAlign: center ? 'center' : 'left',
-            },
-          ]"
-          :class="[
-            effect === 'dark'
-              ? 'u-alert__text--dark'
-              : `u-alert__text--${type}--light`,
-          ]"
-          >{{ description }}</text
-        >
-      </view>
-      <view class="u-alert__close" v-if="closable" @tap.stop="closeHandler">
-        <u-icon name="close" :color="iconColor" size="15"></u-icon>
-      </view>
-    </view>
-  </u-transition>
+    <u-transition mode="fade" :show="show">
+        <view class="u-alert" :class="[`u-alert--${type}--${effect}`]" @tap.stop="clickHandler" :style="[addStyle(customStyle)]">
+            <view class="u-alert__icon" v-if="showIcon">
+                <u-icon :name="iconName" size="18" :color="iconColor"></u-icon>
+            </view>
+            <view
+                class="u-alert__content"
+                :style="[
+                    {
+                        paddingRight: closable ? '20px' : 0
+                    }
+                ]"
+            >
+                <text
+                    class="u-alert__content__title"
+                    v-if="title"
+                    :style="[
+                        {
+                            fontSize: addUnit(fontSize),
+                            textAlign: center ? 'center' : 'left'
+                        }
+                    ]"
+                    :class="[effect === 'dark' ? 'u-alert__text--dark' : `u-alert__text--${type}--light`]"
+                >
+                    {{ title }}
+                </text>
+                <text
+                    class="u-alert__content__desc"
+                    v-if="description"
+                    :style="[
+                        {
+                            fontSize: addUnit(fontSize),
+                            textAlign: center ? 'center' : 'left'
+                        }
+                    ]"
+                    :class="[effect === 'dark' ? 'u-alert__text--dark' : `u-alert__text--${type}--light`]"
+                >
+                    {{ description }}
+                </text>
+            </view>
+            <view class="u-alert__close" v-if="closable" @tap.stop="closeHandler">
+                <u-icon name="close" :color="iconColor" size="15"></u-icon>
+            </view>
+        </view>
+    </u-transition>
 </template>
 
 <script>
-import { props } from "./props";
-import { mpMixin } from "../../libs/mixin/mpMixin";
-import { mixin } from "../../libs/mixin/mixin";
-import { addUnit, addStyle } from "../../libs/function/index";
+import { props } from './props';
+import { mpMixin } from '../../libs/mixin/mpMixin';
+import { mixin } from '../../libs/mixin/mixin';
+import { addUnit, addStyle } from '../../libs/function/index';
 /**
  * Alert  警告提示
  * @description 警告提示，展现需要关注的信息。
@@ -81,167 +70,167 @@ import { addUnit, addStyle } from "../../libs/function/index";
  * @example  <u-alert :title="title"  type = "warning" :closable="closable" :description = "description"></u-alert>
  */
 export default {
-  name: "u-alert",
-  mixins: [mpMixin, mixin, props],
-  data() {
-    return {
-      show: true,
-    };
-  },
-  computed: {
-    iconColor() {
-      return this.effect === "light" ? this.type : "#fff";
+    name: 'u-alert',
+    mixins: [mpMixin, mixin, props],
+    data() {
+        return {
+            show: true
+        };
     },
-    // 不同主题对应不同的图标
-    iconName() {
-      switch (this.type) {
-        case "success":
-          return "checkmark-circle-fill";
-          break;
-        case "error":
-          return "close-circle-fill";
-          break;
-        case "warning":
-          return "error-circle-fill";
-          break;
-        case "info":
-          return "info-circle-fill";
-          break;
-        case "primary":
-          return "more-circle-fill";
-          break;
-        default:
-          return "error-circle-fill";
-      }
+    computed: {
+        iconColor() {
+            return this.effect === 'light' ? this.type : '#fff';
+        },
+        // 不同主题对应不同的图标
+        iconName() {
+            switch (this.type) {
+                case 'success':
+                    return 'checkmark-circle-fill';
+                    break;
+                case 'error':
+                    return 'close-circle-fill';
+                    break;
+                case 'warning':
+                    return 'error-circle-fill';
+                    break;
+                case 'info':
+                    return 'info-circle-fill';
+                    break;
+                case 'primary':
+                    return 'more-circle-fill';
+                    break;
+                default:
+                    return 'error-circle-fill';
+            }
+        }
     },
-  },
-  emits: ["click", "close"],
-  methods: {
-    addUnit,
-    addStyle,
-    // 点击内容
-    clickHandler() {
-      this.$emit("click");
-    },
-    // 点击关闭按钮
-    closeHandler() {
-      this.show = false;
-      this.$emit("close");
-    },
-  },
+    emits: ['click', 'close'],
+    methods: {
+        addUnit,
+        addStyle,
+        // 点击内容
+        clickHandler() {
+            this.$emit('click');
+        },
+        // 点击关闭按钮
+        closeHandler() {
+            this.show = false;
+            this.$emit('close');
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
 .u-alert {
-  position: relative;
-  background-color: $u-primary;
-  padding: 8px 10px;
-  @include flex(row);
-  align-items: center;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-
-  &--primary--dark {
+    position: relative;
     background-color: $u-primary;
-  }
+    padding: 8px 10px;
+    @include flex(row);
+    align-items: center;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
 
-  &--primary--light {
-    background-color: #ecf5ff;
-  }
-
-  &--error--dark {
-    background-color: $u-error;
-  }
-
-  &--error--light {
-    background-color: #fef0f0;
-  }
-
-  &--success--dark {
-    background-color: $u-success;
-  }
-
-  &--success--light {
-    background-color: #f5fff0;
-  }
-
-  &--warning--dark {
-    background-color: $u-warning;
-  }
-
-  &--warning--light {
-    background-color: #fdf6ec;
-  }
-
-  &--info--dark {
-    background-color: $u-info;
-  }
-
-  &--info--light {
-    background-color: #f4f4f5;
-  }
-
-  &__icon {
-    margin-right: 5px;
-  }
-
-  &__content {
-    @include flex(column);
-    flex: 1;
-
-    &__title {
-      color: $u-main-color;
-      font-size: 14px;
-      font-weight: bold;
-      color: #fff;
-      margin-bottom: 2px;
+    &--primary--dark {
+        background-color: $u-primary;
     }
 
-    &__desc {
-      color: $u-main-color;
-      font-size: 14px;
-      flex-wrap: wrap;
-      color: #fff;
+    &--primary--light {
+        background-color: #ecf5ff;
     }
-  }
 
-  &__title--dark,
-  &__desc--dark {
-    color: #ffffff;
-  }
+    &--error--dark {
+        background-color: $u-error;
+    }
 
-  &__text--primary--light,
-  &__text--primary--light {
-    color: $u-primary;
-  }
+    &--error--light {
+        background-color: #fef0f0;
+    }
 
-  &__text--success--light,
-  &__text--success--light {
-    color: $u-success;
-  }
+    &--success--dark {
+        background-color: $u-success;
+    }
 
-  &__text--warning--light,
-  &__text--warning--light {
-    color: $u-warning;
-  }
+    &--success--light {
+        background-color: #f5fff0;
+    }
 
-  &__text--error--light,
-  &__text--error--light {
-    color: $u-error;
-  }
+    &--warning--dark {
+        background-color: $u-warning;
+    }
 
-  &__text--info--light,
-  &__text--info--light {
-    color: $u-info;
-  }
+    &--warning--light {
+        background-color: #fdf6ec;
+    }
 
-  &__close {
-    position: absolute;
-    top: 11px;
-    right: 10px;
-  }
+    &--info--dark {
+        background-color: $u-info;
+    }
+
+    &--info--light {
+        background-color: #f4f4f5;
+    }
+
+    &__icon {
+        margin-right: 5px;
+    }
+
+    &__content {
+        @include flex(column);
+        flex: 1;
+
+        &__title {
+            color: $u-main-color;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 2px;
+        }
+
+        &__desc {
+            color: $u-main-color;
+            font-size: 14px;
+            flex-wrap: wrap;
+            color: #fff;
+        }
+    }
+
+    &__title--dark,
+    &__desc--dark {
+        color: #ffffff;
+    }
+
+    &__text--primary--light,
+    &__text--primary--light {
+        color: $u-primary;
+    }
+
+    &__text--success--light,
+    &__text--success--light {
+        color: $u-success;
+    }
+
+    &__text--warning--light,
+    &__text--warning--light {
+        color: $u-warning;
+    }
+
+    &__text--error--light,
+    &__text--error--light {
+        color: $u-error;
+    }
+
+    &__text--info--light,
+    &__text--info--light {
+        color: $u-info;
+    }
+
+    &__close {
+        position: absolute;
+        top: 11px;
+        right: 10px;
+    }
 }
 </style>

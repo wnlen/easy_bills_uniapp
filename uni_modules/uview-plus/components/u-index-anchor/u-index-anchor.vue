@@ -1,37 +1,38 @@
 <template>
-  <!-- #ifdef APP-NVUE -->
-  <header>
-    <!-- #endif -->
-    <view
-      class="u-index-anchor u-border-bottom"
-      :class="{ 'u-index-anchor--sticky': parentSticky }"
-      :ref="`u-index-anchor-${text}`"
-      :style="{
-        height: addUnit(height),
-        backgroundColor: bgColor,
-      }"
-    >
-      <text
-        class="u-index-anchor__text"
-        :style="{
-          fontSize: addUnit(size),
-          color: color,
-        }"
-        >{{ text.name || text }}</text
-      >
-    </view>
     <!-- #ifdef APP-NVUE -->
-  </header>
-  <!-- #endif -->
+    <header>
+        <!-- #endif -->
+        <view
+            class="u-index-anchor u-border-bottom"
+            :class="{ 'u-index-anchor--sticky': parentSticky }"
+            :ref="`u-index-anchor-${text}`"
+            :style="{
+                height: addUnit(height),
+                backgroundColor: bgColor
+            }"
+        >
+            <text
+                class="u-index-anchor__text"
+                :style="{
+                    fontSize: addUnit(size),
+                    color: color
+                }"
+            >
+                {{ text.name || text }}
+            </text>
+        </view>
+        <!-- #ifdef APP-NVUE -->
+    </header>
+    <!-- #endif -->
 </template>
 
 <script>
-import { props } from "./props";
-import { mpMixin } from "../../libs/mixin/mpMixin";
-import { mixin } from "../../libs/mixin/mixin";
-import { addUnit, $parent, error } from "../../libs/function/index";
+import { props } from './props';
+import { mpMixin } from '../../libs/mixin/mpMixin';
+import { mixin } from '../../libs/mixin/mixin';
+import { addUnit, $parent, error } from '../../libs/function/index';
 // #ifdef APP-NVUE
-const dom = uni.requireNativePlugin("dom");
+const dom = uni.requireNativePlugin('dom');
 // #endif
 /**
  * IndexAnchor 列表锚点
@@ -45,65 +46,65 @@ const dom = uni.requireNativePlugin("dom");
  * @example <u-index-anchor :text="indexList[index]"></u-index-anchor>
  */
 export default {
-  name: "u-index-anchor",
-  mixins: [mpMixin, mixin, props],
-  data() {
-    return {};
-  },
-  mounted() {
-    this.init();
-  },
-  methods: {
-    addUnit,
-    init() {
-      // 此处会活动父组件实例，并赋值给实例的parent属性
-      const indexList = $parent.call(this, "u-index-list");
-      if (!indexList) {
-        return error("u-index-anchor必须要搭配u-index-list组件使用");
-      }
-      // 将当前实例放入到u-index-list中
-      indexList.anchors.push(this);
-      const indexListItem = $parent.call(this, "u-index-item");
-      // #ifndef APP-NVUE
-      // 只有在非nvue下，u-index-anchor才是嵌套在u-index-item中的
-      if (!indexListItem) {
-        return error("u-index-anchor必须要搭配u-index-item组件使用");
-      }
-      // 设置u-index-item的id为anchor的text标识符，因为非nvue下滚动列表需要依赖scroll-view滚动到元素的特性
-      if (typeof this.text == "string") {
-        indexListItem.id = this.text.charCodeAt(0);
-      } else {
-        indexListItem.id = this.text.name.charCodeAt(0);
-      }
-      // #endif
+    name: 'u-index-anchor',
+    mixins: [mpMixin, mixin, props],
+    data() {
+        return {};
     },
-  },
-  computed: {
-    parentSticky() {
-      const indexList = $parent.call(this, "u-index-list");
-      return indexList ? indexList.sticky : true;
+    mounted() {
+        this.init();
     },
-  },
+    methods: {
+        addUnit,
+        init() {
+            // 此处会活动父组件实例，并赋值给实例的parent属性
+            const indexList = $parent.call(this, 'u-index-list');
+            if (!indexList) {
+                return error('u-index-anchor必须要搭配u-index-list组件使用');
+            }
+            // 将当前实例放入到u-index-list中
+            indexList.anchors.push(this);
+            const indexListItem = $parent.call(this, 'u-index-item');
+            // #ifndef APP-NVUE
+            // 只有在非nvue下，u-index-anchor才是嵌套在u-index-item中的
+            if (!indexListItem) {
+                return error('u-index-anchor必须要搭配u-index-item组件使用');
+            }
+            // 设置u-index-item的id为anchor的text标识符，因为非nvue下滚动列表需要依赖scroll-view滚动到元素的特性
+            if (typeof this.text == 'string') {
+                indexListItem.id = this.text.charCodeAt(0);
+            } else {
+                indexListItem.id = this.text.name.charCodeAt(0);
+            }
+            // #endif
+        }
+    },
+    computed: {
+        parentSticky() {
+            const indexList = $parent.call(this, 'u-index-list');
+            return indexList ? indexList.sticky : true;
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
 .u-index-anchor {
-  position: sticky;
-  top: 0;
-  @include flex;
-  align-items: center;
-  padding-left: 15px;
-  z-index: 1;
-
-  &--sticky {
     position: sticky;
     top: 0;
-  }
-
-  &__text {
     @include flex;
     align-items: center;
-  }
+    padding-left: 15px;
+    z-index: 1;
+
+    &--sticky {
+        position: sticky;
+        top: 0;
+    }
+
+    &__text {
+        @include flex;
+        align-items: center;
+    }
 }
 </style>

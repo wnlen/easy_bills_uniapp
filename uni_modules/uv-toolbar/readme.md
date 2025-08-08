@@ -2,7 +2,7 @@
 
 > **组件名：uv-toolbar**
 
-该组价是仅用于uv-ui中一个公共小工具，提供一个取消和确定的样式，可以设置标题，主要用于弹窗顶部的选择确定工具条。
+该组价是仅用于 uv-ui 中一个公共小工具，提供一个取消和确定的样式，可以设置标题，主要用于弹窗顶部的选择确定工具条。
 
 ### 基本使用
 
@@ -24,8 +24,8 @@
 
 ## [下载完整示例项目](https://ext.dcloud.net.cn/plugin?name=uv-ui)
 
-### [更多插件，请关注uv-ui组件库](https://ext.dcloud.net.cn/plugin?name=uv-ui)
+### [更多插件，请关注 uv-ui 组件库](https://ext.dcloud.net.cn/plugin?name=uv-ui)
 
 ![image](https://mp-a667b617-c5f1-4a2d-9a54-683a67cff588.cdn.bspapp.com/uv-ui/banner.png)
 
-#### 如使用过程中有任何问题反馈，或者您对uv-ui有一些好的建议，欢迎加入uv-ui官方交流群：<a href="https://www.uvui.cn/components/addQQGroup.html" target="_blank">官方QQ群</a>
+#### 如使用过程中有任何问题反馈，或者您对 uv-ui 有一些好的建议，欢迎加入 uv-ui 官方交流群：<a href="https://www.uvui.cn/components/addQQGroup.html" target="_blank">官方 QQ 群</a>

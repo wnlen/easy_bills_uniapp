@@ -1,11 +1,11 @@
 <template>
-  <view class="uv-line" :style="[lineStyle]"> </view>
+    <view class="uv-line" :style="[lineStyle]"></view>
 </template>
 
 <script>
-import mpMixin from "@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js";
-import mixin from "@/uni_modules/uv-ui-tools/libs/mixin/mixin.js";
-import props from "./props.js";
+import mpMixin from '@/uni_modules/uv-ui-tools/libs/mixin/mpMixin.js';
+import mixin from '@/uni_modules/uv-ui-tools/libs/mixin/mixin.js';
+import props from './props.js';
 /**
  * line 线条
  * @description 此组件一般用于显示一根线条，用于分隔内容块，有横向和竖向两种模式，且能设置0.5px线条，使用也很简单
@@ -20,37 +20,37 @@ import props from "./props.js";
  * @example <uv-line color="red"></uv-line>
  */
 export default {
-  name: "uv-line",
-  mixins: [mpMixin, mixin, props],
-  computed: {
-    lineStyle() {
-      const style = {};
-      style.margin = this.margin;
-      // 如果是水平线条，边框高度为1px，再通过transform缩小一半，就是0.5px了
-      if (this.direction === "row") {
-        // 此处采用兼容分开写，兼容nvue的写法
-        style.borderBottomWidth = "1px";
-        style.borderBottomStyle = this.dashed ? "dashed" : "solid";
-        style.width = this.$uv.addUnit(this.length);
-        if (this.hairline) style.transform = "scaleY(0.5)";
-      } else {
-        // 如果是竖向线条，边框宽度为1px，再通过transform缩小一半，就是0.5px了
-        style.borderLeftWidth = "1px";
-        style.borderLeftStyle = this.dashed ? "dashed" : "solid";
-        style.height = this.$uv.addUnit(this.length);
-        if (this.hairline) style.transform = "scaleX(0.5)";
-      }
-      style.borderColor = this.color;
-      return this.$uv.deepMerge(style, this.$uv.addStyle(this.customStyle));
-    },
-  },
+    name: 'uv-line',
+    mixins: [mpMixin, mixin, props],
+    computed: {
+        lineStyle() {
+            const style = {};
+            style.margin = this.margin;
+            // 如果是水平线条，边框高度为1px，再通过transform缩小一半，就是0.5px了
+            if (this.direction === 'row') {
+                // 此处采用兼容分开写，兼容nvue的写法
+                style.borderBottomWidth = '1px';
+                style.borderBottomStyle = this.dashed ? 'dashed' : 'solid';
+                style.width = this.$uv.addUnit(this.length);
+                if (this.hairline) style.transform = 'scaleY(0.5)';
+            } else {
+                // 如果是竖向线条，边框宽度为1px，再通过transform缩小一半，就是0.5px了
+                style.borderLeftWidth = '1px';
+                style.borderLeftStyle = this.dashed ? 'dashed' : 'solid';
+                style.height = this.$uv.addUnit(this.length);
+                if (this.hairline) style.transform = 'scaleX(0.5)';
+            }
+            style.borderColor = this.color;
+            return this.$uv.deepMerge(style, this.$uv.addStyle(this.customStyle));
+        }
+    }
 };
 </script>
 
 <style lang="scss" scoped>
 .uv-line {
-  /* #ifndef APP-NVUE */
-  vertical-align: middle;
-  /* #endif */
+    /* #ifndef APP-NVUE */
+    vertical-align: middle;
+    /* #endif */
 }
 </style>

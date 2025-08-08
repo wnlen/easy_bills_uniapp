@@ -1,13 +1,13 @@
 <template>
-  <view class="u-tr">
-    <slot></slot>
-  </view>
+    <view class="u-tr">
+        <slot></slot>
+    </view>
 </template>
 
 <script>
-import { props } from "./props";
-import { mpMixin } from "../../libs/mixin/mpMixin";
-import { mixin } from "../../libs/mixin/mixin";
+import { props } from './props';
+import { mpMixin } from '../../libs/mixin/mpMixin';
+import { mixin } from '../../libs/mixin/mixin';
 /**
  * Tr
  * @description
@@ -17,16 +17,16 @@ import { mixin } from "../../libs/mixin/mixin";
  * @example
  */
 export default {
-  name: "u-tr",
-  mixins: [mpMixin, mixin, props],
-  data() {
-    return {};
-  },
+    name: 'u-tr',
+    mixins: [mpMixin, mixin, props],
+    data() {
+        return {};
+    }
 };
 </script>
 
 <style lang="scss" scoped>
 .u-tr {
-  @include flex;
+    @include flex;
 }
 </style>
