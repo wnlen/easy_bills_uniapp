@@ -99,7 +99,7 @@
                     <view class=></view><u-icon me="mic" size="50"></u-icon></view>
                 </view>
                 <view :style="{ width: showFile == 1 ? '70%' : '80%' }">
-                    <u-input type="text" placeholde="输入您想咨询的问题" :modelValue="message" border="bottom"></u-input>
+                    <u-input type="text" placeholde="输入您想咨询的问题" v-model="message" border="bottom"></u-input>
                 </view>
 
                 <view class="mt10 ml10" style="height: 100%; align-items: center">

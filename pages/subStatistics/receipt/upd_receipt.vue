@@ -56,7 +56,7 @@
                                 <u-input
                                     border="none"
                                     @change="CustomerGetChange"
-                                    :modelValue="customer"
+                                    v-model="customer"
                                     :custom-style="{ backgroundColor: 'transparent' }"
                                     disabled="true"
                                     :placeholder="vuex_userRole === 'R' ? '请选择供应商' : '请选择客户'"
@@ -75,14 +75,14 @@
                             </text>
                             <view class="ml10 mr10"><u-icon name="/static/img/list/sj.svg" size="40rpx"></u-icon></view>
                             <view class="my-input">
-                                <u-input border="none" v-if="showTage !== '1'" :modelValue="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
+                                <u-input border="none" v-if="showTage !== '1'" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
                             </view>
                             <view class="ml24 my-input">
                                 <u-input
                                     border="none"
                                     v-if="showTage === '1'"
                                     maxlength="11"
-                                    :modelValue="field"
+                                    v-model="field"
                                     @change="searchListenner"
                                     placeholder="输入号码进行检索"
                                 ></u-input>

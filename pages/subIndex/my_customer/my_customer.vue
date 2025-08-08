@@ -63,7 +63,7 @@
             <view class="pd10">
                 <u-input
                     border="none"
-                    :modelValue="searchValue"
+                    v-model="searchValue"
                     @change="search"
                     :placeholder="
                         show != 1

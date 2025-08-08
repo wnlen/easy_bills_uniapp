@@ -78,7 +78,7 @@
                         type="textarea"
                         border="none"
                         placeholder="(无备注)"
-                        :modelValue="billFrom.billRemark"
+                        v-model="billFrom.billRemark"
                         placeholderClass="placeholder_class"
                         maxlength="50"
                         height="100%"

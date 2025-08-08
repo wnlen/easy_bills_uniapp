@@ -116,11 +116,11 @@
                 <!-- 	<u-icon custom-style="padding: 0 10rpx" :size="iconSize" name="mic" v-if="textShowFlag"></u-icon>
 				<u-icon custom-style="padding: 0 10rpx" :size="iconSize" name="mic" v-else @click="showText"></u-icon> -->
                 <view class="y-wrap_footer_show_box__ipt" style="background-color: #f4f4f4">
-                    <!-- <input v-if="textShowFlag" :modelValue="sendVal" :focus="focus" @blur="blur"></input> -->
+                    <!-- <input v-if="textShowFlag" v-model="sendVal" :focus="focus" @blur="blur"></input> -->
                     <u-input
                         :border="true"
                         v-if="textShowFlag"
-                        :modelValue="sendVal"
+                        v-model="sendVal"
                         :placeholder="bannedToPost ? '禁言中' : ''"
                         placeholderStyle="text-align:center"
                         :disabled="bannedToPost"

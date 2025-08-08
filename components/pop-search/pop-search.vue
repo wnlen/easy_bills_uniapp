@@ -13,7 +13,7 @@
                     <u-input
                         border="none"
                         @change="InputTextOne"
-                        :modelValue="InputOneText"
+                        v-model="InputOneText"
                         :customStyle="{ backgroundColor: 'transparent' }"
                         :placeholder="vuex_userRole === 'R' ? InputOneName.a : InputOneName.b"
                         clearable="true"
@@ -34,10 +34,10 @@
                 </view>
 
                 <view class="my-input">
-                    <u-input border="none" v-if="showTage !== '1'" :modelValue="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
+                    <u-input border="none" v-if="showTage !== '1'" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
                 </view>
                 <view class="ml24 my-input">
-                    <u-input border="none" v-if="showTage === '1'" maxlength="11" :modelValue="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
+                    <u-input border="none" v-if="showTage === '1'" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
                 </view>
 
                 <view class="flex-col justify-center items-center ml40" style="height: 5vh">
