@@ -1,11 +1,19 @@
 ## 0.1.2（2024-07-17）
+
 chore: 移除冗余的 typescript 依赖
+
 ## 0.1.1（2024-07-17）
+
 fix: 修复 createUnistorage 导出
+
 ## 0.1.0（2024-07-10）
+
 fix!: 更新 pinia 类型
+
 ## 0.0.21（2024-07-10）
+
 chore!: 继承 pinia-plugin-persistedstate
+
 ## 0.0.19（2024-01-18）
 
 fix: 重新构建，不需要默认参数

@@ -1,4 +1,5 @@
 ## 阿里矢量图-图标组件
+
 > **组件名：albb-icon**
 
 ### 安装方式
@@ -7,7 +8,7 @@
 
 ### 基本用法
 
-在 ``template`` 中使用组件
+在 `template` 中使用组件
 
 ```html
 <!-- 基本用法 -->
@@ -43,7 +44,7 @@
 </style>
 ```
 
-在 ``template`` 中使用组件
+在 `template` 中使用组件
 
 ```html
 <albb-icon icon="h-tubiao"></albb-icon>
@@ -69,31 +70,28 @@ iconfont.css 文件中引用其他三个文件，注意引用路径的正确性
 
 微信小程序必须使用 本地地址
 
-在 ``template`` 中使用组件
+在 `template` 中使用组件
 
 ```html
 <albb-icon icon="h-tubiao"></albb-icon>
 ```
 
-##### 
+#####
 
 ## API
 
 ### Props
 
-|  属性名	|    类型	| 默认值	| 说明			|
-|			|			|			|				|
-| icon		| String	|h-tubiao	| 矢量图标代码	|
-| extraClass| String	|-			| 图标样式class	|
-| iconStyle	| Object	|-			| 图标样式style	|
-| size		| String	|32rpx		| 图标大小		|
-| color		| String	| #fff		| 图标颜色		|
+| 属性名 | 类型 | 默认值 | 说明 |
+| | | | |
+| icon | String |h-tubiao | 矢量图标代码 |
+| extraClass| String |- | 图标样式class |
+| iconStyle | Object |- | 图标样式style |
+| size | String |32rpx | 图标大小 |
+| color | String | #fff | 图标颜色 |
 
 ### Events
 
-|  事件名	|    类型	|  回调参数	|    说明		|
-|			|			|			|				|
-| active	| function	|无			| 图标点击事件	|
-
-
-
+| 事件名 | 类型 | 回调参数 | 说明 |
+| | | | |
+| active | function |无 | 图标点击事件 |

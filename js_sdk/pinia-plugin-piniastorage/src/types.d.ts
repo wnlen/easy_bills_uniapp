@@ -67,9 +67,8 @@ export interface YmStateOptions {
   afterRestore?: (context: PiniaPluginContext) => void;
 }
 
-declare module 'pinia' {
+declare module "pinia" {
   export interface DefineStoreOptionsBase<S extends StateTree, Store> {
     storeOptions?: YmStateOptions;
   }
 }
-

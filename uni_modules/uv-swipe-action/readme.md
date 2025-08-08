@@ -1,4 +1,4 @@
-## SwipeAction 滑动单元格 
+## SwipeAction 滑动单元格
 
 > **组件名：uv-swipe-action**
 

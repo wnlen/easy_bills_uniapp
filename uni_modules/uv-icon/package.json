@@ -5,7 +5,7 @@
   "description": "基于字体的图标集，包含了大多数常见场景的图标，支持自定义，支持自定义图片图标等。可自定义颜色、大小。",
   "keywords": [
     "uv-ui,uvui,uv-icon,icon,图标,字体图标"
-],
+  ],
   "repository": "",
   "engines": {
     "HBuilderX": "^3.1.0"
@@ -32,8 +32,8 @@
   },
   "uni_modules": {
     "dependencies": [
-			"uv-ui-tools"
-		],
+      "uv-ui-tools"
+    ],
     "encrypt": [],
     "platforms": {
       "cloud": {

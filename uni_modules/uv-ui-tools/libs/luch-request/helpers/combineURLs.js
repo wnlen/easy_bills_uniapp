@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 /**
  * Creates a new URL by combining the specified URLs
@@ -9,6 +9,6 @@
  */
 export default function combineURLs(baseURL, relativeURL) {
   return relativeURL
-    ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
-    : baseURL
+    ? baseURL.replace(/\/+$/, "") + "/" + relativeURL.replace(/^\/+/, "")
+    : baseURL;
 }

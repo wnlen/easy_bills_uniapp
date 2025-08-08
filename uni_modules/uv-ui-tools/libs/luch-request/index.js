@@ -1,2 +1,2 @@
-import Request from './core/Request'
-export default Request
+import Request from "./core/Request";
+export default Request;

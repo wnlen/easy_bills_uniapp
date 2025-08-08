@@ -2,7 +2,7 @@
 
 > **组件名：uv-checkbox**
 
-复选框组件一般用于需要多个选择的场景，该组件功能完整，使用方便。可配合 `uv-form` 组件进行表单验证等场景使用。 
+复选框组件一般用于需要多个选择的场景，该组件功能完整，使用方便。可配合 `uv-form` 组件进行表单验证等场景使用。
 
 # <a href="https://www.uvui.cn/components/checkbox.html" target="_blank">查看文档</a>
 

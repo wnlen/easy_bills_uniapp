@@ -1,11 +1,9 @@
 ![logo](https://img-blog.csdnimg.cn/4a276226973841468c1be356f8d9438b.png)
 
-
 [![star](https://gitee.com/uCharts/uCharts/badge/star.svg?theme=gvp)](https://gitee.com/uCharts/uCharts/stargazers)
 [![fork](https://gitee.com/uCharts/uCharts/badge/fork.svg?theme=gvp)](https://gitee.com/uCharts/uCharts/members)
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![npm package](https://img.shields.io/npm/v/@qiun/ucharts.svg?style=flat-square)](https://www.npmjs.com/~qiun)
-
 
 ## uCharts简介
 
@@ -31,12 +29,12 @@
 
 ## [uCharts新手入门教程](https://www.bilibili.com/video/BV1qA411Q7se/?share_source=copy_web&vd_source=42a1242f9aaade6427736af69eb2e1d9)
 
-
 ## 社群支持
 
 uCharts官方拥有5个2000人的QQ群及专属VIP会员群支持，庞大的用户量证明我们一直在努力，请各位放心使用！uCharts的开源图表组件的开发，团队付出了大量的时间与精力，经过四来的考验，不会有比较明显的bug，请各位放心使用。如果您有更好的想法，可以在`码云提交Pull Requests`以帮助更多开发者完成需求，再次感谢各位对uCharts的鼓励与支持！
 
 #### 官方交流群
+
 - 交流群1：371774600（已满）
 - 交流群2：619841586（已满）
 - 交流群3：955340127（已满）
@@ -48,6 +46,7 @@ uCharts官方拥有5个2000人的QQ群及专属VIP会员群支持，庞大的用
 - 口令`uniapp`
 
 #### 专属VIP会员群
+
 - 开通会员后详见【账号详情】页面中顶部的滚动通知
 - 口令`您的用户ID`
 
@@ -68,17 +67,16 @@ uCharts始终坚持开源，遵循 [Apache Licence 2.0](https://www.apache.org/l
 [![nProUI](https://www.ucharts.cn/images/web/guide/links/nPro.png)](https://ext.dcloud.net.cn/plugin?id=5169)
 [![GraceUI](https://www.ucharts.cn/images/web/guide/links/grace.png)](https://www.graceui.com/)
 
-
 ## 更新记录
 
 详见官网指南中说明，[点击此处查看](https://www.ucharts.cn/v2/#/guide/index?id=100)
 
-
 ## 相关链接
+
 - [uCharts官网](https://www.ucharts.cn)
 - [DCloud插件市场地址](https://ext.dcloud.net.cn/plugin?id=271)
 - [uCharts码云开源托管地址](https://gitee.com/uCharts/uCharts) [![star](https://gitee.com/uCharts/uCharts/badge/star.svg?theme=gvp)](https://gitee.com/uCharts/uCharts/stargazers)
 - [uCharts npm开源地址](https://www.ucharts.cn)
 - [ECharts官网](https://echarts.apache.org/zh/index.html)
 - [ECharts配置手册](https://echarts.apache.org/zh/option.html)
-- [图表组件在项目中的应用 ReportPlus数据报表](https://www.ucharts.cn/v2/#/layout/info?id=1) 
+- [图表组件在项目中的应用 ReportPlus数据报表](https://www.ucharts.cn/v2/#/layout/info?id=1)

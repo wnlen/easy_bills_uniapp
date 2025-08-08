@@ -1,21 +1,19 @@
 <template>
-	 <view class="container loading5">
-		<view class="shape shape1"></view>
-		<view class="shape shape2"></view>
-		<view class="shape shape3"></view>
-		<view class="shape shape4"></view>
-	</view>
+  <view class="container loading5">
+    <view class="shape shape1"></view>
+    <view class="shape shape2"></view>
+    <view class="shape shape3"></view>
+    <view class="shape shape4"></view>
+  </view>
 </template>
 
 <script>
-	export default {
-		name: 'loading5',
-		data() {
-			return {
-				
-			};
-		}
-	}
+export default {
+  name: "loading5",
+  data() {
+    return {};
+  },
+};
 </script>
 
 <style scoped="true">
@@ -38,20 +36,20 @@
 }
 .container .shape.shape1 {
   left: 0;
-  background-color: #1890FF;
+  background-color: #1890ff;
 }
 .container .shape.shape2 {
   right: 0;
-  background-color: #91CB74;
+  background-color: #91cb74;
 }
 .container .shape.shape3 {
   bottom: 0;
-  background-color: #FAC858;
+  background-color: #fac858;
 }
 .container .shape.shape4 {
   bottom: 0;
   right: 0;
-  background-color: #EE6666;
+  background-color: #ee6666;
 }
 
 .loading5 .shape1 {
@@ -61,38 +59,38 @@
 @-webkit-keyframes animation5shape1 {
   0% {
     -webkit-transform: translate(0, 0);
-            transform: translate(0, 0);
+    transform: translate(0, 0);
   }
   25% {
     -webkit-transform: translate(0, 15px);
-            transform: translate(0, 15px);
+    transform: translate(0, 15px);
   }
   50% {
     -webkit-transform: translate(15px, 15px);
-            transform: translate(15px, 15px);
+    transform: translate(15px, 15px);
   }
   75% {
     -webkit-transform: translate(15px, 0);
-            transform: translate(15px, 0);
+    transform: translate(15px, 0);
   }
 }
 
 @keyframes animation5shape1 {
   0% {
     -webkit-transform: translate(0, 0);
-            transform: translate(0, 0);
+    transform: translate(0, 0);
   }
   25% {
     -webkit-transform: translate(0, 15px);
-            transform: translate(0, 15px);
+    transform: translate(0, 15px);
   }
   50% {
     -webkit-transform: translate(15px, 15px);
-            transform: translate(15px, 15px);
+    transform: translate(15px, 15px);
   }
   75% {
     -webkit-transform: translate(15px, 0);
-            transform: translate(15px, 0);
+    transform: translate(15px, 0);
   }
 }
 .loading5 .shape2 {
@@ -102,38 +100,38 @@
 @-webkit-keyframes animation5shape2 {
   0% {
     -webkit-transform: translate(0, 0);
-            transform: translate(0, 0);
+    transform: translate(0, 0);
   }
   25% {
     -webkit-transform: translate(-15px, 0);
-            transform: translate(-15px, 0);
+    transform: translate(-15px, 0);
   }
   50% {
     -webkit-transform: translate(-15px, 15px);
-            transform: translate(-15px, 15px);
+    transform: translate(-15px, 15px);
   }
   75% {
     -webkit-transform: translate(0, 15px);
-            transform: translate(0, 15px);
+    transform: translate(0, 15px);
   }
 }
 
 @keyframes animation5shape2 {
   0% {
     -webkit-transform: translate(0, 0);
-            transform: translate(0, 0);
+    transform: translate(0, 0);
   }
   25% {
     -webkit-transform: translate(-15px, 0);
-            transform: translate(-15px, 0);
+    transform: translate(-15px, 0);
   }
   50% {
     -webkit-transform: translate(-15px, 15px);
-            transform: translate(-15px, 15px);
+    transform: translate(-15px, 15px);
   }
   75% {
     -webkit-transform: translate(0, 15px);
-            transform: translate(0, 15px);
+    transform: translate(0, 15px);
   }
 }
 .loading5 .shape3 {
@@ -143,38 +141,38 @@
 @-webkit-keyframes animation5shape3 {
   0% {
     -webkit-transform: translate(0, 0);
-            transform: translate(0, 0);
+    transform: translate(0, 0);
   }
   25% {
     -webkit-transform: translate(15px, 0);
-            transform: translate(15px, 0);
+    transform: translate(15px, 0);
   }
   50% {
     -webkit-transform: translate(15px, -15px);
-            transform: translate(15px, -15px);
+    transform: translate(15px, -15px);
   }
   75% {
     -webkit-transform: translate(0, -15px);
-            transform: translate(0, -15px);
+    transform: translate(0, -15px);
   }
 }
 
 @keyframes animation5shape3 {
   0% {
     -webkit-transform: translate(0, 0);
-            transform: translate(0, 0);
+    transform: translate(0, 0);
   }
   25% {
     -webkit-transform: translate(15px, 0);
-            transform: translate(15px, 0);
+    transform: translate(15px, 0);
   }
   50% {
     -webkit-transform: translate(15px, -15px);
-            transform: translate(15px, -15px);
+    transform: translate(15px, -15px);
   }
   75% {
     -webkit-transform: translate(0, -15px);
-            transform: translate(0, -15px);
+    transform: translate(0, -15px);
   }
 }
 .loading5 .shape4 {
@@ -184,39 +182,38 @@
 @-webkit-keyframes animation5shape4 {
   0% {
     -webkit-transform: translate(0, 0);
-            transform: translate(0, 0);
+    transform: translate(0, 0);
   }
   25% {
     -webkit-transform: translate(0, -15px);
-            transform: translate(0, -15px);
+    transform: translate(0, -15px);
   }
   50% {
     -webkit-transform: translate(-15px, -15px);
-            transform: translate(-15px, -15px);
+    transform: translate(-15px, -15px);
   }
   75% {
     -webkit-transform: translate(-15px, 0);
-            transform: translate(-15px, 0);
+    transform: translate(-15px, 0);
   }
 }
 
 @keyframes animation5shape4 {
   0% {
     -webkit-transform: translate(0, 0);
-            transform: translate(0, 0);
+    transform: translate(0, 0);
   }
   25% {
     -webkit-transform: translate(0, -15px);
-            transform: translate(0, -15px);
+    transform: translate(0, -15px);
   }
   50% {
     -webkit-transform: translate(-15px, -15px);
-            transform: translate(-15px, -15px);
+    transform: translate(-15px, -15px);
   }
   75% {
     -webkit-transform: translate(-15px, 0);
-            transform: translate(-15px, 0);
+    transform: translate(-15px, 0);
   }
 }
-
 </style>

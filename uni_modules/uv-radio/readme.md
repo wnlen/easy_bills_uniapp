@@ -2,7 +2,7 @@
 
 > **组件名：uv-radio**
 
-单选框用于有一个选择，用户只能选择其中一个的场景。	
+单选框用于有一个选择，用户只能选择其中一个的场景。
 
 # <a href="https://www.uvui.cn/components/radio.html" target="_blank">查看文档</a>
 

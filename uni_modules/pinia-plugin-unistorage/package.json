@@ -9,7 +9,7 @@
     "storage",
     "pinia-plugin",
     "persistence"
-],
+  ],
   "type": "module",
   "main": "./index.js",
   "types": "./index.d.ts",

@@ -2,15 +2,14 @@
  * 默认的全局配置
  */
 
-
 export default {
-  baseURL: '',
+  baseURL: "",
   header: {},
-  method: 'GET',
-  dataType: 'json',
+  method: "GET",
+  dataType: "json",
   paramsSerializer: null,
   // #ifndef MP-ALIPAY
-  responseType: 'text',
+  responseType: "text",
   // #endif
   custom: {},
   // #ifdef H5 || APP-PLUS || MP-WEIXIN || MP-ALIPAY || MP-TOUTIAO || MP-KUAISHOU
@@ -26,8 +25,8 @@ export default {
   firstIpv4: false,
   // #endif
   validateStatus: function validateStatus(status) {
-    return status >= 200 && status < 300
+    return status >= 200 && status < 300;
   },
   // 是否尝试将响应数据json化
-  forcedJSONParsing: true
-}
+  forcedJSONParsing: true,
+};

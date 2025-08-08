@@ -12,15 +12,15 @@
 
 ### Toolbar Props
 
-| 属性名 | 类型 | 默认值 | 说明 |
-|:-|:-|:-|:-|
-| show | Boolean | true | 是否展示工具条 |
-| showBorder | Boolean | false | 是否显示下边框 |
-| cancelText | String | '取消' | 取消按钮的文字 |
-| confirmText | String | '确定' | 确定按钮的文字 |
-| cancelColor | String | '#909193' | 取消按钮的颜色 |
-| confirmColor | String | '#3c9cff' | 确认按钮的颜色 |
-| title | String | - | 标题文字 |
+| 属性名       | 类型    | 默认值    | 说明           |
+| :----------- | :------ | :-------- | :------------- |
+| show         | Boolean | true      | 是否展示工具条 |
+| showBorder   | Boolean | false     | 是否显示下边框 |
+| cancelText   | String  | '取消'    | 取消按钮的文字 |
+| confirmText  | String  | '确定'    | 确定按钮的文字 |
+| cancelColor  | String  | '#909193' | 取消按钮的颜色 |
+| confirmColor | String  | '#3c9cff' | 确认按钮的颜色 |
+| title        | String  | -         | 标题文字       |
 
 ## [下载完整示例项目](https://ext.dcloud.net.cn/plugin?name=uv-ui)
 

@@ -44,21 +44,22 @@ cloudfunctions
 在要使用uni-config-center的公共模块或云函数内引入uni-config-center依赖，请参考：[使用公共模块](https://uniapp.dcloud.net.cn/uniCloud/cf-common)
 
 ```js
-const createConfig = require('uni-config-center')
+const createConfig = require("uni-config-center");
 
 const uniIdConfig = createConfig({
-    pluginId: 'uni-id', // 插件id
-    defaultConfig: { // 默认配置
-        tokenExpiresIn: 7200,
-        tokenExpiresThreshold: 600,
-    },
-    customMerge: function(defaultConfig, userConfig) { // 自定义默认配置和用户配置的合并规则，不设置的情况侠会对默认配置和用户配置进行深度合并
-        // defaudltConfig 默认配置
-        // userConfig 用户配置
-        return Object.assign(defaultConfig, userConfig)
-    }
-})
-
+  pluginId: "uni-id", // 插件id
+  defaultConfig: {
+    // 默认配置
+    tokenExpiresIn: 7200,
+    tokenExpiresThreshold: 600,
+  },
+  customMerge: function (defaultConfig, userConfig) {
+    // 自定义默认配置和用户配置的合并规则，不设置的情况侠会对默认配置和用户配置进行深度合并
+    // defaudltConfig 默认配置
+    // userConfig 用户配置
+    return Object.assign(defaultConfig, userConfig);
+  },
+});
 
 // 以如下配置为例
 // {
@@ -77,17 +78,17 @@ const uniIdConfig = createConfig({
 // }
 
 // 获取配置
-uniIdConfig.config() // 获取全部配置，注意：uni-config-center内不存在对应插件目录时会返回空对象
-uniIdConfig.config('tokenExpiresIn') // 指定键值获取配置，返回：7200
-uniIdConfig.config('service.sms.codeExpiresIn') // 指定键值获取配置，返回：300
-uniIdConfig.config('tokenExpiresThreshold', 600) // 指定键值获取配置，如果不存在则取传入的默认值，返回：600
+uniIdConfig.config(); // 获取全部配置，注意：uni-config-center内不存在对应插件目录时会返回空对象
+uniIdConfig.config("tokenExpiresIn"); // 指定键值获取配置，返回：7200
+uniIdConfig.config("service.sms.codeExpiresIn"); // 指定键值获取配置，返回：300
+uniIdConfig.config("tokenExpiresThreshold", 600); // 指定键值获取配置，如果不存在则取传入的默认值，返回：600
 
 // 获取文件绝对路径
-uniIdConfig.resolve('custom-token.js') // 获取uni-config-center/uni-id/custom-token.js文件的路径
+uniIdConfig.resolve("custom-token.js"); // 获取uni-config-center/uni-id/custom-token.js文件的路径
 
 // 引用文件（require）
-uniIDConfig.requireFile('custom-token.js') // 使用require方式引用uni-config-center/uni-id/custom-token.js文件。文件不存在时返回undefined，文件内有其他错误导致require失败时会抛出错误。
+uniIDConfig.requireFile("custom-token.js"); // 使用require方式引用uni-config-center/uni-id/custom-token.js文件。文件不存在时返回undefined，文件内有其他错误导致require失败时会抛出错误。
 
 // 判断是否包含某文件
-uniIDConfig.hasFile('custom-token.js') // 配置目录是否包含某文件，true: 文件存在，false: 文件不存在
+uniIDConfig.hasFile("custom-token.js"); // 配置目录是否包含某文件，true: 文件存在，false: 文件不存在
 ```

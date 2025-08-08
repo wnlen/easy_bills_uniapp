@@ -6,10 +6,12 @@ function normalizeOptions(options, factoryOptions) {
   options = isObject(options) ? options : /* @__PURE__ */ Object.create(null);
   return new Proxy(options, {
     get(target, key, receiver) {
-      if (key === "key")
-        return Reflect.get(target, key, receiver);
-      return Reflect.get(target, key, receiver) || Reflect.get(factoryOptions, key, receiver);
-    }
+      if (key === "key") return Reflect.get(target, key, receiver);
+      return (
+        Reflect.get(target, key, receiver) ||
+        Reflect.get(factoryOptions, key, receiver)
+      );
+    },
   });
 }
 
@@ -20,12 +22,13 @@ function get(state, path) {
   }, state);
 }
 function set(state, path, val) {
-  return path.slice(0, -1).reduce((obj, p) => {
-    if (/^(__proto__)$/.test(p))
-      return {};
-    else
-      return obj[p] = obj[p] || {};
-  }, state)[path[path.length - 1]] = val, state;
+  return (
+    (path.slice(0, -1).reduce((obj, p) => {
+      if (/^(__proto__)$/.test(p)) return {};
+      else return (obj[p] = obj[p] || {});
+    }, state)[path[path.length - 1]] = val),
+    state
+  );
 }
 function pick(baseState, paths) {
   return paths.reduce((substate, path) => {
@@ -45,24 +48,25 @@ function parsePersistence(factoryOptions, store) {
         afterRestore = void 0,
         serializer = {
           serialize: JSON.stringify,
-          deserialize: JSON.parse
+          deserialize: JSON.parse,
         },
         key = store.$id,
         paths = null,
-        debug = false
+        debug = false,
       } = o;
       return {
         storage,
         beforeRestore,
         afterRestore,
         serializer,
-        key: ((_a = factoryOptions.key) != null ? _a : (k) => k)(typeof key == "string" ? key : key(store.$id)),
+        key: ((_a = factoryOptions.key) != null ? _a : (k) => k)(
+          typeof key == "string" ? key : key(store.$id),
+        ),
         paths,
-        debug
+        debug,
       };
     } catch (e) {
-      if (o.debug)
-        console.error("[pinia-plugin-persistedstate]", e);
+      if (o.debug) console.error("[pinia-plugin-persistedstate]", e);
       return null;
     }
   };
@@ -71,10 +75,11 @@ function hydrateStore(store, { storage, serializer, key, debug }) {
   try {
     const fromStorage = storage == null ? void 0 : storage.getItem(key);
     if (fromStorage)
-      store.$patch(serializer == null ? void 0 : serializer.deserialize(fromStorage));
+      store.$patch(
+        serializer == null ? void 0 : serializer.deserialize(fromStorage),
+      );
   } catch (e) {
-    if (debug)
-      console.error("[pinia-plugin-persistedstate]", e);
+    if (debug) console.error("[pinia-plugin-persistedstate]", e);
   }
 }
 function persistState(state, { storage, serializer, key, paths, debug }) {
@@ -82,8 +87,7 @@ function persistState(state, { storage, serializer, key, paths, debug }) {
     const toStore = Array.isArray(paths) ? pick(state, paths) : state;
     storage.setItem(key, serializer.serialize(toStore));
   } catch (e) {
-    if (debug)
-      console.error("[pinia-plugin-persistedstate]", e);
+    if (debug) console.error("[pinia-plugin-persistedstate]", e);
   }
 }
 function createPersistedState(factoryOptions = {}) {
@@ -92,17 +96,22 @@ function createPersistedState(factoryOptions = {}) {
     const {
       options: { persist = auto },
       store,
-      pinia
+      pinia,
     } = context;
-    if (!persist)
-      return;
+    if (!persist) return;
     if (!(store.$id in pinia.state.value)) {
       const original_store = pinia._s.get(store.$id.replace("__hot:", ""));
       if (original_store)
         Promise.resolve().then(() => original_store.$persist());
       return;
     }
-    const persistences = (Array.isArray(persist) ? persist.map((p) => normalizeOptions(p, factoryOptions)) : [normalizeOptions(persist, factoryOptions)]).map(parsePersistence(factoryOptions, store)).filter(Boolean);
+    const persistences = (
+      Array.isArray(persist)
+        ? persist.map((p) => normalizeOptions(p, factoryOptions))
+        : [normalizeOptions(persist, factoryOptions)]
+    )
+      .map(parsePersistence(factoryOptions, store))
+      .filter(Boolean);
     store.$persist = () => {
       persistences.forEach((persistence) => {
         persistState(store.$state, persistence);
@@ -111,11 +120,9 @@ function createPersistedState(factoryOptions = {}) {
     store.$hydrate = ({ runHooks = true } = {}) => {
       persistences.forEach((persistence) => {
         const { beforeRestore, afterRestore } = persistence;
-        if (runHooks)
-          beforeRestore == null ? void 0 : beforeRestore(context);
+        if (runHooks) beforeRestore == null ? void 0 : beforeRestore(context);
         hydrateStore(store, persistence);
-        if (runHooks)
-          afterRestore == null ? void 0 : afterRestore(context);
+        if (runHooks) afterRestore == null ? void 0 : afterRestore(context);
       });
     };
     persistences.forEach((persistence) => {
@@ -128,8 +135,8 @@ function createPersistedState(factoryOptions = {}) {
           persistState(state, persistence);
         },
         {
-          detached: true
-        }
+          detached: true,
+        },
       );
     });
   };
@@ -143,13 +150,13 @@ function createUnistorage(globalOptions = {}) {
       },
       setItem(key, value) {
         uni.setStorageSync(key, value);
-      }
+      },
     },
     serializer: {
       deserialize: JSON.parse,
-      serialize: JSON.stringify
+      serialize: JSON.stringify,
     },
-    ...globalOptions
+    ...globalOptions,
   });
   return (ctx) => {
     if (ctx.options.unistorage) {

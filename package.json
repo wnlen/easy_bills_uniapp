@@ -13,6 +13,10 @@
     "vue-i18n": "^11.1.10"
   },
   "devDependencies": {
+    "prettier": "^3.6.2",
     "rollup-plugin-visualizer": "^6.0.3"
+  },
+  "scripts": {
+    "format": "prettier --write \"**/*.{js,ts,vue,json,scss,md}\""
   }
 }

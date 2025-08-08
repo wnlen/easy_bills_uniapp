@@ -1,8 +1,8 @@
 export default {
-    props: {
-        bgColor: {
-            type: String,
-            default: 'transparent'
-        }
-    }
-}
+  props: {
+    bgColor: {
+      type: String,
+      default: "transparent",
+    },
+  },
+};

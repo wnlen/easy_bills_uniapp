@@ -1,4 +1,4 @@
-## Swiper 轮播图 
+## Swiper 轮播图
 
 > **组件名：uv-swiper**
 

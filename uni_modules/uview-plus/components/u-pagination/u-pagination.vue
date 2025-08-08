@@ -2,11 +2,11 @@
   <view class="u-pagination">
     <!-- 上一页按钮 -->
     <view
-      :class="[
-        'u-pagination-btn',
-        { disabled: currentPage === 1 }
-      ]"
-      :style="{ backgroundColor: buttonBgColor, borderColor: buttonBorderColor }"
+      :class="['u-pagination-btn', { disabled: currentPage === 1 }]"
+      :style="{
+        backgroundColor: buttonBgColor,
+        borderColor: buttonBorderColor,
+      }"
       @click="prev"
     >
       <template v-if="prevText">
@@ -16,12 +16,13 @@
     </view>
 
     <!-- 页码列表 -->
-    <block v-for="page in displayedPages" :key="page" v-if="layout.includes('pager')">
+    <block
+      v-for="page in displayedPages"
+      :key="page"
+      v-if="layout.includes('pager')"
+    >
       <view
-        :class="[
-          'u-pagination-item',
-          { active: page === currentPage }
-        ]"
+        :class="['u-pagination-item', { active: page === currentPage }]"
         @click="goTo(page)"
       >
         {{ page }}
@@ -29,8 +30,11 @@
     </block>
 
     <!-- 总数显示 -->
-    <view v-if="total > 0 && layout.includes('total')" class="u-pagination-total">
-        {{ currentPage }} / {{ totalPages }}
+    <view
+      v-if="total > 0 && layout.includes('total')"
+      class="u-pagination-total"
+    >
+      {{ currentPage }} / {{ totalPages }}
     </view>
 
     <!-- 每页数量选择器 -->
@@ -48,16 +52,14 @@
 
     <!-- 下一页按钮 -->
     <view
-      :class="[
-        'u-pagination-btn',
-        { disabled: currentPage === totalPages }
-      ]"
-      :style="{ backgroundColor: buttonBgColor, borderColor: buttonBorderColor }"
+      :class="['u-pagination-btn', { disabled: currentPage === totalPages }]"
+      :style="{
+        backgroundColor: buttonBgColor,
+        borderColor: buttonBorderColor,
+      }"
       @click="next"
     >
-      <template v-if="nextText">
-        下一页
-      </template>
+      <template v-if="nextText"> 下一页 </template>
       <up-icon v-else name="arrow-right"></up-icon>
     </view>
 
@@ -78,61 +80,66 @@
 
 <script>
 export default {
-  name: 'u-pagination',
+  name: "u-pagination",
   props: {
     // 当前页码
     currentPage: {
       type: Number,
-      default: 1
+      default: 1,
     },
     // 每页条目数
     pageSize: {
       type: Number,
-      default: 10
+      default: 10,
     },
     // 总数据条目数
     total: {
       type: Number,
-      default: 0
+      default: 0,
     },
     // 上一页按钮文案
     prevText: {
       type: String,
-      default: ''
+      default: "",
     },
     // 下一页按钮文案
     nextText: {
       type: String,
-      default: ''
+      default: "",
     },
     buttonBgColor: {
       type: String,
-      default: '#f5f7fa'
+      default: "#f5f7fa",
     },
     buttonBorderColor: {
       type: String,
-      default: '#dcdfe6'
+      default: "#dcdfe6",
     },
     // 可选的每页条目数
     pageSizes: {
       type: Array,
-      default: () => [10, 20, 30, 40, 50]
+      default: () => [10, 20, 30, 40, 50],
     },
     // 布局方式（类似 el-pagination）
     layout: {
       type: String,
-      default: 'prev, pager, next'
+      default: "prev, pager, next",
     },
     // 是否隐藏只有一个页面时的分页控件
     hideOnSinglePage: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-  emits: ['update:currentPage', 'update:pageSize', 'current-change', 'size-change'],
+  emits: [
+    "update:currentPage",
+    "update:pageSize",
+    "current-change",
+    "size-change",
+  ],
   data() {
     return {
-      currentPageInput: this.currentPage + ''
+      currentPageInput: this.currentPage + "",
     };
   },
   computed: {
@@ -140,65 +147,67 @@ export default {
       return Math.max(1, Math.ceil(this.total / this.pageSize));
     },
     pageSizeIndex() {
-      const index = this.pageSizes.findIndex(size => size.value === this.pageSize);
+      const index = this.pageSizes.findIndex(
+        (size) => size.value === this.pageSize,
+      );
       return index >= 0 ? index : 0;
     },
     pageSizeLabel() {
-      const found = this.pageSizes.find(size => size.value === this.pageSize);
+      const found = this.pageSizes.find((size) => size.value === this.pageSize);
       return found?.label || this.pageSize;
     },
     displayedPages() {
-        const total = this.totalPages;
-        const current = this.currentPage;
+      const total = this.totalPages;
+      const current = this.currentPage;
 
-        if (total <= 4) {
-            return Array.from({ length: total }, (_, i) => i + 1);
-        }
+      if (total <= 4) {
+        return Array.from({ length: total }, (_, i) => i + 1);
+      }
 
-        const pages = [];
+      const pages = [];
 
-        // 当前页靠近头部
-        if (current <= 2) {
-            for (let i = 1; i <= 4; i++) {
-            pages.push(i);
-            }
-            pages.push('...');
-            pages.push(total);
+      // 当前页靠近头部
+      if (current <= 2) {
+        for (let i = 1; i <= 4; i++) {
+          pages.push(i);
         }
-        // 当前页在尾部附近
-        else if (current >= total - 1) {
-            pages.push(1);
-            pages.push('...');
-            for (let i = total - 3; i <= total; i++) {
-            pages.push(i);
-            }
+        pages.push("...");
+        pages.push(total);
+      }
+      // 当前页在尾部附近
+      else if (current >= total - 1) {
+        pages.push(1);
+        pages.push("...");
+        for (let i = total - 3; i <= total; i++) {
+          pages.push(i);
         }
-        // 中间情况
-        else {
-            pages.push(1);
-            pages.push('...');
-            pages.push(current - 1);
-            pages.push(current);
-            pages.push(current + 1);
-            pages.push('...');
-            pages.push(total);
-        }
+      }
+      // 中间情况
+      else {
+        pages.push(1);
+        pages.push("...");
+        pages.push(current - 1);
+        pages.push(current);
+        pages.push(current + 1);
+        pages.push("...");
+        pages.push(total);
+      }
 
-        return pages;
-    }
+      return pages;
+    },
     // 控制是否隐藏
   },
   watch: {
     currentPage(val) {
-      this.currentPageInput = val + '';
-    }
+      this.currentPageInput = val + "";
+    },
   },
   methods: {
     handleSizeChange(e) {
       const selected = e.detail.value;
       const size = this.pageSizes[selected]?.value || this.pageSizes[0].value;
-      this.$emit('update:pageSize', size);
-      this.$emit('size-change', size);
+      this.$emit("update:pageSize", size);
+      this.$emit("size-change", size);
     },
     prev() {
       if (this.currentPage > 1) {
@@ -211,9 +220,9 @@ export default {
       }
     },
     goTo(page) {
-      if (page === '...' || page === this.currentPage) return;
-      this.$emit('update:currentPage', page);
-      this.$emit('current-change', page);
+      if (page === "..." || page === this.currentPage) return;
+      this.$emit("update:currentPage", page);
+      this.$emit("current-change", page);
     },
     onInputPage(e) {
       this.currentPageInput = e.detail.value;
@@ -223,8 +232,8 @@ export default {
       if (!isNaN(num) && num >= 1 && num <= this.totalPages) {
         this.goTo(num);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

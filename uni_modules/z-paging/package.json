@@ -10,7 +10,7 @@
     "分页器",
     "nvue",
     "虚拟列表"
-],
+  ],
   "repository": "https://github.com/SmileZXLee/uni-z-paging",
   "types": "global.d.ts",
   "engines": {

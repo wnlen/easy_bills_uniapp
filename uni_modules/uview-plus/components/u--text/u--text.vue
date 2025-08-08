@@ -1,28 +1,28 @@
 <template>
-    <uvText
-        :type="type"
-        :show="show"
-        :text="text"
-        :prefixIcon="prefixIcon"
-        :suffixIcon="suffixIcon"
-        :mode="mode"
-        :href="href"
-        :format="format"
-        :call="call"
-        :openType="openType"
-        :bold="bold"
-        :block="block"
-        :lines="lines"
-        :color="color"
-		:decoration="decoration"
-        :size="size"
-        :iconStyle="iconStyle"
-        :margin="margin"
-        :lineHeight="lineHeight"
-        :align="align"
-        :wordWrap="wordWrap"
-        :customStyle="customStyle"
-    ></uvText>
+  <uvText
+    :type="type"
+    :show="show"
+    :text="text"
+    :prefixIcon="prefixIcon"
+    :suffixIcon="suffixIcon"
+    :mode="mode"
+    :href="href"
+    :format="format"
+    :call="call"
+    :openType="openType"
+    :bold="bold"
+    :block="block"
+    :lines="lines"
+    :color="color"
+    :decoration="decoration"
+    :size="size"
+    :iconStyle="iconStyle"
+    :margin="margin"
+    :lineHeight="lineHeight"
+    :align="align"
+    :wordWrap="wordWrap"
+    :customStyle="customStyle"
+  ></uvText>
 </template>
 
 <script>
@@ -33,13 +33,13 @@
  */
 import uvText from "../u-text/u-text.vue";
 import { props } from "../u-text/props.js";
-import { mpMixin } from '../../libs/mixin/mpMixin.js'
-import { mixin } from '../../libs/mixin/mixin.js'
+import { mpMixin } from "../../libs/mixin/mpMixin.js";
+import { mixin } from "../../libs/mixin/mixin.js";
 export default {
-    name: "u--text",
-    mixins: [mpMixin, mixin, props,],
-    components: {
-        uvText,
-    },
+  name: "u--text",
+  mixins: [mpMixin, mixin, props],
+  components: {
+    uvText,
+  },
 };
 </script>

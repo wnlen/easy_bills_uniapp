@@ -9,7 +9,8 @@
       :check-strictly="checkStrictly"
       :expand-on-click-node="expandOnClickNode"
       @node-click="handleNodeClick"
-      @check-change="$emit('check-change', $event)">
+      @check-change="$emit('check-change', $event)"
+    >
       <template #default="{ nodeData, level }">
         <slot :node="nodeData" :level="level"></slot>
       </template>
@@ -18,44 +19,44 @@
 </template>
 
 <script>
-import TreeNode from './tree-node.vue';
+import TreeNode from "./tree-node.vue";
 
 export default {
-  name: 'u-tree',
+  name: "u-tree",
   components: { TreeNode },
   props: {
     data: {
       type: Array,
-      required: true
+      required: true,
     },
     props: {
       type: Object,
       default: () => ({
-        label: 'label',
-        children: 'children',
-        nodeKey: 'id'
-      })
+        label: "label",
+        children: "children",
+        nodeKey: "id",
+      }),
     },
     showCheckbox: {
       type: Boolean,
-      default: false
+      default: false,
     },
     defaultExpandAll: {
       type: Boolean,
-      default: false
+      default: false,
     },
     expandOnClickNode: {
       type: Boolean,
-      default: true
+      default: true,
     },
     checkStrictly: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
-      treeData: []
+      treeData: [],
     };
   },
   created() {
@@ -68,17 +69,17 @@ export default {
         this.initExpandedState(this.treeData, this.defaultExpandAll);
       },
       deep: true,
-      immediate: true
-    }
+      immediate: true,
+    },
   },
-  emits: ['node-click', 'check-change'],
+  emits: ["node-click", "check-change"],
   methods: {
     initTree() {
       this.treeData = JSON.parse(JSON.stringify(this.data));
       this.initExpandedState(this.treeData, this.defaultExpandAll);
     },
     initExpandedState(nodes, expanded) {
-      nodes.forEach(node => {
+      nodes.forEach((node) => {
         node.expanded = expanded;
         if (node[this.props.children]) {
           this.initExpandedState(node[this.props.children], expanded);
@@ -86,27 +87,30 @@ export default {
       });
     },
     handleNodeClick(node) {
-      this.$emit('node-click', node);
+      this.$emit("node-click", node);
     },
     /**
      * 直接递归 treeData 获取所有 checked 的节点
      */
     getCheckedNodes() {
-        const traverse = (nodes) => {
-            let result = [];
-            nodes.forEach(node => {
-            if (node.checked) {
-                result.push(node);
-            }
-            if (node[this.props.children] && node[this.props.children].length > 0) {
-                result = result.concat(traverse(node[this.props.children]));
-            }
-            });
-            return result;
-        };
-        return traverse(this.treeData);
-    }
-  }
+      const traverse = (nodes) => {
+        let result = [];
+        nodes.forEach((node) => {
+          if (node.checked) {
+            result.push(node);
+          }
+          if (
+            node[this.props.children] &&
+            node[this.props.children].length > 0
+          ) {
+            result = result.concat(traverse(node[this.props.children]));
+          }
+        });
+        return result;
+      };
+      return traverse(this.treeData);
+    },
+  },
 };
 </script>
 

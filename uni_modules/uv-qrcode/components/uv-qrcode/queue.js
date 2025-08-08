@@ -1,6 +1,6 @@
 function Queue() {
-  let waitingQueue = this.waitingQueue = [];
-  let isRunning = this.isRunning = false; // 记录是否有未完成的任务
+  let waitingQueue = (this.waitingQueue = []);
+  let isRunning = (this.isRunning = false); // 记录是否有未完成的任务
 
   function execute(task, resolve, reject) {
     task()
@@ -20,20 +20,20 @@ function Queue() {
         }
       });
   }
-  this.exec = function(task) {
+  this.exec = function (task) {
     return new Promise((resolve, reject) => {
       if (isRunning) {
         waitingQueue.push({
           task,
           resolve,
-          reject
+          reject,
         });
       } else {
         isRunning = true;
         execute(task, resolve, reject);
       }
     });
-  }
+  };
 }
 
 /* 队列实例，某些平台一起使用多个组件时需要通过队列逐一绘制，否则部分绘制方法异常，nvue端的iOS gcanvas尤其明显，在不通过队列绘制时会出现图片丢失的情况 */

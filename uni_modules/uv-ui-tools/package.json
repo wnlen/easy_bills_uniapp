@@ -5,7 +5,7 @@
   "description": "uv-ui-tools，集成工具库，强大的Http请求封装，清晰的文档说明，开箱即用。方便使用，可以全局使用",
   "keywords": [
     "uv-ui-tools,uv-ui组件库,工具集,uvui,uView2.x"
-],
+  ],
   "repository": "",
   "engines": {
     "HBuilderX": "^3.1.0"

@@ -1,2 +1,2 @@
 // customer.js
-export default () => ({})
+export default () => ({});

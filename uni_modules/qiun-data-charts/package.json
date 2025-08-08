@@ -9,11 +9,10 @@
     "f2",
     "图表",
     "可视化"
-],
+  ],
   "repository": "https://gitee.com/uCharts/uCharts",
-"engines": {
-  },
-"dcloudext": {
+  "engines": {},
+  "dcloudext": {
     "sale": {
       "regular": {
         "price": "0.00"
@@ -71,8 +70,8 @@
           "联盟": "y"
         },
         "Vue": {
-            "vue2": "y",
-            "vue3": "y"
+          "vue2": "y",
+          "vue3": "y"
         }
       }
     }

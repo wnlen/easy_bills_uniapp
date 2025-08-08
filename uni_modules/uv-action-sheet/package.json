@@ -9,7 +9,7 @@
     "uv-ui",
     "操作菜单",
     "菜单选择"
-],
+  ],
   "repository": "",
   "engines": {
     "HBuilderX": "^3.1.0"
@@ -36,13 +36,13 @@
   },
   "uni_modules": {
     "dependencies": [
-			"uv-ui-tools",
-			"uv-popup",
-			"uv-icon",
-			"uv-line",
-			"uv-loading-icon",
-			"uv-gap"
-		],
+      "uv-ui-tools",
+      "uv-popup",
+      "uv-icon",
+      "uv-line",
+      "uv-loading-icon",
+      "uv-gap"
+    ],
     "encrypt": [],
     "platforms": {
       "cloud": {

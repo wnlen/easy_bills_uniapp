@@ -1,4 +1,4 @@
-## SafeBottom 底部安全区 
+## SafeBottom 底部安全区
 
 > **组件名：uv-safe-bottom**
 

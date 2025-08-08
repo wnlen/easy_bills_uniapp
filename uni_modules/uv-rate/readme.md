@@ -2,7 +2,7 @@
 
 > **组件名：uv-rate**
 
-该组件为星型评分，可用于满意度调查等场景。	
+该组件为星型评分，可用于满意度调查等场景。
 
 # <a href="https://www.uvui.cn/components/rate.html" target="_blank">查看文档</a>
 

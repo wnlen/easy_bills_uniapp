@@ -8,13 +8,12 @@
  * DCloud: http://ext.dcloud.net.cn/plugin?id=392
  */
 
-
-import dispatchRequest from './dispatchRequest'
-import InterceptorManager from './InterceptorManager'
-import mergeConfig from './mergeConfig'
-import defaults from './defaults'
-import { isPlainObject } from '../utils'
-import clone from '../utils/clone'
+import dispatchRequest from "./dispatchRequest";
+import InterceptorManager from "./InterceptorManager";
+import mergeConfig from "./mergeConfig";
+import defaults from "./defaults";
+import { isPlainObject } from "../utils";
+import clone from "../utils/clone";
 
 export default class Request {
   /**
@@ -33,14 +32,14 @@ export default class Request {
    */
   constructor(arg = {}) {
     if (!isPlainObject(arg)) {
-      arg = {}
-      console.warn('设置全局参数必须接收一个Object')
+      arg = {};
+      console.warn("设置全局参数必须接收一个Object");
     }
-    this.config = clone({...defaults, ...arg})
+    this.config = clone({ ...defaults, ...arg });
     this.interceptors = {
       request: new InterceptorManager(),
-      response: new InterceptorManager()
-    }
+      response: new InterceptorManager(),
+    };
   }
 
   /**
@@ -48,27 +47,31 @@ export default class Request {
    * @param {Request~setConfigCallback} f - 设置全局默认配置
    */
   setConfig(f) {
-    this.config = f(this.config)
+    this.config = f(this.config);
   }
 
   middleware(config) {
-    config = mergeConfig(this.config, config)
-    let chain = [dispatchRequest, undefined]
-    let promise = Promise.resolve(config)
+    config = mergeConfig(this.config, config);
+    let chain = [dispatchRequest, undefined];
+    let promise = Promise.resolve(config);
 
-    this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
-      chain.unshift(interceptor.fulfilled, interceptor.rejected)
-    })
+    this.interceptors.request.forEach(
+      function unshiftRequestInterceptors(interceptor) {
+        chain.unshift(interceptor.fulfilled, interceptor.rejected);
+      },
+    );
 
-    this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
-      chain.push(interceptor.fulfilled, interceptor.rejected)
-    })
+    this.interceptors.response.forEach(
+      function pushResponseInterceptors(interceptor) {
+        chain.push(interceptor.fulfilled, interceptor.rejected);
+      },
+    );
 
     while (chain.length) {
-      promise = promise.then(chain.shift(), chain.shift())
+      promise = promise.then(chain.shift(), chain.shift());
     }
 
-    return promise
+    return promise;
   }
 
   /**
@@ -83,24 +86,24 @@ export default class Request {
    * @returns {Promise<unknown>}
    */
   request(config = {}) {
-    return this.middleware(config)
+    return this.middleware(config);
   }
 
   get(url, options = {}) {
     return this.middleware({
       url,
-      method: 'GET',
-      ...options
-    })
+      method: "GET",
+      ...options,
+    });
   }
 
   post(url, data, options = {}) {
     return this.middleware({
       url,
       data,
-      method: 'POST',
-      ...options
-    })
+      method: "POST",
+      ...options,
+    });
   }
 
   // #ifndef MP-ALIPAY || MP-KUAISHOU || MP-JD
@@ -108,9 +111,9 @@ export default class Request {
     return this.middleware({
       url,
       data,
-      method: 'PUT',
-      ...options
-    })
+      method: "PUT",
+      ...options,
+    });
   }
 
   // #endif
@@ -120,9 +123,9 @@ export default class Request {
     return this.middleware({
       url,
       data,
-      method: 'DELETE',
-      ...options
-    })
+      method: "DELETE",
+      ...options,
+    });
   }
 
   // #endif
@@ -132,9 +135,9 @@ export default class Request {
     return this.middleware({
       url,
       data,
-      method: 'CONNECT',
-      ...options
-    })
+      method: "CONNECT",
+      ...options,
+    });
   }
 
   // #endif
@@ -144,9 +147,9 @@ export default class Request {
     return this.middleware({
       url,
       data,
-      method: 'HEAD',
-      ...options
-    })
+      method: "HEAD",
+      ...options,
+    });
   }
 
   // #endif
@@ -156,9 +159,9 @@ export default class Request {
     return this.middleware({
       url,
       data,
-      method: 'OPTIONS',
-      ...options
-    })
+      method: "OPTIONS",
+      ...options,
+    });
   }
 
   // #endif
@@ -168,30 +171,29 @@ export default class Request {
     return this.middleware({
       url,
       data,
-      method: 'TRACE',
-      ...options
-    })
+      method: "TRACE",
+      ...options,
+    });
   }
 
   // #endif
 
   upload(url, config = {}) {
-    config.url = url
-    config.method = 'UPLOAD'
-    return this.middleware(config)
+    config.url = url;
+    config.method = "UPLOAD";
+    return this.middleware(config);
   }
 
   download(url, config = {}) {
-    config.url = url
-    config.method = 'DOWNLOAD'
-    return this.middleware(config)
+    config.url = url;
+    config.method = "DOWNLOAD";
+    return this.middleware(config);
   }
 
-  get version () {
-    return '3.1.0'
+  get version() {
+    return "3.1.0";
   }
 }
-
 
 /**
  * setConfig回调
