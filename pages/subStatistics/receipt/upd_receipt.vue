@@ -54,7 +54,7 @@
 									:clearable="true"
 								></u-input>
 							</view>
-							
+
 							<view class="flex-col justify-center items-center" style="height: 5vh">
 								<u-icon class="ml40" name="/static/img/list/lxr.svg" size="45" @click="CustomerGet"></u-icon>
 							</view>
@@ -66,13 +66,7 @@
 							</text>
 							<u-icon class="ml10 mr10" name="/static/img/list/sj.svg" size="40"></u-icon>
 							<view class="my-input">
-								<u-input
-									border="none"
-									v-if="showTage !== '1'"
-									:modelValue="field"
-									@change="searchListenner"
-									placeholder="输入关键字进行检索"
-								></u-input>
+								<u-input border="none" v-if="showTage !== '1'" :modelValue="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
 							</view>
 							<view class="ml24 my-input">
 								<u-input
@@ -84,8 +78,7 @@
 									placeholder="输入号码进行检索"
 								></u-input>
 							</view>
-							
-							
+
 							<view class="flex-col justify-center items-center" style="height: 5vh">
 								<u-icon class="ml40" name="/static/img/list/ss.svg" size="45" @click="SearchBtn"></u-icon>
 							</view>
@@ -110,7 +103,7 @@
 			</view>
 
 			<view slot="empty" style="padding-bottom: 200rpx">
-				<u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" label-color="#AAAAAA" label="暂无记录" size="180"></u-icon>
+				<u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" label-color="#AAAAAA" label="暂无记录" size="180"></u-icon>
 			</view>
 
 			<view
@@ -405,7 +398,16 @@
 										:disabled="!hasCheck"
 										@click="OpenReceipt"
 										class="flex-row justify-center items-center"
-										style="width: 280rpx; height: 80rpx; border-radius: 90rpx; opacity: 1; background-color: #01bb74; color: white; float: right; font-weight: 600"
+										style="
+											width: 280rpx;
+											height: 80rpx;
+											border-radius: 90rpx;
+											opacity: 1;
+											background-color: #01bb74;
+											color: white;
+											float: right;
+											font-weight: 600;
+										"
 									>
 										修改
 									</view>
@@ -442,7 +444,7 @@
 								<text class="mr10" style="color: #999999">开始日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
 								<input
-									@click="$refs.calendars.open()"
+									@click="calendar1Show = true"
 									disabled
 									class="ml24"
 									style="
@@ -461,7 +463,7 @@
 								<text class="mr10 ml20" style="color: #999999">结束日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
 								<input
-									@click="$refs.calendars.open()"
+									@click="calendar2Show = true"
 									disabled
 									class="ml24"
 									style="
@@ -545,10 +547,31 @@
 						<u-button type="success" @click="filterSubmit" shape="circle" size="medium" :custom-style="{ marginLeft: '20rpx' }" plain>确定</u-button>
 					</view>
 				</view>
-				<!-- 日历选择器 -->
-				<uv-calendars mode="range" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="date1Change" />
 			</view>
 		</u-popup>
+
+		<u-calendar
+			btn-type="success"
+			v-model="calendar1Show"
+			active-bg-color="#01BB74"
+			range-bg-color="#DFF9EF"
+			range-color="#333333"
+			mode="date"
+			:min-date="getCurrentYearFirstDay()"
+			:max-date="getCurrentDate()"
+			@change="date1Change"
+		></u-calendar>
+		<u-calendar
+			btn-type="success"
+			v-model="calendar2Show"
+			active-bg-color="#01BB74"
+			range-bg-color="#DFF9EF"
+			range-color="#333333"
+			mode="date"
+			:min-date="getCurrentYearFirstDay()"
+			:max-date="getCurrentDate()"
+			@change="date2Change"
+		></u-calendar>
 	</view>
 </template>
 
@@ -755,8 +778,8 @@ export default {
 		console.log('this.OperatingSystem:', this.realTimeSel);
 	},
 	onShow() {
-		this.loadData();
-		this.LoginIf();
+		// this.loadData();
+		// this.LoginIf();
 		this.SOCKETfLUSH();
 		this.Init();
 		//检索精确到人
@@ -1612,8 +1635,10 @@ export default {
 			this.$u.toast('请先到后台发货~');
 		},
 		date1Change(e) {
-			this.date1 = e.range.before;
-			this.date2 = e.range.after;
+			this.date1 = e.result;
+		},
+		date2Change(e) {
+			this.date2 = e.result;
 		},
 		filterReset() {
 			this.date1 = this.$u.timeFormat(new Date(new Date().getFullYear(), 0, 1), 'yyyy-mm-dd');

@@ -224,7 +224,7 @@
 					</view>
 				</view>
 			</view>
-		</z-paging>
+labelPos		</z-paging>
 
 		<pop-password ref="popPassword" v-if="showPassVerify"></pop-password>
 	</view>

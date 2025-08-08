@@ -17,7 +17,7 @@
 			>
 				<template #trigger>
 					<view class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
-						<up-icon name="plus-circle-fill" color="#01BB74" size="50rpx" label="添加图片" label-pos="bottom" />
+						<up-icon name="plus-circle-fill" color="#01BB74" size="50rpx" label="添加图片" labelPos="bottom" />
 					</view>
 				</template>
 			</u-upload>
@@ -96,7 +96,7 @@
 			</view>
 			<view class="uploadingCommodityFromCard">
 				<text class="name">备注说明</text>
-				<u-input :modelValue="uploadingCommodity.remark" type="textarea" placeholder="请输入" border="none" ></u-input>
+				<u-input :modelValue="uploadingCommodity.remark" type="textarea" placeholder="请输入" border="none"></u-input>
 			</view>
 			<view class="flex-row justify-end items-center pr24 pt48" style="width: 100%">
 				<text class="name mr24">置于商品库顶部</text>

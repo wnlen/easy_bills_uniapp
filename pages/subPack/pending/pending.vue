@@ -97,7 +97,7 @@
 			@query="queryList"
 		>
 			<view slot="empty" style="padding-bottom: 200rpx">
-				<u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" label-color="#AAAAAA" label="暂无记录" size="180"></u-icon>
+				<u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" label-color="#AAAAAA" label="暂无记录" size="180"></u-icon>
 			</view>
 
 			<view class="Card cardShow">
@@ -356,7 +356,16 @@
 								<!-- &&item.lockOrder!=1 -->
 								<u-icon name="order" v-if="OperatingSystem" size="25rpx" color="#666666" label-size="22" label-color="#333333" label="确认签收"></u-icon>
 
-								<u-icon top="1px" name="order" v-if="!OperatingSystem" size="25rpx" color="#666666" label-size="22" label-color="#333333" label="确认签收"></u-icon>
+								<u-icon
+									top="2rrpx"
+									name="order"
+									v-if="!OperatingSystem"
+									size="25rpx"
+									color="#666666"
+									label-size="22"
+									label-color="#333333"
+									label="确认签收"
+								></u-icon>
 							</button>
 							<button
 								v-if="vuex_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
@@ -386,7 +395,7 @@
 							>
 								<!-- &&item.lockOrder!=1 -->
 								<u-icon v-if="OperatingSystem" name="trash" size="25rpx" color="#666666" label-size="22" label-color="#333333" label="删除"></u-icon>
-								<u-icon v-if="!OperatingSystem" top="1px" name="trash" size="25rpx" color="#666666" label-size="22" label-color="#333333" label="删除"></u-icon>
+								<u-icon v-if="!OperatingSystem" top="2rrpx" name="trash" size="25rpx" color="#666666" label-size="22" label-color="#333333" label="删除"></u-icon>
 							</button>
 						</view>
 					</view>
@@ -421,14 +430,14 @@
 							<view class="flex-row items-center" style="width: 50%">
 								<text class="mr10" style="color: #999999">开始日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="$refs.calendars.open()" class="ml24" style="border: 0.5px solid #999999;padding: 12rpx;border-radius: 3px;">
+								<view @click="$refs.calendars.open()" class="ml24" style="border: 1rx solid #999999; padding: 12rpx; border-radius: 66rpx">
 									{{ date1 }}
 								</view>
 							</view>
 							<view class="flex-row items-center" style="width: 50%">
 								<text class="mr10 ml20" style="color: #999999">结束日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="$refs.calendars.open()" class="ml24" style="border: 0.5px solid #999999;padding: 12rpx;border-radius: 3px;">
+								<view @click="$refs.calendars.open()" class="ml24" style="border: 1rx solid #999999; padding: 12rpx; border-radius: 66rpx">
 									{{ date2 }}
 								</view>
 							</view>

@@ -118,7 +118,7 @@
 									:placeholder="vuex_userRole == 'R' ? '请选择供应商' : '请选择客户'"
 								></u-input>
 							</view>
-							
+
 							<div class="flex-col justify-center items-center" style="height: 5vh">
 								<u-icon class="ml48" name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon>
 							</div>
@@ -133,25 +133,11 @@
 							<u-icon name="arrow-down-fill" size="10"></u-icon>
 							<text class="mr20"></text>
 							<view class="my-input">
-								<u-input
-									v-if="showTage != '1'"
-									border="none"
-									:modelValue="field"
-									@change="searchListenner"
-									placeholder="输入关键字进行检索"
-								></u-input>
+								<u-input v-if="showTage != '1'" border="none" :modelValue="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
 							</view>
 							<view class="ml24 my-input">
-								<u-input
-									border="none"
-									v-if="showTage == '1'"
-									maxlength="11"
-									:modelValue="field"
-									@change="searchListenner"
-									placeholder="输入号码进行检索"
-								></u-input>
+								<u-input border="none" v-if="showTage == '1'" maxlength="11" :modelValue="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
 							</view>
-							
 
 							<div class="flex-col justify-center items-center" style="height: 5vh">
 								<u-icon class="ml48" name="/static/img/list/ss.svg" size="45rpx"></u-icon>
@@ -273,7 +259,7 @@
 				</view>
 			</view>
 			<view v-if="!orderList.length" style="padding-bottom: 200rpx">
-				<u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" label-color="#AAAAAA" label="暂无记录" size="180rpx"></u-icon>
+				<u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" label-color="#AAAAAA" label="暂无记录" size="180rpx"></u-icon>
 			</view>
 			<view style="height: 200rpx"></view>
 			<view class="fixed" style="background-color: #ffffff; box-shadow: 0rpx 4rpx 6rpx 0rpx rgba(51, 51, 51, 0.2); bottom: 0">
@@ -644,7 +630,7 @@ export default {
 		this.Title = '条件筛选';
 	},
 	onShow() {
-		this.loadDataRen();
+		// this.loadDataRen();
 		// #ifdef MP-WEIXIN
 		this.$refs.popDatabase.roleShow = false;
 		// #endif

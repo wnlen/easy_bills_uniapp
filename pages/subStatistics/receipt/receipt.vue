@@ -56,7 +56,7 @@
 									:clearable="true"
 								></u-input>
 							</view>
-							
+
 							<view class="flex-col justify-center items-center" style="height: 5vh">
 								<u-icon class="ml40" name="/static/img/list/lxr.svg" size="45" @click="CustomerGet"></u-icon>
 							</view>
@@ -68,13 +68,7 @@
 							</text>
 							<u-icon class="ml10 mr10" name="/static/img/list/sj.svg" size="40"></u-icon>
 							<view class="my-input">
-								<u-input
-									border="none"
-									v-if="showTage !== '1'"
-									:modelValue="field"
-									@change="searchListenner"
-									placeholder="输入关键字进行检索"
-								></u-input>
+								<u-input border="none" v-if="showTage !== '1'" :modelValue="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
 							</view>
 							<view class="ml24 my-input">
 								<u-input
@@ -86,7 +80,7 @@
 									placeholder="输入号码进行检索"
 								></u-input>
 							</view>
-							
+
 							<view class="flex-col justify-center items-center" style="height: 5vh">
 								<u-icon class="ml40" name="/static/img/list/ss.svg" size="45" @click="SearchBtn"></u-icon>
 							</view>
@@ -1055,32 +1049,32 @@ export default {
 					this.$u.toast('获取个数失败');
 				});
 		},
-		loadData() {
-			let role = this.vuex_user.data.work == '1' ? 1 : 2;
-			//console.log(this.vuex_user.data.work);
-			var that = this;
-			this.$api.user
-				.refreshUser({
-					phone: this.vuex_user.phone,
-					role: role
-				})
-				.then((res) => {
-					let a = that.vuex_user;
-					a.ac = res.data.data.ac;
-					a.data = res.data.data.data;
-					a.workData = res.data.data.workData;
-					a.jurisdiction = res.data.data.jurisdiction;
-					a.vuex_password = res.data.data.password;
-					that.$u.vuex('vuex_user', a);
-					if (res.data.data.data.work == '1') {
-						that.$u.vuex('vuex_work', 'Y');
-					} else {
-						that.$u.vuex('vuex_work', 'N');
-					}
-				});
+		// loadData() {
+		// 	let role = this.vuex_user.data.work == '1' ? 1 : 2;
+		// 	//console.log(this.vuex_user.data.work);
+		// 	var that = this;
+		// 	this.$api.user
+		// 		.refreshUser({
+		// 			phone: this.vuex_user.phone,
+		// 			role: role
+		// 		})
+		// 		.then((res) => {
+		// 			let a = that.vuex_user;
+		// 			a.ac = res.data.data.ac;
+		// 			a.data = res.data.data.data;
+		// 			a.workData = res.data.data.workData;
+		// 			a.jurisdiction = res.data.data.jurisdiction;
+		// 			a.vuex_password = res.data.data.password;
+		// 			that.$u.vuex('vuex_user', a);
+		// 			if (res.data.data.data.work == '1') {
+		// 				that.$u.vuex('vuex_work', 'Y');
+		// 			} else {
+		// 				that.$u.vuex('vuex_work', 'N');
+		// 			}
+		// 		});
 
-			//console.log("用户信息实时更新 ", this.vuex_user);
-		},
+		// 	//console.log("用户信息实时更新 ", this.vuex_user);
+		// },
 		LoginIf() {
 			if (this.vuex_user.phone == undefined) {
 				uni.navigateTo({

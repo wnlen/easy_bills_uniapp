@@ -179,13 +179,13 @@
 				</view>
 				<view class="pd12 flex-row justify-center" style="width: 100%">
 					<view class="flex-row justify-center items-center" style="width: 49%">
-						<u-icon label-pos="bottom" @click="merchandiseInventory(true)" name="https://res-oss.elist.com.cn/wxImg/order/bj.svg" size="70" label="修改"></u-icon>
+						<u-icon labelPos="bottom" @click="merchandiseInventory(true)" name="https://res-oss.elist.com.cn/wxImg/order/bj.svg" size="70" label="修改"></u-icon>
 					</view>
 					<view class="flex-row justify-center items-center" style="width: 2%">
 						<u-line direction="col" length="50" color="#E0E0E0" />
 					</view>
 					<view class="flex-row justify-center items-center" style="width: 49%">
-						<u-icon label-pos="bottom" @click="merchandiseInventory(false)" name="https://res-oss.elist.com.cn/wxImg/order/spk.svg" size="70" label="商品库"></u-icon>
+						<u-icon labelPos="bottom" @click="merchandiseInventory(false)" name="https://res-oss.elist.com.cn/wxImg/order/spk.svg" size="70" label="商品库"></u-icon>
 					</view>
 				</view>
 			</view>

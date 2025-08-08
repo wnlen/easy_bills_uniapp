@@ -17,7 +17,7 @@
 			>
 				<template #trigger>
 					<view class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
-						<up-icon name="plus-circle-fill" color="#01BB74" size="50rpx" label="添加图片" label-pos="bottom" />
+						<up-icon name="plus-circle-fill" color="#01BB74" size="50rpx" label="添加图片" labelPos="bottom" />
 					</view>
 				</template>
 			</u-upload>
@@ -36,7 +36,7 @@
 				del-bg-color="#565C62"
 			>
 				<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
-					<u-icon :marginTop="15" name="plus-circle-fill" color="#01BB74" size="50" label-pos="bottom" label="添加图片"></u-icon>
+					<u-icon :marginTop="15" name="plus-circle-fill" color="#01BB74" size="50" labelPos="bottom" label="添加图片"></u-icon>
 				</view>
 			</u-upload>
 		</view>
@@ -47,7 +47,7 @@
 					*
 					<text class="name">品名</text>
 				</text>
-				<u-input type="text" :modelValue="uploadingCommodity.description" border="none" placeholder="请您填写商品名称" ></u-input>
+				<u-input type="text" :modelValue="uploadingCommodity.description" border="none" placeholder="请您填写商品名称"></u-input>
 			</view>
 			<view class="uploadingCommodityFromCardRow">
 				<text class="sign">
@@ -55,7 +55,7 @@
 					<text class="name">规格</text>
 				</text>
 				<view class="uploadingCommodityFromCardRowInput" style="width: 600rpx">
-					<u-input type="text" :modelValue="uploadingCommodity.specification" border="none" placeholder="请输入" :customStyle="customStyle" ></u-input>
+					<u-input type="text" :modelValue="uploadingCommodity.specification" border="none" placeholder="请输入" :customStyle="customStyle"></u-input>
 				</view>
 			</view>
 			<view class="uploadingCommodityFromCardRow">
@@ -64,7 +64,7 @@
 					<text class="name">单位</text>
 				</text>
 				<view class="uploadingCommodityFromCardRowInput" style="width: 600rpx">
-					<u-input type="text" :modelValue="uploadingCommodity.unit" border="none" maxlength="10" placeholder="请输入" :customStyle="customStyle" ></u-input>
+					<u-input type="text" :modelValue="uploadingCommodity.unit" border="none" maxlength="10" placeholder="请输入" :customStyle="customStyle"></u-input>
 				</view>
 			</view>
 			<view class="uploadingCommodityFromCardRow">
@@ -73,7 +73,7 @@
 					<text class="name">单价</text>
 				</text>
 				<view class="uploadingCommodityFromCardRowInput" style="width: 600rpx">
-					<u-input type="digit" :modelValue="uploadingCommodity.unitPrice" border="none" maxlength="10" placeholder="请输入" :custom-style="customStyle" />
+					<u-input type="digit" :modelValue="uploadingCommodity.unitPrice" border="none" maxlength="10" placeholder="请输入" :customStyle="customStyle"></u-input>
 				</view>
 			</view>
 			<view class="uploadingCommodityFromCard">

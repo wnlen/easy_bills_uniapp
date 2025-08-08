@@ -92,8 +92,8 @@ export default {
 		};
 	},
 	onLoad() {
-		this.loadData();
-		this.loadDataFlush();
+		// this.loadData();
+		// this.loadDataFlush();
 	},
 	onShow() {
 		this.userInfo.nickName = this.vuex_user.data.name;
