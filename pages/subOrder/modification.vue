@@ -1,6 +1,6 @@
 <template>
     <view style="width: 100vw; height: 100vh">
-        <u-popup v-model="shoppingTrolley" mode="bottom">
+        <u-popup :show="shoppingTrolley" mode="bottom">
             <u-swipe-action :show="item.show" :index="index" v-for="(item, index) in list" :key="item.id" @click="click" @open="open" :options="options">
                 <view class="item u-border-bottom">
                     <image mode="aspectFill" :src="item.images" />

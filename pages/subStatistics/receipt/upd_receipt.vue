@@ -262,7 +262,7 @@
             </view>
         </z-paging>
 
-        <u-popup v-model="showCheck" mode="bottom" border-radius="15">
+        <u-popup :show="showCheck" mode="bottom" border-radius="15">
             <view class="warp" style="height: 70vh; width: 100vw; background-color: #ffffff; border-radius: 15rpx 15rpx 0 0">
                 <z-paging v-if="showCheck" ref="pagingCheck" :fixed="false" v-model="selectList" @query="queryListCheck">
                     <!-- 如果希望其他view跟着页面滚动，可以放在z-paging标签内 -->
@@ -446,7 +446,7 @@
 
         <u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" />
 
-        <u-popup v-model="show_start" mode="top" width="550rpx">
+        <u-popup :show="show_start" mode="top" width="550rpx">
             <view class="flex-col pd30 justify-between height100">
                 <view>
                     <view class="flex-col mt40">

@@ -106,7 +106,7 @@
             </view>
         </z-paging>
 
-        <u-popup v-model="shoppingTrolley" mode="bottom" border-radius="15">
+        <u-popup :show="shoppingTrolley" mode="bottom" border-radius="15">
             <view class="" style="width: 100%; height: 70vh; padding-top: 24rpx">
                 <z-paging v-if="shoppingTrolley" ref="pagingCheck" :fixed="false" v-model="addList" @query="queryListCheck">
                     <!-- 如果希望其他view跟着页面滚动，可以放在z-paging标签内 -->
