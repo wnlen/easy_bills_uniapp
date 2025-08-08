@@ -3,3 +3,5 @@ dist
 *.log
 *.lock
 unpackage
+uni_modules/z-paging/components/z-paging/z-paging.vue
+uni_modules/uview-plus/libs/mixin/mixin.js
