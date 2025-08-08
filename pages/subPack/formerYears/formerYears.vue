@@ -104,7 +104,12 @@
 						<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
 							<text class="ft11 ft-gray ml36" @click="CustomerGet">{{ vuex_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
 							<view class="ml24">
-								<u-input border="none" @change="changeCustomer" :modelValue="customer" :placeholder="vuex_userRole == 'R' ? '请选择供应商' : '请选择客户'"></u-input>
+								<u-input
+									border="none"
+									@change="changeCustomer"
+									:modelValue="customer"
+									:placeholder="vuex_userRole == 'R' ? '请选择供应商' : '请选择客户'"
+								></u-input>
 							</view>
 
 							<view class="flex-col justify-center items-center" style="height: 5vh">
@@ -119,25 +124,10 @@
 							<u-icon class="ml10" name="arrow-down-fill" size="10"></u-icon>
 
 							<view class="ml24 my-input">
-								<u-input
-									border="none"
-									v-if="showTage != '1'"
-									:modelValue="field"
-									@change="searchListenner"
-									placeholder="输入关键字进行检索"
-								>
-								</u-input>
+								<u-input border="none" v-if="showTage != '1'" :modelValue="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
 							</view>
 							<view class="ml24 my-input">
-								<u-input
-									border="none"
-									v-if="showTage == '1'"
-									maxlength="11"
-									:modelValue="field"
-									@change="searchListenner"
-									placeholder="输入号码进行检索"
-								>
-								</u-input>
+								<u-input border="none" v-if="showTage == '1'" maxlength="11" :modelValue="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
 							</view>
 						</div>
 					</div>
@@ -399,9 +389,9 @@
 								<text class="mr10" style="color: #999999">开始日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
 								<view
-									@click="calendar1Show = true"
+									@click="$refs.calendars.open()"
 									class="ml24 text-center flex-row justify-center items-center"
-									style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;min-width: 180rpx;height: 56rpx;"
+									style="border: 1rpx solid #999999; padding: 12rpx; border-radius: 6rpx; min-width: 180rpx; height: 56rpx"
 								>
 									{{ date1 == '' ? '开始日期' : date1 }}
 								</view>
@@ -410,9 +400,9 @@
 								<text class="mr10 ml20" style="color: #999999">结束日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
 								<view
-									@click="calendar2Show = true"
+									@click="$refs.calendars.open()"
 									class="ml24 text-center flex-row justify-center items-center"
-									style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;min-width: 180rpx;height: 56rpx;"
+									style="border: 1rpx solid #999999; padding: 12rpx; border-radius: 6rpx; min-width: 180rpx; height: 56rpx"
 								>
 									{{ date2 == '' ? '结束日期' : date2 }}
 								</view>
@@ -483,31 +473,10 @@
 						<u-button class="ml20" type="success" @click="filterSubmit" shape="circle" size="medium" :custom-style="{ backgroundColor: '#4E5777' }">确定</u-button>
 					</view>
 				</view>
+				<!-- 日历选择器 -->
+				<uv-calendars mode="range" :startDate="limitingTimeO" :endDate="limitingTimeT" ref="calendars" @confirm="date1Change" />
 			</view>
 		</u-popup>
-
-		<u-calendar
-			v-model="calendar1Show"
-			btn-type="success"
-			active-bg-color="#01BB74"
-			range-bg-color="#DFF9EF"
-			range-color="#333333"
-			mode="date"
-			:min-date="limitingTimeO"
-			:max-date="limitingTimeT"
-			@change="date1Change"
-		></u-calendar>
-		<u-calendar
-			v-model="calendar2Show"
-			btn-type="success"
-			active-bg-color="#01BB74"
-			range-bg-color="#DFF9EF"
-			range-color="#333333"
-			mode="date"
-			:min-date="limitingTimeO"
-			:max-date="limitingTimeT"
-			@change="date2Change"
-		></u-calendar>
 	</view>
 </template>
 
@@ -540,8 +509,6 @@ export default {
 			date1: '',
 			date2: '',
 			showTage: '0',
-			calendar1Show: false, //日期弹窗
-			calendar2Show: false, //日期弹窗
 			showOrderTage: 0,
 			totalMoney: 0,
 			checkedOrders: [],
@@ -1254,37 +1221,21 @@ export default {
 				this.$u.toast('您没有相关产品记录~');
 				return;
 			} else {
-				this.date1 = e.result;
-				// this.searchList.start = e.result
-				if (this.date2 != '') {
-					if (this.date2 >= e.result) {
-						this.realTimeSel.startDate = this.date1;
-					} else {
-						this.$u.toast('开始日期不能大于结束日期~');
-						this.date1 = '';
-					}
-				} else {
-					this.realTimeSel.startDate = this.date1;
-				}
-			}
-		},
-		date2Change(e) {
-			var len = this.dataList.length > 0;
-			console.log(len);
-			if (!len) {
-				this.$u.toast('您没有相关产品记录~');
-				return;
-			}
-			this.date2 = e.result;
-			if (this.date1 != '') {
-				if (this.date2 >= this.date1) {
-					this.realTimeSel.endDate = this.date2;
-				} else {
-					this.$u.toast('开始日期不能大于结束日期~');
-					this.date2 = '';
-				}
-			} else {
+				this.date1 = e.range.before;
+				this.date2 = e.range.after;
+				this.realTimeSel.startDate = this.date1;
 				this.realTimeSel.endDate = this.date2;
+				// this.searchList.start = e.result
+				// if (this.date2 != '') {
+				// 	if (this.date2 >= e.result) {
+				// 		this.realTimeSel.startDate = this.date1;
+				// 	} else {
+				// 		this.$u.toast('开始日期不能大于结束日期~');
+				// 		this.date1 = '';
+				// 	}
+				// } else {
+				// 	this.realTimeSel.startDate = this.date1;
+				// }
 			}
 		},
 		filterSubmit() {
