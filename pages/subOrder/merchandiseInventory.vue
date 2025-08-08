@@ -29,7 +29,7 @@
                             <u-input
                                 border="none"
                                 @change="SearchInventoryChange"
-                                :modelValue="SearchInventory"
+                                v-model="SearchInventory"
                                 :customStyle="{ backgroundColor: 'transparent' }"
                                 placeholder="请输入商品名称/规格"
                                 :clearable="true"
