@@ -49,7 +49,6 @@ export default {
             authShow: false
         };
     },
-    onLoad() {},
     methods: {
         // popClose() {
         // 	this.authShow=false;

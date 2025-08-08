@@ -577,7 +577,7 @@ import { useGlobalStore } from '@/store/global';
 import { setPinia } from '@/common/piniaHelper';
 import { getCurrentInstance } from 'vue';
 import { onLoad, onShow, onHide, onUnload, onPullDownRefresh, onShareAppMessage } from '@dcloudio/uni-app';
-
+import { timeFormat } from '@/uni_modules/uv-ui-tools/libs/function/index.js';
 const { proxy } = getCurrentInstance();
 
 const systemStore = useSystemStore();
@@ -967,7 +967,7 @@ function refreshDataNew() {
         if (globalStore.tabIndex !== '') {
             realTimeSel.value.paymentState = Number(globalStore.tabIndex) - 1;
         }
-        uni.$api.order
+        this.$api.order
             .postOrderFilter(realTimeSel.value)
             .then((res) => {
                 const orderListData = res.data.data.map((obj) => ({
