@@ -146,7 +146,7 @@
         </z-paging>
 
         <u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" />
-        <u-popup v-model="show_start" mode="top" width="550rpx">
+        <u-popup :show="show_start" mode="top" width="550rpx">
             <view class="flex-col pl30 pr30 pb30 justify-between height100">
                 <view>
                     <view class="flex-col mt20">
