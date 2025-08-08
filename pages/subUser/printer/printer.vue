@@ -1,194 +1,194 @@
 <template>
-    <view class="content pd15 bg-gray">
-        <view class="vw100 relative flex-col justify-center items-center" style="height: 30vh; margin-top: 60%" v-if="!allShow && !defShow">
-            <u-empty icon="https://res-oss.elist.com.cn/wxImg/vip/print.svg" iconSize="400rpx" text="暂无打印机~" mode="search" margin-top="-200"></u-empty>
+	<view class="content pd15 bg-gray">
+		<view class="vw100 relative flex-col justify-center items-center" style="height: 30vh; margin-top: 60%" v-if="!allShow && !defShow">
+			<u-empty icon="https://res-oss.elist.com.cn/wxImg/vip/print.svg" iconSize="400rpx" text="暂无打印机~" mode="search" margin-top="-200"></u-empty>
 
-            <u-button class="absolute" style="bottom: 0" size="medium" hover-class="none" :custom-style="{ backgroundColor: '#47506C' }" shape="circle" type="primary" @click="buy">
-                去购买
-            </u-button>
-        </view>
+			<u-button color="#47506C" shape="circle" type="primary" @click="buy" :customStyle="{ width: '380rpx', height: '90rpx', fontSize: '36rpx', marginTop: '100rpx' }">
+				去购买
+			</u-button>
+		</view>
 
-        <view v-if="defShow" class="cardPrint flex-col justify-center items-start relative" v-for="(item, index) in def" :key="index">
-            <view class="ml15 flex-row justify-center items-center">
-                <u-icon name="https://res-oss.elist.com.cn/wxImg/print/print-icon.svg" size="80"></u-icon>
-                <u-text class="ml15" style="color: #666666; font-size: 14px">默认设备名称：{{ item.name }}</u-text>
-                <view class="ml15" :style="{ backgroundColor: item.online ? '#01BB74' : '#F76565' }" style="width: 5px; height: 5px; border-radius: 45%"></view>
-            </view>
-            <view class="absolute flex-row justify-center items-center" style="right: 5px" @click="edit(item)">
-                <u-text class="mr20" style="color: #01bb74" v-show="item.online">在线</u-text>
-                <u-text class="mr20" style="color: #f76565" v-show="!item.online">离线</u-text>
-                <u-icon name="arrow-right" color="#666666" size="20"></u-icon>
-            </view>
-        </view>
+		<view v-if="defShow" class="cardPrint flex-col justify-center items-start relative" v-for="(item, index) in def" :key="index">
+			<view class="ml15 flex-row justify-center items-center">
+				<u-icon name="https://res-oss.elist.com.cn/wxImg/print/print-icon.svg" size="80"></u-icon>
+				<u-text class="ml15" style="color: #666666; font-size: 14px">默认设备名称：{{ item.name }}</u-text>
+				<view class="ml15" :style="{ backgroundColor: item.online ? '#01BB74' : '#F76565' }" style="width: 5px; height: 5px; border-radius: 45%"></view>
+			</view>
+			<view class="absolute flex-row justify-center items-center" style="right: 5px" @click="edit(item)">
+				<u-text class="mr20" style="color: #01bb74" v-show="item.online">在线</u-text>
+				<u-text class="mr20" style="color: #f76565" v-show="!item.online">离线</u-text>
+				<u-icon name="arrow-right" color="#666666" size="20"></u-icon>
+			</view>
+		</view>
 
-        <view v-if="allShow" class="cardPrintList flex-col justify-start items-start relative mt40">
-            <view class="ml15 mt25">其他打印机</view>
-            <view class="cardPrint flex-col justify-center items-start relative mt20" @click="defUpdate(item)" v-for="(item, index) in all" :key="index">
-                <view class="ml15 flex-row justify-center items-center">
-                    <u-text class="ml15" style="color: #666666; font-size: 14px">设备名称：{{ item.name }}</u-text>
-                </view>
-                <view class="absolute flex-row justify-center items-center" style="right: 5px">
-                    <u-text class="mr20" style="color: #01bb74" v-show="item.online">在线</u-text>
-                    <u-text class="mr20" style="color: #f76565" v-show="!item.online">离线</u-text>
-                    <u-icon name="arrow-right" color="#666666" size="20"></u-icon>
-                </view>
-            </view>
-        </view>
-    </view>
+		<view v-if="allShow" class="cardPrintList flex-col justify-start items-start relative mt40">
+			<view class="ml15 mt25">其他打印机</view>
+			<view class="cardPrint flex-col justify-center items-start relative mt20" @click="defUpdate(item)" v-for="(item, index) in all" :key="index">
+				<view class="ml15 flex-row justify-center items-center">
+					<u-text class="ml15" style="color: #666666; font-size: 14px">设备名称：{{ item.name }}</u-text>
+				</view>
+				<view class="absolute flex-row justify-center items-center" style="right: 5px">
+					<u-text class="mr20" style="color: #01bb74" v-show="item.online">在线</u-text>
+					<u-text class="mr20" style="color: #f76565" v-show="!item.online">离线</u-text>
+					<u-icon name="arrow-right" color="#666666" size="20"></u-icon>
+				</view>
+			</view>
+		</view>
+	</view>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            defShow: false,
-            allShow: false,
-            infos: {},
-            def: [],
-            all: []
-        };
-    },
-    onShow() {
-        this.getPrinter();
-    },
-    methods: {
-        buy() {
-            uni.navigateTo({
-                url: '/pages/subUser/printer/particulars'
-            });
-        },
-        showPrint() {
-            var def = this.def.length > 0;
-            var all = this.all.length > 0;
-            console.log(this.all, this.def);
-            this.defShow = def ? true : false;
-            this.allShow = all ? true : false;
-        },
-        edit(item) {
-            console.log(item);
-            uni.navigateTo({
-                url: '/pages/subUser/printer/edit?id=' + item.id
-            });
-        },
-        defUpdate(item) {
-            console.log(item);
+	data() {
+		return {
+			defShow: false,
+			allShow: false,
+			infos: {},
+			def: [],
+			all: []
+		};
+	},
+	onShow() {
+		this.getPrinter();
+	},
+	methods: {
+		buy() {
+			uni.navigateTo({
+				url: '/pages/subUser/printer/particulars'
+			});
+		},
+		showPrint() {
+			var def = this.def.length > 0;
+			var all = this.all.length > 0;
+			console.log(this.all, this.def);
+			this.defShow = def ? true : false;
+			this.allShow = all ? true : false;
+		},
+		edit(item) {
+			console.log(item);
+			uni.navigateTo({
+				url: '/pages/subUser/printer/edit?id=' + item.id
+			});
+		},
+		defUpdate(item) {
+			console.log(item);
 
-            var ifwork = this.vuex_user.data.work == '0';
-            var ifWorkPort = this.vuex_userRole == 'R';
+			var ifwork = this.vuex_user.data.work == '0';
+			var ifWorkPort = this.vuex_userRole == 'R';
 
-            var phone = this.vuex_user.phone;
+			var phone = this.vuex_user.phone;
 
-            var dx = {
-                boss: '',
-                staff: '',
-                phone: '',
-                deviceopenid: item.deviceopenid,
-                id: item.id,
-                type: '1',
-                state: '1'
-            };
+			var dx = {
+				boss: '',
+				staff: '',
+				phone: '',
+				deviceopenid: item.deviceopenid,
+				id: item.id,
+				type: '1',
+				state: '1'
+			};
 
-            if (ifwork) {
-                dx.boss = phone;
-                dx.staff = phone;
-                dx.phone = phone;
-            } else {
-                var boss = this.vuex_user.workData.bossNumber;
-                dx.boss = boss;
-                dx.staff = phone;
-                dx.phone = boss;
-            }
+			if (ifwork) {
+				dx.boss = phone;
+				dx.staff = phone;
+				dx.phone = phone;
+			} else {
+				var boss = this.vuex_user.workData.bossNumber;
+				dx.boss = boss;
+				dx.staff = phone;
+				dx.phone = boss;
+			}
 
-            uni.showModal({
-                title: '温馨提醒',
-                content: '是否将其设置为默认打印机',
-                showCancel: true,
-                cancelText: '取消',
-                confirmText: '确认',
-                success: (res) => {
-                    console.log(res.confirm);
-                    if (res.confirm) {
-                        // printDef
-                        this.$api.printer.setDefaultPrinter(dx).then((res) => {
-                            console.log('打印及设置：', res);
-                            if (res.data == '1') {
-                                this.getPrinter();
-                                uni.showToast({
-                                    title: '操作成功',
-                                    icon: 'success',
-                                    duration: 2000 // 持续时间，单位毫秒，默认为 1500
-                                });
-                            } else {
-                            }
-                        });
-                    }
-                }
-            });
-        },
-        getPrinter() {
-            var ifwork = this.vuex_user.data.work == '0';
-            var ifWorkPort = this.vuex_userRole == 'R';
+			uni.showModal({
+				title: '温馨提醒',
+				content: '是否将其设置为默认打印机',
+				showCancel: true,
+				cancelText: '取消',
+				confirmText: '确认',
+				success: (res) => {
+					console.log(res.confirm);
+					if (res.confirm) {
+						// printDef
+						this.$api.printer.setDefaultPrinter(dx).then((res) => {
+							console.log('打印及设置：', res);
+							if (res.data == '1') {
+								this.getPrinter();
+								uni.showToast({
+									title: '操作成功',
+									icon: 'success',
+									duration: 2000 // 持续时间，单位毫秒，默认为 1500
+								});
+							} else {
+							}
+						});
+					}
+				}
+			});
+		},
+		getPrinter() {
+			var ifwork = this.vuex_user.data.work == '0';
+			var ifWorkPort = this.vuex_userRole == 'R';
 
-            var phone = this.vuex_user.phone;
+			var phone = this.vuex_user.phone;
 
-            var dx = {
-                boss: '',
-                staff: '',
-                phone: ''
-            };
+			var dx = {
+				boss: '',
+				staff: '',
+				phone: ''
+			};
 
-            if (ifwork) {
-                dx.boss = phone;
-                dx.staff = phone;
-                dx.phone = phone;
-            } else {
-                var boss = this.vuex_user.workData.bossNumber;
-                dx.boss = boss;
-                dx.staff = phone;
-                dx.phone = boss;
-            }
+			if (ifwork) {
+				dx.boss = phone;
+				dx.staff = phone;
+				dx.phone = phone;
+			} else {
+				var boss = this.vuex_user.workData.bossNumber;
+				dx.boss = boss;
+				dx.staff = phone;
+				dx.phone = boss;
+			}
 
-            this.$api.printer.getPrinterList(dx).then((res) => {
-                // console.log(res);
-                this.def = res.data.def ? res.data.def : [];
-                this.all = res.data.all ? res.data.all : [];
-                this.showPrint();
-                // console.log("默认机器：",this.def);
-            });
-        }
-    }
+			this.$api.printer.getPrinterList(dx).then((res) => {
+				// console.log(res);
+				this.def = res.data.def ? res.data.def : [];
+				this.all = res.data.all ? res.data.all : [];
+				this.showPrint();
+				// console.log("默认机器：",this.def);
+			});
+		}
+	}
 };
 </script>
 
 <style>
 .content {
-    background-color: #f9f9f9;
-    height: 100vh;
-    width: 100vw;
-    position: fixed;
+	background-color: #f9f9f9;
+	height: 100vh;
+	width: 100vw;
+	position: fixed;
 }
 
 .cardPrint {
-    background-color: #ffffff;
-    border-radius: 6px;
-    width: 92%;
-    margin-left: 4%;
-    height: 60px;
+	background-color: #ffffff;
+	border-radius: 6px;
+	width: 92%;
+	margin-left: 4%;
+	height: 60px;
 }
 
 .cardPrintList {
-    background-color: #ffffff;
-    border-radius: 6px;
-    width: 92%;
-    margin-left: 4%;
-    min-height: 20vh;
+	background-color: #ffffff;
+	border-radius: 6px;
+	width: 92%;
+	margin-left: 4%;
+	min-height: 20vh;
 }
 
 .cardPrintList .cardPrint {
-    background-color: #f9f9f9;
-    border-radius: 6px;
-    width: 92%;
-    margin-left: 4%;
-    height: 60px;
+	background-color: #f9f9f9;
+	border-radius: 6px;
+	width: 92%;
+	margin-left: 4%;
+	height: 60px;
 }
 </style>

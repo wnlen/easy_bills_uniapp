@@ -107,7 +107,7 @@
                                 <u-input
                                     border="none"
                                     @change="changeCustomer"
-                                    :modelValue="customer"
+                                    v-model="customer"
                                     :placeholder="vuex_userRole == 'R' ? '请选择供应商' : '请选择客户'"
                                 ></u-input>
                             </view>
@@ -124,10 +124,10 @@
                             <u-icon class="ml10" name="arrow-down-fill" size="10"></u-icon>
 
                             <view class="ml24 my-input">
-                                <u-input border="none" v-if="showTage != '1'" :modelValue="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
+                                <u-input border="none" v-if="showTage != '1'" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
                             </view>
                             <view class="ml24 my-input">
-                                <u-input border="none" v-if="showTage == '1'" maxlength="11" :modelValue="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
+                                <u-input border="none" v-if="showTage == '1'" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
                             </view>
                         </div>
                     </div>
