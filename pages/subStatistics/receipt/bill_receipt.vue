@@ -38,7 +38,7 @@
                     <text @click="openTableChoice" style="color: #666666">
                         {{ vuex_userRole === 'R' ? '供应商选择' : '客户选择' }}
                     </text>
-                    <u-icon class="ml10 mr10" name="/static/img/list/sx.svg" size="40"></u-icon>
+                    <view class="ml10 mr10"><u-icon name="/static/img/list/sx.svg" size="40rpx"></u-icon></view>
                     <view class="my-input">
                         <u-input
                             @change="InputTextOne"
@@ -50,7 +50,9 @@
                     </view>
 
                     <view class="flex-col justify-center items-center" style="height: 100%">
-                        <u-icon class="ml40" name="/static/img/list/lxr.svg" size="45" @click="openTableChoice"></u-icon>
+                        <view class="ml40">
+                            <u-icon name="/static/img/list/lxr.svg" size="45" @click="openTableChoice"></u-icon>
+                        </view>
                     </view>
                 </view>
 
@@ -80,7 +82,7 @@
                         @click="checkboxGroupChange(item, index)"
                         style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
                     >
-                        <u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
+                        <u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
                     </view>
                     <view class="OrderCard_Hand_time">
                         {{ $u.timeFormat(item.billTime, 'yyyy-mm-dd') }}
@@ -171,8 +173,8 @@
 						:show="item.show" @click="click" @open="open(index)" :options="options" :index="index">
 						<view class="detail">
 							<view class="ddlb" @click="viewDetails(item)">
-								<u-icon :name="b64Img.img" label="订单列表" label-color="#00B578" label-size="30"
-									size="30"></u-icon>
+								<u-icon :name="b64Img.img" label="订单列表" labelColor="#00B578" labelSize="30"
+									size="30rpx"></u-icon>
 							</view>
 						</view>
 					</u-swipe-action> -->
@@ -192,21 +194,21 @@
                         @click="click(index, 0)"
                         :custom-style="SearchCustomStyleWechat"
                     >
-                        <u-icon name="order" size="25" color="#666666" label-size="22" label-color="#333333" label="修改"></u-icon>
+                        <u-icon name="order" size="25" color="#666666" labelSize="22" labelColor="#333333" label="修改"></u-icon>
                     </u-button>
 
                     <u-button class="ml30" hover-class="none" plain shape="circle" @click="viewDetails(item)" :custom-style="SearchCustomStyleWechat">
-                        <u-icon name="list-dot" size="25" color="#666666" label-size="22" label-color="#333333" label="订单列表"></u-icon>
+                        <u-icon name="list-dot" size="25" color="#666666" labelSize="22" labelColor="#333333" label="订单列表"></u-icon>
                     </u-button>
                     <!-- v-if="vuex_user.data.work=='1'?vuex_user.workData.identity!=3:true&&item.billState!=1" -->
                     <u-button class="ml30" hover-class="none" plain shape="circle" @click="click(index, 1)" v-if="item.billState != 1" :custom-style="SearchCustomStyleWechat">
-                        <u-icon name="trash" size="25" color="#666666" label-size="22" label-color="#333333" label="删除"></u-icon>
+                        <u-icon name="trash" size="25" color="#666666" labelSize="22" labelColor="#333333" label="删除"></u-icon>
                     </u-button>
                 </view>
             </view>
 
             <view slot="empty" style="padding-bottom: 200rpx">
-                <u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" label-color="#AAAAAA" label="暂无记录" size="180"></u-icon>
+                <u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="360rpx"></u-icon>
             </view>
 
             <view slot="bottom" :style="{ display: current == 0 ? 'block' : 'none' }">

@@ -85,20 +85,22 @@
         <view class="flex-row" style="width: 100%; display: flex">
             <view class="ml5 mr5" style="flex: 1">
                 <u-button openType="share" :custom-style="SearchCustomStyleWechat" hover-class="none" shape="circle" :plain="true">
-                    <u-icon class="pr10" name="weixin-fill" color="#01BB74" size="30rpx"></u-icon>
+                    <view class="pr10"><u-icon name="weixin-fill" color="#01BB74" size="30rpx"></u-icon></view>
                     微信邀请
                 </u-button>
             </view>
             <!-- <view class="ml5 mr5" style="flex: 1">
 				<u-button :custom-style="SearchCustomStyle" hover-class="none" shape="circle"
 					@click="goPath('/pages/subIndex/add_friend/add_friend')">
-					<u-icon class="pr10" name="phone-fill" color="#ffffff" size="30"></u-icon>
+					<view class=></view><u-icon  "pr10" name="phone-fill" color="#ffffff" size="30rpx"></u-icon>
 					手机号邀请
 				</u-button>
 			</view> -->
             <view class="ml5 mr5" style="flex: 1">
                 <u-button :custom-style="SearchCustomStyle" hover-class="none" shape="circle" @click="establish">
-                    <u-icon class="pr10" name="plus" color="#ffffff" size="30rpx"></u-icon>
+                    <view class="pr10">
+                        <u-icon name="plus" color="#ffffff" size="30rpx"></u-icon>
+                    </view>
                     创建{{ vuex_userRole == 'D' ? '客户' : '供应商' }}
                 </u-button>
             </view>

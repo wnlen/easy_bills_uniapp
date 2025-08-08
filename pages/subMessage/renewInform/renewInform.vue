@@ -20,7 +20,7 @@
                     <view class="body_end" @click="jump(item)">
                         <view class="title">立即续费</view>
                         <view class="icon">
-                            <u-icon name="arrow-right" color="#b7b7b7" size="28"></u-icon>
+                            <u-icon name="arrow-right" color="#b7b7b7" size="28rpx"></u-icon>
                         </view>
                     </view>
                 </view>

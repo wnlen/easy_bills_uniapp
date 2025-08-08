@@ -19,7 +19,7 @@
                     @getphonenumber="(e) => getPhoneNumber(e)"
                     @click=""
                 >
-                    <u-icon name="" size="25" label="手机号快捷登录" label-color="#fff" label-size="16"></u-icon>
+                    <u-icon name="" size="25" label="手机号快捷登录" labelColor="#fff" labelSize="16"></u-icon>
                 </u-button>
                 <view class="width100 justify-center items-center flex-row pt30" style="font-size: 20rpx">
                     <view
@@ -28,7 +28,7 @@
                         @click="radioGroupChange"
                         style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
                     >
-                        <u-icon name="checkbox-mark" color="#ffffff" size="14"></u-icon>
+                        <u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
                     </view>
                     <view class="ml15">
                         <text style="color: #aaaaaa; font-size: 24rpx">同意并遵行易单据</text>
@@ -120,7 +120,7 @@
                     @click="radioGroupChange"
                     style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
                 >
-                    <u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
+                    <u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
                 </view>
                 <view class="ml15">
                     <text style="color: #aaaaaa; font-size: 24rpx">同意并遵行易单据</text>

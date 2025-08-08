@@ -13,7 +13,7 @@
                                 style="border: 2.2rpx solid #01bb74; height: 44rpx; width: 136rpx; border-radius: 8rpx; color: #01bb74; font-size: 22rpx"
                             >
                                 <text class="mr6">使用方法</text>
-                                <u-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="10"></u-icon>
+                                <u-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></u-icon>
                             </view>
                         </view>
                     </template>
@@ -75,8 +75,8 @@
                                 </view>
                             </template>
                             <template #suffix>
-                                <view class="flex-col justify-center items-center">
-                                    <u-icon class="ml40" name="/static/img/list/lxr.svg" size="23" @click="CustomerGet"></u-icon>
+                                <view class="flex-col justify-center items-center ml40">
+                                    <u-icon name="/static/img/list/lxr.svg" size="46rpx" @click="CustomerGet"></u-icon>
                                 </view>
                             </template>
                         </u-input>
@@ -102,7 +102,7 @@
                             </template>
                             <template #suffix>
                                 <view class="flex-col justify-center items-center" @click="SearchBtn">
-                                    <u-icon name="/static/img/list/ss.svg" size="23"></u-icon>
+                                    <u-icon name="/static/img/list/ss.svg" size="46rpx"></u-icon>
                                 </view>
                             </template>
                         </u-input>
@@ -127,8 +127,8 @@
                                 ></u-text>
                             </template>
                             <template #suffix>
-                                <view class="flex-col justify-center items-center" style="height: 5vh" @click="SearchBtn">
-                                    <u-icon class="ml40" name="/static/img/list/ss.svg" size="23"></u-icon>
+                                <view class="ml40 flex-col justify-center items-center" style="height: 5vh" @click="SearchBtn">
+                                    <u-icon name="/static/img/list/ss.svg" size="46rpx"></u-icon>
                                 </view>
                             </template>
                         </u-input>
@@ -144,8 +144,8 @@
                 </text>
             </text>
 
-            <view slot="empty" style="padding-bottom: 200rpx">
-                <u-icon margin-top="22rpx" label-pos="bottom" :name="'/wxImg/list/empty.svg'" label-color="#AAAAAA" label="暂无记录" size="180"></u-icon>
+            <view slot="empty" style="padding-bottom: 200rpx; margin-top: 22rpx">
+                <u-icon label-pos="bottom" :name="'/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="360rpx"></u-icon>
             </view>
 
             <view
@@ -167,8 +167,10 @@
                                 {{ item.orderNumber }}
                             </text>
                         </text>
-                        <u-icon size="28" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
-                        <u-icon class="ml15" size="28" v-if="item.lockOrder == 1 && item.paymentState != 2" :name="bat64.lock" color="#666666"></u-icon>
+                        <u-icon size="56rpx" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
+                        <view class="ml15">
+                            <u-icon size="56rpx" v-if="item.lockOrder == 1 && item.paymentState != 2" :name="bat64.lock" color="#666666"></u-icon>
+                        </view>
                     </view>
                     <view class="ml20" style="width: 30%">
                         <u-image
@@ -271,15 +273,16 @@
                                     :data-thumb="item.picturesId"
                                     :data-id="item.id"
                                 >
-                                    <u-icon
-                                        top="2rpx"
-                                        name="zhuanfa"
-                                        size="25"
-                                        color="#666666"
-                                        label-color="#333333"
-                                        label-size="22"
-                                        :label="vuex_user.data.work !== '1' && vuex_user.workDate == null ? '有金额转发' : '有金额转发'"
-                                    ></u-icon>
+                                    <view style="top: 2rpx">
+                                        <u-icon
+                                            name="zhuanfa"
+                                            size="50rpx"
+                                            color="#666666"
+                                            labelColor="#333333"
+                                            labelSize="22"
+                                            :label="vuex_user.data.work !== '1' && vuex_user.workDate == null ? '有金额转发' : '有金额转发'"
+                                        ></u-icon>
+                                    </view>
                                 </button>
                             </view>
                             <view class="flex-row justify-center items-center u-border-left u-border-right" style="width: 40%; color: #cccccc">
@@ -292,15 +295,16 @@
                                     :data-thumb="item.picturesId"
                                     :data-id="item.id"
                                 >
-                                    <u-icon
-                                        top="2rpx"
-                                        name="zhuanfa"
-                                        size="25"
-                                        color="#666666"
-                                        label-color="#333333"
-                                        label-size="22"
-                                        :label="vuex_user.data.work !== '1' && vuex_user.workDate == null ? '无金额转发' : '无金额转发'"
-                                    ></u-icon>
+                                    <view style="top: 2rpx">
+                                        <u-icon
+                                            name="zhuanfa"
+                                            size="50rpx"
+                                            color="#666666"
+                                            labelColor="#333333"
+                                            labelSize="22"
+                                            :label="vuex_user.data.work !== '1' && vuex_user.workDate == null ? '无金额转发' : '无金额转发'"
+                                        ></u-icon>
+                                    </view>
                                 </button>
                             </view>
                             <view class="flex-row justify-center items-center" style="width: 20%; color: #f76565" @click="shareNY(item, 2)">关闭</view>
@@ -312,25 +316,23 @@
                         <view class="flex-row items-center justify-center">
                             <button class="hl-btn flex-row items-center justify-center" @click="shareNY(item, 1)" type="default">
                                 <u-icon
-                                    v-show="OperatingSystem"
                                     name="zhuanfa"
-                                    size="25"
-                                    v-if="userStore.userRole === 'D' || userStore.userRole === 'R'"
+                                    size="50rpx"
+                                    v-if="OperatingSystem"
                                     color="#666666"
-                                    label-color="#333333"
-                                    label-size="22"
+                                    labelColor="#333333"
+                                    labelSize="22"
                                     :label="vuex_user.data.work !== '1' && vuex_user.workDate == null ? '转发' : '转发'"
                                 ></u-icon>
+                                <view style="top: 2rrpx"></view>
 
                                 <u-icon
-                                    top="2rpx"
-                                    v-show="!OperatingSystem"
                                     name="zhuanfa"
-                                    size="25"
-                                    v-if="userStore.userRole === 'D' || userStore.userRole === 'R'"
+                                    size="50rpx"
+                                    v-if="!OperatingSystem"
                                     color="#666666"
-                                    label-color="#333333"
-                                    label-size="22"
+                                    labelColor="#333333"
+                                    labelSize="22"
                                     :label="vuex_user.data.work !== '1' && vuex_user.workDate == null ? '转发' : '转发'"
                                 ></u-icon>
                             </button>
@@ -341,9 +343,10 @@
                                 @click="goPath('/pages/subOrder/details?id=' + item.id)"
                             >
                                 <!-- &&item.lockOrder!=1 -->
-                                <u-icon name="order" v-if="OperatingSystem" size="25" color="#666666" label-size="22" label-color="#333333" label="确认签收"></u-icon>
-
-                                <u-icon top="2rpx" name="order" v-if="!OperatingSystem" size="25" color="#666666" label-size="22" label-color="#333333" label="确认签收"></u-icon>
+                                <u-icon name="order" v-if="OperatingSystem" size="50rpx" color="#666666" labelSize="22" labelColor="#333333" label="确认签收"></u-icon>
+                                <view style="top: 2rpx">
+                                    <u-icon name="order" v-if="!OperatingSystem" size="50rpx" color="#666666" labelSize="22" labelColor="#333333" label="确认签收"></u-icon>
+                                </view>
                             </button>
                             <button
                                 v-if="vuex_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
@@ -352,18 +355,10 @@
                                 @click="VerifyAdd(item, index, 2)"
                             >
                                 <!-- &&item.lockOrder!=1 -->
-                                <u-icon v-if="OperatingSystem" name="rmb-circle" size="30" color="#666666" label-size="22" label-color="#333333" :label="labText"></u-icon>
-
-                                <u-icon
-                                    top="2rpx"
-                                    v-if="!OperatingSystem"
-                                    name="rmb-circle"
-                                    size="30"
-                                    color="#666666"
-                                    label-size="22"
-                                    label-color="#333333"
-                                    :label="labText"
-                                ></u-icon>
+                                <u-icon v-if="OperatingSystem" name="rmb-circle" size="30" color="#666666" labelSize="22" labelColor="#333333" :label="labText"></u-icon>
+                                <view style="top: 2rpx">
+                                    <u-icon v-if="!OperatingSystem" name="rmb-circle" size="60rpx" color="#666666" labelSize="22" labelColor="#333333" :label="labText"></u-icon>
+                                </view>
                             </button>
                             <button
                                 v-if="vuex_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
@@ -372,8 +367,8 @@
                                 @click="VerifyAdd(item, index, 1)"
                             >
                                 <!-- &&item.lockOrder!=1 -->
-                                <u-icon v-if="OperatingSystem" name="trash" size="25" color="#666666" label-size="22" label-color="#333333" label="删除"></u-icon>
-                                <u-icon v-if="!OperatingSystem" top="2rpx" name="trash" size="25" color="#666666" label-size="22" label-color="#333333" label="删除"></u-icon>
+                                <u-icon v-if="OperatingSystem" name="trash" size="50rpx" color="#666666" labelSize="22" labelColor="#333333" label="删除"></u-icon>
+                                <u-icon v-if="!OperatingSystem" name="trash" size="50rpx" color="#666666" labelSize="22" labelColor="#333333" label="删除"></u-icon>
                             </button>
                             <button
                                 v-if="
@@ -388,15 +383,15 @@
                                 @click="VerifyAdd(item, index, 3)"
                             >
                                 <!-- &&item.lockOrder!=1 -->
-                                <u-icon v-if="OperatingSystem" name="edit-pen" size="25" color="#666666" label-size="22" label-color="#333333" label="修改"></u-icon>
-                                <u-icon v-if="!OperatingSystem" top="2rpx" name="edit-pen" size="25" color="#666666" label-size="22" label-color="#333333" label="修改"></u-icon>
+                                <u-icon v-if="OperatingSystem" name="edit-pen" size="50rpx" color="#666666" labelSize="22" labelColor="#333333" label="修改"></u-icon>
+                                <u-icon v-if="!OperatingSystem" name="edit-pen" size="50rpx" color="#666666" labelSize="22" labelColor="#333333" label="修改"></u-icon>
                             </button>
                             <!-- 							<button class="hl-btn ml20 flex-row items-center justify-center" type="default"
 								@click="VerifyAdd(item, index, 4)">
-								<u-icon v-if="OperatingSystem" name="edit-pen" size="25" color="#666666" label-size="22"
-									label-color="#333333" label="通知"></u-icon>
+								<u-icon v-if="OperatingSystem" name="edit-pen" size="25" color="#666666" labelSize="22"
+									labelColor="#333333" label="通知"></u-icon>
 								<u-icon v-if="!OperatingSystem" top="2rpx" name="edit-pen" size="25" color="#666666"
-									label-size="22" label-color="#333333" label="通知"></u-icon>
+									labelSize="22" labelColor="#333333" label="通知"></u-icon>
 							</button> -->
                         </view>
                     </view>
@@ -420,7 +415,7 @@
 					<view @click="jumpVideo" class="flex-row justify-center items-center ml12"
 						style="border: 2.2rpx solid #01BB74;height: 44rpx;width:136rpx;border-radius: 8rpx;color: #01BB74;font-size: 22rpx;">
 						使用方法
-						<u-icon class="ml6" name="https://res-oss.elist.com.cn/wxImg/video.png" size="20"></u-icon>
+						<view class="ml6"></view><u-icon  name="https://res-oss.elist.com.cn/wxImg/video.png" size="20"></u-icon>
 					</view>
 				</view>
 			</u-navbar> -->

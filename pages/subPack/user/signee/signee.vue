@@ -13,7 +13,7 @@
                 <u-button
                     @click="goPath('/pages/subPack/user/signee/add')"
                     hover-class="none"
-                    :customStyle="{ backgroundColor: '#01BB74', width: '130px' }"
+                    :customStyle="{ backgroundColor: '#01BB74', width: '260rpx' }"
                     :disabled="orderList.length >= 1"
                     type="primary"
                     class=""
@@ -48,24 +48,28 @@
                     </view>
                     <!-- #ifdef MP-WEIXIN -->
                     <view style="margin-right: 15rpx">
-                        <u-icon class="mr20" name="edit-pen" color="#aaa" size="34rpx" @click.stop="goDetails(item, 1)"></u-icon>
+                        <view class="mr20"><u-icon name="edit-pen" color="#aaa" size="34rpx" @click.stop="goDetails(item, 1)"></u-icon></view>
                     </view>
                     <view style="margin-right: 24rpx; margin-left: 30rpx">
-                        <u-icon class="ml30 mr20" name="trash" color="#aaa" size="34rpx" @click="goDetails(item.id, 2)"></u-icon>
+                        <view class="ml30 mr20"><u-icon name="trash" color="#aaa" size="34rpx" @click="goDetails(item.id, 2)"></u-icon></view>
                     </view>
                     <!-- #endif -->
                     <!-- #ifdef APP -->
                     <view style="margin-right: 15rpx">
-                        <u-icon class="mr20" name="edit-pen" color="#aaa" size="34rpx" @click="goDetails(item, 1)"></u-icon>
+                        <view class="mr20">
+                            <u-icon name="edit-pen" color="#aaa" size="34rpx" @click="goDetails(item, 1)"></u-icon>
+                        </view>
                     </view>
                     <view style="margin-right: 24rpx; margin-left: 30rpx">
-                        <u-icon class="ml30 mr20" name="trash" color="#aaa" size="34rpx" @click="goDetails(item.id, 2)"></u-icon>
+                        <view class="ml30 mr20">
+                            <u-icon name="trash" color="#aaa" size="34rpx" @click="goDetails(item.id, 2)"></u-icon>
+                        </view>
                     </view>
                     <!-- #endif -->
                 </view>
                 <view class="u-border-top pt30 mt30 flex-row items-center justify-between">
-                    <u-icon v-if="item.ifDefault != 'Y'" label-size="12" name="checkmark-circle-fill" color="#01BB74" size="38rpx" label="默认签收人"></u-icon>
-                    <u-icon @click="defaultItem(item.id)" v-else name="minus-circle" label-size="12" color="#ccc" size="38rpx" label="默认签收人"></u-icon>
+                    <u-icon v-if="item.ifDefault != 'Y'" labelSize="12" name="checkmark-circle-fill" color="#01BB74" size="38rpx" label="默认签收人"></u-icon>
+                    <u-icon @click="defaultItem(item.id)" v-else name="minus-circle" labelSize="12" color="#ccc" size="38rpx" label="默认签收人"></u-icon>
                     <!-- 			<text class="ft-gray ft24" @click="deleteItem(item.id)">删除</text> -->
                 </view>
                 <u-popup v-model="show" mode="center" width="500rpx" height="800rpx" close-icon-size="30" :closeable="true" close-icon-color="#000000" close-icon-pos="top-right">

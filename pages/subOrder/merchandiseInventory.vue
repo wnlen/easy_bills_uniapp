@@ -24,7 +24,7 @@
                 ></u-navbar>
                 <view class="ml24 mr24 flex-row items-center justify-center pb30">
                     <view class="flex-row items-center justify-center pl10 pr10" style="background: #ffffff; border-radius: 254rpx; width: 75%">
-                        <u-icon class="ml6" name="search" color="#01BB74" size="40"></u-icon>
+                        <view class="ml6"><u-icon name="search" color="#01BB74" size="40rpx"></u-icon></view>
                         <view class="my-input ml6">
                             <u-input
                                 border="none"
@@ -64,7 +64,9 @@
                         @click="jumpAddCommodity"
                         style="width: 280rpx; height: 80rpx; border-radius: 338.4rpx; box-sizing: border-box; border: 3rpx solid #01bb74"
                     >
-                        <u-icon class="absolute" label="添加商品" label-color="#01BB74" name="plus" color="#01BB74" size="30"></u-icon>
+                        <view class="absolute">
+                            <u-icon label="添加商品" labelColor="#01BB74" name="plus" color="#01BB74" size="30rpx"></u-icon>
+                        </view>
                     </view>
                 </view>
             </view>

@@ -51,7 +51,7 @@
                             <text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
                                 {{ vuex_userRole === 'R' ? '供应商选择' : '客户选择' }}
                             </text>
-                            <u-icon class="ml10 mr10" name="/static/img/list/sx.svg" size="40"></u-icon>
+                            <view class="ml10 mr10"><u-icon name="/static/img/list/sx.svg" size="40rpx"></u-icon></view>
                             <view class="my-input">
                                 <u-input
                                     border="none"
@@ -65,7 +65,7 @@
                             </view>
 
                             <view class="flex-col justify-center items-center" style="height: 5vh">
-                                <u-icon class="ml40" name="/static/img/list/lxr.svg" size="45" @click="CustomerGet"></u-icon>
+                                <view class="ml40"><u-icon name="/static/img/list/lxr.svg" size="45" @click="CustomerGet"></u-icon></view>
                             </view>
                         </view>
 
@@ -73,7 +73,7 @@
                             <text class="ft11 ft-gray ml20" @click="filtrateGet">
                                 {{ Title }}
                             </text>
-                            <u-icon class="ml10 mr10" name="/static/img/list/sj.svg" size="40"></u-icon>
+                            <view class="ml10 mr10"><u-icon name="/static/img/list/sj.svg" size="40rpx"></u-icon></view>
                             <view class="my-input">
                                 <u-input border="none" v-if="showTage !== '1'" :modelValue="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
                             </view>
@@ -89,7 +89,9 @@
                             </view>
 
                             <view class="flex-col justify-center items-center" style="height: 5vh">
-                                <u-icon class="ml40" name="/static/img/list/ss.svg" size="45" @click="SearchBtn"></u-icon>
+                                <view class="ml40">
+                                    <u-icon name="/static/img/list/ss.svg" size="45" @click="SearchBtn"></u-icon>
+                                </view>
                             </view>
                         </view>
                     </view>
@@ -103,7 +105,7 @@
                                 :style="{ backgroundColor: checked ? '#01BB74' : '#ffffff' }"
                                 style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
                             >
-                                <u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
+                                <u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
                             </view>
                             <view class="ml15" style="color: #333333">全选</view>
                         </view>
@@ -112,7 +114,7 @@
             </view>
 
             <view slot="empty" style="padding-bottom: 200rpx">
-                <u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" label-color="#AAAAAA" label="暂无记录" size="180"></u-icon>
+                <u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="360rpx"></u-icon>
             </view>
 
             <view
@@ -134,7 +136,7 @@
                             @click="checkboxGroupChange(item, index)"
                             style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
                         >
-                            <u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
+                            <u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
                         </view>
 
                         <text class="ft30 ft-lighgray pr30" style="color: #666666" @tap.stop>

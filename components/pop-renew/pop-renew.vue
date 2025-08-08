@@ -2,8 +2,8 @@
     <view @tap.stop v-show="roleShow" class="flex-col justify-center items-center pop-renew">
         <view class="relative flex-col justify-center items-center" style="height: 100%; width: 100%">
             <u-image class="" :showLoading="true" :src="src" width="360px" height="360px"></u-image>
-
-            <u-icon @click="close" class="absolute" style="top: 5%; right: 10%" name="close-circle" color="#ffffff" size="40"></u-icon>
+            <view class="absolute" style="top: 5%; right: 10%"></view>
+            <u-icon @click="close" name="close-circle" color="#ffffff" size="40rpx"></u-icon>
 
             <view @click="buyRenew" class="absolute flex-row justify-center items-center buttonRenew" style="bottom: 50px">
                 <u-text class="te">￥{{ orderPrice }}</u-text>

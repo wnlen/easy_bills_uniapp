@@ -13,7 +13,7 @@
                 @touchstart.stop="backspaceClick"
                 @touchend="clearTimer"
             >
-                <u-icon name="backspace" color="#303133" size="28"></u-icon>
+                <u-icon name="backspace" color="#303133" size="28rpx"></u-icon>
             </view>
         </view>
     </view>

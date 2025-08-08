@@ -26,8 +26,8 @@
                     <view class="absolute flex-col justify-center items-center" @click="selectionIconClick" style="width: 30%; left: 0; height: 100%">
                         <liu-data-select elementId="data-select1" :dataList="dataList" @change="dropdown" color="#965510">
                             <view id="data-select1" class="btn-info flex-row justify-center">
-                                <u-icon class="mr10" v-if="!selectionIcon" name="arrow-down-fill" color=" #965510" size="15"></u-icon>
-                                <u-icon class="mr10" v-else name="arrow-up-fill" color=" #965510" size="15"></u-icon>
+                                <view class="mr10"><u-icon v-if="!selectionIcon" name="arrow-down-fill" color=" #965510" size="15"></u-icon></view>
+                                <view class="mr10"><u-icon v-else name="arrow-up-fill" color=" #965510" size="15"></u-icon></view>
                                 <text style="color: #965510">{{ dropdownName }}</text>
                                 <text style="color: #965510" v-if="dropdownName != '请选择'">年</text>
                             </view>
@@ -113,7 +113,7 @@
                             </view>
 
                             <view class="flex-col justify-center items-center" style="height: 5vh">
-                                <u-icon class="ml40" name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon>
+                                <view class="ml40"><u-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon></view>
                             </view>
                         </div>
                     </div>
@@ -121,7 +121,9 @@
                     <div class="flex-row items-center radius pr20 mr10 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%">
                         <div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
                             <text class="ft11 ft-gray ml36" @click="filtrateGet">{{ Title }}</text>
-                            <u-icon class="ml10" name="arrow-down-fill" size="10"></u-icon>
+                            <view class="ml10">
+                                <u-icon name="arrow-down-fill" size="10"></u-icon>
+                            </view>
 
                             <view class="ml24 my-input">
                                 <u-input border="none" v-if="showTage != '1'" :modelValue="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
@@ -187,7 +189,7 @@
                                         }"
                                         style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
                                     >
-                                        <u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
+                                        <u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
                                     </view>
                                     <view class="ft30 ft-lighgray pr30 ml24" style="color: #666666">
                                         订单编号
@@ -326,7 +328,7 @@
                                         }"
                                         style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
                                     >
-                                        <u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
+                                        <u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
                                     </view>
                                     <view class="ml15" style="color: #333333; font-size: 28rpx">全选</view>
                                 </view>
@@ -352,7 +354,7 @@
                             font-weight: 600;
                         "
                     >
-                        <u-icon name="https://res-oss.elist.com.cn/wxImg/statistics/down.svg" size="40"></u-icon>
+                        <u-icon name="https://res-oss.elist.com.cn/wxImg/statistics/down.svg" size="40rpx"></u-icon>
                         下载PDF
                     </view>
                 </view>
@@ -366,7 +368,7 @@
 			</view> -->
 
             <view slot="empty" style="padding-bottom: 200rpx">
-                <u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" label-color="#AAAAAA" label="暂无记录" size="180"></u-icon>
+                <u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="360rpx"></u-icon>
             </view>
         </z-paging>
 

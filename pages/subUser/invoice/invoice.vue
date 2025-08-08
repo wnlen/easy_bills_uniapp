@@ -15,7 +15,7 @@
                             :style="{ backgroundColor: type ? '#EA7183' : '#ffffff' }"
                             style="border-radius: 50px; height: 15px; width: 15px; border: 1px solid #aaaaaa"
                         >
-                            <u-icon name="checkbox-mark" color="#ffffff" size="14"></u-icon>
+                            <u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
                         </view>
                         <view class="ml5">企业</view>
                     </view>
@@ -26,7 +26,7 @@
                             :style="{ backgroundColor: !type ? '#EA7183' : '#ffffff' }"
                             style="border-radius: 50px; height: 15px; width: 15px; border: 1px solid #aaaaaa"
                         >
-                            <u-icon name="checkbox-mark" color="#ffffff" size="14"></u-icon>
+                            <u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
                         </view>
                         <view class="ml5">个人/非企业单位</view>
                     </view>

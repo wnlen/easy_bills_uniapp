@@ -13,7 +13,9 @@
                         background-size: cover;
                     "
                 >
-                    <u-icon name="close-circle" style="position: absolute; z-index: 11; right: 0; top: -30px" color="#ffffff" size="50" @click="show = false"></u-icon>
+                    <view class="absolute" style="position: absolute; z-index: 11; right: 0; top: -30px">
+                        <u-icon name="close-circle" color="#ffffff" size="50rpx" @click="show = false"></u-icon>
+                    </view>
                     <view
                         style="
                             position: absolute;

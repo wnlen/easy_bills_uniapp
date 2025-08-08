@@ -7,7 +7,9 @@
     >
         <view class="u-checkbox__icon-wrap cursor-pointer" @tap.stop="iconClickHandler" :class="iconClasses" :style="[iconWrapStyle]">
             <slot name="icon" :elIconSize="elIconSize" :elIconColor="elIconColor">
-                <u-icon class="u-checkbox__icon-wrap__icon" name="checkbox-mark" :size="elIconSize" :color="elIconColor" />
+                <view class="u-checkbox__icon-wrap__icon">
+                    <u-icon name="checkbox-mark" :size="elIconSize" :color="elIconColor" >
+                </view>
             </slot>
         </view>
         <view class="u-checkbox__label-wrap cursor-pointer" @tap.stop="labelClickHandler">
@@ -92,11 +94,11 @@ export default {
         elLabelDisabled() {
             return this.labelDisabled !== '' ? this.labelDisabled : this.parentData.labelDisabled !== null ? this.parentData.labelDisabled : false;
         },
-        // 组件尺寸，对应size的值，默认值为21px
+        // 组件尺寸，对应size的值，默认值为42rpx
         elSize() {
             return this.size ? this.size : this.parentData.size ? this.parentData.size : 21;
         },
-        // 组件的勾选图标的尺寸，默认12px
+        // 组件的勾选图标的尺寸，默认24rpx
         elIconSize() {
             return this.iconSize ? this.iconSize : this.parentData.iconSize ? this.parentData.iconSize : 12;
         },
@@ -169,7 +171,7 @@ export default {
                 }
                 // 当父组件设置了显示下边框并且排列形式为纵向时，给内容和边框之间加上一定间隔
                 if (this.parentData.borderBottom && this.parentData.placement === 'column') {
-                    style.paddingBottom = '8px';
+                    style.paddingBottom = '16rpx';
                 }
             }
             return deepMerge(style, addStyle(this.customStyle));
@@ -271,22 +273,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$u-checkbox-icon-wrap-margin-right: 6px !default;
-$u-checkbox-icon-wrap-font-size: 6px !default;
-$u-checkbox-icon-wrap-border-width: 1px !default;
+$u-checkbox-icon-wrap-margin-right: 12rpx !default;
+$u-checkbox-icon-wrap-font-size: 12rpx !default;
+$u-checkbox-icon-wrap-border-width: 2rpx !default;
 $u-checkbox-icon-wrap-border-color: #c8c9cc !default;
 $u-checkbox-icon-wrap-icon-line-height: 0 !default;
 $u-checkbox-icon-wrap-circle-border-radius: 100% !default;
-$u-checkbox-icon-wrap-square-border-radius: 3px !default;
+$u-checkbox-icon-wrap-square-border-radius: 6rpx !default;
 $u-checkbox-icon-wrap-checked-color: #fff !default;
 $u-checkbox-icon-wrap-checked-background-color: red !default;
 $u-checkbox-icon-wrap-checked-border-color: #2979ff !default;
 $u-checkbox-icon-wrap-disabled-background-color: #ebedf0 !default;
 $u-checkbox-icon-wrap-disabled-checked-color: #c8c9cc !default;
-$u-checkbox-label-margin-left: 5px !default;
-$u-checkbox-label-margin-right: 12px !default;
+$u-checkbox-label-margin-left: 10rpx !default;
+$u-checkbox-label-margin-right: 24rpx !default;
 $u-checkbox-label-color: $u-content-color !default;
-$u-checkbox-label-font-size: 15px !default;
+$u-checkbox-label-font-size: 30rpx !default;
 $u-checkbox-label-disabled-color: #c8c9cc !default;
 
 .u-checkbox {
@@ -296,8 +298,8 @@ $u-checkbox-label-disabled-color: #c8c9cc !default;
     overflow: hidden;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 5px;
-    margin-top: 5px;
+    margin-bottom: 10rpx;
+    margin-top: 10rpx;
 
     &-label--left {
         flex-direction: row;

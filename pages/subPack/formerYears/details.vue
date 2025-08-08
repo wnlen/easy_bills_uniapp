@@ -308,8 +308,8 @@
 						style="width: 100%;color: #aaaaaa;background-color: #F5FCF9;border-radius: 6rpx;height: 80rpx;">
 						<view class="flex-row justify-between ml10 mb4"
 							style="border-bottom: 2rpx solid #01BB74;left: 20rpx;" @click="print">
-							<u-icon name="https://res-oss.elist.com.cn/wxImg/print/print.svg" label-color="#01BB74"
-								label="打印单据" size="40"></u-icon>
+							<u-icon name="https://res-oss.elist.com.cn/wxImg/print/print.svg" labelColor="#01BB74"
+								label="打印单据" size="40rpx"></u-icon>
 						</view>
 						<view class="flex-end absolute" style="right: 20rpx;">
 							已打印{{PrintNum}}次
@@ -322,7 +322,7 @@
                             style="width: 68%; color: #aaaaaa; background-color: #f5fcf9; border-radius: 6rpx; height: 80rpx"
                         >
                             <view class="flex-row justify-between ml10 mb4" style="border-bottom: 2rpx solid #01bb74; left: 20rpx" @click="print">
-                                <u-icon name="https://res-oss.elist.com.cn/wxImg/print/print.svg" label-color="#01BB74" label="打印单据" size="40"></u-icon>
+                                <u-icon name="https://res-oss.elist.com.cn/wxImg/print/print.svg" labelColor="#01BB74" label="打印单据" size="40rpx"></u-icon>
                             </view>
                             <view class="flex-end absolute" style="right: 20rpx">已打印{{ PrintNum }}次</view>
                         </view>

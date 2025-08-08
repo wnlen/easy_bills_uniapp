@@ -97,7 +97,7 @@
             @query="queryList"
         >
             <view slot="empty" style="padding-bottom: 200rpx">
-                <u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" label-color="#AAAAAA" label="暂无记录" size="180"></u-icon>
+                <u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="360rpx"></u-icon>
             </view>
 
             <view class="Card cardShow">
@@ -114,7 +114,7 @@
                         <text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
                             {{ vuex_userRole === 'R' ? '供应商选择' : '客户选择' }}
                         </text>
-                        <u-icon class="ml10 mr10" name="/static/img/list/sx.svg" size="40"></u-icon>
+                        <view class="ml10 mr10"><u-icon name="/static/img/list/sx.svg" size="40rpx"></u-icon></view>
                         <!-- <view style="width: 24rpx;height: 32rpx;border-right: 2rpx solid #666666;"></view> -->
                         <view class="my-input">
                             <u-input
@@ -128,7 +128,7 @@
                         </view>
 
                         <view class="flex-col justify-center items-center" style="height: 5vh">
-                            <u-icon class="ml40" name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon>
+                            <view class="ml40"><u-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon></view>
                         </view>
                     </view>
 
@@ -137,7 +137,7 @@
                             <!-- {{showTage==0?"联系人":(showTage==1?"联系号码":showTage==2?(vuex_userRole=='R'?'收货地址':'收货地址'):showTage==3?"产品名称":"条件筛选")}} -->
                             {{ Title }}
                         </text>
-                        <u-icon class="ml10 mr10" name="/static/img/list/sj.svg" size="40"></u-icon>
+                        <view class="ml10 mr10"><u-icon name="/static/img/list/sj.svg" size="40rpx"></u-icon></view>
                         <view class="my-input">
                             <u-input border="none" v-if="showTage !== '1'" :modelValue="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
                         </view>
@@ -146,7 +146,7 @@
                         </view>
 
                         <view class="flex-col justify-center items-center" style="height: 5vh">
-                            <u-icon class="ml40" name="/static/img/list/ss.svg" size="45rpx" @click="SearchBtn"></u-icon>
+                            <view class="ml40"><u-icon name="/static/img/list/ss.svg" size="45rpx" @click="SearchBtn"></u-icon></view>
                         </view>
                     </view>
                 </view>
@@ -179,9 +179,10 @@
                             </text>
                         </text>
                         <u-icon size="28rpx" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
-                        <u-icon class="ml15" size="28rpx" v-if="item.lockOrder == 1 && item.paymentState != 2" :name="bat64.lock" color="#666666"></u-icon>
+                        <view class="ml15"><u-icon size="28rpx" v-if="item.lockOrder == 1 && item.paymentState != 2" :name="bat64.lock" color="#666666"></u-icon></view>
+
                         <!-- 			<u-icon size="28" v-if="item.paymentState!=2" :name="bat64.bz" @click="remark(item)"></u-icon>
-						<u-icon class="ml15" size="28" v-if="item.lockOrder==1" :name="bat64.lock" color="#666666" @click="remark(item)"></u-icon> -->
+						<view class=></view><u-icon  "ml15" size="28" v-if="item.lockOrder==1" :name="bat64.lock" color="#666666" @click="remark(item)"></u-icon> -->
                     </view>
                     <view class="ml20" style="width: 30%">
                         <u-image
@@ -289,8 +290,8 @@
                                         name="zhuanfa"
                                         size="25rpx"
                                         color="#666666"
-                                        label-color="#333333"
-                                        label-size="22"
+                                        labelColor="#333333"
+                                        labelSize="22"
                                         :label="vuex_user.data.work !== '1' && vuex_user.workDate == null ? '有金额转发' : '有金额转发'"
                                     ></u-icon>
                                 </button>
@@ -310,8 +311,8 @@
                                         name="zhuanfa"
                                         size="25rpx"
                                         color="#666666"
-                                        label-color="#333333"
-                                        label-size="22"
+                                        labelColor="#333333"
+                                        labelSize="22"
                                         :label="vuex_user.data.work !== '1' && vuex_user.workDate == null ? '无金额转发' : '无金额转发'"
                                     ></u-icon>
                                 </button>
@@ -330,8 +331,8 @@
                                     size="25rpx"
                                     v-if="vuex_userRole === 'D' || vuex_userRole === 'R'"
                                     color="#666666"
-                                    label-color="#333333"
-                                    label-size="22"
+                                    labelColor="#333333"
+                                    labelSize="22"
                                     :label="vuex_user.data.work !== '1' && vuex_user.workDate == null ? '转发' : '转发'"
                                 ></u-icon>
 
@@ -342,8 +343,8 @@
                                     size="25rpx"
                                     v-if="vuex_userRole === 'D' || vuex_userRole === 'R'"
                                     color="#666666"
-                                    label-color="#333333"
-                                    label-size="22"
+                                    labelColor="#333333"
+                                    labelSize="22"
                                     :label="vuex_user.data.work !== '1' && vuex_user.workDate == null ? '转发' : '转发'"
                                 ></u-icon>
                             </button>
@@ -354,18 +355,9 @@
                                 @click="goPath('/pages/subOrder/details?id=' + item.id)"
                             >
                                 <!-- &&item.lockOrder!=1 -->
-                                <u-icon name="order" v-if="OperatingSystem" size="25rpx" color="#666666" label-size="22" label-color="#333333" label="确认签收"></u-icon>
+                                <u-icon name="order" v-if="OperatingSystem" size="25rpx" color="#666666" labelSize="22" labelColor="#333333" label="确认签收"></u-icon>
 
-                                <u-icon
-                                    top="2rrpx"
-                                    name="order"
-                                    v-if="!OperatingSystem"
-                                    size="25rpx"
-                                    color="#666666"
-                                    label-size="22"
-                                    label-color="#333333"
-                                    label="确认签收"
-                                ></u-icon>
+                                <u-icon top="2rrpx" name="order" v-if="!OperatingSystem" size="25rpx" color="#666666" labelSize="22" labelColor="#333333" label="确认签收"></u-icon>
                             </button>
                             <button
                                 v-if="vuex_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
@@ -374,7 +366,7 @@
                                 @click="VerifyAdd(item, index, 2)"
                             >
                                 <!-- &&item.lockOrder!=1 -->
-                                <u-icon v-if="OperatingSystem" name="rmb-circle" size="30rpx" color="#666666" label-size="22" label-color="#333333" :label="labText"></u-icon>
+                                <u-icon v-if="OperatingSystem" name="rmb-circle" size="30rpx" color="#666666" labelSize="22" labelColor="#333333" :label="labText"></u-icon>
 
                                 <u-icon
                                     top="2rpx"
@@ -382,8 +374,8 @@
                                     name="rmb-circle"
                                     size="30"
                                     color="#666666"
-                                    label-size="22"
-                                    label-color="#333333"
+                                    labelSize="22"
+                                    labelColor="#333333"
                                     :label="labText"
                                 ></u-icon>
                             </button>
@@ -394,8 +386,8 @@
                                 @click="VerifyAdd(item, index, 1)"
                             >
                                 <!-- &&item.lockOrder!=1 -->
-                                <u-icon v-if="OperatingSystem" name="trash" size="25rpx" color="#666666" label-size="22" label-color="#333333" label="删除"></u-icon>
-                                <u-icon v-if="!OperatingSystem" top="2rrpx" name="trash" size="25rpx" color="#666666" label-size="22" label-color="#333333" label="删除"></u-icon>
+                                <u-icon v-if="OperatingSystem" name="trash" size="25rpx" color="#666666" labelSize="22" labelColor="#333333" label="删除"></u-icon>
+                                <u-icon v-if="!OperatingSystem" top="2rrpx" name="trash" size="25rpx" color="#666666" labelSize="22" labelColor="#333333" label="删除"></u-icon>
                             </button>
                         </view>
                     </view>

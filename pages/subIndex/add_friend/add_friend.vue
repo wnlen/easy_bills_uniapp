@@ -62,7 +62,7 @@
 							客户
 						</view>
 						<view v-if="role==0" class="absolute" style="right: 10px;">
-							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28"></u-icon>
+							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></u-icon>
 						</view>
 					</view>
 					<view @click="role=1;showChecked=false;heig='20vh'"
@@ -73,7 +73,7 @@
 							供应商
 						</view>
 						<view v-if="role==1" class="absolute" style="right: 10px;">
-							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28"></u-icon>
+							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></u-icon>
 						</view>
 					</view>
 				</view>
@@ -125,7 +125,7 @@
 							客户
 						</view>
 						<view v-if="role==0" class="absolute" style="right: 10px;">
-							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28"></u-icon>
+							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></u-icon>
 						</view>
 					</view>
 					<view @click="role=1;showChecked=false;heig='20vh'"
@@ -136,7 +136,7 @@
 							供应商
 						</view>
 						<view v-if="role==1" class="absolute" style="right: 10px;">
-							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28"></u-icon>
+							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></u-icon>
 						</view>
 					</view>
 				</view>
@@ -200,7 +200,7 @@
                     >
                         <view>客户</view>
                         <view v-if="role == 0" class="absolute" style="right: 10px">
-                            <u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28"></u-icon>
+                            <u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></u-icon>
                         </view>
                     </view>
                     <view
@@ -218,7 +218,7 @@
                     >
                         <view>供应商</view>
                         <view v-if="role == 1" class="absolute" style="right: 10px">
-                            <u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28"></u-icon>
+                            <u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></u-icon>
                         </view>
                     </view>
                 </view>

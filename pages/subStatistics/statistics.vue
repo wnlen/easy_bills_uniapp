@@ -120,7 +120,7 @@
                             </view>
 
                             <div class="flex-col justify-center items-center" style="height: 5vh">
-                                <u-icon class="ml48" name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon>
+                                <view class="ml48"><u-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon></view>
                             </div>
                         </div>
                     </div>
@@ -140,7 +140,7 @@
                             </view>
 
                             <div class="flex-col justify-center items-center" style="height: 5vh">
-                                <u-icon class="ml48" name="/static/img/list/ss.svg" size="45rpx"></u-icon>
+                                <view class="ml48"><u-icon name="/static/img/list/ss.svg" size="45rpx"></u-icon></view>
                             </div>
                         </div>
                     </div>
@@ -165,7 +165,7 @@
                                     @click="checkboxGroupChange(item, index)"
                                     style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
                                 >
-                                    <u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
+                                    <u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
                                 </view>
                                 <view class="ml15">订单编号:</view>
                                 <view class="ml10" style="color: #f76565">
@@ -275,7 +275,7 @@
                 </view>
             </view>
             <view v-if="!orderList.length" style="padding-bottom: 200rpx">
-                <u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" label-color="#AAAAAA" label="暂无记录" size="180rpx"></u-icon>
+                <u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180rpx"></u-icon>
             </view>
             <view style="height: 200rpx"></view>
             <view class="fixed" style="background-color: #ffffff; box-shadow: 0rpx 4rpx 6rpx 0rpx rgba(51, 51, 51, 0.2); bottom: 0">
@@ -293,7 +293,7 @@
                                             }"
                                             style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
                                         >
-                                            <u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
+                                            <u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
                                         </view>
                                         <view class="ml15" style="color: #333333; font-size: 28rpx">全选</view>
                                     </view>
@@ -331,7 +331,7 @@
 										<view class="flex-col justify-center items-center" @click="checkedAll"
 											:style="{backgroundColor:checked?'#01BB74':'#ffffff'}"
 											style="border-radius: 100rpx;height: 40rpx;width: 40rpx;border: 2rpx solid #AAAAAA;">
-											<u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
+											<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
 										</view>
 										<view class="ml15" style="color: #333333;">
 											全选
@@ -348,7 +348,7 @@
 								font-weight: 600;
 								">
 								<u-icon name="https://res-oss.elist.com.cn/wxImg/statistics/down.svg"
-									size="40"></u-icon>下载PDF
+									size="40rpx"></u-icon>下载PDF
 							</view>
 						</view>
 					</view>
@@ -365,7 +365,9 @@
                             style="border: 2.2rpx solid #01bb74; height: 44rpx; width: 136rpx; border-radius: 8rpx; color: #01bb74; font-size: 22rpx"
                         >
                             使用方法
-                            <u-icon class="ml6" name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></u-icon>
+                            <view class="ml6">
+                                <u-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></u-icon>
+                            </view>
                         </view>
                     </view>
                 </u-navbar>
