@@ -11,7 +11,7 @@
                 <u-button
                     type="primary"
                     hover-class="none"
-                    :custom-style="{ backgroundColor: '#01BB74' }"
+                    color="#01BB74"
                     class="form-btn-big"
                     shape="circle"
                     size="default"

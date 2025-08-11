@@ -192,12 +192,12 @@
             </view>
             <view class="sendBill">
                 <!-- #ifdef MP-WEIXIN -->
-                <u-button type="primary" class="form-btn-big" hover-class="none" :custom-style="{ backgroundColor: '#01BB74' }" @click="sendOrder(true)" shape="circle">
+                <u-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder(true)" shape="circle">
                     {{ vuex_userRole == 'D' ? '修改收款单' : '修改付款单' }}
                 </u-button>
                 <!-- #endif -->
                 <!-- #ifdef APP -->
-                <u-button type="primary" class="form-btn-big" hover-class="none" :custom-style="{ backgroundColor: '#01BB74' }" @click="sendOrder(false)" shape="circle">
+                <u-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder(false)" shape="circle">
                     {{ vuex_userRole == 'D' ? '修改收款单' : '修改付款单' }}
                 </u-button>
                 <!-- #endif -->
