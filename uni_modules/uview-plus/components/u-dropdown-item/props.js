@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 export const props = defineMixin({
     props: {
         // #ifdef VUE3
@@ -8,14 +8,14 @@ export const props = defineMixin({
             type: [Number, String, Array],
             default: ''
         },
-        // #endif
-        // #ifdef VUE2
-        // 当前选中项的value值
+		// #endif
+		// #ifdef VUE2
+		// 当前选中项的value值
         value: {
             type: [Number, String, Array],
             default: ''
         },
-        // #endif
+		// #endif
         // 菜单项标题
         title: {
             type: [String, Number],
@@ -25,7 +25,7 @@ export const props = defineMixin({
         options: {
             type: Array,
             default() {
-                return [];
+                return []
             }
         },
         // 是否禁用此菜单项
@@ -44,4 +44,4 @@ export const props = defineMixin({
             default: true
         }
     }
-});
+})

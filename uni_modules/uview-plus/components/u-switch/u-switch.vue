@@ -21,7 +21,7 @@
 		    :style="[nodeStyle]"
 		    ref="u-switch__node"
 		>
-			<up-loading-icon
+			<u-loading-icon
 			    :show="loading"
 			    mode="circle"
 			    timingFunction='linear'

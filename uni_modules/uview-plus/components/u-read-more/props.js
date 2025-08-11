@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 export const props = defineMixin({
     props: {
         // 默认的显示占位高度
@@ -60,4 +60,4 @@ export const props = defineMixin({
             default: () => defProps.readMore.name
         }
     }
-});
+})

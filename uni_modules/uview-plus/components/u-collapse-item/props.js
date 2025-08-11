@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 export const props = defineMixin({
     props: {
         // 标题
@@ -10,9 +10,9 @@ export const props = defineMixin({
         // 标题的样式
         titleStyle: {
             type: [Object, String],
-            default: () => {
-                return defProps.collapseItem.titleStyle;
-            }
+			default: () => {
+				return defProps.collapseItem.titleStyle
+			}
         },
         // 标题右侧内容
         value: {
@@ -73,25 +73,25 @@ export const props = defineMixin({
         iconStyle: {
             type: [Object, String],
             default: () => {
-                return defProps.collapseItem.iconStyle;
-            }
+				return defProps.collapseItem.iconStyle
+			}
         },
         // 右侧箭头图标的样式
         rightIconStyle: {
             type: [Object, String],
             default: () => {
-                return defProps.collapseItem.rightIconStyle;
-            }
+				return defProps.collapseItem.rightIconStyle
+			}
         },
         cellCustomStyle: {
             type: [Object, String],
             default: () => {
-                return defProps.collapseItem.cellCustomStyle;
-            }
+				return defProps.collapseItem.cellCustomStyle
+			}
         },
         cellCustomClass: {
             type: String,
             default: () => defProps.collapseItem.cellCustomClass
         }
     }
-});
+})

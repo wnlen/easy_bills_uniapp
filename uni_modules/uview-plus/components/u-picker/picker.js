@@ -11,7 +11,7 @@ export default {
     // picker
     picker: {
         show: false,
-        popupMode: 'bottom',
+		popupMode: 'bottom',
         showToolbar: true,
         title: '',
         columns: [],
@@ -23,11 +23,11 @@ export default {
         confirmColor: '',
         visibleItemCount: 5,
         keyName: 'text',
-        valueName: 'value',
+		valueName: 'value',
         closeOnClickOverlay: false,
         defaultIndex: [],
-        immediateChange: true,
-        zIndex: 10076,
+		immediateChange: true,
+		zIndex: 10076,
         disabled: false,
         disabledColor: '',
         placeholder: '请选择',
@@ -37,4 +37,4 @@ export default {
         duration: 300,
         overlayOpacity: 0.5
     }
-};
+}

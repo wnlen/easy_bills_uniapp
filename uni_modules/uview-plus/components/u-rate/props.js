@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 export const props = defineMixin({
     props: {
         // #ifdef VUE3
@@ -77,4 +77,4 @@ export const props = defineMixin({
             default: () => defProps.rate.touchable
         }
     }
-});
+})

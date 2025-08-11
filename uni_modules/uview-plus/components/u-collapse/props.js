@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 export const props = defineMixin({
     props: {
         // 当前展开面板的name，非手风琴模式：[<string | number>]，手风琴模式：string | number
@@ -18,4 +18,4 @@ export const props = defineMixin({
             default: () => defProps.collapse.border
         }
     }
-});
+})

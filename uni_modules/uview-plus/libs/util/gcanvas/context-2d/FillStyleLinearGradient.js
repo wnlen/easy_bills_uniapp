@@ -1,4 +1,5 @@
 class FillStyleLinearGradient {
+
     constructor(x0, y0, x1, y1) {
         this._start_pos = { _x: x0, _y: y0 };
         this._end_pos = { _x: x1, _y: y1 };
@@ -11,7 +12,7 @@ class FillStyleLinearGradient {
             this._stops[this._stop_count] = { _pos: pos, _color: color };
             this._stop_count++;
         }
-    };
+    }
 }
 
 export default FillStyleLinearGradient;

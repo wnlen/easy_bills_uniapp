@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 export const props = defineMixin({
     props: {
         // 步进器标识符，在change回调返回
@@ -106,6 +106,11 @@ export const props = defineMixin({
             type: String,
             default: () => defProps.numberBox.bgColor
         },
+        // 按钮禁用背景色
+        disabledBgColor: {
+            type: String,
+            default: () => defProps.numberBox.disabledBgColor
+        },
         // 输入框背景颜色
         inputBgColor: {
             type: String,
@@ -135,6 +140,6 @@ export const props = defineMixin({
         miniMode: {
             type: Boolean,
             default: () => defProps.numberBox.miniMode
-        }
+        },
     }
-});
+})

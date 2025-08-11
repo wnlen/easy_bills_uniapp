@@ -1,8 +1,9 @@
 let incId = 1;
 
-const noop = function () {};
+const noop = function () { };
 
 class GImage {
+
     static GBridge = null;
 
     constructor() {
@@ -35,6 +36,7 @@ class GImage {
     }
 
     set src(v) {
+
         if (v.startsWith('//')) {
             v = 'http:' + v;
         }

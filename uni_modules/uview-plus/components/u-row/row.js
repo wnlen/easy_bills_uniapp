@@ -14,4 +14,4 @@ export default {
         justify: 'start',
         align: 'center'
     }
-};
+}

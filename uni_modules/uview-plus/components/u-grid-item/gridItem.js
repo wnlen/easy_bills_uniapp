@@ -13,4 +13,4 @@ export default {
         name: null,
         bgColor: 'transparent'
     }
-};
+}

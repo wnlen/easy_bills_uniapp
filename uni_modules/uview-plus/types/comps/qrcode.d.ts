@@ -1,74 +1,77 @@
-import { AllowedComponentProps, VNodeProps } from './_common';
+import {AllowedComponentProps, VNodeProps} from './_common'
 
 declare interface QrcodeProps {
     /**
      * 实例ID字符串(必须)
      */
-    cid: string;
+    cid: string
 
     /**
      * 二维码大小
      * @default 200
      */
-    size?: number;
+    size?: number
 
     /**
      * 二维码内容
      */
-    val: string;
+    val: string
 
     /**
      * 背景色
      * @default "#ffffff"
      */
-    background?: string;
+    background?: string
 
     /**
      * 前景色
      * @default "#000000"
      */
-    foreground?: string;
+    foreground?: string
 
     /**
      * 二维码中间图标
      * @default "#000000"
      */
-    icon?: string;
+    icon?: string
 
     /**
      * 显示加载状态
      * @default true
      */
-    showLoading?: boolean;
+    showLoading?: boolean
 
     /**
      * 加载中提示语
      * @default "二维码生成中"
      */
-    loadingText?: string;
+    loadingText?: string
 
     /**
      * 使用根节点的宽高 设置为true会导致size失效
      * @default false
      */
-    useRootHeightAndWidth: boolean;
+    useRootHeightAndWidth: boolean
 
     /**
      * 二维码生成成功回调事件
      */
-    result?: () => any;
+    result?: () => any
 
     /**
      * 长按触发事件
      * @param url 二维码本地生成url
      */
-    longpressCallback?: (url: string) => any;
+    longpressCallback?: (url: string) => any
+
 }
 
 declare interface _Qrcode {
-    new (): {
-        $props: AllowedComponentProps & VNodeProps & QrcodeProps;
-    };
+    new(): {
+        $props: AllowedComponentProps &
+            VNodeProps &
+            QrcodeProps
+    }
 }
 
-export declare const Qrcode: _Qrcode;
+export declare const Qrcode: _Qrcode

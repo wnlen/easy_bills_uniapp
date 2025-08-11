@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 export const props = defineMixin({
     props: {
         // 给col添加间距，左右边距各占一半
@@ -18,4 +18,4 @@ export const props = defineMixin({
             default: () => defProps.row.align
         }
     }
-});
+})

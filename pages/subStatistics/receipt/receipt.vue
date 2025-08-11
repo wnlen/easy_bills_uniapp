@@ -824,10 +824,10 @@ export default {
         Init() {
             this.password = '';
             this.hide = true;
-
-            if (this.vuex_tabIndex != '') {
-                this.current = Number(this.vuex_tabIndex) + 1;
-                this.realTimeSel.paymentState = this.vuex_tabIndex;
+            let tabIndex = this.$u.getPinia('global.tabIndex');
+            if (tabIndex != '') {
+                this.current = Number(tabIndex) + 1;
+                this.realTimeSel.paymentState = tabIndex;
             }
 
             this.realTimeSel.getPhone = this.vuex_user.phone;
@@ -1052,7 +1052,7 @@ export default {
         getNewfreshData() {
             this.realTimeSel.role = this.vuex_userRole == 'R' ? '1' : '0';
             this.$api.order
-                .getOrderFilter(this.realTimeSel)
+                .getFilteredOrders(this.realTimeSel)
                 .then((res) => {
                     //console.log("滑动触发", res);
                 })

@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 export const props = defineMixin({
     props: {
         // 占父容器宽度的多少等分，总分为12份
@@ -28,4 +28,4 @@ export const props = defineMixin({
             default: () => defProps.col.textAlign
         }
     }
-});
+})

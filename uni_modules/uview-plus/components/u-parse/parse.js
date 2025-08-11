@@ -19,4 +19,4 @@ export default {
         setTitle: true,
         showImgMenu: true
     }
-};
+}

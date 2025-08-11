@@ -16,4 +16,4 @@ export default {
         align: 'stretch',
         textAlign: 'left'
     }
-};
+}

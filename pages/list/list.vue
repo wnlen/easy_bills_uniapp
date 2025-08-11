@@ -38,7 +38,7 @@
                             color: '#333333',
                             transform: 'scale(1)'
                         }"
-                        itemStyle="padding-left: 30rpx; padding-right: 30rpx; height: 70rpx;font-size:32rpx;paddingBottom:20rpx;backgroundColor:#fff"
+                        itemStyle="padding-left: 30rpx; padding-right: 30rpx; height: 70rpx;font-size:32rpx;padding-bottom:20rpx;backgroundColor:#fff"
                         :current="current"
                         @change="changeTab"
                     ></u-tabs>
@@ -119,15 +119,16 @@
                         >
                             <template #prefix>
                                 <u-text
-                                    class="ft11 ft-gray ml20"
+                                    class="ft11 ft-gray"
+                                    margin="0 0 0 20rpx"
                                     :text="Title"
                                     suffixIcon="arrow-down-fill"
-                                    suffixIconStyle="color: #909399;marginLeft:20rpx;"
+                                    iconStyle="color: #666;margin:0 10rpx;fontSize:30rpx"
                                     @click="filtrateGet"
                                 ></u-text>
                             </template>
                             <template #suffix>
-                                <view class="ml40 flex-col justify-center items-center" style="height: 5vh" @click="SearchBtn">
+                                <view class="ml40 flex-col justify-center items-center" @click="SearchBtn">
                                     <u-icon name="/static/img/list/ss.svg" size="46rpx"></u-icon>
                                 </view>
                             </template>
@@ -167,56 +168,30 @@
                                 {{ item.orderNumber }}
                             </text>
                         </text>
-                        <u-icon size="56rpx" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
+                        <u-icon size="28rpx" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
                         <view class="ml15">
                             <u-icon size="56rpx" v-if="item.lockOrder == 1 && item.paymentState != 2" :name="bat64.lock" color="#666666"></u-icon>
                         </view>
                     </view>
                     <view class="ml20" style="width: 30%">
-                        <u-image
-                            :show-menu-by-longpress="false"
-                            v-if="userStore.userRole == 'D'"
-                            :style="{ display: item.paymentState == '0' ? 'inline' : 'none' }"
-                            class="u-img"
-                            width="120rpx"
-                            height="50rpx"
-                            :src="bat64.dqs"
-                        ></u-image>
-                        <u-image
-                            :show-menu-by-longpress="false"
-                            v-if="userStore.userRole == 'R'"
-                            :style="{ display: item.paymentState == '0' ? 'inline' : 'none' }"
-                            class="u-img"
-                            width="120rpx"
-                            height="50rpx"
-                            :src="bat64.dqss"
-                        ></u-image>
-                        <u-image
-                            :show-menu-by-longpress="false"
-                            v-if="userStore.userRole == 'R'"
-                            :style="{ display: item.paymentState == '2' ? 'inline' : 'none' }"
-                            class="u-img"
-                            width="120rpx"
-                            height="50rpx"
-                            :src="bat64.yfk"
-                        ></u-image>
-                        <u-image
-                            :show-menu-by-longpress="false"
-                            :style="{ display: item.paymentState == '1' ? 'inline' : 'none' }"
-                            width="120rpx"
-                            height="50rpx"
-                            class="u-img"
-                            :src="bat64.yqs"
-                        ></u-image>
-                        <u-image
-                            :show-menu-by-longpress="false"
-                            v-if="userStore.userRole != 'R'"
-                            :style="{ display: item.paymentState == '2' ? 'inline' : 'none' }"
-                            width="120rpx"
-                            height="50rpx"
-                            class="u-img"
-                            :src="bat64.ysk"
-                        ></u-image>
+                        <view class="u-img" v-if="userStore.userRole == 'D'" :style="{ display: item.paymentState == '0' ? 'inline' : 'none' }">
+                            <u-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.dqs"></u-image>
+                        </view>
+
+                        <view class="u-img" v-if="userStore.userRole == 'R'" :style="{ display: item.paymentState == '0' ? 'inline' : 'none' }">
+                            <u-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.dqss"></u-image>
+                        </view>
+
+                        <view class="u-img" v-if="userStore.userRole == 'R'" :style="{ display: item.paymentState == '2' ? 'inline' : 'none' }">
+                            <u-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.yfk"></u-image>
+                        </view>
+                        <view class="u-img" :style="{ display: item.paymentState == '1' ? 'inline' : 'none' }">
+                            <u-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.yqs"></u-image>
+                        </view>
+
+                        <view class="u-img" v-if="userStore.userRole != 'R'" :style="{ display: item.paymentState == '2' ? 'inline' : 'none' }">
+                            <u-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.ysk"></u-image>
+                        </view>
                     </view>
                 </view>
                 <view class="width100 pb25 text-left">
@@ -264,26 +239,20 @@
                     <view v-if="item.share" class="flex-row items-center justify-center" style="width: 100%">
                         <view class="flex-row justify-center items-center" style="width: 100%">
                             <view class="flex-row justify-center items-center" style="width: 40%; color: #cccccc">
-                                <button
-                                    class="hl-btn NY flex-row items-center justify-center"
-                                    type="default"
-                                    @click="ShareY(item)"
-                                    open-type="share"
-                                    name="Y"
-                                    :data-thumb="item.picturesId"
-                                    :data-id="item.id"
-                                >
-                                    <view style="top: 2rpx">
-                                        <u-icon
-                                            name="zhuanfa"
-                                            size="50rpx"
-                                            color="#666666"
-                                            labelColor="#333333"
-                                            labelSize="22"
-                                            :label="vuex_user.data.work !== '1' && vuex_user.workDate == null ? '有金额转发' : '有金额转发'"
-                                        ></u-icon>
-                                    </view>
-                                </button>
+                                <view class="hl-btn NY flex-row items-center justify-center">
+                                    <u-button type="default" @click="ShareY(item)" open-type="share" name="Y" :data-thumb="item.picturesId" :data-id="item.id">
+                                        <view style="top: 2rpx">
+                                            <u-icon
+                                                name="share-square"
+                                                size="25rpx"
+                                                color="#666666"
+                                                labelColor="#333333"
+                                                labelSize="22rpx"
+                                                :label="vuex_user.data.work !== '1' && vuex_user.workDate == null ? '有金额转发' : '有金额转发'"
+                                            ></u-icon>
+                                        </view>
+                                    </u-button>
+                                </view>
                             </view>
                             <view class="flex-row justify-center items-center u-border-left u-border-right" style="width: 40%; color: #cccccc">
                                 <button
@@ -297,11 +266,11 @@
                                 >
                                     <view style="top: 2rpx">
                                         <u-icon
-                                            name="zhuanfa"
-                                            size="50rpx"
+                                            name="share-square"
+                                            size="25rpx"
                                             color="#666666"
                                             labelColor="#333333"
-                                            labelSize="22"
+                                            labelSize="22rpx"
                                             :label="vuex_user.data.work !== '1' && vuex_user.workDate == null ? '无金额转发' : '无金额转发'"
                                         ></u-icon>
                                     </view>
@@ -316,23 +285,23 @@
                         <view class="flex-row items-center justify-center">
                             <button class="hl-btn flex-row items-center justify-center" @click="shareNY(item, 1)" type="default">
                                 <u-icon
-                                    name="zhuanfa"
-                                    size="50rpx"
+                                    name="share-square"
+                                    size="25rpx"
                                     v-if="OperatingSystem"
                                     color="#666666"
                                     labelColor="#333333"
-                                    labelSize="22"
+                                    labelSize="22rpx"
                                     :label="vuex_user.data.work !== '1' && vuex_user.workDate == null ? '转发' : '转发'"
                                 ></u-icon>
                                 <view style="top: 2rrpx"></view>
 
                                 <u-icon
-                                    name="zhuanfa"
-                                    size="50rpx"
+                                    name="share-square"
+                                    size="25rpx"
                                     v-if="!OperatingSystem"
                                     color="#666666"
                                     labelColor="#333333"
-                                    labelSize="22"
+                                    labelSize="22rpx"
                                     :label="vuex_user.data.work !== '1' && vuex_user.workDate == null ? '转发' : '转发'"
                                 ></u-icon>
                             </button>
@@ -343,9 +312,9 @@
                                 @click="goPath('/pages/subOrder/details?id=' + item.id)"
                             >
                                 <!-- &&item.lockOrder!=1 -->
-                                <u-icon name="order" v-if="OperatingSystem" size="50rpx" color="#666666" labelSize="22" labelColor="#333333" label="确认签收"></u-icon>
+                                <u-icon name="order" v-if="OperatingSystem" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="确认签收"></u-icon>
                                 <view style="top: 2rpx">
-                                    <u-icon name="order" v-if="!OperatingSystem" size="50rpx" color="#666666" labelSize="22" labelColor="#333333" label="确认签收"></u-icon>
+                                    <u-icon name="order" v-if="!OperatingSystem" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="确认签收"></u-icon>
                                 </view>
                             </button>
                             <button
@@ -355,9 +324,9 @@
                                 @click="VerifyAdd(item, index, 2)"
                             >
                                 <!-- &&item.lockOrder!=1 -->
-                                <u-icon v-if="OperatingSystem" name="rmb-circle" size="30" color="#666666" labelSize="22" labelColor="#333333" :label="labText"></u-icon>
+                                <u-icon v-if="OperatingSystem" name="rmb-circle" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" :label="labText"></u-icon>
                                 <view style="top: 2rpx">
-                                    <u-icon v-if="!OperatingSystem" name="rmb-circle" size="60rpx" color="#666666" labelSize="22" labelColor="#333333" :label="labText"></u-icon>
+                                    <u-icon v-if="!OperatingSystem" name="rmb-circle" size="30rpx" color="#666666" labelSize="22rpx" labelColor="#333333" :label="labText"></u-icon>
                                 </view>
                             </button>
                             <button
@@ -367,8 +336,8 @@
                                 @click="VerifyAdd(item, index, 1)"
                             >
                                 <!-- &&item.lockOrder!=1 -->
-                                <u-icon v-if="OperatingSystem" name="trash" size="50rpx" color="#666666" labelSize="22" labelColor="#333333" label="删除"></u-icon>
-                                <u-icon v-if="!OperatingSystem" name="trash" size="50rpx" color="#666666" labelSize="22" labelColor="#333333" label="删除"></u-icon>
+                                <u-icon v-if="OperatingSystem" name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></u-icon>
+                                <u-icon v-if="!OperatingSystem" name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></u-icon>
                             </button>
                             <button
                                 v-if="
@@ -383,8 +352,8 @@
                                 @click="VerifyAdd(item, index, 3)"
                             >
                                 <!-- &&item.lockOrder!=1 -->
-                                <u-icon v-if="OperatingSystem" name="edit-pen" size="50rpx" color="#666666" labelSize="22" labelColor="#333333" label="修改"></u-icon>
-                                <u-icon v-if="!OperatingSystem" name="edit-pen" size="50rpx" color="#666666" labelSize="22" labelColor="#333333" label="修改"></u-icon>
+                                <u-icon v-if="OperatingSystem" name="edit-pen" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="修改"></u-icon>
+                                <u-icon v-if="!OperatingSystem" name="edit-pen" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="修改"></u-icon>
                             </button>
                             <!-- 							<button class="hl-btn ml20 flex-row items-center justify-center" type="default"
 								@click="VerifyAdd(item, index, 4)">
@@ -576,7 +545,7 @@ import { useUserStore } from '@/store/user';
 import { useGlobalStore } from '@/store/global';
 import { setPinia } from '@/common/piniaHelper';
 import { getCurrentInstance } from 'vue';
-import { onLoad, onShow, onHide, onUnload, onPullDownRefresh, onShareAppMessage } from '@dcloudio/uni-app';
+import { onLoad, onShow, onHide, onUnload, onPullDownRefresh, onShareAppMessage, onReady } from '@dcloudio/uni-app';
 import { timeFormat } from '@/uni_modules/uv-ui-tools/libs/function/index.js';
 const { proxy } = getCurrentInstance();
 
@@ -601,20 +570,16 @@ const searchText = ref('');
 const companyIndex = ref(0);
 const tabsList = ref([
     {
-        name: '全部',
-        orderState: '0'
+        name: '全部'
     },
     {
-        name: '待签收',
-        orderState: '1'
+        name: '待签收'
     },
     {
-        name: '已签收',
-        orderState: '2'
+        name: '已签收'
     },
     {
-        name: '已收款',
-        orderState: '3'
+        name: '已收款'
     }
 ]);
 const labText = ref('确认收款');
@@ -756,6 +721,10 @@ onShow(() => {
     }
 });
 
+onReady(async () => {
+    current.value = 0;
+});
+
 // 页面隐藏（如切后台）
 onHide(() => {
     ClearIF();
@@ -795,24 +764,25 @@ onShareAppMessage((ops) => {
 });
 
 function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList, customer, current) {
-    const { proxy } = getCurrentInstance();
     const store = useUserStore();
+    const global = useGlobalStore();
+    console.log('缓存 ', store);
     const vuex_user = store.user;
     const vuex_userRole = store.userRole;
-    const vuex_tabIndex = store.tabIndex || ''; // 替代原vuex_tabIndex
+    const vuex_tabIndex = global.tabIndex || '';
 
     const hide = true;
     const password = '';
 
     if (vuex_tabIndex !== '') {
         current.value = Number(vuex_tabIndex);
-        realTimeSel.paymentState = Number(vuex_tabIndex) - 1;
+        realTimeSel.value.paymentState = Number(vuex_tabIndex) - 1;
     }
-
-    realTimeSel.getPhone = vuex_user.phone;
+    console.log('globalStore.tabIndex1', globalStore.tabIndex);
+    realTimeSel.value.getPhone = vuex_user.phone;
 
     const ifwork = vuex_user.data?.work === '0';
-    const timeEmp = !realTimeSel.startDate || !realTimeSel.endDate;
+    const timeEmp = !realTimeSel.value.startDate || !realTimeSel.value.endDate;
     const ifWorkPort = vuex_userRole === 'R';
 
     // 设置 tab 名字与按钮文案
@@ -827,36 +797,37 @@ function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList,
     // 设置发货/收货端身份参数
     if (ifwork) {
         if (!ifWorkPort) {
-            realTimeSel.bossNumberE = '';
-            realTimeSel.bossNumberS = vuex_user.phone;
+            realTimeSel.value.bossNumberE = '';
+            realTimeSel.value.bossNumberS = vuex_user.phone;
         } else {
-            realTimeSel.bossNumberS = '';
-            realTimeSel.bossNumberE = vuex_user.phone;
+            realTimeSel.value.bossNumberS = '';
+            realTimeSel.value.bossNumberE = vuex_user.phone;
         }
     } else {
         const identity = vuex_user.workData.identity;
         const boss = vuex_user.workData.bossNumber;
 
         if (!ifWorkPort) {
-            realTimeSel.staffNumberE = '';
-            realTimeSel.bossNumberE = '';
+            realTimeSel.value.staffNumberE = '';
+            realTimeSel.value.bossNumberE = '';
             if (identity === '4') {
-                realTimeSel.staffNumberS = vuex_user.phone;
-                realTimeSel.bossNumberS = boss;
+                realTimeSel.value.staffNumberS = vuex_user.phone;
+                realTimeSel.value.bossNumberS = boss;
             } else {
-                realTimeSel.bossNumberS = boss;
+                realTimeSel.value.bossNumberS = boss;
             }
         } else {
-            realTimeSel.staffNumberS = '';
-            realTimeSel.bossNumberS = '';
+            realTimeSel.value.staffNumberS = '';
+            realTimeSel.value.bossNumberS = '';
             if (identity === '4') {
-                realTimeSel.staffNumberE = vuex_user.phone;
-                realTimeSel.bossNumberE = boss;
+                realTimeSel.value.staffNumberE = vuex_user.phone;
+                realTimeSel.value.bossNumberE = boss;
             } else {
-                realTimeSel.bossNumberE = boss;
+                realTimeSel.value.bossNumberE = boss;
             }
         }
     }
+    console.log('realTimeSel33333333333', realTimeSel);
 
     // 设置默认时间
     if (timeEmp) {
@@ -864,8 +835,8 @@ function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList,
         const endDate = new Date();
         endDate.setDate(endDate.getDate() + 15);
         const end = proxy.$u.timeFormat(endDate, 'yyyy-mm-dd');
-        realTimeSel.startDate = start;
-        realTimeSel.endDate = end;
+        realTimeSel.value.startDate = start;
+        realTimeSel.value.endDate = end;
         date1.value = start;
         date2.value = end;
     }
@@ -877,9 +848,9 @@ function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList,
         searchList.customer = json.company;
         customer.value = json.company;
         if (!ifWorkPort) {
-            realTimeSel.organizationE = json.company;
+            realTimeSel.value.organizationE = json.company;
         } else {
-            realTimeSel.enterpriseS = json.company;
+            realTimeSel.value.enterpriseS = json.company;
         }
         pagingRef.value?.reload();
         uni.removeStorageSync('companyNameJSON');
@@ -936,7 +907,13 @@ function xyTabar(x) {
         current.value--;
     }
     paging.value?.reload();
-    setPinia('vuex_tabIndex', current.value === 0 ? '' : current.value - 1);
+    console.log('点击切花');
+    let num = current.value === 0 ? '' : current.value - 1;
+    setPinia({
+        global: {
+            tabIndex: num
+        }
+    });
     realTimeSel.value.paymentState = current.value === 0 ? '' : current.value - 1;
     realTimeSel.value.limitS = '0,10';
     refresh.value = true;
@@ -959,16 +936,19 @@ function TitleFun(showTage) {
 }
 
 function refreshDataNew() {
+    console.log('realTimeSel222222222222', realTimeSel);
     uloading.value = true;
     if (refresh.value) {
         refresh.value = false;
         onReachBottom.value = false;
         realTimeSel.value.role = userStore.userRole === 'R' ? '1' : '0';
+        console.log('globalStore.tabIndex', globalStore.tabIndex);
         if (globalStore.tabIndex !== '') {
             realTimeSel.value.paymentState = Number(globalStore.tabIndex) - 1;
         }
-        this.$api.order
-            .getOrderFilter(realTimeSel.value)
+        console.log('111', realTimeSel);
+        proxy.$api.order
+            .getFilteredOrders(realTimeSel.value)
             .then((res) => {
                 const orderListData = res.data.data.map((obj) => ({
                     ...obj,
@@ -985,8 +965,8 @@ function refreshDataNew() {
                 refresh.value = true;
                 uni.$u.toast('请求失败');
             });
-
-        this.$api.order
+        console.log('222');
+        proxy.$api.order
             .getFilteredOrderCount(realTimeSel.value)
             .then((res) => {
                 OrderQuantity.value = res.data.data[1];
@@ -1002,7 +982,11 @@ function refreshDataNew() {
 function changeTab(item) {
     paging.value?.reload();
     current.value = item.index;
-    setPinia('vuex_tabIndex', item.index === 0 ? '' : item.index);
+    setPinia({
+        global: {
+            tabIndex: item.index === 0 ? '' : item.index
+        }
+    });
     realTimeSel.value.paymentState = item.index === 0 ? '' : item.index;
     realTimeSel.value.limitS = '0,10';
     refresh.value = true;
@@ -1067,7 +1051,11 @@ function queryList(pageNo, pageSize) {
 }
 
 function clear() {
-    setPinia('vuex_tabIndex', 0);
+    setPinia({
+        global: {
+            tabIndex: ''
+        }
+    });
     const date = new Date();
     date.setDate(date.getDate() + 15);
     current.value = 0;
@@ -1314,15 +1302,20 @@ function applyUpdatePlay(order) {
         dx.aBoss = boss;
         dx.bBoss = order.bossNumberS === order.staffNumberS ? order.bossNumberS : order.staffNumberS;
     }
-
-    this.$api.order
+    console.log('333');
+    proxy.$api.order
         .addTemporaryOrder(dx)
         .then((res) => finallyAlertDel(res.data, order))
         .catch(() => {});
 }
 
+function ifZX(val) {
+    return val.includes('zx-');
+}
+
 function updateOrder(order) {
-    this.$api.order
+    console.log('444');
+    proxy.$api.order
         .signForOrder(order)
         .then((res) => {
             uni.$u.toast(res.data.message);

@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 export const props = defineMixin({
     props: {
         // input的label提示语
@@ -49,7 +49,7 @@ export const props = defineMixin({
         },
         leftIconStyle: {
             type: [String, Object],
-            default: () => defProps.formItem.leftIconStyle
+            default: () => defProps.formItem.leftIconStyle,
         }
     }
-});
+})

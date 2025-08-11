@@ -1279,7 +1279,7 @@ export default {
         getNewfreshData() {
             this.realTimeSel.role = this.vuex_userRole == 'R' ? '1' : '0';
             this.$api.order
-                .getOrderFilter(this.realTimeSel)
+                .getFilteredOrders(this.realTimeSel)
                 .then((res) => {
                     //console.log("滑动触发", res);
                 })

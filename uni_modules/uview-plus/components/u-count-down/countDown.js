@@ -15,4 +15,4 @@ export default {
         autoStart: true,
         millisecond: false
     }
-};
+}

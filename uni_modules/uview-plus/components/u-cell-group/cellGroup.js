@@ -14,4 +14,4 @@ export default {
         border: true,
         customStyle: {}
     }
-};
+}

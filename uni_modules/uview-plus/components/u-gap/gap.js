@@ -16,4 +16,4 @@ export default {
         marginBottom: 0,
         customStyle: {}
     }
-};
+}

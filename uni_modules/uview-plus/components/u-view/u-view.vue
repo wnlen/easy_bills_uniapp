@@ -1,8 +1,6 @@
 <template>
     <view
-        class="u-view"
-        :class="class"
-        :style="{
+        class="u-view" :class="class" :style="{
             backgroundColor: backgroundColor,
             color: color,
             flexDirection: flexDirection,
@@ -13,9 +11,9 @@
             height: height,
             padding: padding,
             margin: margin,
-            borderColor: borderColor
-        }"
-    ></view>
+            borderColor: borderColor,
+        }">
+    </view>
 </template>
 
 <script>
@@ -38,7 +36,7 @@ export default {
     // #ifndef MP
     mixins: [mpMixin, mixin],
     // #endif
-    emits: ['click'],
+	emits: ['click'],
     computed: {
         valueStyle() {}
     },
@@ -56,15 +54,15 @@ export default {
         borderColor: ''
     },
     data() {
-        return {};
+        return {}
     },
     methods: {
         addStyle,
         clickHandler() {
-            this.$emit('click');
+            this.$emit('click')
         }
     }
-};
+}
 </script>
 
 <style lang="scss" scoped>

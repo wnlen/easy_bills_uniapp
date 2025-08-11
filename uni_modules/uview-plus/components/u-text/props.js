@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 export const props = defineMixin({
     props: {
         // 主题颜色
@@ -108,10 +108,10 @@ export const props = defineMixin({
             type: String,
             default: () => defProps.text.wordWrap
         },
-        // 占满剩余空间
-        flex1: {
-            type: Boolean,
-            default: () => defProps.text.flex1
-        }
+		// 占满剩余空间
+		flex1: {
+			type: Boolean,
+			default: () => defProps.text.flex1
+		}
     }
-});
+})

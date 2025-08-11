@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 export const props = defineMixin({
     props: {
         // 接受的文件类型, 可选值为all media image file video
@@ -126,51 +126,51 @@ export const props = defineMixin({
             type: Boolean,
             default: () => defProps.upload.previewImage
         },
-        // 是否自动删除
-        autoDelete: {
-            type: Boolean,
-            default: () => defProps.upload.autoDelete
-        },
-        // 是否自动上传需要传递action指定地址
-        autoUpload: {
-            type: Boolean,
-            default: () => defProps.upload.autoUpload
-        },
-        // 自动上传接口地址
-        autoUploadApi: {
-            type: String,
-            default: () => defProps.upload.autoUploadApi
-        },
-        // 自动上传驱动，local/oss/cos/kodo
-        autoUploadDriver: {
-            type: String,
-            default: () => defProps.upload.autoUploadDriver
-        },
-        // 自动上传授权接口，比如oss的签名接口。
-        autoUploadAuthUrl: {
-            type: String,
-            default: () => defProps.upload.autoUploadAuthUrl
-        },
-        // 自动上传携带的header
-        autoUploadHeader: {
-            type: Object,
-            default: () => {
-                return defProps.upload.autoUploadHeader;
-            }
-        },
-        // 本地计算视频封面
-        getVideoThumb: {
-            type: Boolean,
-            default: () => defProps.upload.getVideoThumb
-        },
+		// 是否自动删除
+		autoDelete: {
+		    type: Boolean,
+		    default: () => defProps.upload.autoDelete
+		},
+		// 是否自动上传需要传递action指定地址
+		autoUpload: {
+		    type: Boolean,
+		    default: () => defProps.upload.autoUpload
+		},
+		// 自动上传接口地址
+		autoUploadApi: {
+		    type: String,
+		    default: () => defProps.upload.autoUploadApi
+		},
+		// 自动上传驱动，local/oss/cos/kodo
+		autoUploadDriver: {
+		    type: String,
+		    default: () => defProps.upload.autoUploadDriver
+		},
+		// 自动上传授权接口，比如oss的签名接口。
+		autoUploadAuthUrl: {
+		    type: String,
+		    default: () => defProps.upload.autoUploadAuthUrl
+		},
+		// 自动上传携带的header
+		autoUploadHeader: {
+		    type: Object,
+		    default: () => {
+				return defProps.upload.autoUploadHeader
+			}
+		},
+		// 本地计算视频封面
+		getVideoThumb: {
+		    type: Boolean,
+		    default: () => defProps.upload.getVideoThumb
+		},
         // 自定义自动上传后处理
         customAfterAutoUpload: {
-            type: Boolean,
-            default: () => defProps.upload.customAfterAutoUpload
-        },
+		    type: Boolean,
+		    default: () => defProps.upload.customAfterAutoUpload
+		},
         videoPreviewObjectFit: {
-            type: String,
-            default: () => defProps.upload.videoPreviewObjectFit
-        }
+		    type: String,
+		    default: () => defProps.upload.videoPreviewObjectFit
+		},
     }
-});
+})

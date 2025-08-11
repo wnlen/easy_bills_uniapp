@@ -19,4 +19,4 @@ export default {
         fixed: true,
         placeholder: true
     }
-};
+}

@@ -22,4 +22,4 @@ export default {
         bold: false,
         separator: ''
     }
-};
+}

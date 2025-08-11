@@ -1,4 +1,4 @@
-import { getTransferedObjectUUID } from './classUtils';
+import {getTransferedObjectUUID} from './classUtils';
 
 const name = 'WebGLRenderBuffer';
 

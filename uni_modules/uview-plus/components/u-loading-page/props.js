@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 
 export const props = defineMixin({
     props: {
@@ -38,11 +38,11 @@ export const props = defineMixin({
             type: [String, Number],
             default: () => defProps.loadingPage.fontSize
         },
-        // 图标大小
-        iconSize: {
-            type: [String, Number],
-            default: () => defProps.loadingPage.fontSize
-        },
+		// 图标大小
+		iconSize: {
+		    type: [String, Number],
+		    default: () => defProps.loadingPage.fontSize
+		},
         // 加载中图标的颜色，只能rgb或者十六进制颜色值
         loadingColor: {
             type: String,
@@ -52,6 +52,6 @@ export const props = defineMixin({
         zIndex: {
             type: [Number],
             default: () => defProps.loadingPage.zIndex
-        }
+        },
     }
-});
+})

@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 
 export const propsBox = defineMixin({
     props: {
@@ -11,17 +11,17 @@ export const propsBox = defineMixin({
         // 高度
         height: {
             type: [String],
-            default: '160px'
+            default: "160px"
         },
         // 圆角
         borderRadius: {
             type: [String],
-            default: '6px'
+            default: "6px"
         },
         // 间隔
         gap: {
             type: [String],
-            default: '15px'
-        }
+            default: "15px"
+        },
     }
-});
+})
