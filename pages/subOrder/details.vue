@@ -385,7 +385,7 @@
                         <view v-if="vuex_user.workData.identity != '3' && post.lockOrder != 1" class="flex-row flex-1 items-center">
                             <u-button
                                 hover-class="none"
-                                :custom-style="{ backgroundColor: '#01BB74' }"
+                                color="#01BB74"
                                 class="width100"
                                 v-if="LookShar == 'F' && post.paymentState == '0' && workState"
                                 type="primary"

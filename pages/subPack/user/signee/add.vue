@@ -25,7 +25,7 @@
             </u-form-item>
         </u-form>
         <view class="mt60">
-            <u-button @click="submit" hover-class="none" :custom-style="{ backgroundColor: '#01BB74' }" shape="circle" type="primary">{{ formData.id ? '修改' : '提交' }}</u-button>
+            <u-button @click="submit" hover-class="none" color="#01BB74" shape="circle" type="primary">{{ formData.id ? '修改' : '提交' }}</u-button>
         </view>
     </view>
 </template>

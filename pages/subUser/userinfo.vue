@@ -65,7 +65,7 @@
             </view>
         </view>
         <view class="flex-col pl60 pr60 pb60 pt60 vw100" style="position: fixed; bottom: 40rpx; text-align: center">
-            <u-button shape="circle" hover-class="none" :custom-style="{ backgroundColor: '#01BB74' }" type="primary" @click="updateInfo">保存信息</u-button>
+            <u-button shape="circle" hover-class="none" color="#01BB74" type="primary" @click="updateInfo">保存信息</u-button>
         </view>
     </view>
 </template>

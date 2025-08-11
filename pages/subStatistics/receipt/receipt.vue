@@ -403,7 +403,7 @@
                     <u-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :custom-style="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
                 </view>
                 <!-- 日历选择器 -->
-                <uv-calendars mode="range" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="date1Change" />
+                <uv-calendars color="#01BB74" confirmColor="#01BB74" mode="range" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="date1Change" />
             </view>
         </u-popup>
     </view>

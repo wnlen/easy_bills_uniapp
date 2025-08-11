@@ -746,7 +746,7 @@ export default {
     methods: {
         jumpVideo() {
             var port = this.vuex_userRole == 'D';
-            this.$openVideo(this, port ? 1 : 0);
+            this.$openVideo(port ? 1 : 0);
         },
         virtualListChange(vList) {
             this.orderList = vList;

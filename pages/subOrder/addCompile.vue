@@ -95,7 +95,7 @@
                             </view>
                             <u-icon size="45rpx" name="https://res-oss.elist.com.cn/wxImg/order/time.png"></u-icon>
                         </view>
-                        <uv-calendars :startDate="getCurrentDateMin()" :endDate="getCurrentDate()" ref="calendars" @confirm="getConfirm" />
+                        <uv-calendars color="#01BB74" confirmColor="#01BB74" :startDate="getCurrentDateMin()" :endDate="getCurrentDate()" ref="calendars" @confirm="getConfirm" />
                     </view>
                     <view class="flex-row items-center width100 pt20 pb20 u-border-bottom">
                         <text class="textcolor" style="width: 106rpx">收货人:</text>
@@ -258,7 +258,7 @@
             </view>
 
             <view class="mt60 pl20 pr20 pb30">
-                <u-button type="primary" class="form-btn-big" hover-class="none" :custom-style="{ backgroundColor: '#01BB74' }" @click="sendOrder" shape="circle">
+                <u-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder" shape="circle">
                     修改订单
                 </u-button>
             </view>
