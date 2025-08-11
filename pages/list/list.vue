@@ -19,7 +19,7 @@
                     </template>
                 </up-navbar>
                 <!-- #endif -->
-                <!-- #ifdef APP -->
+                <!-- #ifndef MP-WEIXIN -->
                 <up-navbar title="查询订单" :placeholder="true" leftIconColor="#fff" :titleBold="true" :titleStyle="titleStyle"></up-navbar>
                 <!-- #endif -->
                 <view style="width: 100%">
@@ -374,20 +374,28 @@
 
         <u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" />
         <!-- 弹出层 -->
-        <u-popup :show="show_start" mode="top" :closeable="true" width="550rpx" :safeAreaInsetTop="true" zIndex="999">
-            <!-- <u-navbar :is-back="false" :border-bottom="false" :titleBold="true" title-color="#000000" title-size="34"
-				bgColor="#ffffff">
-				<view class="flex-row items-center justify-center ml96" style="width: 100%;">
-					<view class="" style="font-size: 34rpx;font-weight: 510;">
-						查询订单
-					</view>
-					<view @click="jumpVideo" class="flex-row justify-center items-center ml12"
-						style="border: 2.2rpx solid #01BB74;height: 44rpx;width:136rpx;border-radius: 8rpx;color: #01BB74;font-size: 22rpx;">
-						使用方法
-						<view class="ml6"></view><u-icon  name="https://res-oss.elist.com.cn/wxImg/video.png" size="20"></u-icon>
-					</view>
-				</view>
-			</u-navbar> -->
+        <u-popup :show="show_start" @close="show_start = false" mode="top" :closeable="true" width="550rpx" :safeAreaInsetTop="true" zIndex="999">
+            <!-- #ifdef MP-WEIXIN -->
+            <u-navbar leftIconColor="#fff" :titleStyle="titleStyle">
+                <template #left>
+                    <view class="flex-row items-center justify-center ml96" style="width: 100%">
+                        <view class="" style="font-size: 34rpx; font-weight: 510">查询订单</view>
+                        <view
+                            @click="jumpVideo"
+                            class="flex-row justify-center items-center ml12"
+                            style="border: 2.2rpx solid #01bb74; height: 44rpx; width: 136rpx; border-radius: 8rpx; color: #01bb74; font-size: 22rpx"
+                        >
+                            <text class="mr6">使用方法</text>
+                            <u-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></u-icon>
+                        </view>
+                    </view>
+                </template>
+            </u-navbar>
+            <!-- #endif -->
+            <!-- #ifdef APP -->
+            <u-navbar title="查询订单" leftIconColor="#fff" :titleBold="true" :titleStyle="titleStyle"></u-navbar>
+            <!-- #endif -->
+            <view style="height: 44px"></view>
             <view class="pl30 pr30">
                 <view class="pb60">
                     <view class="flex-col mt20">
@@ -505,7 +513,15 @@
                     <u-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :custom-style="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
                 </view>
                 <!-- 日历选择器 -->
-                <uv-calendars mode="range" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="date1Change" />
+                <uv-calendars
+                    color="#01BB74"
+                    confirmColor="#01BB74"
+                    mode="range"
+                    :startDate="getCurrentYearFirstDay()"
+                    :endDate="getCurrentDate()"
+                    ref="calendars"
+                    @confirm="date1Change"
+                />
             </view>
         </u-popup>
 
@@ -707,7 +723,7 @@ onLoad(() => {
 
 // 页面进入展示
 onShow(() => {
-    if (userStore.user.phone !== undefined) {
+    if (userStore.user.phone) {
         console.log('globalStore.tabIndex', globalStore.tabIndex);
         current.value = globalStore.tabIndex;
         loadData();
@@ -766,7 +782,6 @@ onShareAppMessage((ops) => {
 function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList, customer, current) {
     const store = useUserStore();
     const global = useGlobalStore();
-    console.log('缓存 ', store);
     const vuex_user = store.user;
     const vuex_userRole = store.userRole;
     const vuex_tabIndex = global.tabIndex || '';
@@ -871,7 +886,7 @@ function loadData() {
 
 function jumpVideo() {
     const port = userStore.userRole === 'D';
-    proxy.$openVideo(this, port ? 3 : 4);
+    proxy.$openVideo(port ? 3 : 4);
 }
 
 function touchStart(e) {
@@ -936,7 +951,6 @@ function TitleFun(showTage) {
 }
 
 function refreshDataNew() {
-    console.log('realTimeSel222222222222', realTimeSel);
     uloading.value = true;
     if (refresh.value) {
         refresh.value = false;
