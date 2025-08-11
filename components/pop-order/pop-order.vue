@@ -1,12 +1,12 @@
 <template>
     <view @tap.stop v-show="roleShow" class="flex-col justify-center items-center pop-renew">
-        <view class="relative flex-col justify-center items-center" style="height: 100%; width: 100%; margin-top: 100px">
-            <u-image class="" :showLoading="true" :src="src" width="360px" height="360px"></u-image>
+        <view class="relative flex-col justify-center items-center" style="height: 100%; width: 100%; margin-top: 200rpx">
+            <u-image class="" :showLoading="true" :src="src" width="720rpx" height="720rpx"></u-image>
             <view class="absolute" style="top: 5%; right: 10%"></view>
 
             <u-icon @click="close" name="close-circle" color="#ffffff" size="40rpx"></u-icon>
 
-            <view class="absolute flex-row justify-center items-center mt30" style="width: 100%; height: 120px">
+            <view class="absolute flex-row justify-center items-center mt30" style="width: 100%; height: 240rpx">
                 <view
                     class="mr15 tab flex-col justify-center items-center"
                     v-for="(ite, index) in item"
@@ -20,7 +20,7 @@
                     <u-text class="iconPeople flex-col justify-center items-center mt10" v-if="ite.priceDiscount">低至{{ (ite.priceDiscount / 365).toFixed(2) }}元/天</u-text>
                 </view>
             </view>
-            <view class="absolute btn flex-col justify-center items-center" style="bottom: 40px">
+            <view class="absolute btn flex-col justify-center items-center" style="bottom: 80rpx">
                 <view class="ts mb10 mt10">新用户半年内免费使用，购买后继续开单</view>
                 <view @click="buyRenew" class="flex-row justify-center items-center buttonRenew">
                     <u-text class="te">￥{{ pay }}</u-text>
@@ -66,9 +66,6 @@ export default {
             time: {},
             pay: 0
         };
-    },
-    onShow() {
-        this.orderInit(item[1], 1);
     },
     methods: {
         close() {
@@ -116,26 +113,26 @@ export default {
 
 <style scoped>
 .te {
-    font-size: 13px;
+    font-size: 26rpx;
     font-weight: 600;
-    line-height: 18.12px;
+    line-height: 36.24rpx;
     text-align: center;
-    letter-spacing: 0px;
+    letter-spacing: 0rpx;
 }
 
 .buttonRenew {
     background: linear-gradient(270deg, #41404f -38%, #47506c 36%);
-    border-radius: 85px;
+    border-radius: 170rpx;
     opacity: 1;
-    width: 200px;
-    height: 40px;
+    width: 400rpx;
+    height: 80rpx;
     color: #f7d8b8;
 }
 
 .ts {
-    font-size: 10px;
+    font-size: 20rpx;
     font-weight: 500;
-    line-height: 15px;
+    line-height: 30rpx;
     text-align: center;
     letter-spacing: 0.02em;
 
@@ -167,49 +164,49 @@ export default {
     background-color: transparent;
     /* background-color: antiquewhite; */
     /* 半透明白色背景 */
-    /* border: 1px solid #ccc; */
+    /* border: 2rpx solid #ccc; */
     /* 边框 */
-    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    /* box-shadow: 0 0 20rpx rgba(0, 0, 0, 0.1); */
     /* 阴影 */
 
     /* 其他样式，如 padding、overflow 等 */
-    padding: 20px;
+    padding: 40rpx;
     overflow: auto;
     /* 如果内容过多，允许滚动 */
 }
 
 .tab {
-    border-radius: 8.8px;
+    border-radius: 17.6rpx;
     box-sizing: border-box;
-    border: 1.73px solid #d6ae83;
+    border: 3.46rpx solid #d6ae83;
     height: 100%;
-    width: 100px;
+    width: 200rpx;
 }
 
 .iconPeople {
-    height: 15px;
-    width: 60px;
-    border-radius: 4.34px 0.87px 4.34px 0.87px;
+    height: 30rpx;
+    width: 120rpx;
+    border-radius: 8.68rpx 1.74rpx 8.68rpx 1.74rpx;
     opacity: 1;
     background: linear-gradient(270deg, #d0a373 0%, #fdd39e 100%);
-    font-size: 7px;
+    font-size: 14rpx;
     color: #ffffff;
 }
 
 .t1 {
-    font-size: 16px;
+    font-size: 32rpx;
     font-weight: 600;
     color: #8f6c38;
 }
 
 .t2 {
-    font-size: 20px;
+    font-size: 40rpx;
     font-weight: 600;
     color: #8f6c38;
 }
 
 .t3 {
-    font-size: 12px;
+    font-size: 24rpx;
     font-weight: 400;
     text-decoration: line-through;
     color: #dac7b2;

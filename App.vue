@@ -4,20 +4,18 @@ import SocketManager from '@/utils/socketManager.js';
 export default {
     data() {
         return {
-            todoCount: 0,
-            messageCount: 0,
-            size: {
-                message: 0,
-                todo: 0,
-                contact: 0,
-                emp: 0,
-                notice: 0
-            }
+            // todoCount: 0,
+            // messageCount: 0,
+            // size: {
+            //     message: 0,
+            //     todo: 0,
+            //     contact: 0,
+            //     emp: 0,
+            //     notice: 0
+            // }
         };
     },
     onLaunch(options) {
-        uni.hideTabBar();
-        // console.log('options', options);
         const inviterId = options?.query?.inviterId;
         //缓存邀请码
         if (inviterId) {
@@ -32,7 +30,7 @@ export default {
             uni.removeStorage({ key: '1003' });
         }
 
-        uni.removeStorage({ key: 'details' });
+        // uni.removeStorage({ key: 'details' });
         uni.setStorageSync('auth', '0');
         if (!uni.getStorageSync('wzc_img')) {
             uni.setStorageSync('wzc_img', '/static/img/obj/wzc' + (Math.floor(Math.random() * 3) + 1) + '.svg');
@@ -45,13 +43,16 @@ export default {
         if (options.scene !== 1007 && this.vuex_user?.phone) {
             // 使用封装模块连接 WebSocket
             SocketManager.connect(this.vuex_user.phone, (data) => {
-                if (data.type) {
+                if (data.success == 'ok') {
                     this.updateMessageCounts();
-                    this.$store.commit('updateFlush', data.type);
+                    this.$u.setPinia({
+                        system: {
+                            Flush: data.success
+                        }
+                    });
                 }
             });
 
-            this.updateMessageCounts();
             this.redirectToIndexIfNeeded();
         }
     },
@@ -75,9 +76,11 @@ export default {
         },
         getPendingTasks() {
             this.$api.order.getOrderDraftList({ bUser: this.vuex_user.phone }).then((res) => {
+                console.log('系统消息', res);
                 const isDirector = this.vuex_userRole === 'D';
                 const tasks = res.data.data.filter((item) => (isDirector ? item.port === '1' || item.port === 'f' : item.port === '0'));
                 this.todoCount = tasks.length;
+
                 this.$u.setPinia({
                     global: {
                         tabbar: [
@@ -96,27 +99,23 @@ export default {
                 staff: user.phone,
                 work: user.data.work
             };
-            this.$api.inform
-                .getAllInformList(dx)
-                .then((res) => {
-                    const count = res.data.data;
-                    if (this.$u.getPinia('global.tabbar.2.count') !== count) {
-                        this.$u.setPinia({
-                            global: {
-                                tabbar: [
-                                    {},
-                                    {},
-                                    {
-                                        count: tasks.length
-                                    }
-                                ]
-                            }
-                        });
-                    }
-                })
-                .catch(() => {
-                    this.$u.toast(this.messageCount);
-                });
+            this.$api.inform.getAllInformList(dx).then((res) => {
+                console.log('消息', res);
+                const count = res.data.data;
+                if (this.$u.getPinia('global.tabbar.2.count') !== count) {
+                    this.$u.setPinia({
+                        global: {
+                            tabbar: [
+                                {},
+                                {},
+                                {
+                                    count: count
+                                }
+                            ]
+                        }
+                    });
+                }
+            });
         },
         redirectToIndexIfNeeded() {
             if (uni.getStorageSync('details') === '1') {

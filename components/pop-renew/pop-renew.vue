@@ -42,11 +42,6 @@ export default {
             orderPrice: 0
         };
     },
-    onShow() {
-        console.log('续费页面');
-        var Renew = uni.getStorageSync('Renew');
-        console.log(Renew);
-    },
     methods: {
         close() {
             this.$parent.$parent.roleShow = false;

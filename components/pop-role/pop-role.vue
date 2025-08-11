@@ -1,5 +1,5 @@
 <template>
-    <u-popup v-model="roleShow" mode="bottom" border-radius="15" height="750rpx" :closeable="true" :mask-close-able="false">
+    <u-popup :show="roleShow" mode="bottom" border-radius="15" height="750rpx" :closeable="true" :mask-close-able="false">
         <view
             class="pd36 flex-col justify-center items-center jb"
             @tap.stop
@@ -7,12 +7,12 @@
             :style="{ backgroundImage: 'url(' + ImgUrl + '/wxImg/index/backRD.png)' }"
         >
             <view class="flex-col" style="width: 100%">
-                <text class="ft30 ft-bold ft-green mb10" style="color: #333333; font-size: 20px; font-weight: bold">设置角色</text>
+                <text class="ft30 ft-bold ft-green mb10" style="color: #333333; font-size: 40rpx; font-weight: bold">设置角色</text>
                 <text class="ft-gray pb48" style="#666666">切换您的角色，快速收发单</text>
             </view>
-            <view class="vw100 flex-row" style="height: 150px">
+            <view class="vw100 flex-row" style="height: 300rpx">
                 <view class=""></view>
-                <view class="relative mr10" style="height: 200px; width: 40%; margin-left: 8%; margin-right: 2%; border: 1.5px solid #01bb74; border-radius: 12px">
+                <view class="relative mr10" style="height: 400rpx; width: 40%; margin-left: 8%; margin-right: 2%; border: 3rpx solid #01bb74; border-radius: 24rpx">
                     <u-image
                         v-show="roleShowF == true"
                         @click="qh(11)"
@@ -31,13 +31,13 @@
                         :show-menu-by-longpress="false"
                         :src="ImgUrl + '/wxImg/index/02.png'"
                     ></u-image>
-                    <view class="absolute" style="top: 10px; right: -10px">
+                    <view class="absolute" style="top: 20rpx; right: -20rpx">
                         <u-radio-group placement="column" @change="qh(1)" v-model="check">
-                            <u-radio :customStyle="{ marginBottom: '8px' }" @change="" activeColor="#01BB74" v-model="roleShowF" name="1"></u-radio>
+                            <u-radio :customStyle="{ marginBottom: '16rpx' }" @change="" activeColor="#01BB74" v-model="roleShowF" name="1"></u-radio>
                         </u-radio-group>
                     </view>
                 </view>
-                <view class="relative ml10" style="height: 200px; width: 40%; border: 1.5px solid #568ff2; border-radius: 12px">
+                <view class="relative ml10" style="height: 400rpx; width: 40%; border: 3rpx solid #568ff2; border-radius: 24rpx">
                     <u-image
                         v-show="roleShowS == true"
                         @click="qh(22)"
@@ -56,9 +56,9 @@
                         :show-menu-by-longpress="false"
                         :src="ImgUrl + '/wxImg/index/03.png'"
                     ></u-image>
-                    <view class="absolute" style="top: 10px; right: -10px">
+                    <view class="absolute" style="top: 20rpx; right: -20rpx">
                         <u-radio-group placement="column" @change="qh(2)" v-model="check">
-                            <u-radio :customStyle="{ marginBottom: '8px' }" @change="" activeColor="#568FF2" name="2"></u-radio>
+                            <u-radio :customStyle="{ marginBottom: '16rpx' }" @change="" activeColor="#568FF2" name="2"></u-radio>
                         </u-radio-group>
                     </view>
                 </view>
@@ -103,24 +103,6 @@ export default {
                 this.$loadUser(this);
             }
         }
-    },
-    onShow() {
-        console.log('ImgUrlaaaaaaaaaaaaaa', this.ImgUrl);
-        if (this.vuex_userRole == 'R') {
-            this.roleShowF = false;
-            this.roleShowS = true;
-            this.check = '2';
-        } else {
-            this.roleShowF = true;
-            this.roleShowS = false;
-            this.check = '1';
-        }
-
-        this.$u.setPinia({
-            global: {
-                tabIndex: 0
-            }
-        });
     },
     methods: {
         qh(i) {

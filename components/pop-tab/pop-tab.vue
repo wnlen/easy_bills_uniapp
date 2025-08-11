@@ -58,6 +58,10 @@ export default {
             ]
         };
     },
+    created() {
+        console.log('底部导航', this.$u.getPinia('global.tabbar'));
+        this.tabbar = this.$u.getPinia('global.tabbar');
+    },
     methods: {
         changeTab(e) {
             uni.switchTab({

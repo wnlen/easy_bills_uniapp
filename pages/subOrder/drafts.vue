@@ -606,11 +606,10 @@ export default {
                 this.refresh = false;
                 this.onReachBottom = false;
                 this.realTimeSel.role = this.vuex_userRole == 'R' ? '1' : '0';
+                console.log('this.realTimeSel', this.realTimeSel);
                 this.$api.draft
                     .getDraftList(this.realTimeSel)
                     .then((res) => {
-                        console.log(res.data.data.length);
-
                         var orderList = res.data.data.map((obj) => {
                             return {
                                 ...obj,

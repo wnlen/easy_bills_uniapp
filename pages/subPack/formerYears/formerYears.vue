@@ -1072,7 +1072,7 @@ export default {
                 dx.limitS = '';
                 dx.role = this.vuex_userRole == 'R' ? '1' : '0';
                 this.$api.order
-                    .postOrderFilter(dx)
+                    .getOrderFilter(dx)
                     .then((res) => {
                         console.log('下载pdf的单据：', res.data.data);
                         this.downPdf(res.data.data);
