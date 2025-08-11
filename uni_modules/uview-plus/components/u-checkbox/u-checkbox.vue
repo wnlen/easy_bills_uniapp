@@ -8,7 +8,7 @@
         <view class="u-checkbox__icon-wrap cursor-pointer" @tap.stop="iconClickHandler" :class="iconClasses" :style="[iconWrapStyle]">
             <slot name="icon" :elIconSize="elIconSize" :elIconColor="elIconColor">
                 <view class="u-checkbox__icon-wrap__icon">
-                    <u-icon name="checkbox-mark" :size="elIconSize" :color="elIconColor" >
+                    <u-icon name="checkbox-mark" :size="elIconSize" :color="elIconColor" />
                 </view>
             </slot>
         </view>
