@@ -19,7 +19,7 @@
         </view>
 
         <view class="flex-col justify-center pl60 pr60 pb60 pt60 vw100" style="position: absolute; bottom: 0">
-            <u-button hover-class="none" :custom-style="{ backgroundColor: '#01BB74' }" shape="circle" type="primary" @click="updateInfo">确认修改</u-button>
+            <u-button hover-class="none" color="#01BB74" shape="circle" type="primary" @click="updateInfo">确认修改</u-button>
         </view>
     </view>
 </template>

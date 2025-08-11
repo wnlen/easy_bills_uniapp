@@ -1,7 +1,7 @@
 <template>
 	<view class="billReceipt">
 		<!-- 日历选择器 -->
-		<uv-calendars mode="range" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="ChangeTimeStart" />
+		<uv-calendars color="#01BB74" confirmColor="#01BB74" mode="range" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="ChangeTimeStart" />
 		<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" mode="search" margin-top="-200" v-if="!identity"></u-empty>
 
 		<z-paging

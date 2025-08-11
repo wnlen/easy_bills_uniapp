@@ -501,7 +501,7 @@
                     </view>
                 </view>
                 <!-- 日历选择器 -->
-                <uv-calendars mode="range" :startDate="limitingTimeO" :endDate="limitingTimeT" ref="calendars" @confirm="date1Change" />
+                <uv-calendars color="#01BB74" confirmColor="#01BB74" mode="range" :startDate="limitingTimeO" :endDate="limitingTimeT" ref="calendars" @confirm="date1Change" />
             </view>
         </u-popup>
     </view>
@@ -1072,7 +1072,7 @@ export default {
                 dx.limitS = '';
                 dx.role = this.vuex_userRole == 'R' ? '1' : '0';
                 this.$api.order
-                    .getOrderFilter(dx)
+                    .getFilteredOrders(dx)
                     .then((res) => {
                         console.log('下载pdf的单据：', res.data.data);
                         this.downPdf(res.data.data);

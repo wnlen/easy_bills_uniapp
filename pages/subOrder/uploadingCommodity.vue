@@ -14,19 +14,24 @@
 				:previewFullImage="true"
 				:deletable="true"
 				:showRetry="false"
+				uploadIconColor="#01BB74"
+				uploadIcon="plus-circle-fill"
+				uploadText="添加图片"
+				height="16vh"
+				width="34vw"
 			>
-				<template #trigger>
+				<!-- <template #trigger>
 					<view class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
 						<up-icon name="plus-circle-fill" color="#01BB74" size="50rpx" label="添加图片" labelPos="bottom" />
 					</view>
-				</template>
+				</template> -->
 			</u-upload>
 		</view>
 
 		<view class="uploadingCommodityFrom">
 			<view class="uploadingCommodityFromCardRow">
 				<text class="sign">
-					*
+					<text>*</text>
 					<text class="name">品名</text>
 				</text>
 				<view class="uploadingCommodityFromCardRowInput" style="width: 600rpx">
@@ -43,7 +48,7 @@
 			</view>
 			<view class="uploadingCommodityFromCardRow">
 				<text class="sign">
-					*
+					<text>*</text>
 					<text class="name">规格</text>
 				</text>
 				<view class="uploadingCommodityFromCardRowInput" style="width: 600rpx">
@@ -60,7 +65,7 @@
 			</view>
 			<view class="uploadingCommodityFromCardRow">
 				<text class="sign">
-					*
+					<text>*</text>
 					<text class="name">单位</text>
 				</text>
 				<view class="uploadingCommodityFromCardRowInput mt24" style="width: 600rpx">
@@ -78,7 +83,7 @@
 			</view>
 			<view class="uploadingCommodityFromCardRow">
 				<text class="sign">
-					*
+					<text>*</text>
 					<text class="name">单价</text>
 				</text>
 				<view class="uploadingCommodityFromCardRowInput" style="width: 400rpx">
@@ -96,7 +101,7 @@
 			</view>
 			<view class="uploadingCommodityFromCard">
 				<text class="name">备注说明</text>
-				<u-input v-model="uploadingCommodity.remark" type="textarea" placeholder="请输入" border="none"></u-input>
+				<u-textarea v-model="uploadingCommodity.remark" placeholder="请您在此处填写备注说明" border="none"></u-textarea>
 			</view>
 			<view class="flex-row justify-end items-center pr24 pt48" style="width: 100%">
 				<text class="name mr24">置于商品库顶部</text>
@@ -105,9 +110,7 @@
 		</view>
 
 		<view class="" style="position: absolute; bottom: 40rpx; width: 94%; justify-content: center; left: 3%">
-			<u-button type="primary" hover-class="none" :custom-style="{ backgroundColor: '#01BB74' }" class="form-btn-big" @click="uploadingCommodityAdd" shape="circle">
-				保存
-			</u-button>
+			<u-button type="primary" hover-class="none" color="#01BB74" class="form-btn-big" @click="uploadingCommodityAdd" shape="circle">保存</u-button>
 		</view>
 	</view>
 </template>
@@ -299,6 +302,10 @@ export default {
 </script>
 
 <style lang="scss">
+.u-textarea {
+	background-color: transparent !important;
+	padding: 20rpx 0 !important;
+}
 .uploadingCommodity {
 	width: 100vw;
 	height: 100vh;

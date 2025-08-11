@@ -261,7 +261,7 @@
                 <view class="fixed-bar" style="background: none">
                     <view class="pl30 pr30 pb30 flex-row justify-between items-center">
                         <view v-if="LookBtn == 'Y' && post.paymentState == '0' && post.lockOrder != 1" class="flex-row flex-1 items-center">
-                            <u-button hover-class="none" :custom-style="{ backgroundColor: '#01BB74' }" class="width100" type="primary" shape="circle" @click="onConfirm">
+                            <u-button hover-class="none" color="#01BB74" class="width100" type="primary" shape="circle" @click="onConfirm">
                                 确认签收
                             </u-button>
                         </view>
