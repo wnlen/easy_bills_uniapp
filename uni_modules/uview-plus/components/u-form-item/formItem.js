@@ -19,6 +19,6 @@ export default {
         rightIcon: '',
         leftIcon: '',
         required: false,
-        leftIconStyle: ''
+        leftIconStyle: '',
     }
-};
+}

@@ -12,6 +12,6 @@ const color = {
     tipsColor: '#909399',
     lightColor: '#c0c4cc',
     borderColor: '#e4e7ed'
-};
+}
 
-export default color;
+export default color

@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 import test from '../../libs/function/test';
 export const props = defineMixin({
     props: {
@@ -68,7 +68,7 @@ export const props = defineMixin({
             type: [String, Number],
             // 校验参数规则，索引在0-19之间
             validator(n) {
-                return test.range(n, [0, 19]) || n === '';
+                return test.range(n, [0, 19]) || n === ''
             },
             default: () => defProps.avatar.colorIndex
         },
@@ -78,4 +78,4 @@ export const props = defineMixin({
             default: () => defProps.avatar.name
         }
     }
-});
+})

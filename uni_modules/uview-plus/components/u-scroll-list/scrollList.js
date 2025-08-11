@@ -17,4 +17,4 @@ export default {
         indicatorActiveColor: '#3c9cff',
         indicatorStyle: ''
     }
-};
+}

@@ -1,7 +1,7 @@
-'use strict';
+'use strict'
 
 function InterceptorManager() {
-    this.handlers = [];
+    this.handlers = []
 }
 
 /**
@@ -16,9 +16,9 @@ InterceptorManager.prototype.use = function use(fulfilled, rejected) {
     this.handlers.push({
         fulfilled,
         rejected
-    });
-    return this.handlers.length - 1;
-};
+    })
+    return this.handlers.length - 1
+}
 
 /**
  * Remove an interceptor from the stack
@@ -27,9 +27,9 @@ InterceptorManager.prototype.use = function use(fulfilled, rejected) {
  */
 InterceptorManager.prototype.eject = function eject(id) {
     if (this.handlers[id]) {
-        this.handlers[id] = null;
+        this.handlers[id] = null
     }
-};
+}
 
 /**
  * Iterate over all the registered interceptors
@@ -42,9 +42,9 @@ InterceptorManager.prototype.eject = function eject(id) {
 InterceptorManager.prototype.forEach = function forEach(fn) {
     this.handlers.forEach((h) => {
         if (h !== null) {
-            fn(h);
+            fn(h)
         }
-    });
-};
+    })
+}
 
-export default InterceptorManager;
+export default InterceptorManager

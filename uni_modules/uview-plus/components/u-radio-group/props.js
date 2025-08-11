@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 export const props = defineMixin({
     props: {
         // #ifdef VUE3
@@ -92,9 +92,9 @@ export const props = defineMixin({
             default: () => defProps.radio.iconPlacement
         },
         // item 之间的间距
-        gap: {
-            type: [String, Number],
-            default: () => defProps.radioGroup.gap
-        }
+		gap: {
+			type: [String, Number],
+			default: () => defProps.radioGroup.gap
+		}
     }
-});
+})

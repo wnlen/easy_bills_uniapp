@@ -18,4 +18,4 @@ export default {
         fontSize: 14,
         speed: 80
     }
-};
+}

@@ -17,4 +17,4 @@ export default {
         customNavHeight: 0,
         safeBottomFix: false
     }
-};
+}

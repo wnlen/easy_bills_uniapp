@@ -211,4 +211,4 @@ export default {
     'uicon-man-delete-fill': '\ue66a',
     'uicon-zh': '\ue70a',
     'uicon-en': '\ue692'
-};
+}

@@ -1,52 +1,76 @@
 <template>
     <view class="u-input" :class="inputClass" :style="[wrapperStyle]">
         <view class="u-input__content">
-            <view class="u-input__content__prefix-icon" v-if="prefixIcon || $slots.prefix">
+            <view
+                class="u-input__content__prefix-icon"
+                v-if="prefixIcon || $slots.prefix"
+            >
                 <slot name="prefix">
-                    <u-icon :name="prefixIcon" size="18" :customStyle="prefixIconStyle"></u-icon>
+                    <u-icon
+                        :name="prefixIcon"
+                        size="18"
+                        :customStyle="prefixIconStyle"
+                    ></u-icon>
                 </slot>
             </view>
             <view class="u-input__content__field-wrapper" @tap="clickHandler">
-                <!-- 根据uni-app的input组件文档，H5和APP中只要声明了password参数(无论true还是false)，type均失效，此时
+				<!-- 根据uni-app的input组件文档，H5和APP中只要声明了password参数(无论true还是false)，type均失效，此时
 					为了防止type=number时，又存在password属性，type无效，此时需要设置password为undefined
 				 -->
-                <input
+            	<input
                     ref="input-native"
-                    class="u-input__content__field-wrapper__field"
-                    :style="[inputStyle]"
-                    :type="type"
-                    :focus="focus"
-                    :cursor="cursor"
-                    :value="innerValue"
-                    :auto-blur="autoBlur"
-                    :disabled="disabled || readonly"
-                    :maxlength="maxlength"
-                    :placeholder="placeholder"
-                    :placeholder-style="placeholderStyle"
-                    :placeholder-class="placeholderClass"
-                    :confirm-type="confirmType"
-                    :confirm-hold="confirmHold"
-                    :hold-keyboard="holdKeyboard"
-                    :cursor-spacing="cursorSpacing"
-                    :adjust-position="adjustPosition"
-                    :selection-end="selectionEnd"
-                    :selection-start="selectionStart"
-                    :password="password || type === 'password' || false"
+            	    class="u-input__content__field-wrapper__field"
+            	    :style="[inputStyle]"
+            	    :type="type"
+            	    :focus="focus"
+            	    :cursor="cursor"
+            	    :value="innerValue"
+            	    :auto-blur="autoBlur"
+            	    :disabled="disabled || readonly"
+            	    :maxlength="maxlength"
+            	    :placeholder="placeholder"
+            	    :placeholder-style="placeholderStyle"
+            	    :placeholder-class="placeholderClass"
+            	    :confirm-type="confirmType"
+            	    :confirm-hold="confirmHold"
+            	    :hold-keyboard="holdKeyboard"
+                    :cursor-color="cursorColor"
+            	    :cursor-spacing="cursorSpacing"
+            	    :adjust-position="adjustPosition"
+            	    :selection-end="selectionEnd"
+            	    :selection-start="selectionStart"
+            	    :password="password || type === 'password' || false"
                     :ignoreCompositionEvent="ignoreCompositionEvent"
-                    @input="onInput"
-                    @blur="onBlur"
-                    @focus="onFocus"
-                    @confirm="onConfirm"
-                    @keyboardheightchange="onkeyboardheightchange"
+            	    @input="onInput"
+            	    @blur="onBlur"
+            	    @focus="onFocus"
+            	    @confirm="onConfirm"
+            	    @keyboardheightchange="onkeyboardheightchange"
                     @nicknamereview="onnicknamereview"
-                />
+            	/>
             </view>
-            <view class="u-input__content__clear" v-if="isShowClear" @click="onClear">
-                <u-icon name="close" size="11" color="#ffffff" customStyle="line-height: 12px"></u-icon>
+            <view
+                class="u-input__content__clear"
+                v-if="isShowClear"
+                @click="onClear"
+            >
+                <u-icon
+                    name="close"
+                    size="11"
+                    color="#ffffff"
+                    customStyle="line-height: 12px"
+                ></u-icon>
             </view>
-            <view class="u-input__content__subfix-icon" v-if="suffixIcon || $slots.suffix">
+            <view
+                class="u-input__content__subfix-icon"
+                v-if="suffixIcon || $slots.suffix"
+            >
                 <slot name="suffix">
-                    <u-icon :name="suffixIcon" size="18" :customStyle="suffixIconStyle"></u-icon>
+                    <u-icon
+                        :name="suffixIcon"
+                        size="18"
+                        :customStyle="suffixIconStyle"
+                    ></u-icon>
                 </slot>
             </view>
         </view>
@@ -54,7 +78,7 @@
 </template>
 
 <script>
-import { props } from './props.js';
+import { props } from "./props.js";
 import { mpMixin } from '../../libs/mixin/mpMixin';
 import { mixin } from '../../libs/mixin/mixin';
 import { debounce } from '../../libs/function/debounce';
@@ -82,6 +106,7 @@ import { addStyle, addUnit, deepMerge, formValidate, $parent, sleep, os } from '
  * @property {Boolean}			autoBlur				键盘收起时，是否自动失去焦点，目前仅App3.0.0+有效 （ 默认 false ）
  * @property {Boolean}			disableDefaultPadding	是否去掉 iOS 下的默认内边距，仅微信小程序，且type=textarea时有效 （ 默认 false ）
  * @property {String ｜ Number}	cursor					指定focus时光标的位置（ 默认 140 ）
+ * @property {String }          cursorColor			    光标颜色
  * @property {String ｜ Number}	cursorSpacing			输入框聚焦时底部与键盘的距离 （ 默认 30 ）
  * @property {String ｜ Number}	selectionStart			光标起始位置，自动聚集时有效，需与selection-end搭配使用 （ 默认 -1 ）
  * @property {String ｜ Number}	selectionEnd			光标结束位置，自动聚集时有效，需与selection-start搭配使用 （ 默认 -1 ）
@@ -102,22 +127,22 @@ import { addStyle, addUnit, deepMerge, formValidate, $parent, sleep, os } from '
  * @example <u-input v-model="value" :password="true" suffix-icon="lock-fill" />
  */
 export default {
-    name: 'u-input',
+    name: "u-input",
     mixins: [mpMixin, mixin, props],
     data() {
         return {
             // 清除操作
             clearInput: false,
             // 输入框的值
-            innerValue: '',
+            innerValue: "",
             // 是否处于获得焦点状态
             focused: false,
             // value是否第一次变化，在watch中，由于加入immediate属性，会在第一次触发，此时不应该认为value发生了变化
             firstChange: true,
             // value绑定值的变化是由内部还是外部引起的
             changeFromInner: false,
-            // 过滤处理方法
-            innerFormatter: (value) => value
+			// 过滤处理方法
+			innerFormatter: value => value
         };
     },
     created() {
@@ -137,12 +162,15 @@ export default {
                 }
                 this.innerValue = newVal;
                 // 在H5中，外部value变化后，修改input中的值，不会触发@input事件，此时手动调用值变化方法
-                if (this.firstChange === false && this.changeFromInner === false) {
+                if (
+                    this.firstChange === false &&
+					this.changeFromInner === false
+                ) {
                     this.valueChange(this.innerValue, true);
                 } else {
-                    // 尝试调用up-form的验证方法
-                    if (!this.firstChange) formValidate(this, 'change');
-                }
+					// 尝试调用up-form的验证方法
+                    if(!this.firstChange) formValidate(this, "change");
+				}
                 this.firstChange = false;
                 // 重置changeFromInner的值为false，标识下一次引起默认为外部引起的
                 this.changeFromInner = false;
@@ -153,16 +181,21 @@ export default {
         // 是否显示清除控件
         isShowClear() {
             const { clearable, readonly, focused, innerValue } = this;
-            return !!clearable && !readonly && !!focused && innerValue !== '';
+            return !!clearable && !readonly && !!focused && innerValue !== "";
         },
         // 组件的类名
         inputClass() {
             let classes = [],
                 { border, disabled, shape } = this;
-            border === 'surround' && (classes = classes.concat(['u-border', 'u-input--radius']));
+            border === "surround" &&
+                (classes = classes.concat(["u-border", "u-input--radius"]));
             classes.push(`u-input--${shape}`);
-            border === 'bottom' && (classes = classes.concat(['u-border-bottom', 'u-input--no-radius']));
-            return classes.join(' ');
+            border === "bottom" &&
+                (classes = classes.concat([
+                    "u-border-bottom",
+                    "u-input--no-radius",
+                ]));
+            return classes.join(" ");
         },
         // 组件的样式
         wrapperStyle() {
@@ -172,14 +205,14 @@ export default {
                 style.backgroundColor = this.disabledColor;
             }
             // 无边框时，去除内边距
-            if (this.border === 'none') {
-                style.padding = '0';
+            if (this.border === "none") {
+                style.padding = "0";
             } else {
-                // 由于uni-app的iOS开发者能力有限，导致需要分开写才有效
-                style.paddingTop = '6px';
-                style.paddingBottom = '6px';
-                style.paddingLeft = '9px';
-                style.paddingRight = '9px';
+                // 由于uni-app的iOS端限制，导致需要分开写才有效
+                style.paddingTop = "6px";
+                style.paddingBottom = "6px";
+                style.paddingLeft = "9px";
+                style.paddingRight = "9px";
             }
             return deepMerge(style, addStyle(this.customStyle));
         },
@@ -188,46 +221,46 @@ export default {
             const style = {
                 color: this.color,
                 fontSize: addUnit(this.fontSize),
-                textAlign: this.inputAlign
+				textAlign: this.inputAlign
             };
             return style;
-        }
+        },
     },
     // #ifdef VUE3
     emits: ['update:modelValue', 'focus', 'blur', 'change', 'confirm', 'clear', 'keyboardheightchange', 'nicknamereview'],
     // #endif
     methods: {
-        // 在微信小程序中，不支持将函数当做props参数，故只能通过ref形式调用
-        setFormatter(e) {
-            this.innerFormatter = e;
-        },
+		// 在微信小程序中，不支持将函数当做props参数，故只能通过ref形式调用
+		setFormatter(e) {
+			this.innerFormatter = e
+		},
         // 当键盘输入时，触发input事件
         onInput(e) {
-            let { value = '' } = e.detail || {};
+            let { value = "" } = e.detail || {};
             // 为了避免props的单向数据流特性，需要先将innerValue值设置为当前值，再在$nextTick中重新赋予设置后的值才有效
             // console.log('onInput', value, this.innerValue)
             this.innerValue = value;
             this.$nextTick(() => {
                 let formatValue = this.innerFormatter(value);
-                this.innerValue = formatValue;
+            	this.innerValue = formatValue;
                 this.valueChange(formatValue);
-            });
+            })
         },
         // 输入框失去焦点时触发
         onBlur(event) {
-            this.$emit('blur', event.detail.value);
+            this.$emit("blur", event.detail.value);
             // H5端的blur会先于点击清除控件的点击click事件触发，导致focused
             // 瞬间为false，从而隐藏了清除控件而无法被点击到
             sleep(150).then(() => {
                 this.focused = false;
             });
             // 尝试调用u-form的验证方法
-            formValidate(this, 'blur');
+            formValidate(this, "blur");
         },
         // 输入框聚焦时触发
         onFocus(event) {
             this.focused = true;
-            this.$emit('focus');
+            this.$emit("focus");
         },
         doFocus() {
             this.$refs['input-native'].focus();
@@ -237,19 +270,19 @@ export default {
         },
         // 点击完成按钮时触发
         onConfirm(event) {
-            this.$emit('confirm', this.innerValue);
+            this.$emit("confirm", this.innerValue);
         },
         // 键盘高度发生变化的时候触发此事件
         // 兼容性：微信小程序2.7.0+、App 3.1.0+
-        onkeyboardheightchange(event) {
-            this.$emit('keyboardheightchange', event);
+		onkeyboardheightchange(event) {
+            this.$emit("keyboardheightchange", event);
         },
         onnicknamereview(event) {
-            this.$emit('nicknamereview', event);
+            this.$emit("nicknamereview", event);
         },
         // 内容发生变化，进行处理
         valueChange(value, isOut = false) {
-            if (this.clearInput) {
+            if(this.clearInput) {
                 this.innerValue = '';
                 this.clearInput = false;
             }
@@ -257,27 +290,27 @@ export default {
                 if (!isOut || this.clearInput) {
                     // 标识value值的变化是由内部引起的
                     this.changeFromInner = true;
-                    this.$emit('change', value);
+                    this.$emit("change", value);
 
                     // #ifdef VUE3
-                    this.$emit('update:modelValue', value);
+                    this.$emit("update:modelValue", value);
                     // #endif
                     // #ifdef VUE2
-                    this.$emit('input', value);
+                    this.$emit("input", value);
                     // #endif
                 }
 
                 // 尝试调用u-form的验证方法
-                formValidate(this, 'change');
+                formValidate(this, "change");
             });
         },
         // 点击清除控件
         onClear() {
             this.clearInput = true;
-            this.innerValue = '';
+            this.innerValue = "";
             this.$nextTick(() => {
-                this.valueChange('');
-                this.$emit('clear');
+                this.valueChange("");
+                this.$emit("clear");
             });
         },
         /**
@@ -290,15 +323,15 @@ export default {
                 uni.hideKeyboard();
             }
             // #ifdef APP-NVUE
-            if (os() === 'android') {
-                const formItem = $parent.call(this, 'u-form-item');
+            if (os() === "android") {
+                const formItem = $parent.call(this, "u-form-item");
                 if (formItem) {
                     formItem.clickHandler();
                 }
             }
             // #endif
-        }
-    }
+        },
+    },
 };
 </script>
 
@@ -333,15 +366,15 @@ export default {
             @include flex(row);
             margin: 0;
             flex: 1;
-
-            &__field {
-                line-height: 26px;
-                text-align: left;
-                color: $u-main-color;
-                height: 24px;
-                font-size: 15px;
-                flex: 1;
-            }
+			
+			&__field {
+				line-height: 26px;
+				text-align: left;
+				color: $u-main-color;
+				height: 24px;
+				font-size: 15px;
+				flex: 1;
+			}
         }
 
         &__clear {

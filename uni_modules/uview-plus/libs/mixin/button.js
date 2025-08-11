@@ -1,4 +1,4 @@
-import { defineMixin } from '../vue';
+import { defineMixin } from '../vue'
 
 export const buttonMixin = defineMixin({
     props: {
@@ -12,6 +12,7 @@ export const buttonMixin = defineMixin({
         formType: String,
         openType: String
     }
-});
+})
 
-export default buttonMixin;
+export default buttonMixin
+

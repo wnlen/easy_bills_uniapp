@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 export const props = defineMixin({
     props: {
         // 是否细边框
@@ -154,6 +154,6 @@ export const props = defineMixin({
         stop: {
             type: Boolean,
             default: () => defProps.button.stop
-        }
+        },
     }
-});
+})

@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 export const props = defineMixin({
     props: {
         // 滑块的移动过渡时间，单位ms
@@ -52,20 +52,20 @@ export const props = defineMixin({
             type: Boolean,
             default: () => defProps.tabs.scrollable
         },
-        // 当前选中标签的索引
-        current: {
-            type: [Number, String],
-            default: () => defProps.tabs.current
-        },
-        // 默认读取的键名
-        keyName: {
-            type: String,
-            default: () => defProps.tabs.keyName
-        },
+		// 当前选中标签的索引
+		current: {
+			type: [Number, String],
+			default: () => defProps.tabs.current
+		},
+		// 默认读取的键名
+		keyName: {
+			type: String,
+			default: () => defProps.tabs.keyName
+		},
         // 左侧图标样式
         iconStyle: {
             type: [String, Object],
             default: () => defProps.tabs.iconStyle
         }
     }
-});
+})

@@ -12,7 +12,7 @@ export default {
     tabs: {
         duration: 300,
         list: [],
-        lineColor: '#3c9cff',
+        lineColor: '',
         activeStyle: {
             color: '#303133'
         },
@@ -26,8 +26,8 @@ export default {
             height: '44px'
         },
         scrollable: true,
-        current: 0,
-        keyName: 'name',
+		current: 0,
+		keyName: 'name',
         iconStyle: {}
     }
-};
+}

@@ -17,4 +17,4 @@ export default {
     topTips: 975,
     sticky: 970,
     indexListSticky: 965
-};
+}

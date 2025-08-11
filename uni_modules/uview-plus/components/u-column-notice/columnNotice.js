@@ -20,6 +20,6 @@ export default {
         step: false,
         duration: 1500,
         disableTouch: true,
-        justifyContent: 'flex-start'
+		justifyContent: 'flex-start'
     }
-};
+}

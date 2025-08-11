@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 export const props = defineMixin({
     props: {
         // 右边锚点非激活的颜色
@@ -31,6 +31,6 @@ export const props = defineMixin({
         safeBottomFix: {
             type: Boolean,
             default: () => defProps.indexList.safeBottomFix
-        }
+        },
     }
-});
+})

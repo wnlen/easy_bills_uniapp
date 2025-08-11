@@ -21,4 +21,4 @@ export default {
         lineColor: '',
         arrow: true
     }
-};
+}

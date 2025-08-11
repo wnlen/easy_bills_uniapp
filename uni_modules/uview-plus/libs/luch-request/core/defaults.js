@@ -24,6 +24,6 @@ export default {
     firstIpv4: false,
     // #endif
     validateStatus: function validateStatus(status) {
-        return status >= 200 && status < 300;
+        return status >= 200 && status < 300
     }
-};
+}

@@ -35,4 +35,4 @@ export default {
         height: 32,
         label: null
     }
-};
+}

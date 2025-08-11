@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 export const props = defineMixin({
     props: {
         // 是否显示input
@@ -10,21 +10,21 @@ export const props = defineMixin({
         inputProps: {
             type: Object,
             default: () => {
-                return {};
+                return {}
             }
         },
         inputBorder: {
             type: String,
             default: () => defProps.input.inputBorder
         },
-        disabled: {
+		disabled: {
             type: Boolean,
             default: () => defProps.input.disabled
         },
-        disabledColor: {
-            type: String,
-            default: () => defProps.input.disabledColor
-        },
+		disabledColor:{
+			type: String,
+			default: () => defProps.input.disabledColor
+		},
         placeholder: {
             type: String,
             default: () => defProps.input.placeholder
@@ -38,7 +38,7 @@ export const props = defineMixin({
             type: Boolean,
             default: () => defProps.datetimePicker.show
         },
-        // 弹出的方向，可选值为 top bottom right left center
+		// 弹出的方向，可选值为 top bottom right left center
         popupMode: {
             type: String,
             default: () => defProps.picker.popupMode
@@ -49,10 +49,10 @@ export const props = defineMixin({
             default: () => defProps.datetimePicker.showToolbar
         },
         // 工具栏右侧内容
-        toolbarRightSlot: {
-            type: Boolean,
-            default: false
-        },
+		toolbarRightSlot:{
+			type: Boolean,
+			default:  false
+		},
         // #ifdef VUE2
         // 绑定值
         value: {
@@ -165,4 +165,4 @@ export const props = defineMixin({
             default: () => defProps.datetimePicker.defaultIndex
         }
     }
-});
+})

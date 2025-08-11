@@ -11,6 +11,6 @@ export default {
     // statusBar
     statusBar: {
         bgColor: 'transparent',
-        height: 0
+		height: 0
     }
-};
+}

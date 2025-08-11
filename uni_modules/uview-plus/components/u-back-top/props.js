@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 export const props = defineMixin({
     props: {
         // 返回顶部的形状，circle-圆形，square-方形
@@ -53,4 +53,4 @@ export const props = defineMixin({
             default: () => defProps.backtop.iconStyle
         }
     }
-});
+})

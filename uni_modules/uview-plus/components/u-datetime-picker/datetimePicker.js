@@ -11,7 +11,7 @@ export default {
     // datetimePicker 组件
     datetimePicker: {
         show: false,
-        popupMode: 'bottom',
+		popupMode: 'bottom',
         showToolbar: true,
         value: '',
         title: '',
@@ -37,6 +37,6 @@ export default {
         disabled: false,
         disabledColor: '',
         placeholder: '请选择',
-        inputProps: {}
+        inputProps: {},
     }
-};
+}

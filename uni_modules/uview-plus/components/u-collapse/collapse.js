@@ -14,4 +14,4 @@ export default {
         accordion: false,
         border: true
     }
-};
+}

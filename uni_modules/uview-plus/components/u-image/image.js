@@ -27,4 +27,4 @@ export default {
         duration: 500,
         bgColor: '#f3f4f6'
     }
-};
+}

@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 
 export const props = defineMixin({
     props: {
@@ -133,28 +133,28 @@ export const props = defineMixin({
             type: Boolean,
             default: () => defProps.calendar.allowSameDay
         },
-        // 圆角值
-        round: {
-            type: [Boolean, String, Number],
-            default: () => defProps.calendar.round
-        },
-        // 最多展示月份数量
-        monthNum: {
-            type: [Number, String],
-            default: 3
-        },
+		// 圆角值
+		round: {
+		    type: [Boolean, String, Number],
+		    default: () => defProps.calendar.round
+		},
+		// 最多展示月份数量
+		monthNum: {
+			type: [Number, String],
+			default: 3
+		},
         // 星期文案
         weekText: {
-            type: Array,
-            default: defProps.calendar.weekText
-        },
+			type: Array,
+			default: defProps.calendar.weekText
+		},
         forbidDays: {
-            type: Array,
-            default: defProps.calendar.forbidDays
-        },
-        forbidDaysToast: {
-            type: String,
-            default: defProps.calendar.forbidDaysToast
-        }
+			type: Array,
+			default: defProps.calendar.forbidDays
+		},
+        forbidDaysToast:{
+			type: String,
+			default: defProps.calendar.forbidDaysToast
+		},
     }
-});
+})

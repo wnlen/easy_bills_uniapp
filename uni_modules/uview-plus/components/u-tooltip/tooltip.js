@@ -22,4 +22,4 @@ export default {
         overlay: true,
         showToast: true
     }
-};
+}

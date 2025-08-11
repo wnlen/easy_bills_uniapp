@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 export const props = defineMixin({
     props: {
         // 需要显示的提示文字
@@ -58,4 +58,4 @@ export const props = defineMixin({
             default: () => defProps.tooltip.showToast
         }
     }
-});
+})

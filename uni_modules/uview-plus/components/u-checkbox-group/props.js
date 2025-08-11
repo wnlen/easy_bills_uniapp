@@ -1,5 +1,5 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 
 export const props = defineMixin({
     props: {
@@ -8,20 +8,20 @@ export const props = defineMixin({
             type: String,
             default: () => defProps.checkboxGroup.name
         },
-        // #ifdef VUE3
-        // 绑定的值
-        modelValue: {
-            type: Array,
-            default: () => defProps.checkboxGroup.value
-        },
-        // #endif
-        // #ifdef VUE2
-        // 绑定的值
-        value: {
-            type: Array,
-            default: () => defProps.checkboxGroup.value
-        },
-        // #endif
+		// #ifdef VUE3
+		// 绑定的值
+		modelValue: {
+		    type: Array,
+		    default: () => defProps.checkboxGroup.value
+		},
+		// #endif
+		// #ifdef VUE2
+		// 绑定的值
+		value: {
+		    type: Array,
+		    default: () => defProps.checkboxGroup.value
+		},
+		// #endif
         // 形状，circle-圆形，square-方形
         shape: {
             type: String,
@@ -90,4 +90,4 @@ export const props = defineMixin({
             default: () => defProps.checkboxGroup.borderBottom
         }
     }
-});
+})

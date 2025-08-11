@@ -26,6 +26,6 @@ export default {
         iconSize: 12,
         borderBottom: false,
         iconPlacement: 'left',
-        gap: '10px'
+        gap: "10px"
     }
-};
+}

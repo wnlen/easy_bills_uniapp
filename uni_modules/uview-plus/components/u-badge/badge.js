@@ -24,4 +24,4 @@ export default {
         inverted: false,
         absolute: false
     }
-};
+}

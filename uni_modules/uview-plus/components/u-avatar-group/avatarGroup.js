@@ -18,6 +18,6 @@ export default {
         size: 40,
         keyName: '',
         gap: 0.5,
-        extraValue: 0
+		extraValue: 0
     }
-};
+}

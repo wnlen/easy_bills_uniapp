@@ -751,19 +751,6 @@ export default {
         },
         xyTabar(x) {
             //左右滑动
-            // if (x>0) {
-            // 	this.current=this.current+1;
-            // }else{
-            // 	this.current=this.current-1;
-            // }
-            // this.$refs.paging.reload();
-            // // this.current = index;
-            // this.realTimeSel.paymentState = (this.current == 0 ? "" : (Number(this.current) - 1))
-            // this.realTimeSel.limitS = 0 + "," + 10
-            // //console.log("(当前标记)this.current:", this.current);
-            // //console.log("(储存标记)this.vuex_tabIndex:", this.vuex_tabIndex);
-            // this.refresh = true
-            // this.refreshDataNew()
         },
         touchEnd(e) {
             // 滑动结束后的处理

@@ -38,6 +38,6 @@ export default {
         icon: '',
         iconColor: '',
         color: '',
-        stop: true
+        stop: true,
     }
-};
+}

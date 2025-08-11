@@ -16,4 +16,4 @@ export default {
         bgColor: '#f1f1f1',
         height: 32
     }
-};
+}

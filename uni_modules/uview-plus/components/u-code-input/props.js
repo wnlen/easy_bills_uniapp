@@ -1,12 +1,12 @@
-import { defineMixin } from '../../libs/vue';
-import defProps from '../../libs/config/props.js';
+import { defineMixin } from '../../libs/vue'
+import defProps from '../../libs/config/props.js'
 export const props = defineMixin({
     props: {
-        // 键盘弹起时，是否自动上推页面
-        adjustPosition: {
-            type: Boolean,
+		// 键盘弹起时，是否自动上推页面
+		adjustPosition: {
+			type: Boolean,
             default: () => defProps.codeInput.adjustPosition
-        },
+		},
         // 最大输入长度
         maxlength: {
             type: [String, Number],
@@ -32,20 +32,20 @@ export const props = defineMixin({
             type: [String, Number],
             default: () => defProps.codeInput.space
         },
-        // #ifdef VUE3
-        // 预置值
-        modelValue: {
-            type: [String, Number],
-            default: () => defProps.codeInput.value
-        },
-        // #endif
-        // #ifdef VUE2
-        // 预置值
-        value: {
-            type: [String, Number],
-            default: () => defProps.codeInput.value
-        },
-        // #endif
+		// #ifdef VUE3
+		// 预置值
+		modelValue: {
+			type: [String, Number],
+			default: () => defProps.codeInput.value
+		},
+		// #endif
+		// #ifdef VUE2
+		// 预置值
+		value: {
+			type: [String, Number],
+			default: () => defProps.codeInput.value
+		},
+		// #endif
         // 是否自动获取焦点
         focus: {
             type: Boolean,
@@ -81,10 +81,10 @@ export const props = defineMixin({
             type: String,
             default: () => defProps.codeInput.borderColor
         },
-        // 是否禁止输入"."符号
-        disabledDot: {
-            type: Boolean,
-            default: () => defProps.codeInput.disabledDot
-        }
+		// 是否禁止输入"."符号
+		disabledDot: {
+			type: Boolean,
+			default: () => defProps.codeInput.disabledDot
+		}
     }
-});
+})
