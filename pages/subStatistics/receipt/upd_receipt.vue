@@ -78,14 +78,7 @@
                                 <u-input border="none" v-if="showTage !== '1'" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
                             </view>
                             <view class="ml24 my-input">
-                                <u-input
-                                    border="none"
-                                    v-if="showTage === '1'"
-                                    maxlength="11"
-                                    v-model="field"
-                                    @change="searchListenner"
-                                    placeholder="输入号码进行检索"
-                                ></u-input>
+                                <u-input border="none" v-if="showTage === '1'" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
                             </view>
 
                             <view class="flex-col justify-center items-center" style="height: 5vh">
@@ -1286,7 +1279,7 @@ export default {
         getNewfreshData() {
             this.realTimeSel.role = this.vuex_userRole == 'R' ? '1' : '0';
             this.$api.order
-                .postOrderFilter(this.realTimeSel)
+                .getOrderFilter(this.realTimeSel)
                 .then((res) => {
                     //console.log("滑动触发", res);
                 })

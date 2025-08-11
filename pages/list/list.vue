@@ -968,7 +968,7 @@ function refreshDataNew() {
             realTimeSel.value.paymentState = Number(globalStore.tabIndex) - 1;
         }
         this.$api.order
-            .postOrderFilter(realTimeSel.value)
+            .getOrderFilter(realTimeSel.value)
             .then((res) => {
                 const orderListData = res.data.data.map((obj) => ({
                     ...obj,
