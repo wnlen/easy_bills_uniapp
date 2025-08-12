@@ -1,8 +1,6 @@
 // common/http.interceptor.js
 import Request from 'luch-request'; // 下载的插件
-import {
-	useUserStore
-} from '@/store/user';
+import { useUserStore } from '@/store/user';
 let hasRedirectedToLogin = false;
 
 function isWhiteListedPath(url = '') {

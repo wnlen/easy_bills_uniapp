@@ -22,26 +22,20 @@
 	letter-spacing: 1px;
 }
 
-
-
-
-
-
 .yrd {
 	font-family: 'ysdzt', Arial, sans-serif;
 	font-style: normal;
-    font-size: 17px;
+	font-size: 17px;
 	width: 270px;
 }
 
-
 .bzhh {
 	font-style: normal;
-    font-size: 17px;
+	font-size: 17px;
 	width: 260px;
 }
 
-.syst{
+.syst {
 	font-family: 'syst', Arial, sans-serif;
 }
 
@@ -50,6 +44,6 @@
 	font-weight: normal;
 	line-height: 22px;
 	letter-spacing: 0px;
-	font-feature-settings: "kern" on;
+	font-feature-settings: 'kern' on;
 	color: #333333;
 }

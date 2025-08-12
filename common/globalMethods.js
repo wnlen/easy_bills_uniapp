@@ -2,11 +2,11 @@
 import { prePage, goPath, goTab } from '@/utils/nav.js';
 
 export default {
-    install(app) {
-        app.config.globalProperties.prePage = prePage;
-        app.config.globalProperties.goPath = function (path) {
-            goPath(path, this);
-        };
-        app.config.globalProperties.goTab = goTab;
-    }
+	install(app) {
+		app.config.globalProperties.prePage = prePage;
+		app.config.globalProperties.goPath = function (path) {
+			goPath(path, this);
+		};
+		app.config.globalProperties.goTab = goTab;
+	}
 };
