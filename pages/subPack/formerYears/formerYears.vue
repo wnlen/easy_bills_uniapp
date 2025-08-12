@@ -21,13 +21,13 @@
                     bgColor="transparent"
                     :background="{ background: 'transparent' }"
                 ></u-navbar>
-                <u-notice-bar mode="horizontal" :list="uNoticeBarlist" padding="6rpx 12rpx"></u-notice-bar>
+                <u-notice-bar v-if="uNoticeBarlist.length" direction="column" :text="uNoticeBarlist" padding="6rpx 12rpx"></u-notice-bar>
                 <view class="relative" style="width: 100%; height: 5vh">
                     <view class="absolute flex-col justify-center items-center" @click="selectionIconClick" style="width: 30%; left: 0; height: 100%">
                         <liu-data-select elementId="data-select1" :dataList="dataList" @change="dropdown" color="#965510">
                             <view id="data-select1" class="btn-info flex-row justify-center">
-                                <view class="mr10" v-if="!selectionIcon"><u-icon name="arrow-down-fill" color=" #965510" size="15"></u-icon></view>
-                                <view class="mr10" v-else><u-icon name="arrow-up-fill" color=" #965510" size="15"></u-icon></view>
+                                <view class="mr10" v-if="!selectionIcon"><u-icon name="arrow-up-fill" color=" #965510" size="15"></u-icon></view>
+                                <view class="mr10" v-else><u-icon name="arrow-down-fill" color=" #965510" size="15"></u-icon></view>
                                 <text style="color: #965510">{{ dropdownName }}</text>
                                 <text style="color: #965510" v-if="dropdownName != '请选择'">年</text>
                             </view>
@@ -103,7 +103,8 @@
                     <div class="flex-row items-center radius pr20 mr10 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%">
                         <div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
                             <text class="ft11 ft-gray ml36" @click="CustomerGet">{{ vuex_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
-                            <view class="ml24">
+                            <u-line direction="col" margin="0 20rpx" color="#333" length="40%"></u-line>
+                            <view class="ml24 flex-1">
                                 <u-input border="none" @change="changeCustomer" v-model="customer" :placeholder="vuex_userRole == 'R' ? '请选择供应商' : '请选择客户'"></u-input>
                             </view>
 
@@ -131,8 +132,8 @@
                 </div>
             </view>
 
-            <view class="flex-col justify-center items-center" style="height: 80vh" v-show="current == 0 && moneyCALL">
-                <view class="vw100" style="height: 200rpx">
+            <view class="flex-col justify-center items-center" style="height: 100vh" v-show="current == 0 && moneyCALL">
+                <view class="vw100" style="height: 100rpx">
                     <u-empty
                         icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/empty.svg"
                         iconSize="400rpx"
@@ -163,7 +164,7 @@
                     class="flex-col pl20 pr20 pd36 pt38 bg-white mb18 order-item u-skeleton relative cardShow"
                 >
                     <view class="u-skeleton-fillet mb10 flex-row" @tap.stop style="width: 100%">
-                        <view class="flex-row justify-left items-center" style="width: 70%">
+                        <view class="flex-row justify-left items-center flex-1">
                             <view>
                                 <!-- 	<u-checkbox-group :key="index" @change="checkboxGroupChange(item.orderNumber,index)">
 									<u-checkbox v-model="item.check" shape="circle" active-color="#965510">
@@ -195,58 +196,19 @@
                                 </view>
                             </view>
                         </view>
-                        <view class="ml20" style="width: 30%">
+                        <view class="ml20" style="margin-right: -20rpx">
+                            <u-image v-if="vuex_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></u-image>
+                            <u-image v-if="vuex_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/dqs.png"></u-image>
+                            <u-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="@/static/img/obj/bq2.png" :lazy-load="true"></u-image>
                             <u-image
-                                v-if="vuex_userRole == 'D'"
-                                :style="{
-                                    display: item.paymentState == '0' ? 'inline' : 'none'
-                                }"
-                                class="u-img"
-                                width="120rpx"
-                                height="50rpx"
-                                src="@/static/img/obj/bq1.png"
-                            ></u-image>
-                            <u-image
-                                v-if="vuex_userRole == 'R'"
-                                :style="{
-                                    display: item.paymentState == '0' ? 'inline' : 'none'
-                                }"
-                                class="u-img"
-                                width="120rpx"
-                                height="50rpx"
-                                src="@/static/img/obj/dqs.png"
-                            ></u-image>
-                            <u-image
-                                :style="{
-                                    display: item.paymentState == '1' ? 'inline' : 'none'
-                                }"
-                                width="120rpx"
-                                height="50rpx"
-                                class="u-img"
-                                src="@/static/img/obj/bq2.png"
-                                :lazy-load="true"
-                            ></u-image>
-                            <u-image
-                                v-if="vuex_userRole != 'R'"
-                                :style="{
-                                    display: item.paymentState == '2' ? 'inline' : 'none'
-                                }"
+                                v-if="vuex_userRole != 'R' && item.paymentState == '2'"
                                 width="120rpx"
                                 height="50rpx"
                                 class="u-img"
                                 src="@/static/img/obj/bq3.png"
                                 :lazy-load="true"
                             ></u-image>
-                            <u-image
-                                v-if="vuex_userRole == 'R'"
-                                :style="{
-                                    display: item.paymentState == '2' ? 'inline' : 'none'
-                                }"
-                                class="u-img"
-                                width="120rpx"
-                                height="50rpx"
-                                src="@/static/img/obj/yfk.png"
-                            ></u-image>
+                            <u-image v-if="vuex_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/yfk.png"></u-image>
                         </view>
                     </view>
                     <view class="width100 pb25 pt10 u-skeleton-fillet">
@@ -304,13 +266,19 @@
 				</view>
 			</view> -->
 
-            <view
-                v-show="!(current == 0 && moneyCALL)"
-                class="pt48"
-                slot="bottom"
-                style="background-color: #ffffff; box-shadow: 0rpx 4rpx 6rpx 0rpx rgba(51, 51, 51, 0.2); bottom: 0; height: 10vh"
-            >
-                <view class="items-center flex-row justify-center" style="width: 92%; display: flex; justify-content: space-between">
+            <template #bottom v-show="!(current == 0 && moneyCALL)">
+                <view
+                    class="items-center flex-row justify-center pt48"
+                    style="
+                        padding-right: 10%;
+                        display: flex;
+                        justify-content: space-between;
+                        background-color: #ffffff;
+                        box-shadow: 0rpx 4rpx 6rpx 0rpx rgba(51, 51, 51, 0.2);
+                        bottom: 0;
+                        height: 10vh;
+                    "
+                >
                     <view class="" style="text-align: left; font-size: 24rpx; color: #965510" :disabled="false">
                         <view class="ml24" style="">
                             <view class="">
@@ -353,7 +321,7 @@
                         下载PDF
                     </view>
                 </view>
-            </view>
+            </template>
 
             <!-- <view slot="empty" class="flex-col justify-center items-center">
 				<view class="vw100" style="height: 200rpx;">
@@ -1642,21 +1610,16 @@ export default {
 }
 
 .buyOrder {
-    width: 378.24rpx;
-    height: 88.86rpx;
+    width: 300rpx;
+    height: 70rpx;
     border-radius: 376rpx;
     opacity: 1;
     /* 矩形 228 */
 
-    width: 378.24rpx;
-    height: 88.86rpx;
-    border-radius: 376rpx;
-    opacity: 1;
-
     background: linear-gradient(270deg, #44495f -7%, #56638a 100%);
 
     font-family: Source Han Sans;
-    font-size: 36rpx;
+    font-size: 30rpx;
     font-weight: 500;
     line-height: 42.24rpx;
     text-align: center;

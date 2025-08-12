@@ -1,14 +1,15 @@
 <template>
     <view @tap.stop v-show="roleShow" class="flex-col justify-center items-center pop-renew">
-        <view class="relative flex-col justify-center items-center" style="height: 100%; width: 100%">
+        <view class="relative flex-col justify-center items-center">
             <u-image class="" :showLoading="true" :src="src" width="360px" height="360px"></u-image>
-            <view class="absolute" style="top: 5%; right: 10%"></view>
-            <u-icon @click="close" name="close-circle" color="#ffffff" size="40rpx"></u-icon>
+            <view class="absolute" style="top: 5%; right: 10%">
+                <u-icon @click="close" name="close-circle" color="#ffffff" size="40rpx"></u-icon>
+            </view>
 
-            <view @click="buyRenew" class="absolute flex-row justify-center items-center buttonRenew" style="bottom: 50px">
-                <u-text class="te">￥{{ orderPrice }}</u-text>
-                <u-text class="te">/年</u-text>
-                <u-text class="te ml10">立即购买</u-text>
+            <view @click="buyRenew" class="absolute flex-row justify-center items-center buttonRenew" style="bottom: 100rpx">
+                <text class="te">￥{{ orderPrice }}</text>
+                <text class="te">/年</text>
+                <text class="te ml10">立即购买</text>
             </view>
 
             <view

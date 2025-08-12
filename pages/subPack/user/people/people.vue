@@ -1,6 +1,6 @@
 <template>
     <view class="vw100 vh100 bg-gray" style="overflow: hidden">
-        <view v-if="vuex_work == 'Y'" class="ml24 mr24 pd24 mt24 bg-white" style="height: auto; border-radius: 24rpx">
+        <view v-if="vuex_work == 'Y'" class="ml24 mr24 pd24 mt24 bg-white" style="border-radius: 24rpx">
             <view class="flex-row justify-left" style="height: 10%; width: 100%">
                 <view class="" style="width: 20vw">
                     <text class="ml20" style="font-weight: bold">老板信息</text>
@@ -23,7 +23,7 @@
             </view>
         </view>
 
-        <view v-if="vuex_work == 'N'" class="ml24 mr24 pt25 pd24 bg-white mt30" @click="clear()" style="height: auto; border-radius: 24rpx">
+        <view v-if="vuex_work == 'N'" class="ml24 mr24 pt25 pd24 bg-white mt30" @click="clear()" style="border-radius: 24rpx">
             <view class="flex-row justify-left" style="height: 10%; width: 100%">
                 <view class="" style="width: 20vw">
                     <text class="" style="font-weight: bold">合伙人</text>
@@ -53,11 +53,11 @@
                         v-show="showAl == 1"
                         style="
                             background-color: #666666;
-                            width: 286rpx;
-                            height: 200rpx;
+                            width: 200rpx;
+                            height: 152rpx;
                             position: absolute;
-                            right: 36rpx;
-                            top: 102rpx;
+                            right: 0;
+                            top: 70rpx;
                             z-index: 999;
                             color: #ffffff;
                             border-radius: 8rpx;
@@ -78,12 +78,12 @@
                                 top: -16rpx;
                             "
                         ></view>
-                        <view class="flex-row u-border-bottom pd20" @click="getPhone(1)">
-                            <view class="mr15"><u-icon name="phone" color="#ffffff" size="35"></u-icon></view>
+                        <view class="flex-row u-border-bottom pd20 items-center" @click="getPhone(1)">
+                            <view class="mr15"><u-icon name="phone" color="#ffffff" size="35rpx"></u-icon></view>
                             <text style="font-weight: normal">手机号</text>
                         </view>
-                        <view class="mt20 pd10" @click="scanQRcodes(1)">
-                            <view class="mr15"><u-icon name="scan" color="#ffffff" size="35"></u-icon></view>
+                        <view class="pd16 flex-row items-center" @click="scanQRcodes(1)">
+                            <view class="mr15"><u-icon name="scan" color="#ffffff" size="35rpx"></u-icon></view>
                             <text style="font-weight: normal">扫一扫</text>
                         </view>
                     </view>
@@ -91,7 +91,7 @@
             </view>
             <view class="flex-row justify-left" v-if="userUrl['1'].length == 0" style="height: 90%; width: 100%">
                 <view class="flex-row justify-center items-center" style="width: 10%">
-                    <view class="mt20"><u-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" :label="item.name" shape="circle" size="80" @click=""></u-icon></view>
+                    <view class="mt20"><u-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" :label="item.name" shape="circle" size="80rpx" @click=""></u-icon></view>
                 </view>
             </view>
             <view class="flex-col justify-left pt20 pb20" v-for="(item, index) in userUrl['1']" :key="index" style="height: 90%; width: 100%">
@@ -117,16 +117,16 @@
                     </view>
 
                     <view class="flex-row justify-end items-center" style="width: 95%">
-                        <u-icon v-if="item.name != ''" @click="deleteRole(item)" name="trash" size="35" color="#333333" class="mr15"></u-icon>
+                        <u-icon v-if="item.name != ''" @click="deleteRole(item)" name="trash" size="35rpx" color="#333333" class="mr15"></u-icon>
 
-                        <u-icon @click="changeUser(1)" name="" :custom-style="{ margin: '0 0 0 30rpx' }" size="38" class="mr30"></u-icon>
+                        <u-icon @click="changeUser(1)" name="" :custom-style="{ margin: '0 0 0 30rpx' }" size="38rpx" class="mr30"></u-icon>
                     </view>
                 </view>
                 <!-- <u-divider class="mt20" border-color="#F9F9F9" half-width="290" :use-slot="false"></u-divider> -->
             </view>
         </view>
 
-        <view v-if="vuex_work == 'N'" class="ml24 mr24 pt25 pd24 bg-white mt30" @click="clear()" style="height: auto; border-radius: 24rpx">
+        <view v-if="vuex_work == 'N'" class="ml24 mr24 pt25 pd24 bg-white mt30" @click="clear()" style="border-radius: 24rpx">
             <view class="flex-row justify-left" style="height: 10%; width: 100%">
                 <view class="" style="width: 20vw">
                     <text class="" style="font-weight: bold">财务</text>
@@ -156,11 +156,11 @@
                         v-show="showAl == 3"
                         style="
                             background-color: #666666;
-                            width: 286rpx;
-                            height: 200rpx;
+                            width: 200rpx;
+                            height: 152rpx;
                             position: absolute;
-                            right: 36rpx;
-                            top: 102rpx;
+                            right: 0;
+                            top: 70rpx;
                             z-index: 999;
                             color: #ffffff;
                             border-radius: 8rpx;
@@ -181,12 +181,12 @@
                                 top: -16rpx;
                             "
                         ></view>
-                        <view class="flex-row u-border-bottom pd20" @click="getPhone(3)">
-                            <view class="mr15"><u-icon name="phone" color="#ffffff" size="35"></u-icon></view>
+                        <view class="flex-row u-border-bottom pd20 items-center" @click="getPhone(3)">
+                            <view class="mr15"><u-icon name="phone" color="#ffffff" size="35rpx"></u-icon></view>
                             <text style="font-weight: normal">手机号</text>
                         </view>
-                        <view class="mt20 pd10" @click="scanQRcodes(3)">
-                            <view class="mr15"><u-icon name="scan" color="#ffffff" size="35"></u-icon></view>
+                        <view class="pd16 flex-row items-center" @click="scanQRcodes(3)">
+                            <view class="mr15"><u-icon name="scan" color="#ffffff" size="35rpx"></u-icon></view>
                             <text style="font-weight: normal">扫一扫</text>
                         </view>
                     </view>
@@ -194,7 +194,7 @@
             </view>
             <view class="flex-row justify-left" v-if="userUrl['3'].length == 0" style="height: 90%; width: 100%">
                 <view class="flex-row justify-center items-center" style="width: 10%">
-                    <view class="mt20"><u-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" :label="item.name" shape="circle" size="80" @click=""></u-icon></view>
+                    <view class="mt20"><u-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" :label="item.name" shape="circle" size="80rpx" @click=""></u-icon></view>
                 </view>
             </view>
             <view class="flex-col justify-left pt20 pb20" v-for="(item, index) in userUrl['3']" :key="index" style="height: 90%; width: 100%">
@@ -220,16 +220,16 @@
                     </view>
 
                     <view class="flex-row justify-end items-center" style="width: 95%">
-                        <u-icon v-if="item.name != ''" @click="deleteRole(item)" name="trash" size="35" color="#333333" class="mr15"></u-icon>
+                        <u-icon v-if="item.name != ''" @click="deleteRole(item)" name="trash" size="35rpx" color="#333333" class="mr15"></u-icon>
 
-                        <u-icon @click="changeUser(3)" name="" :custom-style="{ margin: '0 0 0 30rpx' }" size="38" class="mr30"></u-icon>
+                        <u-icon @click="changeUser(3)" name="" :custom-style="{ margin: '0 0 0 30rpx' }" size="38rpx" class="mr30"></u-icon>
                     </view>
                 </view>
                 <!-- <u-divider class="mt20" border-color="#F9F9F9" half-width="290" :use-slot="false"></u-divider> -->
             </view>
         </view>
 
-        <view v-if="vuex_work == 'N'" class="ml24 mr24 pt25 pd24 bg-white mt30" @click="clear()" style="height: auto; border-radius: 24rpx">
+        <view v-if="vuex_work == 'N'" class="ml24 mr24 pt25 pd24 bg-white mt30" @click="clear()" style="border-radius: 24rpx">
             <view class="flex-row justify-left" style="height: 10%; width: 100%">
                 <view class="" style="width: 24vw">
                     <text class="" style="font-weight: bold">员工</text>
@@ -258,11 +258,11 @@
                         v-show="showAl == 4"
                         style="
                             background-color: #666666;
-                            width: 286rpx;
-                            height: 200rpx;
+                            width: 200rpx;
+                            height: 152rpx;
                             position: absolute;
-                            right: 36rpx;
-                            top: 102rpx;
+                            right: 0;
+                            top: 70rpx;
                             z-index: 999;
                             color: #ffffff;
                             border-radius: 8rpx;
@@ -283,12 +283,12 @@
                                 top: -16rpx;
                             "
                         ></view>
-                        <view class="flex-row u-border-bottom pd20" @click="getPhone(4)">
-                            <view class="mr15"><u-icon name="phone" color="#ffffff" size="35"></u-icon></view>
+                        <view class="flex-row u-border-bottom pd20 items-center" @click="getPhone(4)">
+                            <view class="mr15"><u-icon name="phone" color="#ffffff" size="35rpx"></u-icon></view>
                             <text style="font-weight: normal">手机号</text>
                         </view>
-                        <view class="mt20 pd10" @click="scanQRcodes(4)">
-                            <view class="mr15"><u-icon name="scan" color="#ffffff" size="35"></u-icon></view>
+                        <view class="pd16 flex-row items-center" @click="scanQRcodes(4)">
+                            <view class="mr15"><u-icon name="scan" color="#ffffff" size="35rpx"></u-icon></view>
                             <text style="font-weight: normal">扫一扫</text>
                         </view>
                     </view>
@@ -297,10 +297,10 @@
 
             <view class="flex-row justify-left" v-if="userUrl['4'].length == 0" style="height: 90%; width: 100%">
                 <view class="flex-row justify-center items-center" style="width: 10%">
-                    <view class="mt20"><u-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" :label="item.name" shape="circle" size="80" @click=""></u-icon></view>
+                    <view class="mt20"><u-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" :label="item.name" shape="circle" size="80rpx" @click=""></u-icon></view>
                 </view>
             </view>
-            <view class="flex-col justify-left mt14 pt20 pb20" v-for="(item, index) in userUrl['4']" :key="index" style="height: 90%; width: 100%">
+            <view class="flex-col justify-left pt20 pb20" v-for="(item, index) in userUrl['4']" :key="index" style="height: 90%; width: 100%">
                 <view class="flex-row justify-left items-center mt20">
                     <view v-if="item.name == ''" class="flex-row justify-left items-center" style="width: 10%">
                         <u-image class="" width="80rpx" height="80rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></u-image>
@@ -323,9 +323,9 @@
                     </view>
 
                     <view class="flex-row justify-end" style="width: 95%">
-                        <u-icon v-if="item.name != ''" @click="deleteRole(item)" name="trash" size="35" color="#333333" class="mr15"></u-icon>
+                        <u-icon v-if="item.name != ''" @click="deleteRole(item)" name="trash" size="35rpx" color="#333333" class="mr15"></u-icon>
 
-                        <u-icon @click="changeUser(4)" name="" :custom-style="{ margin: '0 0 0 30rpx' }" size="38" class="mr30"></u-icon>
+                        <u-icon @click="changeUser(4)" name="" :custom-style="{ margin: '0 0 0 30rpx' }" size="38rpx" class="mr30"></u-icon>
                     </view>
                 </view>
                 <!-- <u-divider class="mt20" border-color="#F9F9F9" half-width="290" :use-slot="false"></u-divider> -->
@@ -449,8 +449,8 @@ export default {
         };
     },
     onShow() {
-        this.SOCKETfLUSH();
-
+        // this.SOCKETfLUSH();
+        console.log(1111, this.$u.getPinia('user.user'));
         var listz = [];
         if (this.vuex_user.data.work != '1') {
             this.loadDataPeop();

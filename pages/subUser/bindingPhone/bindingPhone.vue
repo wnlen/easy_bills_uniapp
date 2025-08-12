@@ -36,7 +36,7 @@
                         placeholder="请输入验证码"
                         class="u-line-1 ml15 endcolor codeInput"
                     />
-                    <u-text @click="getCode" style="font-size: 24rpx; color: #01bb74">{{ interval == 70 ? '获取验证码' : '倒计时 ' + interval }}</u-text>
+                    <text @click="getCode" style="font-size: 24rpx; color: #01bb74">{{ interval == 70 ? '获取验证码' : '倒计时 ' + interval }}</text>
                 </view>
             </view>
 

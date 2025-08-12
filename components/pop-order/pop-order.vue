@@ -2,9 +2,9 @@
     <view @tap.stop v-show="roleShow" class="flex-col justify-center items-center pop-renew">
         <view class="relative flex-col justify-center items-center" style="height: 100%; width: 100%; margin-top: 200rpx">
             <u-image class="" :showLoading="true" :src="src" width="720rpx" height="720rpx"></u-image>
-            <view class="absolute" style="top: 5%; right: 10%"></view>
-
-            <u-icon @click="close" name="close-circle" color="#ffffff" size="40rpx"></u-icon>
+            <view class="absolute" style="top: 5%; right: 10%">
+                <u-icon @click="close" name="close-circle" color="#ffffff" size="40rpx"></u-icon>
+            </view>
 
             <view class="absolute flex-row justify-center items-center mt30" style="width: 100%; height: 240rpx">
                 <view
@@ -14,18 +14,18 @@
                     :style="{ backgroundColor: year == index ? '#FDF7ED' : '#FFFFFF' }"
                     @click="orderInit(ite, index)"
                 >
-                    <u-text class="t1">{{ ite.product }}</u-text>
-                    <u-text class="t2">￥{{ ite.priceDiscount }}</u-text>
-                    <u-text class="t3">￥{{ ite.price }}</u-text>
-                    <u-text class="iconPeople flex-col justify-center items-center mt10" v-if="ite.priceDiscount">低至{{ (ite.priceDiscount / 365).toFixed(2) }}元/天</u-text>
+                    <text class="t1">{{ ite.product }}</text>
+                    <text class="t2">￥{{ ite.priceDiscount }}</text>
+                    <text class="t3">￥{{ ite.price }}</text>
+                    <text class="iconPeople flex-col justify-center items-center mt10" v-if="ite.priceDiscount">低至{{ (ite.priceDiscount / 365).toFixed(2) }}元/天</text>
                 </view>
             </view>
             <view class="absolute btn flex-col justify-center items-center" style="bottom: 80rpx">
                 <view class="ts mb10 mt10">新用户半年内免费使用，购买后继续开单</view>
                 <view @click="buyRenew" class="flex-row justify-center items-center buttonRenew">
-                    <u-text class="te">￥{{ pay }}</u-text>
-                    <u-text class="te">/年</u-text>
-                    <u-text class="te ml10">立即购买</u-text>
+                    <text class="te">￥{{ pay }}</text>
+                    <text class="te">/年</text>
+                    <text class="te ml10">立即购买</text>
                 </view>
             </view>
         </view>

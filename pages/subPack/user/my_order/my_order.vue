@@ -55,12 +55,12 @@
                                 </view>
                             </view>
                             <view class="card_people_title_two">
-                                <u-text class="grandsonText">{{ item.detailedInformation || '' }}</u-text>
+                                <text class="grandsonText">{{ item.detailedInformation || '' }}</text>
                             </view>
                         </view>
                         <view class="card_people_price">
-                            <u-text class="grandsonPriceSign">￥</u-text>
-                            <u-text class="grandsonPrice">{{ item.priceDiscount || 0 }}/年</u-text>
+                            <text class="grandsonPriceSign">￥</text>
+                            <text class="grandsonPrice">{{ item.priceDiscount || 0 }}/年</text>
                             <view class="grandsonPriceOriginal ml10">￥{{ item.price || 0 }}</view>
                         </view>
                         <view class="card_people_check">
@@ -148,8 +148,8 @@
                                             color="#AAAAAA"
                                         ></u-icon>
                                     </view>
-                                    <u-text class="grandsonPriceSign">￥</u-text>
-                                    <u-text class="grandsonPrice">{{ c_product_old_data[0] ? c_product_old_data[0].priceDiscount : 0 }}/年</u-text>
+                                    <text class="grandsonPriceSign">￥</text>
+                                    <text class="grandsonPrice">{{ c_product_old_data[0] ? c_product_old_data[0].priceDiscount : 0 }}/年</text>
                                     <view class="grandsonPriceOriginal ml10">￥{{ c_product_old_data[0] ? c_product_old_data[0].price : 0 }}</view>
                                 </view>
 
@@ -177,8 +177,8 @@
                                             color="#AAAAAA"
                                         ></u-icon>
                                     </view>
-                                    <u-text class="grandsonPriceSign">￥</u-text>
-                                    <u-text class="grandsonPrice">{{ c_product_old_data[1] ? c_product_old_data[1].priceDiscount : 0 }}/年</u-text>
+                                    <text class="grandsonPriceSign">￥</text>
+                                    <text class="grandsonPrice">{{ c_product_old_data[1] ? c_product_old_data[1].priceDiscount : 0 }}/年</text>
                                     <view class="grandsonPriceOriginal ml10">￥{{ c_product_old_data[1] ? c_product_old_data[1].price : 0 }}</view>
                                 </view>
                             </view>
@@ -242,11 +242,11 @@
                                 ></u-number-box>
                             </view>
                             <view class="tabBodyOne_card_body_price">
-                                <u-text class="grandsonPriceSign">￥</u-text>
-                                <u-text class="grandsonPrice">
+                                <text class="grandsonPriceSign">￥</text>
+                                <text class="grandsonPrice">
                                     <text class="grandsonPriceBold">{{ c_product_people[2] ? c_product_people[2].priceDiscount : 0 }}</text>
                                     /年
-                                </u-text>
+                                </text>
                                 <view class="grandsonPriceOriginal ml10">￥{{ c_product_people[2] ? c_product_people[2].price : 0 }}</view>
                             </view>
                             <view class="tabBodyOne_card_body_check" @click="alertTitle">
@@ -289,11 +289,11 @@
                                 ></u-number-box>
                             </view>
                             <view class="tabBodyOne_card_body_price">
-                                <u-text class="grandsonPriceSign">￥</u-text>
-                                <u-text class="grandsonPrice">
+                                <text class="grandsonPriceSign">￥</text>
+                                <text class="grandsonPrice">
                                     <text class="grandsonPriceBold">{{ c_product_people[0] ? c_product_people[0].priceDiscount : 0 }}</text>
                                     /年
-                                </u-text>
+                                </text>
                                 <view class="grandsonPriceOriginal ml10">￥{{ c_product_people[0] ? c_product_people[0].price : 0 }}</view>
                             </view>
                             <view class="tabBodyOne_card_body_check" @click="alertTitle">
@@ -336,11 +336,11 @@
                                 ></u-number-box>
                             </view>
                             <view class="tabBodyOne_card_body_price">
-                                <u-text class="grandsonPriceSign">￥</u-text>
-                                <u-text class="grandsonPrice">
+                                <text class="grandsonPriceSign">￥</text>
+                                <text class="grandsonPrice">
                                     <text class="grandsonPriceBold">{{ c_product_people[1] ? c_product_people[1].priceDiscount : 0 }}</text>
                                     /年
-                                </u-text>
+                                </text>
                                 <view class="grandsonPriceOriginal ml10">￥{{ c_product_people[1] ? c_product_people[1].price : 0 }}</view>
                             </view>
                             <view class="tabBodyOne_card_body_check" @click="alertTitle">
@@ -384,7 +384,7 @@
                                 <text class="ml15 time" :style="{ color: expireDate(item.left) ? '' : '#FA5151' }">{{ $u.timeFormat(item.left, 'yyyy-mm-dd') }}到期</text>
                             </view>
                             <view class="tabBodyTwoBody_price">
-                                <u-text class="grandsonPrice ml30">￥{{ c_product_people[2] ? c_product_people[2].priceDiscount : 0 }}/年</u-text>
+                                <text class="grandsonPrice ml30">￥{{ c_product_people[2] ? c_product_people[2].priceDiscount : 0 }}/年</text>
                                 <view class="grandsonPriceOriginal ml10">￥{{ c_product_people[2] ? c_product_people[2].price : 0 }}</view>
                             </view>
                             <view class="tabBodyTwoBody_check">
@@ -423,7 +423,7 @@
                                 <text class="ml15 time" :style="{ color: expireDate(item.left) ? '' : '#FA5151' }">{{ $u.timeFormat(item.left, 'yyyy-mm-dd') }}到期</text>
                             </view>
                             <view class="tabBodyTwoBody_price">
-                                <u-text class="grandsonPrice ml30">￥{{ c_product_people[0] ? c_product_people[0].priceDiscount : 0 }}/年</u-text>
+                                <text class="grandsonPrice ml30">￥{{ c_product_people[0] ? c_product_people[0].priceDiscount : 0 }}/年</text>
                                 <view class="grandsonPriceOriginal ml10">￥{{ c_product_people[0] ? c_product_people[0].price : 0 }}</view>
                             </view>
                             <view class="tabBodyTwoBody_check">
@@ -461,7 +461,7 @@
                                 <text class="ml15 time" :style="{ color: expireDate(item.left) ? '' : '#FA5151' }">{{ $u.timeFormat(item.left, 'yyyy-mm-dd') }}到期</text>
                             </view>
                             <view class="tabBodyTwoBody_price">
-                                <u-text class="grandsonPrice ml30">￥{{ c_product_people[1] ? c_product_people[1].priceDiscount : 0 }}/年</u-text>
+                                <text class="grandsonPrice ml30">￥{{ c_product_people[1] ? c_product_people[1].priceDiscount : 0 }}/年</text>
                                 <view class="grandsonPriceOriginal ml10">￥{{ c_product_people[1] ? c_product_people[1].price : 0 }}</view>
                             </view>
                             <view class="tabBodyTwoBody_check">

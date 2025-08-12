@@ -1,6 +1,6 @@
 <template>
     <view class="bg-gray vh100 vw100" style="overflow: hidden">
-        <view class="ml24 mr24" style="padding-top: 20px">
+        <view class="ml24 mr24" style="padding-top: 20rpx">
             <u-search
                 search-icon-color="#01bb74"
                 :show-action="false"
@@ -11,7 +11,7 @@
                 maxlength="11"
                 shape="square"
                 class="u-search"
-                height="90"
+                height="90rpx"
                 bg-color="#ffffff"
                 v-model="searchNumber"
             ></u-search>
