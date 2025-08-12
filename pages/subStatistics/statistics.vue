@@ -142,7 +142,7 @@
                     class="flex-col pl20 pr20 pd36 pt38 bg-white mb18 order-item u-skeleton relative cardShow"
                 >
                     <view class="u-skeleton-fillet mb10 flex-row" @tap.stop style="width: 100%">
-                        <view class="flex-row justify-left items-center" style="width: 70%">
+                        <view class="flex-row justify-left items-center flex-1">
                             <view class="flex-row justify-center items-center" style="">
                                 <view
                                     class="flex-col justify-center items-center"
@@ -160,63 +160,19 @@
                                 </view>
                             </view>
                         </view>
-                        <view class="ml20" style="width: 30%">
+                        <view class="ml20" style="margin-right: -20rpx">
+                            <u-image v-if="vuex_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></u-image>
+                            <u-image v-if="vuex_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/dqs.png"></u-image>
+                            <u-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="@/static/img/obj/bq2.png" :lazy-load="true"></u-image>
                             <u-image
-                                v-if="vuex_userRole == 'D'"
-                                :show-menu-by-longpress="false"
-                                :style="{
-                                    display: item.paymentState == '0' ? 'inline' : 'none'
-                                }"
-                                class="u-img"
-                                width="120rpx"
-                                height="50rpx"
-                                src="@/static/img/obj/bq1.png"
-                            ></u-image>
-                            <u-image
-                                v-if="vuex_userRole == 'R'"
-                                :show-menu-by-longpress="false"
-                                :style="{
-                                    display: item.paymentState == '0' ? 'inline' : 'none'
-                                }"
-                                class="u-img"
-                                width="120rpx"
-                                height="50rpx"
-                                src="@/static/img/obj/dqs.png"
-                            ></u-image>
-                            <u-image
-                                :style="{
-                                    display: item.paymentState == '1' ? 'inline' : 'none'
-                                }"
-                                width="120rpx"
-                                :show-menu-by-longpress="false"
-                                height="50rpx"
-                                class="u-img"
-                                src="@/static/img/obj/bq2.png"
-                                :lazy-load="true"
-                            ></u-image>
-                            <u-image
-                                v-if="vuex_userRole != 'R'"
-                                :show-menu-by-longpress="false"
-                                :style="{
-                                    display: item.paymentState == '2' ? 'inline' : 'none'
-                                }"
+                                v-if="vuex_userRole != 'R' && item.paymentState == '2'"
                                 width="120rpx"
                                 height="50rpx"
                                 class="u-img"
                                 src="@/static/img/obj/bq3.png"
                                 :lazy-load="true"
                             ></u-image>
-                            <u-image
-                                v-if="vuex_userRole == 'R'"
-                                :show-menu-by-longpress="false"
-                                :style="{
-                                    display: item.paymentState == '2' ? 'inline' : 'none'
-                                }"
-                                class="u-img"
-                                width="120rpx"
-                                height="50rpx"
-                                src="@/static/img/obj/yfk.png"
-                            ></u-image>
+                            <u-image v-if="vuex_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/yfk.png"></u-image>
                         </view>
                     </view>
                     <view class="width100 pb25 pt10 u-skeleton-fillet">

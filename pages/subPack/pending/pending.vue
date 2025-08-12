@@ -114,7 +114,7 @@
                         <text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
                             {{ vuex_userRole === 'R' ? '供应商选择' : '客户选择' }}
                         </text>
-                        <view class="ml10 mr10"><u-icon name="/static/img/list/sx.svg" size="40rpx"></u-icon></view>
+                        <u-line direction="col" margin="0 20rpx" color="#333" length="40%"></u-line>
                         <!-- <view style="width: 24rpx;height: 32rpx;border-right: 2rpx solid #666666;"></view> -->
                         <view class="my-input">
                             <u-input
@@ -186,8 +186,7 @@
                     </view>
                     <view class="ml20" style="width: 30%">
                         <u-image
-                            v-if="vuex_userRole == 'D'"
-                            :style="{ display: item.paymentState == '0' ? 'inline' : 'none' }"
+                            v-if="vuex_userRole == 'D' && item.paymentState == '0'"
                             :show-menu-by-longpress="false"
                             class="u-img"
                             width="120rpx"
@@ -195,8 +194,7 @@
                             :src="bat64.dqs"
                         ></u-image>
                         <u-image
-                            v-if="vuex_userRole == 'R'"
-                            :style="{ display: item.paymentState == '0' ? 'inline' : 'none' }"
+                            v-if="vuex_userRole == 'R' && item.paymentState == '0'"
                             :show-menu-by-longpress="false"
                             class="u-img"
                             width="120rpx"
@@ -204,25 +202,16 @@
                             :src="bat64.dqss"
                         ></u-image>
                         <u-image
-                            v-if="vuex_userRole == 'R'"
-                            :style="{ display: item.paymentState == '2' ? 'inline' : 'none' }"
+                            v-if="vuex_userRole == 'R' && item.paymentState == '2'"
                             :show-menu-by-longpress="false"
                             class="u-img"
                             width="120rpx"
                             height="50rpx"
                             :src="bat64.yfk"
                         ></u-image>
+                        <u-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" :show-menu-by-longpress="false" class="u-img" :src="bat64.yqs"></u-image>
                         <u-image
-                            :style="{ display: item.paymentState == '1' ? 'inline' : 'none' }"
-                            width="120rpx"
-                            height="50rpx"
-                            :show-menu-by-longpress="false"
-                            class="u-img"
-                            :src="bat64.yqs"
-                        ></u-image>
-                        <u-image
-                            v-if="vuex_userRole != 'R'"
-                            :style="{ display: item.paymentState == '2' ? 'inline' : 'none' }"
+                            v-if="vuex_userRole != 'R' && item.paymentState == '2'"
                             :show-menu-by-longpress="false"
                             width="120rpx"
                             height="50rpx"
@@ -513,7 +502,15 @@
                     </view>
                 </view>
                 <!-- 日历选择器 -->
-                <uv-calendars color="#01BB74" confirmColor="#01BB74" mode="range" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="date1Change" />
+                <uv-calendars
+                    color="#01BB74"
+                    confirmColor="#01BB74"
+                    mode="range"
+                    :startDate="getCurrentYearFirstDay()"
+                    :endDate="getCurrentDate()"
+                    ref="calendars"
+                    @confirm="date1Change"
+                />
             </view>
         </u-popup>
 

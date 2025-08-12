@@ -66,7 +66,7 @@
         </u-popup>
         <!-- #endif -->
 
-        <!-- #ifdef APP -->
+        <!-- #ifndef MP-WEIXIN -->
         <view class="flex-col justify-center items-center pb350" style="width: 100%">
             <view class="head">
                 <view class="headline">欢迎登录</view>
@@ -103,11 +103,11 @@
                 </view>
                 <text class="err ml24" v-if="passsswordErr">请输入密码</text>
                 <view class="headlineEnd mb36" v-if="err">
-                    <u-text class="ts" @click="ZC">手机号或密码错误，请重新输入!!!</u-text>
+                    <text class="ts" @click="ZC">手机号或密码错误，请重新输入!!!</text>
                 </view>
                 <view class="headlineEnd">
-                    <u-text class="left" @click="ZC">立即注册</u-text>
-                    <u-text class="right" @click="wjPassword">忘记密码?</u-text>
+                    <text class="left" @click="ZC">立即注册</text>
+                    <text class="right" @click="wjPassword">忘记密码?</text>
                 </view>
             </view>
             <view class="buttonTab">

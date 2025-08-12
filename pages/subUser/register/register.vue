@@ -3,21 +3,7 @@
         class="vh100 vw100 flex-col items-center"
         style="background-size: cover; background-image: url('https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/user/login.png')"
     >
-        <view class="" style="background-color: transparent">
-            <u-navbar
-                :placeholder="true"
-                :custom-back="customBack"
-                :border-bottom="false"
-                title-color="#333333"
-                title=""
-                title-size="28"
-                :background="{
-                    background: 'transparent',
-                    color: 'white',
-                    fontSize: '28rpx'
-                }"
-            ></u-navbar>
-        </view>
+        <u-navbar :placeholder="true" :autoBack="true" :border-bottom="false" title="" bgColor="transparent"></u-navbar>
         <view class="flex-col justify-center items-center" style="margin-top: 10%; width: 100%">
             <view class="head">
                 <view class="headline">注册账号</view>
@@ -46,7 +32,7 @@
                         placeholder="请输入验证码"
                         class="u-line-1 ml15 endcolor codeInput"
                     />
-                    <u-text @click="getCode" style="font-size: 24rpx; color: #01bb74">{{ interval == 70 ? '获取验证码' : '倒计时 ' + interval }}</u-text>
+                    <text @click="getCode" style="font-size: 24rpx; color: #01bb74">{{ interval == 70 ? '获取验证码' : '倒计时 ' + interval }}</text>
                 </view>
             </view>
             <view class="InputTab">
@@ -236,9 +222,6 @@ export default {
         },
         radioGroupChange() {
             this.disabled = this.disabled ? false : true;
-        },
-        customBack() {
-            uni.navigateBack();
         }
     }
 };

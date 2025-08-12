@@ -8,12 +8,13 @@
     >
         <view v-show="show == 1">
             <u-navbar
+                :placeholder="true"
                 :border-bottom="false"
                 back-icon-color="#000000"
                 :titleBold="true"
                 title-color="#000000"
                 title="货单详情"
-                :custom-back="shareClick"
+                @leftClick="shareClick"
                 title-size="34"
                 bgColor="#ffffff"
             ></u-navbar>
@@ -341,12 +342,12 @@
             </view>
         </view>
 
-        <u-popup :show="showZG" mode="center" border-radius="14" width="500rpx" height="60%">
-            <image style="width: 100%; height: 100%" :src="showZGImg" mode="aspectFit"></image>
+        <u-popup :show="showZG" mode="center" :round="14" @click="showZG = false">
+            <image style="500rpx; height: 100%" :src="showZGImg" mode="aspectFit"></image>
         </u-popup>
 
-        <u-popup class="flex-col justify-center items-center" border-radius="15" mode="center" v-model="showMask" width="600rpx" height="400rpx">
-            <view class="flex-col justify-center items-center relative" style="height: 100%; width: 100%">
+        <u-popup class="flex-col justify-center items-center" :round="15" mode="center" :show="showMask" @click="showMask = false">
+            <view class="flex-col justify-center items-center relative" style="height: 400rpx; width: 600rpx">
                 <view class="absolute pt20" style="width: 100%; top: 0; height: 75%">
                     <view class="flex-row items-center justify-center passwordTitle">请输入签收密码</view>
                     <view class="flex-col items-center justify-center mt20" style="width: 100%; height: 35%">
@@ -362,8 +363,12 @@
             </view>
         </u-popup>
 
-        <u-popup :show="showBrowsePrint" :custom-style="customStylePrint" mode="center" border-radius="14" width="650rpx" :height="showBrowsePrintHeight">
-            <view class="w100 pt30 relative flex-col items-center" style="height: 100%; box-shadow: 2rpx 2rpx 2rpx 2rpx rgba(153, 153, 153, 0.05)">
+        <u-popup :show="showBrowsePrint" :custom-style="customStylePrint" mode="center" round="14" @click="showBrowsePrint = false">
+            <view
+                class="w100 pt30 relative flex-col items-center"
+                style="box-shadow: 2rpx 2rpx 2rpx 2rpx rgba(153, 153, 153, 0.05); width: 650rpx"
+                :style="`height:${showBrowsePrintHeight}`"
+            >
                 <scroll-view scroll-y="true" class="u-border pt20 pb20" style="width: 90%; overflow-y: auto" :style="{ height: ImageSoleHeight }">
                     <u-image width="100%" :src="item" mode="widthFix" v-for="(item, index) in browse" :show-menu-by-longpress="false" :key="index"></u-image>
                 </scroll-view>
@@ -444,7 +449,6 @@ export default {
     onLoad(options) {
         uni.hideShareMenu();
         console.log('显示', options);
-
         if (this.vuex_user.phone == undefined) {
             uni.reLaunch({
                 url: '/pages/subUser/login'
@@ -470,7 +474,7 @@ export default {
         console.log('type', type);
         if (id != undefined) {
             this.orderId = options.id;
-            this.loadData();
+            this.qs();
             if (type != undefined) {
                 console.log('分享页面进入');
                 this.navbar = false;
@@ -494,7 +498,7 @@ export default {
         console.log('单据id:', id);
         console.log('单据进入路径:', type);
     },
-    onShow(options) {
+    onShow() {
         this.$loadUser(this);
 
         // 获取签收人
@@ -513,14 +517,11 @@ export default {
                 user: this.vuex_user.data.work == '0' ? this.vuex_user.phone : this.vuex_user.workData.bossNumber
             })
             .then((res) => {
+                console.log(22222222);
                 that.qyList = res.data.data;
             });
 
         this.getPrintNum();
-
-        this.loadData();
-
-        console.log(options);
     },
     onShareAppMessage(ops) {
         return {
@@ -959,21 +960,6 @@ export default {
                 }
             });
         },
-        loadData() {
-            this.post = [];
-            var that = this;
-            console.log('请求id：' + this.orderId);
-            this.$api.order
-                .getOrderById({
-                    orderId: this.orderId
-                })((res) => {
-                    console.log('请求结果：' + res.data.data.post);
-                    that.post = res.data.data.post;
-                    that.orderItemList = res.data.data.orderItemList;
-                    that.imgList = res.data.data.imgList;
-                })
-                .catch((res) => {});
-        },
         onConfirm() {
             console.log(this.qsrList);
             console.log(this.qyList);
@@ -1081,7 +1067,7 @@ export default {
         qs() {
             this.post = [];
             var that = this;
-            console.log('请求id：' + this.orderId);
+            // console.log('请求id：' + this.orderId);
             this.$api.order
                 .getOrderById({
                     orderId: this.orderId
@@ -1125,7 +1111,7 @@ export default {
                     console.log(res);
                     this.$u.toast('签收失败~');
                     this.showMask = false;
-                    this.loadData();
+                    this.qs();
                 });
         },
         flushDBSX(val) {

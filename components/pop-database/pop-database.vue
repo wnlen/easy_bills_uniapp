@@ -2,29 +2,29 @@
     <view @tap.stop v-show="roleShow" class="flex-col justify-center items-center pop-renew">
         <view class="relative flex-col justify-center items-center" style="height: 100%; width: 100%">
             <u-image class="" :lazy-load="true" :showLoading="true" :src="src" width="720rpx" height="720rpx"></u-image>
-            <view class="absolute" style="top: 5%; right: 10%"></view>
-            <u-icon @click="close" name="close-circle" color="#ffffff" size="40rpx"></u-icon>
-
+            <view class="absolute" style="top: 5%; right: 10%">
+                <u-icon @click="close" name="close-circle" color="#ffffff" size="40rpx"></u-icon>
+            </view>
             <view class="absolute flex-row justify-center items-center mt30" style="width: 100%; height: 240rpx">
                 <view class="mr15 tab flex-col justify-center items-center" :style="{ backgroundColor: year == 1 ? '#FDF7ED' : '#FFFFFF' }" @click="orderInit('A1')">
-                    <u-text class="t1">{{ productCode[0] ? productCode[0].product : '' }}</u-text>
-                    <u-text class="t2">￥{{ orderPriceBDiscount }}</u-text>
-                    <u-text class="t3">￥{{ orderPriceB }}</u-text>
+                    <text class="t1">{{ productCode[0] ? productCode[0].product : '' }}</text>
+                    <text class="t2">￥{{ orderPriceBDiscount }}</text>
+                    <text class="t3">￥{{ orderPriceB }}</text>
                     <view class="iconPeople flex-col justify-center items-center mt10">低至{{ (orderPriceBDiscount / 365).toFixed(2) }}元/天</view>
                 </view>
                 <view class="ml15 tab flex-col justify-center items-center" :style="{ backgroundColor: year == 2 ? '#FDF7ED' : '#FFFFFF' }" @click="orderInit('A2')">
                     <u-image :lazy-load="true" style="position: absolute; top: 0" src="https://res-oss.elist.com.cn/wxImg/order/tj.png" width="120rpx" height="30rpx"></u-image>
-                    <u-text class="t1">{{ productCode[1] ? productCode[1].product : '' }}</u-text>
-                    <u-text class="t2">￥{{ orderPriceQDiscount }}</u-text>
-                    <u-text class="t3">￥{{ orderPriceQ }}</u-text>
+                    <text class="t1">{{ productCode[1] ? productCode[1].product : '' }}</text>
+                    <text class="t2">￥{{ orderPriceQDiscount }}</text>
+                    <text class="t3">￥{{ orderPriceQ }}</text>
                     <view class="iconPeople flex-col justify-center items-center mt10">低至{{ (orderPriceQDiscount / 365).toFixed(2) }}元/天</view>
                 </view>
             </view>
 
             <view @click="buyRenew" class="absolute flex-row justify-center items-center buttonRenew" style="bottom: 100rpx">
-                <u-text class="te">￥{{ year == 1 ? orderPriceBDiscount : orderPriceQDiscount }}</u-text>
-                <u-text class="te">/年</u-text>
-                <u-text class="te ml10">立即购买</u-text>
+                <text class="te">￥{{ year == 1 ? orderPriceBDiscount : orderPriceQDiscount }}</text>
+                <text class="te">/年</text>
+                <text class="te ml10">立即购买</text>
             </view>
             <view
                 class="absolute flex-row justify-center items-center"

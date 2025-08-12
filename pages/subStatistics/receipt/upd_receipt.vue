@@ -51,7 +51,7 @@
                             <text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
                                 {{ vuex_userRole === 'R' ? '供应商选择' : '客户选择' }}
                             </text>
-                            <view class="ml10 mr10"><u-icon name="/static/img/list/sx.svg" size="40rpx"></u-icon></view>
+                            <u-line direction="col" margin="0 20rpx" color="#333" length="40%"></u-line>
                             <view class="my-input">
                                 <u-input
                                     border="none"
@@ -121,7 +121,7 @@
                 class="OrderCard"
             >
                 <view class="OrderCardHand" @tap.stop>
-                    <view class="title ml1" style="" @tap.stop>
+                    <view class="title ml1 flex-1" style="" @tap.stop>
                         <view
                             class="flex-col justify-center items-center mr15"
                             @tap.stop
@@ -141,51 +141,19 @@
 
                         <u-icon size="28" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
                     </view>
-                    <view class="ml20" style="width: 30%">
+                    <view class="ml20" style="margin-right: -20rpx">
+                        <u-image v-if="vuex_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></u-image>
+                        <u-image v-if="vuex_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/dqs.png"></u-image>
+                        <u-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="@/static/img/obj/bq2.png" :lazy-load="true"></u-image>
                         <u-image
-                            v-if="vuex_userRole == 'D'"
-                            :style="{ display: item.paymentState == '0' ? 'inline' : 'none' }"
-                            :show-menu-by-longpress="false"
-                            class="u-img"
-                            width="120rpx"
-                            height="50rpx"
-                            :src="bat64.dqs"
-                        ></u-image>
-                        <u-image
-                            v-if="vuex_userRole == 'R'"
-                            :style="{ display: item.paymentState == '0' ? 'inline' : 'none' }"
-                            :show-menu-by-longpress="false"
-                            class="u-img"
-                            width="120rpx"
-                            height="50rpx"
-                            :src="bat64.dqss"
-                        ></u-image>
-                        <u-image
-                            v-if="vuex_userRole == 'R'"
-                            :style="{ display: item.paymentState == '2' ? 'inline' : 'none' }"
-                            :show-menu-by-longpress="false"
-                            class="u-img"
-                            width="120rpx"
-                            height="50rpx"
-                            :src="bat64.yfk"
-                        ></u-image>
-                        <u-image
-                            :style="{ display: item.paymentState == '1' ? 'inline' : 'none' }"
-                            width="120rpx"
-                            height="50rpx"
-                            :show-menu-by-longpress="false"
-                            class="u-img"
-                            :src="bat64.yqs"
-                        ></u-image>
-                        <u-image
-                            v-if="vuex_userRole != 'R'"
-                            :style="{ display: item.paymentState == '2' ? 'inline' : 'none' }"
-                            :show-menu-by-longpress="false"
+                            v-if="vuex_userRole != 'R' && item.paymentState == '2'"
                             width="120rpx"
                             height="50rpx"
                             class="u-img"
-                            :src="bat64.ysk"
+                            src="@/static/img/obj/bq3.png"
+                            :lazy-load="true"
                         ></u-image>
+                        <u-image v-if="vuex_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/yfk.png"></u-image>
                     </view>
                 </view>
                 <view class="width100 pb25 text-left">
@@ -229,7 +197,7 @@
                 </text>
             </view>
 
-            <view slot="bottom" class="pd30 bg-white">
+            <template #bottom class="pd30 bg-white">
                 <view class="flex-row justify-between items-center">
                     <view class="flex-row items-center vw100">
                         <view class="items-center flex-row" style="width: 92%; display: flex; justify-content: space-between">
@@ -252,7 +220,7 @@
                         </view>
                     </view>
                 </view>
-            </view>
+            </template>
         </z-paging>
 
         <u-popup :show="showCheck" mode="bottom" border-radius="15">
@@ -289,60 +257,43 @@
 
                                         <u-icon size="28" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
                                     </view>
-                                    <view class="ml20" style="width: 30%">
+                                    <view class="ml20" style="margin-right: -20rpx">
                                         <u-image
-                                            v-if="vuex_userRole == 'D'"
-                                            :style="{
-                                                display: item.paymentState == '0' ? 'inline' : 'none'
-                                            }"
+                                            v-if="vuex_userRole == 'D' && item.paymentState == '0'"
                                             class="u-img"
-                                            :show-menu-by-longpress="false"
                                             width="120rpx"
                                             height="50rpx"
-                                            :src="bat64.dqs"
+                                            src="@/static/img/obj/bq1.png"
                                         ></u-image>
                                         <u-image
-                                            v-if="vuex_userRole == 'R'"
-                                            :style="{
-                                                display: item.paymentState == '0' ? 'inline' : 'none'
-                                            }"
+                                            v-if="vuex_userRole == 'R' && item.paymentState == '0'"
                                             class="u-img"
-                                            :show-menu-by-longpress="false"
                                             width="120rpx"
                                             height="50rpx"
-                                            :src="bat64.dqss"
+                                            src="@/static/img/obj/dqs.png"
                                         ></u-image>
                                         <u-image
-                                            v-if="vuex_userRole == 'R'"
-                                            :style="{
-                                                display: item.paymentState == '2' ? 'inline' : 'none'
-                                            }"
-                                            class="u-img"
-                                            :show-menu-by-longpress="false"
+                                            v-if="item.paymentState == '1'"
                                             width="120rpx"
                                             height="50rpx"
-                                            :src="bat64.yfk"
+                                            class="u-img"
+                                            src="@/static/img/obj/bq2.png"
+                                            :lazy-load="true"
                                         ></u-image>
                                         <u-image
-                                            :style="{
-                                                display: item.paymentState == '1' ? 'inline' : 'none'
-                                            }"
-                                            :show-menu-by-longpress="false"
+                                            v-if="vuex_userRole != 'R' && item.paymentState == '2'"
                                             width="120rpx"
                                             height="50rpx"
                                             class="u-img"
-                                            :src="bat64.yqs"
+                                            src="@/static/img/obj/bq3.png"
+                                            :lazy-load="true"
                                         ></u-image>
                                         <u-image
-                                            v-if="vuex_userRole != 'R'"
-                                            :show-menu-by-longpress="false"
-                                            :style="{
-                                                display: item.paymentState == '2' ? 'inline' : 'none'
-                                            }"
+                                            v-if="vuex_userRole == 'R' && item.paymentState == '2'"
+                                            class="u-img"
                                             width="120rpx"
                                             height="50rpx"
-                                            class="u-img"
-                                            :src="bat64.ysk"
+                                            src="@/static/img/obj/yfk.png"
                                         ></u-image>
                                     </view>
                                 </view>
@@ -392,7 +343,7 @@
                             </view>
                         </u-swipe-action>
                     </view>
-                    <view slot="bottom" class="pd30 bg-white">
+                    <template #bottom class="pd30 bg-white">
                         <view class="flex-row justify-between items-center">
                             <view class="flex-row items-center vw100">
                                 <view class="items-center flex-row" style="width: 92%; display: flex; justify-content: space-between">
@@ -432,7 +383,7 @@
                                 </view>
                             </view>
                         </view>
-                    </view>
+                    </template>
                 </z-paging>
             </view>
         </u-popup>

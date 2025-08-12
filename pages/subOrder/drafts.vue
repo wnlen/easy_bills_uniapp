@@ -17,7 +17,7 @@
                         <text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
                             {{ vuex_userRole === 'R' ? '供应商选择' : '客户选择' }}
                         </text>
-                        <view class="ml10 mr10"><u-icon name="/static/img/list/sx.svg" size="40rpx"></u-icon></view>
+                        <u-line direction="col" margin="0 20rpx" color="#333" length="40%"></u-line>
                         <view class="my-input">
                             <u-input
                                 border="none"

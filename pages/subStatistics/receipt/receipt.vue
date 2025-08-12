@@ -1,5 +1,4 @@
 <template>
-    s
     <view class="root">
         <u-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" mode="search" margin-top="-200" v-if="!identity"></u-empty>
 
@@ -55,8 +54,8 @@
                             <text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
                                 {{ vuex_userRole === 'R' ? '供应商选择' : '客户选择' }}
                             </text>
-                            <view class="ml10 mr10"><u-icon name="/static/img/list/sx.svg" size="40rpx"></u-icon></view>
-                            <view class="my-input">
+                            <u-line direction="col" margin="0 20rpx" color="#333" length="40%"></u-line>
+                            <view class="my-input flex-1">
                                 <u-input
                                     border="none"
                                     @change="CustomerGetChange"
@@ -77,11 +76,11 @@
                                 {{ Title }}
                             </text>
                             <view class="ml10 mr10"><u-icon name="arrow-down-fill" size="20rpx"></u-icon></view>
-                            <view class="my-input">
-                                <u-input border="none" v-if="showTage !== '1'" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
+                            <view class="my-input flex-1" v-if="showTage !== '1'">
+                                <u-input border="none" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
                             </view>
-                            <view class="ml24 my-input">
-                                <u-input border="none" v-if="showTage === '1'" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
+                            <view class="ml24 my-input flex-1" v-if="showTage === '1'">
+                                <u-input border="none" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
                             </view>
 
                             <view class="flex-col justify-center items-center" style="height: 5vh">
@@ -142,50 +141,18 @@
                         <u-icon size="28rpx" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
                     </view>
                     <view class="ml20" style="width: 30%">
+                        <u-image v-if="vuex_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></u-image>
+                        <u-image v-if="vuex_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/dqs.png"></u-image>
+                        <u-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="@/static/img/obj/bq2.png" :lazy-load="true"></u-image>
                         <u-image
-                            v-if="vuex_userRole == 'D'"
-                            :style="{ display: item.paymentState == '0' ? 'inline' : 'none' }"
-                            :show-menu-by-longpress="false"
-                            class="u-img"
-                            width="120rpx"
-                            height="50rpx"
-                            :src="bat64.dqs"
-                        ></u-image>
-                        <u-image
-                            v-if="vuex_userRole == 'R'"
-                            :style="{ display: item.paymentState == '0' ? 'inline' : 'none' }"
-                            :show-menu-by-longpress="false"
-                            class="u-img"
-                            width="120rpx"
-                            height="50rpx"
-                            :src="bat64.dqss"
-                        ></u-image>
-                        <u-image
-                            v-if="vuex_userRole == 'R'"
-                            :style="{ display: item.paymentState == '2' ? 'inline' : 'none' }"
-                            :show-menu-by-longpress="false"
-                            class="u-img"
-                            width="120rpx"
-                            height="50rpx"
-                            :src="bat64.yfk"
-                        ></u-image>
-                        <u-image
-                            :style="{ display: item.paymentState == '1' ? 'inline' : 'none' }"
-                            width="120rpx"
-                            height="50rpx"
-                            :show-menu-by-longpress="false"
-                            class="u-img"
-                            :src="bat64.yqs"
-                        ></u-image>
-                        <u-image
-                            v-if="vuex_userRole != 'R'"
-                            :style="{ display: item.paymentState == '2' ? 'inline' : 'none' }"
-                            :show-menu-by-longpress="false"
+                            v-if="vuex_userRole != 'R' && item.paymentState == '2'"
                             width="120rpx"
                             height="50rpx"
                             class="u-img"
-                            :src="bat64.ysk"
+                            src="@/static/img/obj/bq3.png"
+                            :lazy-load="true"
                         ></u-image>
+                        <u-image v-if="vuex_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/yfk.png"></u-image>
                     </view>
                 </view>
                 <view class="width100 pb25 text-left">
@@ -229,8 +196,8 @@
                 </text>
             </view>
 
-            <view slot="bottom" class="pd30 bg-white">
-                <view class="flex-row justify-between items-center">
+            <template #bottom>
+                <view class="flex-row justify-between items-center pd30 bg-white">
                     <view class="flex-row items-center vw100">
                         <view class="items-center flex-row" style="width: 92%; display: flex; justify-content: space-between">
                             <view class="" style="text-align: left; font-size: 24rpx; color: #01bb74" :disabled="false">
@@ -265,12 +232,12 @@
                         </view>
                     </view>
                 </view>
-            </view>
+            </template>
         </z-paging>
 
         <u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" />
 
-        <u-popup :show="show_start" mode="top" width="550rpx">
+        <u-popup :show="show_start" @click="show_start = false" mode="top" width="550rpx">
             <view class="flex-col pd30 justify-between height100">
                 <view>
                     <view class="flex-col mt40">
@@ -403,7 +370,15 @@
                     <u-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :custom-style="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
                 </view>
                 <!-- 日历选择器 -->
-                <uv-calendars color="#01BB74" confirmColor="#01BB74" mode="range" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="date1Change" />
+                <uv-calendars
+                    color="#01BB74"
+                    confirmColor="#01BB74"
+                    mode="range"
+                    :startDate="getCurrentYearFirstDay()"
+                    :endDate="getCurrentDate()"
+                    ref="calendars"
+                    @confirm="date1Change"
+                />
             </view>
         </u-popup>
     </view>
@@ -1707,7 +1682,7 @@ export default {
             display: flex;
             flex-direction: column;
             width: 100%;
-            margin-top: 10rpx;
+            margin-top: 20rpx;
 
             .InputOne {
                 background-color: #f9f9f9;
