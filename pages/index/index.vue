@@ -3,10 +3,9 @@
 		<u-navbar title="" :placeholder="true" bgColor="transparent" leftIconSize="0"></u-navbar>
 		<view class="flex-row justify-between items-end ml30 mr30">
 			<view>
-				<image v-if="isLogin" style="width: 128rpx" :src="`${ImgUrl}/wxImg/index/ydj.png`" mode="widthFix" @click="goToLogin()"></image>
-				<image v-else style="width: 108rpx" :src="`${ImgUrl}/wxImg/index/qdl.png`" mode="widthFix"></image>
+				<image v-if="isLogin" style="width: 108rpx" :src="`${ImgUrl}/wxImg/index/ydj.png`" mode="widthFix"></image>
+				<image v-else style="width: 128rpx" :src="`${ImgUrl}/wxImg/index/qdl.png`" mode="widthFix" @click="goToLogin()"></image>
 
-				<!-- <view class="title mb12" @click="isLogin ? '' : goToLogin()">{{ isLogin ? '易单据' : '请登录~' }}</view> -->
 				<view class="ft28">送货单轻松签收</view>
 			</view>
 			<view class="flex-row justify-between butBox text-center ft28 ft-bold" id="box">
@@ -777,19 +776,6 @@ export default {
 .Indexbg2 {
 	background: url('https://res-oss.elist.com.cn/wxImg/index/indexR.png') no-repeat left top #f6f7f7;
 	background-size: 100% auto;
-}
-@font-face {
-	font-family: '阿里妈妈数黑体 Bold';
-	font-weight: 700;
-	src: url('https://res-oss.elist.com.cn/wxImg/fonts/aliBold/AlimamaShuHeiTi-Bold.woff2') format('woff2'),
-		url('https://res-oss.elist.com.cn/wxImg/fonts/aliBold/AlimamaShuHeiTi-Bold.woff') format('woff');
-	font-variation-settings: normal;
-	font-display: swap;
-}
-
-.title {
-	font-family: '阿里妈妈数黑体 Bold';
-	font-size: 36rpx;
 }
 
 .charts-box {
