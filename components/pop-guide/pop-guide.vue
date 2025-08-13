@@ -77,39 +77,54 @@ export default {
 			}, 500);
 
 			console.log(this.functionGuideData.step);
+			console.log(this.$u.getPinia('user.userRole'));
 
 			var port = this.vuex_userRole == 'D';
 			if (port) {
-				if (this.$parent.guidancePage == 1) {
+				// if (this.$parent.guidancePage == 4) {
+				if (this.functionGuideData.step == 4) {
 					//修改数据库
 					console.log('数据修改');
 					this.GuidanceDR(port);
 				} else {
-					if (this.functionGuideData.step == 3) {
-						uni.setStorageSync('guidance', 1);
-						if (uni.getStorageSync('guidance') != '') {
-							uni.switchTab({
-								url: '/pages/user/index'
-							});
-						}
-					}
+					// if (this.functionGuideData.step == 3) {
+					// 	uni.setStorageSync('guidance', 1);
+					// 	if (uni.getStorageSync('guidance') != '') {
+					// 		uni.switchTab({
+					// 			url: '/pages/user/index'
+					// 		});
+					// 	}
+					// }
 				}
 			} else {
 				//收货端
-				if (this.functionGuideData.step == 3) {
+				if (this.functionGuideData.step == 2) {
 					this.GuidanceDR(port);
 				}
 			}
 		},
 		GuidanceDR(port) {
+			if (this.$u.getPinia('user.userRole') == 'D') {
+				this.$u.setPinia({
+					guide: {
+						guidanceD: 1
+					}
+				});
+			} else {
+				this.$u.setPinia({
+					guide: {
+						guidanceR: 1
+					}
+				});
+			}
+			this.show = false;
+			this.$loadUser(this);
 			var dx = {
 				phoneNumber: this.vuex_user.phone,
 				guidanceD: port ? 0 : 1,
 				guidanceR: port ? 1 : 0,
 				port: this.vuex_userRole
 			};
-			this.show = false;
-			this.$loadUser(this);
 			this.$api.user.userGuidance(dx).then((res) => {});
 		},
 		setFunctionGuideState() {

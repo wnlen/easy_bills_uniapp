@@ -2,7 +2,7 @@
 	<view class="modification">
 		<z-paging ref="paging" use-virtual-list :force-close-inner-list="true" cell-height-mode="dynamic" @virtualListChange="virtualListChange" @query="queryList">
 			<template #top>
-				<up-navbar :autoBack="true" :placeholder="true" bgColor="#00000000" :titleBold="true" :titleStyle="titleStyle" title="商品库"></up-navbar>
+				<u-navbar :autoBack="true" :placeholder="true" bgColor="#00000000" :titleBold="true" :titleStyle="titleStyle" title="商品库"></u-navbar>
 				<view class="ml24 mr24 flex-row items-center justify-center pb30">
 					<view class="flex-row items-center justify-center pl20 pr10" style="background: #ffffff; border-radius: 254rpx; width: 75%; height: 60rpx">
 						<u-icon name="search" color="#01BB74" size="40rpx"></u-icon>
@@ -61,7 +61,7 @@ export default {
 				width: '120rpx',
 				height: '50rpx',
 				padding: '6rpx',
-				marginLeft: '24rpx',
+				margin: '0 0 0 24rpx',
 				fontSize: '24rpx'
 			},
 			bottomCustomStyle: {

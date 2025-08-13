@@ -49,7 +49,7 @@
 					<view class=></view><u-icon  "pr10" name="scan" color="#ffffff" size="30rpx"></u-icon>
 					扫一扫邀请
 				</u-button> -->
-				<u-button :customStyle="SearchCustomStyle" shape="circle" @click="establish">
+				<u-button :customStyle="SearchCustomStyle" color="#FFAF38" shape="circle" @click="establish">
 					<u-icon name="plus" color="#ffffff" size="30rpx"></u-icon>
 					<text class="pl10">创建{{ title }}</text>
 				</u-button>
@@ -274,7 +274,6 @@ export default {
 				height: '60rpx',
 				padding: '12rpx',
 				fontSize: '24rpx',
-				backgroundColor: '#FFAF38',
 				color: '#ffffff'
 			},
 			SearchCustomStyleWechat: {

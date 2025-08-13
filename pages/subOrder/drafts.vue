@@ -17,8 +17,8 @@
 						<text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
 							{{ vuex_userRole === 'R' ? '供应商选择' : '客户选择' }}
 						</text>
-						<u-line direction="col" margin="0 20rpx" color="#333" length="40%"></u-line>
-						<view class="my-input">
+						<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
+						<view class="my-input flex-1">
 							<u-input
 								border="none"
 								@change="CustomerGetChange"
@@ -38,12 +38,12 @@
 						<text class="ft11 ft-gray ml20" @click="filtrateGet">
 							{{ Title }}
 						</text>
-						<view class="ml10 mr10"><u-icon name="/static/img/list/sj.svg" size="40rpx"></u-icon></view>
-						<view class="my-input">
-							<u-input border="none" v-if="showTage !== '1'" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
+						<view class="ml10 mr10"><u-icon name="arrow-down-fill" size="20rpx"></u-icon></view>
+						<view class="my-input flex-1" v-if="showTage !== '1'">
+							<u-input border="none" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
 						</view>
-						<view class="ml24 my-input">
-							<u-input border="none" v-if="showTage === '1'" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
+						<view class="ml24 my-input flex-1" v-if="showTage === '1'">
+							<u-input border="none" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
 						</view>
 
 						<view class="flex-col justify-center items-center" style="height: 5vh">
@@ -64,13 +64,12 @@
 					<view
 						class="flex-col justify-center items-center mr10"
 						:style="{ backgroundColor: item.check ? '#01BB74' : '#ffffff' }"
-						@click="checkboxGroupChange(item, index)"
-						@tap.stop
+						@click.stop="checkboxGroupChange(item, index)"
 						style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 					>
 						<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
 					</view>
-					<view class="flex-col text-left" style="width: 90%" @tap.stop @click="jumpDraftsOrder(item.id)">
+					<view class="flex-col text-left" style="width: 90%" @click.stop="jumpDraftsOrder(item.id)">
 						<text
 							v-if="vuex_userRole == 'D'"
 							:style="{ color: ifZX(item.bossNumberE) ? '#AAAAAA' : '#3D3D3D' }"
@@ -96,13 +95,7 @@
 						<text class="ft35" style="color: black; font-weight: 500">{{ item.price.toFixed(2) }}</text>
 					</text>
 
-					<text
-						style="width: 100%"
-						class="mt17 ft-lighgray ft25 bg-gray radius pd10"
-						@tap.stop
-						v-if="item.receiptsDescr && item.paymentState != 2"
-						@click="noteMyOrder(item)"
-					>
+					<text style="width: 100%" class="mt17 ft-lighgray ft25 bg-gray radius pd10" v-if="item.receiptsDescr && item.paymentState != 2" @click.stop="noteMyOrder(item)">
 						备注：{{ item.receiptsDescr }}
 					</text>
 				</view>
@@ -110,8 +103,11 @@
 
 			<view class="NullView" style="height: 5vh; background-color: transparent"></view>
 
-			<view class="" slot="bottom" style="background-color: #ffffff; box-shadow: 0rpx 4rpx 6rpx 0rpx rgba(51, 51, 51, 0.2); bottom: 0">
-				<view class="flex-row justify-between items-center" style="height: 10vh">
+			<template #bottom>
+				<view
+					class="flex-row justify-between items-center"
+					style="height: 10vh; background-color: #ffffff; box-shadow: 0rpx 4rpx 6rpx 0rpx rgba(51, 51, 51, 0.2); bottom: 0"
+				>
 					<view class="flex-row items-center vw100">
 						<view class="items-center flex-row" style="width: 92%; display: flex; justify-content: space-between">
 							<view class="" style="text-align: left; font-size: 24rpx; color: #01bb74" :disabled="false">
@@ -142,7 +138,7 @@
 						</view>
 					</view>
 				</view>
-			</view>
+			</template>
 		</z-paging>
 
 		<u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" />

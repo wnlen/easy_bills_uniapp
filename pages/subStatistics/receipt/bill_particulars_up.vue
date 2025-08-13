@@ -123,21 +123,20 @@
 				<view class="recently-cat flex-row flex-wrap" style="width: 100%">
 					<view class="recently-cat flex-row flex-wrap mt24" style="width: 95%">
 						<u-upload
-							:custom-btn="true"
-							:action="action"
-							:show-retry="false"
-							:file-list="imgFileList"
-							@on-remove="moveImgFileList"
-							:show-tips="false"
-							:before-upload="handleUpload"
-							max-size="524288"
-							max-count="3"
+							autoUpload
+							autoDelete
+							:autoUploadApi="action"
+							autoUploadDriver="local"
+							v-model:fileList="imgFileList"
+							:maxSize="524288"
+							:maxCount="3"
 							multiple
-							del-bg-color="#e9e9e9"
+							:showPreviewImage="true"
+							:previewFullImage="true"
+							:deletable="true"
+							:showRetry="false"
 						>
-							<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
-								<u-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200"></u-icon>
-							</view>
+							<u-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></u-icon>
 						</u-upload>
 					</view>
 				</view>
@@ -149,12 +148,12 @@
 
 				<!-- #ifdef MP-WEIXIN -->
 				<view v-if="fileList.length < 3" class="uploadView" @click="uploadFile">
-					<u-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100"></u-icon>
+					<u-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></u-icon>
 				</view>
 				<!-- #endif -->
 				<!-- #ifdef APP -->
 				<view class="uploadView" @click="chooseFile">
-					<u-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100"></u-icon>
+					<u-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></u-icon>
 				</view>
 				<!-- #endif -->
 
@@ -173,7 +172,7 @@
 
 			<view class="FromOwn">
 				<view class="OwnText">
-					<view class="OwnTextFromTitle">企业名称:</view>
+					<view class="OwnTextFromTitle">企业名称</view>
 					<text :style="{ color: '#333333' }" class="ml15 endcolor OwnTextFromText" v-if="vuex_user.data.work == '0'">
 						{{ vuex_user.ac.enterpriseName || vuex_user.phone }}
 					</text>
@@ -182,11 +181,11 @@
 					</text>
 				</view>
 				<view class="OwnText">
-					<view class="OwnTextFromTitle">联系人:</view>
+					<view class="OwnTextFromTitle">联系人</view>
 					<text class="OwnTextFromText">{{ vuex_user.data.name || vuex_user.phone || vuex_user.data.phone }}</text>
 				</view>
 				<view class="OwnText">
-					<view class="OwnTextFromTitle">联系电话:</view>
+					<view class="OwnTextFromTitle">联系电话</view>
 					<text class="OwnTextFromText">{{ vuex_user.phone || vuex_user.data.phone }}</text>
 				</view>
 			</view>
@@ -767,9 +766,9 @@ export default {
 		flex-direction: row;
 		justify-content: left;
 
-		padding-bottom: 48rpx;
-		padding-top: 48rpx;
-		margin-left: 24rpx;
+		padding-bottom: 30rpx;
+		padding-top: 30rpx;
+		margin-left: 30rpx;
 
 		// padding: 24rpx;
 

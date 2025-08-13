@@ -13,30 +13,30 @@
 			<template #top>
 				<u-navbar
 					:placeholder="true"
-					:background="{ backgroundColor: 'transparent' }"
 					back-icon-color="#000000"
 					:titleBold="true"
 					title-color="#000000"
 					title="商品库"
 					title-size="34"
 					@leftClick="customBack"
-					bgColor="#ffffff"
+					bgColor="transparent"
 				></u-navbar>
-				<view class="ml24 mt20 mr24 flex-row items-center justify-center pb30">
-					<view class="flex-row items-center justify-center pl20 pr10" style="background: #ffffff; border-radius: 254rpx; width: 75%">
-						<view class="ml6"><u-icon name="search" color="#01BB74" size="40rpx"></u-icon></view>
-						<view class="my-input ml6">
-							<u-input
-								border="none"
-								@change="SearchInventoryChange"
-								v-model="SearchInventory"
-								:customStyle="{ backgroundColor: 'transparent' }"
-								placeholder="请输入商品名称/规格"
-								:clearable="true"
-							></u-input>
-						</view>
+				<view class="ml24 mr24 flex-row items-center justify-center pb30">
+					<view class="flex-row items-center justify-center pl20 pr10" style="background: #ffffff; border-radius: 254rpx; width: 75%; height: 60rpx">
+						<u-icon name="search" color="#01BB74" size="40rpx"></u-icon>
+						<u-input
+							:customStyle="{
+								backgroundColor: 'transparent',
+								marginLeft: '10rpx'
+							}"
+							v-model="SearchInventory"
+							placeholder="请输入商品名称/规格"
+							:clearable="true"
+							border="none"
+							@change="SearchInventoryChange"
+						></u-input>
 					</view>
-					<u-button color="#01BB74" @click="jumpAddCommodity" :custom-style="SearchCustomStyle" type="success">添加商品</u-button>
+					<u-button @click="jumpAddCommodity" :customStyle="SearchCustomStyle" color="#01BB74" type="success">添加商品</u-button>
 				</view>
 			</template>
 
@@ -45,7 +45,7 @@
 					<view class="">
 						<u-image radius="12rpx" width="200rpx" height="200rpx" :show-menu-by-longpress="false" src="https://res-oss.elist.com.cn/wxImg/order/SlView.png"></u-image>
 					</view>
-					<view class="invText" style="width: 300rpx">
+					<view class="invText" style="width: 350rpx">
 						<text>示例商品 1</text>
 						<text>规格：00A1</text>
 						<text>单位：个</text>
@@ -75,7 +75,7 @@
 						:src="item.img === 'definde' ? 'https://res-oss.elist.com.cn/wxImg/order/emptyView.png' : item.img"
 					></u-image>
 				</view>
-				<view class="invText" style="width: 300rpx" @click="jumpCommodityDetails(item)">
+				<view class="invText" style="width: 350rpx" @click="jumpCommodityDetails(item)">
 					<text>{{ item.description }}</text>
 					<text>规格：{{ item.specification }}</text>
 					<text>单位：{{ item.unit }}</text>
@@ -95,7 +95,7 @@
 						合计:
 						<text style="color: #01bb74">￥{{ totalPrices }}</text>
 					</text>
-					<u-button shape="circle" :custom-style="bottomCustomStyle" type="success" @click="save">保存</u-button>
+					<u-button shape="circle" :custom-style="bottomCustomStyle" color="#01bb74" @click="save">保存</u-button>
 				</view>
 			</template>
 		</z-paging>
@@ -173,7 +173,7 @@
 								合计:
 								<text style="color: #01bb74">￥{{ totalPrices }}</text>
 							</text>
-							<u-button shape="circle" :customStyle="bottomCustomStyle" type="success" @click="closeOpen">保存</u-button>
+							<u-button shape="circle" :customStyle="bottomCustomStyle" color="#01BB74" @click="closeOpen">保存</u-button>
 						</view>
 					</template>
 				</z-paging>
@@ -193,7 +193,8 @@ export default {
 				height: '50rpx',
 				padding: '6rpx',
 				marginLeft: '24rpx',
-				fontSize: '24rpx'
+				fontSize: '24rpx',
+				margin: '0 0 0 24rpx'
 			},
 			bottomCustomStyle: {
 				width: '216rpx',
