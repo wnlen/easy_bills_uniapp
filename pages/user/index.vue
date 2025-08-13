@@ -102,17 +102,17 @@
 			>
 				<view class="" style="width: 94%">
 					<u-cell-group :border="false">
-						<u-cell :title="menus[0].name" isLink @click="menuClick(menus[0])">
+						<u-cell size="large" :title="menus[0].name" isLink @click="menuClick(menus[0])">
 							<template #icon>
 								<u-icon slot="icon" size="40rpx" :name="ImgUrl + menus[0].icon" color="#999" :custom-style="{ marginRight: '20rpx' }"></u-icon>
 							</template>
 						</u-cell>
-						<u-cell v-for="(item, index) in filteredMenus" :key="index" :title="item.name" isLink @click="menuClick(item)">
+						<u-cell size="large" v-for="(item, index) in filteredMenus" :key="index" :title="item.name" isLink @click="menuClick(item)">
 							<template #icon>
 								<u-icon slot="icon" size="40rpx" :name="ImgUrl + item.icon" color="#999" :custom-style="{ marginRight: '20rpx' }"></u-icon>
 							</template>
 						</u-cell>
-						<u-cell :title="menus[menus.length - 1].name" isLink @click="menuClick(menus[menus.length - 1])" :border="false">
+						<u-cell size="large" :title="menus[menus.length - 1].name" isLink @click="menuClick(menus[menus.length - 1])" :border="false">
 							<template #icon>
 								<u-icon slot="icon" size="40rpx" :name="ImgUrl + menus[menus.length - 1].icon" color="#999" :custom-style="{ marginRight: '20rpx' }"></u-icon>
 							</template>
@@ -253,7 +253,7 @@ export default {
 	onShow() {
 		if (this.vuex_user.phone != undefined) {
 			this.$loadUser(this);
-			this.guideCourse();
+			// this.guideCourse();
 		} else {
 			console.log('未登录');
 		}

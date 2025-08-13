@@ -28,7 +28,7 @@
 					{{ InputOneName.c }}
 				</text>
 				<view class="ml10 mr10" style="right: 0; top: 40rpx">
-					<u-icon name="/static/img/list/sj.svg" size="40rpx"></u-icon>
+					<u-icon name="arrow-down-fill" size="20rpx"></u-icon>
 				</view>
 
 				<view class="my-input">

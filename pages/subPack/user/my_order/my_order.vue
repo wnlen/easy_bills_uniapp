@@ -185,12 +185,10 @@
 						</view>
 					</view>
 				</view>
-
 				<view class="BodyQBQYScrollViewHand">
 					<view class="Hand_icon"></view>
 					<text class="Hand_title">人员管理</text>
 				</view>
-
 				<view class="PeopleTab" :style="{ height: currentVip == 0 ? '26vh' : 'auto' }">
 					<view
 						class="TabRY"
@@ -229,6 +227,7 @@
 							</view>
 							<view class="tabBodyOne_card_body_sum">
 								<u-number-box
+									:disabledInput="true"
 									:integer="true"
 									buttonWidth="40rpx"
 									buttonRadius="10rpx"
@@ -276,6 +275,7 @@
 							</view>
 							<view class="tabBodyOne_card_body_sum">
 								<u-number-box
+									:disabledInput="true"
 									:integer="true"
 									buttonWidth="40rpx"
 									buttonRadius="10rpx"
@@ -323,6 +323,7 @@
 							</view>
 							<view class="tabBodyOne_card_body_sum">
 								<u-number-box
+									:disabledInput="true"
 									:integer="true"
 									buttonWidth="40rpx"
 									buttonRadius="10rpx"
@@ -510,7 +511,7 @@
 					<view class="pd20 mt25">
 						<view
 							v-for="(item2, index2) in item.peopleRenew"
-							v-if="item2.jurisdictionCode == 'C1'"
+							v-show="item2.jurisdictionCode == 'C1'"
 							:key="index2"
 							class="flex-row justify-left relative mt30"
 							style="width: 100%"
@@ -527,7 +528,7 @@
 
 						<view
 							v-for="(item2, index2) in item.peopleRenew"
-							v-if="item2.jurisdictionCode == 'C2'"
+							v-show="item2.jurisdictionCode == 'C2'"
 							:key="index2"
 							class="flex-row justify-left relative mt30"
 							style="width: 100%"
@@ -544,7 +545,7 @@
 
 						<view
 							v-for="(item2, index2) in item.peopleRenew"
-							v-if="item2.jurisdictionCode == 'C3'"
+							v-show="item2.jurisdictionCode == 'C3'"
 							:key="index2"
 							class="flex-row justify-left relative mt30"
 							style="width: 100%"
@@ -1406,6 +1407,7 @@ export default {
 			this.current = item.index;
 		},
 		changeVip(item) {
+			console.log(item);
 			this.currentVip = item.index;
 		},
 		checkboxChange(checkbox) {

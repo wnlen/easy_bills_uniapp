@@ -297,6 +297,22 @@
 
 				<view class="recently-cat flex-row flex-wrap mt40" style="width: 95%">
 					<u-upload
+						autoUpload
+						autoDelete
+						:autoUploadApi="action"
+						autoUploadDriver="local"
+						v-model:fileList="fileList"
+						:maxSize="5242880"
+						:maxCount="3"
+						multiple
+						:showPreviewImage="true"
+						:previewFullImage="true"
+						:deletable="true"
+						:showRetry="false"
+					>
+						<u-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></u-icon>
+					</u-upload>
+					<!-- <u-upload
 						:custom-btn="true"
 						:action="action"
 						:show-retry="false"
@@ -312,7 +328,7 @@
 						<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
 							<u-icon name="https://res-oss.elist.com.cn/wxImg/order/down.png" size="200"></u-icon>
 						</view>
-					</u-upload>
+					</u-upload> -->
 				</view>
 
 				<view class="flex-col mt45" style="width: 95%">

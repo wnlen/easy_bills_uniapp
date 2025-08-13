@@ -4,10 +4,12 @@
 		<u-tabbar :value="tabIndex" activeColor="#01BB74" @change="changeTab">
 			<up-tabbar-item :text="item.text" v-for="(item, index) in tabbar" :key="index">
 				<template #active-icon>
-					<image style="width: 40rpx; height: 40rpx" class="u-page__item__slot-icon" :src="item.selectedIconPath"></image>
+					<u-icon size="40rpx" :name="item.selectedIconPath"></u-icon>
 				</template>
 				<template #inactive-icon>
-					<image :id="index == 1 ? 'box4' : ''" style="width: 40rpx; height: 40rpx" class="u-page__item__slot-icon" :src="item.iconPath"></image>
+					<view :id="index == 1 ? 'box4' : ''">
+						<u-icon size="40rpx" :name="item.iconPath"></u-icon>
+					</view>
 				</template>
 			</up-tabbar-item>
 		</u-tabbar>

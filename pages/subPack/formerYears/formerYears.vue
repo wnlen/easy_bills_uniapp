@@ -335,7 +335,7 @@
 			</view>
 		</z-paging>
 
-		<u-popup :show="show_start" mode="top" width="550rpx">
+		<u-popup :show="show_start" mode="top" width="550rpx" @close="show_start = false">
 			<view class="flex-col pd30 justify-between height100 pt100">
 				<view>
 					<view class="flex-col mt40">
@@ -352,20 +352,6 @@
 						>
 							时间筛选
 						</text>
-						<!-- 		<view class="flex-row items-center justify-between mt10 vw100">
-							<view class="flex-row items-center">
-								<text class="mr10" style="color: #999999;">开始日期</text>
-								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<input @click="calendar1Show=true" disabled class="ml24"
-									style="box-sizing: border-box;border: 1rpx solid #999999;width: 20%;border-radius: 6rpx;height: 60rpx;align-items: center;text-align: center;"
-									type="text" placeholder=" 开始日期" v-model="date1" />
-								<text class="mr10 ml20" style="color: #999999;">结束日期</text>
-								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<input @click="calendar2Show=true" disabled class="ml24"
-									style="box-sizing: border-box;border: 1rpx solid #999999;width: 20%;border-radius: 6rpx;height: 60rpx;align-items: center;text-align: center;"
-									type="text" placeholder=" 结束日期" v-model="date2" />
-							</view>
-						</view> -->
 
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
 							<view class="flex-row items-center" style="width: 50%">
@@ -373,19 +359,19 @@
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
 								<view
 									@click="$refs.calendars.open()"
-									class="ml24 text-center flex-row justify-center items-center"
-									style="border: 1rpx solid #999999; padding: 12rpx; border-radius: 6rpx; min-width: 180rpx; height: 56rpx"
+									class="ml14 text-center flex-row justify-center items-center"
+									style="border: 1rpx solid #999999; padding: 12rpx 6rpx; border-radius: 6rpx; min-width: 180rpx; height: 56rpx"
 								>
 									{{ date1 == '' ? '开始日期' : date1 }}
 								</view>
 							</view>
 							<view class="flex-row items-center" style="width: 50%">
-								<text class="mr10 ml20" style="color: #999999">结束日期</text>
+								<text class="mr10" style="color: #999999">结束日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
 								<view
 									@click="$refs.calendars.open()"
-									class="ml24 text-center flex-row justify-center items-center"
-									style="border: 1rpx solid #999999; padding: 12rpx; border-radius: 6rpx; min-width: 180rpx; height: 56rpx"
+									class="ml14 text-center flex-row justify-center items-center"
+									style="border: 1rpx solid #999999; padding: 12rpx 6rpx; border-radius: 6rpx; min-width: 180rpx; height: 56rpx"
 								>
 									{{ date2 == '' ? '结束日期' : date2 }}
 								</view>
@@ -409,48 +395,44 @@
 
 							<view class="flex-row mt20" style="width: 100%">
 								<view
-									class="text-center items-center mr24 pt5"
+									class="text-center items-center mr24 pt5 tages"
 									@click="Filtrate('0')"
 									:style="{
 										backgroundColor: showTage == '0' ? '#4E5777' : '#FFFBF1',
 										color: showTage == '0' ? '#ffffff' : '#965510'
 									}"
-									style="color: #ffffff; background-color: #4e5777; width: 30%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
 								>
 									联系人
 								</view>
 								<view
-									class="text-center items-center mr24 pt5"
+									class="text-center items-center mr24 pt5 tages"
 									@click="Filtrate('1')"
 									:style="{
 										backgroundColor: showTage == '1' ? '#4E5777' : '#FFFBF1',
 										color: showTage == '1' ? '#ffffff' : '#965510'
 									}"
-									style="color: #4e5777; background-color: #4e5777; width: 30%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
 								>
 									联系号码
 								</view>
 								<view
-									class="text-center items-center pt5"
+									class="text-center items-center pt5 tages"
 									@click="Filtrate('2')"
 									:style="{
 										backgroundColor: showTage == '2' ? '#4E5777' : '#FFFBF1',
 										color: showTage == '2' ? '#ffffff' : '#965510'
 									}"
-									style="color: #4e5777; background-color: #f2fbf8; width: 30%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
 								>
 									{{ vuex_userRole == 'R' ? '收货地址' : '收货地址' }}
 								</view>
 							</view>
 							<view class="flex-row mt20" style="width: 100%">
 								<view
-									class="text-center items-center pt5"
+									class="text-center items-center pt5 tages"
 									@click="Filtrate('3')"
 									:style="{
 										backgroundColor: showTage == '3' ? '#4E5777' : '#FFFBF1',
 										color: showTage == '3' ? '#ffffff' : '#965510'
 									}"
-									style="color: #4e5777; background-color: #f2fbf8; width: 30%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
 								>
 									产品名称
 								</view>
@@ -459,14 +441,23 @@
 					</view>
 				</view>
 				<!-- 按钮 -->
-				<view class="flex-row justify-end mt25 vw100" style="">
-					<view class="mt15" style="text-align: left; align-items: center; color: #ccc; font-size: 24rpx; float: left; margin-right: 15%">
-						<!-- 保存偏好设置 -->
-					</view>
-					<view class="mr48" style="float: right">
-						<u-button @click="filterReset" shape="circle" size="medium" :custom-style="{ marginRight: '20rpx' }" plain>重置</u-button>
-						<u-button class="ml20" type="success" @click="filterSubmit" shape="circle" size="medium" :custom-style="{ backgroundColor: '#4E5777' }">确定</u-button>
-					</view>
+				<view class="flex-row justify-end">
+					<u-button
+						color="#F4F4F4"
+						type="info"
+						@click="filterReset"
+						shape="circle"
+						size="medium"
+						:custom-style="{
+							width: '154rpx',
+							color: '#999999',
+							margin: '0 20rpx 0 0',
+							height: '60rpx'
+						}"
+					>
+						重置
+					</u-button>
+					<u-button color="#4E5777" @click="filterSubmit" shape="circle" size="medium" :custom-style="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
 				</view>
 				<!-- 日历选择器 -->
 				<uv-calendars color="#01BB74" confirmColor="#01BB74" mode="range" :startDate="limitingTimeO" :endDate="limitingTimeT" ref="calendars" @confirm="date1Change" />
@@ -1628,5 +1619,13 @@ export default {
 	font-variation-settings: 'opsz' auto;
 	font-feature-settings: 'kern' on;
 	color: #ffffff;
+}
+.tages {
+	color: #965510;
+	background: #fffbf1;
+	width: 30%;
+	height: 54rpx;
+	border-radius: 12rpx;
+	height: 54.84rpx;
 }
 </style>

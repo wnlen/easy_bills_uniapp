@@ -1069,11 +1069,11 @@ export default {
 	background-color: #ffffff;
 
 	border-radius: 12rpx;
-
-	margin-right: 24rpx;
-	margin-left: 24rpx;
-	margin-bottom: 12rpx;
-	margin-top: 12rpx;
+	margin: 0 24rpx 24rpx;
+	// margin-right: 24rpx;
+	// margin-left: 24rpx;
+	// margin-bottom: 12rpx;
+	// margin-top: 12rpx;
 
 	padding-left: 24rpx;
 	padding-right: 24rpx;
