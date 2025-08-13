@@ -173,12 +173,12 @@ export default {
 			if (this.searchNumber.length == 11) {
 				this.$api.user
 					.searchUser({
-						phone: this.searchNumber,
-						state: 1,
+						phone: String(this.searchNumber),
+						boss: '',
 						port: this.vuex_userRole
 					})
 					.then((res) => {
-						console.log('更具电话号码检索： ' + res.data);
+						console.log('更具电话号码检索： ', res.data);
 
 						try {
 							if (res.data.data.phone != '') {

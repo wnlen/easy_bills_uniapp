@@ -101,7 +101,7 @@
 			</view>
 			<view class="uploadingCommodityFromCard">
 				<text class="name">备注说明</text>
-				<u-textarea v-model="uploadingCommodity.remark" placeholder="请您在此处填写备注说明" border="none"></u-textarea>
+				<u-textarea v-model="uploadingCommodity.explainRemark" placeholder="请您在此处填写备注说明" border="none"></u-textarea>
 			</view>
 			<view class="flex-row justify-end items-center pr24 pt48" style="width: 100%">
 				<text class="name mr24">置于商品库顶部</text>
@@ -135,7 +135,7 @@ export default {
 				staffNumber: '',
 				imgId: '',
 				img: 'definde',
-				remark: '',
+				explainRemark: '',
 				id: ''
 			},
 			customStyle: {

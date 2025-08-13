@@ -1,6 +1,8 @@
 // common/http.interceptor.js
 import Request from 'luch-request'; // 下载的插件
-import { useUserStore } from '@/store/user';
+import {
+	useUserStore
+} from '@/store/user';
 let hasRedirectedToLogin = false;
 
 function isWhiteListedPath(url = '') {
@@ -16,6 +18,17 @@ export const initRequest = () => {
 	if (!http || typeof http.setConfig !== 'function') {
 		console.warn('[拦截器未注册] uni.$u.http 不可用，跳过安装');
 		return null;
+	}
+
+	const _rawGet = http.get.bind(http)
+	http.get = function(url, dataOrOptions = {}, options = {}) {
+		// 如果第二个参数看起来是“纯数据对象”，而不是包含 params 的 options，就包一层 params
+		const hasParamsField = dataOrOptions && typeof dataOrOptions === 'object' && 'params' in dataOrOptions
+		const finalOptions = hasParamsField ? dataOrOptions : {
+			params: dataOrOptions,
+			...options
+		}
+		return _rawGet(url, finalOptions)
 	}
 
 	http.setConfig((config) => {
@@ -36,17 +49,18 @@ export const initRequest = () => {
 		const skipAuth = config.custom?.noAuth;
 
 		if (!isWhite && !skipAuth) {
-			const lifeData = {};
-			console.log('tokentokentokentokentokentoken', userStore);
+			const token = userStore.token
 			config.header = {
 				...config.header,
+				Authorization: `Bearer ${token}`,
 				token: userStore.token || '',
-				userRole: userStore.userRole || '',
+				// userRole: userStore.userRole || '',
 				phone: userStore.user?.phone || '',
-				work: userStore.work || '',
-				boss: userStore.user?.workData?.bossNumber || '0'
+				// work: userStore.work || '',
+				// boss: userStore.user?.workData?.bossNumber || '0'
 			};
 		}
+
 		return config;
 	});
 

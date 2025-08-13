@@ -1,13 +1,15 @@
-import { useUserStore } from '@/store/user';
+import {
+	useUserStore
+} from '@/store/user';
 
 // 视频列表
 const videoList = [
-	'export/UzFfAgtgekIEAQAAAAAAxJYlyJg3FgAAAAstQy6ubaLX4KHWvLEZgBPE_KFcQGI6MYyJzNPgMJotuHr8u0KB2xfY4RN8QuoS' /**发货端订单统计**/,
-	'export/UzFfAgtgekIEAQAAAAAAP-EjEVINjQAAAAstQy6ubaLX4KHWvLEZgBPExaF0MGY1MIyJzNPgMJp9aViioFslDPj5E1FlonlH' /**收货端如何对账**/,
-	'export/UzFfAgtgekIEAQAAAAAAvGY07g_ulQAAAAstQy6ubaLX4KHWvLEZgBPEx6EAbgBXMoyJzNPgMJrhNSRp3beWs3QsBOqn-goU' /**开单**/,
-	'export/UzFfAgtgekIEAQAAAAAA5MwzpLcNFgAAAAstQy6ubaLX4KHWvLEZgBPEjqI0EiobM4yJzNPgMJpb1yCwlhD4QRwrvoYqs0B-' /**发货端查单**/,
-	'export/UzFfAgtgekIEAQAAAAAAX2oFdu691QAAAAstQy6ubaLX4KHWvLEZgBPEg6IQWgpvNoyJzNPgMJrKnYd0jvBZgEVah9xutq1n' /**收货端查单**/,
-	'export/UzFfAgtgekIEAQAAAAAA6yIo7s1fGwAAAAstQy6ubaLX4KHWvLEZgBPEmKI0Y3kwb_WIzNPgMJo3gU7o4yvLyUBCv6_PHqnv' /**发货端添加好友**/,
+	'export/UzFfAgtgekIEAQAAAAAAxJYlyJg3FgAAAAstQy6ubaLX4KHWvLEZgBPE_KFcQGI6MYyJzNPgMJotuHr8u0KB2xfY4RN8QuoS' /**发货端订单统计**/ ,
+	'export/UzFfAgtgekIEAQAAAAAAP-EjEVINjQAAAAstQy6ubaLX4KHWvLEZgBPExaF0MGY1MIyJzNPgMJp9aViioFslDPj5E1FlonlH' /**收货端如何对账**/ ,
+	'export/UzFfAgtgekIEAQAAAAAAvGY07g_ulQAAAAstQy6ubaLX4KHWvLEZgBPEx6EAbgBXMoyJzNPgMJrhNSRp3beWs3QsBOqn-goU' /**开单**/ ,
+	'export/UzFfAgtgekIEAQAAAAAA5MwzpLcNFgAAAAstQy6ubaLX4KHWvLEZgBPEjqI0EiobM4yJzNPgMJpb1yCwlhD4QRwrvoYqs0B-' /**发货端查单**/ ,
+	'export/UzFfAgtgekIEAQAAAAAAX2oFdu691QAAAAstQy6ubaLX4KHWvLEZgBPEg6IQWgpvNoyJzNPgMJrKnYd0jvBZgEVah9xutq1n' /**收货端查单**/ ,
+	'export/UzFfAgtgekIEAQAAAAAA6yIo7s1fGwAAAAstQy6ubaLX4KHWvLEZgBPEmKI0Y3kwb_WIzNPgMJo3gU7o4yvLyUBCv6_PHqnv' /**发货端添加好友**/ ,
 	'export/UzFfAgtgekIEAQAAAAAAiqAQev895gAAAAstQy6ubaLX4KHWvLEZgBPE9aEYTicfb_WIzNPgMJoCTVYyAZhh_KYBsLEYwend' /**收货端添加好友**/
 	// "export/UzFfAgtgekIEAQAAAAAAM50D-egxYAAAAAstQy6ubaLX4KHWvLEZgBPE26F8ZyV2MIyJzNPgMJrXd6cQcLDboKUxo0Rsgicj", /**发货端添加好友**/
 	// "export/UzFfAgtgekIEAQAAAAAAoZsGIyJRPgAAAAstQy6ubaLX4KHWvLEZgBPEyaFURgl0MYyJzNPgMJq_A5F-Nc1R82d-ll1XsXQ_" /**收货端添加好友**/
@@ -39,44 +41,44 @@ export default (http) => ({
 			console.log('当前用户信息', vuexUser);
 
 			const role = vuexUser.data?.work === '1' ? 1 : 2;
-			http.post(`edo/user/renewal?phone=${vuexUser.phone}&role=${role}`)
-				.then((res) => {
-					const getNowData = res.data.data;
-					const localData = {
-						...vuexUser
-					};
+			// http.post(`edo/user/renewal?phone=${vuexUser.phone}&role=${role}`)
+			// 	.then((res) => {
+			// 		const getNowData = res.data.data;
+			// 		const localData = {
+			// 			...vuexUser
+			// 		};
 
-					localData.ac = getNowData.ac;
-					localData.data = getNowData.data;
-					localData.workData = getNowData.workData;
-					localData.vuex_password = getNowData.password;
-					localData.jurisdiction = getNowData.jurisdiction;
+			// 		localData.ac = getNowData.ac;
+			// 		localData.data = getNowData.data;
+			// 		localData.workData = getNowData.workData;
+			// 		localData.vuex_password = getNowData.password;
+			// 		localData.jurisdiction = getNowData.jurisdiction;
 
-					store.user = localData;
-					store.announcement = getNowData.announcement;
-					store.guidanceD = getNowData.data.guidanceD;
-					store.guidanceR = getNowData.data.guidanceR;
-					store.work = getNowData.data.work === '1' ? 'Y' : 'N';
+			// 		store.user = localData;
+			// 		store.announcement = getNowData.announcement;
+			// 		store.guidanceD = getNowData.data.guidanceD;
+			// 		store.guidanceR = getNowData.data.guidanceR;
+			// 		store.work = getNowData.data.work === '1' ? 'Y' : 'N';
 
-					if (localData.data?.state === '0') {
-						uni.reLaunch({
-							url: '/pages/subPack/user/affirm/applyAffirm'
-						});
-					}
-				})
-				.catch((err) => {
-					console.error('用户信息刷新失败', err);
-					store.user = {
-						workData: {},
-						data: {
-							work: null
-						},
-						ac: {
-							enterpriseName: null
-						},
-						phone: null
-					};
-				});
+			// 		if (localData.data?.state === '0') {
+			// 			uni.reLaunch({
+			// 				url: '/pages/subPack/user/affirm/applyAffirm'
+			// 			});
+			// 		}
+			// 	})
+			// 	.catch((err) => {
+			// 		console.error('用户信息刷新失败', err);
+			// 		store.user = {
+			// 			workData: {},
+			// 			data: {
+			// 				work: null
+			// 			},
+			// 			ac: {
+			// 				enterpriseName: null
+			// 			},
+			// 			phone: null
+			// 		};
+			// 	});
 
 			console.log('--------->全局刷新个人信息END<-------------');
 		};
@@ -85,7 +87,9 @@ export default (http) => ({
 		app.config.globalProperties.$inform = (list) => {
 			console.log('通知中...');
 			this.$api.task
-				.startRWFlow({ list: list })
+				.startRWFlow({
+					list: list
+				})
 				.then((res) => console.log('通知结果：', res))
 				.catch((err) => console.log('通知失败：', err));
 		};
@@ -122,8 +126,8 @@ export default (http) => ({
 				return;
 			}
 			http.post('/edo/behavior/get', {
-				phone
-			})
+					phone
+				})
 				.then((res) => {
 					console.log('记录结果：', res);
 					if (res.data.data) {
