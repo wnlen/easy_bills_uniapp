@@ -114,24 +114,24 @@ export default {
 			let role = this.vuex_user.data.work == '1' ? 1 : 2;
 			console.log(this.vuex_user.data.work);
 			var that = this;
-			this.$api.user
-				.refreshUser({
-					phone: this.vuex_user.phone,
-					role: role
-				})
-				.then((res) => {
-					let a = that.vuex_user;
-					a.ac = res.data.data.ac;
-					a.data = res.data.data.data;
-					a.workData = res.data.data.workData;
-					that.$u.vuex('vuex_user', a);
-					this.ac = a.ac;
-					if (res.data.data.data.work == '1') {
-						that.$u.vuex('vuex_work', 'Y');
-					} else {
-						that.$u.vuex('vuex_work', 'N');
-					}
-				});
+			// this.$api.user
+			// 	.refreshUser({
+			// 		phone: this.vuex_user.phone,
+			// 		role: role
+			// 	})
+			// 	.then((res) => {
+			// 		let a = that.vuex_user;
+			// 		a.ac = res.data.data.ac;
+			// 		a.data = res.data.data.data;
+			// 		a.workData = res.data.data.workData;
+			// 		that.$u.vuex('vuex_user', a);
+			// 		this.ac = a.ac;
+			// 		if (res.data.data.data.work == '1') {
+			// 			that.$u.vuex('vuex_work', 'Y');
+			// 		} else {
+			// 			that.$u.vuex('vuex_work', 'N');
+			// 		}
+			// 	});
 
 			console.log('用户信息实时更新 ', this.vuex_user);
 		},
@@ -139,18 +139,18 @@ export default {
 			var that = this;
 			this.userInfo.avatarUrl = this.vuex_user.data.headPortrait;
 			let role = this.vuex_work == 'Y' ? 1 : 2;
-			this.$api.user
-				.refreshUser({
-					phone: this.vuex_user.phone,
-					role: role
-				})
-				.then((res) => {
-					let a = this.vuex_user;
-					a.data = res.data.data.data;
-					a.workData = res.data.workData;
-					a.ac = res.data.ac;
-					that.$u.vuex('vuex_user', a);
-				});
+			// this.$api.user
+			// 	.refreshUser({
+			// 		phone: this.vuex_user.phone,
+			// 		role: role
+			// 	})
+			// 	.then((res) => {
+			// 		let a = this.vuex_user;
+			// 		a.data = res.data.data.data;
+			// 		a.workData = res.data.workData;
+			// 		a.ac = res.data.ac;
+			// 		that.$u.vuex('vuex_user', a);
+			// 	});
 		},
 		bindPickerChange(e) {
 			this.gender = e.detail.value;

@@ -820,7 +820,7 @@ export default {
 			});
 		},
 		verification(phone, json, e) {
-			this.$api.user.searchUser({ phone: phone, state: 1 }).then((res) => {
+			this.$api.user.searchUser({ phone: phone }).then((res) => {
 				this.gs = res.data.data.map.enterpriseName;
 				if (res.data.data.work != '0') {
 					this.show = true;
@@ -830,7 +830,7 @@ export default {
 			});
 		},
 		selectDB(phone, json, e) {
-			this.$api.user.searchUser({ phone: phone, state: 1 }).then((res) => {
+			this.$api.user.searchUser({ phone: phone }).then((res) => {
 				this.gs = res.data.data.map.enterpriseName;
 				if (res.data.data.work == '0') {
 					this.addFriendYG(json.phone, json.img, e);
@@ -875,7 +875,7 @@ export default {
 		},
 		addYg(json) {
 			var addPhone = json.phone;
-			this.$api.user.searchUser({ phone: addPhone, state: 1 }).then((res) => {
+			this.$api.user.searchUser({ phone: addPhone }).then((res) => {
 				var data = res.data.data;
 				var work = data.work == '1';
 				var phone = data.phoneNumber;

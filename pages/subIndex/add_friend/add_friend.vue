@@ -381,7 +381,7 @@ export default {
 			this.searchUser = [];
 			var that = this;
 			if (this.searchNumber.length == 11) {
-				this.$api.user.searchUser({ phone: this.searchNumber, state: 1 }).then((res) => {
+				this.$api.user.searchUser({ phone: this.searchNumber }).then((res) => {
 					console.log('更具电话号码检索： ' + res.data);
 
 					try {

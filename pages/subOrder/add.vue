@@ -85,7 +85,7 @@
 					</button>
 
 					<button
-						style="display: flex; align-items: center; background-color: #01bb74; width: 271.24rpx; height: 79.98rpx; border-radius: 338.4rpx; color: #ffffff"
+						style="line-height: 39px; align-items: center; background-color: #01bb74; width: 271.24rpx; height: 79.98rpx; border-radius: 338.4rpx; color: #ffffff"
 						class="ml10"
 						@click="ContinueBilling"
 					>
