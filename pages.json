@@ -72,7 +72,8 @@
 		"selectedColor": "#0FB076",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
-		"list": [{
+		"list": [
+			{
 				"pagePath": "pages/index/index",
 				"iconPath": "static/images/tab/tab-home.png",
 				"selectedIconPath": "static/images/tab/tab-home-active.png",
@@ -99,9 +100,11 @@
 			}
 		]
 	},
-	"subPackages": [{
+	"subPackages": [
+		{
 			"root": "pages/subPack",
-			"pages": [{
+			"pages": [
+				{
 					"path": "user/people/people",
 					"style": {
 						"navigationBarTitleText": "人员管理",
@@ -285,18 +288,21 @@
 		},
 		{
 			"root": "pages/subSignature",
-			"pages": [{
-				"path": "signature",
-				"style": {
-					"navigationBarTitleText": "手写签名",
-					"enablePullDownRefresh": false,
-					"navigationBarBackgroundColor": "#ffffff"
+			"pages": [
+				{
+					"path": "signature",
+					"style": {
+						"navigationBarTitleText": "手写签名",
+						"enablePullDownRefresh": false,
+						"navigationBarBackgroundColor": "#ffffff"
+					}
 				}
-			}]
+			]
 		},
 		{
 			"root": "pages/subIndex",
-			"pages": [{
+			"pages": [
+				{
 					"path": "backlog/backlog",
 					"style": {
 						"navigationBarTitleText": "",
@@ -354,19 +360,22 @@
 		},
 		{
 			"root": "pages/subList",
-			"pages": [{
-				"path": "remark",
-				"style": {
-					"navigationBarTitleText": "备注",
-					"enablePullDownRefresh": false,
-					"backgroundColor": "#ffffff",
-					"navigationBarBackgroundColor": "#fff"
+			"pages": [
+				{
+					"path": "remark",
+					"style": {
+						"navigationBarTitleText": "备注",
+						"enablePullDownRefresh": false,
+						"backgroundColor": "#ffffff",
+						"navigationBarBackgroundColor": "#fff"
+					}
 				}
-			}]
+			]
 		},
 		{
 			"root": "pages/subMessage",
-			"pages": [{
+			"pages": [
+				{
 					"path": "chitchat/chitchat",
 					"style": {
 						"navigationBarTitleText": "",
@@ -454,7 +463,8 @@
 		},
 		{
 			"root": "pages/subOrder",
-			"pages": [{
+			"pages": [
+				{
 					"path": "receipt",
 					"style": {
 						"navigationBarTitleText": "开收款单",
@@ -583,7 +593,8 @@
 		},
 		{
 			"root": "pages/subAuth",
-			"pages": [{
+			"pages": [
+				{
 					"path": "auth",
 					"style": {
 						"navigationBarTitleText": "主体认证",
@@ -611,7 +622,8 @@
 		},
 		{
 			"root": "pages/subStatistics",
-			"pages": [{
+			"pages": [
+				{
 					"path": "statistics",
 					"style": {
 						"navigationBarTitleText": "订单统计",
@@ -684,7 +696,8 @@
 		},
 		{
 			"root": "pages/subUser",
-			"pages": [{
+			"pages": [
+				{
 					"path": "invoice/invoiceSucess",
 					"style": {
 						"navigationBarTitleText": "发票审核",
@@ -847,14 +860,16 @@
 		},
 		{
 			"root": "pages/questionnaire",
-			"pages": [{
-				"path": "index",
-				"style": {
-					"navigationBarTitleText": "调查问卷",
-					"enablePullDownRefresh": false,
-					"navigationStyle": "custom"
+			"pages": [
+				{
+					"path": "index",
+					"style": {
+						"navigationBarTitleText": "调查问卷",
+						"enablePullDownRefresh": false,
+						"navigationStyle": "custom"
+					}
 				}
-			}]
+			]
 		}
 	]
 }

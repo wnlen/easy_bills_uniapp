@@ -50,12 +50,12 @@
 'use strict';
 const uniPush = uniCloud.getPushManager({ appId: '__UNI__87FAB0A' }); //注意这里需要传入你的应用appId，用于指定接收消息的客户端
 exports.main = async (event, context) => {
-    return await uniPush.sendMessage({
-        push_clientid: '9a43e1711ef11d10c3ed0ee49c2ca29b', //填写上一步在uni-app客户端获取到的客户端推送标识push_clientid
-        title: '通知栏显示的标题',
-        content: '通知栏显示的内容',
-        payload: {
-            text: '体验一下uni-push2.0'
-        }
-    });
+	return await uniPush.sendMessage({
+		push_clientid: '9a43e1711ef11d10c3ed0ee49c2ca29b', //填写上一步在uni-app客户端获取到的客户端推送标识push_clientid
+		title: '通知栏显示的标题',
+		content: '通知栏显示的内容',
+		payload: {
+			text: '体验一下uni-push2.0'
+		}
+	});
 };

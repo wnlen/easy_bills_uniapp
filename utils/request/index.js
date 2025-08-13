@@ -4,13 +4,13 @@ import { requestInterceptors, responseInterceptors } from './interceptors';
 import { http } from '@/uni_modules/uview-plus';
 
 const initRequest = (app) => {
-    http.setConfig((defaultConfig) => {
-        defaultConfig.baseURL = config.baseUrl || 'https://wxapi.elist.com.cn/test';
-        return defaultConfig;
-    });
+	http.setConfig((defaultConfig) => {
+		defaultConfig.baseURL = config.baseUrl || 'https://wxapi.elist.com.cn/test';
+		return defaultConfig;
+	});
 
-    requestInterceptors();
-    responseInterceptors();
+	requestInterceptors();
+	responseInterceptors();
 };
 
 export { initRequest };
