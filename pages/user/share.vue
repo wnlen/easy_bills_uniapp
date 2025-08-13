@@ -233,8 +233,12 @@ export default {
 			border-radius: 408rpx;
 			opacity: 1;
 			background: linear-gradient(180deg, #fff3e0 0%, #ffca77 100%);
+			border: none;
 			color: #7b240d;
 			font-size: 28rpx;
+			&::after {
+				border: none;
+			}
 		}
 		.btn_2 {
 			position: absolute;
@@ -248,6 +252,9 @@ export default {
 			background: linear-gradient(180deg, #fff3e0 0%, #ffca77 100%);
 			color: #7b240d;
 			font-size: 28rpx;
+			&::after {
+				border: none;
+			}
 		}
 		.box-text {
 			position: absolute;

@@ -8,104 +8,105 @@
 			@virtualListChange="virtualListChange"
 			@query="queryList"
 		>
-			<view slot="top" style="padding-bottom: 60rpx">
-				<view class="Card cardShow">
-					<view class="HnadCard">
-						<view
-							class="HnadCardBtn"
-							@click="change(0)"
-							:style="{
-								color: current == 0 ? '#01BB74' : '#999999',
-								border: '2rpx solid ' + (current == 0 ? '#01BB74' : '#999999')
-							}"
-							style="width: 20%; height: 54rpx"
-						>
-							全部
-						</view>
-						<view
-							class="HnadCardBtn"
-							@click="change(1)"
-							:style="{
-								color: current == 1 ? '#01BB74' : '#999999',
-								border: '2rpx solid ' + (current == 1 ? '#01BB74' : '#999999')
-							}"
-							style="width: 20%; height: 54rpx"
-						>
-							待签收
-						</view>
-						<view
-							class="HnadCardBtn"
-							@click="change(2)"
-							:style="{
-								color: current == 2 ? '#01BB74' : '#999999',
-								border: '2rpx solid ' + (current == 2 ? '#01BB74' : '#999999')
-							}"
-							style="width: 20%; height: 54rpx"
-						>
-							已签收
-						</view>
-					</view>
-
-					<view class="InputCard">
-						<view class="InputOne">
-							<text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
-								{{ vuex_userRole === 'R' ? '供应商选择' : '客户选择' }}
-							</text>
-							<u-line direction="col" margin="0 20rpx" color="#333" length="40%"></u-line>
-							<view class="my-input">
-								<u-input
-									border="none"
-									@change="CustomerGetChange"
-									v-model="customer"
-									:custom-style="{ backgroundColor: 'transparent' }"
-									disabled="true"
-									:placeholder="vuex_userRole === 'R' ? '请选择供应商' : '请选择客户'"
-									:clearable="true"
-								></u-input>
+			<template #top>
+				<view style="padding-bottom: 60rpx">
+					<view class="Card cardShow">
+						<view class="HnadCard">
+							<view
+								class="HnadCardBtn"
+								@click="change(0)"
+								:style="{
+									color: current == 0 ? '#01BB74' : '#999999',
+									border: '2rpx solid ' + (current == 0 ? '#01BB74' : '#999999')
+								}"
+								style="width: 20%; height: 54rpx"
+							>
+								全部
 							</view>
-
-							<view class="flex-col justify-center items-center" style="height: 5vh">
-								<view class="ml40"><u-icon name="/static/img/list/lxr.svg" size="45" @click="CustomerGet"></u-icon></view>
+							<view
+								class="HnadCardBtn"
+								@click="change(1)"
+								:style="{
+									color: current == 1 ? '#01BB74' : '#999999',
+									border: '2rpx solid ' + (current == 1 ? '#01BB74' : '#999999')
+								}"
+								style="width: 20%; height: 54rpx"
+							>
+								待签收
+							</view>
+							<view
+								class="HnadCardBtn"
+								@click="change(2)"
+								:style="{
+									color: current == 2 ? '#01BB74' : '#999999',
+									border: '2rpx solid ' + (current == 2 ? '#01BB74' : '#999999')
+								}"
+								style="width: 20%; height: 54rpx"
+							>
+								已签收
 							</view>
 						</view>
 
-						<view class="InputOne">
-							<text class="ft11 ft-gray ml20" @click="filtrateGet">
-								{{ Title }}
-							</text>
-							<view class="ml10 mr10"><u-icon name="/static/img/list/sj.svg" size="40rpx"></u-icon></view>
-							<view class="my-input">
-								<u-input border="none" v-if="showTage !== '1'" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
-							</view>
-							<view class="ml24 my-input">
-								<u-input border="none" v-if="showTage === '1'" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
+						<view class="InputCard">
+							<view class="InputOne">
+								<text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
+									{{ vuex_userRole === 'R' ? '供应商选择' : '客户选择' }}
+								</text>
+								<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
+								<view class="my-input flex-1">
+									<u-input
+										border="none"
+										@change="CustomerGetChange"
+										v-model="customer"
+										:custom-style="{ backgroundColor: 'transparent' }"
+										disabled="true"
+										:placeholder="vuex_userRole === 'R' ? '请选择供应商' : '请选择客户'"
+										:clearable="true"
+									></u-input>
+								</view>
+
+								<view class="flex-col justify-center items-center" style="height: 5vh">
+									<view class="ml40"><u-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon></view>
+								</view>
 							</view>
 
-							<view class="flex-col justify-center items-center" style="height: 5vh">
-								<view class="ml40">
-									<u-icon name="/static/img/list/ss.svg" size="45" @click="SearchBtn"></u-icon>
+							<view class="InputOne">
+								<text class="ft11 ft-gray ml20" @click="filtrateGet">
+									{{ Title }}
+								</text>
+								<view class="ml10 mr10"><u-icon name="arrow-down-fill" size="20rpx"></u-icon></view>
+								<view class="my-input flex-1" v-if="showTage !== '1'">
+									<u-input border="none" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
+								</view>
+								<view class="ml24 my-input flex-1" v-if="showTage === '1'">
+									<u-input border="none" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
+								</view>
+
+								<view class="flex-col justify-center items-center" style="height: 5vh">
+									<view class="ml40">
+										<u-icon name="/static/img/list/ss.svg" size="45rpx" @click="SearchBtn"></u-icon>
+									</view>
 								</view>
 							</view>
 						</view>
 					</view>
-				</view>
-				<view class="absolute" style="text-align: left; font-size: 24rpx; color: #01bb74; left: 0" :disabled="false">
-					<view class="ml24" style="">
-						<view class="flex-row justify-center items-center">
-							<view
-								class="flex-col justify-center items-center"
-								@click="checkedAll"
-								:style="{ backgroundColor: checked ? '#01BB74' : '#ffffff' }"
-								style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
-							>
-								<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
+					<view class="absolute" style="text-align: left; font-size: 24rpx; color: #01bb74; left: 0" :disabled="false">
+						<view class="ml24" style="">
+							<view class="flex-row justify-center items-center">
+								<view
+									class="flex-col justify-center items-center"
+									@click="checkedAll"
+									:style="{ backgroundColor: checked ? '#01BB74' : '#ffffff' }"
+									style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
+								>
+									<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
+								</view>
+								<view class="ml15" style="color: #333333">全选</view>
 							</view>
-							<view class="ml15" style="color: #333333">全选</view>
 						</view>
 					</view>
 				</view>
-			</view>
-
+			</template>
 			<view slot="empty" style="padding-bottom: 200rpx">
 				<u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="360rpx"></u-icon>
 			</view>
@@ -124,9 +125,8 @@
 					<view class="title ml1 flex-1" style="" @tap.stop>
 						<view
 							class="flex-col justify-center items-center mr15"
-							@tap.stop
 							:style="{ backgroundColor: item.check ? '#01BB74' : '#ffffff' }"
-							@click="checkboxGroupChange(item, index)"
+							@click.stop="checkboxGroupChange(item, index)"
 							style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 						>
 							<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
@@ -139,7 +139,7 @@
 							</text>
 						</text>
 
-						<u-icon size="28" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
+						<u-icon size="28rpx" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
 					</view>
 					<view class="ml20" style="margin-right: -20rpx">
 						<u-image v-if="vuex_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></u-image>
@@ -197,13 +197,13 @@
 				</text>
 			</view>
 
-			<template #bottom class="pd30 bg-white">
-				<view class="flex-row justify-between items-center">
+			<template #bottom>
+				<view class="flex-row justify-between items-center pd30 bg-white">
 					<view class="flex-row items-center vw100">
 						<view class="items-center flex-row" style="width: 92%; display: flex; justify-content: space-between">
 							<view class="relative" @click="showCheckClick">
-								<u-badge :offset="[20, 0]" bgColor="#FF8F1F" :absolute="true" :count="realTimeSel.ids.length" type="green" class="badge" color="#ffffff"></u-badge>
-								<u-icon size="100" name="https://res-oss.elist.com.cn/wxImg/order/checkOrder.svg"></u-icon>
+								<u-badge :offset="[0, 0]" bgColor="#FF8F1F" :absolute="true" :value="realTimeSel.ids.length" color="#ffffff"></u-badge>
+								<u-icon size="100rpx" name="https://res-oss.elist.com.cn/wxImg/order/checkOrder.svg"></u-icon>
 							</view>
 							<view class="mr20 flex-row" style="text-align: left; font-size: 24rpx; width: 30%; color: #666666">
 								统计：
@@ -223,7 +223,7 @@
 			</template>
 		</z-paging>
 
-		<u-popup :show="showCheck" mode="bottom" border-radius="15">
+		<u-popup :show="showCheck" mode="bottom" border-radius="15" @close="showCheck = false">
 			<view class="warp" style="height: 70vh; width: 100vw; background-color: #ffffff; border-radius: 15rpx 15rpx 0 0">
 				<z-paging v-if="showCheck" ref="pagingCheck" :fixed="false" v-model="selectList" @query="queryListCheck">
 					<!-- 如果希望其他view跟着页面滚动，可以放在z-paging标签内 -->
@@ -255,7 +255,7 @@
 											</text>
 										</text>
 
-										<u-icon size="28" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
+										<u-icon size="28rpx" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
 									</view>
 									<view class="ml20" style="margin-right: -20rpx">
 										<u-image
@@ -343,21 +343,13 @@
 							</view>
 						</u-swipe-action>
 					</view>
-					<template #bottom class="pd30 bg-white">
-						<view class="flex-row justify-between items-center">
+					<template #bottom>
+						<view class="flex-row justify-between items-center pd30 bg-white">
 							<view class="flex-row items-center vw100">
 								<view class="items-center flex-row" style="width: 92%; display: flex; justify-content: space-between">
 									<view class="relative" @click="showCheckClick">
-										<u-badge
-											:offset="[20, 0]"
-											bgColor="#FF8F1F"
-											:absolute="true"
-											:count="realTimeSel.ids.length"
-											type="green"
-											class="badge"
-											color="#ffffff"
-										></u-badge>
-										<u-icon size="100" name="https://res-oss.elist.com.cn/wxImg/order/checkOrder.svg"></u-icon>
+										<u-badge :offset="[0, 0]" bgColor="#FF8F1F" :absolute="true" :value="realTimeSel.ids.length" color="#ffffff"></u-badge>
+										<u-icon size="100rpx" name="https://res-oss.elist.com.cn/wxImg/order/checkOrder.svg"></u-icon>
 									</view>
 									<view class="mr20 flex-row" style="text-align: left; font-size: 24rpx; width: 30%; color: #666666">
 										统计：
@@ -390,7 +382,7 @@
 
 		<u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" />
 
-		<u-popup :show="show_start" mode="top" width="550rpx">
+		<u-popup :show="show_start" mode="top" width="550rpx" @close="show_start = false">
 			<view class="flex-col pd30 justify-between height100">
 				<view>
 					<view class="flex-col mt40">
@@ -408,46 +400,20 @@
 							时间筛选
 						</text>
 
-						<view class="flex-row items-center justify-between mt10 vw100">
-							<view class="flex-row items-center">
+						<view class="flex-row items-center justify-between mt10" style="width: 100%">
+							<view class="flex-row items-center flex-1">
 								<text class="mr10" style="color: #999999">开始日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<input
-									@click="calendar1Show = true"
-									disabled
-									class="ml24"
-									style="
-										box-sizing: border-box;
-										border: 1rpx solid #999999;
-										width: 20%;
-										border-radius: 6rpx;
-										height: 60rpx;
-										align-items: center;
-										text-align: center;
-									"
-									type="text"
-									placeholder=" 开始日期"
-									v-model="date1"
-								/>
-								<text class="mr10 ml20" style="color: #999999">结束日期</text>
+								<view @click="calendars.open()" class="ml14" style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx">
+									{{ date1 == '' ? '开始日期' : date1 }}
+								</view>
+							</view>
+							<view class="flex-row items-center flex-1">
+								<text class="mr10" style="color: #999999">结束日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<input
-									@click="calendar2Show = true"
-									disabled
-									class="ml24"
-									style="
-										box-sizing: border-box;
-										border: 1rpx solid #999999;
-										width: 20%;
-										border-radius: 6rpx;
-										height: 60rpx;
-										align-items: center;
-										text-align: center;
-									"
-									type="text"
-									placeholder=" 结束日期"
-									v-model="date2"
-								/>
+								<view @click="calendars.open()" class="ml14" style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx">
+									{{ date1 == '' ? '结束日期' : date1 }}
+								</view>
 							</view>
 						</view>
 
@@ -468,48 +434,45 @@
 
 							<view class="flex-row mt20" style="width: 100%">
 								<view
-									class="flex-col justify-center items-center text-center mr24"
+									class="flex-col justify-center items-center text-center mr24 tages"
 									@click="Filtrate('0')"
 									:style="{
 										backgroundColor: showTage == '0' ? '#01BB74' : '#F2FBF8',
 										color: showTage == '0' ? '#ffffff' : '#01BB74'
 									}"
-									style="color: #ffffff; background-color: #01bb74; width: 30%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
 								>
 									联系人
 								</view>
 								<view
-									class="flex-col justify-center items-center text-center mr24"
+									class="flex-col justify-center items-center text-center mr24 tages"
 									@click="Filtrate('1')"
 									:style="{
 										backgroundColor: showTage == '1' ? '#01BB74' : '#F2FBF8',
 										color: showTage == '1' ? '#ffffff' : '#01BB74'
 									}"
-									style="color: #01bb74; background-color: #f2fbf8; width: 30%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
+									style=""
 								>
 									联系号码
 								</view>
 								<view
-									class="flex-col justify-center items-center text-center"
+									class="flex-col justify-center items-center text-center tages"
 									@click="Filtrate('2')"
 									:style="{
 										backgroundColor: showTage == '2' ? '#01BB74' : '#F2FBF8',
 										color: showTage == '2' ? '#ffffff' : '#01BB74'
 									}"
-									style="color: #01bb74; background-color: #f2fbf8; width: 30%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
 								>
-									{{ vuex_userRole == 'R' ? '收货地址' : '收货地址' }}
+									{{ vuex_userRole.userRole == 'R' ? '收货地址' : '收货地址' }}
 								</view>
 							</view>
 							<view class="flex-row mt20" style="width: 100%">
 								<view
-									class="flex-col justify-center items-center text-center"
+									class="flex-col justify-center items-center text-center tages"
 									@click="Filtrate('3')"
 									:style="{
 										backgroundColor: showTage == '3' ? '#01BB74' : '#F2FBF8',
 										color: showTage == '3' ? '#ffffff' : '#01BB74'
 									}"
-									style="color: #01bb74; background-color: #f2fbf8; width: 30%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
 								>
 									产品名称
 								</view>
@@ -520,39 +483,36 @@
 
 				<!-- 按钮 -->
 				<view class="flex-row justify-end mt25 vw100" style="">
-					<view class="mt15" style="text-align: left; align-items: center; color: #ccc; font-size: 24rpx; float: left; margin-right: 15%">
-						<!-- 保存偏好设置 -->
-					</view>
-					<view class="mr48" style="float: right">
-						<u-button type="info" @click="filterReset" shape="circle" size="medium" :custom-style="{ marginRight: '20rpx' }" plain>重置</u-button>
-						<u-button type="success" @click="filterSubmit" shape="circle" size="medium" :custom-style="{ marginLeft: '20rpx' }" plain>确定</u-button>
-					</view>
+					<u-button
+						color="#F4F4F4"
+						type="info"
+						@click="filterReset"
+						shape="circle"
+						size="medium"
+						:custom-style="{
+							width: '154rpx',
+							color: '#999999',
+							margin: '0 20rpx 0 0',
+							height: '60rpx'
+						}"
+					>
+						重置
+					</u-button>
+					<u-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :custom-style="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
 				</view>
 			</view>
 		</u-popup>
 
-		<u-calendar
-			btn-type="success"
-			v-model="calendar1Show"
-			active-bg-color="#01BB74"
-			range-bg-color="#DFF9EF"
-			range-color="#333333"
-			mode="date"
-			:min-date="getCurrentYearFirstDay()"
-			:max-date="getCurrentDate()"
-			@change="date1Change"
-		></u-calendar>
-		<u-calendar
-			btn-type="success"
-			v-model="calendar2Show"
-			active-bg-color="#01BB74"
-			range-bg-color="#DFF9EF"
-			range-color="#333333"
-			mode="date"
-			:min-date="getCurrentYearFirstDay()"
-			:max-date="getCurrentDate()"
-			@change="date2Change"
-		></u-calendar>
+		<!-- 日历选择器 -->
+		<uv-calendars
+			color="#01BB74"
+			confirmColor="#01BB74"
+			mode="range"
+			:startDate="getCurrentYearFirstDay()"
+			:endDate="getCurrentDate()"
+			ref="calendars"
+			@confirm="date1Change"
+		/>
 	</view>
 </template>
 
@@ -600,8 +560,6 @@ export default {
 			scrollTop: 0, //返回顶部
 			//筛选弹窗
 			filterShow: false,
-			calendar1Show: false, //日期弹窗
-			calendar2Show: false, //日期弹窗
 			date1: '', // 开始日期
 			date2: '', //结束日期
 			totalMoney: 0, //当前订单总额
@@ -943,7 +901,7 @@ export default {
 					res.check = false;
 				});
 				this.hasCheck = false;
-				this.$refs.paging.refresh();
+				// this.$refs.paging.refresh();
 				return;
 			} else {
 				this.realTimeSel.role = this.vuex_userRole == 'R' ? '1' : '0';
@@ -1616,10 +1574,8 @@ export default {
 			this.$u.toast('请先到后台发货~');
 		},
 		date1Change(e) {
-			this.date1 = e.result;
-		},
-		date2Change(e) {
-			this.date2 = e.result;
+			this.date1 = e.range.before;
+			this.date2 = e.range.after;
 		},
 		filterReset() {
 			this.date1 = this.$u.timeFormat(new Date(new Date().getFullYear(), 0, 1), 'yyyy-mm-dd');
@@ -1919,7 +1875,7 @@ export default {
 			display: flex;
 			flex-direction: row;
 			width: 100%;
-
+			justify-content: space-between;
 			.title {
 				display: flex;
 				flex-direction: row;
@@ -1928,5 +1884,15 @@ export default {
 			}
 		}
 	}
+}
+.tages {
+	color: #01bb74;
+	background-color: #f2fbf8;
+	width: 30%;
+	height: 54rpx;
+	border-radius: 12rpx;
+}
+.u-badge {
+	z-index: 100 !important;
 }
 </style>

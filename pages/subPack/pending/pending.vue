@@ -137,7 +137,7 @@
 							<!-- {{showTage==0?"联系人":(showTage==1?"联系号码":showTage==2?(vuex_userRole=='R'?'收货地址':'收货地址'):showTage==3?"产品名称":"条件筛选")}} -->
 							{{ Title }}
 						</text>
-						<view class="ml10 mr10"><u-icon name="/static/img/list/sj.svg" size="40rpx"></u-icon></view>
+						<view class="ml10 mr10"><u-icon name="arrow-down-fill" size="20rpx"></u-icon></view>
 						<view class="my-input">
 							<u-input border="none" v-if="showTage !== '1'" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
 						</view>

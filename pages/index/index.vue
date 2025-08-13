@@ -3,8 +3,8 @@
 		<u-navbar title="" :placeholder="true" bgColor="transparent" leftIconSize="0"></u-navbar>
 		<view class="flex-row justify-between items-end ml30 mr30">
 			<view>
-				<image v-if="isLogin" style="width: 108rpx" :src="`${ImgUrl}/wxImg/index/ydj.png`" mode="widthFix"></image>
-				<image v-else style="width: 128rpx" :src="`${ImgUrl}/wxImg/index/qdl.png`" mode="widthFix" @click="goToLogin()"></image>
+				<image v-if="isLogin" style="width: 108rpx; height: 34rpx" :src="`${ImgUrl}/wxImg/index/ydj.png`"></image>
+				<image v-else style="width: 128rpx; height: 34rpx" :src="`${ImgUrl}/wxImg/index/qdl.png`" @click="goToLogin()"></image>
 
 				<view class="ft28">送货单轻松签收</view>
 			</view>
@@ -42,13 +42,15 @@
 			<view class="flex-row justify-between pall30">
 				<view
 					class="flex-row items-center"
-					:id="index == 0 ? 'box2' : ''"
+					:id="index == 0 ? 'box2' : 'box3'"
 					:class="vuex_userRole === 'D' && index === 0 ? 'indexbox1 indexbox' : vuex_userRole === 'R' && index === 0 ? 'indexbox2 indexbox' : 'indexbox3 indexbox'"
 					v-for="(item, index) in orderList2"
 					:key="index"
 					@click="goPath(item.path)"
 				>
-					<image class="ml10 mr10 mt8" :src="item.icon" mode="widthFix"></image>
+					<view class="ml10 mr10 mt8">
+						<u-icon size="72rpx" :name="item.icon"></u-icon>
+					</view>
 					<view>
 						<view class="ft36 ft-bold">
 							{{ item.name }}
@@ -63,7 +65,9 @@
 		<view class="bg-white radius12 mt30 ml30 mr30">
 			<view class="flex-row flex-wrap">
 				<view class="flex-col width25_ items-center" @click="goPath(listItem.path)" v-for="(listItem, listIndex) in iconlist" :key="listIndex">
-					<image :src="listItem.icon" mode="widthFix" style="width: 80rpx; margin-top: 10rpx"></image>
+					<view class="mt10">
+						<u-icon size="80rpx" :name="listItem.icon"></u-icon>
+					</view>
 					<text>{{ listItem.title }}</text>
 				</view>
 			</view>
@@ -95,7 +99,7 @@
 		<!-- 切换角色 -->
 		<pop-role ref="popRole"></pop-role>
 		<!-- 新手指引 -->
-		<pop-guide :max-step="3" :guideData="functionGuideData" ref="FunctionGuide"></pop-guide>
+		<pop-guide :max-step="4" :guideData="functionGuideData" ref="FunctionGuide"></pop-guide>
 		<!-- 自定义tab -->
 		<pop-tab ref="popTab" :tabIndex="0"></pop-tab>
 	</view>
@@ -265,14 +269,24 @@ export default {
 		}
 		// 已登录状态
 		else {
-			// 新手指引
+			// this.guideCourse();
+		}
+		console.log('this.isLogin', this.isLogin);
+		// 新手指引
+		if (this.isLogin) {
 			this.guideCourse();
 		}
+		this.setDR(this.vuex_userRole);
 	},
 	onLoad() {},
 	computed: {
 		isLogin() {
-			return this.vuex_token && this.vuex_user?.phone;
+			if (this.vuex_token && this.vuex_user) {
+				return true;
+			} else {
+				return false;
+			}
+			// return this.vuex_token && this.vuex_user?.phone;
 		}
 	},
 	methods: {
@@ -290,9 +304,10 @@ export default {
 		},
 		// 新手指引
 		guideCourse() {
-			if (this.vuex_userRole == 'D' && this.$u.getPinia('guide.guidanceD') != 1) {
+			console.log(this.$u.getPinia('user.userRole'), this.$u.getPinia('guide.guidanceD'));
+			if (this.$u.getPinia('user.userRole') == 'D' && this.$u.getPinia('guide.guidanceD') != 1) {
 				this.$refs.FunctionGuide.init();
-			} else if (this.vuex_userRole == 'R' && this.$u.getPinia('guide.guidanceR') != 1) {
+			} else if (this.$u.getPinia('user.userRole') == 'R' && this.$u.getPinia('guide.guidanceR') != 1) {
 				this.$refs.FunctionGuide.init();
 			}
 		},
@@ -312,29 +327,6 @@ export default {
 			if (this._step == this.functionGuideData.step) return;
 			this._step = this.functionGuideData.step;
 			if (this.functionGuideData.step == 1) {
-				this.getElementData('#box', (res) => {
-					this.setFunctionGuideData({
-						tips: '快速切换收发端口',
-						btnGroupPosition: '10rpx',
-						tipsPosition: {
-							top: '50rpx',
-							right: '0',
-							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/stepD1.png)'
-						},
-						img: {
-							url: ''
-						},
-						position: {
-							// 自定义导航栏
-							// top: uni.upx2px(30) + this._statusBarHeight + 'px',
-							top: `${res.top}px`,
-							right: '30rpx',
-							width: `${res.width}px`,
-							height: `${res.height}px`
-						}
-					});
-				});
-			} else if (this.functionGuideData.step == 2) {
 				this.getElementData('#box2', (res) => {
 					this.setFunctionGuideData({
 						tips: '确认收货一键签单',
@@ -342,7 +334,7 @@ export default {
 						tipsPosition: {
 							top: '200rpx',
 							left: '0',
-							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/stepR22.png)'
+							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc5.png)'
 						},
 						position: {
 							top: res.top + 'px',
@@ -352,45 +344,29 @@ export default {
 						}
 					});
 				});
-				this.$u.setPinia({
-					guide: {
-						guidanceR: 1
-					}
+			} else if (this.functionGuideData.step == 2) {
+				let systemInfo = uni.getSystemInfoSync();
+				let platform = systemInfo.platform;
+				let osName = systemInfo.osName;
+				const bottomSafeArea = systemInfo.safeAreaInsets ? systemInfo.safeAreaInsets.bottom : 0;
+				var setting = platform === 'android';
+				this.getElementData('#box4', (res) => {
+					this.setFunctionGuideData({
+						tips: '查询订单一览无余',
+						btnGroupPosition: '550rpx',
+						tipsPosition: {
+							top: '-270rpx',
+							left: '-40rpx',
+							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc4.png)'
+						},
+						position: {
+							bottom: `${bottomSafeArea}px`,
+							height: '100rpx',
+							width: '86rpx',
+							left: `${res.left - 10}px`
+						}
+					});
 				});
-			} else if (this.functionGuideData.step == 3) {
-				// let systemInfo = uni.getSystemInfoSync();
-				// let platform = systemInfo.platform;
-				// let osName = systemInfo.osName;
-
-				// var setting = platform === 'android';
-
-				// this.getElementData('#box33', (res) => {
-				// 	this.setFunctionGuideData({
-				// 		tips: '介绍模块6，模块处于底部，需滚动页面',
-				// 		btnGroupPosition: '550rpx',
-				// 		tipsPosition: {
-				// 			top: '200rpx',
-				// 			left: '0',
-				// 			backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/stepR33.png)'
-				// 		},
-				// 		position: {
-				// 			top: res.top + 'px',
-				// 			width: `${res.width / 2}px`,
-				// 			left: '90rpx',
-				// 			height: `${res.height}px`
-				// 		}
-				// 	});
-				// });
-				this.$nextTick(() => {
-					this.intoView = 'box6';
-				});
-				this.$u.setPinia({
-					guide: {
-						guidanceR: 1
-					}
-				});
-			} else if (this.functionGuideData.step == 'jump') {
-				this.intoView = 'top';
 			}
 		},
 		showFunctionGuideD() {
@@ -404,7 +380,7 @@ export default {
 						tipsPosition: {
 							top: '50rpx',
 							right: '0',
-							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/stepD1.png)'
+							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc1.png)'
 						},
 						img: {
 							url: ''
@@ -427,7 +403,7 @@ export default {
 						tipsPosition: {
 							top: '200rpx',
 							left: '0',
-							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/stepD2.png)'
+							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc2.png)'
 						},
 						position: {
 							top: res.top + 'px',
@@ -438,6 +414,25 @@ export default {
 					});
 				});
 			} else if (this.functionGuideData.step == 3) {
+				console.log('#box3');
+				this.getElementData('#box3', (res) => {
+					this.setFunctionGuideData({
+						tips: '简单快捷一键开单',
+						btnGroupPosition: '',
+						tipsPosition: {
+							top: '200rpx',
+							right: '0',
+							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc3.png)'
+						},
+						position: {
+							top: res.top + 'px',
+							width: `${res.width}px`,
+							right: '58rpx',
+							height: `${res.height}px`
+						}
+					});
+				});
+			} else if (this.functionGuideData.step == 4) {
 				let systemInfo = uni.getSystemInfoSync();
 				let platform = systemInfo.platform;
 				let osName = systemInfo.osName;
@@ -451,7 +446,7 @@ export default {
 						tipsPosition: {
 							top: '-270rpx',
 							left: '-40rpx',
-							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/stepD3.png)'
+							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc4.png)'
 						},
 						position: {
 							bottom: `${bottomSafeArea}px`,
@@ -471,7 +466,9 @@ export default {
 		},
 		getElementData(el, cb) {
 			let query = null;
-			if (this.functionGuideData.step == 3 && this.vuex_userRole == 'D') {
+			if (this.functionGuideData.step == 4 && this.vuex_userRole == 'D') {
+				query = uni.createSelectorQuery().in(this.$refs.popTab);
+			} else if (this.functionGuideData.step == 2 && this.vuex_userRole == 'R') {
 				query = uni.createSelectorQuery().in(this.$refs.popTab);
 			} else {
 				query = uni.createSelectorQuery().in(this);
@@ -533,17 +530,7 @@ export default {
 				});
 			}
 		},
-		/*切换角色  */
-		changeRole(value) {
-			if (this.isLogin) {
-				this.guideCourse();
-			}
-			this.$u.setPinia({
-				user: {
-					userRole: value
-				}
-			});
-
+		setDR(value) {
 			if (value === 'D') {
 				this.chartsDataPie2 = {
 					series: [
@@ -748,6 +735,18 @@ export default {
 					}
 				];
 			}
+		},
+		/*切换角色  */
+		changeRole(value) {
+			this.$u.setPinia({
+				user: {
+					userRole: value
+				}
+			});
+			if (this.isLogin) {
+				this.guideCourse();
+			}
+			this.setDR(value);
 		}
 	}
 };

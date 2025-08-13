@@ -136,8 +136,6 @@ export default {
 			this.formData.ifDefault = val ? 'Y' : 'N';
 		},
 		submit() {
-			console.log(this.formData);
-
 			if (this.formData.signeeImage.length == 0) {
 				this.$u.toast('请绘制签名图片');
 				return;
@@ -157,31 +155,31 @@ export default {
 				this.$u.toast('请设置签收姓名');
 				return;
 			}
-
-			this.$refs.uForm.validate((valid) => {
-				if (valid) {
-					console.log(this.formData);
-					var dx = {
-						id: this.formData.id,
-						name: this.formData.signeeName,
-						phone: this.vuex_user.phone,
-						signatureImg: this.formData.signeeImage,
-						password: this.formData.password,
-						state: '1'
-					};
-					this.$api.sign.addSignature(dx).then((res) => {
-						this.$u.toast('保存成功～');
-						setTimeout(() => {
-							// this.loadData();
-							uni.navigateBack({
-								delta: 1
-							});
-						}, 1500);
+			let dx = {
+				id: this.formData.id,
+				name: this.formData.signeeName,
+				phone: this.vuex_user.phone,
+				signatureImg: this.formData.signeeImage,
+				password: this.formData.password,
+				state: '1'
+			};
+			this.$api.sign.addSignature(dx).then((res) => {
+				this.$u.toast('保存成功～');
+				setTimeout(() => {
+					// this.loadData();
+					uni.navigateBack({
+						delta: 1
 					});
-				} else {
-					console.log('验证失败');
-				}
+				}, 1500);
 			});
+			// this.$refs.uForm.validate((valid) => {
+			// 	console.log(11111, valid);
+			// 	if (valid) {
+
+			// 	} else {
+			// 		console.log('验证失败');
+			// 	}
+			// });
 		}
 	}
 };

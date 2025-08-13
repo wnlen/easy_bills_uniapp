@@ -3,7 +3,7 @@
 		<view class="flex-row justify-center pt30 mb20 avatar-area">
 			<button @chooseavatar="onChooseAvatar" open-type="chooseAvatar" type="default" mode="circle">
 				<view class="relative" style="">
-					<u-avatar :level-icon="camera" size="150" :src="userInfo.avatarUrl"></u-avatar>
+					<u-avatar :level-icon="camera" size="150rpx" :src="userInfo.avatarUrl"></u-avatar>
 					<!-- camera -->
 					<view
 						class="absolute flex-col justify-center items-center"
@@ -27,7 +27,7 @@
 						type="text"
 						maxlength="20"
 						class="text-right ft29 mr3"
-						placeholder="获取姓名"
+						placeholder="输入姓名"
 						@blur="onNickname"
 					/>
 					<u-icon name="arrow-right" color="#ccc" @click="userInfoNickNameFocus = true"></u-icon>
@@ -41,11 +41,13 @@
 			</view>
 			<view class="flex-row pt35 pb35 items-center justify-between u-border-bottom">
 				<text class="ft-gray">性别</text>
-				<view class="flex-row justify-end items-center flex-1">
+				<view class="flex-1">
 					<picker @change="bindPickerChange" :value="Number(vuex_user.data.gender)" :range="array">
-						<text>{{ array[gender] || '请选择' }}</text>
-						<view class="ml3">
-							<u-icon name="arrow-right" color="#ccc"></u-icon>
+						<view class="flex-row justify-end items-center flex-1">
+							<text>{{ array[gender] || '请选择' }}</text>
+							<view class="ml3">
+								<u-icon name="arrow-right" color="#ccc"></u-icon>
+							</view>
 						</view>
 					</picker>
 				</view>
@@ -101,7 +103,6 @@ export default {
 		this.userInfo = this.$u.getPinia('user.user.data');
 		this.ac = this.userInfo.ac;
 		this.time = this.userInfo.registrationDate;
-		console.log('uni.$http.config.baseURL', uni.$http.config.baseURL);
 	},
 	methods: {
 		jump() {

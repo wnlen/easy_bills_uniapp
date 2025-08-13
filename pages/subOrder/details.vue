@@ -179,7 +179,7 @@
 
 					<view class="pd20 black-border-top black-border-left black-border-right">
 						<view class="flex-row" style="font-family: ddbh">
-							<u-icon size="50" name="https://res-oss.elist.com.cn/wxImg/order/number.svg"></u-icon>
+							<u-icon size="50rpx" name="https://res-oss.elist.com.cn/wxImg/order/number.svg"></u-icon>
 							<text class="ml10 mt10" style="color: #fa5151; font-size: 30rpx">{{ post.orderNumber || '' }}</text>
 						</view>
 						<view class="flex-row mt13 xqcss">
@@ -442,15 +442,12 @@
 			</view>
 		</view>
 
-		<u-popup :show="showZG" mode="center" border-radius="14" width="500rpx" height="60%">
-			<!-- <view> -->
-			<!-- <u-image width="100%" height="100%" mode="aspectFill" :src="showZGImg"></u-image> -->
-			<image style="width: 100%; height: 100%" :src="showZGImg" mode="aspectFit"></image>
-			<!-- </view> -->
+		<u-popup :show="showZG" mode="center" :round="14" @close="showZG = false">
+			<image style="500rpx; height: 100%" :src="showZGImg" mode="aspectFit"></image>
 		</u-popup>
 
-		<u-popup class="flex-col justify-center items-center" border-radius="15" mode="center" v-model="showMask" width="600rpx" height="400rpx">
-			<view class="flex-col justify-center items-center relative" style="height: 100%; width: 100%">
+		<u-popup class="flex-col justify-center items-center" :round="15" mode="center" :show="showMask" @close="showMask = false">
+			<view class="flex-col justify-center items-center relative" style="height: 400rpx; width: 600rpx">
 				<view class="absolute pt20" style="width: 100%; top: 0; height: 75%">
 					<view class="flex-row items-center justify-center passwordTitle">请输入签收密码</view>
 					<view class="flex-col items-center justify-center mt20" style="width: 100%; height: 35%">
@@ -465,8 +462,12 @@
 				</view>
 			</view>
 		</u-popup>
-		<u-popup :show="showBrowsePrint" :custom-style="customStylePrint" mode="center" border-radius="14" width="650rpx" :height="showBrowsePrintHeight">
-			<view class="w100 pt30 relative flex-col items-center" style="height: 100%; box-shadow: 2rpx 2rpx 2rpx 2rpx rgba(153, 153, 153, 0.05)">
+		<u-popup :show="showBrowsePrint" :custom-style="customStylePrint" mode="center" round="14" @close="showBrowsePrint = false">
+			<view
+				class="w100 pt30 relative flex-col items-center"
+				style="box-shadow: 2rpx 2rpx 2rpx 2rpx rgba(153, 153, 153, 0.05); width: 650rpx"
+				:style="`height:${showBrowsePrintHeight}`"
+			>
 				<scroll-view scroll-y="true" class="u-border pt20 pb20" style="width: 90%; overflow-y: auto" :style="{ height: ImageSoleHeight }">
 					<u-image width="100%" :src="item" mode="widthFix" v-for="(item, index) in browse" :show-menu-by-longpress="false" :key="index"></u-image>
 				</scroll-view>

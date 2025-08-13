@@ -74,6 +74,22 @@
 				<view class="FromFileTitle">添加图片</view>
 				<view class="recently-cat flex-row flex-wrap" style="width: 95%">
 					<u-upload
+						autoUpload
+						autoDelete
+						:autoUploadApi="action"
+						autoUploadDriver="local"
+						v-model:fileList="imgFileList"
+						:maxSize="10485760"
+						:maxCount="3"
+						multiple
+						:showPreviewImage="true"
+						:previewFullImage="true"
+						:deletable="true"
+						:showRetry="false"
+					>
+						<u-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></u-icon>
+					</u-upload>
+					<!-- <u-upload
 						:custom-btn="true"
 						:action="action"
 						:show-retry="false"
@@ -89,7 +105,7 @@
 						<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
 							<u-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200"></u-icon>
 						</view>
-					</u-upload>
+					</u-upload> -->
 				</view>
 				<view class="FromFileTitle">上传附件</view>
 				<view class="FilePdfList">

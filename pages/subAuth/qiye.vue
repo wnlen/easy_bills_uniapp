@@ -1,7 +1,7 @@
 <template>
 	<view style="position: relative; height: 100vh">
 		<view v-if="show == '0'" class="ml20 mr48 pd30 bg-white mt10">
-			<view class="" style="color: #333333">企业信息</view>
+			<view class="ft-bold" style="color: #333333">企业信息</view>
 			<view class="flex-row pt30 pb30 u-border-bottom items-center justify-between">
 				<text style="color: red">
 					*
@@ -20,7 +20,7 @@
 					<input v-model="userInfo.accountSubject.simpleNameQ" type="text" maxlength="50" class="text-left ft29" placeholder="请输入企业名称" />
 				</view>
 			</view>
-			<view class="flex-row pt30 pb30">
+			<view class="flex-row pt30 pb30 u-border-bottom">
 				<text style="color: red">
 					*
 					<text class="ft-gray ml5">企业地址</text>
@@ -30,21 +30,22 @@
 				</view>
 			</view>
 		</view>
-
 		<view v-if="show == 0" class="flex-col justify-center pl60 pr60 pb60 pt60 vw100" style="position: absolute; bottom: 0">
-			<u-button :customStyle="custom_style" shape="circle" type="primary" @click="updateInfo">{{ up ? '提交信息' : '更新信息' }}</u-button>
+			<u-button color="#01BB74" shape="circle" type="primary" @click="updateInfo">{{ up ? '提交信息' : '更新信息' }}</u-button>
 		</view>
 
-		<view v-if="show != 0" class="flex-col mt60 ml48 mr48">
+		<view v-if="show != 0" class="flex-col mt20 ml48 mr48">
 			<view class="flex-row justify-between items-center pl20 pr20 pt30 pb30 radius mb10">
 				<view class="flex-row items-center">
 					<u-image width="60" height="60" shape="circle" :src="vuex_user.data.headPortrait || '/static/img/obj/defind.svg'" :show-menu-by-longpress="false"></u-image>
-					<view class="ml30" style="max-width: 100px; font-weight: bold; font-size: 16px">
+					<view class="ml30 mr30" style="max-width: 100px; font-weight: bold; font-size: 16px">
 						{{ vuex_user.data.name }}
 					</view>
 					<u-image class="ml15" width="50" height="20" src="/static/img/obj/yrz.svg" :show-menu-by-longpress="false"></u-image>
 				</view>
-				<u-button size="mini" v-if="vuex_user.workData.id == null" @click="authRefresh" shape="circle" type="success">更新信息</u-button>
+				<u-button size="mini" v-if="vuex_user.workData.id == null" color="#01BB74" :customStyle="{ width: '150rpx' }" @click="authRefresh" shape="circle" type="success">
+					更新信息
+				</u-button>
 			</view>
 			<view class="flex-row items-center pd20">
 				<text class="ft-gray mr30 width120">企业名称</text>
@@ -70,10 +71,6 @@
 export default {
 	data() {
 		return {
-			custom_style: {
-				backgroundColor: '#01BB74',
-				width: '200rpx'
-			},
 			nameID: '',
 			showImg: false,
 			show: 0,

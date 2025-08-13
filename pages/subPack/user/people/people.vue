@@ -321,7 +321,6 @@
 							</text>
 						</view>
 					</view>
-
 					<view class="flex-row justify-end" style="width: 95%">
 						<u-icon v-if="item.name != ''" @click="deleteRole(item)" name="trash" size="35rpx" color="#333333" class="mr15"></u-icon>
 

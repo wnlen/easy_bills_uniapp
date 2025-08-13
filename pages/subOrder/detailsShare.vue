@@ -91,7 +91,7 @@
 
 					<view class="pd20 black-border-top black-border-left black-border-right">
 						<view class="flex-row" style="font-family: ddbh">
-							<u-icon size="50" name="https://res-oss.elist.com.cn/wxImg/order/number.svg"></u-icon>
+							<u-icon size="50rpx" name="https://res-oss.elist.com.cn/wxImg/order/number.svg"></u-icon>
 							<text class="ml10 mt10" style="color: #fa5151; font-size: 30rpx">{{ post.orderNumber || '' }}</text>
 						</view>
 						<view class="flex-row mt13 xqcss">

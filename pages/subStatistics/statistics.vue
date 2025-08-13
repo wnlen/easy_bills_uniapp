@@ -12,7 +12,7 @@
 			@virtualListChange="virtualListChange"
 			@query="queryList"
 		>
-			<u-sticky>
+			<template #top>
 				<u-navbar :autoBack="true" :placeholder="true">
 					<template #center>
 						<view class="flex-row items-center justify-center ml50" style="width: 100%">
@@ -44,7 +44,7 @@
 						</view>
 					</view>
 				</view>
-			</u-sticky>
+			</template>
 
 			<view class="ml24 mr24 mb24">
 				<div class="bg-white pd20 mt20 radius flex-col justify-center items-center cardShow">
@@ -102,7 +102,7 @@
 					<div class="flex-row items-center radius pr20 mr10 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%">
 						<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
 							<text class="ft11 ft-gray ml36 mr20" @click="CustomerGet">{{ vuex_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
-							<view class="ml24 width100">
+							<view class="ml24 flex-1">
 								<u-input border="none" @change="changeCustomer" v-model="customer" :placeholder="vuex_userRole == 'R' ? '请选择供应商' : '请选择客户'"></u-input>
 							</view>
 

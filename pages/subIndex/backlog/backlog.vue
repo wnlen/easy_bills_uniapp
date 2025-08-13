@@ -27,45 +27,45 @@
 					:lineColor="'#01BB74'"
 					:activeStyle="{ color: '#01BB74' }"
 					:inactiveStyle="{ color: '#333333' }"
+					:scrollable="false"
 					:itemStyle="{
-						width: '50%',
-						height: '90rpx',
+						height: '80rpx',
 						backgroundColor: '#fff'
 					}"
 					@change="TabClick"
 				/>
 			</template>
-			<view
-				slot="empty"
-				v-show="
-					(vuex_user.workData.identity == '3' && tab == 1) ||
-					(vuex_user.workData.identity == '4' && tab == 0) ||
-					vuex_user.data.work == '0' ||
-					vuex_user.workData.identity == '1'
-				"
-				style="padding-bottom: 1000rpx"
-			>
-				<u-empty
-					icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg"
-					iconSize="400rpx"
-					text="暂无待办事项~"
-					mode="search"
-					margin-top="200"
-				></u-empty>
-			</view>
-
-			<view
-				slot="empty"
-				v-show="
-					(vuex_user.workData.identity == '3' && tab == 0) ||
-					(vuex_user.workData.identity == '4' && tab == 1) ||
-					(vuex_user.data.work == '1' && vuex_user.workData.identity != '1')
-				"
-				style="padding-bottom: 1000rpx"
-			>
-				<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" mode="search" margin-top="200"></u-empty>
-			</view>
-
+			<template #empty>
+				<view
+					v-show="
+						(vuex_user.workData.identity == '3' && tab == 1) ||
+						(vuex_user.workData.identity == '4' && tab == 0) ||
+						vuex_user.data.work == '0' ||
+						vuex_user.workData.identity == '1'
+					"
+					style="padding-bottom: 1000rpx"
+				>
+					<u-empty
+						icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg"
+						iconSize="400rpx"
+						text="暂无待办事项~"
+						mode="search"
+						margin-top="200"
+					></u-empty>
+				</view>
+			</template>
+			<template #empty>
+				<view
+					v-show="
+						(vuex_user.workData.identity == '3' && tab == 0) ||
+						(vuex_user.workData.identity == '4' && tab == 1) ||
+						(vuex_user.data.work == '1' && vuex_user.workData.identity != '1')
+					"
+					style="padding-bottom: 1000rpx"
+				>
+					<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" mode="search" margin-top="200"></u-empty>
+				</view>
+			</template>
 			<view class="ml24 mr24 mt24" style="background-color: white; border-radius: 24rpx" :index="index" v-for="(item, index) in list" :key="item.id">
 				<u-swipe-action class="" style="" @open="open(index)" :options="options" @click="click(item)" :show="item.show">
 					<view class="item flex-col justify-left">
@@ -80,7 +80,7 @@
 								<text class="ml20" style="font-size: 32rpx; font-weight: bold">确认付款申请</text>
 							</view>
 							<div>
-								<u-button :custom-style="customStyle" type="success" shape="circle" @click="clickApply(item)">同意</u-button>
+								<u-button :custom-style="customStyle" color="#01BB74" shape="circle" @click="clickApply(item)">同意</u-button>
 							</div>
 						</view>
 						<view class="">
