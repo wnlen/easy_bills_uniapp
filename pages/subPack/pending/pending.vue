@@ -389,10 +389,10 @@
 		<!-- 		<u-empty :show="orderList.length==0" src="https://res-oss.elist.com.cn/wxImg/list/empty.svg" text="暂无记录~"
 			mode="search" margin-top="150"></u-empty> -->
 		<u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" />
-		<u-popup :show="show_start" mode="top" width="550rpx">
-			<view class="flex-col pd30 justify-between height100">
+		<u-popup :show="show_start" mode="top" @close="show_start = false">
+			<view class="flex-col pl30 pr30 pb30 justify-between">
 				<view>
-					<view class="flex-col mt40">
+					<view class="flex-col mt20">
 						<text
 							style="
 								font-family: Source Han Sans;
@@ -408,18 +408,18 @@
 						</text>
 
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
-							<view class="flex-row items-center" style="width: 50%">
+							<view class="flex-row items-center flex-1">
 								<text class="mr10" style="color: #999999">开始日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="$refs.calendars.open()" class="ml24" style="border: 1rx solid #999999; padding: 12rpx; border-radius: 66rpx">
-									{{ date1 }}
+								<view @click="calendars.open()" class="ml14" style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx">
+									{{ date1 || '开始日期' }}
 								</view>
 							</view>
-							<view class="flex-row items-center" style="width: 50%">
-								<text class="mr10 ml20" style="color: #999999">结束日期</text>
+							<view class="flex-row items-center flex-1">
+								<text class="mr10" style="color: #999999">结束日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="$refs.calendars.open()" class="ml24" style="border: 1rx solid #999999; padding: 12rpx; border-radius: 66rpx">
-									{{ date2 }}
+								<view @click="calendars.open()" class="ml14" style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx">
+									{{ date2 || '结束日期' }}
 								</view>
 							</view>
 						</view>
@@ -441,48 +441,45 @@
 
 							<view class="flex-row mt20" style="width: 100%">
 								<view
-									class="flex-col justify-center items-center text-center mr24"
+									class="flex-col justify-center items-center text-center mr24 tages"
 									@click="Filtrate('0')"
 									:style="{
 										backgroundColor: showTage == '0' ? '#01BB74' : '#F2FBF8',
 										color: showTage == '0' ? '#ffffff' : '#01BB74'
 									}"
-									style="color: #ffffff; background-color: #01bb74; width: 30%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
 								>
 									联系人
 								</view>
 								<view
-									class="flex-col justify-center items-center text-center mr24"
+									class="flex-col justify-center items-center text-center mr24 tages"
 									@click="Filtrate('1')"
 									:style="{
 										backgroundColor: showTage == '1' ? '#01BB74' : '#F2FBF8',
 										color: showTage == '1' ? '#ffffff' : '#01BB74'
 									}"
-									style="color: #01bb74; background-color: #f2fbf8; width: 30%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
+									style=""
 								>
 									联系号码
 								</view>
 								<view
-									class="flex-col justify-center items-center text-center"
+									class="flex-col justify-center items-center text-center tages"
 									@click="Filtrate('2')"
 									:style="{
 										backgroundColor: showTage == '2' ? '#01BB74' : '#F2FBF8',
 										color: showTage == '2' ? '#ffffff' : '#01BB74'
 									}"
-									style="color: #01bb74; background-color: #f2fbf8; width: 30%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
 								>
 									{{ vuex_userRole == 'R' ? '收货地址' : '收货地址' }}
 								</view>
 							</view>
 							<view class="flex-row mt20" style="width: 100%">
 								<view
-									class="flex-col justify-center items-center text-center"
+									class="flex-col justify-center items-center text-center tages"
 									@click="Filtrate('3')"
 									:style="{
 										backgroundColor: showTage == '3' ? '#01BB74' : '#F2FBF8',
 										color: showTage == '3' ? '#ffffff' : '#01BB74'
 									}"
-									style="color: #01bb74; background-color: #f2fbf8; width: 30%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
 								>
 									产品名称
 								</view>
@@ -521,7 +518,7 @@
 				password = '';
 			"
 		>
-			<u-popup class="flex-col justify-center items-center" border-radius="15" mode="center" v-model="showMask" width="600rpx" height="400rpx">
+			<u-popup class="flex-col justify-center items-center" round="15" mode="center" v-model="showMask" width="600rpx" height="400rpx">
 				<view class="flex-col justify-center items-center relative" style="height: 100%; width: 100%">
 					<view class="absolute pt20" style="width: 100%; top: 0; height: 75%">
 						<view class="flex-row items-center justify-center passwordTitle">请输入签收密码</view>
@@ -1757,5 +1754,12 @@ export default {
 
 	font-feature-settings: 'kern' on;
 	color: #f53f3f;
+}
+.tages {
+	color: #01bb74;
+	background-color: #f2fbf8;
+	width: 30%;
+	height: 54rpx;
+	border-radius: 12rpx;
 }
 </style>

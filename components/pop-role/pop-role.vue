@@ -1,5 +1,5 @@
 <template>
-	<u-popup :show="roleShow" @close="roleShow = false" mode="bottom" border-radius="15" height="750rpx" :closeable="true" :mask-close-able="false">
+	<u-popup :show="roleShow" @close="roleShow = false" mode="bottom" round="15" height="750rpx" :closeable="true" :mask-close-able="false">
 		<view class="pd36 flex-col justify-center jb" @tap.stop style="background-size: cover" :style="{ backgroundImage: 'url(' + ImgUrl + '/wxImg/index/backRD.png)' }">
 			<view class="flex-col" style="width: 100%">
 				<text class="ft30 ft-bold ft-green mb10" style="color: #333333; font-size: 40rpx; font-weight: bold">设置角色</text>

@@ -237,8 +237,8 @@
 
 		<u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" />
 
-		<u-popup :show="show_start" @click="show_start = false" mode="top" width="550rpx">
-			<view class="flex-col pd30 justify-between height100">
+		<u-popup :show="show_start" @close="show_start = false" mode="top">
+			<view class="flex-col pl30 pr30 pb30 justify-between">
 				<view>
 					<view class="flex-col mt40">
 						<text
@@ -260,14 +260,14 @@
 								<text class="mr10" style="color: #999999">开始日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
 								<view @click="$refs.calendars.open()" class="ml24" style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
-									{{ date1 }}
+									{{ date1 || '开始日期' }}
 								</view>
 							</view>
 							<view class="flex-row items-center" style="width: 50%">
 								<text class="mr10 ml20" style="color: #999999">结束日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
 								<view @click="$refs.calendars.open()" class="ml24" style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
-									{{ date2 }}
+									{{ date2 || '结束日期' }}
 								</view>
 							</view>
 						</view>

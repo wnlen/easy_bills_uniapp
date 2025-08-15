@@ -1,14 +1,16 @@
 <template>
 	<view style="width: 100vw; height: 100vh">
 		<u-popup :show="shoppingTrolley" mode="bottom">
-			<u-swipe-action :show="item.show" :index="index" v-for="(item, index) in list" :key="item.id" @click="click" @open="open" :options="options">
-				<view class="item u-border-bottom">
-					<image mode="aspectFill" :src="item.images" />
-					<!-- 此层wrap在此为必写的，否则可能会出现标题定位错误 -->
-					<view class="title-wrap">
-						<text class="title u-line-2">{{ item.title }}</text>
+			<u-swipe-action>
+				<u-swipe-action-item :show="item.show" :name="index" v-for="(item, index) in list" :key="item.id" @click="delclick" :options="options">
+					<view class="item u-border-bottom">
+						<image mode="aspectFill" :src="item.images" />
+						<!-- 此层wrap在此为必写的，否则可能会出现标题定位错误 -->
+						<view class="title-wrap">
+							<text class="title u-line-2">{{ item.title }}</text>
+						</view>
 					</view>
-				</view>
+				</u-swipe-action-item>
 			</u-swipe-action>
 		</u-popup>
 	</view>
@@ -59,23 +61,14 @@ export default {
 		};
 	},
 	methods: {
-		click(index, index1) {
-			if (index1 == 1) {
-				this.list.splice(index, 1);
-				this.$u.toast(`删除了第${index}个cell`);
+		delclick(item) {
+			if (item.index == 1) {
+				this.list.splice(item.name, 1);
+				this.$u.toast(`删除了第${item.name}个cell`);
 			} else {
-				this.list[index].show = false;
+				this.list[item.name].show = false;
 				this.$u.toast(`收藏成功`);
 			}
-		},
-		// 如果打开一个的时候，不需要关闭其他，则无需实现本方法
-		open(index) {
-			// 先将正在被操作的swipeAction标记为打开状态，否则由于props的特性限制，
-			// 原本为'false'，再次设置为'false'会无效
-			this.list[index].show = true;
-			this.list.map((val, idx) => {
-				if (index != idx) this.list[idx].show = false;
-			});
 		}
 	}
 };

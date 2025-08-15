@@ -11,7 +11,7 @@
 			<u-empty icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg" iconSize="400rpx" text="暂无消息~" mode="search" margin-top="200"></u-empty>
 		</view>
 
-		<u-swipe-action :show="item.show" :index="index" v-for="(item, index) in list" :key="index" @click="click" disabled @open="open" :options="options">
+		<u-swipe-action :show="item.show" :index="index" v-for="(item, index) in list" :key="index" @click="click" disabled :options="options">
 			<view class="item u-border-bottom" v-show="item.number > 0" v-if="item.ifwork && showMess && ifShow()">
 				<view class="mr30"><u-icon :name="ImgUrl + item.images" size="100rpx"></u-icon></view>
 

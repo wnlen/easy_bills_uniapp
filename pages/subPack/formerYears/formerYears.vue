@@ -25,7 +25,7 @@
 				<view class="relative" style="width: 100%; height: 5vh">
 					<view class="absolute flex-col justify-center items-center" @click="selectionIconClick" style="width: 30%; left: 0; height: 100%">
 						<liu-data-select elementId="data-select1" :dataList="dataList" @change="dropdown" color="#965510">
-							<view id="data-select1" class="btn-info flex-row justify-center">
+							<view id="data-select1" class="btn-info flex-row justify-center items-center">
 								<view class="mr10" v-if="!selectionIcon"><u-icon name="arrow-up-fill" color=" #965510" size="15"></u-icon></view>
 								<view class="mr10" v-else><u-icon name="arrow-down-fill" color=" #965510" size="15"></u-icon></view>
 								<text style="color: #965510">{{ dropdownName }}</text>
@@ -139,7 +139,7 @@
 						iconSize="400rpx"
 						text="暂无数据~"
 						mode="search"
-						margin-top="-200"
+						margin-top="-150rpx"
 					></u-empty>
 				</view>
 				<view
@@ -322,21 +322,15 @@
 					</view>
 				</view>
 			</template>
-
-			<!-- <view slot="empty" class="flex-col justify-center items-center">
-				<view class="vw100" style="height: 200rpx;">
-					<u-empty :src="ImgUrl+'/wxImg/list/empty.svg'" icon-size="150" text="暂无数据~" mode="search"
-						margin-top="-250"></u-empty>
+			<template #empty>
+				<view style="padding-bottom: 200rpx">
+					<u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="360rpx"></u-icon>
 				</view>
-			</view> -->
-
-			<view slot="empty" style="padding-bottom: 200rpx">
-				<u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="360rpx"></u-icon>
-			</view>
+			</template>
 		</z-paging>
 
 		<u-popup :show="show_start" mode="top" width="550rpx" @close="show_start = false">
-			<view class="flex-col pd30 justify-between height100 pt100">
+			<view class="flex-col pd30 justify-between pt100">
 				<view>
 					<view class="flex-col mt40">
 						<text

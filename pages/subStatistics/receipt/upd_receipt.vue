@@ -223,124 +223,117 @@
 			</template>
 		</z-paging>
 
-		<u-popup :show="showCheck" mode="bottom" border-radius="15" @close="showCheck = false">
+		<u-popup :show="showCheck" mode="bottom" round="15" @close="showCheck = false">
 			<view class="warp" style="height: 70vh; width: 100vw; background-color: #ffffff; border-radius: 15rpx 15rpx 0 0">
 				<z-paging v-if="showCheck" ref="pagingCheck" :fixed="false" v-model="selectList" @query="queryListCheck">
 					<!-- 如果希望其他view跟着页面滚动，可以放在z-paging标签内 -->
 					<view solt="top" style="height: 24rpx"></view>
 					<view class="item">
-						<u-swipe-action
-							:show="item.show"
-							:index="index"
-							v-for="(item, index) in selectList"
-							:key="item.id"
-							@click="click"
-							@open="open"
-							:options="options"
-							btn-width="140"
-						>
-							<view
-								@click="
-									goPath('/pages/subOrder/details?id=' + item.id);
-									hide = false;
-								"
-								class="OrderCard"
-							>
-								<view class="OrderCardHand" @tap.stop>
-									<view class="title ml1" style="" @tap.stop>
-										<text class="ft30 ft-lighgray pr30" style="color: #666666" @tap.stop>
-											订单编号:
-											<text class="ml15" @click="copyBtn(item.orderNumber)" style="color: #f76565">
-												{{ item.orderNumber }}
+						<u-swipe-action>
+							<u-swipe-action-item :show="item.show" :name="index" v-for="(item, index) in selectList" :key="item.id" @click="delclick" :options="options">
+								<view
+									@click="
+										goPath('/pages/subOrder/details?id=' + item.id);
+										hide = false;
+									"
+									class="OrderCard"
+								>
+									<view class="OrderCardHand" @tap.stop>
+										<view class="title ml1" style="" @tap.stop>
+											<text class="ft30 ft-lighgray pr30" style="color: #666666" @tap.stop>
+												订单编号:
+												<text class="ml15" @click="copyBtn(item.orderNumber)" style="color: #f76565">
+													{{ item.orderNumber }}
+												</text>
+											</text>
+
+											<u-icon size="28rpx" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
+										</view>
+										<view class="ml20" style="margin-right: -20rpx">
+											<u-image
+												v-if="vuex_userRole == 'D' && item.paymentState == '0'"
+												class="u-img"
+												width="120rpx"
+												height="50rpx"
+												src="@/static/img/obj/bq1.png"
+											></u-image>
+											<u-image
+												v-if="vuex_userRole == 'R' && item.paymentState == '0'"
+												class="u-img"
+												width="120rpx"
+												height="50rpx"
+												src="@/static/img/obj/dqs.png"
+											></u-image>
+											<u-image
+												v-if="item.paymentState == '1'"
+												width="120rpx"
+												height="50rpx"
+												class="u-img"
+												src="@/static/img/obj/bq2.png"
+												:lazy-load="true"
+											></u-image>
+											<u-image
+												v-if="vuex_userRole != 'R' && item.paymentState == '2'"
+												width="120rpx"
+												height="50rpx"
+												class="u-img"
+												src="@/static/img/obj/bq3.png"
+												:lazy-load="true"
+											></u-image>
+											<u-image
+												v-if="vuex_userRole == 'R' && item.paymentState == '2'"
+												class="u-img"
+												width="120rpx"
+												height="50rpx"
+												src="@/static/img/obj/yfk.png"
+											></u-image>
+										</view>
+									</view>
+									<view class="width100 pb25 text-left">
+										<text class="flex-col text-left">
+											<text
+												v-if="vuex_userRole == 'D'"
+												:style="{
+													color: ifZX(item.bossNumberE) ? '#AAAAAA' : '#3D3D3D'
+												}"
+												class="ft34 u-line-bt width100"
+												style="font-weight: 500"
+											>
+												{{ item.organizationE || item.bossNumberE }}{{ ifZX(item.bossNumberE) ? '(已注销)' : '' }}
+											</text>
+											<text
+												v-if="vuex_userRole == 'R'"
+												:style="{
+													color: ifZX(item.bossNumberS) ? '#AAAAAA' : '#3D3D3D'
+												}"
+												class="ft34 u-line-bt width100"
+												style="font-weight: 500"
+											>
+												{{ item.enterpriseS || item.bossNumberS }}{{ ifZX(item.bossNumberS) ? '(已注销)' : '' }}
 											</text>
 										</text>
+									</view>
+									<text class="ft30 line25 ft-lighgray">
+										<text>日期：{{ $u.timeFormat(item.creationTime, 'yyyy-mm-dd') }}</text>
+									</text>
 
-										<u-icon size="28rpx" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
-									</view>
-									<view class="ml20" style="margin-right: -20rpx">
-										<u-image
-											v-if="vuex_userRole == 'D' && item.paymentState == '0'"
-											class="u-img"
-											width="120rpx"
-											height="50rpx"
-											src="@/static/img/obj/bq1.png"
-										></u-image>
-										<u-image
-											v-if="vuex_userRole == 'R' && item.paymentState == '0'"
-											class="u-img"
-											width="120rpx"
-											height="50rpx"
-											src="@/static/img/obj/dqs.png"
-										></u-image>
-										<u-image
-											v-if="item.paymentState == '1'"
-											width="120rpx"
-											height="50rpx"
-											class="u-img"
-											src="@/static/img/obj/bq2.png"
-											:lazy-load="true"
-										></u-image>
-										<u-image
-											v-if="vuex_userRole != 'R' && item.paymentState == '2'"
-											width="120rpx"
-											height="50rpx"
-											class="u-img"
-											src="@/static/img/obj/bq3.png"
-											:lazy-load="true"
-										></u-image>
-										<u-image
-											v-if="vuex_userRole == 'R' && item.paymentState == '2'"
-											class="u-img"
-											width="120rpx"
-											height="50rpx"
-											src="@/static/img/obj/yfk.png"
-										></u-image>
-									</view>
-								</view>
-								<view class="width100 pb25 text-left">
-									<text class="flex-col text-left">
-										<text
-											v-if="vuex_userRole == 'D'"
-											:style="{
-												color: ifZX(item.bossNumberE) ? '#AAAAAA' : '#3D3D3D'
-											}"
-											class="ft34 u-line-bt width100"
-											style="font-weight: 500"
-										>
-											{{ item.organizationE || item.bossNumberE }}{{ ifZX(item.bossNumberE) ? '(已注销)' : '' }}
-										</text>
-										<text
-											v-if="vuex_userRole == 'R'"
-											:style="{
-												color: ifZX(item.bossNumberS) ? '#AAAAAA' : '#3D3D3D'
-											}"
-											class="ft34 u-line-bt width100"
-											style="font-weight: 500"
-										>
-											{{ item.enterpriseS || item.bossNumberS }}{{ ifZX(item.bossNumberS) ? '(已注销)' : '' }}
-										</text>
+									<text class="ft-lighgray mt10 line25 flex-row items-center justify-end">
+										<text>订单金额：</text>
+										<text style="color: black; font-size: 24rpx">￥</text>
+										<text class="ft35" style="color: black; font-weight: 500">{{ item.price.toFixed(2) }}</text>
+									</text>
+
+									<text
+										style="width: 100%"
+										class="mt17 ft-lighgray ft25 bg-gray radius pd10"
+										@tap.stop
+										v-if="item.receiptsDescr && item.paymentState != 2"
+										@click="noteMyOrder(item)"
+									>
+										备注：{{ item.receiptsDescr }}
 									</text>
 								</view>
-								<text class="ft30 line25 ft-lighgray">
-									<text>日期：{{ $u.timeFormat(item.creationTime, 'yyyy-mm-dd') }}</text>
-								</text>
-
-								<text class="ft-lighgray mt10 line25 flex-row items-center justify-end">
-									<text>订单金额：</text>
-									<text style="color: black; font-size: 24rpx">￥</text>
-									<text class="ft35" style="color: black; font-weight: 500">{{ item.price.toFixed(2) }}</text>
-								</text>
-
-								<text
-									style="width: 100%"
-									class="mt17 ft-lighgray ft25 bg-gray radius pd10"
-									@tap.stop
-									v-if="item.receiptsDescr && item.paymentState != 2"
-									@click="noteMyOrder(item)"
-								>
-									备注：{{ item.receiptsDescr }}
-								</text>
-							</view>
+							</u-swipe-action-item>
 						</u-swipe-action>
 					</view>
 					<template #bottom>
@@ -383,7 +376,7 @@
 		<u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" />
 
 		<u-popup :show="show_start" mode="top" width="550rpx" @close="show_start = false">
-			<view class="flex-col pd30 justify-between height100">
+			<view class="flex-col pl30 pr30 pb30 justify-between">
 				<view>
 					<view class="flex-col mt40">
 						<text
@@ -739,42 +732,28 @@ export default {
 		virtualListChangeCheck(list) {
 			this.selectList = list;
 		},
-		click(index, index1) {
-			console.log(index, index1);
+		delclick(item) {
 			if (this.selectList.length <= 1) {
 				this.$u.toast('请至少选择一个订单');
 				return;
 			}
-			if (index1 == 0) {
-				var id = this.selectList[index].id;
+			var id = this.selectList[item.name].id;
 
-				if (this.oldId.includes(id)) {
-					this.orderList.unshift(this.selectList[index]);
-					this.$refs.paging.complete(this.orderList);
-					this.oldList.push(this.selectList[index]);
-				}
-
-				this.ids = this.ids.filter((idd) => idd !== id);
-				let orderItem = this.orderList.find((item) => item.id === id);
-				console.log(orderItem);
-				if (orderItem) {
-					orderItem.check = false;
-				}
-				this.selectList.splice(index, 1);
-				this.realTimeSel.ids = this.selectList.map((item) => item.id);
-				this.$u.toast(`删除了第${index + 1}个订单`);
+			if (this.oldId.includes(id)) {
+				this.orderList.unshift(this.selectList[item.name]);
+				this.$refs.paging.complete(this.orderList);
+				this.oldList.push(this.selectList[item.name]);
 			}
-		},
-		// 如果打开一个的时候，不需要关闭其他，则无需实现本方法
-		open(index) {
-			// 先将正在被操作的swipeAction标记为打开状态，否则由于props的特性限制，
-			// 原本为'false'，再次设置为'false'会无效
-			console.log(index);
-			this.selectList[index].show = true;
-			this.selectList.map((val, idx) => {
-				console.log(index, idx);
-				if (index != idx) this.selectList[idx].show = false;
-			});
+
+			this.ids = this.ids.filter((idd) => idd !== id);
+			let orderItem = this.orderList.find((item) => item.id === id);
+			console.log(orderItem);
+			if (orderItem) {
+				orderItem.check = false;
+			}
+			this.selectList.splice(item.name, 1);
+			this.realTimeSel.ids = this.selectList.map((item) => item.id);
+			this.$u.toast(`删除了第${item.name + 1}个订单`);
 		},
 		closeCheck() {
 			console.log('关闭');

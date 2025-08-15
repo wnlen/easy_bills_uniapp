@@ -81,10 +81,14 @@ export default {
 				position: 'absolute',
 				top: 0,
 				right: 0
-			}
+			},
+			userPhone: ''
 		};
 	},
 	onShareAppMessage(ops) {},
+	onShow() {
+		this.userPhone = this.maskPhoneNumber(this.$u.getPinia('user.user.phone'));
+	},
 	methods: {
 		comparisonCode() {
 			var code = this.form.code;
@@ -148,7 +152,7 @@ export default {
 								icon: 'success'
 							});
 						} else {
-							this.$u.toast(res.data.data.mes);
+							this.$u.toast(res.data.message);
 						}
 					});
 			} else {

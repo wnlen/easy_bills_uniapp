@@ -17,7 +17,7 @@
 		<view class="bg-white radius12 mt60 ml30 mr30">
 			<view class="mb54 flex-row justify-between">
 				<view class="charts-box">
-					<qiun-data-charts type="ring" :opts="ringOpts" :chartData="chartsDataPie2" />
+					<qiun-data-charts type="ring" :canvas2d="true" canvasId="myChartCanvas" :opts="ringOpts" :chartData="chartsDataPie2" />
 					<view class="text-center ft-bold">
 						<text class="ft24">￥</text>
 						<text v-for="(item, index) in allprice.toFixed(2).toString().split('.')" :class="index == 0 ? 'ft32' : 'ft24'" :key="index">
@@ -304,7 +304,6 @@ export default {
 		},
 		// 新手指引
 		guideCourse() {
-			console.log(this.$u.getPinia('user.userRole'), this.$u.getPinia('guide.guidanceD'));
 			if (this.$u.getPinia('user.userRole') == 'D' && this.$u.getPinia('guide.guidanceD') != 1) {
 				this.$refs.FunctionGuide.init();
 			} else if (this.$u.getPinia('user.userRole') == 'R' && this.$u.getPinia('guide.guidanceR') != 1) {

@@ -100,69 +100,74 @@
 			</template>
 		</z-paging>
 
-		<u-popup :show="shoppingTrolley" @close="shoppingTrolley = false" mode="bottom" border-radius="15">
+		<u-popup :show="shoppingTrolley" @close="shoppingTrolley = false" mode="bottom" round="15">
 			<view class="" style="width: 100%; height: 70vh; padding-top: 24rpx">
 				<z-paging v-if="shoppingTrolley" ref="pagingCheck" :fixed="false" v-model="addList" @query="queryListCheck">
 					<!-- 如果希望其他view跟着页面滚动，可以放在z-paging标签内 -->
-					<view solt="top" style="height: 24rpx"></view>
-					<view class="OrderCard" style="width: 94vw" v-for="(item, index) in orderItemList" :key="index">
-						<u-swipe-action :show="item.show" :index="index" @click="click" @open="open" :options="options" btn-width="140">
-							<view class="flex-row pt24 pb24" style="width: 100%">
-								<view style="width: 10%" class="ml20">品名:</view>
-								<view style="width: 40%">{{ item.description }}</view>
-								<view style="width: 10%" class="ml20">规格:</view>
-								<view style="width: 40%">{{ item.specification }}</view>
-							</view>
-							<view class="flex-row items-center justify-center" style="width: 100%">
-								<u-line class="u-line ml24 mr24" color="#F4F4F4" length="100%"></u-line>
-							</view>
-							<u-table border-color="#ffffff">
-								<u-tr>
-									<u-td>数量</u-td>
-									<u-td>单位</u-td>
-									<u-td>单价</u-td>
-									<u-td>金额</u-td>
-								</u-tr>
-								<u-tr>
-									<u-td>
-										<view class="u-border-bottom">
+					<template #top>
+						<view style="height: 24rpx"></view>
+					</template>
+					<u-swipe-action>
+						<view class="OrderCard" style="width: 94vw" v-for="(item, index) in orderItemList" :key="index">
+							<u-swipe-action-item :show="item.show" :options="options" :name="index" @click="delclick" @open="open">
+								<view class="flex-row pt24 pb24" style="width: 100%">
+									<view style="width: 10%" class="ml20">品名:</view>
+									<view style="width: 40%">{{ item.description }}</view>
+									<view style="width: 10%" class="ml20">规格:</view>
+									<view style="width: 40%">{{ item.specification }}</view>
+								</view>
+								<view class="flex-row items-center justify-center" style="width: 100%">
+									<u-line class="u-line ml24 mr24" color="#F4F4F4" length="100%"></u-line>
+								</view>
+								<u-table border-color="#ffffff">
+									<u-tr>
+										<u-td>数量</u-td>
+										<u-td>单位</u-td>
+										<u-td>单价</u-td>
+										<u-td>金额</u-td>
+									</u-tr>
+									<u-tr>
+										<u-td>
+											<view class="u-border-bottom">
+												<input
+													type="digit"
+													v-model="item.quantity"
+													maxlength="10"
+													placeholder="请输入"
+													@input="calculate"
+													:custom-style="uploadingCommodityInputStyle"
+												/>
+											</view>
+										</u-td>
+										<u-td>{{ item.unit }}</u-td>
+										<u-td>
+											<view class="u-border-bottom">
+												<input
+													type="digit"
+													v-model="item.unitPrice"
+													maxlength="10"
+													@input="calculate"
+													placeholder="请输入"
+													:custom-style="uploadingCommodityInputStyle"
+												/>
+											</view>
+										</u-td>
+										<u-td width="200rpx">
 											<input
-												type="digit"
-												v-model="item.quantity"
+												type="text"
+												:value="formatAmount(item.unitPrice * item.quantity)"
+												disabled
 												maxlength="10"
 												placeholder="请输入"
-												@input="calculate"
 												:custom-style="uploadingCommodityInputStyle"
 											/>
-										</view>
-									</u-td>
-									<u-td>{{ item.unit }}</u-td>
-									<u-td>
-										<view class="u-border-bottom">
-											<input
-												type="digit"
-												v-model="item.unitPrice"
-												maxlength="10"
-												@input="calculate"
-												placeholder="请输入"
-												:custom-style="uploadingCommodityInputStyle"
-											/>
-										</view>
-									</u-td>
-									<u-td width="200rpx">
-										<input
-											type="text"
-											:value="formatAmount(item.unitPrice * item.quantity)"
-											disabled
-											maxlength="10"
-											placeholder="请输入"
-											:custom-style="uploadingCommodityInputStyle"
-										/>
-									</u-td>
-								</u-tr>
-							</u-table>
-						</u-swipe-action>
-					</view>
+										</u-td>
+									</u-tr>
+								</u-table>
+							</u-swipe-action-item>
+						</view>
+					</u-swipe-action>
+
 					<template #bottom>
 						<view class="bottomCard">
 							<view class="relative">
@@ -507,12 +512,10 @@ export default {
 				url: 'commodityDetails/commodityDetails?id=' + item.id
 			});
 		},
-		click(index, index1) {
-			if (index1 == 0) {
-				var order = this.orderItemList[index];
-				this.orderItemList.splice(index, 1);
-				this.$u.toast(`删除了${order.description}`);
-			}
+		delclick(item) {
+			let order = this.orderItemList[item.name];
+			this.orderItemList.splice(item.name, 1);
+			this.$u.toast(`删除了${order.description}`);
 			this.add();
 		},
 		// 如果打开一个的时候，不需要关闭其他，则无需实现本方法
