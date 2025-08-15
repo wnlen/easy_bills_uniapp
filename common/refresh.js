@@ -41,44 +41,44 @@ export default (http) => ({
 			console.log('当前用户信息', vuexUser);
 
 			const role = vuexUser.data?.work === '1' ? 1 : 2;
-			// http.post(`edo/user/renewal?phone=${vuexUser.phone}&role=${role}`)
-			// 	.then((res) => {
-			// 		const getNowData = res.data.data;
-			// 		const localData = {
-			// 			...vuexUser
-			// 		};
+			http.post(`edo/user/renewal?phone=${vuexUser.phone}&role=${role}`)
+				.then((res) => {
+					const getNowData = res.data.data;
+					const localData = {
+						...vuexUser
+					};
 
-			// 		localData.ac = getNowData.ac;
-			// 		localData.data = getNowData.data;
-			// 		localData.workData = getNowData.workData;
-			// 		localData.vuex_password = getNowData.password;
-			// 		localData.jurisdiction = getNowData.jurisdiction;
+					localData.ac = getNowData.ac;
+					localData.data = getNowData.data;
+					localData.workData = getNowData.workData;
+					localData.vuex_password = getNowData.password;
+					localData.jurisdiction = getNowData.jurisdiction;
 
-			// 		store.user = localData;
-			// 		store.announcement = getNowData.announcement;
-			// 		store.guidanceD = getNowData.data.guidanceD;
-			// 		store.guidanceR = getNowData.data.guidanceR;
-			// 		store.work = getNowData.data.work === '1' ? 'Y' : 'N';
+					store.user = localData;
+					store.announcement = getNowData.announcement;
+					store.guidanceD = getNowData.data.guidanceD;
+					store.guidanceR = getNowData.data.guidanceR;
+					store.work = getNowData.data.work === '1' ? 'Y' : 'N';
 
-			// 		if (localData.data?.state === '0') {
-			// 			uni.reLaunch({
-			// 				url: '/pages/subPack/user/affirm/applyAffirm'
-			// 			});
-			// 		}
-			// 	})
-			// 	.catch((err) => {
-			// 		console.error('用户信息刷新失败', err);
-			// 		store.user = {
-			// 			workData: {},
-			// 			data: {
-			// 				work: null
-			// 			},
-			// 			ac: {
-			// 				enterpriseName: null
-			// 			},
-			// 			phone: null
-			// 		};
-			// 	});
+					if (localData.data?.state === '0') {
+						uni.reLaunch({
+							url: '/pages/subPack/user/affirm/applyAffirm'
+						});
+					}
+				})
+				.catch((err) => {
+					console.error('用户信息刷新失败', err);
+					store.user = {
+						workData: {},
+						data: {
+							work: null
+						},
+						ac: {
+							enterpriseName: null
+						},
+						phone: null
+					};
+				});
 
 			console.log('--------->全局刷新个人信息END<-------------');
 		};

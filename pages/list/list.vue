@@ -396,7 +396,7 @@
 			<u-navbar title="查询订单" leftIconColor="#fff" :titleBold="true" :titleStyle="titleStyle"></u-navbar>
 			<!-- #endif -->
 			<view style="height: 44px"></view>
-			<view class="pl30 pr30">
+			<view class="pl30 pr30 pb30">
 				<view class="pb60">
 					<view class="flex-col mt20">
 						<text
@@ -534,7 +534,7 @@
 				password = '';
 			"
 		>
-			<u-popup negative-top="200rpx" class="flex-col justify-center items-center" border-radius="15" mode="center" v-model="showMask" width="600rpx" height="400rpx">
+			<u-popup negative-top="200rpx" class="flex-col justify-center items-center" round="15" mode="center" v-model="showMask" width="600rpx" height="400rpx">
 				<view class="flex-col justify-center items-center relative" style="height: 100%; width: 100%">
 					<view class="absolute pt20" style="width: 100%; top: 0; height: 75%">
 						<view class="flex-row items-center justify-center passwordTitle">请输入签收密码</view>

@@ -77,12 +77,20 @@
 				</u-popup>
 
 				<up-overlay :show="showMask" @click="showMask = false">
-					<u-popup class="flex-col justify-center items-center" border-radius="15" mode="center" :show="showMask" :customStyle="{ width: '600rpx', height: '400rpx' }">
+					<u-popup class="flex-col justify-center items-center" round="15" mode="center" :show="showMask" :customStyle="{ width: '600rpx', height: '400rpx' }">
 						<view class="flex-col justify-center items-center relative" style="height: 100%; width: 100%">
 							<view class="absolute pt20" style="width: 100%; top: 0; height: 75%">
 								<view class="flex-row items-center justify-center passwordTitle">请输入签收密码</view>
 								<view class="flex-col items-center justify-center mt20" style="width: 100%; height: 35%">
-									<u-message-input :bold="false" @change="change" @finish="finish" :dot-fill="true" :value="password" mode="box"></u-message-input>
+									<u-message-input
+										active-color="#01BB74"
+										:bold="false"
+										@change="change"
+										@finish="finish"
+										:dot-fill="true"
+										:value="password"
+										mode="box"
+									></u-message-input>
 									<view class="mt20 err" v-show="err">密码错误，请重新输入</view>
 								</view>
 								<view @click="goPath('/pages/subUser/resetpassword')" class="ft12 pr30 flex-row justify-end pt15" style="color: #999; width: 100%">找回密码</view>

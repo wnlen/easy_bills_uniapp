@@ -187,6 +187,7 @@ export default {
 		};
 	},
 	onShow() {
+		console.log(1, this.$u.getPinia('user'));
 		if (this.vuex_user.workData != null) {
 			var ide = this.vuex_user.workData.identity == '3';
 			if (ide) {
@@ -201,7 +202,7 @@ export default {
 		}
 
 		// #ifdef MP-WEIXIN
-		this.$refs.paging.refresh();
+		// this.$refs.paging.refresh();
 		// #endif
 
 		// this.loadData();

@@ -21,7 +21,7 @@
 		<u-navbar title="开送货单" :autoBack="true" :placeholder="true" bgColor="#ffffff"></u-navbar>
 		<!-- #endif -->
 		<view class="width100" style="height: 80vh; text-align: center; margin-left: 10vw" v-show="vuex_userRole == 'D' && shareShow == true">
-			<u-popup :show="showShare" mode="center" width="80%" height="20%" border-radius="15">
+			<u-popup :show="showShare" mode="center" width="80%" height="20%" round="15">
 				<view class="relative" style="height: 100%; width: 100%">
 					<view class="flex-col justify-center items-center" style="height: 30%">提示</view>
 					<view class="flex-col justify-center items-center" style="height: 40%; font-size: 36rpx; font-weight: 600">请选择转发版本</view>
@@ -305,7 +305,7 @@
 						autoDelete
 						:autoUploadApi="action"
 						autoUploadDriver="local"
-						v-model:fileList="imgFileList"
+						v-model:fileList="fileList"
 						:maxSize="5242880"
 						:maxCount="3"
 						multiple

@@ -179,16 +179,6 @@
 					</view>
 				</view>
 				<view class="OrderCard_end" @tap.stop>
-					<!-- <u-swipe-action bg-color="transparent" class="OrderCard_end_slider" :disabled="item.disabled"
-						:show="item.show" @click="click" @open="open(index)" :options="options" :index="index">
-						<view class="detail">
-							<view class="ddlb" @click="viewDetails(item)">
-								<u-icon :name="b64Img.img" label="订单列表" labelColor="#00B578" labelSize="30"
-									size="30rpx"></u-icon>
-							</view>
-						</view>
-					</u-swipe-action> -->
-
 					<u-button
 						class="ml30 bg-white"
 						v-if="
@@ -1036,7 +1026,7 @@ export default {
 		align-items: center;
 		padding: 0 40rpx;
 		::v-deep button {
-			margin-right: 98rpx !important;
+			margin-right: 20rpx !important;
 			&:last-of-type {
 				margin-right: 0 !important;
 			}

@@ -35,15 +35,22 @@
 		</view>
 
 		<view v-if="show != 0" class="flex-col mt20 ml48 mr48">
-			<view class="flex-row justify-between items-center pl20 pr20 pt30 pb30 radius mb10">
+			<view class="flex-row justify-between items-center pl20 pt30 pb30 radius mb10">
 				<view class="flex-row items-center">
 					<u-image width="60" height="60" shape="circle" :src="vuex_user.data.headPortrait || '/static/img/obj/defind.svg'" :show-menu-by-longpress="false"></u-image>
-					<view class="ml30 mr30" style="max-width: 100px; font-weight: bold; font-size: 16px">
+					<view class="ml30 mr20" style="max-width: 100px; font-weight: bold; font-size: 16px">
 						{{ vuex_user.data.name }}
 					</view>
 					<u-image class="ml15" width="50" height="20" src="/static/img/obj/yrz.svg" :show-menu-by-longpress="false"></u-image>
 				</view>
-				<u-button size="mini" v-if="vuex_user.workData.id == null" color="#01BB74" :customStyle="{ width: '150rpx' }" @click="authRefresh" shape="circle" type="success">
+				<u-button
+					v-if="vuex_user.workData.id == null"
+					color="#01BB74"
+					:customStyle="{ width: '170rpx', height: '70rpx', margin: 0 }"
+					@click="authRefresh"
+					shape="circle"
+					type="success"
+				>
 					更新信息
 				</u-button>
 			</view>

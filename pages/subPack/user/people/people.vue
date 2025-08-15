@@ -104,7 +104,7 @@
 					</view>
 
 					<view v-else class="flex-row justify-left items-center" style="width: 10%">
-						<u-image class="" width="100rpx" height="100rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></u-image>
+						<u-image class="" width="80rpx" height="80rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></u-image>
 						<view class="flex-col ml20">
 							<view class="flex-row items-center">
 								<text class="ml10 ft16">{{ item.name }}</text>
@@ -116,7 +116,7 @@
 						</view>
 					</view>
 
-					<view class="flex-row justify-end items-center" style="width: 95%">
+					<view class="flex-row justify-end items-center" style="width: 92%">
 						<u-icon v-if="item.name != ''" @click="deleteRole(item)" name="trash" size="35rpx" color="#333333" class="mr15"></u-icon>
 
 						<u-icon @click="changeUser(1)" name="" :custom-style="{ margin: '0 0 0 30rpx' }" size="38rpx" class="mr30"></u-icon>
@@ -207,7 +207,7 @@
 					</view>
 
 					<view v-else class="flex-row justify-left items-center" style="width: 10%">
-						<u-image class="" width="100rpx" height="100rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></u-image>
+						<u-image class="" width="80rpx" height="80rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></u-image>
 						<view class="flex-col ml20">
 							<view class="flex-row items-center">
 								<text class="ml10 ft16">{{ item.name }}</text>
@@ -219,7 +219,7 @@
 						</view>
 					</view>
 
-					<view class="flex-row justify-end items-center" style="width: 95%">
+					<view class="flex-row justify-end items-center" style="width: 92%">
 						<u-icon v-if="item.name != ''" @click="deleteRole(item)" name="trash" size="35rpx" color="#333333" class="mr15"></u-icon>
 
 						<u-icon @click="changeUser(3)" name="" :custom-style="{ margin: '0 0 0 30rpx' }" size="38rpx" class="mr30"></u-icon>
@@ -321,7 +321,7 @@
 							</text>
 						</view>
 					</view>
-					<view class="flex-row justify-end" style="width: 95%">
+					<view class="flex-row justify-end" style="width: 92%">
 						<u-icon v-if="item.name != ''" @click="deleteRole(item)" name="trash" size="35rpx" color="#333333" class="mr15"></u-icon>
 
 						<u-icon @click="changeUser(4)" name="" :custom-style="{ margin: '0 0 0 30rpx' }" size="38rpx" class="mr30"></u-icon>
@@ -726,7 +726,7 @@ export default {
 					console.log(resDate['4'].length);
 				})
 				.catch((res) => {
-					that.$u.toast(that.message);
+					that.$u.toast(res.data.message);
 				});
 		},
 		addRoleSet(subjectRole) {
@@ -813,7 +813,7 @@ export default {
 								this.loadDataPeop();
 							})
 							.catch((res) => {
-								that.$u.toast(that.message);
+								that.$u.toast(res.data.message);
 							});
 					}
 				}
