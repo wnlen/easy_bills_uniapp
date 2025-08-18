@@ -61,7 +61,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="" style="margin: 8vh 0 0 30rpx; width: 85vw">
+			<view class="" style="margin: 10vh 0 0 30rpx; width: 85vw">
 				<u-button hover-class="none" color="#01BB74" type="primary" shape="circle" @click="submitRole">确定</u-button>
 			</view>
 		</view>

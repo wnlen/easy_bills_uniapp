@@ -127,7 +127,7 @@ export default {
 				state: '0'
 			};
 
-			this.$api.apply
+			this.$api.bills
 				.getApplyList(dx)
 				.then((res) => {
 					this.resApiT = res.data.data.map((obj) => ({

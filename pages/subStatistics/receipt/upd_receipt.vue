@@ -397,14 +397,14 @@
 							<view class="flex-row items-center flex-1">
 								<text class="mr10" style="color: #999999">开始日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="calendars.open()" class="ml14" style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx">
+								<view @click="$refs.calendars.open()" class="ml14" style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx">
 									{{ date1 == '' ? '开始日期' : date1 }}
 								</view>
 							</view>
 							<view class="flex-row items-center flex-1">
 								<text class="mr10" style="color: #999999">结束日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="calendars.open()" class="ml14" style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx">
+								<view @click="$refs.calendars.open()" class="ml14" style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx">
 									{{ date1 == '' ? '结束日期' : date1 }}
 								</view>
 							</view>

@@ -70,7 +70,7 @@
 			</view>
 		</view>
 
-		<u-popup :show="showAddPhone" mode="center" border-radius="14" :mask-close-able="false">
+		<u-popup :show="showAddPhone" mode="center" round="14" :mask-close-able="false">
 			<view class="showAddPhoneCard" style="">
 				<view class="hand">注销审核</view>
 				<view class="text">稍后易单据客服会给您来电回访，</view>

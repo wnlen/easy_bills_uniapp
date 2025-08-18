@@ -18,7 +18,7 @@
 				width="34vw"
 			>
 				<view class="">
-					<u-icon name="plus-circle-fill" color="#01BB74" size="50rpx" label="添加图片" labelPos="bottom" />
+					<u-icon name="plus-circle-fill" space="16rpx" color="#01BB74" size="50rpx" label="添加图片" labelPos="bottom" />
 				</view>
 			</u-upload>
 		</view>

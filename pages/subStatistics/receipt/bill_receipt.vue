@@ -47,7 +47,7 @@
 					<text @click="openTableChoice" style="color: #666666">
 						{{ vuex_userRole === 'R' ? '供应商选择' : '客户选择' }}
 					</text>
-					<u-line direction="col" margin="0 20rpx" color="#333" length="40%"></u-line>
+					<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
 					<view class="my-input flex-1">
 						<u-input
 							border="none"

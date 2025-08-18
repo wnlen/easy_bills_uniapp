@@ -22,7 +22,6 @@
 				<view class="flex-row justify-end" style="width: 90%"></view>
 			</view>
 		</view>
-
 		<view v-if="vuex_work == 'N'" class="ml24 mr24 pt25 pd24 bg-white mt30" @click="clear()" style="border-radius: 24rpx">
 			<view class="flex-row justify-left" style="height: 10%; width: 100%">
 				<view class="" style="width: 20vw">
@@ -89,40 +88,41 @@
 					</view>
 				</view>
 			</view>
-			<view class="flex-row justify-left" v-if="userUrl['1'].length == 0" style="height: 90%; width: 100%">
+			<view class="flex-row justify-left" v-if="userUrl['1'].length == 1" style="height: 90%; width: 100%">
 				<view class="flex-row justify-center items-center" style="width: 10%">
-					<view class="mt20"><u-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" :label="item.name" shape="circle" size="80rpx" @click=""></u-icon></view>
+					<view class="mt20"><u-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" shape="circle" size="80rpx" @click=""></u-icon></view>
 				</view>
 			</view>
-			<view class="flex-col justify-left pt20 pb20" v-for="(item, index) in userUrl['1']" :key="index" style="height: 90%; width: 100%">
-				<view class="flex-row justify-left items-center mt20">
-					<view v-if="item.name == ''" class="flex-row justify-left items-center" style="width: 10%">
-						<u-image class="" width="80rpx" height="80rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></u-image>
-						<text class="ml10">{{ item.name }}</text>
-						<text class="ml15 jzzh" :style="{ color: expireDate(item.endTime) ? '' : '#FA5151' }">账号截止到{{ $u.timeFormat(item.endTime, 'yyyy-mm-dd') }}</text>
-						<view v-if="item.staffNumber == 0" @click="RenewPeople(item, 1)" class="xf flex-col justify-center items-center ml24" style="">续费</view>
-					</view>
+			<view class="" v-if="userUrl['1'].length > 1">
+				<view class="flex-col justify-left pt20 pb20" v-for="(item, index) in userUrl['1']" :key="index" style="height: 90%; width: 100%">
+					<view class="flex-row justify-left items-center mt20">
+						<view v-if="item.name == ''" class="flex-row justify-left items-center" style="width: 10%">
+							<u-image class="" width="80rpx" height="80rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></u-image>
+							<text class="ml10">{{ item.name }}</text>
+							<text class="ml15 jzzh" :style="{ color: expireDate(item.endTime) ? '' : '#FA5151' }">账号截止到{{ $u.timeFormat(item.endTime, 'yyyy-mm-dd') }}</text>
+							<view v-if="item.staffNumber == 0" @click="RenewPeople(item, 1)" class="xf flex-col justify-center items-center ml24" style="">续费</view>
+						</view>
 
-					<view v-else class="flex-row justify-left items-center" style="width: 10%">
-						<u-image class="" width="80rpx" height="80rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></u-image>
-						<view class="flex-col ml20">
-							<view class="flex-row items-center">
-								<text class="ml10 ft16">{{ item.name }}</text>
-								<view @click="RenewPeople(item, 1)" class="ml24 xf flex-col justify-center items-center">续费</view>
+						<view v-else class="flex-row justify-left items-center" style="width: 10%">
+							<u-image class="" width="80rpx" height="80rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></u-image>
+							<view class="flex-col ml20">
+								<view class="flex-row items-center">
+									<text class="ml10 ft16">{{ item.name }}</text>
+									<view @click="RenewPeople(item, 1)" class="ml24 xf flex-col justify-center items-center">续费</view>
+								</view>
+								<text class="ml15 jzzh mt20" :style="{ color: expireDate(item.endTime) ? '' : '#FA5151' }">
+									账号截止到{{ $u.timeFormat(item.endTime, 'yyyy-mm-dd') }}
+								</text>
 							</view>
-							<text class="ml15 jzzh mt20" :style="{ color: expireDate(item.endTime) ? '' : '#FA5151' }">
-								账号截止到{{ $u.timeFormat(item.endTime, 'yyyy-mm-dd') }}
-							</text>
+						</view>
+
+						<view class="flex-row justify-end items-center" style="width: 92%">
+							<u-icon v-if="item.name != ''" @click="deleteRole(item)" name="trash" size="35rpx" color="#333333" class="mr15"></u-icon>
+
+							<u-icon @click="changeUser(1)" name="" :custom-style="{ margin: '0 0 0 30rpx' }" size="38rpx" class="mr30"></u-icon>
 						</view>
 					</view>
-
-					<view class="flex-row justify-end items-center" style="width: 92%">
-						<u-icon v-if="item.name != ''" @click="deleteRole(item)" name="trash" size="35rpx" color="#333333" class="mr15"></u-icon>
-
-						<u-icon @click="changeUser(1)" name="" :custom-style="{ margin: '0 0 0 30rpx' }" size="38rpx" class="mr30"></u-icon>
-					</view>
 				</view>
-				<!-- <u-divider class="mt20" border-color="#F9F9F9" half-width="290" :use-slot="false"></u-divider> -->
 			</view>
 		</view>
 
@@ -192,40 +192,41 @@
 					</view>
 				</view>
 			</view>
-			<view class="flex-row justify-left" v-if="userUrl['3'].length == 0" style="height: 90%; width: 100%">
+			<view class="flex-row justify-left" v-if="userUrl['3'].length == 1" style="height: 90%; width: 100%">
 				<view class="flex-row justify-center items-center" style="width: 10%">
-					<view class="mt20"><u-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" :label="item.name" shape="circle" size="80rpx" @click=""></u-icon></view>
+					<view class="mt20"><u-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" shape="circle" size="80rpx" @click=""></u-icon></view>
 				</view>
 			</view>
-			<view class="flex-col justify-left pt20 pb20" v-for="(item, index) in userUrl['3']" :key="index" style="height: 90%; width: 100%">
-				<view class="flex-row justify-left items-center mt20">
-					<view v-if="item.name == ''" class="flex-row justify-left items-center" style="width: 10%">
-						<u-image class="" width="80rpx" height="80rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></u-image>
-						<text class="ml10">{{ item.name }}</text>
-						<text class="ml15 jzzh" :style="{ color: expireDate(item.endTime) ? '' : '#FA5151' }">账号截止到{{ $u.timeFormat(item.endTime, 'yyyy-mm-dd') }}</text>
-						<view v-if="item.staffNumber == 0" @click="RenewPeople(item, 3)" class="xf flex-col justify-center items-center ml24" style="">续费</view>
-					</view>
+			<view class="" v-if="userUrl['3'].length > 1">
+				<view class="flex-col justify-left pt20 pb20" v-for="(item, index) in userUrl['3']" :key="index" style="height: 90%; width: 100%">
+					<view class="flex-row justify-left items-center mt20">
+						<view v-if="item.name == ''" class="flex-row justify-left items-center" style="width: 10%">
+							<u-image class="" width="80rpx" height="80rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></u-image>
+							<text class="ml10">{{ item.name }}</text>
+							<text class="ml15 jzzh" :style="{ color: expireDate(item.endTime) ? '' : '#FA5151' }">账号截止到{{ $u.timeFormat(item.endTime, 'yyyy-mm-dd') }}</text>
+							<view v-if="item.staffNumber == 0" @click="RenewPeople(item, 3)" class="xf flex-col justify-center items-center ml24" style="">续费</view>
+						</view>
 
-					<view v-else class="flex-row justify-left items-center" style="width: 10%">
-						<u-image class="" width="80rpx" height="80rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></u-image>
-						<view class="flex-col ml20">
-							<view class="flex-row items-center">
-								<text class="ml10 ft16">{{ item.name }}</text>
-								<view @click="RenewPeople(item, 3)" class="ml24 xf flex-col justify-center items-center">续费</view>
+						<view v-else class="flex-row justify-left items-center" style="width: 10%">
+							<u-image class="" width="80rpx" height="80rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></u-image>
+							<view class="flex-col ml20">
+								<view class="flex-row items-center">
+									<text class="ml10 ft16">{{ item.name }}</text>
+									<view @click="RenewPeople(item, 3)" class="ml24 xf flex-col justify-center items-center">续费</view>
+								</view>
+								<text class="ml15 jzzh mt20" :style="{ color: expireDate(item.endTime) ? '' : '#FA5151' }">
+									账号截止到{{ $u.timeFormat(item.endTime, 'yyyy-mm-dd') }}
+								</text>
 							</view>
-							<text class="ml15 jzzh mt20" :style="{ color: expireDate(item.endTime) ? '' : '#FA5151' }">
-								账号截止到{{ $u.timeFormat(item.endTime, 'yyyy-mm-dd') }}
-							</text>
+						</view>
+
+						<view class="flex-row justify-end items-center" style="width: 92%">
+							<u-icon v-if="item.name != ''" @click="deleteRole(item)" name="trash" size="35rpx" color="#333333" class="mr15"></u-icon>
+
+							<u-icon @click="changeUser(3)" name="" :custom-style="{ margin: '0 0 0 30rpx' }" size="38rpx" class="mr30"></u-icon>
 						</view>
 					</view>
-
-					<view class="flex-row justify-end items-center" style="width: 92%">
-						<u-icon v-if="item.name != ''" @click="deleteRole(item)" name="trash" size="35rpx" color="#333333" class="mr15"></u-icon>
-
-						<u-icon @click="changeUser(3)" name="" :custom-style="{ margin: '0 0 0 30rpx' }" size="38rpx" class="mr30"></u-icon>
-					</view>
 				</view>
-				<!-- <u-divider class="mt20" border-color="#F9F9F9" half-width="290" :use-slot="false"></u-divider> -->
 			</view>
 		</view>
 
@@ -295,45 +296,51 @@
 				</view>
 			</view>
 
-			<view class="flex-row justify-left" v-if="userUrl['4'].length == 0" style="height: 90%; width: 100%">
+			<view class="flex-row justify-left" v-if="userUrl['4'].length == 1" style="height: 90%; width: 100%">
 				<view class="flex-row justify-center items-center" style="width: 10%">
-					<view class="mt20"><u-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" :label="item.name" shape="circle" size="80rpx" @click=""></u-icon></view>
+					<view class="mt20"><u-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" shape="circle" size="80rpx" @click=""></u-icon></view>
 				</view>
 			</view>
-			<view class="flex-col justify-left pt20 pb20" v-for="(item, index) in userUrl['4']" :key="index" style="height: 90%; width: 100%">
-				<view class="flex-row justify-left items-center mt20">
-					<view v-if="item.name == ''" class="flex-row justify-left items-center" style="width: 10%">
-						<u-image class="" width="80rpx" height="80rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></u-image>
-						<text class="ml10">{{ item.name }}</text>
-						<text class="ml15 jzzh" :style="{ color: expireDate(item.endTime) ? '' : '#FA5151' }">账号截止到{{ $u.timeFormat(item.endTime, 'yyyy-mm-dd') }}</text>
-						<view v-if="item.staffNumber == 0" @click="RenewPeople(item, 4)" class="xf flex-col justify-center items-center ml24" style="">续费</view>
-					</view>
+			<view class="" v-if="userUrl['4'].length > 1">
+				<view class="flex-col justify-left pt20 pb20" v-for="(item, index) in userUrl['4']" :key="index" style="height: 90%; width: 100%">
+					<view class="flex-row justify-left items-center mt20">
+						<view v-if="item.name == ''" class="flex-row justify-left items-center" style="width: 10%">
+							<u-image class="" width="80rpx" height="80rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></u-image>
+							<text class="ml10">{{ item.name }}</text>
+							<text class="ml15 jzzh" :style="{ color: expireDate(item.endTime) ? '' : '#FA5151' }">账号截止到{{ $u.timeFormat(item.endTime, 'yyyy-mm-dd') }}</text>
+							<view v-if="item.staffNumber == 0" @click="RenewPeople(item, 4)" class="xf flex-col justify-center items-center ml24" style="">续费</view>
+						</view>
 
-					<view v-else class="flex-row justify-left items-center" style="width: 10%">
-						<u-image class="" width="80rpx" height="80rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></u-image>
-						<view class="flex-col ml20">
-							<view class="flex-row items-center">
-								<text class="ml10 ft16">{{ item.name }}</text>
-								<view @click="RenewPeople(item, 4)" class="ml24 xf flex-col justify-center items-center">续费</view>
+						<view v-else class="flex-row justify-left items-center" style="width: 10%">
+							<u-image class="" width="80rpx" height="80rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></u-image>
+							<view class="flex-col ml20">
+								<view class="flex-row items-center">
+									<text class="ml10 ft16">{{ item.name }}</text>
+									<view @click="RenewPeople(item, 4)" class="ml24 xf flex-col justify-center items-center">续费</view>
+								</view>
+								<text class="ml15 jzzh mt20" :style="{ color: expireDate(item.endTime) ? '' : '#FA5151' }">
+									账号截止到{{ $u.timeFormat(item.endTime, 'yyyy-mm-dd') }}
+								</text>
 							</view>
-							<text class="ml15 jzzh mt20" :style="{ color: expireDate(item.endTime) ? '' : '#FA5151' }">
-								账号截止到{{ $u.timeFormat(item.endTime, 'yyyy-mm-dd') }}
-							</text>
+						</view>
+						<view class="flex-row justify-end" style="width: 92%">
+							<u-icon v-if="item.name != ''" @click="deleteRole(item)" name="trash" size="35rpx" color="#333333" class="mr15"></u-icon>
+
+							<u-icon @click="changeUser(4)" name="" :custom-style="{ margin: '0 0 0 30rpx' }" size="38rpx" class="mr30"></u-icon>
 						</view>
 					</view>
-					<view class="flex-row justify-end" style="width: 92%">
-						<u-icon v-if="item.name != ''" @click="deleteRole(item)" name="trash" size="35rpx" color="#333333" class="mr15"></u-icon>
-
-						<u-icon @click="changeUser(4)" name="" :custom-style="{ margin: '0 0 0 30rpx' }" size="38rpx" class="mr30"></u-icon>
-					</view>
 				</view>
-				<!-- <u-divider class="mt20" border-color="#F9F9F9" half-width="290" :use-slot="false"></u-divider> -->
 			</view>
 		</view>
 		<!-- </view> -->
 
-		<u-popup border-radius="14" v-model="show" mode="center" width="600rpx" height="300rpx" :closeable="false" style="overflow: inherit">
-			<view class="u-border-top flex-col justify-center items-center pt15" style="height: 20%; color: #01bb74; font-size: 36rpx; font-weight: 500; color: #333333">提示</view>
+		<u-popup round="14" :show="show" mode="center" :closeable="false" style="overflow: inherit" @close="show = false">
+			<view
+				class="u-border-top flex-col justify-center items-center pt15"
+				style="height: 20%; color: #01bb74; font-size: 36rpx; font-weight: 500; color: #333333; width: 600rpx; height: 300rpx"
+			>
+				提示
+			</view>
 			<view
 				v-if="gs != undefined && gs != ''"
 				class="flex-col justify-center items-center pl24 pr24"
@@ -381,10 +388,9 @@
 				我知道了
 			</view>
 		</u-popup>
-
-		<up-overlay :show="roleShow" @click="roleShow = false">
+		<u-overlay :show="roleShow">
 			<pop-renew ref="popRenew" :item="buy"></pop-renew>
-		</up-overlay>
+		</u-overlay>
 	</view>
 </template>
 
@@ -449,8 +455,8 @@ export default {
 	},
 	onShow() {
 		// this.SOCKETfLUSH();
-		console.log(1111, this.$u.getPinia('user.user'));
 		var listz = [];
+		console.log('this.vuex_user.data.work', this.vuex_user.data.work);
 		if (this.vuex_user.data.work != '1') {
 			this.loadDataPeop();
 		} else {
@@ -577,7 +583,6 @@ export default {
 
 			uni.setStorageSync('Renew', JSON.stringify(order));
 
-			this.roleShow = true;
 			this.$refs.popRenew.orderPrice = parseFloat(jsonI.priceDiscount);
 			this.buy = order;
 			if (index == 4) {
@@ -600,6 +605,7 @@ export default {
 				}
 			}
 			console.log('最后的图片：', this.$refs.popRenew.src);
+			this.roleShow = true;
 			this.$refs.popRenew.roleShow = true;
 		},
 		CrearOrder(json, index) {
@@ -641,7 +647,6 @@ export default {
 
 			uni.setStorageSync('Renew', JSON.stringify(order));
 
-			this.roleShow = true;
 			this.$refs.popRenew.orderPrice = parseFloat(json.price);
 			this.buy = order;
 			if (index == 4) {
@@ -663,6 +668,7 @@ export default {
 					this.$refs.popRenew.src = this.imgList.hhrxf + '?time=' + this.getTimestamp();
 				}
 			}
+			this.roleShow = true;
 			this.$refs.popRenew.roleShow = true;
 		},
 		getTimestamp() {

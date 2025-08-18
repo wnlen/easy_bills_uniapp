@@ -103,7 +103,7 @@
 					<div class="flex-row items-center radius pr20 mr10 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%">
 						<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
 							<text class="ft11 ft-gray ml36" @click="CustomerGet">{{ vuex_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
-							<u-line direction="col" margin="0 20rpx" color="#333" length="40%"></u-line>
+							<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
 							<view class="ml24 flex-1">
 								<u-input border="none" @change="changeCustomer" v-model="customer" :placeholder="vuex_userRole == 'R' ? '请选择供应商' : '请选择客户'"></u-input>
 							</view>
@@ -646,18 +646,18 @@ export default {
 
 			if (ifWorkPort) {
 				if (b2) {
-					this.uNoticeBarlist.push('往年数据收货端免费截至' + this.$u.timeFormat(this.vuex_user.jurisdiction['B2'], 'yyyy-mm-dd') + '到期');
+					this.uNoticeBarlist.push('往年数据收货端截至' + this.$u.timeFormat(this.vuex_user.jurisdiction['B2'], 'yyyy-mm-dd') + '到期');
 				}
 				if (b2y) {
-					this.uNoticeBarlist.push('往年数据收货端免费截至' + this.$u.timeFormat(this.vuex_user.jurisdiction['B2-' + this.dropdownName], 'yyyy-mm-dd') + '到期');
+					this.uNoticeBarlist.push('往年数据收货端截至' + this.$u.timeFormat(this.vuex_user.jurisdiction['B2-' + this.dropdownName], 'yyyy-mm-dd') + '到期');
 				}
 			} else {
 				if (b1) {
-					this.uNoticeBarlist.push('往年数据发货端免费截至' + this.$u.timeFormat(this.vuex_user.jurisdiction['B1'], 'yyyy-mm-dd') + '到期');
+					this.uNoticeBarlist.push('往年数据发货端截至' + this.$u.timeFormat(this.vuex_user.jurisdiction['B1'], 'yyyy-mm-dd') + '到期');
 				}
 
 				if (b1y) {
-					this.uNoticeBarlist.push('往年数据发货端免费截至' + this.$u.timeFormat(this.vuex_user.jurisdiction['B1-' + this.dropdownName], 'yyyy-mm-dd') + '到期');
+					this.uNoticeBarlist.push('往年数据发货端截至' + this.$u.timeFormat(this.vuex_user.jurisdiction['B1-' + this.dropdownName], 'yyyy-mm-dd') + '到期');
 				}
 			}
 		},

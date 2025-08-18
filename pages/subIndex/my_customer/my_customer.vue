@@ -462,34 +462,38 @@ export default {
 				aCompany: ''
 			};
 
-			this.$u.post('edo/user/search?phone=' + addPhone).then((res) => {
-				console.log('(检索添加人)： ', JSON.stringify(res.data.data.map));
-				var addUser = res.data.data;
-				var bossAdd = addPhone;
+			this.$api.user
+				.searchUser({
+					phone: addPhone
+				})
+				.then((res) => {
+					console.log('(检索添加人)： ', JSON.stringify(res.data.data.map));
+					var addUser = res.data.data;
+					var bossAdd = addPhone;
 
-				if (addUser.map.boss !== undefined) {
-					bossAdd = addUser.map.boss;
-				}
-				var bImg = addUser.headPortrait;
+					if (addUser.map.boss !== undefined) {
+						bossAdd = addUser.map.boss;
+					}
+					var bImg = addUser.headPortrait;
 
-				if (bossAdd == phone) {
-					this.showSF = false;
-					this.$u.toast('请勿添加自己~');
-					return;
-				}
+					if (bossAdd == phone) {
+						this.showSF = false;
+						this.$u.toast('请勿添加自己~');
+						return;
+					}
 
-				dx.bImg = bImg;
-				dx.bNumber = addPhone;
-				dx.bBossNumber = bossAdd;
+					dx.bImg = bImg;
+					dx.bNumber = addPhone;
+					dx.bBossNumber = bossAdd;
 
-				dx.port = this.role == 1 ? 'R' : 'D';
+					dx.port = this.role == 1 ? 'R' : 'D';
 
-				this.$u.post('edo/client/add', dx).then((res) => {
-					console.log('添加申请： ' + res.data.data);
-					var resAddFriend = res.data;
-					this.addResAlert(resAddFriend);
+					this.$api.user.addClient(dx).then((res) => {
+						console.log('添加申请： ' + res.data.data);
+						var resAddFriend = res.data;
+						this.addResAlert(resAddFriend);
+					});
 				});
-			});
 		},
 		addResAlert(data) {
 			this.$u.toast(data.message);
@@ -524,11 +528,18 @@ export default {
 			var that = this;
 			var phone = this.vuex_work == 'Y' ? this.vuex_user.workData.bossNumber : this.vuex_user.phone;
 			var port = this.vuex_userRole == 'R' ? '1' : '0';
-			this.$u.post('edo/delivery/get?sBossNumber=' + phone + '&eBossNumber=' + phone + '&port=' + port).then((res) => {
-				console.log('edo/delivery/get?sBossNumber', res.data.data);
-				that.client = res.data.data;
-				this.clientCopy = res.data.data;
-			});
+
+			this.$api.order
+				.getDeliveryList({
+					sBossNumber: phone,
+					eBossNumber: phone,
+					port: port
+				})
+				.then((res) => {
+					console.log('edo/delivery/get?sBossNumber', res.data.data);
+					that.client = res.data.data;
+					this.clientCopy = res.data.data;
+				});
 
 			var ifWorkPort = this.vuex_userRole == 'R';
 			var ifwork = this.vuex_user.data.work == '0';
@@ -579,7 +590,7 @@ export default {
 				}
 			}
 
-			this.$u.post('edo/order/market', dx).then((res) => {
+			this.$api.order.getMarketOrders(dx).then((res) => {
 				console.log('edo/order/market', res.data.data);
 				that.listO = res.data.data;
 				that.listOCopy = res.data.data;

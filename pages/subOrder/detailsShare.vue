@@ -2,14 +2,13 @@
 	<view class="vh100 vw100" style="background-size: cover">
 		<view>
 			<u-navbar
-				:autoBack="true"
 				:placeholder="true"
 				:border-bottom="false"
 				back-icon-color="#000000"
 				:titleBold="true"
 				title-color="#000000"
 				title="货单详情"
-				:custom-back="shareClick"
+				@leftClick="shareClick"
 				title-size="34"
 				bgColor="#ffffff"
 			></u-navbar>

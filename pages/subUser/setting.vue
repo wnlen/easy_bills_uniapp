@@ -1,16 +1,16 @@
 <template>
 	<view class="vh100 bg-gray">
-		<up-cell-group :border="false">
-			<up-cell v-for="(item, index) in menus" :key="index" :title="item.name" :arrow="true" arrow-direction="right" @click="menuClick(item)">
-				<text slot="right-icon" class="ft-lighgray">{{ item.id == '1' ? (vuex_userRole == 'D' ? '发货方' : '收货方') : '' }}</text>
-			</up-cell>
-			<up-cell title="注销账号" @click="writeOff" :arrow="true">
-				<text slot="right-icon" class="ft-lighgray"></text>
-			</up-cell>
-			<up-cell title="退出登录" @click="loginOut" :arrow="true">
-				<text slot="right-icon" class="ft-lighgray"></text>
-			</up-cell>
-		</up-cell-group>
+		<view class="bg-white">
+			<u-cell-group :border="false">
+				<u-cell v-for="(item, index) in menus" :key="index" :title="item.name" :isLink="true" arrow-direction="right" @click="menuClick(item)">
+					<template #value>
+						<text class="ft-lighgray">{{ item.id == '1' ? (vuex_userRole == 'D' ? '发货方' : '收货方') : '' }}</text>
+					</template>
+				</u-cell>
+				<u-cell title="注销账号" @click="writeOff" :isLink="true"></u-cell>
+				<u-cell title="退出登录" @click="loginOut" :isLink="true"></u-cell>
+			</u-cell-group>
+		</view>
 
 		<!-- 切换角色 -->
 		<pop-role ref="popRole"></pop-role>
