@@ -1,26 +1,26 @@
 <template>
 	<view class="pl48 pr48 pt38 pb38 vw100">
 		<u-form class="vw100" :model="formData" ref="uForm" labelPosition="left" :label-style="{ 'line-height': 1 }" :error-type="['toast']">
-			<u-form-item borderBottom label="签收人姓名" prop="signeeName" required label-width="170">
+			<u-form-item borderBottom label="签收人姓名" prop="signeeName" required label-width="170rpx">
 				<u-input border="none" v-model="formData.signeeName" placeholder="请输入签收人姓名" maxlength="50"></u-input>
 			</u-form-item>
-			<u-form-item borderBottom label="签收密码" prop="password" required label-width="170">
+			<u-form-item borderBottom label="签收密码" prop="password" required label-width="170rpx">
 				<u-input border="none" v-model="formData.password" type="number" placeholder="请设置密码" maxlength="4"></u-input>
 			</u-form-item>
 			<!-- 			<u-form-item label="其他备注" prop="remark" label-width="170">
 				<u-input border="none" v-model="formData.remark" placeholder="请输入备注" ></u-input>
 			</u-form-item> -->
-			<u-form-item borderBottom label="手写签名" required prop="signeeImage" labelPosition="top" label-width="170">
-				<view v-if="formData.signeeImage" class="text-center width100" style="height: 50vw; border: 4rpx dashed #eee">
+			<u-form-item label="手写签名" required prop="signeeImage" labelPosition="top" label-width="170rpx">
+				<!-- <view v-if="formData.signeeImage" class="text-center width100 mt30 signeeBox">
 					<image
 						@click="goPath('/pages/subSignature/signature')"
 						style="transform: rotate(-90deg); height: 50vw; width: 100%"
 						:src="formData.signeeImage"
 						mode="heightFix"
 					></image>
-				</view>
-				<view v-else class="bg-white pd20 text-center width100" @click="goPath('/pages/subSignature/signature')">
-					<u-icon label="点击去签名" name="edit-pen"></u-icon>
+				</view> -->
+				<view class="bg-white pd20 text-center width100 mt30 signeeBox flex-row items-center justify-center" @click="goPath('/pages/subSignature/signature')">
+					<u-icon label="点击去签名" labelColor="#eee" name="edit-pen" color="#eee"></u-icon>
 				</view>
 			</u-form-item>
 		</u-form>
@@ -185,4 +185,13 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+::v-deep .u-form-item__body__left__content__required {
+	left: -25rpx !important;
+	top: -2rpx !important;
+}
+.signeeBox {
+	height: 50vw;
+	border: 4rpx dashed #eee;
+}
+</style>

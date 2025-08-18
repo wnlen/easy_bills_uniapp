@@ -46,7 +46,7 @@
 				<u-button
 					v-if="vuex_user.workData.id == null"
 					color="#01BB74"
-					:customStyle="{ width: '170rpx', height: '70rpx', margin: 0 }"
+					:customStyle="{ width: '160rpx', height: '60rpx', margin: 0 }"
 					@click="authRefresh"
 					shape="circle"
 					type="success"

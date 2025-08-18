@@ -160,7 +160,7 @@
 						<u-button shape="circle" size="mini" color="#01BB74" :customStyle="{ width: '140rpx' }" @click="jumpTable">选择客户</u-button>
 					</view>
 					<view class="flex-row items-center width100 pt20 pb20 u-border-bottom">
-						<text class="textcolor" style="width: 106rpx">收货方:</text>
+						<text class="textcolor">收货方:</text>
 						<input
 							disabled
 							placeholder-class="placeholder_class"
@@ -196,7 +196,7 @@
 						<uv-calendars color="#01BB74" confirmColor="#01BB74" ref="calendars" @confirm="getConfirm" :startDate="getCurrentDateMin()" :endDate="getCurrentDate()" />
 					</view>
 					<view class="flex-row items-center width100 pt20 pb20 u-border-bottom">
-						<text class="textcolor" style="width: 106rpx">收货人:</text>
+						<text class="textcolor">收货人:</text>
 						<input
 							placeholder-class="placeholder_class"
 							type="text"
@@ -235,8 +235,8 @@
 							/>
 						</view>
 					</view>
-					<view class="flex-row justify-between items-center mb20 pb12">
-						<text class="line34 ft-bold handcolor pt24">发货清单</text>
+					<view class="flex-row justify-between items-center">
+						<text class="line34 ft-bold handcolor pt24 pl10">发货清单</text>
 					</view>
 				</view>
 			</view>
@@ -272,11 +272,11 @@
 			<view class="pt12 mt12" style="background-color: #ffffff">
 				<view class="relative pt12 pb12">
 					<text class="pl20 textcolor">合计</text>
-					<text class="absolute textcolor" style="right: 24rpx; color: #01bb74">￥{{ orderTotal.toFixed(2) }}</text>
+					<text class="absolute" style="right: 24rpx; color: #01bb74">￥{{ orderTotal.toFixed(2) }}</text>
 				</view>
 				<view class="relative pt12 pb12">
 					<text class="pl20 textcolor">金额大写</text>
-					<text class="absolute textcolor" style="right: 24rpx; color: #666666">{{ digitUppercase(orderTotal) }}</text>
+					<text class="absolute" style="right: 24rpx; color: #666666">{{ digitUppercase(orderTotal) }}</text>
 				</view>
 				<view class="pd12">
 					<u-line color="#E0E0E0"></u-line>
@@ -299,7 +299,7 @@
 					<text class="line34 handcolor">相关图片/票据</text>
 				</view>
 
-				<view class="recently-cat flex-row flex-wrap mt40" style="width: 95%">
+				<view class="mt40" style="width: 95%">
 					<u-upload
 						autoUpload
 						autoDelete
@@ -353,8 +353,8 @@
 					<text class="line34 ft-bold handcolor">供应商信息</text>
 					<view class="form-bottom ft-gray">
 						<view class="flex-col justify-between ft24 pt20 pb10 mr24">
-							<view class="textcolor pt20 pb20 u-border-bottom">
-								企业名称:
+							<view class="flex-row items-center width100 pt20 pb20">
+								<text class="textcolor">企业名称:</text>
 								<text :style="{ color: '#333333' }" class="ml15 endcolor" v-if="vuex_user.data.work == '0'">
 									{{ vuex_user.ac?.enterpriseName || vuex_user.phone }}
 								</text>
@@ -362,12 +362,12 @@
 									{{ vuex_user.ac?.enterpriseName || vuex_user.workData.bossNumber }}
 								</text>
 							</view>
-							<view class="textcolor pt20 pb20 u-border-bottom">
-								联系人:
+							<view class="flex-row items-center width100 pt20 pb20">
+								<text class="textcolor">联系人:</text>
 								<text :style="{ color: '#333333' }" class="ml15 endcolor">{{ vuex_user.data.name || vuex_user.phone || vuex_user.data.phone }}</text>
 							</view>
-							<view class="textcolor pt20 pb20 u-border-bottom">
-								联系电话:
+							<view class="flex-row items-center width100 pt20 pb20">
+								<text class="textcolor">联系电话:</text>
 								<text class="ml15 endcolor" :style="{ color: '#333333' }" @click="callPhone(vuex_user.phoneNumber)">
 									{{ vuex_user.phone || vuex_user.data.phone }}
 								</text>
@@ -1575,6 +1575,8 @@ export default {
 	color: #666666;
 	font-size: 28rpx;
 	font-weight: 500;
+	/* width: 188rpx;
+	text-align: left; */
 }
 
 .endcolor {

@@ -102,17 +102,17 @@
 			>
 				<view class="" style="width: 94%">
 					<u-cell-group :border="false">
-						<u-cell size="large" :title="menus[0].name" isLink @click="menuClick(menus[0])">
+						<u-cell :title="menus[0].name" :titleStyle="{ color: '#666666' }" isLink @click="menuClick(menus[0])">
 							<template #icon>
 								<u-icon slot="icon" size="40rpx" :name="ImgUrl + menus[0].icon" color="#999" :custom-style="{ marginRight: '20rpx' }"></u-icon>
 							</template>
 						</u-cell>
-						<u-cell size="large" v-for="(item, index) in filteredMenus" :key="index" :title="item.name" isLink @click="menuClick(item)">
+						<u-cell :titleStyle="{ color: '#666666' }" v-for="(item, index) in filteredMenus" :key="index" :title="item.name" isLink @click="menuClick(item)">
 							<template #icon>
 								<u-icon slot="icon" size="40rpx" :name="ImgUrl + item.icon" color="#999" :custom-style="{ marginRight: '20rpx' }"></u-icon>
 							</template>
 						</u-cell>
-						<u-cell size="large" :title="menus[menus.length - 1].name" isLink @click="menuClick(menus[menus.length - 1])" :border="false">
+						<u-cell :titleStyle="{ color: '#666666' }" :title="menus[menus.length - 1].name" isLink @click="menuClick(menus[menus.length - 1])" :border="false">
 							<template #icon>
 								<u-icon slot="icon" size="40rpx" :name="ImgUrl + menus[menus.length - 1].icon" color="#999" :custom-style="{ marginRight: '20rpx' }"></u-icon>
 							</template>
@@ -402,13 +402,18 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .content {
 	max-width: 100vw;
 	height: 100vh;
 	overflow: hidden;
 }
-
+::v-deep .u-cell__body {
+	padding: 30rpx !important;
+}
+::v-deep .u-line {
+	border-color: #f4f4f4 !important;
+}
 .content::-webkit-scrollbar {
 	/* Chrome, Safari, Opera */
 	display: none;

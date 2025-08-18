@@ -164,14 +164,14 @@
 							<view class="flex-row items-center flex-1">
 								<text class="mr10" style="color: #999999">开始日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="calendars.open()" class="ml14" style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx">
+								<view @click="$refs.calendars.open()" class="ml14" style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx">
 									{{ date1 || '开始日期' }}
 								</view>
 							</view>
 							<view class="flex-row items-center flex-1">
 								<text class="mr10" style="color: #999999">结束日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="calendars.open()" class="ml14" style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx">
+								<view @click="$refs.calendars.open()" class="ml14" style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx">
 									{{ date2 || '结束日期' }}
 								</view>
 							</view>
@@ -882,8 +882,7 @@ export default {
 			display: flex;
 			flex-direction: column;
 			width: 100%;
-			margin-top: 10rpx;
-
+			// margin-top: 10rpx;
 			.InputOne {
 				background-color: #f9f9f9;
 				display: flex;
@@ -891,8 +890,10 @@ export default {
 				align-items: center;
 				justify-content: left;
 				border-radius: 24rpx;
-				margin-top: 20rpx;
 				padding-right: 20rpx;
+				&:nth-of-type(2) {
+					margin-top: 20rpx;
+				}
 			}
 		}
 	}

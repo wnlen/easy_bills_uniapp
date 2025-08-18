@@ -40,7 +40,7 @@
 			</view>
 		</view>
 
-		<u-popup :show="roleShow" mode="bottom" border-radius="14" height="800rpx" :closeable="true" :mask-close-able="false">
+		<u-popup :show="roleShow" mode="bottom" round="14" height="800rpx" :closeable="true" :mask-close-able="false">
 			<view class="pd36 flex-col justify-center items-center">
 				<text class="ft30 ft-bold ft-green mb10" style="color: #01bb74; font-size: 40rpx; font-weight: bold">切换用户角色</text>
 				<text class="ft-gray pb48">随时切换您的收发货角色，快速收发单</text>
