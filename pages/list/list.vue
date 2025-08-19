@@ -374,7 +374,7 @@
 
 		<u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" />
 		<!-- 弹出层 -->
-		<u-popup :show="show_start" @close="show_start = false" mode="top" :closeable="true" width="550rpx" :safeAreaInsetTop="true" zIndex="999">
+		<u-popup :show="show_start" @close="show_start = false" mode="top" :safeAreaInsetBottom="false" :safeAreaInsetTop="true" zIndex="999">
 			<!-- #ifdef MP-WEIXIN -->
 			<u-navbar leftIconColor="#fff" :titleStyle="titleStyle">
 				<template #left>
@@ -494,7 +494,7 @@
 				</view>
 
 				<!-- 按钮 -->
-				<view class="flex-row justify-end">
+				<view class="flex-row justify-end mt40">
 					<u-button
 						color="#F4F4F4"
 						type="info"

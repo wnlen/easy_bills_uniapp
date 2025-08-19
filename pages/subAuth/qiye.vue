@@ -46,7 +46,7 @@
 				<u-button
 					v-if="vuex_user.workData.id == null"
 					color="#01BB74"
-					:customStyle="{ width: '160rpx', height: '60rpx', margin: 0 }"
+					:customStyle="{ width: '154rpx', height: '54rpx', margin: 0, fontSize: '24rpx' }"
 					@click="authRefresh"
 					shape="circle"
 					type="success"
@@ -171,7 +171,7 @@ export default {
 				id: id,
 				enterpriseName: that.userInfo.accountSubject.simpleNameQ, //企业全称
 				abbreviation: that.userInfo.accountSubject.simpleName,
-				userName: that.vuex_user.data.name,
+				userName: that.nameID,
 				phone: that.vuex_user.phone,
 				state: '1',
 				user: this.vuex_user.phone,
@@ -214,7 +214,7 @@ export default {
 				boss: this.vuex_user.data.work == '0' ? this.vuex_user.phone : this.vuex_user.workData.bossNumber
 			};
 			send.name = send.name.trim();
-			if (send.name.length <= 0) {
+			if (this.nameID <= 0) {
 				this.$u.toast('请输入姓名');
 				return;
 			}
@@ -226,8 +226,11 @@ export default {
 							user: {
 								ac: {
 									enterpriseName: dx.enterpriseName,
-									businessSite: dx.businessSite
-									// userName: dx.userName
+									businessSite: dx.businessSite,
+									userName: dx.userName
+								},
+								data: {
+									name: dx.userName
 								}
 							}
 						}

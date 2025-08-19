@@ -298,7 +298,7 @@
 				</view>
 			</view> -->
 
-			<u-popup :show="show_start" mode="top" width="100%" @close="show_start = false">
+			<u-popup :show="show_start" mode="top" :safeAreaInsetBottom="false" width="100%" @close="show_start = false">
 				<u-navbar :autoBack="true" :placeholder="true" :border-bottom="false" :titleBold="true" title-color="#000000" title-size="34" bgColor="#ffffff">
 					<view class="flex-row items-center justify-center ml50" style="width: 100%">
 						<view class="" style="font-size: 34rpx; font-weight: 510">订单统计</view>
@@ -407,7 +407,7 @@
 						</view>
 					</view>
 					<!-- 按钮 -->
-					<view class="flex-row justify-end">
+					<view class="flex-row justify-end mt40">
 						<u-button
 							color="#F4F4F4"
 							type="info"

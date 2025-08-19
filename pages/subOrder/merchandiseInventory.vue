@@ -88,7 +88,7 @@
 				<view class="bottomCard">
 					<view class="relative">
 						<u-icon name="https://res-oss.elist.com.cn/wxImg/order/merchandiseInventory.png" size="110rpx" @click="AlertCard"></u-icon>
-						<u-badge class="absolute" type="error" :value="orderItemList.length" :offset="['0rpx', '-20rpx']"></u-badge>
+						<u-badge absolute bgColor="#E52829" :value="orderItemList.length" :offset="['0rpx', '-20rpx']"></u-badge>
 					</view>
 
 					<text class="ml12">
@@ -172,7 +172,7 @@
 						<view class="bottomCard">
 							<view class="relative">
 								<u-icon name="https://res-oss.elist.com.cn/wxImg/order/merchandiseInventory.png" size="110rpx" @click="closeOpen"></u-icon>
-								<u-badge class="absolute" type="error" :value="orderItemList.length" :offset="['0rpx', '-20rpx']"></u-badge>
+								<u-badge absolute bgColor="#E52829" :value="orderItemList.length" :offset="['0rpx', '-20rpx']"></u-badge>
 							</view>
 							<text class="ml12">
 								合计:
@@ -565,6 +565,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+::v-deep .u-safe-bottom {
+	height: 0 !important;
+}
 .modification {
 	width: 100vw;
 	height: 100vh;
