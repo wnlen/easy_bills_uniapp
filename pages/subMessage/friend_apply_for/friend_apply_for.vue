@@ -1,38 +1,29 @@
 <template>
 	<view>
 		<view class="ml24 mr24" style="height: 10vh; width: 93vw; border-radius: 6px; align-items: center" v-show="SHOW == 0">
-			<u-swipe-action
-				:btn-width="180"
-				:show="item.show"
-				:index="index"
-				v-for="(item, index) in resApiO"
-				:key="index"
-				v-show="SHOW == 0"
-				@open="open2"
-				:options="options"
-				@click="click2(item)"
-			>
-				<view style="width: 96vw" class="flex-row u-border-bottom mt20 pd15">
-					<u-image :src="item.aImg || defaultImg" shape="circle" width="50px" height="50px"></u-image>
-					<view class="flex-col justify-center ml26" style="height: 70px; width: 40%">
-						<text class="title mb8" style="font-size: 32rpx">{{ item.aName || item.aNumber }}</text>
-						<text class="title" style="font-size: 27rpx; color: #999999; letter-spacing: 1rpx">申请成为您的{{ item.port == 'D' ? '供应商' : '客户' }}</text>
-					</view>
-					<view class="flex-col justify-evenly items-end" style="height: 70px; width: 40%">
-						<view class="flex-col relative items-end" style="height: 100%">
-							<view class="mt20" style="color: #d8d8d8; font-size: 12px">
-								<text>{{ $u.timeFormat(item.createTime, 'yyyy-mm-dd hh:MM:ss') }}</text>
-							</view>
-							<view class="absolute flex-row justify-center items-center" style="bottom: 10px; right: 0">
-								<view
-									v-if="item.state == 0"
-									@click="getPhoneNumber(item)"
-									class="flex-row justify-center items-center"
-									style="background-color: #e5f8f1; border-radius: 396px; width: 60px; height: 25px; font-size: 12px; color: #01bb74"
-								>
-									同意
+			<u-swipe-action v-for="(item, index) in resApiO" :key="index" v-show="SHOW == 0">
+				<u-swipe-action-item :show="item.show" :name="index" @click="delclick(item)" :options="options">
+					<view style="width: 96vw" class="flex-row u-border-bottom mt20 pd15">
+						<u-image :src="item.aImg || defaultImg" shape="circle" width="50px" height="50px"></u-image>
+						<view class="flex-col justify-center ml26" style="height: 70px; width: 40%">
+							<text class="title mb8" style="font-size: 32rpx">{{ item.aName || item.aNumber }}</text>
+							<text class="title" style="font-size: 27rpx; color: #999999; letter-spacing: 1rpx">申请成为您的{{ item.port == 'D' ? '供应商' : '客户' }}</text>
+						</view>
+						<view class="flex-col justify-evenly items-end" style="height: 70px; width: 40%">
+							<view class="flex-col relative items-end" style="height: 100%">
+								<view class="mt20" style="color: #d8d8d8; font-size: 12px">
+									<text>{{ $u.timeFormat(item.createTime, 'yyyy-mm-dd hh:MM:ss') }}</text>
 								</view>
-								<!-- <button plain v-if="item.state==0" :style="{display:state==0?'none':'block'}"
+								<view class="absolute flex-row justify-center items-center" style="bottom: 10px; right: 0">
+									<view
+										v-if="item.state == 0"
+										@click="getPhoneNumber(item)"
+										class="flex-row justify-center items-center"
+										style="background-color: #e5f8f1; border-radius: 396px; width: 60px; height: 25px; font-size: 12px; color: #01bb74"
+									>
+										同意
+									</view>
+									<!-- <button plain v-if="item.state==0" :style="{display:state==0?'none':'block'}"
 									class="items-center flex-col justify-left" @click="getPhoneNumber(item)"
 									style="background-color: #E5F8F1;border-radius: 396px;width: 60px;height: 30.43px;font-size: 12px;color: #01BB74;">
 									同意
@@ -40,10 +31,11 @@
 								<button v-if="item.state==1" :style="{display:state==1?'none':'block'}"
 									class="ml10 items-center flex-col justify-left"
 									style="width: 65px;height: 30.43px;font-size: 12px;color: #E5F8F1;background-color:  #01BB74;border:none;">已同意</button> -->
+								</view>
 							</view>
 						</view>
 					</view>
-				</view>
+				</u-swipe-action-item>
 			</u-swipe-action>
 		</view>
 	</view>
@@ -87,7 +79,7 @@ export default {
 			this.SHOW = 0;
 			console.log('好友');
 		},
-		click2(item) {
+		delclick(item) {
 			console.log('删除2', item);
 			this.$api.user
 				.deleteClient(item)

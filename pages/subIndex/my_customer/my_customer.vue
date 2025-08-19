@@ -214,9 +214,9 @@
 				margin-top="200"
 			></u-empty>
 			<view class="" :style="{ display: show != 0 ? 'none' : 'block' }">
-				<view v-for="(item, index) in client" :key="index" @click="particulars(item, true)">
+				<view v-for="(item, index) in client" :key="index" @click="particulars(item, true)" style="border-bottom: 1px solid #f4f4f4">
 					<view class="ml20 mt15" style="width: 110vw">
-						<u-collapse arrow-color="#ffffff">
+						<u-collapse :border="false">
 							<view class="flex-col justify-center items-baseline" style="height: 80rpx" :style="{ color: ifZX(index) ? 'red' : 'black' }">
 								{{ getCompanyName(item) }}
 								<!-- {{ifCm(index)}} -->

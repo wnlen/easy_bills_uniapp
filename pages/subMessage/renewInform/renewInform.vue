@@ -65,6 +65,9 @@ export default {
 			this.$api.inform
 				.deleteInformItem(item)
 				.then((res) => {
+					if (res.data.code != 200) {
+						return this.$u.toast(res.data.message);
+					}
 					var del = res.data.data;
 					console.log(del);
 					this.$u.toast(`删除成功`);

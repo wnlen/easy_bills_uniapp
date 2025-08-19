@@ -375,7 +375,7 @@
 
 		<u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" />
 
-		<u-popup :show="show_start" mode="top" width="550rpx" @close="show_start = false">
+		<u-popup :show="show_start" mode="top" width="550rpx" :safeAreaInsetBottom="false" @close="show_start = false">
 			<view class="flex-col pl30 pr30 pb30 justify-between">
 				<view>
 					<view class="flex-col mt40">
@@ -475,7 +475,7 @@
 				</view>
 
 				<!-- 按钮 -->
-				<view class="flex-row justify-end mt25 vw100" style="">
+				<view class="flex-row justify-end mt40">
 					<u-button
 						color="#F4F4F4"
 						type="info"

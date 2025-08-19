@@ -2,13 +2,21 @@
 	<view class="vh100 bg-gray">
 		<view class="bg-white">
 			<u-cell-group :border="false">
-				<u-cell v-for="(item, index) in menus" :key="index" :title="item.name" :isLink="true" arrow-direction="right" @click="menuClick(item)">
+				<u-cell
+					:titleStyle="{ color: '#666666' }"
+					v-for="(item, index) in menus"
+					:key="index"
+					:title="item.name"
+					:isLink="true"
+					arrow-direction="right"
+					@click="menuClick(item)"
+				>
 					<template #value>
 						<text class="ft-lighgray">{{ item.id == '1' ? (vuex_userRole == 'D' ? '发货方' : '收货方') : '' }}</text>
 					</template>
 				</u-cell>
-				<u-cell title="注销账号" @click="writeOff" :isLink="true"></u-cell>
-				<u-cell title="退出登录" @click="loginOut" :isLink="true"></u-cell>
+				<u-cell :titleStyle="{ color: '#666666' }" title="注销账号" @click="writeOff" :isLink="true"></u-cell>
+				<u-cell :titleStyle="{ color: '#666666' }" title="退出登录" @click="loginOut" :isLink="true"></u-cell>
 			</u-cell-group>
 		</view>
 
@@ -122,4 +130,8 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+::v-deep .u-line {
+	border-color: #f4f4f4 !important;
+}
+</style>

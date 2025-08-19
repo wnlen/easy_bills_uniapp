@@ -23,10 +23,10 @@
 				class="card ml24 mr24 bg-white flex-row justify-left items-center"
 				style="height: 10vh; width: 93vw; margin-top: 2vh; border-radius: 6px"
 			>
-				<view class="flex-col justify-center items-center" style="width: 13vw">
-					<u-image class="ml20" width="50px" height="50px" shape="circle" :src="item.headPortrait || defaultImg"></u-image>
+				<view class="flex-col justify-center items-center ml20" style="width: 13vw">
+					<u-image width="50px" height="50px" shape="circle" :src="item.headPortrait || defaultImg"></u-image>
 				</view>
-				<view class="ml10 flex-col justify-left items-baseline" style="width: 60vw; height: 100%">
+				<view class="ml10 flex-col justify-left items-baseline" style="width: 56vw; height: 100%">
 					<!-- 			<view class="flex-row" style="height: 50%;"
 						:style="{height:item.work?'50%':'100%',alignItems: item.work?'flex-end':'center'}">
 						<text class="ml5" style="color:#01BB74;">{{item.phoneNumber}}</text> <text class="ml10"
@@ -44,7 +44,7 @@
 						<text class="ml10" style="">{{ userName(item.name) || '用户' }}</text>
 					</view>
 					<view v-show="item.map != '' && item.map.boss" class="flex-row justify-start items-center" style="width: 60vw; font-size: 12px; height: 50%">
-						<u-icon name="https://res-oss.elist.com.cn/wxImg/user/yrz-s.svg" size="100"></u-icon>
+						<u-icon name="https://res-oss.elist.com.cn/wxImg/user/yrz-s.svg" size="100rpx"></u-icon>
 						<text class="ml10" style="color: #333333">
 							{{ item.map.enterpriseName != undefined ? item.map.enterpriseName : '该用户已进入其他账户' }}
 						</text>

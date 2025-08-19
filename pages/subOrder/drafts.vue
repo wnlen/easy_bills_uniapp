@@ -142,7 +142,7 @@
 		</z-paging>
 
 		<u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" />
-		<u-popup :show="show_start" mode="top" @close="show_start = false">
+		<u-popup :show="show_start" mode="top" @close="show_start = false" :safeAreaInsetBottom="false">
 			<view class="flex-col pl30 pr30 pb30 justify-between">
 				<view>
 					<view class="flex-col mt20">
@@ -242,7 +242,7 @@
 				</view>
 
 				<!-- 按钮 -->
-				<view class="flex-row justify-end">
+				<view class="flex-row justify-end mt40">
 					<u-button
 						color="#F4F4F4"
 						type="info"

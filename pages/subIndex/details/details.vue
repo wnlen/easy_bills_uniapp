@@ -420,7 +420,8 @@ export default {
 		border-top: 1rpx solid #eaeaec;
 		border-right: 1rpx solid #eaeaec;
 		text-align: center;
-		font-size: 40rpx;
+		font-size: 30rpx;
+		font-weight: bold;
 	}
 	.btn-r {
 		position: absolute;
@@ -432,7 +433,9 @@ export default {
 		border-top: 1rpx solid #eaeaec;
 		border-left: 1rpx solid #eaeaec;
 		text-align: center;
-		font-size: 40rpx;
+		font-size: 30rpx;
+		color: #01bb74;
+		font-weight: bold;
 	}
 }
 </style>

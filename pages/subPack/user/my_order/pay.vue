@@ -5,7 +5,7 @@
 
 		<u-navbar
 			:placeholder="true"
-			:custom-back="payBack"
+			@leftClick="payBack"
 			:border-bottom="false"
 			:titleBold="true"
 			title-color="#000000"

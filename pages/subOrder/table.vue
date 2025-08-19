@@ -152,8 +152,8 @@
 					</u-collapse-item>
 				</u-collapse>
 			</view>
-			<view class="ml20 clickBack" v-show="show == 0" style="width: 110vw">
-				<view @click="jumpShow(item)" style="width: 85%; padding-top: 10rpx; padding-bottom: 10rpx" class="anchor-text ml24">
+			<view class="ml20" v-show="show == 0" style="width: 110vw">
+				<view @click="jumpShow(item)" style="width: 85%; padding-top: 20rpx; padding-bottom: 20rpx" class="anchor-text ml24">
 					<view class="" style="display: flex; flex-direction: row; padding-top: 10rpx; color: black">
 						{{ ifZX(index) ? index.replace("zx-'", '') : getCompanyName(item) }}
 					</view>
@@ -519,9 +519,5 @@ export default {
 	text-align: center;
 	padding: 4rpx;
 	font-size: 24rpx;
-}
-
-.clickBack:hover {
-	background-color: #f2f2f5;
 }
 </style>

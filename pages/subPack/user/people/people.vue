@@ -1,9 +1,9 @@
 <template>
 	<view class="vw100 vh100 bg-gray" style="overflow: hidden">
 		<view v-if="vuex_work == 'Y'" class="ml24 mr24 pd24 mt24 bg-white" style="border-radius: 24rpx">
-			<view class="flex-row justify-left" style="height: 10%; width: 100%">
+			<view class="flex-row justify-left mb20" style="height: 10%; width: 100%">
 				<view class="" style="width: 20vw">
-					<text class="ml20" style="font-weight: bold">老板信息</text>
+					<text class="" style="font-weight: bold">老板信息</text>
 				</view>
 			</view>
 			<view class="flex-row justify-left" style="height: 90%; width: 100%">
@@ -88,12 +88,13 @@
 					</view>
 				</view>
 			</view>
-			<view class="flex-row justify-left" v-if="userUrl['1'].length == 1" style="height: 90%; width: 100%">
+			<view class="flex-row justify-left" v-if="userUrl['1'].length == 0" style="height: 90%; width: 100%">
 				<view class="flex-row justify-center items-center" style="width: 10%">
 					<view class="mt20"><u-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" shape="circle" size="80rpx" @click=""></u-icon></view>
 				</view>
 			</view>
-			<view class="" v-if="userUrl['1'].length > 1">
+
+			<view class="" v-else>
 				<view class="flex-col justify-left pt20 pb20" v-for="(item, index) in userUrl['1']" :key="index" style="height: 90%; width: 100%">
 					<view class="flex-row justify-left items-center mt20">
 						<view v-if="item.name == ''" class="flex-row justify-left items-center" style="width: 10%">
@@ -192,12 +193,12 @@
 					</view>
 				</view>
 			</view>
-			<view class="flex-row justify-left" v-if="userUrl['3'].length == 1" style="height: 90%; width: 100%">
+			<view class="flex-row justify-left" v-if="userUrl['3'].length == 0" style="height: 90%; width: 100%">
 				<view class="flex-row justify-center items-center" style="width: 10%">
 					<view class="mt20"><u-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" shape="circle" size="80rpx" @click=""></u-icon></view>
 				</view>
 			</view>
-			<view class="" v-if="userUrl['3'].length > 1">
+			<view class="" v-else>
 				<view class="flex-col justify-left pt20 pb20" v-for="(item, index) in userUrl['3']" :key="index" style="height: 90%; width: 100%">
 					<view class="flex-row justify-left items-center mt20">
 						<view v-if="item.name == ''" class="flex-row justify-left items-center" style="width: 10%">
@@ -296,12 +297,12 @@
 				</view>
 			</view>
 
-			<view class="flex-row justify-left" v-if="userUrl['4'].length == 1" style="height: 90%; width: 100%">
+			<view class="flex-row justify-left" v-if="userUrl['4'].length == 0" style="height: 90%; width: 100%">
 				<view class="flex-row justify-center items-center" style="width: 10%">
 					<view class="mt20"><u-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" shape="circle" size="80rpx" @click=""></u-icon></view>
 				</view>
 			</view>
-			<view class="" v-if="userUrl['4'].length > 1">
+			<view class="" v-else>
 				<view class="flex-col justify-left pt20 pb20" v-for="(item, index) in userUrl['4']" :key="index" style="height: 90%; width: 100%">
 					<view class="flex-row justify-left items-center mt20">
 						<view v-if="item.name == ''" class="flex-row justify-left items-center" style="width: 10%">
@@ -333,61 +334,20 @@
 			</view>
 		</view>
 		<!-- </view> -->
-
-		<u-popup round="14" :show="show" mode="center" :closeable="false" style="overflow: inherit" @close="show = false">
-			<view
-				class="u-border-top flex-col justify-center items-center pt15"
-				style="height: 20%; color: #01bb74; font-size: 36rpx; font-weight: 500; color: #333333; width: 600rpx; height: 300rpx"
-			>
-				提示
-			</view>
-			<view
-				v-if="gs != undefined && gs != ''"
-				class="flex-col justify-center items-center pl24 pr24"
-				style="
-					height: 50%;
-					width: 100%;
-					font-family: Source Han Sans;
-					font-size: 36rpx;
-					font-weight: normal;
-					line-height: 50.36rpx;
-					text-align: center;
-					letter-spacing: 0rpx;
-					font-feature-settings: 'kern' on;
-					color: #666666;
-				"
-			>
-				该用户已在 {{ gs }}，您无法对该用户发起邀请
-			</view>
-			<view
-				v-if="gs == undefined || gs == ''"
-				class="flex-col justify-center items-center pl24 pr24"
-				style="
-					height: 40%;
-					width: 100%;
-					font-family: Source Han Sans;
-					font-size: 36rpx;
-					font-weight: normal;
-					line-height: 50.36rpx;
-					text-align: center;
-					letter-spacing: 0rpx;
-					font-feature-settings: 'kern' on;
-					color: #666666;
-				"
-			>
-				该用户已进入其他账户，您无法对该用户发起邀请
-			</view>
-			<view
-				@click="
-					show = false;
-					gs = '';
-				"
-				class="u-border-top flex-col justify-center items-center pb25"
-				style="height: 40%; color: #01bb74; font-size: 36rpx; font-weight: 500; width: 100%"
-			>
-				我知道了
-			</view>
-		</u-popup>
+		<u-modal
+			:show="show"
+			title="提示"
+			:content="gs != undefined && gs != '' ? `该用户已在${gs}，您无法对该用户发起邀请` : '该用户已进入其他账户，您无法对该用户发起邀请'"
+			confirmColor="#01bb74"
+			:closeOnClickOverlay="true"
+			contentTextAlign="center"
+			@close="show = false"
+			@confirm="
+				show = false;
+				gs = '';
+			"
+			confirmText="我知道了"
+		></u-modal>
 		<u-overlay :show="roleShow">
 			<pop-renew ref="popRenew" :item="buy"></pop-renew>
 		</u-overlay>
@@ -425,24 +385,24 @@ export default {
 			},
 			userUrl: {
 				1: [
-					{
-						name: ''
-					}
+					// {
+					// 	name: ''
+					// }
 				],
 				2: [
-					{
-						name: ''
-					}
+					// {
+					// 	name: ''
+					// }
 				],
 				3: [
-					{
-						name: ''
-					}
+					// {
+					// 	name: ''
+					// }
 				],
 				4: [
-					{
-						name: ''
-					}
+					// {
+					// 	name: ''
+					// }
 				]
 			},
 			img: '/static/img/obj/defind.svg',
@@ -729,7 +689,7 @@ export default {
 					that.userUrl['3'] = resDate['3'] || [];
 					that.userUrl['2'] = resDate['2'] || [];
 					that.userUrl['1'] = resDate['1'] || [];
-					console.log(resDate['4'].length);
+					console.log('that.userUrl', that.userUrl);
 				})
 				.catch((res) => {
 					that.$u.toast(res.data.message);

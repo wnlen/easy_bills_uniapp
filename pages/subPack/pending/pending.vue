@@ -389,7 +389,7 @@
 		<!-- 		<u-empty :show="orderList.length==0" src="https://res-oss.elist.com.cn/wxImg/list/empty.svg" text="暂无记录~"
 			mode="search" margin-top="150"></u-empty> -->
 		<u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" />
-		<u-popup :show="show_start" mode="top" @close="show_start = false">
+		<u-popup :show="show_start" mode="top" :safeAreaInsetBottom="false" @close="show_start = false">
 			<view class="flex-col pl30 pr30 pb30 justify-between">
 				<view>
 					<view class="flex-col mt20">
@@ -489,7 +489,7 @@
 				</view>
 
 				<!-- 按钮 -->
-				<view class="flex-row justify-end">
+				<view class="flex-row justify-end mt40">
 					<u-button
 						color="#F4F4F4"
 						type="info"
