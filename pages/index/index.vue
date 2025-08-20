@@ -142,6 +142,8 @@ export default {
 			],
 			allprice: 0,
 			ringOpts: {
+				disableClick: true, // 关闭点击效果
+				highlight: false, // 禁用点击高亮
 				rotate: false,
 				rotateLock: false,
 				// color: ['#1890FF', '#01BB74', '#F7A944'],
@@ -176,7 +178,8 @@ export default {
 						border: true,
 						borderWidth: 3,
 						borderColor: '#FFFFFF'
-					}
+					},
+					silent: true // 强制禁用该系列所有交互
 				}
 			},
 			chartsDataPie2: {
@@ -345,8 +348,9 @@ export default {
 						position: {
 							top: res.top + 'px',
 							width: `${res.width}px`,
-							left: '60rpx',
-							height: `${res.height}px`
+							left: `${res.left}px`,
+							height: `${res.height}px`,
+							borderRadius: '27.54rpx'
 						}
 					});
 				});
@@ -380,6 +384,7 @@ export default {
 			this._step = this.functionGuideData.step;
 			if (this.functionGuideData.step == 1) {
 				this.getElementData('#box', (res) => {
+					console.log('#box', res);
 					this.setFunctionGuideData({
 						tips: '快速切换收发端口',
 						btnGroupPosition: '10rpx',
@@ -395,9 +400,10 @@ export default {
 							// 自定义导航栏
 							// top: uni.upx2px(30) + this._statusBarHeight + 'px',
 							top: `${res.top}px`,
-							right: '32rpx',
-							width: `${res.width - 1}px`,
-							height: `${res.height - 1}px`
+							right: '30rpx',
+							width: `${res.width}px`,
+							height: `${res.height}px`,
+							borderRadius: '214rpx'
 						}
 					});
 				});
@@ -414,8 +420,9 @@ export default {
 						position: {
 							top: res.top + 'px',
 							width: `${res.width}px`,
-							left: '60rpx',
-							height: `${res.height}px`
+							left: `${res.left}px`,
+							height: `${res.height}px`,
+							borderRadius: '27.54rpx'
 						}
 					});
 				});
@@ -432,8 +439,9 @@ export default {
 						position: {
 							top: res.top + 'px',
 							width: `${res.width}px`,
-							right: '60rpx',
-							height: `${res.height}px`
+							left: `${res.left}px`,
+							height: `${res.height}px`,
+							borderRadius: '27.54rpx'
 						}
 					});
 				});
@@ -556,6 +564,8 @@ export default {
 					]
 				};
 				this.ringOpts = {
+					highlight: false, // 禁用点击高亮
+					disableClick: true, // 关闭点击效果
 					rotate: false,
 					rotateLock: false,
 					// color: ['#1890FF', '#01BB74', '#F7A944'],
@@ -590,7 +600,8 @@ export default {
 							border: true,
 							borderWidth: 3,
 							borderColor: '#FFFFFF'
-						}
+						},
+						silent: true // 强制禁用该系列所有交互
 					}
 				};
 				this.iconlist = [
@@ -641,6 +652,8 @@ export default {
 				];
 			} else {
 				this.ringOpts = {
+					disableClick: true, // 关闭点击效果
+					highlight: false, // 禁用点击高亮
 					rotate: false,
 					rotateLock: false,
 					// color: ['#1890FF', '#01BB74', '#F7A944'],
@@ -675,7 +688,8 @@ export default {
 							border: true,
 							borderWidth: 3,
 							borderColor: '#FFFFFF'
-						}
+						},
+						silent: true // 强制禁用该系列所有交互
 					}
 				};
 				this.chartsDataPie2 = {

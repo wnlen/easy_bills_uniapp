@@ -17,7 +17,7 @@
 					<text class="ft-gray ml5">企业名称</text>
 				</text>
 				<view class="flex-row justify-center items-center flex-1">
-					<input v-model="userInfo.accountSubject.simpleNameQ" type="text" maxlength="14" class="text-left ft29" placeholder="请输入企业名称" />
+					<input v-model="userInfo.accountSubject.simpleNameQ" type="text" maxlength="50" class="text-left ft29" placeholder="请输入企业名称" />
 				</view>
 			</view>
 			<view class="flex-row pt30 pb30 u-border-bottom">
@@ -26,12 +26,12 @@
 					<text class="ft-gray ml5">企业地址</text>
 				</text>
 				<view class="flex-row justify-center items-center flex-1">
-					<input v-model="userInfo.accountSubject.address" type="text" maxlength="14" class="text-left ft29" placeholder="请输入企业地址" />
+					<input v-model="userInfo.accountSubject.address" type="text" maxlength="50" class="text-left ft29" placeholder="请输入企业地址" />
 				</view>
 			</view>
 		</view>
 		<view v-if="show == 0" class="flex-col justify-center pl60 pr60 pb60 pt60 vw100" style="position: absolute; bottom: 0">
-			<u-button color="#01BB74" shape="circle" type="primary" @click="updateInfo">{{ up ? '提交信息' : '更新信息' }}</u-button>
+			<u-button color="#01BB74" shape="circle" :disabled="buttonDisabled" type="primary" @click="updateInfo">{{ up ? '提交信息' : '更新信息' }}</u-button>
 		</view>
 
 		<view v-if="show != 0" class="flex-col mt20 ml48 mr48">
@@ -78,6 +78,7 @@
 export default {
 	data() {
 		return {
+			buttonDisabled: false,
 			nameID: '',
 			showImg: false,
 			show: 0,
@@ -218,7 +219,9 @@ export default {
 				this.$u.toast('请输入姓名');
 				return;
 			}
+			this.buttonDisabled = true;
 			this.$api.order.addAccountRecord(dx).then((res) => {
+				this.buttonDisabled = false;
 				//更新用户信息
 				if (res.data.data == '1') {
 					this.$u.setPinia({
