@@ -41,7 +41,7 @@ export default (http) => ({
 			console.log('当前用户信息', vuexUser);
 
 			const role = vuexUser.data?.work === '1' ? 1 : 2;
-			http.post(`edo/user/renewal?phone=${vuexUser.phone}&role=${role}`)
+			http.post(`user/renewal?phone=${vuexUser.phone}&role=${role}`)
 				.then((res) => {
 					const getNowData = res.data.data;
 					const localData = {
