@@ -12,7 +12,7 @@
 					@click="menuClick(item)"
 				>
 					<template #value>
-						<text class="ft-lighgray">{{ item.id == '1' ? (vuex_userRole == 'D' ? '发货方' : '收货方') : '' }}</text>
+						<text class="ft-lighgray">{{ item.id == '1' ? (pinia_userRole == 'D' ? '发货方' : '收货方') : '' }}</text>
 					</template>
 				</u-cell>
 				<u-cell :titleStyle="{ color: '#666666' }" title="注销账号" @click="writeOff" :isLink="true"></u-cell>

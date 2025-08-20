@@ -39,7 +39,7 @@
 				<view class="flex-row items-center">
 					<u-image width="60" height="60" shape="circle" :src="pinia_user.data.headPortrait || '/static/img/obj/defind.svg'" :show-menu-by-longpress="false"></u-image>
 					<view class="ml30 mr20" style="max-width: 100px; font-weight: bold; font-size: 16px">
-						{{ vuex_user.data.name }}
+						{{ pinia_user.data.name }}
 					</view>
 					<u-image class="ml15" width="50" height="20" src="/static/img/obj/yrz.svg" :show-menu-by-longpress="false"></u-image>
 				</view>
