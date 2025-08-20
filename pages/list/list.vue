@@ -598,6 +598,7 @@ const tabsList = ref([
 		name: '已收款'
 	}
 ]);
+
 const labText = ref('确认收款');
 const current = ref(0);
 const dataList = ref([]);
@@ -718,6 +719,23 @@ onLoad(() => {
 		tabHight.value = value || '100rpx';
 	});
 	OperatingSystem.value = getOperatingSystem();
+
+	if (userStore.userRole == 'R') {
+		tabsList = ref([
+			{
+				name: '全部'
+			},
+			{
+				name: '待确收'
+			},
+			{
+				name: '已签收'
+			},
+			{
+				name: '已付款'
+			}
+		]);
+	}
 	console.log('OperatingSystem:', OperatingSystem.value);
 });
 
