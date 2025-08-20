@@ -13,10 +13,10 @@
 
 		<uv-popup ref="popup" mode="center" round="50" :overlay="false" :customStyle="popup_style" zIndex="999999">
 			<view v-if="vuex_userRole == 'D'">
-				<uv-textarea v-model="up.remarkD" border="none" count placeholder="请输入内容" height="100" :customStyle="textareaStyle"></uv-textarea>
+				<uv-textarea v-model="up.remarkD" maxlength="14" border="none" count placeholder="请输入备注" height="100" :customStyle="textareaStyle"></uv-textarea>
 			</view>
 			<view v-if="vuex_userRole == 'R'">
-				<uv-textarea v-model="up.remarkR" border="none" count placeholder="请输入内容" height="100" :customStyle="textareaStyle"></uv-textarea>
+				<uv-textarea v-model="up.remarkR" maxlength="14" border="none" count placeholder="请输入备注" height="100" :customStyle="textareaStyle"></uv-textarea>
 			</view>
 
 			<view class="popup-box">

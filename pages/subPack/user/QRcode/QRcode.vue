@@ -5,12 +5,12 @@
 				:autoBack="true"
 				:placeholder="true"
 				:border-bottom="false"
-				back-icon-color="#FFFFFF"
+				leftIconColor="#FFFFFF"
 				:titleBold="true"
 				title-color="#FFFFFF"
 				title="我的二维码"
 				title-size="34"
-				background="transparent"
+				bgColor="transparent"
 			></u-navbar>
 		</view>
 		<view class="card">

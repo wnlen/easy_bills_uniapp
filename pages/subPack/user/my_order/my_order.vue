@@ -119,8 +119,8 @@
 						<view class="width40 flex-col pt20" @click="dropdownIcon" style="z-index: 98; height: 100%; text-align: center">
 							<liu-data-select elementId="data-select1" :dataList="dataListAll" @change="dropdown">
 								<view id="data-select1" class="btn-info flex-row justify-left pl30 items-center">
-									<view class="mr10"><u-icon v-show="selectionIcon" name="arrow-down-fill" color="#333333" size="20rpx"></u-icon></view>
-									<!-- <view class="mr10"><u-icon v-show="!selectionIcon" name="arrow-up-fill" color="#333333" size="15rpx"></u-icon></view> -->
+									<view class="mr10" v-if="selectionIcon"><u-icon name="arrow-down-fill" color="#333333" size="20rpx"></u-icon></view>
+									<view class="mr10" v-else><u-icon name="arrow-up-fill" color="#333333" size="20rpx"></u-icon></view>
 									<text>{{ dropdownName || '' }}</text>
 								</view>
 							</liu-data-select>
@@ -236,7 +236,7 @@
 									:min="0"
 									bgColor="#EA7183"
 									v-model="playMoneyListSend.c_product_people.c"
-									@change="valChange"
+									@change="valChangec"
 									:iconStyle="{ color: '#fff', fontSize: '20rpx' }"
 								></u-number-box>
 							</view>
@@ -284,7 +284,7 @@
 									:min="0"
 									bgColor="#EA7183"
 									v-model="playMoneyListSend.c_product_people.a"
-									@change="valChange"
+									@change="valChangea"
 									:iconStyle="{ color: '#fff', fontSize: '20rpx' }"
 								></u-number-box>
 							</view>
@@ -332,7 +332,7 @@
 									:min="0"
 									bgColor="#EA7183"
 									v-model="playMoneyListSend.c_product_people.b"
-									@change="valChange"
+									@change="valChangeb"
 									:iconStyle="{ color: '#fff', fontSize: '20rpx' }"
 								></u-number-box>
 							</view>
@@ -763,14 +763,14 @@
 						</view>
 
 						<view class="flex-row justify-center mt30" style="width: 100%">
-							<view class="items-center dqsj" v-if="!item.open" @click="open(item, index)">
-								全部订单信息
+							<view class="items-center dqsj flex-row" v-if="!item.open" @click="open(item, index)">
+								<text>全部订单信息</text>
 								<view class="ml5">
 									<u-icon name="arrow-down" color="#999999" size="28rpx"></u-icon>
 								</view>
 							</view>
-							<view class="items-center dqsj" v-if="item.open" @click="close(item, index)">
-								收起
+							<view class="items-center dqsj flex-row" v-if="item.open" @click="close(item, index)">
+								<text>收起</text>
 								<view class="ml5">
 									<u-icon name="arrow-up" color="#999999" size="28rpx"></u-icon>
 								</view>
@@ -1299,12 +1299,15 @@ export default {
 			this.playMoneyListSend.time = JSON.parse(JSON.stringify(jurisdiction));
 		},
 		dropdownIcon() {
-			console.log('打开');
-			this.selectionIcon = true;
+			// console.log('打开');
+			// this.selectionIcon = true;
 		},
 		dropdown(e) {
 			this.dropdownName = e;
 			this.selectionIcon = false;
+			this.check.B.checkA = false;
+			this.check.B.checkB = true;
+			this.checkboxClickdr(0);
 			console.log(e);
 		},
 		add() {
@@ -1391,8 +1394,19 @@ export default {
 				this.dataListAll = [...new Set([...this.dataList.D, ...this.dataList.R])];
 			});
 		},
-		valChange(e) {
+		valChangea(e) {
 			console.log('当前值为: ' + e.value);
+			this.playMoneyListSend.c_product_people.a = e.value;
+			this.play.people = this.playMoneyListSend.c_product_people;
+			this.add();
+		},
+		valChangeb(e) {
+			this.playMoneyListSend.c_product_people.b = e.value;
+			this.play.people = this.playMoneyListSend.c_product_people;
+			this.add();
+		},
+		valChangec(e) {
+			this.playMoneyListSend.c_product_people.c = e.value;
 			this.play.people = this.playMoneyListSend.c_product_people;
 			this.add();
 		},

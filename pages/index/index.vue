@@ -158,7 +158,8 @@ export default {
 					name: '总销售',
 					fontSize: 14,
 					color: '#333',
-					fontWeigh: 700
+					offsetY: -5, // 设置与副标题的间距
+					fontWeight: 'bold' // 设置加粗
 				},
 				subtitle: {
 					name: '（今年）',
@@ -344,7 +345,7 @@ export default {
 						position: {
 							top: res.top + 'px',
 							width: `${res.width}px`,
-							left: '58rpx',
+							left: '60rpx',
 							height: `${res.height}px`
 						}
 					});
@@ -361,14 +362,14 @@ export default {
 						btnGroupPosition: '550rpx',
 						tipsPosition: {
 							top: '-270rpx',
-							left: '-40rpx',
+							left: '-70rpx',
 							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc4.png)'
 						},
 						position: {
 							bottom: `${bottomSafeArea}px`,
-							height: '100rpx',
-							width: '86rpx',
-							left: `${res.left - 10}px`
+							height: '50px',
+							width: '43px',
+							left: `${res.left - 11}px`
 						}
 					});
 				});
@@ -383,7 +384,7 @@ export default {
 						tips: '快速切换收发端口',
 						btnGroupPosition: '10rpx',
 						tipsPosition: {
-							top: '50rpx',
+							top: '100rpx',
 							right: '0',
 							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc1.png)'
 						},
@@ -394,9 +395,9 @@ export default {
 							// 自定义导航栏
 							// top: uni.upx2px(30) + this._statusBarHeight + 'px',
 							top: `${res.top}px`,
-							right: '30rpx',
-							width: `${res.width}px`,
-							height: `${res.height}px`
+							right: '32rpx',
+							width: `${res.width - 1}px`,
+							height: `${res.height - 1}px`
 						}
 					});
 				});
@@ -413,7 +414,7 @@ export default {
 						position: {
 							top: res.top + 'px',
 							width: `${res.width}px`,
-							left: '58rpx',
+							left: '60rpx',
 							height: `${res.height}px`
 						}
 					});
@@ -431,7 +432,7 @@ export default {
 						position: {
 							top: res.top + 'px',
 							width: `${res.width}px`,
-							right: '58rpx',
+							right: '60rpx',
 							height: `${res.height}px`
 						}
 					});
@@ -448,14 +449,14 @@ export default {
 						btnGroupPosition: '550rpx',
 						tipsPosition: {
 							top: '-270rpx',
-							left: '-40rpx',
+							left: '-70rpx',
 							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc4.png)'
 						},
 						position: {
 							bottom: `${bottomSafeArea}px`,
-							height: '100rpx',
-							width: '86rpx',
-							left: `${res.left - 10}px`
+							height: '50px',
+							width: '43px',
+							left: `${res.left - 11}px`
 						}
 					});
 				});
@@ -570,7 +571,9 @@ export default {
 					title: {
 						name: '总销售',
 						fontSize: 14,
-						color: '#333'
+						color: '#333',
+						offsetY: -5, // 设置与副标题的间距
+						fontWeight: 'bold' // 设置加粗
 					},
 					subtitle: {
 						name: '（今年）',
@@ -651,9 +654,11 @@ export default {
 						show: false
 					},
 					title: {
-						name: '总供应',
+						name: '总销售',
 						fontSize: 14,
-						color: '#333'
+						color: '#333',
+						offsetY: -5, // 设置与副标题的间距
+						fontWeight: 'bold' // 设置加粗
 					},
 					subtitle: {
 						name: '（今年）',

@@ -17,7 +17,7 @@
 					<text class="ft-gray ml5">企业名称</text>
 				</text>
 				<view class="flex-row justify-center items-center flex-1">
-					<input v-model="userInfo.accountSubject.simpleNameQ" type="text" maxlength="50" class="text-left ft29" placeholder="请输入企业名称" />
+					<input v-model="userInfo.accountSubject.simpleNameQ" type="text" maxlength="14" class="text-left ft29" placeholder="请输入企业名称" />
 				</view>
 			</view>
 			<view class="flex-row pt30 pb30 u-border-bottom">
@@ -26,7 +26,7 @@
 					<text class="ft-gray ml5">企业地址</text>
 				</text>
 				<view class="flex-row justify-center items-center flex-1">
-					<input v-model="userInfo.accountSubject.address" type="text" maxlength="50" class="text-left ft29" placeholder="请输入企业地址" />
+					<input v-model="userInfo.accountSubject.address" type="text" maxlength="14" class="text-left ft29" placeholder="请输入企业地址" />
 				</view>
 			</view>
 		</view>
@@ -181,7 +181,7 @@ export default {
 
 			console.log(dx);
 			dx.enterpriseName = dx.enterpriseName.trim();
-			if (dx.enterpriseName.length <= 0 || dx.enterpriseName.length >= 14) {
+			if (dx.enterpriseName.length <= 0 || dx.enterpriseName.length > 14) {
 				this.$u.toast('请输入不超过14个字的企业名称');
 				return;
 			}
@@ -192,7 +192,7 @@ export default {
 				return;
 			}
 
-			if (dx.businessSite.length >= 14) {
+			if (dx.businessSite.length > 14) {
 				this.$u.toast('企业地址不能超过14位');
 				return;
 			}
