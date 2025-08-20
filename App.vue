@@ -40,9 +40,9 @@ export default {
 		this.$getCid?.();
 		this.$monitorPushMessage?.();
 
-		if (options.scene !== 1007 && this.vuex_user?.phone) {
+		if (options.scene !== 1007 && this.pinia_user?.phone) {
 			// 使用封装模块连接 WebSocket
-			SocketManager.connect(this.vuex_user.phone, (data) => {
+			SocketManager.connect(this.pinia_user.phone, (data) => {
 				if (data.success == 'ok') {
 					this.updateMessageCounts();
 					this.$u.setPinia({
@@ -75,9 +75,9 @@ export default {
 			this.getNotifications();
 		},
 		getPendingTasks() {
-			this.$api.order.getOrderDraftList({ bUser: this.vuex_user.phone }).then((res) => {
+			this.$api.order.getOrderDraftList({ bUser: this.pinia_user.phone }).then((res) => {
 				console.log('系统消息', res);
-				const isDirector = this.vuex_userRole === 'D';
+				const isDirector = this.pinia_userRole === 'D';
 				const tasks = res.data.data.filter((item) => (isDirector ? item.port === '1' || item.port === 'f' : item.port === '0'));
 				this.todoCount = tasks.length;
 
@@ -93,7 +93,7 @@ export default {
 			});
 		},
 		getNotifications() {
-			const user = this.vuex_user;
+			const user = this.pinia_user;
 			const dx = {
 				boss: user.data.work === '1' ? user.workData.bossNumber : user.phone,
 				staff: user.phone,
@@ -157,16 +157,16 @@ export default {
 
 @font-face {
 	font-family: 'ddbh';
-	src: url('https://cdn.elist.com.cn/uniapp/font/DDBH.ttf') format('truetype');
+	src: url('https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/font/DDBH.ttf') format('truetype');
 }
 
 @font-face {
 	font-family: 'ysdzt';
-	src: url('https://cdn.elist.com.cn/uniapp/font/YSDZT.ttf') format('truetype');
+	src: url('https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/font/YSDZT.ttf') format('truetype');
 }
 
 @font-face {
 	font-family: 'syst';
-	src: url('https://cdn.elist.com.cn/uniapp/font/syst.ttf') format('truetype');
+	src: url('https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/font/syst.ttf') format('truetype');
 }
 </style>

@@ -17,10 +17,10 @@
 					/>
 				</view>
 				<view class="FromInput u-border-bottom">
-					<text v-if="vuex_userRole == 'D'" class="textcolor">客户名称:</text>
-					<text v-if="vuex_userRole == 'R'" class="textcolor">供应商名称:</text>
+					<text v-if="pinia_userRole == 'D'" class="textcolor">客户名称:</text>
+					<text v-if="pinia_userRole == 'R'" class="textcolor">供应商名称:</text>
 					<input
-						v-if="vuex_user.data.work == '0' ? vuex_user.phone == billFrom.sourcePhone : vuex_user.workData.bossNumber == billFrom.sourcePhone"
+						v-if="pinia_user.data.work == '0' ? pinia_user.phone == billFrom.sourcePhone : pinia_user.workData.bossNumber == billFrom.sourcePhone"
 						placeholder-class="placeholder_class"
 						type="number"
 						v-model="billFrom.billEnterpriseE"
@@ -88,7 +88,7 @@
 					/>
 					<text>元</text>
 				</view>
-				<view class="FromInput u-border-bottom" v-if="vuex_userRole == 'D'">
+				<view class="FromInput u-border-bottom" v-if="pinia_userRole == 'D'">
 					<text class="textcolor">折扣率:</text>
 					<input
 						placeholder-class="placeholder_class"
@@ -173,31 +173,31 @@
 			<view class="FromOwn">
 				<view class="OwnText">
 					<view class="OwnTextFromTitle">企业名称</view>
-					<text :style="{ color: '#333333' }" class="ml15 endcolor OwnTextFromText" v-if="vuex_user.data.work == '0'">
-						{{ vuex_user.ac.enterpriseName || vuex_user.phone }}
+					<text :style="{ color: '#333333' }" class="ml15 endcolor OwnTextFromText" v-if="pinia_user.data.work == '0'">
+						{{ pinia_user.ac.enterpriseName || pinia_user.phone }}
 					</text>
 					<text :style="{ color: '#333333' }" class="ml15 endcolor OwnTextFromText" v-else>
-						{{ vuex_user.ac.enterpriseName || vuex_user.workData.bossNumber }}
+						{{ pinia_user.ac.enterpriseName || pinia_user.workData.bossNumber }}
 					</text>
 				</view>
 				<view class="OwnText">
 					<view class="OwnTextFromTitle">联系人</view>
-					<text class="OwnTextFromText">{{ vuex_user.data.name || vuex_user.phone || vuex_user.data.phone }}</text>
+					<text class="OwnTextFromText">{{ pinia_user.data.name || pinia_user.phone || pinia_user.data.phone }}</text>
 				</view>
 				<view class="OwnText">
 					<view class="OwnTextFromTitle">联系电话</view>
-					<text class="OwnTextFromText">{{ vuex_user.phone || vuex_user.data.phone }}</text>
+					<text class="OwnTextFromText">{{ pinia_user.phone || pinia_user.data.phone }}</text>
 				</view>
 			</view>
 			<view class="sendBill">
 				<!-- #ifdef MP-WEIXIN -->
 				<u-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder(true)" shape="circle">
-					{{ vuex_userRole == 'D' ? '修改收款单' : '修改付款单' }}
+					{{ pinia_userRole == 'D' ? '修改收款单' : '修改付款单' }}
 				</u-button>
 				<!-- #endif -->
 				<!-- #ifdef APP -->
 				<u-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder(false)" shape="circle">
-					{{ vuex_userRole == 'D' ? '修改收款单' : '修改付款单' }}
+					{{ pinia_userRole == 'D' ? '修改收款单' : '修改付款单' }}
 				</u-button>
 				<!-- #endif -->
 			</view>
@@ -280,7 +280,7 @@ export default {
 	},
 	onLoad(option) {
 		console.log('单个详情：', option);
-		var port = this.vuex_userRole == 'D';
+		var port = this.pinia_userRole == 'D';
 		if (port) {
 			uni.setNavigationBarTitle({
 				title: '收款单修改'
@@ -304,7 +304,7 @@ export default {
 			this.billFrom = res.data.data;
 			this.billFrom.billTime = this.$u.timeFormat(this.billFrom.billTime, 'yyyy-mm-dd');
 
-			var port = this.vuex_userRole == 'R';
+			var port = this.pinia_userRole == 'R';
 			if (port) {
 				this.billEnterprise = this.billFrom.billEnterpriseS;
 			} else {
@@ -383,7 +383,7 @@ export default {
 				//要添加的
 				console.log('loadList', this.loadList);
 
-				var ifWorkPort = this.vuex_userRole == 'R';
+				var ifWorkPort = this.pinia_userRole == 'R';
 				this.billFrom.type = ifWorkPort ? 0 : 1;
 
 				for (const res of this.fileList) {
@@ -624,8 +624,8 @@ export default {
 				uni.uploadFile({
 					url: uni.$http.config.baseURL + '/edo/bills/file',
 					header: {
-						token: that.vuex_token,
-						phone: app ? that.vuex_user.phone : that.vuex_user.phone + '-app',
+						token: that.pinia_token,
+						phone: app ? that.pinia_user.phone : that.pinia_user.phone + '-app',
 						number: billNumber
 					},
 					filePath: fileAvatar,

@@ -12,10 +12,10 @@
 		></u-navbar>
 
 		<uv-popup ref="popup" mode="center" round="50" :overlay="false" :customStyle="popup_style" zIndex="999999">
-			<view v-if="vuex_userRole == 'D'">
+			<view v-if="pinia_userRole == 'D'">
 				<uv-textarea v-model="up.remarkD" border="none" placeholder="请输入备注" height="100" :customStyle="textareaStyle"></uv-textarea>
 			</view>
-			<view v-if="vuex_userRole == 'R'">
+			<view v-if="pinia_userRole == 'R'">
 				<uv-textarea v-model="up.remarkR" border="none" placeholder="请输入备注" height="100" :customStyle="textareaStyle"></uv-textarea>
 			</view>
 
@@ -45,7 +45,7 @@
 				<uv-cell title="公司地址" :value="enterpriseSite" :cellStyle="cellStyle"></uv-cell>
 				<uv-cell title="手机号" :value="userData.phone || userData.phoneNumber" :cellStyle="cellStyle"></uv-cell>
 				<uv-cell
-					v-if="vuex_userRole == 'D'"
+					v-if="pinia_userRole == 'D'"
 					title="备注"
 					:value="up.remarkD || '设置备注'"
 					:border="false"
@@ -54,7 +54,7 @@
 					@click="editRemarkFocusClick"
 				></uv-cell>
 				<uv-cell
-					v-if="vuex_userRole == 'R'"
+					v-if="pinia_userRole == 'R'"
 					title="备注"
 					:value="up.remarkR || '设置备注'"
 					:border="false"
@@ -66,7 +66,7 @@
 		</view>
 
 		<view class="page-list">
-			<view class="page-list-box" v-if="vuex_userRole == 'D'">
+			<view class="page-list-box" v-if="pinia_userRole == 'D'">
 				<view class="box_l">
 					<text>销售总额：</text>
 					<text style="color: #ffc300">
@@ -79,7 +79,7 @@
 					<text style="color: #01bb74"><uv-count-to color="#01BB74" fontSize="15" :startVal="0" separator="," :endVal="Statisticsdata.totalOrders"></uv-count-to></text>
 				</view>
 			</view>
-			<view class="page-list-box" v-if="vuex_userRole == 'R'">
+			<view class="page-list-box" v-if="pinia_userRole == 'R'">
 				<view class="box_l">
 					<text>供应总额：</text>
 					<text style="color: #ffc300">
@@ -157,14 +157,14 @@ export default {
 	},
 	computed: {
 		enterpriseName() {
-			if (this.vuex_userRole == 'D') {
+			if (this.pinia_userRole == 'D') {
 				return this.userData?.enterpriseName || '客户未完善';
 			} else {
 				return this.userData?.enterpriseName || '供应商未完善';
 			}
 		},
 		enterpriseSite() {
-			if (this.vuex_userRole == 'D') {
+			if (this.pinia_userRole == 'D') {
 				return this.userData?.site || '客户未完善';
 			} else {
 				return this.userData?.site || '供应商未完善';
@@ -173,9 +173,9 @@ export default {
 	},
 	watch: {
 		// remark(newVal, oldVal) {
-		// 	if(this.vuex_userRole == "R"){
+		// 	if(this.pinia_userRole == "R"){
 		// 		this.up.remarkR = newVal
-		// 	}else if(this.vuex_userRole == "D"){
+		// 	}else if(this.pinia_userRole == "D"){
 		// 		this.up.remarkD = newVal
 		// 	}
 		// }
@@ -195,7 +195,7 @@ export default {
 	},
 	onShow() {
 		// this.$refs.popup.open();
-		var ifWorkPort = this.vuex_userRole == 'R';
+		var ifWorkPort = this.pinia_userRole == 'R';
 		this.port = ifWorkPort;
 		if (ifWorkPort) {
 			this.detailsHeadline = '供应商信息';
@@ -211,7 +211,7 @@ export default {
 			return !url || url === 'null' ? '' : url;
 		},
 		getOrderStatistics() {
-			const portType = this.vuex_userRole == 'D' ? '0' : '1'; // 0=发货端, 1=收货端
+			const portType = this.pinia_userRole == 'D' ? '0' : '1'; // 0=发货端, 1=收货端
 
 			this.$api.dashboard.getDashboardOrderStatistics(this.phone, portType).then((res) => {
 				if (res.data.code === 200) {
@@ -277,15 +277,15 @@ export default {
 			this.$refs.popup.open();
 		},
 		getBossNumber() {
-			return this.vuex_user.data.work === '0' ? this.vuex_user.phone : this.vuex_user.workData.bossNumber;
+			return this.pinia_user.data.work === '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber;
 		},
 		isRole(role) {
-			return this.vuex_userRole === role;
+			return this.pinia_userRole === role;
 		},
 		getUnregisteredUser(eBossNumber) {
-			var ifWorkPort = this.vuex_userRole == 'D';
-			var work = this.vuex_user.data.work == '0';
-			var sBossNumber = work ? this.vuex_user.phone : this.vuex_user.workData.bossNumber;
+			var ifWorkPort = this.pinia_userRole == 'D';
+			var work = this.pinia_user.data.work == '0';
+			var sBossNumber = work ? this.pinia_user.phone : this.pinia_user.workData.bossNumber;
 			var dx = {
 				sBossNumber: sBossNumber,
 				eBossNumber: eBossNumber
@@ -308,12 +308,12 @@ export default {
 			});
 		},
 		getUserData(phone) {
-			var ifwork = this.vuex_user.data.work == '0';
+			var ifwork = this.pinia_user.data.work == '0';
 			var boss = '';
 			if (ifwork) {
-				boss = this.vuex_user.phone;
+				boss = this.pinia_user.phone;
 			} else {
-				boss = this.vuex_user.workData.bossNumber;
+				boss = this.pinia_user.workData.bossNumber;
 			}
 
 			console.log('type', this.type);
@@ -324,7 +324,7 @@ export default {
 				url = '/edo/user/search?phone=';
 			}
 
-			this.$u.post(url + phone + '&boss=' + boss + '&port=' + this.vuex_userRole).then((res) => {
+			this.$u.post(url + phone + '&boss=' + boss + '&port=' + this.pinia_userRole).then((res) => {
 				this.userData = res.data.data;
 				this.remark = res.data.data.remark;
 

@@ -15,7 +15,7 @@
 				<view class="InputCard">
 					<view class="InputOne">
 						<text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
-							{{ vuex_userRole === 'R' ? '供应商选择' : '客户选择' }}
+							{{ pinia_userRole === 'R' ? '供应商选择' : '客户选择' }}
 						</text>
 						<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
 						<view class="my-input flex-1">
@@ -24,7 +24,7 @@
 								@change="CustomerGetChange"
 								v-model="customer"
 								:customStyle="{ backgroundColor: 'transparent' }"
-								:placeholder="vuex_userRole === 'R' ? '请选择供应商' : '请选择客户'"
+								:placeholder="pinia_userRole === 'R' ? '请选择供应商' : '请选择客户'"
 								:clearable="true"
 							></u-input>
 						</view>
@@ -71,7 +71,7 @@
 					</view>
 					<view class="flex-col text-left" style="width: 90%" @click.stop="jumpDraftsOrder(item.id)">
 						<text
-							v-if="vuex_userRole == 'D'"
+							v-if="pinia_userRole == 'D'"
 							:style="{ color: ifZX(item.bossNumberE) ? '#AAAAAA' : '#3D3D3D' }"
 							class="ft34 u-line-bt width100"
 							style="font-weight: 500"
@@ -79,7 +79,7 @@
 							{{ item.organizationE == '' && item.bossNumberE == '' ? '(无客户名称)' : item.organizationE || item.bossNumberE }}
 							{{ ifZX(item.bossNumberE) ? '(已注销)' : '' }}
 						</text>
-						<!-- <text v-if="vuex_userRole=='R'" :style="{color:(ifZX(item.bossNumberS)?'#AAAAAA':'#3D3D3D')}"
+						<!-- <text v-if="pinia_userRole=='R'" :style="{color:(ifZX(item.bossNumberS)?'#AAAAAA':'#3D3D3D')}"
 							class="ft34 u-line-bt width100"
 							style="font-weight: 500;">{{item.enterpriseS||item.bossNumberS}}{{ifZX(item.bossNumberS)?"(已注销)":""}}</text> -->
 					</view>
@@ -222,7 +222,7 @@
 										color: showTage == '2' ? '#ffffff' : '#01BB74'
 									}"
 								>
-									{{ vuex_userRole == 'R' ? '收货地址' : '收货地址' }}
+									{{ pinia_userRole == 'R' ? '收货地址' : '收货地址' }}
 								</view>
 							</view>
 							<view class="flex-row mt20" style="width: 100%">
@@ -361,7 +361,7 @@ export default {
 		console.log('下拉');
 	},
 	onShow() {
-		if (this.vuex_user.phone != undefined) {
+		if (this.pinia_user.phone != undefined) {
 			this.loadData();
 			this.Init();
 		} else {
@@ -375,14 +375,14 @@ export default {
 	methods: {
 		getDraftsAmount() {
 			// amount
-			var ifwork = this.vuex_user.data.work == '0';
+			var ifwork = this.pinia_user.data.work == '0';
 			if (ifwork) {
-				this.realTimeSel.bossNumberS = this.vuex_user.phone;
-				this.realTimeSel.staffNumberS = this.vuex_user.phone;
+				this.realTimeSel.bossNumberS = this.pinia_user.phone;
+				this.realTimeSel.staffNumberS = this.pinia_user.phone;
 			} else {
-				var boss = this.vuex_user.workData.bossNumber;
+				var boss = this.pinia_user.workData.bossNumber;
 				this.realTimeSel.bossNumberS = boss;
-				this.realTimeSel.staffNumberS = this.vuex_user.phone;
+				this.realTimeSel.staffNumberS = this.pinia_user.phone;
 			}
 			this.$api.draft.getDraftAmount(this.realTimeSel).then((res) => {
 				this.DraftsAmount = res.data.data;
@@ -403,8 +403,8 @@ export default {
 			this.realTimeSel.checkAll = this.checked;
 			this.realTimeSel.delId = checkTrue;
 
-			this.realTimeSel.bossNumberS = this.vuex_user.data.work != '0' ? this.vuex_user.workData.bossNumber : this.vuex_user.phone;
-			this.realTimeSel.staffNumberS = this.vuex_user.phone;
+			this.realTimeSel.bossNumberS = this.pinia_user.data.work != '0' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone;
+			this.realTimeSel.staffNumberS = this.pinia_user.phone;
 
 			uni.showModal({
 				title: '是否确认删除所选草稿？',
@@ -493,7 +493,7 @@ export default {
 					: showTage == 1
 					? '联系号码'
 					: showTage == 2
-					? this.vuex_userRole == 'R'
+					? this.pinia_userRole == 'R'
 						? '收货地址'
 						: '收货地址'
 					: showTage == 3
@@ -502,11 +502,11 @@ export default {
 		},
 		Init() {
 			this.hide = true;
-			this.realTimeSel.getPhone = this.vuex_user.phone;
+			this.realTimeSel.getPhone = this.pinia_user.phone;
 
-			var ifwork = this.vuex_user.data.work == '0';
+			var ifwork = this.pinia_user.data.work == '0';
 			var timeEmp = this.realTimeSel.startDate == '' || this.realTimeSel.endDate == '';
-			var ifWorkPort = this.vuex_userRole == 'R';
+			var ifWorkPort = this.pinia_userRole == 'R';
 
 			if (ifwork) {
 				//没有工作
@@ -514,18 +514,18 @@ export default {
 				if (!ifWorkPort) {
 					//console.log("没有工作 发货");
 					this.realTimeSel.bossNumberE = '';
-					this.realTimeSel.bossNumberS = this.vuex_user.phone;
+					this.realTimeSel.bossNumberS = this.pinia_user.phone;
 				} else {
 					//console.log("没有工作 收货");
 					this.realTimeSel.bossNumberS = '';
-					this.realTimeSel.bossNumberE = this.vuex_user.phone;
+					this.realTimeSel.bossNumberE = this.pinia_user.phone;
 				}
 			} else {
 				//有工作
 				//判断身份
-				var identity = this.vuex_user.workData.identity;
+				var identity = this.pinia_user.workData.identity;
 				//老板
-				var boss = this.vuex_user.workData.bossNumber;
+				var boss = this.pinia_user.workData.bossNumber;
 				//console.log("有工作");
 				if (!ifWorkPort) {
 					//发货端
@@ -534,7 +534,7 @@ export default {
 					this.realTimeSel.bossNumberE = '';
 					if (identity == '4' || identity == '1') {
 						//console.log("有工作 发货端 员工");
-						this.realTimeSel.staffNumberS = this.vuex_user.phone;
+						this.realTimeSel.staffNumberS = this.pinia_user.phone;
 						this.realTimeSel.bossNumberS = boss;
 					} else {
 						//console.log("有工作 发货端 其他");
@@ -543,7 +543,7 @@ export default {
 						this.realTimeSel.bossNumberS = boss;
 					}
 				} else {
-					//console.log("有工作 收货", JSON.parse(JSON.stringify(this.vuex_user.workData)));
+					//console.log("有工作 收货", JSON.parse(JSON.stringify(this.pinia_user.workData)));
 					//console.log("有工作 收货" + identity);
 					//收货端
 					this.realTimeSel.staffNumberS = '';
@@ -551,7 +551,7 @@ export default {
 					if (identity == '4') {
 						//员工
 						//console.log("有工作 收货 员工" + identity);
-						this.realTimeSel.staffNumberE = this.vuex_user.phone;
+						this.realTimeSel.staffNumberE = this.pinia_user.phone;
 						this.realTimeSel.bossNumberE = boss;
 					} else {
 						//其他
@@ -599,7 +599,7 @@ export default {
 			this.orderList = vList;
 		},
 		queryList(pageNo, pageSize) {
-			if (this.vuex_user.phone != undefined) {
+			if (this.pinia_user.phone != undefined) {
 				console.log(pageNo, pageSize);
 				this.realTimeSel.page = pageNo;
 				this.realTimeSel.pageSize = pageSize;
@@ -615,7 +615,7 @@ export default {
 			if (this.refresh) {
 				this.refresh = false;
 				this.onReachBottom = false;
-				this.realTimeSel.role = this.vuex_userRole == 'R' ? '1' : '0';
+				this.realTimeSel.role = this.pinia_userRole == 'R' ? '1' : '0';
 				console.log('this.realTimeSel', this.realTimeSel);
 				this.$api.draft
 					.getDraftList(this.realTimeSel)
@@ -639,7 +639,6 @@ export default {
 					.catch((res) => {
 						this.$refs.paging.complete(false);
 						this.refresh = true;
-						this.$u.toast('请求失败');
 					});
 			} else {
 			}
@@ -660,7 +659,7 @@ export default {
 			}
 		},
 		CustomerGetChange() {
-			var ifWorkPort = this.vuex_userRole == 'R';
+			var ifWorkPort = this.pinia_userRole == 'R';
 			var changeText = this.customer;
 			this.checked = false;
 			//console.log(changeText);
@@ -690,7 +689,7 @@ export default {
 		searchListenner(e) {
 			//console.log(e);
 			var filterIndex = this.showTage;
-			var ifWorkPort = this.vuex_userRole == 'R';
+			var ifWorkPort = this.pinia_userRole == 'R';
 
 			if (filterIndex == '0') {
 				if (!ifWorkPort) {
@@ -737,7 +736,7 @@ export default {
 			this.field = '';
 
 			var filterIndex = this.showTage;
-			var ifWorkPort = this.vuex_userRole == 'R';
+			var ifWorkPort = this.pinia_userRole == 'R';
 
 			this.realTimeSel.kTakeE = '';
 			this.realTimeSel.kSiteE = '';
@@ -753,7 +752,7 @@ export default {
 			this.show_start = true;
 		},
 		CustomerGet() {
-			if (this.vuex_user.phone != undefined) {
+			if (this.pinia_user.phone != undefined) {
 				this.hide = false;
 				uni.navigateTo({
 					url: '/pages/subOrder/table?show=0'

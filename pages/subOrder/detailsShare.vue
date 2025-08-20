@@ -345,11 +345,11 @@ export default {
 		};
 	},
 	computed: {
-		vuex_user() {
-			return this.$store.state.vuex_user;
+		pinia_user() {
+			return this.$store.state.pinia_user;
 		},
-		vuex_userRole() {
-			return this.$store.state.vuex_userRole;
+		pinia_userRole() {
+			return this.$store.state.pinia_userRole;
 		}
 	},
 	onLoad(options) {
@@ -360,11 +360,11 @@ export default {
 	},
 	onShow(options) {
 		this.$getRecord(this);
-		if (this.vuex_user && this.vuex_user.phone) {
+		if (this.pinia_user && this.pinia_user.phone) {
 			this.getQs();
 			this.getOrder(this.options);
 		} else {
-			console.warn('vuex_user 未初始化');
+			console.warn('pinia_user 未初始化');
 		}
 	},
 	onShareAppMessage(ops) {
@@ -389,7 +389,7 @@ export default {
 		getQs() {
 			this.$api.sign
 				.getSignature({
-					phone: this.vuex_user.phone
+					phone: this.pinia_user.phone
 				})
 				.then((res) => {
 					this.qsrList = res.data.data;
@@ -397,7 +397,7 @@ export default {
 				});
 			this.$api.order
 				.getAccountStatistics({
-					user: this.vuex_user.data.work == '0' ? this.vuex_user.phone : this.vuex_user.workData.bossNumber
+					user: this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
 				})
 				.then((res) => {
 					this.qyList = res.data.data;
@@ -441,11 +441,11 @@ export default {
 			//分享金额限制${versions=="Y"?"有金额":"无金额"}
 			var versions = options.versions;
 
-			if (this.vuex_user.phone != undefined) {
+			if (this.pinia_user.phone != undefined) {
 				//获取签收人
 				this.$api.sign
 					.getSignature({
-						phone: this.vuex_user.phone
+						phone: this.pinia_user.phone
 					})
 					.then((res) => {
 						this.qsrList = res.data.data;
@@ -496,7 +496,7 @@ export default {
 		},
 		confirm() {
 			console.log('确认');
-			var pas = this.password == this.vuex_user.vuex_password;
+			var pas = this.password == this.pinia_user.vuex_password;
 			if (pas) {
 				this.qs();
 				this.password = '';
@@ -558,7 +558,7 @@ export default {
 		},
 		shareClick() {
 			console.log('返回', this.port);
-			if (this.vuex_user.phone != undefined) {
+			if (this.pinia_user.phone != undefined) {
 				if (this.LookThree) {
 				} else {
 					if (this.LookThreeNo) {
@@ -583,7 +583,7 @@ export default {
 				});
 			}
 
-			if (this.vuex_userRole != null && this.vuex_userRole != undefined && this.vuex_userRole != '') {
+			if (this.pinia_userRole != null && this.pinia_userRole != undefined && this.pinia_userRole != '') {
 				uni.switchTab({
 					url: '/pages/index/index'
 				});
@@ -599,11 +599,11 @@ export default {
 			}
 		},
 		async verificationOrder() {
-			if (this.vuex_user.phone != undefined) {
+			if (this.pinia_user.phone != undefined) {
 				//获取当前手机号码
-				var phone = this.vuex_user.phone;
+				var phone = this.pinia_user.phone;
 				//判断是否工作
-				var work = this.vuex_user.data.work == '0';
+				var work = this.pinia_user.data.work == '0';
 				//判断是否和单子有关系
 				var portE = phone == this.post.bossNumberE;
 				var portS = phone == this.post.bossNumberS;
@@ -761,11 +761,11 @@ export default {
 		onConfirm() {
 			console.log(this.qsrList);
 			var that = this;
-			if (that.qsrList.length == 0 || (that.qyList == null && this.vuex_user.data.work == '0')) {
+			if (that.qsrList.length == 0 || (that.qyList == null && this.pinia_user.data.work == '0')) {
 				//  无签收人
 				if (that.qsrList.length == 0 && that.qyList == null) {
 					// /pages/subAuth/qiye
-					if (this.vuex_user.data.work == '1' && that.qsrList.length == 0) {
+					if (this.pinia_user.data.work == '1' && that.qsrList.length == 0) {
 						uni.showModal({
 							title: '暂无签收信息，是否去添加？',
 							showCancel: true,
@@ -783,7 +783,7 @@ export default {
 						});
 					}
 
-					if (this.vuex_user.data.work == '0' && that.qsrList.length == 0 && that.qyList == null) {
+					if (this.pinia_user.data.work == '0' && that.qsrList.length == 0 && that.qyList == null) {
 						uni.showModal({
 							title: '暂无完整信息，是否去添加？',
 							showCancel: true,

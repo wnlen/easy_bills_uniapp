@@ -140,7 +140,7 @@ export default {
 		}
 	},
 	onShareAppMessage() {
-		const inviterId = this.vuex_user.data.id || '';
+		const inviterId = this.pinia_user.data.id || '';
 		console.log('分享', inviterId);
 		return {
 			title: '邀你体验易单据',

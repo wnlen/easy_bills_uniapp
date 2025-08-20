@@ -26,11 +26,11 @@
 						shape="circle"
 						class="ml20"
 						:show-menu-by-longpress="false"
-						:src="vuex_user.data.headPortrait || '/static/img/obj/defind.svg'"
+						:src="pinia_user.data.headPortrait || '/static/img/obj/defind.svg'"
 						width="100rpx"
 						height="100rpx"
 					></u-image>
-					<text class="ml10" style="font-weight: bold; color: #333333; font-size: 36rpx">{{ userName(vuex_user.data.name) || '未设置' }}</text>
+					<text class="ml10" style="font-weight: bold; color: #333333; font-size: 36rpx">{{ userName(pinia_user.data.name) || '未设置' }}</text>
 					<image class="ml15" :src="!qy ? ImgUrl + '/wxImg/order/no-is.svg' : ImgUrl + '/wxImg/order/yes-is.svg'" style="width: 80rpx; height: 50rpx"></image>
 				</view>
 				<view
@@ -68,8 +68,8 @@
 				</view> -->
 				<view
 					@click="jump(3)"
-					class="flex-row items-center ml24 mr24 flex-row mb24 mt30"
-					v-show="vuex_user.data.work == '0'"
+					class="flex-row items-center ml24 mr24 flex-row mb24 mt24"
+					v-show="pinia_user.data.work == '0'"
 					style="
 						height: 10vh;
 						background: #fffef9;
@@ -127,7 +127,7 @@ export default {
 		loadData() {
 			this.$api.order
 				.getAccountStatistics({
-					user: this.vuex_user.phone
+					user: this.pinia_user.phone
 				})
 				.then((res) => {
 					console.log('认证状态==》', res.data);

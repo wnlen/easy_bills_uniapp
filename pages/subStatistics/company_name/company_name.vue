@@ -38,7 +38,7 @@ export default {
 		};
 	},
 	onShow() {
-		if (this.vuex_userRole == 'R') {
+		if (this.pinia_userRole == 'R') {
 			uni.setNavigationBarTitle({
 				title: '供应商',
 				success: function () {

@@ -45,7 +45,7 @@
 
 				<view class="billCard cardShow">
 					<text @click="openTableChoice" style="color: #666666">
-						{{ vuex_userRole === 'R' ? '供应商选择' : '客户选择' }}
+						{{ pinia_userRole === 'R' ? '供应商选择' : '客户选择' }}
 					</text>
 					<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
 					<view class="my-input flex-1">
@@ -54,7 +54,7 @@
 							@change="InputTextOne"
 							v-model="InputOneText"
 							:customStyle="{ backgroundColor: 'transparent' }"
-							:placeholder="vuex_userRole === 'R' ? '请选择供应商' : '请选择客户'"
+							:placeholder="pinia_userRole === 'R' ? '请选择供应商' : '请选择客户'"
 							:clearable="true"
 						></u-input>
 					</view>
@@ -104,60 +104,60 @@
 					</view>
 				</view>
 				<!-- 			<view class="OrderCard_body" v-if="item.billState==0">
-					<text v-if="vuex_userRole=='R'"
-						class="OrderCard_body_text ml24">{{item.sourcePhone==vuex_user.phone&&vuex_user.data.work!="1"?item.billEnterpriseE:vuex_user.data.work=="1"?item.billEnterpriseE:item.billEnterpriseS}}</text>
-					<text v-if="vuex_userRole=='D'"
-						class="OrderCard_body_text ml24">{{item.sourcePhone==vuex_user.phone&&vuex_user.data.work!="1"?item.billEnterpriseE:vuex_user.data.work=="1"?item.billEnterpriseE:item.billEnterpriseS}}</text>
+					<text v-if="pinia_userRole=='R'"
+						class="OrderCard_body_text ml24">{{item.sourcePhone==pinia_user.phone&&pinia_user.data.work!="1"?item.billEnterpriseE:pinia_user.data.work=="1"?item.billEnterpriseE:item.billEnterpriseS}}</text>
+					<text v-if="pinia_userRole=='D'"
+						class="OrderCard_body_text ml24">{{item.sourcePhone==pinia_user.phone&&pinia_user.data.work!="1"?item.billEnterpriseE:pinia_user.data.work=="1"?item.billEnterpriseE:item.billEnterpriseS}}</text>
 				</view>
 				<view class="OrderCard_body_ply" v-if="item.billState==1">
-					<text v-if="vuex_userRole=='R'"
-						class="OrderCard_body_text ml24">{{item.sourcePhone==vuex_user.phone&&vuex_user.data.work!="1"?item.billEnterpriseE:vuex_user.data.work=="1"?item.billEnterpriseE:item.billEnterpriseS}}</text>
-					<text v-if="vuex_userRole=='D'"
-						class="OrderCard_body_text ml24">{{item.sourcePhone==vuex_user.phone&&vuex_user.data.work!="1"?item.billEnterpriseE:vuex_user.data.work=="1"?item.billEnterpriseE:item.billEnterpriseS}}</text>
+					<text v-if="pinia_userRole=='R'"
+						class="OrderCard_body_text ml24">{{item.sourcePhone==pinia_user.phone&&pinia_user.data.work!="1"?item.billEnterpriseE:pinia_user.data.work=="1"?item.billEnterpriseE:item.billEnterpriseS}}</text>
+					<text v-if="pinia_userRole=='D'"
+						class="OrderCard_body_text ml24">{{item.sourcePhone==pinia_user.phone&&pinia_user.data.work!="1"?item.billEnterpriseE:pinia_user.data.work=="1"?item.billEnterpriseE:item.billEnterpriseS}}</text>
 				</view> -->
 				<view class="OrderCard_body" v-if="item.billState == 0">
-					<text v-if="vuex_userRole == 'R'" class="OrderCard_body_text ml24">
+					<text v-if="pinia_userRole == 'R'" class="OrderCard_body_text ml24">
 						{{
-							vuex_user.data.work == '0'
-								? item.sourcePhone == vuex_user.phone
+							pinia_user.data.work == '0'
+								? item.sourcePhone == pinia_user.phone
 									? item.billEnterpriseE
 									: item.billEnterpriseS
-								: item.sourcePhone == vuex_user.workData.bossNumber
+								: item.sourcePhone == pinia_user.workData.bossNumber
 								? item.billEnterpriseE
 								: item.billEnterpriseS
 						}}
 					</text>
-					<text v-if="vuex_userRole == 'D'" class="OrderCard_body_text ml24">
+					<text v-if="pinia_userRole == 'D'" class="OrderCard_body_text ml24">
 						{{
-							vuex_user.data.work == '0'
-								? item.sourcePhone == vuex_user.phone
+							pinia_user.data.work == '0'
+								? item.sourcePhone == pinia_user.phone
 									? item.billEnterpriseE
 									: item.billEnterpriseS
-								: item.sourcePhone == vuex_user.workData.bossNumber
+								: item.sourcePhone == pinia_user.workData.bossNumber
 								? item.billEnterpriseE
 								: item.billEnterpriseS
 						}}
 					</text>
 				</view>
 				<view class="OrderCard_body_ply" v-if="item.billState == 1">
-					<text v-if="vuex_userRole == 'R'" class="OrderCard_body_text ml24">
+					<text v-if="pinia_userRole == 'R'" class="OrderCard_body_text ml24">
 						{{
-							vuex_user.data.work == '0'
-								? item.sourcePhone == vuex_user.phone
+							pinia_user.data.work == '0'
+								? item.sourcePhone == pinia_user.phone
 									? item.billEnterpriseE
 									: item.billEnterpriseS
-								: item.sourcePhone == vuex_user.workData.bossNumber
+								: item.sourcePhone == pinia_user.workData.bossNumber
 								? item.billEnterpriseE
 								: item.billEnterpriseS
 						}}
 					</text>
-					<text v-if="vuex_userRole == 'D'" class="OrderCard_body_text ml24">
+					<text v-if="pinia_userRole == 'D'" class="OrderCard_body_text ml24">
 						{{
-							vuex_user.data.work == '0'
-								? item.sourcePhone == vuex_user.phone
+							pinia_user.data.work == '0'
+								? item.sourcePhone == pinia_user.phone
 									? item.billEnterpriseE
 									: item.billEnterpriseS
-								: item.sourcePhone == vuex_user.workData.bossNumber
+								: item.sourcePhone == pinia_user.workData.bossNumber
 								? item.billEnterpriseE
 								: item.billEnterpriseS
 						}}
@@ -182,11 +182,11 @@
 					<u-button
 						class="ml30 bg-white"
 						v-if="
-							vuex_user.data.work == '1'
-								? vuex_user.workData.identity == 3 || vuex_user.workData.identity == 1
-									? item.sourcePhone == vuex_user.workData.bossNumber && item.billState != 1
+							pinia_user.data.work == '1'
+								? pinia_user.workData.identity == 3 || pinia_user.workData.identity == 1
+									? item.sourcePhone == pinia_user.workData.bossNumber && item.billState != 1
 									: false
-								: item.sourcePhone == vuex_user.phone && item.billState != 1
+								: item.sourcePhone == pinia_user.phone && item.billState != 1
 						"
 						hover-class="none"
 						plain
@@ -200,7 +200,7 @@
 					<u-button class="ml30" hover-class="none" plain shape="circle" @click="viewDetails(item)" :customStyle="SearchCustomStyleWechat">
 						<u-icon name="list-dot" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="订单列表"></u-icon>
 					</u-button>
-					<!-- v-if="vuex_user.data.work=='1'?vuex_user.workData.identity!=3:true&&item.billState!=1" -->
+					<!-- v-if="pinia_user.data.work=='1'?pinia_user.workData.identity!=3:true&&item.billState!=1" -->
 					<u-button class="ml30" hover-class="none" plain shape="circle" @click="click(index, 1)" v-if="item.billState != 1" :customStyle="SearchCustomStyleWechat">
 						<u-icon name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></u-icon>
 					</u-button>
@@ -215,8 +215,8 @@
 					<view class="fixedBarLeft">
 						<view class="fixedBarLeftTop">
 							<view class="LeftTop_text">
-								<span v-if="vuex_userRole == 'D'">应收：</span>
-								<span v-if="vuex_userRole == 'R'">应付：</span>
+								<span v-if="pinia_userRole == 'D'">应收：</span>
+								<span v-if="pinia_userRole == 'R'">应付：</span>
 								<text>￥{{ formatAmount(parseFloat(price) - parseFloat(discount)) }}</text>
 							</view>
 						</view>
@@ -359,7 +359,7 @@ export default {
 		console.log('进入', option);
 	},
 	onShow() {
-		if (this.vuex_userRole == 'D') {
+		if (this.pinia_userRole == 'D') {
 			uni.setNavigationBarTitle({
 				title: '收款单列表'
 			});
@@ -373,7 +373,7 @@ export default {
 			this.TabList[1].name = '已付款';
 		}
 
-		var identity = this.vuex_user.data.work == '1' ? this.vuex_user.workData.identity != 4 : true;
+		var identity = this.pinia_user.data.work == '1' ? this.pinia_user.workData.identity != 4 : true;
 		this.identity = identity;
 		if (identity) {
 			this.checkFalse();
@@ -402,10 +402,10 @@ export default {
 			console.log('删除', bill);
 
 			var billdel = false;
-			if (this.vuex_user.data.work == '0') {
-				billdel = bill.sourcePhone == this.vuex_user.phone;
+			if (this.pinia_user.data.work == '0') {
+				billdel = bill.sourcePhone == this.pinia_user.phone;
 			} else {
-				billdel = bill.sourcePhone == this.vuex_user.workData.bossNumber;
+				billdel = bill.sourcePhone == this.pinia_user.workData.bossNumber;
 			}
 
 			if (billdel) {
@@ -417,37 +417,37 @@ export default {
 				});
 			} else {
 				//申请
-				this.defaultValues.port = this.vuex_userRole == 'D' ? 'S' : 'E';
+				this.defaultValues.port = this.pinia_userRole == 'D' ? 'S' : 'E';
 				this.defaultValues.orderId = bill.id;
 				this.defaultValues.orderNumber = bill.billNumber;
 				this.defaultValues.genre = 'D';
 
-				var work = this.vuex_user.data.work == '0';
+				var work = this.pinia_user.data.work == '0';
 
-				if (this.vuex_userRole == 'D') {
-					this.defaultValues.aBoss = this.vuex_user.phone;
+				if (this.pinia_userRole == 'D') {
+					this.defaultValues.aBoss = this.pinia_user.phone;
 					this.defaultValues.bBoss = bill.sourcePhone;
 
 					if (work) {
-						this.defaultValues.aUser = this.vuex_user.phone;
+						this.defaultValues.aUser = this.pinia_user.phone;
 					} else {
-						this.defaultValues.aUser = this.vuex_user.workData.bossNumber;
+						this.defaultValues.aUser = this.pinia_user.workData.bossNumber;
 					}
 
 					this.defaultValues.bUser = bill.sourcePhone;
 
-					this.defaultValues.aName = this.vuex_user.ac.enterpriseName || this.vuex_user.phone;
+					this.defaultValues.aName = this.pinia_user.ac.enterpriseName || this.pinia_user.phone;
 				} else {
 					this.defaultValues.aBoss = bill.receptionPhone;
 					this.defaultValues.bBoss = bill.sourcePhone;
 					if (work) {
-						this.defaultValues.aUser = this.vuex_user.phone;
+						this.defaultValues.aUser = this.pinia_user.phone;
 					} else {
-						this.defaultValues.aUser = this.vuex_user.workData.bossNumber;
+						this.defaultValues.aUser = this.pinia_user.workData.bossNumber;
 					}
 					this.defaultValues.bUser = bill.sourcePhone;
 					// this.defaultValues.aName = bill.billEnterpriseS;
-					this.defaultValues.aName = this.vuex_user.ac == null ? this.vuex_user.phone : this.vuex_user.ac.enterpriseName;
+					this.defaultValues.aName = this.pinia_user.ac == null ? this.pinia_user.phone : this.pinia_user.ac.enterpriseName;
 				}
 
 				this.defaultValues.createTime = new Date();
@@ -462,7 +462,7 @@ export default {
 		},
 		OpenBillDetails(id, type) {
 			uni.navigateTo({
-				url: '/pages/subStatistics/receipt/bill_particulars_up?id=' + id + '&port=' + this.vuex_userRole + '&edit=' + type
+				url: '/pages/subStatistics/receipt/bill_particulars_up?id=' + id + '&port=' + this.pinia_userRole + '&edit=' + type
 			});
 		},
 		ChangeTimeStart(e) {
@@ -491,16 +491,16 @@ export default {
 		},
 		getSin(type, index) {
 			var operator = type == 0;
-			var port = this.vuex_userRole == 'D';
+			var port = this.pinia_userRole == 'D';
 			var billPort = port ? '收' : '付';
 
 			var Bill = this.CBills[index];
 
-			var work = this.vuex_user.data.work == '0';
-			var phone = this.vuex_user.phone;
+			var work = this.pinia_user.data.work == '0';
+			var phone = this.pinia_user.phone;
 
 			var content = '';
-			if (Bill.sourcePhone == phone || Bill.sourcePhone == this.vuex_user.workData.bossNumber) {
+			if (Bill.sourcePhone == phone || Bill.sourcePhone == this.pinia_user.workData.bossNumber) {
 				content = '是否确认' + (operator ? '修改' : '删除') + '该' + billPort + '款单?';
 			} else {
 				content = '是否确认向' + (port ? '收' : '发') + '货方申请' + (operator ? '修改' : '删除') + '该' + billPort + '款单，需要对方同意后' + billPort + '款单才会被删除';
@@ -516,7 +516,7 @@ export default {
 					if (res.confirm) {
 						if (operator) {
 							var Bill = this.CBills[index];
-							if (Bill.sourcePhone == this.vuex_user.phone || Bill.sourcePhone == this.vuex_user.workData.bossNumber) {
+							if (Bill.sourcePhone == this.pinia_user.phone || Bill.sourcePhone == this.pinia_user.workData.bossNumber) {
 								this.OpenBillDetails(Bill.id, true);
 							} else {
 								this.$u.toast(`您没有权限修改`);
@@ -567,7 +567,7 @@ export default {
 		okList() {
 			var bill = this.CBills.filter((res) => res.check == true);
 			var okList = bill.map((res) => res.id);
-			this.billTitle = this.vuex_userRole == 'D' ? (okList.length > 1 ? '批量收款' : '收款') : okList.length > 1 ? '批量付款' : '付款';
+			this.billTitle = this.pinia_userRole == 'D' ? (okList.length > 1 ? '批量收款' : '收款') : okList.length > 1 ? '批量付款' : '付款';
 		},
 		okUpdate() {
 			var bill = this.CBills.filter((res) => res.check == true);
@@ -578,7 +578,7 @@ export default {
 				return;
 			}
 
-			var port = this.vuex_userRole == 'D';
+			var port = this.pinia_userRole == 'D';
 			var content = port ? '是否确认收货方已支付该订单？' : '是否向发货方申请确认付款该订单？';
 			uni.showModal({
 				title: '温馨提醒',
@@ -596,7 +596,7 @@ export default {
 			});
 		},
 		chargeBut() {
-			var port = this.vuex_userRole == 'D';
+			var port = this.pinia_userRole == 'D';
 
 			var bill = this.CBills.filter((res) => res.check == true);
 			var okList = bill.map((res) => res.id);
@@ -606,8 +606,8 @@ export default {
 				this.$api.bills
 					.confirmBills({
 						billCheckList: okList,
-						phone: this.vuex_user.phone,
-						port: this.vuex_userRole
+						phone: this.pinia_user.phone,
+						port: this.pinia_userRole
 					})
 					.then((res) => {
 						this.$refs.paging.reload().catch(() => {});
@@ -617,7 +617,7 @@ export default {
 				console.log('收费', bill, okList);
 			} else {
 				//申请付款
-				var work = this.vuex_user.data.work == '0';
+				var work = this.pinia_user.data.work == '0';
 
 				var cDelOrderApplyList = [];
 
@@ -628,53 +628,53 @@ export default {
 							[key]: ''
 						}))
 					);
-					this.defaultValues.port = this.vuex_userRole == 'D' ? 'S' : 'E';
+					this.defaultValues.port = this.pinia_userRole == 'D' ? 'S' : 'E';
 					this.defaultValues.orderId = res.id;
 					this.defaultValues.orderNumber = res.billNumber;
 
-					if (this.vuex_userRole == 'D') {
+					if (this.pinia_userRole == 'D') {
 						this.defaultValues.aBoss = res.sourcePhone;
 						this.defaultValues.bBoss = res.receptionPhone;
 
 						if (work) {
-							this.defaultValues.aUser = this.vuex_user.phone;
+							this.defaultValues.aUser = this.pinia_user.phone;
 						} else {
-							this.defaultValues.aUser = this.vuex_user.workData.bossNumber;
+							this.defaultValues.aUser = this.pinia_user.workData.bossNumber;
 						}
 						this.defaultValues.bUser = res.receptionPhone;
 
 						this.defaultValues.aName = res.billEnterpriseE;
 					} else {
-						// this.defaultValues.aBoss = this.vuex_user.phone;
+						// this.defaultValues.aBoss = this.pinia_user.phone;
 						// this.defaultValues.bBoss = res.receptionPhone;
 						if (work) {
-							this.defaultValues.aUser = this.vuex_user.phone;
-							this.defaultValues.aBoss = this.vuex_user.phone;
+							this.defaultValues.aUser = this.pinia_user.phone;
+							this.defaultValues.aBoss = this.pinia_user.phone;
 						} else {
-							this.defaultValues.aUser = this.vuex_user.workData.bossNumber;
-							this.defaultValues.aBoss = this.vuex_user.workData.bossNumber;
+							this.defaultValues.aUser = this.pinia_user.workData.bossNumber;
+							this.defaultValues.aBoss = this.pinia_user.workData.bossNumber;
 						}
 
-						if (this.defaultValues.aUser == res.receptionPhone || this.vuex_user.workData.bossNumber == res.receptionPhone) {
+						if (this.defaultValues.aUser == res.receptionPhone || this.pinia_user.workData.bossNumber == res.receptionPhone) {
 							this.defaultValues.bUser = res.sourcePhone;
 							this.defaultValues.bBoss = res.sourcePhone;
-						} else if (this.vuex_user.phone == res.sourcePhone || this.vuex_user.workData.bossNumber == res.sourcePhone) {
+						} else if (this.pinia_user.phone == res.sourcePhone || this.pinia_user.workData.bossNumber == res.sourcePhone) {
 							this.defaultValues.bUser = res.receptionPhone;
 							this.defaultValues.bBoss = res.receptionPhone;
 						}
 
 						if (work) {
-							if (this.vuex_user.phone == res.receptionPhone) {
+							if (this.pinia_user.phone == res.receptionPhone) {
 								this.defaultValues.aName = res.billEnterpriseE;
 							}
-							if (this.vuex_user.phone == res.sourcePhone) {
+							if (this.pinia_user.phone == res.sourcePhone) {
 								this.defaultValues.aName = res.billEnterpriseS;
 							}
 						} else {
-							if (this.vuex_user.workData.bossNumber == res.receptionPhone) {
+							if (this.pinia_user.workData.bossNumber == res.receptionPhone) {
 								this.defaultValues.aName = res.billEnterpriseE;
 							}
-							if (this.vuex_user.workData.bossNumber == res.sourcePhone) {
+							if (this.pinia_user.workData.bossNumber == res.sourcePhone) {
 								this.defaultValues.aName = res.billEnterpriseS;
 							}
 						}
@@ -750,7 +750,7 @@ export default {
 					: showTage == 1
 					? '联系号码'
 					: showTage == 2
-					? this.vuex_userRole == 'R'
+					? this.pinia_userRole == 'R'
 						? '收货地址'
 						: '收货地址'
 					: showTage == 3
@@ -760,8 +760,8 @@ export default {
 		Init() {
 			this.okList();
 			let resJson = uni.getStorageSync('companyNameJSON');
-			var ifWorkPort = this.vuex_userRole == 'R';
-			var work = this.vuex_user.data.work == '0';
+			var ifWorkPort = this.pinia_userRole == 'R';
+			var work = this.pinia_user.data.work == '0';
 
 			if (resJson != '') {
 				var json = JSON.parse(resJson);
@@ -779,21 +779,21 @@ export default {
 
 			if (ifWorkPort) {
 				if (work) {
-					this.billFrom.receptionPhone = this.vuex_user.phone;
-					this.billFrom.sourcePhone = this.vuex_user.phone;
+					this.billFrom.receptionPhone = this.pinia_user.phone;
+					this.billFrom.sourcePhone = this.pinia_user.phone;
 				} else {
-					this.billFrom.receptionPhone = this.vuex_user.workData.bossNumber;
-					this.billFrom.sourcePhone = this.vuex_user.workData.bossNumber;
+					this.billFrom.receptionPhone = this.pinia_user.workData.bossNumber;
+					this.billFrom.sourcePhone = this.pinia_user.workData.bossNumber;
 				}
 
 				this.billFrom.type = 0;
 			} else {
 				if (work) {
-					this.billFrom.receptionPhone = this.vuex_user.phone;
-					this.billFrom.sourcePhone = this.vuex_user.phone;
+					this.billFrom.receptionPhone = this.pinia_user.phone;
+					this.billFrom.sourcePhone = this.pinia_user.phone;
 				} else {
-					this.billFrom.receptionPhone = this.vuex_user.workData.bossNumber;
-					this.billFrom.sourcePhone = this.vuex_user.workData.bossNumber;
+					this.billFrom.receptionPhone = this.pinia_user.workData.bossNumber;
+					this.billFrom.sourcePhone = this.pinia_user.workData.bossNumber;
 				}
 				this.billFrom.type = 1;
 			}
@@ -804,7 +804,7 @@ export default {
 			this.billFrom.endTime = this.time.end;
 			this.billFrom.billState = '0';
 
-			this.billFrom.port = this.vuex_userRole;
+			this.billFrom.port = this.pinia_userRole;
 
 			this.SOCKETfLUSH();
 		},
@@ -834,7 +834,7 @@ export default {
 			console.log(text);
 		},
 		InputTextOne(text) {
-			var ifWorkPort = this.vuex_userRole == 'R';
+			var ifWorkPort = this.pinia_userRole == 'R';
 			if (ifWorkPort) {
 				this.billFrom.billEnterpriseS = text;
 			} else {

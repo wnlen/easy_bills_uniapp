@@ -6,6 +6,6 @@ export default (http) => ({
 	},
 	//提交问卷
 	submitSurvey(param) {
-		return http.post('/edo/surveys/submit', param);
+		return http.post('surveys/submit', param);
 	}
 });

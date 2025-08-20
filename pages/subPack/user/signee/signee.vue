@@ -123,8 +123,8 @@ export default {
 		};
 	},
 	onShow() {
-		if (this.vuex_user.workData != null) {
-			var ide = this.vuex_user.workData.identity == '3';
+		if (this.pinia_user.workData != null) {
+			var ide = this.pinia_user.workData.identity == '3';
 			if (ide) {
 				this.identity = true;
 			}
@@ -151,7 +151,7 @@ export default {
 		},
 		finish(e) {
 			console.log('结果', e);
-			var pas = this.vuex_user.vuex_password == e;
+			var pas = this.pinia_user.vuex_password == e;
 			var type = this.type;
 			if (pas) {
 				if (type == 1) {
@@ -170,7 +170,7 @@ export default {
 			var that = this;
 			this.$api.sign
 				.getSignature({
-					phone: this.vuex_user.phone
+					phone: this.pinia_user.phone
 				})
 				.then((res) => {
 					that.orderList = res.data.data;
@@ -183,7 +183,7 @@ export default {
 				});
 		},
 		goDetails(val, type) {
-			var password = this.vuex_user.vuex_password;
+			var password = this.pinia_user.vuex_password;
 			this.val = val;
 			this.type = type;
 			this.showMask = true;

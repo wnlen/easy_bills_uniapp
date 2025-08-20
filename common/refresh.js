@@ -25,7 +25,7 @@ export default (http) => ({
 			const vuexUser = store.user;
 
 			if (!vuexUser.phone) {
-				console.warn('vuex_user 不存在或未登录，跳转登录页');
+				console.warn('pinia_user 不存在或未登录，跳转登录页');
 
 				const query = Object.entries(options)
 					.map(([k, v]) => `${k}=${v}`)
@@ -112,7 +112,7 @@ export default (http) => ({
 				createTime: new Date(),
 				state: 1
 			};
-			http.post('/edo/behavior/add', dx)
+			http.post('behavior/add', dx)
 				.then((res) => console.log('记录结果：', res))
 				.catch((err) => console.log('记录失败：', err));
 		};
@@ -125,7 +125,7 @@ export default (http) => ({
 				console.warn('[getRecord] user.phone 不存在，跳过请求');
 				return;
 			}
-			http.post('/edo/behavior/get', {
+			http.post('behavior/get', {
 					phone
 				})
 				.then((res) => {

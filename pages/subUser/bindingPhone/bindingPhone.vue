@@ -133,18 +133,18 @@ export default {
 			if (!verif) {
 				return;
 			}
-			this.$api.user.loginWithWX(this.fromCode).then((res) => {
-				console.log('===登陆结果===>', res);
-				var data = res.data;
-				if (data.data == '6') {
-					console.log('666');
-					this.$u.toast(data.message);
-					this.hint = false;
-					this.hintMe = data.message;
-				} else if (data.data == '0') {
-					this.$u.toast(data.message);
-				}
-			});
+			// this.$api.user.loginWithWX(this.fromCode).then((res) => {
+			// 	console.log('===登陆结果===>', res);
+			// 	var data = res.data;
+			// 	if (data.data == '6') {
+			// 		console.log('666');
+			// 		this.$u.toast(data.message);
+			// 		this.hint = false;
+			// 		this.hintMe = data.message;
+			// 	} else if (data.data == '0') {
+			// 		this.$u.toast(data.message);
+			// 	}
+			// });
 		},
 		customBack() {
 			uni.navigateBack();

@@ -87,7 +87,7 @@ export default {
 		this.OperatingSystem = this.getOperatingSystem();
 	},
 	onShow() {
-		if (this.vuex_user.phone == undefined) {
+		if (this.pinia_user.phone == undefined) {
 			uni.navigateTo({
 				url: '/pages/subUser/login'
 			});
@@ -134,14 +134,14 @@ export default {
 		getChatMes() {
 			var dx = {
 				fromUser: this.support.phone,
-				toUser: this.vuex_user.phone,
-				phone: this.vuex_user.phone
+				toUser: this.pinia_user.phone,
+				phone: this.pinia_user.phone
 			};
 			this.$u
 				.post('edo/chatting/get', dx)
 				.then((res) => {
 					console.log('聊天记录：', res);
-					var mesList = res.data.data[this.vuex_user.phone];
+					var mesList = res.data.data[this.pinia_user.phone];
 					var mesListPush = [];
 					mesList.forEach((res) => {
 						var mes = {};
@@ -196,8 +196,8 @@ export default {
 		SocketMessage() {
 			console.debug('创建socket');
 			this.chatSocket = uni.connectSocket({
-				url: 'wss://wxapi.elist.com.cn/edo/send/' + this.vuex_user.phone, // 你的 WebSocket 服务器地址
-				// url: 'ws://localhost:8183/edo/send/' + this.vuex_user.phone,
+				url: 'wss://wxapi.elist.com.cn/edo/send/' + this.pinia_user.phone, // 你的 WebSocket 服务器地址
+				// url: 'ws://localhost:8183/edo/send/' + this.pinia_user.phone,
 				success: () => {
 					this.socketOpen = true;
 					console.log('WebSocket 连接已打开');
@@ -252,7 +252,7 @@ export default {
 		},
 		sendMessage(mes) {
 			const chatRecord = {
-				fromUser: this.vuex_user.phone, // 发送者，不能为空
+				fromUser: this.pinia_user.phone, // 发送者，不能为空
 				toUser: this.support.phone, // 被发送者，可以为空
 				message: mes.message, // 消息内容，可以为空
 				type: '1', // 消息所属类型，可以为空
@@ -269,7 +269,7 @@ export default {
 			this.$u.post('/edo/chatting/add', chatRecord).then((res) => {
 				console.log(res.data.data.data);
 				var dx = {
-					formUserId: this.vuex_user.phone,
+					formUserId: this.pinia_user.phone,
 					toUserId: this.support.phone,
 					message: JSON.stringify(res.data.data.id)
 				};
@@ -317,10 +317,10 @@ export default {
 		},
 		playPhoto(file) {
 			//#ifdef MP-WEIXIN
-			var phone = this.vuex_user.phone;
+			var phone = this.pinia_user.phone;
 			// #endif
 			// #ifdef APP
-			var phone = this.vuex_user.phone + '-app';
+			var phone = this.pinia_user.phone + '-app';
 			// #endif
 
 			var that = this;
@@ -328,12 +328,12 @@ export default {
 				url: uni.$http.config.baseURL + '/edo/uploading/chat',
 				header: {
 					phone: phone,
-					token: this.vuex_user.loginToken
+					token: !this.pinia_token
 				},
 				filePath: file.tempFilePaths[0],
 				name: 'file',
 				formData: {
-					phone: this.vuex_user.phone,
+					phone: this.pinia_user.phone,
 					imageType: '1'
 				},
 				success: (uploadFileRes) => {
@@ -341,7 +341,7 @@ export default {
 					console.log('图片地址：', url);
 					//存数据库  刷新
 					const chatRecord = {
-						fromUser: that.vuex_user.phone, // 发送者，不能为空
+						fromUser: that.pinia_user.phone, // 发送者，不能为空
 						toUser: that.support.phone, // 被发送者，可以为空
 						message: url, // 消息内容，可以为空
 						type: '1', // 消息所属类型，可以为空
@@ -350,8 +350,8 @@ export default {
 						createTime: new Date().getTime(), // 创建时间，可以为空（但通常应该是日期时间格式）
 						readTime: '', // 读取时间，可以为空（但通常应该是日期时间格式）
 						withdraw: '1', // 撤回状态，可以为空
-						avator: that.vuex_user.data.headPortrait ? that.vuex_user.data.headPortrait : this.defAtr, // 发起者头像，可以为空
-						name: that.vuex_user.data.name // 发起者名称，可以为空
+						avator: that.pinia_user.data.headPortrait ? that.pinia_user.data.headPortrait : this.defAtr, // 发起者头像，可以为空
+						name: that.pinia_user.data.name // 发起者名称，可以为空
 					};
 
 					console.log('图片发送：', chatRecord);
@@ -363,7 +363,7 @@ export default {
 								name: '白',
 								message: '',
 								time: new Date().getTime(),
-								avator: that.vuex_user.data.headPortrait ? that.vuex_user.data.headPortrait : this.defAtr,
+								avator: that.pinia_user.data.headPortrait ? that.pinia_user.data.headPortrait : this.defAtr,
 								img: file.tempFilePaths[0]
 							};
 
@@ -371,10 +371,10 @@ export default {
 							var dx = {
 								userId: 1,
 								id: getRandomNum(), // id必须是唯一值
-								name: this.vuex_user.data.name,
+								name: this.pinia_user.data.name,
 								message: res.data.data.id,
 								time: new Date().getTime(),
-								avator: that.vuex_user.data.headPortrait ? that.vuex_user.data.headPortrait : this.defAtr,
+								avator: that.pinia_user.data.headPortrait ? that.pinia_user.data.headPortrait : this.defAtr,
 								tagLabel: 'jiang'
 							};
 							this.sendImg(dx);
@@ -385,8 +385,8 @@ export default {
 		},
 		sendImg(dx) {
 			var send = {
-				formUserId: this.vuex_user.phone,
-				fromUserId: this.vuex_user.phone,
+				formUserId: this.pinia_user.phone,
+				fromUserId: this.pinia_user.phone,
 				message: JSON.stringify(dx),
 				toUserId: this.support.phone
 			};
@@ -417,17 +417,17 @@ export default {
 				name: '白',
 				message: '',
 				time: new Date().getTime(),
-				avator: this.vuex_user.data.headPortrait,
+				avator: this.pinia_user.data.headPortrait,
 				img: file.tempFilePaths[0]
 			};
 
 			this.messageList.push(dxc);
 
 			//#ifdef MP-WEIXIN
-			var phone = this.vuex_user.phone;
+			var phone = this.pinia_user.phone;
 			// #endif
 			// #ifdef APP
-			var phone = this.vuex_user.phone + '-app';
+			var phone = this.pinia_user.phone + '-app';
 			// #endif
 
 			var that = this;
@@ -435,12 +435,12 @@ export default {
 				url: uni.$http.config.baseURL + '/edo/uploading/chat',
 				header: {
 					phone: phone,
-					token: this.vuex_user.loginToken
+					token: !this.pinia_token
 				},
 				filePath: file.tempFilePaths[0],
 				name: 'file',
 				formData: {
-					phone: this.vuex_user.phone,
+					phone: this.pinia_user.phone,
 					imageType: '1'
 				},
 				success: (uploadFileRes) => {
@@ -449,15 +449,15 @@ export default {
 					// var dx = {
 					// 	userId: 1,
 					// 	id: getRandomNum(), // id必须是唯一值
-					// 	name: this.vuex_user.data.name,
+					// 	name: this.pinia_user.data.name,
 					// 	message: url,
 					// 	time: new Date().getTime(),
-					// 	avator: that.vuex_user.data.headPortrait ? that.vuex_user.data.headPortrait :this.defAtr,
+					// 	avator: that.pinia_user.data.headPortrait ? that.pinia_user.data.headPortrait :this.defAtr,
 					// 	tagLabel: 'jiang'
 					// }
 					// this.sendImg(dx);
 					const chatRecord = {
-						fromUser: that.vuex_user.phone, // 发送者，不能为空
+						fromUser: that.pinia_user.phone, // 发送者，不能为空
 						toUser: that.support.phone, // 被发送者，可以为空
 						message: url, // 消息内容，可以为空
 						type: '1', // 消息所属类型，可以为空
@@ -466,8 +466,8 @@ export default {
 						createTime: new Date().getTime(), // 创建时间，可以为空（但通常应该是日期时间格式）
 						readTime: '', // 读取时间，可以为空（但通常应该是日期时间格式）
 						withdraw: '1', // 撤回状态，可以为空
-						avator: that.vuex_user.data.headPortrait ? that.vuex_user.data.headPortrait : this.defAtr, // 发起者头像，可以为空
-						name: that.vuex_user.data.name // 发起者名称，可以为空
+						avator: that.pinia_user.data.headPortrait ? that.pinia_user.data.headPortrait : this.defAtr, // 发起者头像，可以为空
+						name: that.pinia_user.data.name // 发起者名称，可以为空
 					};
 
 					this.$u.post('/edo/chatting/add', chatRecord).then((res) => {
@@ -478,7 +478,7 @@ export default {
 							// 			name: '白',
 							// 			message: '',
 							// 			time: new Date().getTime(),
-							// 			avator: that.vuex_user.data.headPortrait ? that.vuex_user.data
+							// 			avator: that.pinia_user.data.headPortrait ? that.pinia_user.data
 							// 				.headPortrait : this.defAtr,
 							// 			img: file.tempFilePaths[0]
 
@@ -488,10 +488,10 @@ export default {
 							var dx = {
 								userId: 1,
 								id: getRandomNum(), // id必须是唯一值
-								name: this.vuex_user.data.name,
+								name: this.pinia_user.data.name,
 								message: res.data.data.id,
 								time: new Date().getTime(),
-								avator: that.vuex_user.data.headPortrait ? that.vuex_user.data.headPortrait : this.defAtr,
+								avator: that.pinia_user.data.headPortrait ? that.pinia_user.data.headPortrait : this.defAtr,
 								tagLabel: 'jiang'
 							};
 							this.sendImg(dx);
@@ -507,10 +507,10 @@ export default {
 			var dx = {
 				userId: 1,
 				id: getRandomNum(), // id必须是唯一值
-				name: this.vuex_user.data.name,
+				name: this.pinia_user.data.name,
 				message: val,
 				time: new Date().getTime(),
-				avator: this.vuex_user.data.headPortrait || 'https://res-oss.elist.com.cn/wxImg/index/mr.svg',
+				avator: this.pinia_user.data.headPortrait || 'https://res-oss.elist.com.cn/wxImg/index/mr.svg',
 				tagLabel: 'jiang'
 			};
 

@@ -4,7 +4,7 @@ export default (http) => ({
 	 * 原始接口：/edo/draft/add
 	 */
 	addDraft(params) {
-		return http.post('/edo/draft/add', params);
+		return http.post('draft/add', params);
 	},
 
 	/**
@@ -12,7 +12,7 @@ export default (http) => ({
 	 * 原始接口：/edo/draft/edit
 	 */
 	editDraft(params) {
-		return http.post('/edo/draft/edit', params);
+		return http.post('draft/edit', params);
 	},
 
 	/**
@@ -20,7 +20,7 @@ export default (http) => ({
 	 * 原始接口：/edo/draft/getFilter
 	 */
 	getDraftList(params) {
-		return http.post('/edo/draft/getFilter', params);
+		return http.post('draft/getFilter', params);
 	},
 
 	/**
@@ -28,7 +28,7 @@ export default (http) => ({
 	 * 原始接口：/edo/draft/delById
 	 */
 	deleteDraftById(params) {
-		return http.post('/edo/draft/delById', params);
+		return http.post('draft/delById', params);
 	},
 
 	/**
@@ -36,7 +36,7 @@ export default (http) => ({
 	 * 原始接口：/edo/draft/amount
 	 */
 	getDraftAmount(params) {
-		return http.post('/edo/draft/amount', params);
+		return http.post('draft/amount', params);
 	},
 	/**
 	 * 根据草稿 ID 获取草稿详情

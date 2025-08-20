@@ -10,8 +10,8 @@
 					</view>
 				</view>
 				<view class="FromInput u-border-bottom">
-					<text class="textcolor" v-if="vuex_userRole == 'D'">客户名称:</text>
-					<text class="textcolor" v-if="vuex_userRole == 'R'">供应商名称:</text>
+					<text class="textcolor" v-if="pinia_userRole == 'D'">客户名称:</text>
+					<text class="textcolor" v-if="pinia_userRole == 'R'">供应商名称:</text>
 					<view class="ml15 flex-1 u-line-1 endcolor" :style="{ color: '#333333' }">
 						{{ billEnterprise }}
 					</view>
@@ -39,7 +39,7 @@
 					/>
 					<text>元</text>
 				</view>
-				<view class="FromInput u-border-bottom" v-if="vuex_userRole == 'D'">
+				<view class="FromInput u-border-bottom" v-if="pinia_userRole == 'D'">
 					<text class="textcolor">折扣率:</text>
 					<input
 						placeholder-class="placeholder_class"
@@ -54,8 +54,8 @@
 					<text>%</text>
 				</view>
 				<view class="FromInput">
-					<text class="textcolor" v-if="vuex_userRole == 'D'">应收金额:</text>
-					<text class="textcolor" v-if="vuex_userRole == 'R'">应付金额:</text>
+					<text class="textcolor" v-if="pinia_userRole == 'D'">应收金额:</text>
+					<text class="textcolor" v-if="pinia_userRole == 'R'">应付金额:</text>
 					<input
 						placeholder-class="placeholder_class"
 						type="number"
@@ -139,32 +139,32 @@
 			<view class="FromOwn">
 				<view class="OwnText">
 					<view class="OwnTextFromTitle">企业名称</view>
-					<text class="OwnTextFromText" v-if="vuex_user.data.work == '0'">
-						{{ vuex_user.ac.enterpriseName || vuex_user.phone }}
+					<text class="OwnTextFromText" v-if="pinia_user.data.work == '0'">
+						{{ pinia_user.ac.enterpriseName || pinia_user.phone }}
 					</text>
 					<text class="OwnTextFromText" v-else>
-						{{ vuex_user.ac.enterpriseName || vuex_user.workData.bossNumber }}
+						{{ pinia_user.ac.enterpriseName || pinia_user.workData.bossNumber }}
 					</text>
 				</view>
 				<view class="OwnText">
 					<view class="OwnTextFromTitle">联系人</view>
-					<text class="OwnTextFromText">{{ vuex_user.data.name || vuex_user.phone || vuex_user.data.phone }}</text>
+					<text class="OwnTextFromText">{{ pinia_user.data.name || pinia_user.phone || pinia_user.data.phone }}</text>
 				</view>
 				<view class="OwnText">
 					<view class="OwnTextFromTitle">联系电话</view>
-					<text class="OwnTextFromText">{{ vuex_user.phone || vuex_user.data.phone }}</text>
+					<text class="OwnTextFromText">{{ pinia_user.phone || pinia_user.data.phone }}</text>
 				</view>
 			</view>
 
 			<view class="sendBill">
 				<!-- #ifdef MP-WEIXIN -->
 				<u-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder(true)" shape="circle">
-					{{ vuex_userRole == 'D' ? '发送收款单' : '发送付款单' }}
+					{{ pinia_userRole == 'D' ? '发送收款单' : '发送付款单' }}
 				</u-button>
 				<!-- #endif -->
 				<!-- #ifdef APP -->
 				<u-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder(false)" shape="circle">
-					{{ vuex_userRole == 'D' ? '发送收款单' : '发送付款单' }}
+					{{ pinia_userRole == 'D' ? '发送收款单' : '发送付款单' }}
 				</u-button>
 				<!-- #endif -->
 			</view>
@@ -176,7 +176,7 @@
 			</view>
 			<view class="text-center mt20" style="color: #01bb74; font-size: 34rpx; font-weight: bold; width: 100%">发送成功!</view>
 			<view class="text-center mt10" style="color: #aaaaaa; font-size: 26rpx; font-weight: normal">
-				{{ vuex_userRole == 'R' ? '付款单已发送给发货人' : '收款单已发送给收货人' }}
+				{{ pinia_userRole == 'R' ? '付款单已发送给发货人' : '收款单已发送给收货人' }}
 			</view>
 			<view class="flex-row justify-center items-center mt40">
 				<button style="" class="BillReturnBtn" @click="ContinueBilling">返回列表</button>
@@ -240,7 +240,7 @@ export default {
 		this.billFrom.billPrice = data.price;
 		this.billFrom.billAfterPrice = data.price.toFixed(2);
 
-		var port = this.vuex_userRole == 'R';
+		var port = this.pinia_userRole == 'R';
 		if (port) {
 			this.billFrom.billEnterpriseS = data.nameE;
 			this.billFrom.billEnterpriseE = data.nameS;
@@ -257,10 +257,10 @@ export default {
 		this.billFrom.orders = JSON.stringify(data.list);
 		this.billFrom.billList = data.list;
 
-		this.billFrom.workPhone = this.vuex_user.phone;
+		this.billFrom.workPhone = this.pinia_user.phone;
 	},
 	onShow() {
-		if (this.vuex_userRole == 'D') {
+		if (this.pinia_userRole == 'D') {
 			uni.setNavigationBarTitle({
 				title: '收款单开具'
 			});
@@ -311,13 +311,13 @@ export default {
 			this.billFrom.billTime = this.$u.timeFormat(new Date(), 'yyyy-mm-dd');
 			this.getOrderNumber();
 
-			var ifwork = this.vuex_user.data.work == '0';
-			var ifWorkPort = this.vuex_userRole == 'R';
+			var ifwork = this.pinia_user.data.work == '0';
+			var ifWorkPort = this.pinia_userRole == 'R';
 			if (!ifwork) {
-				var boss = this.vuex_user.workData.bossNumber;
+				var boss = this.pinia_user.workData.bossNumber;
 				this.billFrom.billPhone = boss;
 			} else {
-				this.billFrom.billPhone = this.vuex_user.phone;
+				this.billFrom.billPhone = this.pinia_user.phone;
 			}
 		},
 		async sendOrder(app) {
@@ -358,7 +358,7 @@ export default {
 
 				this.billFrom.searchJson = JSON.stringify(this.searchJson);
 
-				this.billFrom.type = this.vuex_userRole == 'D' ? 1 : 0;
+				this.billFrom.type = this.pinia_userRole == 'D' ? 1 : 0;
 
 				console.log('this.billFrom:', this.billFrom);
 
@@ -507,8 +507,8 @@ export default {
 				uni.uploadFile({
 					url: uni.$http.config.baseURL + '/edo/bills/file',
 					header: {
-						token: that.vuex_token,
-						phone: app ? that.vuex_user.phone : that.vuex_user.phone + '-app',
+						token: that.pinia_token,
+						phone: app ? that.pinia_user.phone : that.pinia_user.phone + '-app',
 						number: billNumber
 					},
 					filePath: fileAvatar,

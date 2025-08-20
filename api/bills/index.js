@@ -4,14 +4,14 @@ export default (http) => ({
 	 * 原始接口：/edo/bills/QuantityLock
 	 */
 	getLockedBillQuantity(params) {
-		return http.post('/edo/bills/QuantityLock', params);
+		return http.post('bills/QuantityLock', params);
 	},
 	/**
 	 * 获取筛选后的锁定开单列表
 	 * 原始接口：/edo/bills/getFilterLock
 	 */
 	getFilteredLockedBills(params) {
-		return http.post('/edo/bills/getFilterLock', params);
+		return http.post('bills/getFilterLock', params);
 	},
 
 	/**
@@ -19,7 +19,7 @@ export default (http) => ({
 	 * 原始接口：/edo/bills/getFilterLockCheck
 	 */
 	getCheckedLockedBills(params) {
-		return http.post('/edo/bills/getFilterLockCheck', params);
+		return http.post('bills/getFilterLockCheck', params);
 	},
 
 	/**
@@ -27,7 +27,7 @@ export default (http) => ({
 	 * 原始接口：/edo/bills/checkAllId
 	 */
 	checkAllLockedIds(params) {
-		return http.post('/edo/bills/checkAllId', params);
+		return http.post('bills/checkAllId', params);
 	},
 
 	/**
@@ -35,7 +35,7 @@ export default (http) => ({
 	 * 原始接口：/edo/bills/checkAll
 	 */
 	checkAllLockedBills(params) {
-		return http.post('/edo/bills/checkAll', params);
+		return http.post('bills/checkAll', params);
 	},
 
 	/**
@@ -43,7 +43,7 @@ export default (http) => ({
 	 * 原始接口：/edo/bills/getFilterLockPrice
 	 */
 	getLockedBillTotalPrice(params) {
-		return http.post('/edo/bills/getFilterLockPrice', params);
+		return http.post('bills/getFilterLockPrice', params);
 	},
 
 	/**
@@ -51,7 +51,7 @@ export default (http) => ({
 	 * 原始接口：/edo/bills/Quantity
 	 */
 	getLockedBillQuantity(params) {
-		return http.post('/edo/bills/Quantity', params);
+		return http.post('bills/Quantity', params);
 	},
 
 	/**
@@ -59,7 +59,7 @@ export default (http) => ({
 	 * 原始接口：/edo/bills/getFilter
 	 */
 	getFilteredBills(params) {
-		return http.post('/edo/bills/getFilter', params);
+		return http.post('bills/getFilter', params);
 	},
 
 	/**
@@ -67,7 +67,7 @@ export default (http) => ({
 	 * 原始接口：/edo/bills/lock
 	 */
 	lockBills(params) {
-		return http.post('/edo/bills/lock', params);
+		return http.post('bills/lock', params);
 	},
 
 	/**
@@ -75,14 +75,14 @@ export default (http) => ({
 	 * 原始接口：/edo/bills/getFilterIdAll
 	 */
 	getAllFilteredLockedIds(params) {
-		return http.post('/edo/bills/getFilterIdAll', params);
+		return http.post('bills/getFilterIdAll', params);
 	},
 	/**
 	 * 获取一个新的账单编号（自动生成）
 	 * 原始接口：/edo/bills/billNumber
 	 */
 	generateBillNumber(params) {
-		return http.post('/edo/bills/billNumber', params);
+		return http.post('bills/billNumber', params);
 	},
 
 	/**
@@ -90,7 +90,7 @@ export default (http) => ({
 	 * 原始接口：/edo/bills/addBill
 	 */
 	addBill(params) {
-		return http.post('/edo/bills/addBill', params);
+		return http.post('bills/addBill', params);
 	},
 
 	/**
@@ -98,7 +98,7 @@ export default (http) => ({
 	 * 原始接口：/edo/bills/searchBill
 	 */
 	searchBills(params) {
-		return http.post('/edo/bills/searchBill', params);
+		return http.post('bills/searchBill', params);
 	},
 
 	/**
@@ -106,7 +106,7 @@ export default (http) => ({
 	 * 原始接口：/edo/bills/batchBillApply
 	 */
 	batchApplyBills(params) {
-		return http.post('/edo/bills/batchBillApply', params);
+		return http.post('bills/batchBillApply', params);
 	},
 
 	/**
@@ -114,7 +114,7 @@ export default (http) => ({
 	 * 原始接口：/edo/bills/okBill
 	 */
 	confirmBills(params) {
-		return http.post('/edo/bills/okBill', params);
+		return http.post('bills/okBill', params);
 	},
 
 	/**
@@ -122,7 +122,7 @@ export default (http) => ({
 	 * 原始接口：/edo/bills/delApplyFor
 	 */
 	revokeBillApplication(params) {
-		return http.post('/edo/bills/delApplyFor', params);
+		return http.post('bills/delApplyFor', params);
 	},
 
 	/**
@@ -130,7 +130,7 @@ export default (http) => ({
 	 * 原始接口：/edo/bills/delBill
 	 */
 	deleteBill(params) {
-		return http.post('/edo/bills/delBill', params);
+		return http.post('bills/delBill', params);
 	},
 
 	/**
@@ -138,7 +138,7 @@ export default (http) => ({
 	 * 原始接口：/edo/bills/updBill
 	 */
 	updateBill(params) {
-		return http.post('/edo/bills/updBill', params);
+		return http.post('bills/updBill', params);
 	},
 
 	/**
@@ -146,7 +146,7 @@ export default (http) => ({
 	 * 原始接口：/edo/bills/billIdGet
 	 */
 	getBillById(params) {
-		return http.post('/edo/bills/billIdGet', params);
+		return http.post('bills/billIdGet', params);
 	},
 
 	/**
@@ -154,14 +154,14 @@ export default (http) => ({
 	 * 原始接口：/edo/bills/billsByIdGetOrder
 	 */
 	getBillOrdersByIds(params) {
-		return http.post('/edo/bills/billsByIdGetOrder', params);
+		return http.post('bills/billsByIdGetOrder', params);
 	},
 	/**
 	 * 添加开单申请（提交申请内容）
 	 * 原始接口：/edo/apply/add
 	 */
 	addApply(params) {
-		return http.post('edo/apply/add', params);
+		return http.post('apply/add', params);
 	},
 
 	/**
@@ -169,7 +169,7 @@ export default (http) => ({
 	 * 原始接口：/edo/apply/ok
 	 */
 	confirmApply(params) {
-		return http.post('/edo/apply/ok', params);
+		return http.post('apply/ok', params);
 	},
 
 	/**
@@ -177,13 +177,13 @@ export default (http) => ({
 	 * 原始接口：/edo/apply/get
 	 */
 	getApplyList(params) {
-		return http.post('/edo/apply/get', params);
+		return http.post('apply/get', params);
 	},
 	/**
 	 * 检查是否存在未完成序列（如未完成开单流程）
 	 * 原始接口：/edo/sequence/getExist
 	 */
 	checkSequenceExistence(params) {
-		return http.post('/edo/sequence/getExist', params);
+		return http.post('sequence/getExist', params);
 	}
 });

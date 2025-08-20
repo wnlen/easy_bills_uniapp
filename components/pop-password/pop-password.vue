@@ -33,7 +33,7 @@ export default {
 			this.$parent.showPassVerify = false;
 		},
 		confirm(password) {
-			var db_pass = this.vuex_user.vuex_password;
+			var db_pass = this.pinia_user.vuex_password;
 			var sr_pass = this.password;
 			console.log(db_pass === sr_pass, db_pass, sr_pass);
 			if (db_pass === sr_pass) {

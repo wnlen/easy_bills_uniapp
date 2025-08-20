@@ -283,7 +283,7 @@ export default {
 		};
 	},
 	onShow() {
-		var role = this.vuex_userRole == 'R';
+		var role = this.pinia_userRole == 'R';
 		if (role) {
 			this.checked = '供应商';
 		} else {
@@ -311,16 +311,16 @@ export default {
 			var addbBoss = item.map.boss || '';
 			var addWork = item.work == '0';
 
-			var phone = this.vuex_user.phone;
-			var work = this.vuex_user.data.work == '1';
-			var img = this.vuex_user.data.headPortrait;
-			var aName = this.vuex_user.data.nickName || phone;
+			var phone = this.pinia_user.phone;
+			var work = this.pinia_user.data.work == '1';
+			var img = this.pinia_user.data.headPortrait;
+			var aName = this.pinia_user.data.nickName || phone;
 			var identy = '';
 			var aBossNumber = phone;
 
 			if (work) {
-				aBossNumber = this.vuex_user.workData.bossNumber;
-				identy = this.vuex_user.workData.identity;
+				aBossNumber = this.pinia_user.workData.bossNumber;
+				identy = this.pinia_user.workData.identity;
 			}
 
 			var dx = {

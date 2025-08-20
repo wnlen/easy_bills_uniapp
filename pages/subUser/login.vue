@@ -7,24 +7,21 @@
 		<view class="absolute" style="left: 48rpx; top: 120rpx; color: #333333" @click="experience">暂不登录</view>
 		<view class="form-wrap width60 flex-col items-center" style="top: 400rpx">
 			<u-image class="login-logo" width="400rpx" src="https://res-oss.elist.com.cn/wxImg/user/logoLogin.svg" mode="widthFix"></u-image>
-			<view class="width100 pt100 pb60">
-				<u-button
-					type="primary"
-					hover-class="none"
-					color="#01BB74"
-					class="form-btn-big"
-					shape="circle"
-					size="default"
-					open-type="getPhoneNumber"
-					@getphonenumber="(e) => getPhoneNumber(e)"
-					@click=""
-				>
-					<u-icon name="" size="25" label="手机号快捷登录" labelColor="#fff" labelSize="16"></u-icon>
-				</u-button>
+			<view class="width100 pt100 pb60 login_box">
+				<view class="login_btn1" v-if="this.ischeck">
+					<u-button type="primary" hover-class="none" color="#01BB74" shape="circle" size="default" open-type="getPhoneNumber" @getphonenumber="(e) => getPhoneNumber(e)">
+						<u-icon size="25" label="手机号快捷登录" labelColor="#fff" labelSize="16"></u-icon>
+					</u-button>
+				</view>
+				<view class="login_btn2" v-else>
+					<u-button type="primary" hover-class="none" color="#01BB74" shape="circle" size="default" @click="wxmp_login">
+						<u-icon size="25" label="手机号快捷登录" labelColor="#fff" labelSize="16"></u-icon>
+					</u-button>
+				</view>
 				<view class="width100 justify-center items-center flex-row pt30" style="font-size: 20rpx">
 					<view
 						class="flex-col justify-center items-center"
-						:style="{ backgroundColor: disabled ? '#01BB74' : '#ffffff' }"
+						:style="{ backgroundColor: ischeck ? '#01BB74' : '#ffffff' }"
 						@click="radioGroupChange"
 						style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 					>
@@ -114,12 +111,7 @@
 				<view class="button" @click="LoginImport">立即登录</view>
 			</view>
 			<view class="yszc" style="font-size: 20rpx">
-				<view
-					class="flex-col justify-center items-center"
-					:style="{ backgroundColor: disabled ? '#01BB74' : '#ffffff' }"
-					@click="radioGroupChange"
-					style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
-				>
+				<view class="flex-col justify-center items-center list1" :style="{ backgroundColor: ischeck ? '#01BB74' : '#ffffff' }" @click="radioGroupChange">
 					<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
 				</view>
 				<view class="ml15">
@@ -141,7 +133,24 @@
 			</view>
 		</view>
 		<!-- #endif -->
-		<!-- 切换角色 -->
+		<!-- 微信小程序隐私弹窗 -->
+
+		<up-popup :show="yinsi_show" :round="10" mode="center" @close="yinsi_close" @open="yinsi_open" :customStyle="yisi_customStyle">
+			<view class="yinsi_box">
+				<view class="ml15">
+					<text>请详细阅读并同意</text>
+					<text style="color: #01bb74" @top.stop @click="jump(0)">《用户服务协议》</text>
+					<text>和</text>
+					<text style="color: #01bb74" @top.stop @click="jump(1)">《隐私政策》</text>
+					<text>，同意授权后未注册的手机号码将自动注册易单据账号</text>
+				</view>
+
+				<view class="btn_l" @click="yinsi_close">不同意</view>
+				<view @click="yinsi_agree"><button class="btn_r" open-type="getPhoneNumber" @getphonenumber="(e) => getPhoneNumber(e)">同意并继续</button></view>
+			</view>
+		</up-popup>
+
+		<!-- <lq-privacy-dialog ref="privacyDialog" /> -->
 	</view>
 </template>
 
@@ -151,10 +160,16 @@ export default {
 		return {
 			xy: ['https://res-oss.elist.com.cn/notice/ServiceAgreement-v1.htm', 'https://res-oss.elist.com.cn/notice/ApplicationPrivacyAgreement-v1.htm'],
 			role: 0,
-			disabled: false,
+			yisi_customStyle: {
+				width: '90%',
+				height: '330rpx',
+				padding: '40rpx'
+			},
+			yinsi_show: false,
+			ischeck: false,
 			value: 'orange',
 			pageroute: '', //存入页面来源url
-			wxLoginRes: '',
+			wxLoginCode: '',
 			roleShow: false,
 			isApp: false,
 			message: '',
@@ -168,7 +183,6 @@ export default {
 					name: '我要收货'
 				}
 			],
-			disabled: false,
 			eyePassword: true,
 			fromLogin: {
 				phoneNumber: '',
@@ -183,9 +197,8 @@ export default {
 	},
 	onLoad(option) {
 		//使用微信登录获取登录code
-		this.getSystemInfoSyncInit();
+		// this.getSystemInfoSyncInit();
 
-		console.log('option', option);
 		//接收分享参数
 		if (option && option.share_id) {
 			console.log('option', option);
@@ -197,47 +210,35 @@ export default {
 			console.log('this.share_data.versionsthis.share_data.versionsthis.share_data.versions', this.share_data.versions);
 		}
 
-		if (this.isApp) {
-			console.log('app');
-			// var that = this;
-			// uni.login({
-			// 	provider: 'weixin',
-			// 	success: function(loginRes) {
-			// 		that.wxLoginRes = loginRes.code;
-			// 		console.log(loginRes, "app------>");
-			// 	}
-			// });
-		} else {
-			var that = this;
-			uni.login({
-				provider: 'weixin',
-				success: function (loginRes) {
-					that.wxLoginRes = loginRes.code;
-					console.log(loginRes.code, '------CQL');
-				}
-			});
+		var that = this;
+		uni.login({
+			provider: 'weixin',
+			success: function (loginRes) {
+				that.wxLoginCode = loginRes.code;
+				console.log(loginRes.code, '------CQL');
+			}
+		});
 
-			// if (option.url) {
-			// 	that.pageroute = option.url;
-			// 	console.log('使用指定 URL：', option.url);
-			// } else {
-			// 	const prevPage = that.prePage?.();
-			// 	const page = prevPage?.$mp?.page;
+		// if (option.url) {
+		// 	that.pageroute = option.url;
+		// 	console.log('使用指定 URL：', option.url);
+		// } else {
+		// 	const prevPage = that.prePage?.();
+		// 	const page = prevPage?.$mp?.page;
 
-			// 	if (page && page.route && page.options) {
-			// 		const queryString = that.queryParams(page.options);
-			// 		that.pageroute = encodeURIComponent(`/${page.route}?${queryString}`);
-			// 		console.log('使用上一页生成的 URL：', that.pageroute);
-			// 	} else {
-			// 		console.warn('无法获取上一页信息，pageroute 设置失败');
-			// 		that.pageroute = '';
-			// 	}
-			// }
-		}
+		// 	if (page && page.route && page.options) {
+		// 		const queryString = that.queryParams(page.options);
+		// 		that.pageroute = encodeURIComponent(`/${page.route}?${queryString}`);
+		// 		console.log('使用上一页生成的 URL：', that.pageroute);
+		// 	} else {
+		// 		console.warn('无法获取上一页信息，pageroute 设置失败');
+		// 		that.pageroute = '';
+		// 	}
+		// }
 	},
 	onShow() {
 		// #ifdef MP-WEIXIN
-		this.refreshCode();
+		// this.refreshCode();
 		// #endif
 	},
 	onShareAppMessage(ops) {
@@ -248,6 +249,23 @@ export default {
 		};
 	},
 	methods: {
+		yinsi_open() {
+			this.yinsi_show = true;
+		},
+		yinsi_close() {
+			this.yinsi_show = false;
+		},
+		yinsi_agree() {
+			this.ischeck = true;
+			this.yinsi_close();
+		},
+		//隐私协议弹窗
+		wxmp_login() {
+			if (!this.ischeck) {
+				this.yinsi_show = true;
+			} else {
+			}
+		},
 		getSystemInfoSyncInit() {
 			const systemInfo = uni.getSystemInfoSync();
 			if (systemInfo.platform === 'android' || systemInfo.platform === 'ios') {
@@ -269,17 +287,6 @@ export default {
 				url: '/pages/subUser/webpage?url=' + this.xy[i]
 			});
 		},
-		refreshCode() {
-			var that = this;
-			uni.login({
-				provider: 'weixin',
-				success: function (loginRes) {
-					that.wxLoginRes = loginRes.code;
-					console.log('loginRes.code======>', loginRes.code);
-					console.log('loginRes======>', loginRes);
-				}
-			});
-		},
 		roleQH(i) {
 			this.role = i;
 		},
@@ -287,31 +294,27 @@ export default {
 			console.log(e + '1');
 		},
 		radioGroupChange(e) {
-			console.log('点击');
-			if (this.disabled) {
-				this.disabled = false;
-			} else {
-				this.disabled = true;
-			}
+			this.ischeck = !this.ischeck;
 		},
+		//获取手机号，并登录
 		getPhoneNumber(e) {
-			if (this.disabled) {
-				var that = this;
-				if (!e.detail.code) {
-					that.$u.toast('请授权手机号进行登录~');
-					return;
-				}
-
-				const inviterId = uni.getStorageSync('inviterId') || null; // 登录前保存过
-				if (that.wxLoginRes) {
-					this.refreshCode();
-					this.$api.user
-						.loginWithWXOld({
-							loginCode: that.wxLoginRes,
-							phoneCode: e.detail.code,
-							inviterId: inviterId || null
+			var that = this;
+			uni.login({
+				provider: 'weixin',
+				onlyAuthorize: true,
+				success: function (res) {
+					const inviterId = uni.getStorageSync('inviterId') || null; // 登录前保存过
+					console.log('开始登录', that.$api.user);
+					console.log('开始登录', res);
+					console.log('开始登录', e.detail.code);
+					that.$api.user
+						.loginMpWX({
+							loginCode: res.code, //登录code
+							phoneCode: e.detail.code, //手机号code
+							inviterId: inviterId || null //邀请id
 						})
 						.then((res) => {
+							console.log('res', res);
 							var resDate = res.data.data;
 							that.message = resDate.loginState;
 
@@ -321,20 +324,20 @@ export default {
 							}
 
 							if (resDate.data.work == '' || resDate.data.work != '1') {
-								this.$u.setPinia({
+								that.$u.setPinia({
 									user: {
 										work: 'N'
 									}
 								});
 							} else {
-								this.$u.setPinia({
+								that.$u.setPinia({
 									user: {
 										work: 'Y'
 									}
 								});
 							}
-							console.log('登录成狗，设置缓存');
-							this.$u.setPinia({
+
+							that.$u.setPinia({
 								user: {
 									userRole: 'D',
 									token: resDate.loginToken,
@@ -347,28 +350,28 @@ export default {
 							});
 
 							if (resDate.phone != '' && resDate.data.work != null) {
-								this.$loadUser(this);
+								that.$loadUser(that);
 								//接收分享参数
-								if (Object.keys(this.share_data).length != 0) {
-									console.log('接收分享参数', this.share_data);
+								if (Object.keys(that.share_data).length != 0) {
+									console.log('接收分享参数', that.share_data);
 									uni.redirectTo({
 										url:
 											'/pages/subOrder/detailsShare?share_id=' +
-											this.share_data.id +
+											that.share_data.id +
 											'&phone=' +
-											this.share_data.phone +
+											that.share_data.phone +
 											'&port=' +
-											this.share_data.port +
+											that.share_data.port +
 											'&type=' +
-											this.share_data.type +
+											that.share_data.type +
 											'&versions=' +
-											this.share_data.versions
+											that.share_data.versions
 									});
 								} else {
 									uni.switchTab({
 										url: '/pages/index/index'
 									});
-									this.roleShow = true;
+									that.roleShow = true;
 								}
 							} else {
 								that.$u.toast(that.message);
@@ -377,12 +380,8 @@ export default {
 						.catch((res) => {
 							that.$u.toast('服务器异常,请联系官方客服');
 						});
-				} else {
-					this.$u.toast(that.wxLoginRes);
 				}
-			} else {
-				this.$u.toast('请同意用户协议~');
-			}
+			});
 		},
 		queryParams(data, isPrefix = false) {
 			let prefix = isPrefix ? '?' : '';
@@ -561,30 +560,30 @@ export default {
 		LoginPhone(phone) {
 			console.log('手机号码：', phone);
 			this.fromLogin.phoneNumber = phone;
-			this.$api.user.loginWithAppPhone(this.fromLogin).then.then((res) => {
-				console.log(res);
-				var mess = res.data;
-				this.$u.toast(mess.message);
-				setTimeout(() => {
-					uni.closeAuthView(); //关闭一键登录弹出窗口
-				}, 500);
-				if (mess.data.type == 1) {
-					this.$u.setPinia({
-						user: {
-							user: mess.data,
-							token: mess.data.loginToken
-						}
-					});
+			// this.$api.user.loginWithAppPhone(this.fromLogin).then.then((res) => {
+			// 	console.log(res);
+			// 	var mess = res.data;
+			// 	this.$u.toast(mess.message);
+			// 	setTimeout(() => {
+			// 		uni.closeAuthView(); //关闭一键登录弹出窗口
+			// 	}, 500);
+			// 	if (mess.data.type == 1) {
+			// 		this.$u.setPinia({
+			// 			user: {
+			// 				user: mess.data,
+			// 				token: mess.data.loginToken
+			// 			}
+			// 		});
 
-					this.$loadUser(this);
-					uni.switchTab({
-						url: '/pages/index/index'
-					});
-				}
-			});
+			// 		this.$loadUser(this);
+			// 		uni.switchTab({
+			// 			url: '/pages/index/index'
+			// 		});
+			// 	}
+			// });
 		},
 		LoginImport() {
-			if (!this.disabled) {
+			if (!this.ischeck) {
 				this.$u.toast('请勾选用户协议～');
 				return;
 			}
@@ -601,25 +600,25 @@ export default {
 				return;
 			}
 
-			this.$api.user.loginWithAppAccount(this.fromLogin).then((res) => {
-				var code = res.data.data;
-				console.log(code);
-				if (code.type == 1) {
-					this.$u.setPinia({
-						user: {
-							user: code,
-							token: code.loginToken
-						}
-					});
+			// this.$api.user.loginWithAppAccount(this.fromLogin).then((res) => {
+			// 	var code = res.data.data;
+			// 	console.log(code);
+			// 	if (code.type == 1) {
+			// 		this.$u.setPinia({
+			// 			user: {
+			// 				user: code,
+			// 				token: code.loginToken
+			// 			}
+			// 		});
 
-					this.$loadUser(this);
-					uni.switchTab({
-						url: '/pages/index/index'
-					});
-				} else {
-					this.$u.toast('密码错误~');
-				}
-			});
+			// 		this.$loadUser(this);
+			// 		uni.switchTab({
+			// 			url: '/pages/index/index'
+			// 		});
+			// 	} else {
+			// 		this.$u.toast('密码错误~');
+			// 	}
+			// });
 		},
 		wxloginInit() {
 			var _this = this;
@@ -681,13 +680,13 @@ export default {
 			var dx = {
 				code: code
 			};
-			this.$api.user.loginWithWX(dx).then((res) => {
-				var code = res.data.data;
-				console.log(res);
-				uni.navigateTo({
-					url: '/pages/subUser/bindingPhone/bindingPhone?openid=123'
-				});
-			});
+			// this.$api.user.loginWithWX(dx).then((res) => {
+			// 	var code = res.data.data;
+			// 	console.log(res);
+			// 	uni.navigateTo({
+			// 		url: '/pages/subUser/bindingPhone/bindingPhone?openid=123'
+			// 	});
+			// });
 		},
 		isValid(value) {
 			return value !== null && value !== '' && value !== undefined;
@@ -744,6 +743,12 @@ export default {
 	flex-direction: row;
 	align-items: center;
 	padding-top: 30rpx;
+	.list1 {
+		border-radius: 100rpx;
+		height: 30rpx;
+		width: 30rpx;
+		border: 2rpx solid #aaaaaa;
+	}
 }
 
 .head {
@@ -871,5 +876,50 @@ input {
 .err {
 	color: #f53f3f;
 	font-size: 24rpx;
+}
+.yinsi_box {
+	position: relative;
+	height: 250rpx;
+	.btn_l {
+		position: absolute;
+		width: 280rpx;
+		height: 80rpx;
+		bottom: 0;
+		left: 0;
+		border: 2rpx solid #00d382;
+		color: #00d382;
+		border-radius: 20rpx;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.btn_r {
+		position: absolute;
+		width: 280rpx;
+		height: 80rpx;
+		bottom: 0;
+		right: 0;
+		background-color: #00d382;
+		color: #fff;
+		border-radius: 20rpx;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}
+.login_box {
+	position: relative;
+	.login_btn1 {
+		position: absolute;
+		top: 0;
+		width: 100%;
+		z-index: 1;
+	}
+	.login_btn2 {
+		position: absolute;
+		top: 0;
+		width: 100%;
+		z-index: 2;
+	}
 }
 </style>

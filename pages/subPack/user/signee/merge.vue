@@ -113,7 +113,7 @@ export default {
 		var that = this;
 		this.$api.sign
 			.getSignature({
-				phone: this.vuex_user.phone
+				phone: this.pinia_user.phone
 			})
 			.then((res) => {
 				var json = res.data.data[0];
@@ -127,7 +127,7 @@ export default {
 
 		this.$api.order
 			.getAccountStatistics({
-				user: this.vuex_user.phone
+				user: this.pinia_user.phone
 			})
 			.then((res) => {
 				var json = res.data.data;
@@ -155,20 +155,20 @@ export default {
 	},
 	methods: {
 		loadData() {
-			console.log('用户信息实时更新 ', this.vuex_user);
+			console.log('用户信息实时更新 ', this.pinia_user);
 		},
 		switchChange(val) {
 			console.log(val);
 			this.formData.ifDefault = val ? 'Y' : 'N';
 		},
 		submit() {
-			this.formDataFirm.phone = this.vuex_user.phone;
-			this.formDataFirm.user = this.vuex_user.phone;
+			this.formDataFirm.phone = this.pinia_user.phone;
+			this.formDataFirm.user = this.pinia_user.phone;
 
 			var dx = {
 				id: this.formData.id,
 				name: this.formData.signeeName,
-				phone: this.vuex_user.phone,
+				phone: this.pinia_user.phone,
 				signatureImg: this.formData.signeeImage,
 				password: this.formData.password,
 				state: '1',

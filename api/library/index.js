@@ -4,7 +4,7 @@ export default (http) => ({
 	 * 原始接口：/edo/library/add
 	 */
 	addCommodity(params) {
-		return http.post('/edo/library/add', params);
+		return http.post('library/add', params);
 	},
 
 	/**
@@ -12,7 +12,7 @@ export default (http) => ({
 	 * 原始接口：/edo/library/get
 	 */
 	getCommodityList(params) {
-		return http.post('/edo/library/get', params);
+		return http.post('library/get', params);
 	},
 
 	/**
@@ -20,7 +20,7 @@ export default (http) => ({
 	 * 原始接口：/edo/library/upd
 	 */
 	updateCommodity(params) {
-		return http.post('/edo/library/upd', params);
+		return http.post('library/upd', params);
 	},
 
 	/**
@@ -28,13 +28,13 @@ export default (http) => ({
 	 * 原始接口：/edo/library/del
 	 */
 	deleteCommodity(params) {
-		return http.post('/edo/library/del', params);
+		return http.post('library/del', params);
 	},
 	/**
 	 * 根据商品 ID 获取商品详情
 	 * 原始接口：/edo/library/get/id
 	 */
 	getCommodityById(params) {
-		return http.post('/edo/library/get/id', params);
+		return http.post('library/get/id', params);
 	}
 });

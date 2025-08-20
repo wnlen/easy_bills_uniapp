@@ -1,37 +1,41 @@
 // common/globalMixin.js
-import { useUserStore } from '@/store/user';
-import { useGlobalStore } from '@/store/global';
-import { formatAmount } from '@/common/format.js';
+import {
+	useUserStore
+} from '@/store/user';
+import {
+	useGlobalStore
+} from '@/store/global';
+import {
+	formatAmount
+} from '@/common/format.js';
 
 export default {
 	methods: {
 		formatAmount
 	},
 	computed: {
-		vuex_user() {
+		pinia_user() {
 			const store = useUserStore();
+			console.log('vvvvvvvvvvvvvvvvvvvvvvvv', useUserStore())
 			return {
-				phone: '',
-				data: {
-					headPortrait: '',
-					name: '',
-					work: ''
-				},
-				ac: {
-					enterpriseName: ''
-				},
-				workData: {},
+				// phone: '',
+				// data: {
+				// 	headPortrait: '',
+				// 	name: '',
+				// 	work: ''
+				// },
+				// workData: {},
 				...store.user
 			};
 		},
-		vuex_userRole() {
+		pinia_userRole() {
 			return useUserStore().userRole || 'D';
 		},
-		vuex_token() {
+		pinia_token() {
 			console.log('useUserStore().token', useUserStore().token);
 			return useUserStore().token || '';
 		},
-		vuex_work() {
+		pinia_work() {
 			return useUserStore().work || '';
 		},
 		ImgUrl() {

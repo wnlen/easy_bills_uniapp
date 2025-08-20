@@ -57,14 +57,14 @@ export default {
 						console.log('---撤销---');
 						this.$api.user
 							.revokeUnsubscribe({
-								phone: this.vuex_user.phone
+								phone: this.pinia_user.phone
 							})
 							.then((res) => {
 								var code = res.data.data == 1;
 								if (code) {
 									this.$loadUser(this);
-									console.log(this.vuex_user.data.state);
-									var freezeState = this.vuex_user.data.state == '0';
+									console.log(this.pinia_user.data.state);
+									var freezeState = this.pinia_user.data.state == '0';
 									if (!freezeState) {
 										uni.switchTab({
 											url: '/pages/index/index'

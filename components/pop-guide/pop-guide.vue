@@ -79,7 +79,7 @@ export default {
 			console.log(this.functionGuideData.step);
 			console.log(this.$u.getPinia('user.userRole'));
 
-			var port = this.vuex_userRole == 'D';
+			var port = this.pinia_userRole == 'D';
 			if (port) {
 				// if (this.$parent.guidancePage == 4) {
 				if (this.functionGuideData.step == 4) {
@@ -120,10 +120,10 @@ export default {
 			this.show = false;
 			this.$loadUser(this);
 			var dx = {
-				phoneNumber: this.vuex_user.phone,
+				phoneNumber: this.pinia_user.phone,
 				guidanceD: port ? 0 : 1,
 				guidanceR: port ? 1 : 0,
-				port: this.vuex_userRole
+				port: this.pinia_userRole
 			};
 			this.$api.user.userGuidance(dx).then((res) => {});
 		},

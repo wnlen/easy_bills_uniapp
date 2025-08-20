@@ -26,7 +26,7 @@ export default {
 	},
 	onLoad(option) {
 		console.log('地址：', option.feedId);
-		this.feedId = this.vuex_userRole == 'D' ? this.listD[option.feedId] : this.listR[option.feedId];
+		this.feedId = this.pinia_userRole == 'D' ? this.listD[option.feedId] : this.listR[option.feedId];
 	},
 	methods: {}
 };

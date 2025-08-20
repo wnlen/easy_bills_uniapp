@@ -4,14 +4,14 @@ export default (http) => ({
 	 * 原始接口：/edo/order/getFilterSum
 	 */
 	getFilteredOrderSum(params) {
-		return http.post('/edo/order/getFilterSum', params);
+		return http.post('order/getFilterSum', params);
 	},
 	/**
 	 * 获取筛选条件下的订单总数量
 	 * 原始接口：/edo/order/Quantity
 	 */
 	getFilteredOrderCount(params) {
-		return http.post('/edo/order/Quantity', params);
+		return http.post('order/Quantity', params);
 	},
 	/**
 	 * 根据订单 ID 获取订单详情
@@ -26,7 +26,7 @@ export default (http) => ({
 	 * 原始接口：/edo/order/getFilter
 	 */
 	getFilteredOrders(params) {
-		return http.post('/edo/order/getFilter', params);
+		return http.post('order/getFilter', params);
 	},
 
 	/**
@@ -34,7 +34,7 @@ export default (http) => ({
 	 * 原始接口：/edo/order/pdf
 	 */
 	generateOrderPDF(params) {
-		return http.post('/edo/order/pdf', params);
+		return http.post('order/pdf', params);
 	},
 
 	/**
@@ -42,14 +42,14 @@ export default (http) => ({
 	 * 原始接口：/edo/order/signFor
 	 */
 	signForOrder(params) {
-		return http.post('/edo/order/signFor', params);
+		return http.post('order/signFor', params);
 	},
 	/**
 	 * 添加临时订单（草稿）
 	 * 原始接口：/edo/orderDel/add
 	 */
 	addTemporaryOrder(params) {
-		return http.post('/edo/orderDel/add', params);
+		return http.post('orderDel/add', params);
 	},
 
 	/**
@@ -57,7 +57,7 @@ export default (http) => ({
 	 * 原始接口：/edo/order/add
 	 */
 	addOrder(params) {
-		return http.post('/edo/order/add', params);
+		return http.post('order/add', params);
 	},
 
 	/**
@@ -81,7 +81,7 @@ export default (http) => ({
 	 * 原始接口：/edo/order/edit
 	 */
 	editOrder(params) {
-		return http.post('/edo/order/edit', params);
+		return http.post('order/edit', params);
 	},
 
 	/**
@@ -89,14 +89,14 @@ export default (http) => ({
 	 * 原始接口：/edo/order/authentication
 	 */
 	authenticateOrder(params) {
-		return http.post('/edo/order/authentication', params);
+		return http.post('order/authentication', params);
 	},
 	/**
 	 * 生成订单 PDF（带附加标识）
 	 * 原始接口：/edo/order/pdf/idPlus
 	 */
 	generateOrderPDFWithId(params) {
-		return http.post('/edo/order/pdf/idPlus', params);
+		return http.post('order/pdf/idPlus', params);
 	},
 
 	/**
@@ -104,28 +104,28 @@ export default (http) => ({
 	 * 原始接口：/edo/order/get
 	 */
 	getOrders(params) {
-		return http.post('/edo/order/get', params);
+		return http.post('order/get', params);
 	},
 	/**
 	 * 获取账本统计信息（总支出、收入、结余等）
 	 * 原始接口：/edo/ac/get
 	 */
 	getAccountStatistics(params) {
-		return http.post('/edo/ac/get', params);
+		return http.post('ac/get', params);
 	},
 	/**
 	 * 添加账本记录（支出/收入）
 	 * 原始接口：/edo/ac/add
 	 */
 	addAccountRecord(params) {
-		return http.post('/edo/ac/add', params);
+		return http.post('ac/add', params);
 	},
 	/**
 	 * 获取历史订单数据
 	 * 原始接口：/edo/order/old
 	 */
 	getOldOrders(params) {
-		return http.post('edo/order/old', params);
+		return http.post('order/old', params);
 	},
 
 	/**
@@ -133,14 +133,14 @@ export default (http) => ({
 	 * 原始接口：/edo/order/market
 	 */
 	getMarketOrders(params) {
-		return http.post('edo/order/market', params);
+		return http.post('order/market', params);
 	},
 	/**
 	 * 编辑订单草稿
 	 * 原始接口：/edo/orderDel/up
 	 */
 	updateOrderDraft(params) {
-		return http.post('/edo/orderDel/up', params);
+		return http.post('orderDel/up', params);
 	},
 
 	/**
@@ -148,7 +148,7 @@ export default (http) => ({
 	 * 原始接口：/edo/orderDel/get
 	 */
 	getOrderDraftList(params) {
-		return http.post('/edo/orderDel/get', params);
+		return http.post('orderDel/get', params);
 	},
 
 	/**
@@ -156,7 +156,7 @@ export default (http) => ({
 	 * 原始接口：/edo/orderDel/getLimit
 	 */
 	getOrderDraftLimit(params) {
-		return http.post('/edo/orderDel/getLimit', params);
+		return http.post('orderDel/getLimit', params);
 	},
 
 	/**
@@ -164,14 +164,14 @@ export default (http) => ({
 	 * 原始接口：/edo/orderDel/ok
 	 */
 	confirmOrderDraft(params) {
-		return http.post('/edo/orderDel/ok', params);
+		return http.post('orderDel/ok', params);
 	},
 	/**
 	 * 根据订单 ID 获取记录列表（如签收、打印、审核记录）
 	 * 原始接口：/edo/record/orderId
 	 */
 	getOrderRecords(params) {
-		return http.post('/edo/record/orderId', params);
+		return http.post('record/orderId', params);
 	},
 	/**
 	 * 获取发货订单列表（按发货端和收货端主账号筛选）
@@ -186,7 +186,7 @@ export default (http) => ({
 	 * 原始接口：/edo/delivery/share
 	 */
 	shareDeliveryOrder(params) {
-		return http.post('/edo/delivery/share', params);
+		return http.post('delivery/share', params);
 	},
 
 	/**
@@ -194,6 +194,6 @@ export default (http) => ({
 	 * 原始接口：/edo/delivery/direct
 	 */
 	directDelivery(params) {
-		return http.post('/edo/delivery/direct', params);
+		return http.post('delivery/direct', params);
 	}
 });

@@ -75,7 +75,7 @@
 								border: '2rpx solid ' + (showOrderTage == '1' ? '#01BB74' : '#999999')
 							}"
 						>
-							{{ vuex_userRole == 'R' ? '待确收' : '待签收' }}
+							{{ pinia_userRole == 'R' ? '待确收' : '待签收' }}
 						</view>
 						<view
 							class="flex-row justify-center items-center tags2"
@@ -95,15 +95,15 @@
 								border: '2rpx solid ' + (showOrderTage == '3' ? '#01BB74' : '#999999')
 							}"
 						>
-							{{ vuex_userRole == 'R' ? '已付款' : '已收款' }}
+							{{ pinia_userRole == 'R' ? '已付款' : '已收款' }}
 						</view>
 					</view>
 
 					<div class="flex-row items-center radius pr20 mr10 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%">
 						<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
-							<text class="ft11 ft-gray ml36 mr20" @click="CustomerGet">{{ vuex_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
+							<text class="ft11 ft-gray ml36 mr20" @click="CustomerGet">{{ pinia_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
 							<view class="ml24 flex-1">
-								<u-input border="none" @change="changeCustomer" v-model="customer" :placeholder="vuex_userRole == 'R' ? '请选择供应商' : '请选择客户'"></u-input>
+								<u-input border="none" @change="changeCustomer" v-model="customer" :placeholder="pinia_userRole == 'R' ? '请选择供应商' : '请选择客户'"></u-input>
 							</view>
 
 							<div class="flex-col justify-center items-center" style="height: 5vh">
@@ -161,18 +161,18 @@
 							</view>
 						</view>
 						<view class="ml20" style="margin-right: -20rpx">
-							<u-image v-if="vuex_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></u-image>
-							<u-image v-if="vuex_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/dqs.png"></u-image>
+							<u-image v-if="pinia_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></u-image>
+							<u-image v-if="pinia_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/dqs.png"></u-image>
 							<u-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="@/static/img/obj/bq2.png" :lazy-load="true"></u-image>
 							<u-image
-								v-if="vuex_userRole != 'R' && item.paymentState == '2'"
+								v-if="pinia_userRole != 'R' && item.paymentState == '2'"
 								width="120rpx"
 								height="50rpx"
 								class="u-img"
 								src="@/static/img/obj/bq3.png"
 								:lazy-load="true"
 							></u-image>
-							<u-image v-if="vuex_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/yfk.png"></u-image>
+							<u-image v-if="pinia_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/yfk.png"></u-image>
 						</view>
 					</view>
 					<view class="width100 pb25 pt10 u-skeleton-fillet">
@@ -180,7 +180,7 @@
 							<u-col span="20">
 								<view class="flex-col items-center text-left">
 									<text
-										v-if="vuex_userRole != 'R'"
+										v-if="pinia_userRole != 'R'"
 										:style="{
 											color: ifZX(item.bossNumberE) ? '#AAAAAA' : '#3D3D3D'
 										}"
@@ -190,7 +190,7 @@
 										{{ item.organizationE || item.bossNumberE }}{{ ifZX(item.bossNumberE) ? '(已注销)' : '' }}
 									</text>
 									<text
-										v-if="vuex_userRole == 'R'"
+										v-if="pinia_userRole == 'R'"
 										:style="{
 											color: ifZX(item.bossNumberS) ? '#AAAAAA' : '#3D3D3D'
 										}"
@@ -389,7 +389,7 @@
 										color: showTage == '2' ? '#ffffff' : '#01BB74'
 									}"
 								>
-									{{ vuex_userRole == 'R' ? '收货地址' : '收货地址' }}
+									{{ pinia_userRole == 'R' ? '收货地址' : '收货地址' }}
 								</view>
 							</view>
 							<view class="flex-row mt20" style="width: 100%">
@@ -550,8 +550,8 @@ export default {
 	},
 	onLoad() {
 		var a = this.filterTags;
-		var bn = this.vuex_user.jurisdiction.hasOwnProperty('A1');
-		var yn = this.vuex_user.jurisdiction.hasOwnProperty('A2');
+		var bn = this.pinia_user.jurisdiction.hasOwnProperty('A1');
+		var yn = this.pinia_user.jurisdiction.hasOwnProperty('A2');
 		if (bn) {
 			this.filterTags[3].key = true;
 		}
@@ -560,8 +560,8 @@ export default {
 		}
 
 		var text = '';
-		for (let key in this.vuex_user.jurisdiction) {
-			var date = this.$u.timeFormat(this.vuex_user.jurisdiction[key], 'yyyy-mm-dd');
+		for (let key in this.pinia_user.jurisdiction) {
+			var date = this.$u.timeFormat(this.pinia_user.jurisdiction[key], 'yyyy-mm-dd');
 			console.log(key.includes('DQ'));
 			if (key.includes('DQ')) {
 				// "近三月，近一年 到期时间2024.12.31"
@@ -619,9 +619,9 @@ export default {
 
 		this.systemIf();
 
-		var ifwork = this.vuex_user.data.work == '0';
+		var ifwork = this.pinia_user.data.work == '0';
 		var timeEmp = this.realTimeSel.startDate == '' || this.realTimeSel.endDate == '';
-		var ifWorkPort = this.vuex_userRole == 'R';
+		var ifWorkPort = this.pinia_userRole == 'R';
 
 		if (ifwork) {
 			console.log('没工作');
@@ -629,24 +629,24 @@ export default {
 				//发货
 				console.log('没工作 发货');
 				this.realTimeSel.bossNumberE = '';
-				this.realTimeSel.bossNumberS = this.vuex_user.phone;
+				this.realTimeSel.bossNumberS = this.pinia_user.phone;
 			} else {
 				//收货
 				console.log('没工作 收货');
 				this.realTimeSel.bossNumberS = '';
-				this.realTimeSel.bossNumberE = this.vuex_user.phone;
+				this.realTimeSel.bossNumberE = this.pinia_user.phone;
 			}
 		} else {
 			console.log('有工作');
-			var identity = this.vuex_user.workData.identity;
-			var boss = this.vuex_user.workData.bossNumber;
+			var identity = this.pinia_user.workData.identity;
+			var boss = this.pinia_user.workData.bossNumber;
 
 			if (!ifWorkPort) {
 				console.log('有工作 发货');
 				this.realTimeSel.staffNumberE = '';
 				if (identity == '4') {
 					console.log('有工作 发货 员工');
-					this.realTimeSel.staffNumberS = this.vuex_user.phone;
+					this.realTimeSel.staffNumberS = this.pinia_user.phone;
 					this.realTimeSel.bossNumberS = boss;
 					// this.realTimeSel.staffNumberS = boss;
 				} else {
@@ -659,7 +659,7 @@ export default {
 				this.realTimeSel.staffNumberS = '';
 				if (identity == '4') {
 					console.log('有工作 收货 员工');
-					this.realTimeSel.staffNumberE = this.vuex_user.phone;
+					this.realTimeSel.staffNumberE = this.pinia_user.phone;
 					this.realTimeSel.bossNumberE = boss;
 				} else {
 					console.log('有工作 收货 其他');
@@ -708,7 +708,7 @@ export default {
 	},
 	methods: {
 		jumpVideo() {
-			var port = this.vuex_userRole == 'D';
+			var port = this.pinia_userRole == 'D';
 			this.$openVideo(port ? 1 : 0);
 		},
 		virtualListChange(vList) {
@@ -726,7 +726,7 @@ export default {
 			if (this.refresh) {
 				this.refresh = false;
 				this.onReachBottom = false;
-				this.realTimeSel.role = this.vuex_userRole == 'R' ? '1' : '0';
+				this.realTimeSel.role = this.pinia_userRole == 'R' ? '1' : '0';
 				this.$u
 					.post('/edo/order/getFilter', this.realTimeSel)
 					.then((res) => {
@@ -749,7 +749,6 @@ export default {
 					.catch((res) => {
 						this.$refs.paging.complete(false);
 						this.refresh = true;
-						this.$u.toast('请求失败');
 					});
 
 				this.$u
@@ -761,9 +760,7 @@ export default {
 					})
 					.catch((res) => {
 						this.refresh = true;
-						this.$u.toast('获取个数失败');
 					});
-				//
 			} else {
 				//console.debug("请求到底拦截");
 			}
@@ -801,8 +798,8 @@ export default {
 		},
 		loadVip() {
 			var a = this.filterTags;
-			var bn = this.vuex_user.jurisdiction.hasOwnProperty('A1');
-			var yn = this.vuex_user.jurisdiction.hasOwnProperty('A2');
+			var bn = this.pinia_user.jurisdiction.hasOwnProperty('A1');
+			var yn = this.pinia_user.jurisdiction.hasOwnProperty('A2');
 			if (bn) {
 				this.filterTags[3].key = true;
 			}
@@ -818,7 +815,7 @@ export default {
 					: showTage == 1
 					? '联系号码'
 					: showTage == 2
-					? this.vuex_userRole == 'R'
+					? this.pinia_userRole == 'R'
 						? '收货地址'
 						: '收货地址'
 					: showTage == 3
@@ -826,32 +823,32 @@ export default {
 					: '条件筛选';
 		},
 		loadDataRen() {
-			let role = this.vuex_user.data.work == '1' ? 1 : 2;
-			console.log(this.vuex_user.data.work);
+			let role = this.pinia_user.data.work == '1' ? 1 : 2;
+			console.log(this.pinia_user.data.work);
 			var that = this;
-			this.$api.user
-				.refreshUser({
-					phone: this.vuex_user.phone,
-					role: role
-				})
-				.then((res) => {
-					console.log('权限', res.data.data);
-					let a = that.vuex_user;
-					a.ac = res.data.data.ac;
-					a.data = res.data.data.data;
-					a.workData = res.data.data.workData;
-					a.jurisdiction = res.data.data.jurisdiction;
-					a.vuex_password = res.data.data.password;
-					that.$u.vuex('vuex_user', a);
-					if (res.data.data.data.work == '1') {
-						that.$u.vuex('vuex_work', 'Y');
-					} else {
-						that.$u.vuex('vuex_work', 'N');
-					}
-					this.loadVip();
-				});
+			// this.$api.user
+			// 	.refreshUser({
+			// 		phone: this.pinia_user.phone,
+			// 		role: role
+			// 	})
+			// 	.then((res) => {
+			// 		console.log('权限', res.data.data);
+			// 		let a = that.pinia_user;
+			// 		a.ac = res.data.data.ac;
+			// 		a.data = res.data.data.data;
+			// 		a.workData = res.data.data.workData;
+			// 		a.jurisdiction = res.data.data.jurisdiction;
+			// 		a.vuex_password = res.data.data.password;
+			// 		that.$u.vuex('pinia_user', a);
+			// 		if (res.data.data.data.work == '1') {
+			// 			that.$u.vuex('pinia_work', 'Y');
+			// 		} else {
+			// 			that.$u.vuex('pinia_work', 'N');
+			// 		}
+			// 		this.loadVip();
+			// 	});
 
-			console.log('用户信息实时更新 ', this.vuex_user);
+			console.log('用户信息实时更新 ', this.pinia_user);
 		},
 		systemIf() {
 			var that = this;
@@ -872,7 +869,7 @@ export default {
 			return val.includes('zx-');
 		},
 		changeCustomer() {
-			var ifWorkPort = this.vuex_userRole == 'R';
+			var ifWorkPort = this.pinia_userRole == 'R';
 			if (!ifWorkPort) {
 				this.realTimeSel.organizationE = this.customer;
 			} else {
@@ -884,7 +881,7 @@ export default {
 		searchListenner() {
 			this.checked = false;
 			var filterIndex = this.showTage;
-			var ifWorkPort = this.vuex_userRole == 'R';
+			var ifWorkPort = this.pinia_userRole == 'R';
 
 			if (filterIndex == '0') {
 				if (!ifWorkPort) {
@@ -932,7 +929,7 @@ export default {
 				if (this.checked) {
 					var dx = Object.assign({}, this.realTimeSel);
 					dx.limitS = '';
-					dx.role = this.vuex_userRole == 'R' ? '1' : '0';
+					dx.role = this.pinia_userRole == 'R' ? '1' : '0';
 					this.$api.order
 						.getFilteredOrders(dx)
 						.then((res) => {
@@ -966,7 +963,7 @@ export default {
 				start: this.realTimeSel.startDate,
 				end: this.realTimeSel.endDate,
 				cOrderList: okDown,
-				port: this.vuex_userRole,
+				port: this.pinia_userRole,
 				condition: condition,
 				text: this.field
 			};
@@ -1039,7 +1036,7 @@ export default {
 
 					// 			// 生成文件名（过滤非法字符）
 					// 			let fileName = "";
-					// 			const user = this.vuex_user;
+					// 			const user = this.pinia_user;
 					// 			if (user.ac && user.ac.enterpriseName) {
 					// 				fileName = user.ac.enterpriseName.replace(/[\\/:*?"<>|]/g, "");
 					// 			} else {
@@ -1133,12 +1130,12 @@ export default {
 							let that = this;
 
 							var name = '';
-							if (this.vuex_user.ac != null) {
-								name = this.vuex_user.ac.enterpriseName;
+							if (this.pinia_user.ac != null) {
+								name = this.pinia_user.ac.enterpriseName;
 							}
 
 							if (name == null || name == undefined || name == '') {
-								name = this.vuex_user.phone;
+								name = this.pinia_user.phone;
 							}
 
 							var timeNowGet = this.$u.timeFormat(new Date(), 'yyyy年mm月dd日');
@@ -1217,7 +1214,7 @@ export default {
 			this.hasCheck = false;
 
 			var filterIndex = this.showTage;
-			var ifWorkPort = this.vuex_userRole == 'R';
+			var ifWorkPort = this.pinia_userRole == 'R';
 			if (filterIndex == '0') {
 				if (!ifWorkPort) {
 					//发货 收货人
@@ -1461,20 +1458,20 @@ export default {
 		},
 		getData() {
 			let that = this;
-			var phone = this.vuex_user.data.work == '1' && this.vuex_user.workData.identity != '4' ? this.vuex_user.workData.bossNumber : this.vuex_user.phone;
+			var phone = this.pinia_user.data.work == '1' && this.pinia_user.workData.identity != '4' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone;
 			let zd = false;
 			try {
-				zd = this.vuex_user.workData.identity != '4';
+				zd = this.pinia_user.workData.identity != '4';
 			} catch (e) {
 				//TODO handle the exception
 				zd = false;
-				if (this.vuex_user.workData == null || this.vuex_user.workData == undefined || this.vuex_user.workData == '') {
+				if (this.pinia_user.workData == null || this.pinia_user.workData == undefined || this.pinia_user.workData == '') {
 					zd = true;
 					console.log('没有工作');
 				}
 			}
 
-			if (this.vuex_userRole == 'D') {
+			if (this.pinia_userRole == 'D') {
 				var dx = {};
 				if (zd) {
 					dx = {
@@ -1620,7 +1617,7 @@ export default {
 				// this.field = ""
 			} else {
 				// this.$u.toast("请开通会员")
-				var work = this.vuex_user.data.work != '1';
+				var work = this.pinia_user.data.work != '1';
 				if (work) {
 					this.RenewStatic(index);
 				} else {
@@ -1634,7 +1631,7 @@ export default {
 		},
 		getPriceAll(index) {
 			var dx = {
-				phone: this.vuex_user.phone
+				phone: this.pinia_user.phone
 			};
 			this.$api.pay.getDatabaseUsage(dx).then((res) => {
 				this.CrearOrder(res.data.data, index);
@@ -1712,7 +1709,7 @@ export default {
 			this.$refs.popDatabase.orderInit(type);
 		},
 		OrderInit(productCode) {
-			var workIF = this.vuex_user.data.work == '1';
+			var workIF = this.pinia_user.data.work == '1';
 			let order = {
 				orderNumber: '', // 订单编号
 				price: 0, // 支付总价（注：通常价格应该是一个数字或BigDecimal的字符串表示，但这里按照要求设置为空字符串）
@@ -1721,7 +1718,7 @@ export default {
 				particulars: '细节', // 细节
 				state: '', // 状态
 				type: '', // 类型
-				phone: this.vuex_user.phone, // 所属者（这里假设所属者是通过电话号码表示的，但根据实际情况可能有所不同）
+				phone: this.pinia_user.phone, // 所属者（这里假设所属者是通过电话号码表示的，但根据实际情况可能有所不同）
 				description: '权限购买'
 			};
 

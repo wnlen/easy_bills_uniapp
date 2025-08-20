@@ -94,10 +94,10 @@ export default {
 		getIcon() {
 			this.$api.bills
 				.checkSequenceExistence({
-					phone: this.vuex_user.phone
+					phone: this.pinia_user.phone
 				})
 				.then((res) => {
-					var D = this.vuex_userRole == 'D';
+					var D = this.pinia_userRole == 'D';
 					// this.list = D ? res.data.data.D : res.data.data.R;
 					// this.listO= D ? res.data.data.DO : res.data.data.RO;
 					this.listO = D ? res.data.data.D : res.data.data.R;

@@ -132,16 +132,16 @@ export default {
 				return;
 			}
 
-			if (e == this.vuex_user.phone) {
+			if (e == this.pinia_user.phone) {
 				this.$u.toast('请勿添加自己~');
 			} else {
 				var yg = {
-					aUser: this.vuex_user.phone,
+					aUser: this.pinia_user.phone,
 					bUser: e,
-					aName: this.vuex_user.data.name,
+					aName: this.pinia_user.data.name,
 					workNumber: '',
 					ifType: invite,
-					img: this.vuex_user.data.headPortrait
+					img: this.pinia_user.data.headPortrait
 				};
 
 				if (this.addstaff != '') {
@@ -174,7 +174,7 @@ export default {
 					.searchUser({
 						phone: String(this.searchNumber),
 						boss: '',
-						port: this.vuex_userRole
+						port: this.pinia_userRole
 					})
 					.then((res) => {
 						console.log('更具电话号码检索： ', res.data);

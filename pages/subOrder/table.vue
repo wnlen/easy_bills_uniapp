@@ -101,7 +101,7 @@
 					<view class="pr10">
 						<u-icon name="plus" color="#ffffff" size="30rpx"></u-icon>
 					</view>
-					创建{{ vuex_userRole == 'D' ? '客户' : '供应商' }}
+					创建{{ pinia_userRole == 'D' ? '客户' : '供应商' }}
 				</u-button>
 			</view>
 		</view>
@@ -211,7 +211,7 @@ export default {
 		this.show = option.show ? option.show : 1;
 	},
 	onShow() {
-		if (this.vuex_userRole == 'R') {
+		if (this.pinia_userRole == 'R') {
 			uni.setNavigationBarTitle({
 				title: '供应商列表',
 				success: function () {
@@ -219,13 +219,13 @@ export default {
 				}
 			});
 		}
-		console.log(111111, this.vuex_userRole);
+		console.log(111111, this.pinia_userRole);
 		this.loadData();
 	},
 	onShareAppMessage(ops) {
 		let title = '',
 			imageUrl = '';
-		if (this.vuex_userRole == 'D') {
+		if (this.pinia_userRole == 'D') {
 			title = '邀请您成为他的客户~';
 			imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareD.png';
 		} else {
@@ -233,10 +233,10 @@ export default {
 			imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareR.png';
 		}
 		if (ops.from === 'button') {
-			var phone = this.vuex_user.data.work == '0' ? this.vuex_user.phone : this.vuex_user.workData.bossNumber;
+			var phone = this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber;
 			return {
 				title: title,
-				path: '/pages/subMessage/friend_apply_for/shareFriend?phone=' + phone + '&invitationRole=' + this.vuex_userRole,
+				path: '/pages/subMessage/friend_apply_for/shareFriend?phone=' + phone + '&invitationRole=' + this.pinia_userRole,
 				imageUrl: imageUrl
 				// imageUrl: 'https://res-oss.elist.com.cn/wxImg/message/share.png'
 			};
@@ -295,8 +295,8 @@ export default {
 		},
 		loadData() {
 			var that = this;
-			var port = this.vuex_userRole == 'R' ? '1' : '0';
-			var phone = this.vuex_work == 'Y' ? this.vuex_user.workData.bossNumber : this.vuex_user.phone;
+			var port = this.pinia_userRole == 'R' ? '1' : '0';
+			var phone = this.pinia_work == 'Y' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone;
 			this.$api.order
 				.getDeliveryList({
 					sBossNumber: phone,
@@ -368,10 +368,10 @@ export default {
 		},
 		addFriend(json) {
 			var addPhone = json.phone;
-			var phone = this.vuex_user.phone;
-			var work = this.vuex_user.data.work == '1';
-			var img = this.vuex_user.data.headPortrait;
-			var aName = this.vuex_user.data.nickName || phone;
+			var phone = this.pinia_user.phone;
+			var work = this.pinia_user.data.work == '1';
+			var img = this.pinia_user.data.headPortrait;
+			var aName = this.pinia_user.data.nickName || phone;
 			var identy = '';
 			var aBossNumber = phone;
 
@@ -382,8 +382,8 @@ export default {
 			}
 
 			if (work) {
-				identy = this.vuex_user.workData.identity;
-				aBossNumber = this.vuex_user.workData.bossNumber;
+				identy = this.pinia_user.workData.identity;
+				aBossNumber = this.pinia_user.workData.bossNumber;
 				if (aBossNumber == phone) {
 					this.showSF = false;
 					this.$u.toast('请勿添加自己老板~');

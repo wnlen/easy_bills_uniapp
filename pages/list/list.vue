@@ -248,7 +248,7 @@
 												color="#666666"
 												labelColor="#333333"
 												labelSize="22rpx"
-												:label="vuex_user.data.work !== '1' && vuex_user.workDate == null ? '有金额转发' : '有金额转发'"
+												:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '有金额转发' : '有金额转发'"
 											></u-icon>
 										</view>
 									</u-button>
@@ -271,7 +271,7 @@
 											color="#666666"
 											labelColor="#333333"
 											labelSize="22rpx"
-											:label="vuex_user.data.work !== '1' && vuex_user.workDate == null ? '无金额转发' : '无金额转发'"
+											:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '无金额转发' : '无金额转发'"
 										></u-icon>
 									</view>
 								</button>
@@ -291,7 +291,7 @@
 									color="#666666"
 									labelColor="#333333"
 									labelSize="22rpx"
-									:label="vuex_user.data.work !== '1' && vuex_user.workDate == null ? '转发' : '转发'"
+									:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发'"
 								></u-icon>
 								<view style="top: 2rrpx"></view>
 
@@ -302,11 +302,11 @@
 									color="#666666"
 									labelColor="#333333"
 									labelSize="22rpx"
-									:label="vuex_user.data.work !== '1' && vuex_user.workDate == null ? '转发' : '转发'"
+									:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发'"
 								></u-icon>
 							</button>
 							<button
-								v-if="userStore.userRole === 'R' && vuex_user.workData.identity !== '3' && item.paymentState === '0' && item.lockOrder != 1"
+								v-if="userStore.userRole === 'R' && pinia_user.workData.identity !== '3' && item.paymentState === '0' && item.lockOrder != 1"
 								class="hl-btn ml20 flex-row items-center justify-center"
 								type="default"
 								@click="goPath('/pages/subOrder/details?id=' + item.id)"
@@ -318,7 +318,7 @@
 								</view>
 							</button>
 							<button
-								v-if="vuex_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
+								v-if="pinia_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
 								class="hl-btn ml20 flex-row items-center justify-center"
 								type="default"
 								@click="VerifyAdd(item, index, 2)"
@@ -330,7 +330,7 @@
 								</view>
 							</button>
 							<button
-								v-if="vuex_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
+								v-if="pinia_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
 								class="hl-btn ml20 flex-row items-center justify-center"
 								type="default"
 								@click="VerifyAdd(item, index, 1)"
@@ -345,7 +345,7 @@
 									item.paymentState !== '1' &&
 									item.lockOrder != 1 &&
 									userStore.userRole == 'D' &&
-									vuex_user.workData.identity !== '3'
+									pinia_user.workData.identity !== '3'
 								"
 								class="hl-btn ml20 flex-row items-center justify-center"
 								type="default"
@@ -659,7 +659,7 @@ const realTimeSel = ref({
 	pageSize: 10
 });
 
-const vuex_user = storeToRefs(userStore).user;
+const pinia_user = storeToRefs(userStore).user;
 const field = ref('');
 const scrollTopCopy = ref(1156);
 const refresh = ref(true);
@@ -782,8 +782,8 @@ onShareAppMessage((ops) => {
 function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList, customer, current) {
 	const store = useUserStore();
 	const global = useGlobalStore();
-	const vuex_user = store.user;
-	const vuex_userRole = store.userRole;
+	const pinia_user = store.user;
+	const pinia_userRole = store.userRole;
 	const vuex_tabIndex = global.tabIndex || '';
 
 	const hide = true;
@@ -794,11 +794,11 @@ function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList,
 		realTimeSel.value.paymentState = Number(vuex_tabIndex) - 1;
 	}
 	console.log('globalStore.tabIndex1', globalStore.tabIndex);
-	realTimeSel.value.getPhone = vuex_user.phone;
+	realTimeSel.value.getPhone = pinia_user.phone;
 
-	const ifwork = vuex_user.data?.work === '0';
+	const ifwork = pinia_user.data?.work === '0';
 	const timeEmp = !realTimeSel.value.startDate || !realTimeSel.value.endDate;
-	const ifWorkPort = vuex_userRole === 'R';
+	const ifWorkPort = pinia_userRole === 'R';
 
 	// 设置 tab 名字与按钮文案
 	if (ifWorkPort) {
@@ -813,20 +813,20 @@ function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList,
 	if (ifwork) {
 		if (!ifWorkPort) {
 			realTimeSel.value.bossNumberE = '';
-			realTimeSel.value.bossNumberS = vuex_user.phone;
+			realTimeSel.value.bossNumberS = pinia_user.phone;
 		} else {
 			realTimeSel.value.bossNumberS = '';
-			realTimeSel.value.bossNumberE = vuex_user.phone;
+			realTimeSel.value.bossNumberE = pinia_user.phone;
 		}
 	} else {
-		const identity = vuex_user.workData.identity;
-		const boss = vuex_user.workData.bossNumber;
+		const identity = pinia_user.workData.identity;
+		const boss = pinia_user.workData.bossNumber;
 
 		if (!ifWorkPort) {
 			realTimeSel.value.staffNumberE = '';
 			realTimeSel.value.bossNumberE = '';
 			if (identity === '4') {
-				realTimeSel.value.staffNumberS = vuex_user.phone;
+				realTimeSel.value.staffNumberS = pinia_user.phone;
 				realTimeSel.value.bossNumberS = boss;
 			} else {
 				realTimeSel.value.bossNumberS = boss;
@@ -835,7 +835,7 @@ function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList,
 			realTimeSel.value.staffNumberS = '';
 			realTimeSel.value.bossNumberS = '';
 			if (identity === '4') {
-				realTimeSel.value.staffNumberE = vuex_user.phone;
+				realTimeSel.value.staffNumberE = pinia_user.phone;
 				realTimeSel.value.bossNumberE = boss;
 			} else {
 				realTimeSel.value.bossNumberE = boss;
@@ -871,7 +871,7 @@ function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList,
 		uni.removeStorageSync('companyNameJSON');
 	}
 
-	if (vuex_userRole === 'R') {
+	if (pinia_userRole === 'R') {
 		tabsList[tabsList.length - 1].name = '已付款';
 	}
 
@@ -975,9 +975,8 @@ function refreshDataNew() {
 				uloading.value = false;
 			})
 			.catch(() => {
-				paging.value?.complete(false);
+				// paging.value?.complete(false);
 				refresh.value = true;
-				uni.$u.toast('请求失败');
 			});
 		console.log('222');
 		proxy.$api.order
@@ -988,7 +987,6 @@ function refreshDataNew() {
 			})
 			.catch(() => {
 				refresh.value = true;
-				uni.$u.toast('获取个数失败');
 			});
 	}
 }
@@ -1019,7 +1017,7 @@ function CustomerGetChange() {
 }
 
 function CustomerGet() {
-	if (vuex_user.value.phone != undefined) {
+	if (pinia_user.value.phone != undefined) {
 		hide.value = false;
 		uni.navigateTo({
 			url: '/pages/subOrder/table?show=0'
@@ -1343,7 +1341,7 @@ function updateOrder(order) {
 
 function searchListenner(e) {
 	const filterIndex = showTage.value;
-	const ifWorkPort = vuex_userRole.value === 'R';
+	const ifWorkPort = pinia_userRole.value === 'R';
 
 	if (filterIndex === '0') {
 		realTimeSel.value.kTakeE = field.value;

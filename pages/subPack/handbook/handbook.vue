@@ -14,7 +14,7 @@
 				</view>
 			</view>
 
-			<view class="cardOne mt30" v-if="vuex_userRole == 'R'">
+			<view class="cardOne mt30" v-if="pinia_userRole == 'R'">
 				<view class="cardOneTitle">收货端</view>
 
 				<view class="cardOneIcon flex-row justify-center items-center" v-for="(item, index) in iconList.cardTowS" :key="index">
@@ -24,7 +24,7 @@
 				</view>
 			</view>
 
-			<view class="cardOne mt30" v-if="vuex_userRole == 'D'">
+			<view class="cardOne mt30" v-if="pinia_userRole == 'D'">
 				<view class="cardOneTitle">发货端</view>
 
 				<view class="cardOneIcon flex-row justify-center items-center" v-for="(item, index) in iconList.cardTowF" :key="index">
@@ -241,7 +241,7 @@ export default {
 		};
 	},
 	onShow() {
-		if (this.vuex_userRole == '' || this.vuex_userRole == undefined) {
+		if (this.pinia_userRole == '' || this.pinia_userRole == undefined) {
 			this.$u.setPinia({
 				user: {
 					userRole: 'D'

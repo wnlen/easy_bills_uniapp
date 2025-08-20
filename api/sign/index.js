@@ -4,7 +4,7 @@ export default (http) => ({
 	 * 原始接口：/edo/signature/get
 	 */
 	getSignature(params) {
-		return http.post('/edo/signature/get', params);
+		return http.post('signature/get', params);
 	},
 
 	/**
@@ -12,7 +12,7 @@ export default (http) => ({
 	 * 原始接口：/edo/signature/merge
 	 */
 	mergeSignature(params) {
-		return http.post('/edo/signature/merge', params);
+		return http.post('signature/merge', params);
 	},
 
 	/**
@@ -20,13 +20,13 @@ export default (http) => ({
 	 * 原始接口：/edo/signature/add
 	 */
 	addSignature(params) {
-		return http.post('/edo/signature/add', params);
+		return http.post('signature/add', params);
 	},
 	/**
 	 * 删除签名记录（通过签名 ID）
 	 * 原始接口：/edo/signature/del
 	 */
 	deleteSignature(params) {
-		return http.post('/edo/signature/del', params);
+		return http.post('signature/del', params);
 	}
 });

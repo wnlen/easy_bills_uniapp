@@ -95,7 +95,7 @@ export default {
 			if (code != '') {
 				this.$api.user
 					.verifyUnsubscribeCode({
-						phone: this.vuex_user.phone,
+						phone: this.pinia_user.phone,
 						code: code
 					})
 					.then((res) => {
@@ -118,7 +118,7 @@ export default {
 				this.codeClick = false;
 				this.$api.user
 					.getUnsubscribeCode({
-						phone: this.vuex_user.phone,
+						phone: this.pinia_user.phone,
 						type: 0
 					})
 					.then((res) => {

@@ -15,14 +15,14 @@ export default {
 	onLoad(option) {
 		const appid = 'wxde4ec376ffacd0a8';
 		const redirect_uri = encodeURIComponent('https://wxapi.elist.com.cn/edo/gzh/v1/setRedirect');
-		const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_base&state=${this.vuex_user.phone}#wechat_redirect`;
+		const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${redirect_uri}&response_type=code&scope=snsapi_base&state=${this.pinia_user.phone}#wechat_redirect`;
 		this.wzurl = url;
 	},
 	methods: {
 		bindload(e) {
 			// 验证是否成功
 			var dx = {
-				phoneNumber: this.vuex_user.phone
+				phoneNumber: this.pinia_user.phone
 			};
 			var that = this;
 			this.$api.gzh.getGzhVerificationCode(dx).then((res) => {

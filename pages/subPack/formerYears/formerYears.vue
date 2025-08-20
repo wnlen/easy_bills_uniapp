@@ -72,7 +72,7 @@
 							}"
 							style="width: 20%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
 						>
-							{{ vuex_userRole == 'R' ? '待确收' : '待签收' }}
+							{{ pinia_userRole == 'R' ? '待确收' : '待签收' }}
 						</view>
 						<view
 							class="flex-row justify-center items-center"
@@ -96,16 +96,16 @@
 							}"
 							style="width: 20%; height: 54rpx; border-radius: 12rpx; height: 54.84rpx"
 						>
-							{{ vuex_userRole == 'R' ? '已付款' : '已收款' }}
+							{{ pinia_userRole == 'R' ? '已付款' : '已收款' }}
 						</view>
 					</view>
 
 					<div class="flex-row items-center radius pr20 mr10 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%">
 						<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
-							<text class="ft11 ft-gray ml36" @click="CustomerGet">{{ vuex_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
+							<text class="ft11 ft-gray ml36" @click="CustomerGet">{{ pinia_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
 							<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
 							<view class="ml24 flex-1">
-								<u-input border="none" @change="changeCustomer" v-model="customer" :placeholder="vuex_userRole == 'R' ? '请选择供应商' : '请选择客户'"></u-input>
+								<u-input border="none" @change="changeCustomer" v-model="customer" :placeholder="pinia_userRole == 'R' ? '请选择供应商' : '请选择客户'"></u-input>
 							</view>
 
 							<view class="flex-col justify-center items-center" style="height: 5vh">
@@ -144,7 +144,7 @@
 				</view>
 				<view
 					@click="goPath('/pages/subPack/user/my_order/my_order')"
-					v-if="vuex_user.workData.identity != 3 && vuex_user.workData.identity != 4 && vuex_user.workData.identity != 1"
+					v-if="pinia_user.workData.identity != 3 && pinia_user.workData.identity != 4 && pinia_user.workData.identity != 1"
 					class="buyOrder flex-col justify-center items-center"
 					style=""
 				>
@@ -197,18 +197,18 @@
 							</view>
 						</view>
 						<view class="ml20" style="margin-right: -20rpx">
-							<u-image v-if="vuex_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></u-image>
-							<u-image v-if="vuex_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/dqs.png"></u-image>
+							<u-image v-if="pinia_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></u-image>
+							<u-image v-if="pinia_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/dqs.png"></u-image>
 							<u-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="@/static/img/obj/bq2.png" :lazy-load="true"></u-image>
 							<u-image
-								v-if="vuex_userRole != 'R' && item.paymentState == '2'"
+								v-if="pinia_userRole != 'R' && item.paymentState == '2'"
 								width="120rpx"
 								height="50rpx"
 								class="u-img"
 								src="@/static/img/obj/bq3.png"
 								:lazy-load="true"
 							></u-image>
-							<u-image v-if="vuex_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/yfk.png"></u-image>
+							<u-image v-if="pinia_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/yfk.png"></u-image>
 						</view>
 					</view>
 					<view class="width100 pb25 pt10 u-skeleton-fillet">
@@ -216,7 +216,7 @@
 							<u-col span="20">
 								<view class="flex-col items-center text-left">
 									<text
-										v-if="vuex_userRole != 'R'"
+										v-if="pinia_userRole != 'R'"
 										:style="{
 											color: ifZX(item.bossNumberE) ? '#AAAAAA' : '#3D3D3D'
 										}"
@@ -226,7 +226,7 @@
 										{{ item.organizationE || item.bossNumberE }}{{ ifZX(item.bossNumberE) ? '(已注销)' : '' }}
 									</text>
 									<text
-										v-if="vuex_userRole == 'R'"
+										v-if="pinia_userRole == 'R'"
 										:style="{
 											color: ifZX(item.bossNumberS) ? '#AAAAAA' : '#3D3D3D'
 										}"
@@ -416,7 +416,7 @@
 										color: showTage == '2' ? '#ffffff' : '#965510'
 									}"
 								>
-									{{ vuex_userRole == 'R' ? '收货地址' : '收货地址' }}
+									{{ pinia_userRole == 'R' ? '收货地址' : '收货地址' }}
 								</view>
 							</view>
 							<view class="flex-row mt20" style="width: 100%">
@@ -568,7 +568,7 @@ export default {
 		if (option) {
 			this.option = JSON.parse(option);
 			console.log(this.option.company);
-			if (this.vuex_userRole == 'D') {
+			if (this.pinia_userRole == 'D') {
 				this.realTimeSel.organizationE = this.option.company;
 				this.customer = this.option.company;
 			} else {
@@ -587,9 +587,9 @@ export default {
 		},
 		queryList(pageNo, pageSize) {
 			//权限匹配
-			var port = this.vuex_userRole == 'D';
+			var port = this.pinia_userRole == 'D';
 			if (port) {
-				var DP = this.vuex_user.jurisdiction['B1-' + this.year] || this.vuex_user.jurisdiction['B1'];
+				var DP = this.pinia_user.jurisdiction['B1-' + this.year] || this.pinia_user.jurisdiction['B1'];
 				console.log('===请求拦截判断D===>', DP);
 				if (DP == undefined) {
 					// this.$u.toast("您没有该年份数据权限");
@@ -601,7 +601,7 @@ export default {
 					this.moneyCALL = false;
 				}
 			} else {
-				var RP = this.vuex_user.jurisdiction['B2-' + this.year] || this.vuex_user.jurisdiction['B2'];
+				var RP = this.pinia_user.jurisdiction['B2-' + this.year] || this.pinia_user.jurisdiction['B2'];
 				console.log('===请求拦截判断R===>', RP);
 				if (RP == undefined) {
 					// this.$u.toast("您没有该年份数据权限");
@@ -630,7 +630,7 @@ export default {
 					: showTage == 1
 					? '联系号码'
 					: showTage == 2
-					? this.vuex_userRole == 'R'
+					? this.pinia_userRole == 'R'
 						? '收货地址'
 						: '收货地址'
 					: showTage == 3
@@ -638,38 +638,38 @@ export default {
 					: '条件筛选';
 		},
 		setGD() {
-			var b1 = this.vuex_user.jurisdiction.hasOwnProperty('B1');
-			var b2 = this.vuex_user.jurisdiction.hasOwnProperty('B2');
-			var b1y = this.vuex_user.jurisdiction.hasOwnProperty('B1-' + this.dropdownName);
-			var b2y = this.vuex_user.jurisdiction.hasOwnProperty('B2-' + this.dropdownName);
-			var ifWorkPort = this.vuex_userRole == 'R';
+			var b1 = this.pinia_user.jurisdiction.hasOwnProperty('B1');
+			var b2 = this.pinia_user.jurisdiction.hasOwnProperty('B2');
+			var b1y = this.pinia_user.jurisdiction.hasOwnProperty('B1-' + this.dropdownName);
+			var b2y = this.pinia_user.jurisdiction.hasOwnProperty('B2-' + this.dropdownName);
+			var ifWorkPort = this.pinia_userRole == 'R';
 
 			if (ifWorkPort) {
 				if (b2) {
-					this.uNoticeBarlist.push('往年数据收货端截至' + this.$u.timeFormat(this.vuex_user.jurisdiction['B2'], 'yyyy-mm-dd') + '到期');
+					this.uNoticeBarlist.push('往年数据收货端免费截至' + this.$u.timeFormat(this.pinia_user.jurisdiction['B2'], 'yyyy-mm-dd') + '到期');
 				}
 				if (b2y) {
-					this.uNoticeBarlist.push('往年数据收货端截至' + this.$u.timeFormat(this.vuex_user.jurisdiction['B2-' + this.dropdownName], 'yyyy-mm-dd') + '到期');
+					this.uNoticeBarlist.push('往年数据收货端免费截至' + this.$u.timeFormat(this.pinia_user.jurisdiction['B2-' + this.dropdownName], 'yyyy-mm-dd') + '到期');
 				}
 			} else {
 				if (b1) {
-					this.uNoticeBarlist.push('往年数据发货端截至' + this.$u.timeFormat(this.vuex_user.jurisdiction['B1'], 'yyyy-mm-dd') + '到期');
+					this.uNoticeBarlist.push('往年数据发货端免费截至' + this.$u.timeFormat(this.pinia_user.jurisdiction['B1'], 'yyyy-mm-dd') + '到期');
 				}
 
 				if (b1y) {
-					this.uNoticeBarlist.push('往年数据发货端截至' + this.$u.timeFormat(this.vuex_user.jurisdiction['B1-' + this.dropdownName], 'yyyy-mm-dd') + '到期');
+					this.uNoticeBarlist.push('往年数据发货端免费截至' + this.$u.timeFormat(this.pinia_user.jurisdiction['B1-' + this.dropdownName], 'yyyy-mm-dd') + '到期');
 				}
 			}
 		},
 		getDatabase() {
-			var b1 = this.vuex_user.jurisdiction.B1;
-			var b2 = this.vuex_user.jurisdiction.B2;
+			var b1 = this.pinia_user.jurisdiction.B1;
+			var b2 = this.pinia_user.jurisdiction.B2;
 			//需购买
 		},
 		getInIt() {
-			var ifwork = this.vuex_user.data.work == '0';
+			var ifwork = this.pinia_user.data.work == '0';
 			var timeEmp = this.realTimeSel.startDate == '' || this.realTimeSel.endDate == '';
-			var ifWorkPort = this.vuex_userRole == 'R';
+			var ifWorkPort = this.pinia_userRole == 'R';
 
 			if (ifwork) {
 				console.log('没工作');
@@ -677,24 +677,24 @@ export default {
 					//发货
 					console.log('没工作 发货');
 					this.realTimeSel.bossNumberE = '';
-					this.realTimeSel.bossNumberS = this.vuex_user.phone;
+					this.realTimeSel.bossNumberS = this.pinia_user.phone;
 				} else {
 					//收货
 					console.log('没工作 收货');
 					this.realTimeSel.bossNumberS = '';
-					this.realTimeSel.bossNumberE = this.vuex_user.phone;
+					this.realTimeSel.bossNumberE = this.pinia_user.phone;
 				}
 			} else {
 				console.log('有工作');
-				var identity = this.vuex_user.workData.identity;
-				var boss = this.vuex_user.workData.bossNumber;
+				var identity = this.pinia_user.workData.identity;
+				var boss = this.pinia_user.workData.bossNumber;
 
 				if (!ifWorkPort) {
 					console.log('有工作 发货');
 					this.realTimeSel.staffNumberE = '';
 					if (identity == '4') {
 						console.log('有工作 发货 员工');
-						this.realTimeSel.staffNumberS = this.vuex_user.phone;
+						this.realTimeSel.staffNumberS = this.pinia_user.phone;
 						this.realTimeSel.bossNumberS = boss;
 					} else {
 						console.log('有工作 发货 其他');
@@ -706,7 +706,7 @@ export default {
 					this.realTimeSel.staffNumberS = '';
 					if (identity == '4') {
 						console.log('有工作 收货 员工');
-						this.realTimeSel.staffNumberE = this.vuex_user.phone;
+						this.realTimeSel.staffNumberE = this.pinia_user.phone;
 						this.realTimeSel.bossNumberE = boss;
 					} else {
 						console.log('有工作 收货 其他');
@@ -750,10 +750,10 @@ export default {
 			}
 		},
 		getYear() {
-			console.log('this.vuex_user.jurisdiction', this.vuex_user.jurisdiction);
-			console.log('this.vuex_userRole', this.vuex_userRole);
-			var role = this.vuex_userRole == 'R';
-			for (let key in this.vuex_user.jurisdiction) {
+			console.log('this.pinia_user.jurisdiction', this.pinia_user.jurisdiction);
+			console.log('this.pinia_userRole', this.pinia_userRole);
+			var role = this.pinia_userRole == 'R';
+			for (let key in this.pinia_user.jurisdiction) {
 				if (role) {
 					if (key == 'B2') {
 						//全部权限
@@ -780,16 +780,16 @@ export default {
 			}
 		},
 		getAllYear() {
-			var role = this.vuex_userRole == 'R';
-			var work = this.vuex_user.data.work == '0';
+			var role = this.pinia_userRole == 'R';
+			var work = this.pinia_user.data.work == '0';
 			var dx = {
 				bossNumberS: '',
 				bossNumberE: ''
 			};
 			if (role) {
-				dx.bossNumberE = work ? this.vuex_user.phone : this.vuex_user.workData.bossNumber;
+				dx.bossNumberE = work ? this.pinia_user.phone : this.pinia_user.workData.bossNumber;
 			} else {
-				dx.bossNumberS = work ? this.vuex_user.phone : this.vuex_user.workData.bossNumber;
+				dx.bossNumberS = work ? this.pinia_user.phone : this.pinia_user.workData.bossNumber;
 			}
 			console.log('老数据', dx);
 			this.$api.order.getOldOrders(dx).then((res) => {
@@ -824,9 +824,9 @@ export default {
 		dropdown(e) {
 			this.year = e;
 			//验证权限
-			var role = this.vuex_userRole == 'D';
+			var role = this.pinia_userRole == 'D';
 			if (role) {
-				var b1 = this.vuex_user.jurisdiction['B1-' + e] || this.vuex_user.jurisdiction['B1'];
+				var b1 = this.pinia_user.jurisdiction['B1-' + e] || this.pinia_user.jurisdiction['B1'];
 				console.log('B1：', b1);
 				if (b1 != undefined) {
 					//时间对比
@@ -854,7 +854,7 @@ export default {
 					this.$u.toast('请购买相关权限');
 				}
 			} else {
-				var b2 = this.vuex_user.jurisdiction.B2;
+				var b2 = this.pinia_user.jurisdiction.B2;
 				console.log('B2：', b2);
 				if (b2 != undefined) {
 					console.log('当前权限：', b2);
@@ -882,7 +882,7 @@ export default {
 				}
 			}
 
-			console.log('所有权限：', this.vuex_user.jurisdiction);
+			console.log('所有权限：', this.pinia_user.jurisdiction);
 		},
 		compareDates(dateString1) {
 			// 创建一个新的Date对象
@@ -915,7 +915,7 @@ export default {
 			return val.includes('zx-');
 		},
 		changeCustomer() {
-			var ifWorkPort = this.vuex_userRole == 'R';
+			var ifWorkPort = this.pinia_userRole == 'R';
 			if (!ifWorkPort) {
 				this.realTimeSel.organizationE = this.customer;
 			} else {
@@ -934,7 +934,7 @@ export default {
 			// this.checked = false
 			if (this.refresh && timeO && timeT) {
 				this.refresh = false;
-				this.realTimeSel.role = this.vuex_userRole == 'R' ? '1' : '0';
+				this.realTimeSel.role = this.pinia_userRole == 'R' ? '1' : '0';
 				this.$api.order
 					.getFilteredOrders(this.realTimeSel)
 					.then((res) => {
@@ -969,7 +969,6 @@ export default {
 					})
 					.catch((res) => {
 						this.refresh = true;
-						this.$u.toast('获取个数失败');
 					});
 			} else {
 				this.$refs.paging.complete([]);
@@ -977,7 +976,7 @@ export default {
 		},
 		searchListenner() {
 			var filterIndex = this.showTage;
-			var ifWorkPort = this.vuex_userRole == 'R';
+			var ifWorkPort = this.pinia_userRole == 'R';
 
 			if (filterIndex == '0') {
 				if (!ifWorkPort) {
@@ -1023,7 +1022,7 @@ export default {
 			if (this.checked) {
 				var dx = Object.assign({}, this.realTimeSel);
 				dx.limitS = '';
-				dx.role = this.vuex_userRole == 'R' ? '1' : '0';
+				dx.role = this.pinia_userRole == 'R' ? '1' : '0';
 				this.$api.order
 					.getFilteredOrders(dx)
 					.then((res) => {
@@ -1053,7 +1052,7 @@ export default {
 				start: this.realTimeSel.startDate,
 				end: this.realTimeSel.endDate,
 				cOrderList: okDown,
-				port: this.vuex_userRole,
+				port: this.pinia_userRole,
 				condition: condition,
 				text: this.field
 			};
@@ -1078,12 +1077,12 @@ export default {
 							let that = this;
 
 							var name = '';
-							if (this.vuex_user.ac != null) {
-								name = this.vuex_user.ac.enterpriseName;
+							if (this.pinia_user.ac != null) {
+								name = this.pinia_user.ac.enterpriseName;
 							}
 
 							if (name == null || name == undefined || name == '') {
-								name = this.vuex_user.phone;
+								name = this.pinia_user.phone;
 							}
 							var timeNowGet = this.$u.timeFormat(new Date(), 'yyyy年mm月dd日');
 
@@ -1354,20 +1353,20 @@ export default {
 		},
 		getData() {
 			let that = this;
-			var phone = this.vuex_user.data.work == '1' && this.vuex_user.workData.identity != '4' ? this.vuex_user.workData.bossNumber : this.vuex_user.phone;
+			var phone = this.pinia_user.data.work == '1' && this.pinia_user.workData.identity != '4' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone;
 			let zd = false;
 			try {
-				zd = this.vuex_user.workData.identity != '4';
+				zd = this.pinia_user.workData.identity != '4';
 			} catch (e) {
 				//TODO handle the exception
 				zd = false;
-				if (this.vuex_user.workData == null || this.vuex_user.workData == undefined || this.vuex_user.workData == '') {
+				if (this.pinia_user.workData == null || this.pinia_user.workData == undefined || this.pinia_user.workData == '') {
 					zd = true;
 					console.log('没有工作');
 				}
 			}
 
-			if (this.vuex_userRole == 'D') {
+			if (this.pinia_userRole == 'D') {
 				var dx = {};
 				if (zd) {
 					dx = {

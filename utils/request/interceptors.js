@@ -1,19 +1,23 @@
 // util/request/interceptors.js
-import { http, toast } from '@/uni_modules/uview-plus';
+import {
+	http,
+	toast
+} from '@/uni_modules/uview-plus';
 import store from '@/store';
 
 const requestInterceptors = () => {
 	http.interceptors.request.use(
 		(config) => {
+			console.log('拦截器拦截器拦截器拦截器拦截器拦截器拦截器拦截器拦截器拦截器拦截器拦截器拦截器拦截器')
 			const lifeData = uni.getStorageSync('lifeData') || {};
 
-			// 自动附加 token 等信息
+			// 自动附加 token 等信息 
 			if (config?.custom?.auth) {
 				config.header = {
 					...config.header,
-					token: lifeData.vuex_token || '',
-					userRole: lifeData.vuex_userRole || '',
-					phone: lifeData.vuex_user?.phone || ''
+					token: lifeData.pinia_token || '',
+					userRole: lifeData.pinia_userRole || '',
+					phone: lifeData.pinia_user?.phone || ''
 				};
 			}
 
@@ -45,4 +49,7 @@ const responseInterceptors = () => {
 	);
 };
 
-export { requestInterceptors, responseInterceptors };
+export {
+	requestInterceptors,
+	responseInterceptors
+};

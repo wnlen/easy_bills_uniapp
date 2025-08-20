@@ -2,6 +2,6 @@
 export default (http) => ({
 	// 查询程序配置项
 	queryProgramConfig() {
-		return http.get(`edo/rest/v1/queryProgramConfig`);
+		return http.get(`rest/v1/queryProgramConfig`);
 	}
 });

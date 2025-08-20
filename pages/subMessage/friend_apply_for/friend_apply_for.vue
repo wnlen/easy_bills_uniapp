@@ -113,8 +113,8 @@ export default {
 			let that = this;
 			this.$api.user
 				.getClientList({
-					bNumber: this.vuex_user.phone,
-					bBossNumber: this.vuex_user.data.work === '1' ? this.vuex_user.workData.bossNumber : this.vuex_user.phone,
+					bNumber: this.pinia_user.phone,
+					bBossNumber: this.pinia_user.data.work === '1' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone,
 					state: '0'
 				})
 				.then((res) => {
@@ -145,7 +145,7 @@ export default {
 						that.$u.toast('添加失败');
 					}
 					that.loadDataHY();
-					that.flushDBSX(this.vuex_user.phone);
+					that.flushDBSX(this.pinia_user.phone);
 
 					setTimeout(function () {
 						let result = that.resApiO.length == 0;

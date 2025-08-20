@@ -33,7 +33,7 @@ export default {
 			console.log('保存');
 
 			var remark = {
-				phone: this.vuex_user.phone,
+				phone: this.pinia_user.phone,
 				orderNumber: this.remark.orderNumber,
 				remark: this.text,
 				orderId: this.remark.id,

@@ -106,30 +106,30 @@ export default {
 	},
 	methods: {
 		loadData() {
-			let role = this.vuex_user.data.work == '1' ? 1 : 2;
-			console.log(this.vuex_user.data.work);
+			let role = this.pinia_user.data.work == '1' ? 1 : 2;
+			console.log(this.pinia_user.data.work);
 			var that = this;
 			// this.$api.user
 			// 	.refreshUser({
-			// 		phone: this.vuex_user.phone,
+			// 		phone: this.pinia_user.phone,
 			// 		role: role
 			// 	})
 			// 	.then((res) => {
-			// 		let a = that.vuex_user;
+			// 		let a = that.pinia_user;
 			// 		a.ac = res.data.data.ac;
 			// 		a.data = res.data.data.data;
 			// 		a.workData = res.data.data.workData;
 			// 		a.jurisdiction = res.data.data.jurisdiction;
 			// 		a.vuex_password = res.data.data.password;
-			// 		that.$u.vuex('vuex_user', a);
+			// 		that.$u.vuex('pinia_user', a);
 			// 		if (res.data.data.data.work == '1') {
-			// 			that.$u.vuex('vuex_work', 'Y');
+			// 			that.$u.vuex('pinia_work', 'Y');
 			// 		} else {
-			// 			that.$u.vuex('vuex_work', 'N');
+			// 			that.$u.vuex('pinia_work', 'N');
 			// 		}
 			// 	});
 
-			console.log('用户信息实时更新 ', this.vuex_user);
+			console.log('用户信息实时更新 ', this.pinia_user);
 		},
 		switchChange(val) {
 			console.log(val);
@@ -158,7 +158,7 @@ export default {
 			let dx = {
 				id: this.formData.id,
 				name: this.formData.signeeName,
-				phone: this.vuex_user.phone,
+				phone: this.pinia_user.phone,
 				signatureImg: this.formData.signeeImage,
 				password: this.formData.password,
 				state: '1'
