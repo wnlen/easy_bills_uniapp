@@ -29,8 +29,8 @@ function isWhiteListedPath(url = '') {
 function goLoginOnce() {
 	if (hasRedirectedToLogin) return
 	hasRedirectedToLogin = true
-	// 2 秒内防抖，避免并发多次跳转
-	setTimeout(() => (hasRedirectedToLogin = false), 2000)
+	// 1 秒内防抖，避免并发多次跳转
+	setTimeout(() => (hasRedirectedToLogin = false), 1000)
 	uni.navigateTo({
 		url: '/pages/subUser/login'
 	})
@@ -75,7 +75,6 @@ export const initRequest = () => {
 				uni.hideLoading()
 				goLoginOnce()
 				// 取消本次请求（不发到服务器）
-				// 两种写法都行：return false; 或 return Promise.reject(...)
 				return Promise.reject({
 					code: 200,
 					message: '请登录'
@@ -87,7 +86,10 @@ export const initRequest = () => {
 				...config.header,
 				Authorization: `Bearer ${token}`,
 				token,
-				phone: userStore.user?.phone || ''
+				phone: userStore.user?.phone || '',
+				boss: userStore.user?.workData?.bossNumber || '0'
+				// userRole: userStore.userRole || '',
+				// work: userStore.work || '',
 			}
 		}
 
