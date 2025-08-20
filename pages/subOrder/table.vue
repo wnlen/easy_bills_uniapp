@@ -129,14 +129,14 @@
 							:style="{ color: item.state == '2' ? '#FA5151' : '#333333' }"
 						>
 							<view
-								class=""
-								style="display: flex; flex-direction: row; padding-top: 10rpx; color: black"
+								class="flex-row items-center"
+								style="padding-top: 10rpx; color: black"
 								:style="{
 									color: item2.identity == '3' ? '#AAAAAA' : '#333333'
 								}"
 								@click="jump(index, item2, item)"
 							>
-								{{ item2.name || item2.staffNumber }}
+								<text>{{ item2.name || item2.staffNumber }}</text>
 								<view
 									class="custom-style ml10"
 									:style="{

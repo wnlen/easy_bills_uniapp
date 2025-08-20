@@ -15,8 +15,6 @@
 		    @tap.stop="clickHandler('minus')"
 		    @touchstart="onTouchStart('minus')"
 		    @touchend.stop="clearTimeout"
-		    hover-class="u-number-box__minus--hover"
-		    hover-stay-time="150"
 		    :class="{ 'u-number-box__minus--disabled': isDisabled('minus') }"
 		    :style="[buttonStyle('minus')]"
 		>
@@ -76,8 +74,7 @@
 		    @tap.stop="clickHandler('plus')"
 		    @touchstart="onTouchStart('plus')"
 		    @touchend.stop="clearTimeout"
-		    hover-class="u-number-box__plus--hover"
-		    hover-stay-time="150"
+		    
 		    :class="{ 'u-number-box__minus--disabled': isDisabled('plus') }"
 		    :style="[buttonStyle('plus')]"
 		>

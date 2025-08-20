@@ -877,7 +877,7 @@ export default {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-
+	justify-content: space-between;
 	.fixedBarLeft {
 		height: 100%;
 		width: 40%;
@@ -917,9 +917,9 @@ export default {
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
-
+		margin-right: 20rpx;
 		height: 100%;
-		width: 60%;
+		width: 30%;
 	}
 }
 

@@ -2,7 +2,7 @@
 	<view>
 		<!-- 自定义tab -->
 		<u-tabbar :value="tabIndex" activeColor="#01BB74" @change="changeTab">
-			<up-tabbar-item :text="item.text" v-for="(item, index) in tabbar" :key="index">
+			<u-tabbar-item :text="item.text" v-for="(item, index) in tabbar" :key="index">
 				<template #active-icon>
 					<u-icon size="40rpx" :name="item.selectedIconPath"></u-icon>
 				</template>
@@ -11,7 +11,7 @@
 						<u-icon size="40rpx" :name="item.iconPath"></u-icon>
 					</view>
 				</template>
-			</up-tabbar-item>
+			</u-tabbar-item>
 		</u-tabbar>
 	</view>
 </template>

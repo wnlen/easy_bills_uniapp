@@ -28,6 +28,9 @@ text {
 	--u-button-shadow: none !important; /* 确保长按时也没有阴影 */
 	background: transparent !important;
 }
+::v-deep button::after {
+	border: none !important;
+}
 .ft-blue {
 	color: #3c8efb;
 }
@@ -1080,6 +1083,9 @@ text {
 	&::after {
 		border: 1px solid #0fb076;
 	}
+}
+::v-deep .u-border-bottom::after {
+	border-color: #f4f4f4 !important;
 }
 .form-top .u-border-bottom::after {
 	border-color: #f4f4f4 !important;
