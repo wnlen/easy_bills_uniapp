@@ -282,11 +282,11 @@ export default {
 			//#ifdef APP
 			this.goToLogin();
 			//#endif
-		}else {
+		} else {
 			this.guideCourse();
-      this.getOrderDB();
+			this.getOrderDB();
 		}
-    
+
 		this.setDR(this.pinia_userRole);
 	},
 	onLoad() {},
@@ -492,7 +492,7 @@ export default {
 		},
 		// 加载广告
 		getmiddleBanner() {
-			var filer = this.vuex_userRole == 'D' ? '1' : '0';
+			var filer = this.pinia_userRole == 'D' ? '1' : '0';
 			this.$api.advert
 				.getAdvertList({
 					port: filer
@@ -771,25 +771,25 @@ export default {
 		// 待办事项
 		getOrderDB() {
 			this.$u.getPinia('user.user.data.work');
-			var workIF = this.vuex_user.data.work == '0';
+			var workIF = this.pinia_user.data.work == '0';
 			var dx = {
 				bUser: '',
 				bBoss: '',
-				port: this.vuex_userRole
+				port: this.pinia_userRole
 			};
 			if (workIF) {
-				dx.bBoss = this.vuex_user.phone;
+				dx.bBoss = this.pinia_user.phone;
 			} else {
-				var identity = this.vuex_user.workData.identity;
+				var identity = this.pinia_user.workData.identity;
 				if (identity == '4') {
-					dx.bBoss = this.vuex_user.workData.bossNumber;
-					dx.bUser = this.vuex_user.phone;
+					dx.bBoss = this.pinia_user.workData.bossNumber;
+					dx.bUser = this.pinia_user.phone;
 				} else if (identity == '1') {
-					dx.bBoss = this.vuex_user.workData.bossNumber;
-					// dx.bUser = this.vuex_user.workData.bossNumber
+					dx.bBoss = this.pinia_user.workData.bossNumber;
+					// dx.bUser = this.pinia_user.workData.bossNumber
 				} else {
-					dx.bBoss = this.vuex_user.workData.bossNumber;
-					dx.bUser = this.vuex_user.phone;
+					dx.bBoss = this.pinia_user.workData.bossNumber;
+					dx.bUser = this.pinia_user.phone;
 				}
 			}
 
