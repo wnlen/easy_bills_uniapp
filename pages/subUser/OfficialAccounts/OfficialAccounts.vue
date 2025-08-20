@@ -33,7 +33,7 @@ export default {
 		authorization() {
 			// 验证是否成功
 			var dx = {
-				phoneNumber: this.vuex_user.phone
+				phoneNumber: this.pinia_user.phone
 			};
 			var that = this;
 			this.$api.gzh.getGzhVerificationCode(dx).then((res) => {

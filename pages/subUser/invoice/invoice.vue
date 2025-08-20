@@ -124,7 +124,7 @@ export default {
 		this.invoiceOrder = json;
 		this.invoice.orderId = json.id;
 		this.invoice.price = json.price;
-		// this.invoice.phone = this.vuex_user.phone
+		// this.invoice.phone = this.pinia_user.phone
 	},
 	methods: {
 		jump() {
@@ -159,7 +159,7 @@ export default {
 				this.invoice.openingBank = this.invoice.openingBank + '/' + this.Bank;
 			}
 
-			this.invoice.phone = this.vuex_user.phone;
+			this.invoice.phone = this.pinia_user.phone;
 			this.invoice.type = this.type ? 1 : 0;
 			this.invoice.createTime = new Date();
 

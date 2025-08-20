@@ -67,10 +67,10 @@
 					@change="search"
 					:placeholder="
 						show != 1
-							? vuex_userRole == 'R'
+							? pinia_userRole == 'R'
 								? '请输入关键字进行供应商查找'
 								: '请输入关键字进行客户查找'
-							: vuex_userRole == 'R'
+							: pinia_userRole == 'R'
 							? '请输入关键字进行账单查询'
 							: '请输入关键字进行销售查询'
 					"
@@ -162,14 +162,14 @@
 
 		<view class="">
 			<u-empty
-				v-if="isEmptyObject(listO) && show == 1 && vuex_userRole == 'D'"
+				v-if="isEmptyObject(listO) && show == 1 && pinia_userRole == 'D'"
 				icon="https://res-oss.elist.com.cn/wxImg/order/empty.svg"
 				iconSize="200rpx"
 				text="暂无客户~"
 				marginTop="200rpx"
 			></u-empty>
 			<u-empty
-				v-if="isEmptyObject(listO) && show == 1 && vuex_userRole == 'R'"
+				v-if="isEmptyObject(listO) && show == 1 && pinia_userRole == 'R'"
 				icon="https://res-oss.elist.com.cn/wxImg/order/empty.svg"
 				iconSize="200rpx"
 				text="暂无供应商~"
@@ -191,13 +191,13 @@
 							{{ item2.company }}
 						</view>
 						<view class="ft-gray">
-							{{ vuex_userRole == 'R' ? '应付款:' : '应收欠款:' }}
+							{{ pinia_userRole == 'R' ? '应付款:' : '应收欠款:' }}
 							<text class="ft-bold" size="mini" :style="{ color: item2.total > 0 ? '#01BB74' : '#999999' }">￥{{ formatAmount(item2.total) }}</text>
 						</view>
 					</view>
 					<view class="" style="width: 20%; display: flex; flex-direction: row; justify-content: right" v-if="identity">
 						<u-button v-if="item2.total > 0" type="success" shape="circle" @click="collection(item2)" size="mini">
-							{{ vuex_userRole != 'R' ? '去收款' : '去付款' }}
+							{{ pinia_userRole != 'R' ? '去收款' : '去付款' }}
 						</u-button>
 					</view>
 				</view>
@@ -291,7 +291,7 @@ export default {
 		this.loadData();
 	},
 	onLoad() {
-		var ifWorkPort = this.vuex_userRole == 'R';
+		var ifWorkPort = this.pinia_userRole == 'R';
 		if (ifWorkPort) {
 			this.list[0].name = '供应商列表';
 			this.list[1].name = '供应列表';
@@ -308,7 +308,7 @@ export default {
 			this.title = '客户';
 		}
 
-		var identity = this.vuex_user.data.work == '1' ? this.vuex_user.workData.identity != 4 : true;
+		var identity = this.pinia_user.data.work == '1' ? this.pinia_user.workData.identity != 4 : true;
 		this.identity = identity;
 
 		var that = this;
@@ -318,7 +318,7 @@ export default {
 	},
 	onShareAppMessage(ops) {
 		if (ops.from === 'button') {
-			var phone = this.vuex_user.data.work == '0' ? this.vuex_user.phone : this.vuex_user.workData.bossNumber;
+			var phone = this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber;
 			return {
 				title: `您有一个好友邀请~`,
 				path: '/pages/subMessage/friend_apply_for/shareFriend?phone=' + phone,
@@ -337,7 +337,7 @@ export default {
 			});
 		},
 		jumpVideo() {
-			var port = this.vuex_userRole == 'D';
+			var port = this.pinia_userRole == 'D';
 			this.$openVideo(port ? 5 : 6);
 		},
 		collection(item2) {
@@ -345,7 +345,7 @@ export default {
 				company: item2.company,
 				phone: item2.phone
 			};
-			if (this.vuex_userRole == 'D') {
+			if (this.pinia_userRole == 'D') {
 				uni.navigateTo({
 					url: '/pages/subStatistics/receipt/receipt?tid=开收款单&searchData=' + JSON.stringify(dx)
 				});
@@ -418,10 +418,10 @@ export default {
 		},
 		addFriend(json) {
 			var addPhone = json.phone;
-			var phone = this.vuex_user.phone;
-			var work = this.vuex_user.data.work == '1';
-			var img = this.vuex_user.data.headPortrait;
-			var aName = this.vuex_user.data.nickName || phone;
+			var phone = this.pinia_user.phone;
+			var work = this.pinia_user.data.work == '1';
+			var img = this.pinia_user.data.headPortrait;
+			var aName = this.pinia_user.data.nickName || phone;
 			var identy = '';
 			var aBossNumber = phone;
 
@@ -432,15 +432,15 @@ export default {
 			}
 
 			if (work) {
-				identy = this.vuex_user.workData.identity;
-				aBossNumber = this.vuex_user.workData.bossNumber;
+				identy = this.pinia_user.workData.identity;
+				aBossNumber = this.pinia_user.workData.bossNumber;
 				if (aBossNumber == phone) {
 					this.showSF = false;
 					this.$u.toast('请勿添加自己老板~');
 					return;
 				}
 
-				var boss = this.vuex_user.workData.bossNumber;
+				var boss = this.pinia_user.workData.bossNumber;
 				if (boss == dx.aBossNumber) {
 					this.showSF = false;
 					this.$u.toast('请勿添加自己老板~');
@@ -522,16 +522,16 @@ export default {
 		},
 		loadData() {
 			var that = this;
-			var phone = this.vuex_work == 'Y' ? this.vuex_user.workData.bossNumber : this.vuex_user.phone;
-			var port = this.vuex_userRole == 'R' ? '1' : '0';
+			var phone = this.pinia_work == 'Y' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone;
+			var port = this.pinia_userRole == 'R' ? '1' : '0';
 			this.$u.post('edo/delivery/get?sBossNumber=' + phone + '&eBossNumber=' + phone + '&port=' + port).then((res) => {
 				console.log('edo/delivery/get?sBossNumber', res.data.data);
 				that.client = res.data.data;
 				this.clientCopy = res.data.data;
 			});
 
-			var ifWorkPort = this.vuex_userRole == 'R';
-			var ifwork = this.vuex_user.data.work == '0';
+			var ifWorkPort = this.pinia_userRole == 'R';
+			var ifwork = this.pinia_user.data.work == '0';
 
 			var dx = {
 				bossNumberS: '',
@@ -543,18 +543,18 @@ export default {
 				console.log('收货端');
 				if (ifwork) {
 					console.log('收货端 没工作');
-					dx.bossNumberE = this.vuex_user.phone;
+					dx.bossNumberE = this.pinia_user.phone;
 				} else {
 					console.log('收货端 有工作');
-					var identity = this.vuex_user.workData.identity == '4';
+					var identity = this.pinia_user.workData.identity == '4';
 					if (identity) {
 						console.log('收货端 有工作 员工');
-						var boss = this.vuex_user.workData.bossNumber;
+						var boss = this.pinia_user.workData.bossNumber;
 						dx.bossNumberE = boss;
-						dx.staffNumberE = this.vuex_user.phone;
+						dx.staffNumberE = this.pinia_user.phone;
 					} else {
 						console.log('收货端 有工作 其他');
-						var boss = this.vuex_user.workData.bossNumber;
+						var boss = this.pinia_user.workData.bossNumber;
 						dx.bossNumberE = boss;
 					}
 				}
@@ -562,18 +562,18 @@ export default {
 				console.log('发货端');
 				if (ifwork) {
 					console.log('发货端 没工作');
-					dx.bossNumberS = this.vuex_user.phone;
+					dx.bossNumberS = this.pinia_user.phone;
 				} else {
 					console.log('发货端 有工作');
-					var identity = this.vuex_user.workData.identity == '4';
+					var identity = this.pinia_user.workData.identity == '4';
 					if (identity) {
 						console.log('发货端 有工作 员工');
-						var boss = this.vuex_user.workData.bossNumber;
+						var boss = this.pinia_user.workData.bossNumber;
 						dx.bossNumberS = boss;
-						dx.staffNumberS = this.vuex_user.phone;
+						dx.staffNumberS = this.pinia_user.phone;
 					} else {
 						console.log('发货端 有工作 其他');
-						var boss = this.vuex_user.workData.bossNumber;
+						var boss = this.pinia_user.workData.bossNumber;
 						dx.bossNumberS = boss;
 					}
 				}

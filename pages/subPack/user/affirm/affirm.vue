@@ -128,7 +128,7 @@ export default {
 			console.log(fillPhone);
 			this.$api.user
 				.unsubscribeUser({
-					phone: this.vuex_user.phone,
+					phone: this.pinia_user.phone,
 					fillPhone: fillPhone
 				})
 				.then((res) => {

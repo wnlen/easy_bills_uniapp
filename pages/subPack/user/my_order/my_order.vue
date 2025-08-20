@@ -921,7 +921,7 @@ export default {
 		this.systemIf();
 		this.getData();
 
-		var ifwork = this.vuex_user.data.work == '0';
+		var ifwork = this.pinia_user.data.work == '0';
 		if (ifwork) {
 			this.getJurisdiction();
 			this.getRenew();
@@ -1094,7 +1094,7 @@ export default {
 			this.add();
 		},
 		getRenew() {
-			var phone = this.vuex_user.phone;
+			var phone = this.pinia_user.phone;
 			var dx = {
 				phone: phone
 			};
@@ -1128,7 +1128,7 @@ export default {
 			return this.jurisdiction.hasOwnProperty(key);
 		},
 		getJurisdictionOrder() {
-			var phone = this.vuex_user.phone;
+			var phone = this.pinia_user.phone;
 			var dx = {
 				phone: phone
 			};
@@ -1145,7 +1145,7 @@ export default {
 				.catch((res) => {});
 		},
 		getJurisdiction() {
-			var phone = this.vuex_user.phone;
+			var phone = this.pinia_user.phone;
 			var dx = {
 				phone: phone
 			};
@@ -1179,7 +1179,7 @@ export default {
 				particulars: JSON.stringify(this.play), // 细节
 				state: '', // 状态
 				type: '', // 类型
-				phone: this.vuex_user.phone, // 所属者（这里假设所属者是通过电话号码表示的，但根据实际情况可能有所不同）
+				phone: this.pinia_user.phone, // 所属者（这里假设所属者是通过电话号码表示的，但根据实际情况可能有所不同）
 				description: '权限购买'
 			};
 
@@ -1299,7 +1299,7 @@ export default {
 			this.playMoneyListSend.price.C3 = this.c_product_people[2].priceDiscount;
 			//刷新权限
 			this.$loadUser(this);
-			var jurisdiction = this.vuex_user.jurisdiction;
+			var jurisdiction = this.pinia_user.jurisdiction;
 			this.playMoneyListSend.time = JSON.parse(JSON.stringify(jurisdiction));
 		},
 		dropdownIcon() {
@@ -1386,8 +1386,8 @@ export default {
 				bossNumberS: '',
 				bossNumberE: ''
 			};
-			dx.bossNumberE = this.vuex_user.phone;
-			dx.bossNumberS = this.vuex_user.phone;
+			dx.bossNumberE = this.pinia_user.phone;
+			dx.bossNumberS = this.pinia_user.phone;
 
 			this.$api.order.getOldOrders(dx).then((res) => {
 				var resData = res.data.data;

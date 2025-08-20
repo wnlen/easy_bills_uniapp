@@ -79,7 +79,7 @@ export default {
 			});
 		},
 		getPhoneNumber(e) {
-			var loginPhone = this.vuex_user.phone;
+			var loginPhone = this.pinia_user.phone;
 
 			console.log(loginPhone);
 
@@ -90,12 +90,12 @@ export default {
 				}
 
 				//添加
-				var work = this.vuex_user.data.work;
+				var work = this.pinia_user.data.work;
 				if (work == '0') {
 					//没有工作加他
 					this.addFriend(loginPhone);
 				} else {
-					var bossPhone = this.vuex_user.workData.bossNumber;
+					var bossPhone = this.pinia_user.workData.bossNumber;
 					if (bossPhone == loginPhone) {
 						this.$u.toast('请勿添加自己哦~');
 						return;

@@ -1,15 +1,15 @@
 <template>
-	<view class="Index ft24" :class="vuex_userRole === 'D' ? 'Indexbg1' : 'Indexbg2'">
+	<view class="Index ft24" :class="pinia_userRole === 'D' ? 'Indexbg1' : 'Indexbg2'">
 		<u-navbar title="" :placeholder="true" bgColor="transparent" leftIconSize="0"></u-navbar>
 		<view class="flex-row justify-between items-end ml30 mr30">
 			<view>
-				<image v-if="isLogin" style="width: 108rpx; height: 34rpx" :src="`${ImgUrl}/wxImg/index/ydj.png`"></image>
+				<image v-if="pinia_token" style="width: 108rpx; height: 34rpx" :src="`${ImgUrl}/wxImg/index/ydj.png`"></image>
 				<image v-else style="width: 128rpx; height: 34rpx" :src="`${ImgUrl}/wxImg/index/qdl.png`" @click="goToLogin()"></image>
 
 				<view class="ft28">送货单轻松签收</view>
 			</view>
 			<view class="flex-row justify-between butBox text-center ft28 ft-bold" id="box">
-				<view v-for="(item, index) in roleList" :key="item.value" @click="changeRole(item.value)" :class="vuex_userRole === item.value ? 'activeBtn' : 'flex-1'">
+				<view v-for="(item, index) in roleList" :key="item.value" @click="changeRole(item.value)" :class="pinia_userRole === item.value ? 'activeBtn' : 'flex-1'">
 					{{ item.name }}
 				</view>
 			</view>
@@ -43,7 +43,7 @@
 				<view
 					class="flex-row items-center"
 					:id="index == 0 ? 'box2' : 'box3'"
-					:class="vuex_userRole === 'D' && index === 0 ? 'indexbox1 indexbox' : vuex_userRole === 'R' && index === 0 ? 'indexbox2 indexbox' : 'indexbox3 indexbox'"
+					:class="pinia_userRole === 'D' && index === 0 ? 'indexbox1 indexbox' : pinia_userRole === 'R' && index === 0 ? 'indexbox2 indexbox' : 'indexbox3 indexbox'"
 					v-for="(item, index) in orderList2"
 					:key="index"
 					@click="goPath(item.path)"
@@ -83,7 +83,7 @@
 			<u-swiper
 				@click="middleClick"
 				bg-color="#F6F7F7"
-				:list="middleBanner.length > 0 ? middleBanner : vuex_userRole == 'R' ? middleBannerlXR : middleBannerlXD"
+				:list="middleBanner.length > 0 ? middleBanner : pinia_userRole == 'R' ? middleBannerlXR : middleBannerlXD"
 				imgMode="aspectFill"
 				height="95"
 				interval="5000"
@@ -254,10 +254,16 @@ export default {
 		};
 	},
 	onShow() {
+		// 手动刷新accessToken
+		// this.$api.user.accessTokenRefresh({}).then((res) => {
+		// 	console.log('手动刷新accessToken=====>', res);
+		// });
+
+		console.log('dayin啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊', this.pinia_user);
 		this.getmiddleBanner(); //加载广告
-		// 未登录状态
-		if (this.vuex_user.phone == undefined || this.vuex_user.phone == '10000000000' || this.vuex_user.phone == null) {
-			if (this.vuex_userRole == 'D') {
+
+		if (!this.pinia_token) {
+			if (this.pinia_userRole == 'D') {
 				this.middleBanner = this.middleBannerlXD;
 			} else {
 				this.middleBanner = this.middleBannerlXR;
@@ -266,29 +272,13 @@ export default {
 			//#ifdef APP
 			this.goToLogin();
 			//#endif
-		}
-		// 已登录状态
-		else {
-			// this.guideCourse();
-		}
-		console.log('this.isLogin', this.isLogin);
-		// 新手指引
-		if (this.isLogin) {
+		} else {
+			//新手引导
 			this.guideCourse();
 		}
-		this.setDR(this.vuex_userRole);
+		this.setDR(this.pinia_userRole);
 	},
 	onLoad() {},
-	computed: {
-		isLogin() {
-			if (this.vuex_token && this.vuex_user) {
-				return true;
-			} else {
-				return false;
-			}
-			// return this.vuex_token && this.vuex_user?.phone;
-		}
-	},
 	methods: {
 		// 跳转订单页
 		goList(val) {
@@ -317,7 +307,7 @@ export default {
 				...data
 			};
 
-			if (this.vuex_userRole == 'D') {
+			if (this.pinia_userRole == 'D') {
 				this.showFunctionGuideD();
 			} else {
 				this.showFunctionGuideR();
@@ -466,9 +456,9 @@ export default {
 		},
 		getElementData(el, cb) {
 			let query = null;
-			if (this.functionGuideData.step == 4 && this.vuex_userRole == 'D') {
+			if (this.functionGuideData.step == 4 && this.pinia_userRole == 'D') {
 				query = uni.createSelectorQuery().in(this.$refs.popTab);
-			} else if (this.functionGuideData.step == 2 && this.vuex_userRole == 'R') {
+			} else if (this.functionGuideData.step == 2 && this.pinia_userRole == 'R') {
 				query = uni.createSelectorQuery().in(this.$refs.popTab);
 			} else {
 				query = uni.createSelectorQuery().in(this);
@@ -489,7 +479,7 @@ export default {
 		},
 		// 加载广告
 		getmiddleBanner() {
-			var filer = this.vuex_userRole == 'D' ? '1' : '0';
+			var filer = this.pinia_userRole == 'D' ? '1' : '0';
 			console.log('this.$api.advert', this.$api);
 			this.$api.advert
 				.getAdvertList({
@@ -498,7 +488,7 @@ export default {
 				.then((res) => {
 					console.log('广告列表', res);
 					if (res.data.code == 401) {
-						if (this.vuex_userRole == 'D') {
+						if (this.pinia_userRole == 'D') {
 							this.middleBanner = this.middleBannerlXD;
 						} else {
 							this.middleBanner = this.middleBannerlXR;
@@ -743,7 +733,7 @@ export default {
 					userRole: value
 				}
 			});
-			if (this.isLogin) {
+			if (this.pinia_token) {
 				this.guideCourse();
 			}
 			this.setDR(value);

@@ -93,7 +93,7 @@ export default {
 			var that = this;
 			this.$api.sign
 				.getSignature({
-					phone: this.vuex_user.phone
+					phone: this.pinia_user.phone
 				})
 				.then((res) => {
 					console.log(res);
@@ -105,7 +105,7 @@ export default {
 			if (code != '') {
 				this.$api.user
 					.verifyUnsubscribeCode({
-						phone: this.vuex_user.phone,
+						phone: this.pinia_user.phone,
 						code: code
 					})
 					.then((res) => {
@@ -128,7 +128,7 @@ export default {
 				this.codeClick = false;
 				this.$api.user
 					.getUnsubscribeCode({
-						phone: this.vuex_user.phone,
+						phone: this.pinia_user.phone,
 						type: 1
 					})
 					.then((res) => {

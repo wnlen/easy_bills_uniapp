@@ -4,7 +4,7 @@ export default (http) => ({
 	 * 原始接口：/edo/gzh/v1/verificationCode
 	 */
 	getGzhVerificationCode(params) {
-		return http.post('edo/gzh/v1/verificationCode', params);
+		return http.post('gzh/v1/verificationCode', params);
 	},
 
 	/**
@@ -12,6 +12,6 @@ export default (http) => ({
 	 * 原始接口：/edo/gzh/article
 	 */
 	getGzhArticle(params) {
-		return http.post('edo/gzh/article', params);
+		return http.post('gzh/article', params);
 	}
 });

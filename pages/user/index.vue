@@ -3,13 +3,17 @@
 		<view
 			class="user-top flex-col items-center pt20 pl30 pr30 pb30"
 			style="z-index: 1; background-color: #ffffff"
-			:style="{ backgroundImage: vuex_userRole == 'R' ? 'url(' + backgroundImage[0] + ')' : 'url(' + backgroundImage[1] + ')' }"
+			:style="{ backgroundImage: pinia_userRole == 'R' ? 'url(' + backgroundImage[0] + ')' : 'url(' + backgroundImage[1] + ')' }"
 		>
 			<view class="flex-row items-center flex-1" style="width: 100vw; margin-top: 2.5vh">
 				<view class="flex-row flex-1 ml24 items-center" style="">
 					<view>
 						<!-- #ifdef MP-WEIXIN -->
-						<u-avatar size="60" :src="vuex_user.data.headPortrait == null ? ImgUrl + '/wxImg/index/mr.svg' : vuex_user.data.headPortrait" @click="userClick"></u-avatar>
+						<u-avatar
+							size="60"
+							:src="pinia_user.data.headPortrait == null ? ImgUrl + '/wxImg/index/mr.svg' : pinia_user.data.headPortrait"
+							@click="userClick"
+						></u-avatar>
 						<!-- #endif -->
 						<!-- #ifdef APP -->
 						<u-avatar size="60" src="https://res-oss.elist.com.cn/wxImg/index/mr.svg" @click="userClick"></u-avatar>
@@ -19,19 +23,27 @@
 						<view class="flex-row justify-left items-center" style="" @click="userClick">
 							<view class="ml15">
 								<view class="ft-color ft42 ft-zjj-1" style="font-weight: 500">
-									{{ vuex_user.phone == undefined ? '请登录~' : userName(vuex_user.data.name) || '设置用户名~' }}
+									{{ pinia_user.phone == undefined ? '请登录~' : userName(pinia_user.data.name) || '设置用户名~' }}
 								</view>
 							</view>
-							<view class="flex-row justify-between ml20" style="width: 120rpx; height: 60rpx" v-if="vuex_user.data">
-								<image v-if="vuex_user.data.work != '1'" src="https://res-oss.elist.com.cn/wxImg/user/zzh.svg" style="width: 100%; height: 100%"></image>
-								<view v-if="vuex_user.data.work == '1'" style="width: 100%; height: 100%">
+							<view class="flex-row justify-between ml20" style="width: 120rpx; height: 60rpx" v-if="pinia_user.data">
+								<image v-if="pinia_user.data.work != '1'" src="https://res-oss.elist.com.cn/wxImg/user/zzh.svg" style="width: 100%; height: 100%"></image>
+								<view v-if="pinia_user.data.work == '1'" style="width: 100%; height: 100%">
 									<image
-										v-if="vuex_user.workData.identity == '1'"
+										v-if="pinia_user.workData.identity == '1'"
 										src="https://res-oss.elist.com.cn/wxImg/user/hhr.svg"
 										style="width: 100%; height: 100%"
 									></image>
-									<image v-if="vuex_user.workData.identity == '3'" src="https://res-oss.elist.com.cn/wxImg/user/cw.svg" style="width: 100%; height: 100%"></image>
-									<image v-if="vuex_user.workData.identity == '4'" src="https://res-oss.elist.com.cn/wxImg/user/yg.svg" style="width: 100%; height: 100%"></image>
+									<image
+										v-if="pinia_user.workData.identity == '3'"
+										src="https://res-oss.elist.com.cn/wxImg/user/cw.svg"
+										style="width: 100%; height: 100%"
+									></image>
+									<image
+										v-if="pinia_user.workData.identity == '4'"
+										src="https://res-oss.elist.com.cn/wxImg/user/yg.svg"
+										style="width: 100%; height: 100%"
+									></image>
 								</view>
 							</view>
 						</view>
@@ -40,7 +52,7 @@
 							<view class="ft-zjj-05" @click="userClick">
 								<view class="flex-row items-center">
 									<u-icon size="50rpx" :name="ImgUrl + '/wxImg/user/my-phone.png'"></u-icon>
-									<text class="pb5" style="color: #525252">{{ vuex_user.phone || '***********' }}</text>
+									<text class="pb5" style="color: #525252">{{ pinia_user.phone || '***********' }}</text>
 								</view>
 							</view>
 							<view class="">
@@ -49,9 +61,9 @@
 										<u-icon size="50rpx" :name="ImgUrl + '/wxImg/user/my-emp.png'"></u-icon>
 
 										<!-- 										<text class="pb5"
-											style="color: #525252;">{{(vuex_user.ac?vuex_user.ac.enterpriseName:'未完善公司信息')}}</text> -->
+											style="color: #525252;">{{(pinia_user.ac?pinia_user.ac.enterpriseName:'未完善公司信息')}}</text> -->
 										<text class="pb5" style="color: #525252">
-											{{ vuex_user.ac ? (vuex_user.ac.enterpriseName ? vuex_user.ac.enterpriseName : '***********') : '未完善公司信息' }}
+											{{ pinia_user.ac ? (pinia_user.ac.enterpriseName ? pinia_user.ac.enterpriseName : '***********') : '未完善公司信息' }}
 										</text>
 									</view>
 								</view>
@@ -251,7 +263,8 @@ export default {
 		});
 	},
 	onShow() {
-		if (this.vuex_user.phone != undefined) {
+		console.log('dayin啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊', this.pinia_user);
+		if (this.pinia_user.phone != undefined) {
 			this.$loadUser(this);
 			// this.guideCourse();
 		} else {
@@ -260,9 +273,9 @@ export default {
 	},
 	methods: {
 		guideCourse() {
-			if (this.vuex_user.phone != undefined) {
+			if (this.pinia_user.phone != undefined) {
 				console.log(11, this.$u.getPinia('guide.guidanceD'));
-				if (this.$u.getPinia('guide.guidanceD') != 1 && this.vuex_userRole == 'D') {
+				if (this.$u.getPinia('guide.guidanceD') != 1 && this.pinia_userRole == 'D') {
 					this.guide();
 				}
 			}
@@ -277,7 +290,7 @@ export default {
 				...data
 			};
 
-			if (this.vuex_userRole == 'D') {
+			if (this.pinia_userRole == 'D') {
 				this.showFunctionGuideD();
 			} else {
 				// this.showFunctionGuideR()
@@ -326,7 +339,7 @@ export default {
 				});
 		},
 		generateCode() {
-			if (this.vuex_user.phone == undefined) {
+			if (!this.pinia_token) {
 				uni.navigateTo({
 					url: '/pages/subUser/login'
 				});
@@ -348,7 +361,7 @@ export default {
 			}
 		},
 		userClick() {
-			if (this.vuex_user.phone == undefined) {
+			if (!this.pinia_token) {
 				uni.navigateTo({
 					url: '/pages/subUser/login'
 				});
@@ -360,7 +373,7 @@ export default {
 			}
 		},
 		menuClick(val) {
-			if (this.vuex_user.phone == undefined && val.verifyLogin) {
+			if (!this.pinia_token && val.verifyLogin) {
 				uni.navigateTo({
 					url: '/pages/subUser/login'
 				});
@@ -369,7 +382,7 @@ export default {
 
 			if (val.verify) {
 				this.$loadUser(this);
-				var ifwork = this.vuex_user.data.work != '0';
+				var ifwork = this.pinia_user.data.work != '0';
 				if (ifwork) {
 					// this.$u.toast("您没有访问权限");
 					uni.navigateTo({
@@ -392,6 +405,7 @@ export default {
 			}
 		},
 		userName(str) {
+			if (!str) return '';
 			if (str.length > 7) {
 				return str.slice(0, 7) + '...';
 			} else {

@@ -38,10 +38,10 @@
 			<template #empty>
 				<view
 					v-show="
-						(vuex_user.workData.identity == '3' && tab == 1) ||
-						(vuex_user.workData.identity == '4' && tab == 0) ||
-						vuex_user.data.work == '0' ||
-						vuex_user.workData.identity == '1'
+						(pinia_user.workData.identity == '3' && tab == 1) ||
+						(pinia_user.workData.identity == '4' && tab == 0) ||
+						pinia_user.data.work == '0' ||
+						pinia_user.workData.identity == '1'
 					"
 					style="padding-bottom: 1000rpx"
 				>
@@ -57,9 +57,9 @@
 			<template #empty>
 				<view
 					v-show="
-						(vuex_user.workData.identity == '3' && tab == 0) ||
-						(vuex_user.workData.identity == '4' && tab == 1) ||
-						(vuex_user.data.work == '1' && vuex_user.workData.identity != '1')
+						(pinia_user.workData.identity == '3' && tab == 0) ||
+						(pinia_user.workData.identity == '4' && tab == 1) ||
+						(pinia_user.data.work == '1' && pinia_user.workData.identity != '1')
 					"
 					style="padding-bottom: 1000rpx"
 				>
@@ -187,14 +187,14 @@ export default {
 		};
 	},
 	onShow() {
-		if (this.vuex_user.workData != null) {
-			var ide = this.vuex_user.workData.identity == '3';
+		if (this.pinia_user.workData != null) {
+			var ide = this.pinia_user.workData.identity == '3';
 			if (ide) {
 				this.identity = true;
 			}
 		}
 
-		if (this.vuex_userRole == 'D') {
+		if (this.pinia_userRole == 'D') {
 			this.tabList[1].name = '收款单';
 		} else {
 			this.tabList[1].name = '付款单';
@@ -213,7 +213,7 @@ export default {
 		},
 		queryList(start, end) {
 			console.log('获取', start, end);
-			if (this.vuex_user.workData.identity != '3' || (this.tab == 1 && this.vuex_user.workData.identity == '3')) {
+			if (this.pinia_user.workData.identity != '3' || (this.tab == 1 && this.pinia_user.workData.identity == '3')) {
 				this.refresh(start, end);
 			} else {
 				this.$refs.paging.complete([]);
@@ -301,7 +301,7 @@ export default {
 			});
 		},
 		refresh(start, end) {
-			var workIF = this.vuex_user.data.work == '0';
+			var workIF = this.pinia_user.data.work == '0';
 			var dx = {
 				bUser: '',
 				bBoss: '',
@@ -311,20 +311,20 @@ export default {
 			};
 			if (workIF) {
 				//没工作
-				dx.bBoss = this.vuex_user.phone;
+				dx.bBoss = this.pinia_user.phone;
 			} else {
 				//有工作
 				console.log('(待办事项)有工作:', workIF);
-				var identity = this.vuex_user.workData.identity;
+				var identity = this.pinia_user.workData.identity;
 				if (identity == '4') {
-					dx.bBoss = this.vuex_user.workData.bossNumber;
-					dx.bUser = this.vuex_user.phone;
+					dx.bBoss = this.pinia_user.workData.bossNumber;
+					dx.bUser = this.pinia_user.phone;
 				} else if (identity == '1') {
-					dx.bBoss = this.vuex_user.workData.bossNumber;
-					// dx.bUser = this.vuex_user.phone
+					dx.bBoss = this.pinia_user.workData.bossNumber;
+					// dx.bUser = this.pinia_user.phone
 				} else {
-					dx.bBoss = this.vuex_user.workData.bossNumber;
-					dx.bUser = this.vuex_user.workData.bossNumber;
+					dx.bBoss = this.pinia_user.workData.bossNumber;
+					dx.bUser = this.pinia_user.workData.bossNumber;
 				}
 			}
 
@@ -334,7 +334,7 @@ export default {
 					show: false
 				}));
 
-				var filer = this.vuex_userRole == 'D';
+				var filer = this.pinia_userRole == 'D';
 				if (filer) {
 					this.$refs.paging.complete(getList.filter((res) => res.port == 'R' || res.port == 'E'));
 				} else {
@@ -344,7 +344,7 @@ export default {
 			});
 		},
 		loadData() {
-			var workIF = this.vuex_user.data.work == '0';
+			var workIF = this.pinia_user.data.work == '0';
 			var dx = {
 				bUser: '',
 				bBoss: '',
@@ -352,17 +352,17 @@ export default {
 			};
 			if (workIF) {
 				//没工作
-				dx.bBoss = this.vuex_user.phone;
+				dx.bBoss = this.pinia_user.phone;
 			} else {
 				//有工作
 				console.log('(待办事项)有工作:', workIF);
-				var identity = this.vuex_user.workData.identity;
+				var identity = this.pinia_user.workData.identity;
 				if (identity == '4') {
-					dx.bBoss = this.vuex_user.workData.bossNumber;
-					dx.bUser = this.vuex_user.phone;
+					dx.bBoss = this.pinia_user.workData.bossNumber;
+					dx.bUser = this.pinia_user.phone;
 				} else {
-					dx.bBoss = this.vuex_user.workData.bossNumber;
-					dx.bUser = this.vuex_user.workData.bossNumber;
+					dx.bBoss = this.pinia_user.workData.bossNumber;
+					dx.bUser = this.pinia_user.workData.bossNumber;
 				}
 			}
 
@@ -371,7 +371,7 @@ export default {
 					...obj,
 					show: false
 				}));
-				var filer = this.vuex_userRole == 'D' ? '1' : '0';
+				var filer = this.pinia_userRole == 'D' ? '1' : '0';
 				console.log('筛选条件: ', filer);
 				if (filer == '1') {
 					this.list = this.list.filter((res) => res.port == 'f' || res.port == '1');

@@ -73,10 +73,10 @@ export default {
 		defUpdate(item) {
 			console.log(item);
 
-			var ifwork = this.vuex_user.data.work == '0';
-			var ifWorkPort = this.vuex_userRole == 'R';
+			var ifwork = this.pinia_user.data.work == '0';
+			var ifWorkPort = this.pinia_userRole == 'R';
 
-			var phone = this.vuex_user.phone;
+			var phone = this.pinia_user.phone;
 
 			var dx = {
 				boss: '',
@@ -93,7 +93,7 @@ export default {
 				dx.staff = phone;
 				dx.phone = phone;
 			} else {
-				var boss = this.vuex_user.workData.bossNumber;
+				var boss = this.pinia_user.workData.bossNumber;
 				dx.boss = boss;
 				dx.staff = phone;
 				dx.phone = boss;
@@ -126,10 +126,10 @@ export default {
 			});
 		},
 		getPrinter() {
-			var ifwork = this.vuex_user.data.work == '0';
-			var ifWorkPort = this.vuex_userRole == 'R';
+			var ifwork = this.pinia_user.data.work == '0';
+			var ifWorkPort = this.pinia_userRole == 'R';
 
-			var phone = this.vuex_user.phone;
+			var phone = this.pinia_user.phone;
 
 			var dx = {
 				boss: '',
@@ -142,7 +142,7 @@ export default {
 				dx.staff = phone;
 				dx.phone = phone;
 			} else {
-				var boss = this.vuex_user.workData.bossNumber;
+				var boss = this.pinia_user.workData.bossNumber;
 				dx.boss = boss;
 				dx.staff = phone;
 				dx.phone = boss;

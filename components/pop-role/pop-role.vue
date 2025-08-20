@@ -97,7 +97,7 @@ export default {
 	watch: {
 		roleShow(newValue, oldValue) {
 			if (newValue) {
-				this.roleId = this.vuex_userRole === 0 ? 'D' : this.vuex_userRole;
+				this.roleId = this.pinia_userRole === 0 ? 'D' : this.pinia_userRole;
 				this.$loadUser(this);
 			}
 		}
@@ -118,9 +118,9 @@ export default {
 			console.log('收货 ： ' + this.roleShowS);
 		},
 		guidanceFun() {
-			if (this.vuex_user.phone != undefined) {
+			if (this.pinia_user.phone != undefined) {
 				this.$loadUser(this);
-				if (this.vuex_userRole == 'D') {
+				if (this.pinia_userRole == 'D') {
 					if (this.guidanceD == 1) {
 						this.$parent.guide();
 					}
@@ -144,9 +144,9 @@ export default {
 						userRole: 'D'
 					}
 				});
-				if (this.vuex_user.phone != undefined) {
+				if (this.pinia_user.phone != undefined) {
 					if (this.$parent.indexSumList) {
-						var filer = this.vuex_userRole == 'D' ? '0' : '1';
+						var filer = this.pinia_userRole == 'D' ? '0' : '1';
 						console.log('发货端0');
 						this.$parent.indexSumList = this.$parent.indexSumListCopy;
 						this.$parent.indexSumList = this.$parent.indexSumList.filter((res) => res.port == filer);
@@ -173,9 +173,9 @@ export default {
 						userRole: 'R'
 					}
 				});
-				if (this.vuex_user.phone != undefined) {
+				if (this.pinia_user.phone != undefined) {
 					if (this.$parent.indexSumList) {
-						var filer = this.vuex_userRole == 'D' ? '0' : '1';
+						var filer = this.pinia_userRole == 'D' ? '0' : '1';
 						console.log('收货端0');
 						this.$parent.indexSumList = this.$parent.indexSumListCopy;
 						this.$parent.indexSumList = this.$parent.indexSumList.filter((res) => res.port == filer);

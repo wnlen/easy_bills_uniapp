@@ -10,7 +10,7 @@
 				v-for="(item, index) in messageList"
 				:key="index"
 			>
-				<view class="" v-if="item.formUserId != vuex_user.phone">
+				<view class="" v-if="item.formUserId != pinia_user.phone">
 					<view class="" style="position: absolute; left: 0; top: 0">
 						<u-icon :name="item.img" size="80"></u-icon>
 					</view>
@@ -38,7 +38,7 @@
 					</view>
 				</view>
 
-				<view class="mt45 mr30" v-if="item.formUserId == vuex_user.phone">
+				<view class="mt45 mr30" v-if="item.formUserId == pinia_user.phone">
 					<view class="" style="position: absolute; right: 20rpx; top: 0">
 						<u-icon :name="item.img" size="80"></u-icon>
 					</view>
@@ -151,16 +151,16 @@ export default {
 		}, 1000);
 	},
 	onShow(e) {
-		var mes = uni.getStorageSync(this.vuex_user.phone);
+		var mes = uni.getStorageSync(this.pinia_user.phone);
 		if (mes == '') {
 			var lt = {
-				user: this.vuex_user.phone,
+				user: this.pinia_user.phone,
 				message: [],
 				data: ''
 			};
-			uni.setStorageSync(this.vuex_user.phone, JSON.stringify(lt));
+			uni.setStorageSync(this.pinia_user.phone, JSON.stringify(lt));
 		} else {
-			var mes = uni.getStorageSync(this.vuex_user.phone);
+			var mes = uni.getStorageSync(this.pinia_user.phone);
 			// console.log("缓存聊天：",mes);
 			this.messageList = JSON.parse(mes).message;
 		}
@@ -189,45 +189,45 @@ export default {
 					console.log(fileContent);
 
 					var dx = {
-						formUserId: that.vuex_user.phone,
+						formUserId: that.pinia_user.phone,
 						toUserId: that.support.phone,
 						message: JSON.parse(JSON.stringify({ img: imagePath })),
-						img: that.vuex_user.data.headPortrait,
-						name: that.vuex_user.data.name,
-						userData: that.vuex_user.data
+						img: that.pinia_user.data.headPortrait,
+						name: that.pinia_user.data.name,
+						userData: that.pinia_user.data
 					};
 					that.messageList.push(dx);
 					that.SAVE(dx, 2);
 					uni.sendSocketMessage({
 						data: JSON.stringify({
-							formUserId: that.vuex_user.phone,
+							formUserId: that.pinia_user.phone,
 							toUserId: that.support.phone,
 							message: fileContent,
-							img: that.vuex_user.data.headPortrait,
-							name: that.vuex_user.data.name,
-							userData: that.vuex_user.data
+							img: that.pinia_user.data.headPortrait,
+							name: that.pinia_user.data.name,
+							userData: that.pinia_user.data
 						})
 					});
 				}
 			});
 		},
 		clearMessage() {
-			var mes = uni.getStorageSync(this.vuex_user.phone);
+			var mes = uni.getStorageSync(this.pinia_user.phone);
 			var mesjson = JSON.parse(mes);
 			mesjson.message = [];
 			this.messageList = mesjson.message;
-			uni.setStorageSync(this.vuex_user.phone, JSON.stringify(mesjson));
+			uni.setStorageSync(this.pinia_user.phone, JSON.stringify(mesjson));
 		},
 		SAVE(MES, type) {
-			var mes = uni.getStorageSync(this.vuex_user.phone);
+			var mes = uni.getStorageSync(this.pinia_user.phone);
 			if (type == 1) {
 				var jsonadd = JSON.parse(mes);
 				jsonadd.data = JSON.stringify(MES);
-				uni.setStorageSync(this.vuex_user.phone, JSON.stringify(jsonadd));
+				uni.setStorageSync(this.pinia_user.phone, JSON.stringify(jsonadd));
 			} else if (type == 2) {
 				var jsonadd = JSON.parse(mes);
 				jsonadd.message.push(MES);
-				uni.setStorageSync(this.vuex_user.phone, JSON.stringify(jsonadd));
+				uni.setStorageSync(this.pinia_user.phone, JSON.stringify(jsonadd));
 			}
 		},
 		copyIteam(e) {
@@ -253,7 +253,7 @@ export default {
 			var json = JSON.parse(jsons);
 			if (!this.socketOpen && uni.getSocketTask) {
 				uni.connectSocket({
-					url: 'wss://wxapi.elist.com.cn/edo/send/' + this.vuex_user.phone, // 你的 WebSocket 服务器地址
+					url: 'wss://wxapi.elist.com.cn/edo/send/' + this.pinia_user.phone, // 你的 WebSocket 服务器地址
 					success: () => {
 						this.socketOpen = true;
 						console.log('WebSocket 连接已打开');
@@ -278,7 +278,7 @@ export default {
 						var mes = JSON.parse(res.data);
 						var dx = {
 							formUserId: support,
-							toUserId: this.vuex_user.phone,
+							toUserId: this.pinia_user.phone,
 							message: mes.message,
 							img: this.support.img,
 							name: mes.name,
@@ -292,7 +292,7 @@ export default {
 				});
 
 				var dx = {
-					formUserId: this.vuex_user.phone,
+					formUserId: this.pinia_user.phone,
 					toUserId: support,
 					message: '会话连接',
 					img: json.img,
@@ -348,12 +348,12 @@ export default {
 				this.showFile = 0;
 
 				var dx = {
-					formUserId: this.vuex_user.phone,
+					formUserId: this.pinia_user.phone,
 					toUserId: this.support.phone,
 					message: this.message,
-					img: this.vuex_user.data.headPortrait,
-					name: this.vuex_user.data.name,
-					userData: this.vuex_user.data
+					img: this.pinia_user.data.headPortrait,
+					name: this.pinia_user.data.name,
+					userData: this.pinia_user.data
 				};
 
 				this.messageList.push(dx);
@@ -361,12 +361,12 @@ export default {
 				if (this.socketOpen) {
 					uni.sendSocketMessage({
 						data: JSON.stringify({
-							formUserId: this.vuex_user.phone,
+							formUserId: this.pinia_user.phone,
 							toUserId: this.support.phone,
 							message: this.message,
-							img: this.vuex_user.data.headPortrait,
-							name: this.vuex_user.data.name,
-							userData: this.vuex_user.data
+							img: this.pinia_user.data.headPortrait,
+							name: this.pinia_user.data.name,
+							userData: this.pinia_user.data
 						}),
 						async success() {
 							console.log('消息发送成功');

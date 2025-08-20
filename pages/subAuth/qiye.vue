@@ -37,31 +37,31 @@
 		<view v-if="show != 0" class="flex-col mt20 ml48 mr48">
 			<view class="flex-row justify-between items-center pl20 pr20 pt30 pb30 radius mb10">
 				<view class="flex-row items-center">
-					<u-image width="60" height="60" shape="circle" :src="vuex_user.data.headPortrait || '/static/img/obj/defind.svg'" :show-menu-by-longpress="false"></u-image>
+					<u-image width="60" height="60" shape="circle" :src="pinia_user.data.headPortrait || '/static/img/obj/defind.svg'" :show-menu-by-longpress="false"></u-image>
 					<view class="ml30 mr30" style="max-width: 100px; font-weight: bold; font-size: 16px">
-						{{ vuex_user.data.name }}
+						{{ pinia_user.data.name }}
 					</view>
 					<u-image class="ml15" width="50" height="20" src="/static/img/obj/yrz.svg" :show-menu-by-longpress="false"></u-image>
 				</view>
-				<u-button size="mini" v-if="vuex_user.workData.id == null" color="#01BB74" :customStyle="{ width: '150rpx' }" @click="authRefresh" shape="circle" type="success">
+				<u-button size="mini" v-if="pinia_user.workData.id == null" color="#01BB74" :customStyle="{ width: '150rpx' }" @click="authRefresh" shape="circle" type="success">
 					更新信息
 				</u-button>
 			</view>
 			<view class="flex-row items-center pd20">
 				<text class="ft-gray mr30 width120">企业名称</text>
-				<text class="flex-1">{{ vuex_user.ac ? vuex_user.ac.enterpriseName : '' }}</text>
+				<text class="flex-1">{{ pinia_user.ac ? pinia_user.ac.enterpriseName : '' }}</text>
 			</view>
 			<view class="flex-row items-center pd20">
 				<text class="ft-gray mr30 width120">联系人</text>
-				<text class="flex-1">{{ vuex_user.data.name || '未填写' }}</text>
+				<text class="flex-1">{{ pinia_user.data.name || '未填写' }}</text>
 			</view>
 			<view class="flex-row items-center pd20">
 				<text class="ft-gray mr30 width120">联系电话</text>
-				<text class="flex-1">{{ vuex_user.phone || '未填写' }}</text>
+				<text class="flex-1">{{ pinia_user.phone || '未填写' }}</text>
 			</view>
 			<view class="flex-row items-center pd20">
 				<text class="ft-gray mr30 width120">企业地址</text>
-				<text class="flex-1">{{ vuex_user.ac ? vuex_user.ac.businessSite : '未填写' }}</text>
+				<text class="flex-1">{{ pinia_user.ac ? pinia_user.ac.businessSite : '未填写' }}</text>
 			</view>
 		</view>
 	</view>
@@ -101,12 +101,12 @@ export default {
 		authRefresh() {
 			this.up = false;
 			this.show = 0;
-			this.nameID = this.vuex_user.data.name;
-			this.userInfo.accountSubject.simpleNameQ = this.vuex_user.ac.enterpriseName; //企业全称
-			this.userInfo.accountSubject.simpleName = this.vuex_user.ac.abbreviation;
-			this.userInfo.accountSubject.contact = this.vuex_user.ac.user;
-			this.userInfo.accountSubject.contactPhone = this.vuex_user.ac.phone;
-			this.userInfo.accountSubject.address = this.vuex_user.ac.businessSite;
+			this.nameID = this.pinia_user.data.name;
+			this.userInfo.accountSubject.simpleNameQ = this.pinia_user.ac.enterpriseName; //企业全称
+			this.userInfo.accountSubject.simpleName = this.pinia_user.ac.abbreviation;
+			this.userInfo.accountSubject.contact = this.pinia_user.ac.user;
+			this.userInfo.accountSubject.contactPhone = this.pinia_user.ac.phone;
+			this.userInfo.accountSubject.address = this.pinia_user.ac.businessSite;
 		},
 		loadData(a) {
 			let that = this;
@@ -128,12 +128,12 @@ export default {
 					}
 					that.license = tempFilePaths;
 					console.log(tempFilePaths);
-					var bossNumber = that.vuex_work == 'Y' ? that.vuex_user.workData.bossNumber : that.vuex_user.phone || that.vuex_user.data.phoneNumber;
+					var bossNumber = that.pinia_work == 'Y' ? that.pinia_user.workData.bossNumber : that.pinia_user.phone || that.pinia_user.data.phoneNumber;
 					uni.uploadFile({
 						url: uni.$http.config.baseURL + '/edo/user/modifyImage',
 						header: {
 							phone: bossNumber,
-							token: that.vuex_token
+							token: that.pinia_token
 						},
 						filePath: tempFilePaths,
 						name: 'imageFile',
@@ -153,10 +153,10 @@ export default {
 			let that = this;
 			console.log('==== that.userInfo :', that.userInfo);
 			let userInfos = that.$u.deepClone(that.userInfo); //深度克隆
-			console.log(this.vuex_user.ac);
+			console.log(this.pinia_user.ac);
 			let id = '';
-			if (this.vuex_user.ac != null) {
-				id = this.vuex_user.ac.id;
+			if (this.pinia_user.ac != null) {
+				id = this.pinia_user.ac.id;
 			} else {
 				id = '';
 			}
@@ -164,10 +164,10 @@ export default {
 				id: id,
 				enterpriseName: that.userInfo.accountSubject.simpleNameQ, //企业全称
 				abbreviation: that.userInfo.accountSubject.simpleName,
-				userName: that.vuex_user.data.name,
-				phone: that.vuex_user.phone,
+				userName: that.pinia_user.data.name,
+				phone: that.pinia_user.phone,
 				state: '1',
-				user: this.vuex_user.phone,
+				user: this.pinia_user.phone,
 				businessSite: that.userInfo.accountSubject.address,
 				businessLicenseFront: that.userInfo.businessLicenseFront
 			};
@@ -200,11 +200,11 @@ export default {
 			}
 
 			var send = {
-				id: this.vuex_user.data.id,
+				id: this.pinia_user.data.id,
 				name: this.nameID,
-				phoneNumber: this.vuex_user.phone,
-				work: this.vuex_user.data.work,
-				boss: this.vuex_user.data.work == '0' ? this.vuex_user.phone : this.vuex_user.workData.bossNumber
+				phoneNumber: this.pinia_user.phone,
+				work: this.pinia_user.data.work,
+				boss: this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
 			};
 			send.name = send.name.trim();
 			if (send.name.length <= 0) {

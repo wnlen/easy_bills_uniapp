@@ -5,10 +5,10 @@ export default (http) => ({
 	},
 	// 邀请好友满足条件领取奖励
 	claimInviteReward(params) {
-		return http.post('/edo/invite/reward', params);
+		return http.post('invite/reward', params);
 	},
 	// 新手指引
 	Guidance(params) {
-		return http.post('/edo/user/Guidance', params);
+		return http.post('user/Guidance', params);
 	}
 });

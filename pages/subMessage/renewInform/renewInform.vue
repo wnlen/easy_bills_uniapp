@@ -154,7 +154,7 @@ export default {
 		getRenewInformList() {
 			var dx = {
 				state: '1',
-				phone: this.vuex_user.phone
+				phone: this.pinia_user.phone
 			};
 			this.$api.inform
 				.refreshInformStatus(dx)

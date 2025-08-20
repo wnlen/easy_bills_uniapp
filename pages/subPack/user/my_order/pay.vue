@@ -74,7 +74,7 @@ export default {
 		},
 		payBack() {
 			var number = this.nonceStr;
-			var phone = this.vuex_user.phone;
+			var phone = this.pinia_user.phone;
 
 			if (number == '') {
 				uni.navigateBack();

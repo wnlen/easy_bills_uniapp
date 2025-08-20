@@ -4,7 +4,7 @@ export default (http) => ({
 	 * 原始接口：/edo/printer/lookOverImg
 	 */
 	previewPrintImage(params) {
-		return http.post('/edo/printer/lookOverImg', params);
+		return http.post('printer/lookOverImg', params);
 	},
 
 	/**
@@ -12,14 +12,14 @@ export default (http) => ({
 	 * 原始接口：/edo/printer/print
 	 */
 	printDocument(params) {
-		return http.post('/edo/printer/print', params);
+		return http.post('printer/print', params);
 	},
 	/**
 	 * 获取打印机列表（或默认打印机信息）
 	 * 原始接口：/edo/printer/getPrinter
 	 */
 	getPrinterList(params) {
-		return http.post('/edo/printer/getPrinter', params);
+		return http.post('printer/getPrinter', params);
 	},
 
 	/**
@@ -27,7 +27,7 @@ export default (http) => ({
 	 * 原始接口：/edo/printer/printDef
 	 */
 	setDefaultPrinter(params) {
-		return http.post('/edo/printer/printDef', params);
+		return http.post('printer/printDef', params);
 	},
 
 	/**
@@ -35,6 +35,6 @@ export default (http) => ({
 	 * 原始接口：/edo/printer/printUpdateName
 	 */
 	updatePrinterName(params) {
-		return http.post('/edo/printer/printUpdateName', params);
+		return http.post('printer/printUpdateName', params);
 	}
 });

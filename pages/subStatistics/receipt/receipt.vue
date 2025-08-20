@@ -34,7 +34,7 @@
 							}"
 							style="width: 20%; height: 54rpx"
 						>
-							{{ vuex_userRole == 'D' ? '待签收' : '待确收' }}
+							{{ pinia_userRole == 'D' ? '待签收' : '待确收' }}
 						</view>
 						<view
 							class="HnadCardBtn"
@@ -52,7 +52,7 @@
 					<view class="InputCard">
 						<view class="InputOne">
 							<text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
-								{{ vuex_userRole === 'R' ? '供应商选择' : '客户选择' }}
+								{{ pinia_userRole === 'R' ? '供应商选择' : '客户选择' }}
 							</text>
 							<u-line direction="col" margin="0 20rpx" color="#333" length="40%"></u-line>
 							<view class="my-input flex-1">
@@ -61,7 +61,7 @@
 									@change="CustomerGetChange"
 									v-model="customer"
 									:customStyle="{ backgroundColor: 'transparent' }"
-									:placeholder="vuex_userRole === 'R' ? '请选择供应商' : '请选择客户'"
+									:placeholder="pinia_userRole === 'R' ? '请选择供应商' : '请选择客户'"
 									:clearable="true"
 								></u-input>
 							</view>
@@ -141,24 +141,24 @@
 						<u-icon size="28rpx" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
 					</view>
 					<view class="ml20" style="width: 30%">
-						<u-image v-if="vuex_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></u-image>
-						<u-image v-if="vuex_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/dqs.png"></u-image>
+						<u-image v-if="pinia_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></u-image>
+						<u-image v-if="pinia_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/dqs.png"></u-image>
 						<u-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="@/static/img/obj/bq2.png" :lazy-load="true"></u-image>
 						<u-image
-							v-if="vuex_userRole != 'R' && item.paymentState == '2'"
+							v-if="pinia_userRole != 'R' && item.paymentState == '2'"
 							width="120rpx"
 							height="50rpx"
 							class="u-img"
 							src="@/static/img/obj/bq3.png"
 							:lazy-load="true"
 						></u-image>
-						<u-image v-if="vuex_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/yfk.png"></u-image>
+						<u-image v-if="pinia_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/yfk.png"></u-image>
 					</view>
 				</view>
 				<view class="width100 pb25 text-left">
 					<text class="flex-col text-left">
 						<text
-							v-if="vuex_userRole == 'D'"
+							v-if="pinia_userRole == 'D'"
 							:style="{ color: ifZX(item.bossNumberE) ? '#AAAAAA' : '#3D3D3D' }"
 							class="ft34 u-line-bt width100"
 							style="font-weight: 500"
@@ -166,7 +166,7 @@
 							{{ item.organizationE || item.bossNumberE }}{{ ifZX(item.bossNumberE) ? '(已注销)' : '' }}
 						</text>
 						<text
-							v-if="vuex_userRole == 'R'"
+							v-if="pinia_userRole == 'R'"
 							:style="{ color: ifZX(item.bossNumberS) ? '#AAAAAA' : '#3D3D3D' }"
 							class="ft34 u-line-bt width100"
 							style="font-weight: 500"
@@ -227,7 +227,7 @@
 								class="flex-row justify-center items-center"
 								style="width: 280rpx; height: 80rpx; border-radius: 90rpx; opacity: 1; background-color: #01bb74; color: white; float: right; font-weight: 600"
 							>
-								{{ vuex_userRole == 'D' ? '开收款单' : '开付款单' }}
+								{{ pinia_userRole == 'D' ? '开收款单' : '开付款单' }}
 							</view>
 						</view>
 					</view>
@@ -331,7 +331,7 @@
 										color: showTage == '2' ? '#ffffff' : '#01BB74'
 									}"
 								>
-									{{ vuex_userRole == 'R' ? '收货地址' : '收货地址' }}
+									{{ pinia_userRole == 'R' ? '收货地址' : '收货地址' }}
 								</view>
 							</view>
 							<view class="flex-row mt20" style="width: 100%">
@@ -542,7 +542,7 @@ export default {
 			this.searchData = json;
 		}
 
-		var identity = this.vuex_user.data.work == '1' ? this.vuex_user.workData.identity != 4 : true;
+		var identity = this.pinia_user.data.work == '1' ? this.pinia_user.workData.identity != 4 : true;
 		this.identity = identity;
 	},
 	onShow() {
@@ -586,7 +586,7 @@ export default {
 			if (this.checked) {
 				console.log('开收款单 全选');
 				// 获取单子信息 id
-				this.realTimeSel.role = this.vuex_userRole == 'R' ? '1' : '0';
+				this.realTimeSel.role = this.pinia_userRole == 'R' ? '1' : '0';
 				this.$api.bills.getAllFilteredLockedIds(this.realTimeSel).then((res) => {
 					console.log(res);
 					var key = res.data.data.key == 1;
@@ -620,7 +620,7 @@ export default {
 					this.$api.bills
 						.lockBills({
 							billCheckList: idList,
-							port: this.vuex_userRole,
+							port: this.pinia_userRole,
 							sourcePhone: this.lock.sourcePhone
 						})
 						.then((res) => {
@@ -689,7 +689,7 @@ export default {
 				this.hasCheck = false;
 				return;
 			} else {
-				this.realTimeSel.role = this.vuex_userRole == 'R' ? '1' : '0';
+				this.realTimeSel.role = this.pinia_userRole == 'R' ? '1' : '0';
 				this.$api.bills.checkAllLockedBills(this.realTimeSel).then((res) => {
 					console.log(res);
 					if (res.data.data == '0') {
@@ -711,7 +711,7 @@ export default {
 
 			this.orderList[index].check = this.orderList[index].check ? false : true;
 
-			var port = this.vuex_userRole == 'R';
+			var port = this.pinia_userRole == 'R';
 			var filteredOrders = [];
 			var zxList = [];
 			var checkTrue = this.orderList.filter((order) => order.check);
@@ -789,7 +789,7 @@ export default {
 					: showTage == 1
 					? '联系号码'
 					: showTage == 2
-					? this.vuex_userRole == 'R'
+					? this.pinia_userRole == 'R'
 						? '收货地址'
 						: '收货地址'
 					: showTage == 3
@@ -805,11 +805,11 @@ export default {
 				this.realTimeSel.paymentState = tabIndex;
 			}
 
-			this.realTimeSel.getPhone = this.vuex_user.phone;
+			this.realTimeSel.getPhone = this.pinia_user.phone;
 
-			var ifwork = this.vuex_user.data.work == '0';
+			var ifwork = this.pinia_user.data.work == '0';
 			var timeEmp = this.realTimeSel.startDate == '' || this.realTimeSel.endDate == '';
-			var ifWorkPort = this.vuex_userRole == 'R';
+			var ifWorkPort = this.pinia_userRole == 'R';
 
 			if (ifWorkPort) {
 				this.tabsList[1].name = '待确收';
@@ -824,23 +824,23 @@ export default {
 
 			if (ifwork) {
 				//没有工作
-				this.lock.sourcePhone = this.vuex_user.phone;
+				this.lock.sourcePhone = this.pinia_user.phone;
 				//console.log("没有工作");
 				if (!ifWorkPort) {
 					//console.log("没有工作 发货");
 					this.realTimeSel.bossNumberE = '';
-					this.realTimeSel.bossNumberS = this.vuex_user.phone;
+					this.realTimeSel.bossNumberS = this.pinia_user.phone;
 				} else {
 					//console.log("没有工作 收货");
 					this.realTimeSel.bossNumberS = '';
-					this.realTimeSel.bossNumberE = this.vuex_user.phone;
+					this.realTimeSel.bossNumberE = this.pinia_user.phone;
 				}
 			} else {
 				//有工作
 				//判断身份
-				var identity = this.vuex_user.workData.identity;
+				var identity = this.pinia_user.workData.identity;
 				//老板
-				var boss = this.vuex_user.workData.bossNumber;
+				var boss = this.pinia_user.workData.bossNumber;
 				//console.log("有工作");
 				this.lock.sourcePhone = boss;
 				if (!ifWorkPort) {
@@ -850,7 +850,7 @@ export default {
 					this.realTimeSel.bossNumberE = '';
 					if (identity == '4') {
 						//console.log("有工作 发货端 员工");
-						this.realTimeSel.staffNumberS = this.vuex_user.phone;
+						this.realTimeSel.staffNumberS = this.pinia_user.phone;
 						this.realTimeSel.bossNumberS = boss;
 					} else {
 						//console.log("有工作 发货端 其他");
@@ -859,7 +859,7 @@ export default {
 						this.realTimeSel.bossNumberS = boss;
 					}
 				} else {
-					//console.log("有工作 收货", JSON.parse(JSON.stringify(this.vuex_user.workData)));
+					//console.log("有工作 收货", JSON.parse(JSON.stringify(this.pinia_user.workData)));
 					//console.log("有工作 收货" + identity);
 					//收货端
 					this.realTimeSel.staffNumberS = '';
@@ -867,7 +867,7 @@ export default {
 					if (identity == '4') {
 						//员工
 						//console.log("有工作 收货 员工" + identity);
-						this.realTimeSel.staffNumberE = this.vuex_user.phone;
+						this.realTimeSel.staffNumberE = this.pinia_user.phone;
 						this.realTimeSel.bossNumberE = boss;
 					} else {
 						//其他
@@ -904,7 +904,7 @@ export default {
 				uni.removeStorageSync('companyNameJSON');
 			}
 
-			if (this.vuex_userRole == 'R') {
+			if (this.pinia_userRole == 'R') {
 				this.tabsList[this.tabsList.length - 1].name = '已付款';
 			}
 
@@ -934,7 +934,7 @@ export default {
 		},
 		queryList(pageNo, pageSize) {
 			// this.LimitSeting(pageNo);
-			if (this.vuex_user.phone != undefined) {
+			if (this.pinia_user.phone != undefined) {
 				console.log(pageNo, pageSize);
 				this.realTimeSel.page = pageNo;
 				this.realTimeSel.pageSize = pageSize;
@@ -949,7 +949,7 @@ export default {
 			if (this.refresh) {
 				this.refresh = false;
 				this.onReachBottom = false;
-				this.realTimeSel.role = this.vuex_userRole == 'R' ? '1' : '0';
+				this.realTimeSel.role = this.pinia_userRole == 'R' ? '1' : '0';
 				this.$api.bills
 					.getFilteredBills(this.realTimeSel)
 					.then((res) => {
@@ -973,7 +973,6 @@ export default {
 					.catch((res) => {
 						this.$refs.paging.complete(false);
 						this.refresh = true;
-						this.$u.toast('请求失败');
 					});
 
 				this.$api.bills
@@ -985,7 +984,6 @@ export default {
 					})
 					.catch((res) => {
 						this.refresh = true;
-						this.$u.toast('获取个数失败');
 					});
 
 				//
@@ -1025,7 +1023,7 @@ export default {
 			}
 		},
 		getNewfreshData() {
-			this.realTimeSel.role = this.vuex_userRole == 'R' ? '1' : '0';
+			this.realTimeSel.role = this.pinia_userRole == 'R' ? '1' : '0';
 			this.$api.order
 				.getFilteredOrders(this.realTimeSel)
 				.then((res) => {
@@ -1033,7 +1031,6 @@ export default {
 				})
 				.catch((res) => {
 					this.refresh = true;
-					this.$u.toast('请求失败');
 				});
 
 			this.$api.order
@@ -1045,37 +1042,36 @@ export default {
 				})
 				.catch((res) => {
 					this.refresh = true;
-					this.$u.toast('获取个数失败');
 				});
 		},
 		// loadData() {
-		// 	let role = this.vuex_user.data.work == '1' ? 1 : 2;
-		// 	//console.log(this.vuex_user.data.work);
+		// 	let role = this.pinia_user.data.work == '1' ? 1 : 2;
+		// 	//console.log(this.pinia_user.data.work);
 		// 	var that = this;
 		// 	this.$api.user
 		// 		.refreshUser({
-		// 			phone: this.vuex_user.phone,
+		// 			phone: this.pinia_user.phone,
 		// 			role: role
 		// 		})
 		// 		.then((res) => {
-		// 			let a = that.vuex_user;
+		// 			let a = that.pinia_user;
 		// 			a.ac = res.data.data.ac;
 		// 			a.data = res.data.data.data;
 		// 			a.workData = res.data.data.workData;
 		// 			a.jurisdiction = res.data.data.jurisdiction;
 		// 			a.vuex_password = res.data.data.password;
-		// 			that.$u.vuex('vuex_user', a);
+		// 			that.$u.vuex('pinia_user', a);
 		// 			if (res.data.data.data.work == '1') {
-		// 				that.$u.vuex('vuex_work', 'Y');
+		// 				that.$u.vuex('pinia_work', 'Y');
 		// 			} else {
-		// 				that.$u.vuex('vuex_work', 'N');
+		// 				that.$u.vuex('pinia_work', 'N');
 		// 			}
 		// 		});
 
-		// 	//console.log("用户信息实时更新 ", this.vuex_user);
+		// 	//console.log("用户信息实时更新 ", this.pinia_user);
 		// },
 		LoginIf() {
-			if (this.vuex_user.phone == undefined) {
+			if (!this.pinia_token) {
 				uni.navigateTo({
 					url: '/pages/subUser/login'
 				});
@@ -1142,13 +1138,13 @@ export default {
 			console.log(val);
 			//申请修改
 			//当前手机号码 发起者
-			var aPhone = this.vuex_user.phone;
+			var aPhone = this.pinia_user.phone;
 			//是否工作
-			var workif = this.vuex_user.data.work == '0';
+			var workif = this.pinia_user.data.work == '0';
 			//收获端老板是否为同一人
 			var ifOne = val.bossNumberE == val.staffNumberE;
 			//判断端口
-			var ifPort = this.vuex_userRole == 'D';
+			var ifPort = this.pinia_userRole == 'D';
 			//订单状态
 			var stateOrder = val.paymentState == '0';
 			var dx = {
@@ -1163,18 +1159,18 @@ export default {
 				bBoss: '',
 				port: 'f',
 				orderState: val.paymentState,
-				aName: this.vuex_user.data.name || this.vuex_user.phone || ''
+				aName: this.pinia_user.data.name || this.pinia_user.phone || ''
 			};
 
 			if (workif) {
 				//没工作
-				dx.aBoss = this.vuex_user.phone;
+				dx.aBoss = this.pinia_user.phone;
 				dx.bBoss = val.bossNumberS;
 				dx.bUser = val.staffNumberS;
 			} else {
 				//工作
-				var identity = this.vuex_user.workData.identity;
-				var boss = this.vuex_user.workData.bossNumber;
+				var identity = this.pinia_user.workData.identity;
+				var boss = this.pinia_user.workData.bossNumber;
 				dx.aBoss = boss;
 
 				if (val.bossNumberS == val.staffNumberS) {
@@ -1221,7 +1217,7 @@ export default {
 		},
 		finallyAlertDel(resData, delmess) {
 			if (resData == '1') {
-				var role = this.vuex_userRole == 'R';
+				var role = this.pinia_userRole == 'R';
 				if (role) {
 					this.$u.toast('申请成功~');
 				} else {
@@ -1271,7 +1267,7 @@ export default {
 				});
 		},
 		CustomerGetChange() {
-			var ifWorkPort = this.vuex_userRole == 'R';
+			var ifWorkPort = this.pinia_userRole == 'R';
 			var changeText = this.customer;
 			//console.log(changeText);
 			if (!ifWorkPort) {
@@ -1302,7 +1298,7 @@ export default {
 		searchListenner(e) {
 			//console.log(e);
 			var filterIndex = this.showTage;
-			var ifWorkPort = this.vuex_userRole == 'R';
+			var ifWorkPort = this.pinia_userRole == 'R';
 
 			if (filterIndex == '0') {
 				if (!ifWorkPort) {
@@ -1349,7 +1345,7 @@ export default {
 			this.field = '';
 
 			var filterIndex = this.showTage;
-			var ifWorkPort = this.vuex_userRole == 'R';
+			var ifWorkPort = this.pinia_userRole == 'R';
 
 			this.realTimeSel.kTakeE = '';
 			this.realTimeSel.kSiteE = '';

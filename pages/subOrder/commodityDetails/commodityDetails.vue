@@ -95,11 +95,11 @@ export default {
 	},
 	methods: {
 		getCommodityDetails(id) {
-			this.getByID.staffNumber = this.vuex_user.phone;
-			if (this.vuex_user.data.work == '0') {
-				this.getByID.phone = this.vuex_user.phone;
+			this.getByID.staffNumber = this.pinia_user.phone;
+			if (this.pinia_user.data.work == '0') {
+				this.getByID.phone = this.pinia_user.phone;
 			} else {
-				this.getByID.phone = this.vuex_user.workData.bossNumber;
+				this.getByID.phone = this.pinia_user.workData.bossNumber;
 			}
 			console.log('getByID', this.getByID);
 			this.$api.library

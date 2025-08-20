@@ -16,20 +16,20 @@
 		<view class="card">
 			<view class="cardCode">
 				<view class="icon flex-col justify-center items-center absolute" style="position: relative; top: -80rpx">
-					<u-avatar :src="vuex_user.data.headPortrait" size="150rpx" mode="circle"></u-avatar>
+					<u-avatar :src="pinia_user.data.headPortrait" size="150rpx" mode="circle"></u-avatar>
 				</view>
 				<view class="absolute" style="position: relative; width: 100%; top: -100rpx">
 					<view
 						class="flex-col justify-center items-center width100 mb54"
 						style="font-family: Source Han Sans; font-size: 38.4rpx; font-weight: bold; line-height: 48rpx; text-align: center; letter-spacing: 0rpx; height: 80rpx"
 					>
-						{{ vuex_user.data.name }}
+						{{ pinia_user.data.name }}
 						<view class="width100 flex-row justify-center items-center">
 							<view class="flex-row justify-center items-center">
 								<u-icon name="phone" color="#AAAAAA" size="28rpx"></u-icon>
 							</view>
 							<view class="ml2 ft14" style="color: #aaaaaa; font-weight: 400">
-								{{ vuex_user.phone }}
+								{{ pinia_user.phone }}
 							</view>
 						</view>
 					</view>
@@ -181,15 +181,15 @@ export default {
 	},
 	mounted() {},
 	onShow() {
-		var role = this.vuex_userRole == 'R';
+		var role = this.pinia_userRole == 'R';
 		if (role) {
 			this.checked = '供应商';
 		} else {
 			this.checked = '客户';
 		}
-		var workIF = this.vuex_user.data.work != '0';
+		var workIF = this.pinia_user.data.work != '0';
 
-		this.scanQRcodesData.phone = this.vuex_user.phone;
+		this.scanQRcodesData.phone = this.pinia_user.phone;
 
 		this.init();
 	},
@@ -212,10 +212,10 @@ export default {
 		},
 		addFriend(json) {
 			var addPhone = json.phone;
-			var phone = this.vuex_user.phone;
-			var work = this.vuex_user.data.work == '1';
-			var img = this.vuex_user.data.headPortrait;
-			var aName = this.vuex_user.data.nickName || phone;
+			var phone = this.pinia_user.phone;
+			var work = this.pinia_user.data.work == '1';
+			var img = this.pinia_user.data.headPortrait;
+			var aName = this.pinia_user.data.nickName || phone;
 			var identy = '';
 			var aBossNumber = phone;
 
@@ -227,15 +227,15 @@ export default {
 			}
 
 			if (work) {
-				identy = this.vuex_user.workData.identity;
-				aBossNumber = this.vuex_user.workData.bossNumber;
+				identy = this.pinia_user.workData.identity;
+				aBossNumber = this.pinia_user.workData.bossNumber;
 				if (aBossNumber == phone) {
 					this.showSF = false;
 					this.$u.toast('请勿添加自己老板~');
 					this.init();
 					return;
 				}
-				var boss = this.vuex_user.workData.bossNumber;
+				var boss = this.pinia_user.workData.bossNumber;
 				if (boss == dx.aBossNumber) {
 					this.showSF = false;
 					this.$u.toast('请勿添加自己老板~');

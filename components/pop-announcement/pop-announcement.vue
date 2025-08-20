@@ -41,7 +41,7 @@ export default {
 			this.popAnnouncement = false;
 			var dx = {
 				announcementId: announcement.id,
-				phone: this.vuex_user.phone,
+				phone: this.pinia_user.phone,
 				state: 1,
 				announcementRead: 1,
 				createTime: new Date()

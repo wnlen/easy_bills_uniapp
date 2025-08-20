@@ -47,26 +47,26 @@
 				<view class="bg-white pb350 flex-co mt10">
 					<view v-if="wxType == 0 || wxType == undefined" class="absolute" style="right: 20rpx">
 						<u-image
-							v-if="post.paymentState == '0' && vuex_userRole != 'R'"
+							v-if="post.paymentState == '0' && pinia_userRole != 'R'"
 							src="https://res-oss.elist.com.cn/wxImg/order/dqs.png"
 							width="240rpx"
 							height="240rpx"
 						></u-image>
 						<u-image
-							v-if="post.paymentState == '0' && vuex_userRole == 'R'"
+							v-if="post.paymentState == '0' && pinia_userRole == 'R'"
 							src="https://res-oss.elist.com.cn/wxImg/order/dqs-r.png"
 							width="240rpx"
 							height="240rpx"
 						></u-image>
 						<u-image v-if="post.paymentState == '1'" src="https://res-oss.elist.com.cn/wxImg/order/yqs.png" width="240rpx" height="240rpx"></u-image>
 						<u-image
-							v-if="post.paymentState == '2' && vuex_userRole != 'R'"
+							v-if="post.paymentState == '2' && pinia_userRole != 'R'"
 							src="https://res-oss.elist.com.cn/wxImg/order/ysk.png"
 							width="240rpx"
 							height="240rpx"
 						></u-image>
 						<u-image
-							v-if="post.paymentState == '2' && vuex_userRole == 'R'"
+							v-if="post.paymentState == '2' && pinia_userRole == 'R'"
 							src="https://res-oss.elist.com.cn/wxImg/order/yfk.png"
 							width="240rpx"
 							height="240rpx"
@@ -449,7 +449,7 @@ export default {
 	onLoad(options) {
 		uni.hideShareMenu();
 		console.log('显示', options);
-		if (this.vuex_user.phone == undefined) {
+		if (!this.pinia_token) {
 			uni.reLaunch({
 				url: '/pages/subUser/login'
 			});
@@ -489,7 +489,7 @@ export default {
 			} else {
 				console.log('小程序内进入');
 				this.show = 1;
-				if (this.vuex_userRole == 'R') {
+				if (this.pinia_userRole == 'R') {
 					this.LookShar = 'F';
 				}
 			}
@@ -505,7 +505,7 @@ export default {
 		var that = this;
 		this.$api.sign
 			.getSignature({
-				phone: this.vuex_user.phone
+				phone: this.pinia_user.phone
 			})
 			.then((res) => {
 				that.qsrList = res.data.data;
@@ -514,7 +514,7 @@ export default {
 
 		this.$api.order
 			.getAccountStatistics({
-				user: this.vuex_user.data.work == '0' ? this.vuex_user.phone : this.vuex_user.workData.bossNumber
+				user: this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
 			})
 			.then((res) => {
 				console.log(22222222);
@@ -554,8 +554,8 @@ export default {
 		getPrintNum() {
 			var dx = {
 				orderId: this.orderId,
-				boss: this.vuex_user.data.work == '1' ? this.vuex_user.workData.bossNumber : this.vuex_user.phone,
-				phone: this.vuex_user.phone
+				boss: this.pinia_user.data.work == '1' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone,
+				phone: this.pinia_user.phone
 			};
 			this.$api.order.getOrderRecords(dx).then((rest) => {
 				this.PrintNum = rest.data.data;
@@ -578,12 +578,12 @@ export default {
 				port: '',
 				phone: '',
 				deviceOpenid: '',
-				work: this.vuex_user.data.work,
-				boss: this.vuex_user.data.work == '1' ? this.vuex_user.workData.bossNumber : this.vuex_user.phone
+				work: this.pinia_user.data.work,
+				boss: this.pinia_user.data.work == '1' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone
 			};
 			print.orderId = this.orderId;
-			print.port = this.vuex_userRole;
-			print.phone = this.vuex_user.phone;
+			print.port = this.pinia_userRole;
+			print.phone = this.pinia_user.phone;
 
 			this.$api.printer.previewPrintImage(print).then((rest) => {
 				this.browse = rest.data;
@@ -598,16 +598,16 @@ export default {
 			});
 		},
 		printerOK() {
-			var ifwork = this.vuex_user.data.work == '0';
-			var ifWorkPort = this.vuex_userRole == 'R';
+			var ifwork = this.pinia_user.data.work == '0';
+			var ifWorkPort = this.pinia_userRole == 'R';
 
-			var phone = this.vuex_user.phone;
+			var phone = this.pinia_user.phone;
 
 			var dx = {
 				boss: '',
 				staff: '',
 				phone: '',
-				work: this.vuex_user.data.work
+				work: this.pinia_user.data.work
 			};
 
 			if (ifwork) {
@@ -615,7 +615,7 @@ export default {
 				dx.staff = phone;
 				dx.phone = phone;
 			} else {
-				var boss = this.vuex_user.workData.bossNumber;
+				var boss = this.pinia_user.workData.bossNumber;
 				dx.boss = boss;
 				dx.staff = phone;
 				dx.phone = boss;
@@ -635,17 +635,17 @@ export default {
 					deviceOpenid: '',
 					boss: '',
 					staff: '',
-					work: this.vuex_user.data.work
+					work: this.pinia_user.data.work
 				};
 				print.orderId = this.orderId;
-				print.port = this.vuex_userRole;
-				print.phone = this.vuex_user.phone;
+				print.port = this.pinia_userRole;
+				print.phone = this.pinia_user.phone;
 				print.deviceOpenid = res.data.def[0].deviceopenid;
 				if (ifwork) {
 					print.boss = phone;
 					print.staff = phone;
 				} else {
-					var boss = this.vuex_user.workData.bossNumber;
+					var boss = this.pinia_user.workData.bossNumber;
 					print.boss = boss;
 					print.staff = phone;
 				}
@@ -683,7 +683,7 @@ export default {
 		},
 		confirm() {
 			console.log('确认');
-			var pas = this.password == this.vuex_user.vuex_password;
+			var pas = this.password == this.pinia_user.vuex_password;
 			if (pas) {
 				this.qs();
 				this.password = '';
@@ -753,8 +753,8 @@ export default {
 			console.log(order.id);
 			var dx = {
 				id: order.id,
-				phone: this.vuex_user.phone,
-				port: this.vuex_userRole == 'D' ? 0 : 1
+				phone: this.pinia_user.phone,
+				port: this.pinia_userRole == 'D' ? 0 : 1
 			};
 			var _this = this;
 			this.$api.order
@@ -964,11 +964,11 @@ export default {
 			console.log(this.qsrList);
 			console.log(this.qyList);
 			var that = this;
-			if (that.qsrList.length == 0 || (that.qyList == null && this.vuex_user.data.work == '0')) {
+			if (that.qsrList.length == 0 || (that.qyList == null && this.pinia_user.data.work == '0')) {
 				//  无签收人
 				if (that.qsrList.length == 0 && that.qyList == null) {
 					// /pages/subAuth/qiye
-					if (this.vuex_user.data.work == '1' && that.qsrList.length == 0) {
+					if (this.pinia_user.data.work == '1' && that.qsrList.length == 0) {
 						uni.showModal({
 							title: '暂无签收信息，是否去添加？',
 							showCancel: true,
@@ -986,7 +986,7 @@ export default {
 						});
 					}
 
-					if (this.vuex_user.data.work == '0' && that.qsrList.length == 0 && that.qyList == null) {
+					if (this.pinia_user.data.work == '0' && that.qsrList.length == 0 && that.qyList == null) {
 						uni.showModal({
 							title: '暂无完整信息，是否去添加？',
 							showCancel: true,

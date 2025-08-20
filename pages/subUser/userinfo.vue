@@ -36,13 +36,13 @@
 			<view class="flex-row pt35 pb35 u-border-bottom items-center justify-between">
 				<text class="ft-gray">账号</text>
 				<view class="flex-row justify-end items-center flex-1">
-					<text>{{ vuex_user.phone }}</text>
+					<text>{{ pinia_user.phone }}</text>
 				</view>
 			</view>
 			<view class="flex-row pt35 pb35 items-center justify-between u-border-bottom">
 				<text class="ft-gray">性别</text>
 				<view class="flex-1">
-					<picker @change="bindPickerChange" :value="Number(vuex_user.data.gender)" :range="array">
+					<picker @change="bindPickerChange" :value="Number(pinia_user.data.gender)" :range="array">
 						<view class="flex-row justify-end items-center flex-1">
 							<text>{{ array[gender] || '请选择' }}</text>
 							<view class="ml3">
@@ -111,45 +111,45 @@ export default {
 			});
 		},
 		loadDataFlush() {
-			let role = this.vuex_user.data.work == '1' ? 1 : 2;
-			console.log(this.vuex_user.data.work);
+			let role = this.pinia_user.data.work == '1' ? 1 : 2;
+			console.log(this.pinia_user.data.work);
 			var that = this;
 			// this.$api.user
 			// 	.refreshUser({
-			// 		phone: this.vuex_user.phone,
+			// 		phone: this.pinia_user.phone,
 			// 		role: role
 			// 	})
 			// 	.then((res) => {
-			// 		let a = that.vuex_user;
+			// 		let a = that.pinia_user;
 			// 		a.ac = res.data.data.ac;
 			// 		a.data = res.data.data.data;
 			// 		a.workData = res.data.data.workData;
-			// 		that.$u.vuex('vuex_user', a);
+			// 		that.$u.vuex('pinia_user', a);
 			// 		this.ac = a.ac;
 			// 		if (res.data.data.data.work == '1') {
-			// 			that.$u.vuex('vuex_work', 'Y');
+			// 			that.$u.vuex('pinia_work', 'Y');
 			// 		} else {
-			// 			that.$u.vuex('vuex_work', 'N');
+			// 			that.$u.vuex('pinia_work', 'N');
 			// 		}
 			// 	});
 
-			console.log('用户信息实时更新 ', this.vuex_user);
+			console.log('用户信息实时更新 ', this.pinia_user);
 		},
 		loadData() {
 			var that = this;
-			this.userInfo.avatarUrl = this.vuex_user.data.headPortrait;
-			let role = this.vuex_work == 'Y' ? 1 : 2;
+			this.userInfo.avatarUrl = this.pinia_user.data.headPortrait;
+			let role = this.pinia_work == 'Y' ? 1 : 2;
 			// this.$api.user
 			// 	.refreshUser({
-			// 		phone: this.vuex_user.phone,
+			// 		phone: this.pinia_user.phone,
 			// 		role: role
 			// 	})
 			// 	.then((res) => {
-			// 		let a = this.vuex_user;
+			// 		let a = this.pinia_user;
 			// 		a.data = res.data.data.data;
 			// 		a.workData = res.data.workData;
 			// 		a.ac = res.data.ac;
-			// 		that.$u.vuex('vuex_user', a);
+			// 		that.$u.vuex('pinia_user', a);
 			// 	});
 		},
 		bindPickerChange(e) {
@@ -163,7 +163,7 @@ export default {
 			uni.uploadFile({
 				url: uni.$http.config.baseURL + '/edo/user/modifyImage',
 				header: {
-					phone: that.vuex_user.phone
+					phone: that.pinia_user.phone
 				},
 				filePath: fileAvatar,
 				name: 'imageFile',
@@ -175,11 +175,11 @@ export default {
 					if (uploadFileRes.statusCode == '200') {
 						that.userInfo.avatarUrl = uploadFileRes.data;
 						var data = {
-							id: that.vuex_user.data.id,
+							id: that.pinia_user.data.id,
 							headPortrait: that.userInfo.avatarUrl,
 							name: that.userInfo.nickName,
-							work: this.vuex_user.data.work,
-							boss: this.vuex_user.data.work == '0' ? this.vuex_user.phone : this.vuex_user.workData.bossNumber
+							work: this.pinia_user.data.work,
+							boss: this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
 						};
 						this.$api.user
 							.updateUserUp(data)
@@ -210,12 +210,12 @@ export default {
 			if (ifempty) {
 				//console.log("修改", this.userInfo);
 				var send = {
-					id: this.vuex_user.data.id,
+					id: this.pinia_user.data.id,
 					name: this.userInfo.nickName,
 					gender: this.userInfo.gender,
-					phoneNumber: this.vuex_user.phone,
-					work: this.vuex_user.data.work,
-					boss: this.vuex_user.data.work == '0' ? this.vuex_user.phone : this.vuex_user.workData.bossNumber
+					phoneNumber: this.pinia_user.phone,
+					work: this.pinia_user.data.work,
+					boss: this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
 				};
 				this.$api.user.updateUserUp(send).then((res) => {
 					if (res.data.data == '1') {

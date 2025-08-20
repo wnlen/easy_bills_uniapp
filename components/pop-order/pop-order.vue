@@ -91,7 +91,7 @@ export default {
 			productCode.price[item.type] = item.priceDiscount;
 			productCode.time[item.type] = item.orderRenewTime;
 
-			this.order.phone = this.vuex_user.phone;
+			this.order.phone = this.pinia_user.phone;
 			this.order.price = item.priceDiscount;
 			this.order.productCode = JSON.stringify(productCode);
 			this.order.state = '1';

@@ -4,14 +4,14 @@ export default (http) => ({
 	 * 原始接口：/edo/inform/MesAll
 	 */
 	getAllMessages(params) {
-		return http.post('/edo/inform/MesAll', params);
+		return http.post('inform/MesAll', params);
 	},
 	/**
 	 * 删除指定的消息（用于已读或清理）
 	 * 原始接口：/edo/inform/renewDel
 	 */
 	deleteInformItem(params) {
-		return http.post('/edo/inform/renewDel', params);
+		return http.post('inform/renewDel', params);
 	},
 
 	/**
@@ -19,28 +19,28 @@ export default (http) => ({
 	 * 原始接口：/edo/inform/renew
 	 */
 	refreshInformStatus(params) {
-		return http.post('/edo/inform/renew', params);
+		return http.post('inform/renew', params);
 	},
 	/**
 	 * 获取当前用户全部通知（带筛选条件）
 	 * 原始接口：/edo/inform/all
 	 */
 	getAllInformList(params) {
-		return http.post('/edo/inform/all', params);
+		return http.post('inform/all', params);
 	},
 	/**
 	 * 获取平台公告列表（支持分页或筛选）
 	 * 原始接口：/edo/CNotice/get
 	 */
 	getNoticeList(params) {
-		return http.post('/edo/CNotice/get', params);
+		return http.post('CNotice/get', params);
 	},
 	/**
 	 * 获取系统通知列表（可筛选、分页）
 	 * 原始接口：/edo/SystemInform/get
 	 */
 	getSystemInformList(params) {
-		return http.post('/edo/SystemInform/get', params);
+		return http.post('SystemInform/get', params);
 	},
 
 	/**
@@ -48,6 +48,6 @@ export default (http) => ({
 	 * 原始接口：/edo/SystemInform/InformDel
 	 */
 	deleteSystemInform(params) {
-		return http.post('/edo/SystemInform/InformDel', params);
+		return http.post('SystemInform/InformDel', params);
 	}
 });

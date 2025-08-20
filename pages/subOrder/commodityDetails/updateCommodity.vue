@@ -123,11 +123,11 @@ export default {
 			this.fileList = list;
 		},
 		getCommodityDetails(id) {
-			this.getByID.staffNumber = this.vuex_user.phone;
-			if (this.vuex_user.data.work == '0') {
-				this.getByID.phone = this.vuex_user.phone;
+			this.getByID.staffNumber = this.pinia_user.phone;
+			if (this.pinia_user.data.work == '0') {
+				this.getByID.phone = this.pinia_user.phone;
 			} else {
-				this.getByID.phone = this.vuex_user.workData.bossNumber;
+				this.getByID.phone = this.pinia_user.workData.bossNumber;
 			}
 
 			this.$api.library
@@ -199,14 +199,14 @@ export default {
 				return;
 			}
 
-			var work = this.vuex_user.data.work == '0';
+			var work = this.pinia_user.data.work == '0';
 			if (work) {
 				//没工作
-				this.uploadingCommodity.phone = this.vuex_user.phone;
-				this.uploadingCommodity.staffNumber = this.vuex_user.phone;
+				this.uploadingCommodity.phone = this.pinia_user.phone;
+				this.uploadingCommodity.staffNumber = this.pinia_user.phone;
 			} else {
-				this.uploadingCommodity.phone = this.vuex_user.workData.bossNumber;
-				this.uploadingCommodity.staffNumber = this.vuex_user.phone;
+				this.uploadingCommodity.phone = this.pinia_user.workData.bossNumber;
+				this.uploadingCommodity.staffNumber = this.pinia_user.phone;
 			}
 
 			this.updMerchandiseInventory();
@@ -244,7 +244,7 @@ export default {
 					phone: this.uploadingCommodity.staffNumber,
 					orderNumber: this.uploadingCommodity.imgId,
 					jobNumber: this.uploadingCommodity.staffNumber,
-					token: this.vuex_user.loginToken
+					token: !this.pinia_token
 				},
 				filePath: this.imgList[0].file.path,
 				name: 'file',

@@ -127,7 +127,7 @@ export default {
 		});
 	},
 	onShow() {
-		if (this.vuex_user.phone != undefined) {
+		if (this.pinia_user.phone != undefined) {
 			this.$u.setPinia({
 				global: {
 					tabbar: [
@@ -149,7 +149,7 @@ export default {
 	},
 	onPullDownRefresh() {
 		console.log('下拉');
-		if (this.vuex_user.phone != undefined) {
+		if (this.pinia_user.phone != undefined) {
 			this.getAllNum();
 			setTimeout(function () {
 				uni.stopPullDownRefresh();
@@ -161,9 +161,9 @@ export default {
 	methods: {
 		getAllNum() {
 			var dx = {
-				boss: this.vuex_user.data.work == '1' ? this.vuex_user.workData.bossNumber : this.vuex_user.phone,
-				staff: this.vuex_user.phone,
-				work: this.vuex_user.data.work
+				boss: this.pinia_user.data.work == '1' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone,
+				staff: this.pinia_user.phone,
+				work: this.pinia_user.data.work
 			};
 			this.$api.inform
 				.getAllMessages(dx)
@@ -171,7 +171,7 @@ export default {
 					var list = res.data.data;
 					var sum = 0;
 					this.list.forEach((item, index) => {
-						let role = this.vuex_user.data.work == '1';
+						let role = this.pinia_user.data.work == '1';
 						item.ifwork = list[index] > 0;
 						item.number = list[index];
 						sum = sum + list[index];
@@ -201,7 +201,7 @@ export default {
 		},
 		loadData() {
 			this.$loadUser(this);
-			console.log('用户信息实时更新 ', this.vuex_user);
+			console.log('用户信息实时更新 ', this.pinia_user);
 		},
 		SOCKETfLUSH() {
 			this.unwatchFlush = this.$store.watch(
@@ -214,9 +214,9 @@ export default {
 			);
 		},
 		ifShow() {
-			if (this.vuex_user.phone != undefined) {
+			if (this.pinia_user.phone != undefined) {
 				var a = 0;
-				if (this.vuex_user.data.work != '0') {
+				if (this.pinia_user.data.work != '0') {
 					return this.list[2].number + this.list[1].number + this.list[3].number > 0;
 				} else {
 					this.list.forEach((res) => {
@@ -240,7 +240,7 @@ export default {
 		jumpChat(name, image, item) {
 			console.log(name, image, item);
 			this.getAllNum();
-			let role = this.vuex_user.data.work == '1';
+			let role = this.pinia_user.data.work == '1';
 			if (role) {
 				this.list[0].ifwork = false;
 				this.list[2].ifwork = false;

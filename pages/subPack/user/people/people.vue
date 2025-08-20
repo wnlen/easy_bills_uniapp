@@ -1,6 +1,6 @@
 <template>
 	<view class="vw100 vh100 bg-gray" style="overflow: hidden">
-		<view v-if="vuex_work == 'Y'" class="ml24 mr24 pd24 mt24 bg-white" style="border-radius: 24rpx">
+		<view v-if="pinia_work == 'Y'" class="ml24 mr24 pd24 mt24 bg-white" style="border-radius: 24rpx">
 			<view class="flex-row justify-left" style="height: 10%; width: 100%">
 				<view class="" style="width: 20vw">
 					<text class="ml20" style="font-weight: bold">老板信息</text>
@@ -14,16 +14,16 @@
 						height="80rpx"
 						shape="circle"
 						:show-menu-by-longpress="false"
-						:src="vuex_user.workData.img || img"
+						:src="pinia_user.workData.img || img"
 						@click="addStaff(item)"
 					></u-image>
-					<text class="ml10">{{ vuex_user.workData.bossNumber }}</text>
+					<text class="ml10">{{ pinia_user.workData.bossNumber }}</text>
 				</view>
 				<view class="flex-row justify-end" style="width: 90%"></view>
 			</view>
 		</view>
 
-		<view v-if="vuex_work == 'N'" class="ml24 mr24 pt25 pd24 bg-white mt30" @click="clear()" style="border-radius: 24rpx">
+		<view v-if="pinia_work == 'N'" class="ml24 mr24 pt25 pd24 bg-white mt30" @click="clear()" style="border-radius: 24rpx">
 			<view class="flex-row justify-left" style="height: 10%; width: 100%">
 				<view class="" style="width: 20vw">
 					<text class="" style="font-weight: bold">合伙人</text>
@@ -126,7 +126,7 @@
 			</view>
 		</view>
 
-		<view v-if="vuex_work == 'N'" class="ml24 mr24 pt25 pd24 bg-white mt30" @click="clear()" style="border-radius: 24rpx">
+		<view v-if="pinia_work == 'N'" class="ml24 mr24 pt25 pd24 bg-white mt30" @click="clear()" style="border-radius: 24rpx">
 			<view class="flex-row justify-left" style="height: 10%; width: 100%">
 				<view class="" style="width: 20vw">
 					<text class="" style="font-weight: bold">财务</text>
@@ -229,7 +229,7 @@
 			</view>
 		</view>
 
-		<view v-if="vuex_work == 'N'" class="ml24 mr24 pt25 pd24 bg-white mt30" @click="clear()" style="border-radius: 24rpx">
+		<view v-if="pinia_work == 'N'" class="ml24 mr24 pt25 pd24 bg-white mt30" @click="clear()" style="border-radius: 24rpx">
 			<view class="flex-row justify-left" style="height: 10%; width: 100%">
 				<view class="" style="width: 24vw">
 					<text class="" style="font-weight: bold">员工</text>
@@ -451,7 +451,7 @@ export default {
 		// this.SOCKETfLUSH();
 		console.log(1111, this.$u.getPinia('user.user'));
 		var listz = [];
-		if (this.vuex_user.data.work != '1') {
+		if (this.pinia_user.data.work != '1') {
 			this.loadDataPeop();
 		} else {
 			console.log('已加入别的公司');
@@ -464,7 +464,7 @@ export default {
 	onPullDownRefresh() {
 		console.log('下拉');
 		var listz = [];
-		if (this.vuex_user.data.work != '1') {
+		if (this.pinia_user.data.work != '1') {
 			this.loadDataPeop();
 		}
 		this.systemIf();
@@ -569,7 +569,7 @@ export default {
 				particulars: JSON.stringify(jsonI), // 细节
 				state: '', // 状态
 				type: '', // 类型
-				phone: this.vuex_user.phone, // 所属者（这里假设所属者是通过电话号码表示的，但根据实际情况可能有所不同）
+				phone: this.pinia_user.phone, // 所属者（这里假设所属者是通过电话号码表示的，但根据实际情况可能有所不同）
 				description: '单独购买'
 			};
 
@@ -633,7 +633,7 @@ export default {
 				particulars: JSON.stringify(json), // 细节
 				state: '', // 状态
 				type: '', // 类型
-				phone: this.vuex_user.phone, // 所属者（这里假设所属者是通过电话号码表示的，但根据实际情况可能有所不同）
+				phone: this.pinia_user.phone, // 所属者（这里假设所属者是通过电话号码表示的，但根据实际情况可能有所不同）
 				description: '单独续费'
 			};
 
@@ -689,7 +689,7 @@ export default {
 		RenewPeople(item, index) {
 			console.log(item);
 			var jurisdictionCode = item.jurisdictionCode;
-			var phone = this.vuex_user.phone;
+			var phone = this.pinia_user.phone;
 			//查询价格
 			this.getPriceAll(jurisdictionCode, phone, index, 2);
 			//查询权限 是否是他的权限
@@ -715,7 +715,7 @@ export default {
 			var that = this;
 			this.$api.user
 				.getRelationList({
-					bossNumber: this.vuex_user.phone
+					bossNumber: this.pinia_user.phone
 				})
 				.then((res) => {
 					var resDate = res.data.data;
@@ -879,7 +879,7 @@ export default {
 				var data = res.data.data;
 				var work = data.work == '1';
 				var phone = data.phoneNumber;
-				var myPhone = this.vuex_user.phone;
+				var myPhone = this.pinia_user.phone;
 				if (work) {
 					// this.$u.toast("此人已经工作~")
 					this.gs = data.map.enterpriseName;
@@ -908,16 +908,16 @@ export default {
 				.catch((res) => {});
 		},
 		addFriendYG(e, img, invite) {
-			if (e == this.vuex_user.phone) {
+			if (e == this.pinia_user.phone) {
 				this.$u.toast('请勿添加自己~');
 			} else {
 				var yg = {
-					aUser: this.vuex_user.phone,
+					aUser: this.pinia_user.phone,
 					bUser: e,
-					aName: this.vuex_user.data.name,
+					aName: this.pinia_user.data.name,
 					workNumber: '',
 					ifType: uni.getStorageSync('invite'),
-					img: this.vuex_user.data.headPortrait
+					img: this.pinia_user.data.headPortrait
 				};
 
 				console.log('扫码添加员工：', yg);

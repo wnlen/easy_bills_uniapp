@@ -9,12 +9,12 @@
 					</text>
 				</view>
 				<view class="OwnText">
-					<view class="OwnTextFromTitle" v-if="vuex_userRole == 'D'">客户名称</view>
-					<view class="OwnTextFromTitle" v-if="vuex_userRole == 'R'">供应商名称</view>
+					<view class="OwnTextFromTitle" v-if="pinia_userRole == 'D'">客户名称</view>
+					<view class="OwnTextFromTitle" v-if="pinia_userRole == 'R'">供应商名称</view>
 
 					<text
 						class="OwnTextFromText"
-						v-if="vuex_user.data.work == '0' ? vuex_user.phone == billFrom.sourcePhone : vuex_user.workData.bossNumber == billFrom.sourcePhone"
+						v-if="pinia_user.data.work == '0' ? pinia_user.phone == billFrom.sourcePhone : pinia_user.workData.bossNumber == billFrom.sourcePhone"
 					>
 						{{ billFrom.billEnterpriseE }}
 					</text>
@@ -34,12 +34,12 @@
 				<view
 					class="OwnText"
 					v-if="
-						(vuex_user.data.work == '0'
-							? billFrom.sourcePhone == vuex_user.phone && vuex_userRole == 'D'
-							: billFrom.sourcePhone == vuex_user.workData.bossNumber && vuex_userRole == 'D') ||
-						(vuex_user.data.work == '0'
-							? billFrom.receptionPhone == vuex_user.phone && vuex_userRole == 'R'
-							: billFrom.receptionPhone == vuex_user.workData.bossNumber && vuex_userRole == 'R')
+						(pinia_user.data.work == '0'
+							? billFrom.sourcePhone == pinia_user.phone && pinia_userRole == 'D'
+							: billFrom.sourcePhone == pinia_user.workData.bossNumber && pinia_userRole == 'D') ||
+						(pinia_user.data.work == '0'
+							? billFrom.receptionPhone == pinia_user.phone && pinia_userRole == 'R'
+							: billFrom.receptionPhone == pinia_user.workData.bossNumber && pinia_userRole == 'R')
 					"
 				>
 					<view class="OwnTextFromTitle">折扣率</view>
@@ -81,11 +81,11 @@
 				<view class="OwnText">
 					<view class="OwnTextFromTitle">企业名称</view>
 					<text class="OwnTextFromText">
-						<text v-if="vuex_user.ac != null">
-							{{ vuex_user.ac.enterpriseName || vuex_user.phone }}
+						<text v-if="pinia_user.ac != null">
+							{{ pinia_user.ac.enterpriseName || pinia_user.phone }}
 						</text>
 						<text v-else>
-							<text class="" v-if="vuex_user.data.work == '0' ? vuex_user.phone == billFrom.sourcePhone : vuex_user.workData.bossNumber == billFrom.sourcePhone">
+							<text class="" v-if="pinia_user.data.work == '0' ? pinia_user.phone == billFrom.sourcePhone : pinia_user.workData.bossNumber == billFrom.sourcePhone">
 								{{ billFrom.billEnterpriseS }}
 							</text>
 							<text class="" v-else>{{ billFrom.billEnterpriseE }}</text>
@@ -95,12 +95,12 @@
 				<view class="OwnText">
 					<view class="OwnTextFromTitle">联系人</view>
 					<text class="OwnTextFromText">
-						{{ vuex_user.data.work == '0' ? vuex_user.data.name || vuex_user.phone || vuex_user.data.phone : vuex_user.workData.name }}
+						{{ pinia_user.data.work == '0' ? pinia_user.data.name || pinia_user.phone || pinia_user.data.phone : pinia_user.workData.name }}
 					</text>
 				</view>
 				<view class="OwnText">
 					<view class="OwnTextFromTitle">联系电话</view>
-					<text class="OwnTextFromText">{{ vuex_user.data.work == '0' ? vuex_user.phone || vuex_user.data.phone : vuex_user.workData.bossNumber }}</text>
+					<text class="OwnTextFromText">{{ pinia_user.data.work == '0' ? pinia_user.phone || pinia_user.data.phone : pinia_user.workData.bossNumber }}</text>
 				</view>
 			</view>
 		</view>
@@ -142,7 +142,7 @@ export default {
 
 			this.billFrom.billTime = this.$u.timeFormat(new Date(), 'yyyy-mm-dd');
 
-			var port = this.vuex_userRole == 'R';
+			var port = this.pinia_userRole == 'R';
 			if (port) {
 				this.billEnterprise = this.billFrom.billEnterpriseS;
 			} else {
@@ -170,7 +170,7 @@ export default {
 		});
 	},
 	onShow() {
-		if (this.vuex_userRole == 'D') {
+		if (this.pinia_userRole == 'D') {
 			uni.setNavigationBarTitle({
 				title: '收款单详情'
 			});
@@ -332,8 +332,8 @@ export default {
 				uni.uploadFile({
 					url: uni.$http.config.baseURL + '/edo/bills/file',
 					header: {
-						token: that.vuex_token,
-						phone: that.vuex_user.phone,
+						token: that.pinia_token,
+						phone: that.pinia_user.phone,
 						number: billNumber
 					},
 					filePath: fileAvatar,

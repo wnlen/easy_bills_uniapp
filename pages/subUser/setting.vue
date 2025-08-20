@@ -2,7 +2,7 @@
 	<view class="vh100 bg-gray">
 		<up-cell-group :border="false">
 			<up-cell v-for="(item, index) in menus" :key="index" :title="item.name" :arrow="true" arrow-direction="right" @click="menuClick(item)">
-				<text slot="right-icon" class="ft-lighgray">{{ item.id == '1' ? (vuex_userRole == 'D' ? '发货方' : '收货方') : '' }}</text>
+				<text slot="right-icon" class="ft-lighgray">{{ item.id == '1' ? (pinia_userRole == 'D' ? '发货方' : '收货方') : '' }}</text>
 			</up-cell>
 			<up-cell title="注销账号" @click="writeOff" :arrow="true">
 				<text slot="right-icon" class="ft-lighgray"></text>
@@ -44,7 +44,7 @@ export default {
 	},
 	methods: {
 		writeOff() {
-			var phone = this.vuex_user.phone;
+			var phone = this.pinia_user.phone;
 
 			uni.showModal({
 				title: '请您慎重考虑,是否注销?',
@@ -65,12 +65,12 @@ export default {
 			console.log(phone);
 		},
 		loadData() {
-			this.menus[0].info = this.vuex_userRole == 'D' ? '发货方' : '收货方';
+			this.menus[0].info = this.pinia_userRole == 'D' ? '发货方' : '收货方';
 		},
 		menuClick(val) {
 			if (val.name == '当前角色') {
 				this.$refs.popRole.roleShow = true;
-				if (this.vuex_userRole == 'R') {
+				if (this.pinia_userRole == 'R') {
 					this.$refs.popRole.roleShowF = false;
 					this.$refs.popRole.roleShowS = true;
 					this.$refs.popRole.check = '2';
@@ -86,36 +86,31 @@ export default {
 				});
 			}
 		},
-		loginOut() {
+		async loginOut() {
 			uni.showModal({
 				title: '是否退出?',
 				showCancel: true,
 				cancelText: '取消退出',
 				confirmText: '确认退出',
-				success: (res) => {
-					if (res.confirm) {
-						this.$u.toast('已退出~');
-						this.$u.setPinia({
-							user: {
-								userRole: this.vuex_userRole,
-								token: '',
-								user: {
-									phone: undefined
-								}
-							}
-						});
+				success: async (res) => {
+					if (!res.confirm) return;
 
-						//关闭socket
+					this.$api.user.loginlogout({});
 
-						setTimeout(() => {
-							uni.reLaunch({
-								url: '/pages/subUser/login'
-							});
-						}, 500);
-					}
-				},
-				fail: () => {},
-				complete: () => {}
+					this.$u.toast('已退出~');
+					this.$u.setPinia({
+						user: {
+							userRole: this.pinia_userRole,
+							token: '',
+							user: { phone: undefined }
+						}
+					});
+
+					// 关闭socket...（略）
+					setTimeout(() => {
+						uni.reLaunch({ url: '/pages/subUser/login' });
+					}, 500);
+				}
 			});
 		}
 	}

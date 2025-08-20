@@ -4,6 +4,6 @@ export default (http) => ({
 	 * 原始接口：/edo/invoice/add
 	 */
 	addInvoice(params) {
-		return http.post('/edo/invoice/add', params);
+		return http.post('invoice/add', params);
 	}
 });

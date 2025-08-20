@@ -3,7 +3,7 @@
 		<view class="InputCard">
 			<view class="InputOne">
 				<text class="ft11 ft-gray ml20" style="background-color: transparent" @click="choice">
-					{{ vuex_userRole === 'R' ? InputOneName.a : InputOneName.b }}
+					{{ pinia_userRole === 'R' ? InputOneName.a : InputOneName.b }}
 				</text>
 				<u-line direction="col" margin="0 20rpx" color="#333" length="40%"></u-line>
 
@@ -13,7 +13,7 @@
 						@change="InputTextOne"
 						v-model="InputOneText"
 						:customStyle="{ backgroundColor: 'transparent' }"
-						:placeholder="vuex_userRole === 'R' ? InputOneName.a : InputOneName.b"
+						:placeholder="pinia_userRole === 'R' ? InputOneName.a : InputOneName.b"
 						clearable="true"
 					></u-input>
 				</view>

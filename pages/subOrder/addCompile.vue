@@ -17,7 +17,7 @@
 			<view class="absolute" style="bottom: -80rpx; color: #aaaaaa; font-size: 28rpx">无开单权限~</view>
 		</view>
 
-		<view class="hand relative" style="background-color: #01bb74; width: 100vw; height: 120rpx" v-if="vuex_userRole == 'D' && shareShow == false && identity">
+		<view class="hand relative" style="background-color: #01bb74; width: 100vw; height: 120rpx" v-if="pinia_userRole == 'D' && shareShow == false && identity">
 			<view
 				class="pd20 syst absolute"
 				style="
@@ -34,21 +34,21 @@
 				"
 			>
 				{{
-					vuex_user.data.work == '0'
-						? vuex_user.ac
-							? vuex_user.ac.enterpriseName || vuex_user.ac.phone
-							: vuex_user.phone
-						: vuex_user.ac
-						? vuex_user.ac.enterpriseName
-						: vuex_user.workData.bossNumber
+					pinia_user.data.work == '0'
+						? pinia_user.ac
+							? pinia_user.ac.enterpriseName || pinia_user.ac.phone
+							: pinia_user.phone
+						: pinia_user.ac
+						? pinia_user.ac.enterpriseName
+						: pinia_user.workData.bossNumber
 				}}发货单
 			</view>
 		</view>
 
-		<view class="form-wrap pt20 absolute" style="background-color: #ffffff" v-if="vuex_userRole == 'D' && shareShow == false && identity">
+		<view class="form-wrap pt20 absolute" style="background-color: #ffffff" v-if="pinia_userRole == 'D' && shareShow == false && identity">
 			<view class="form-inner flex-col" style="font-size: 28rpx; background-color: #ffffff">
 				<view class="flex-col justify-left">
-					<u-image v-if="vuex_user.eorderLogo" :src="vuex_user.eorderLogo" width="152" height="60" mode="aspectFill" />
+					<u-image v-if="pinia_user.eorderLogo" :src="pinia_user.eorderLogo" width="152" height="60" mode="aspectFill" />
 					<view class="ft-bold handcolor">发货单信息</view>
 					<view class="flex-row items-end pt20 pb20 u-border-bottom">
 						<text class="textcolor">订单编号:</text>
@@ -502,8 +502,8 @@ export default {
 				console.log('分享：', ops);
 				var pid = ops.target.dataset.id;
 				var pThumb = ops.target.dataset.thumb;
-				var phone = this.vuex_user.phone;
-				var port = this.vuex_userRole;
+				var phone = this.pinia_user.phone;
+				var port = this.pinia_userRole;
 				var versions = this.ShareDetails;
 				console.log(pThumb);
 				return {
@@ -524,12 +524,12 @@ export default {
 			console.log('转发');
 		},
 		addEmp() {
-			var ifwork = this.vuex_user.data.work == '0';
+			var ifwork = this.pinia_user.data.work == '0';
 			var dx = {
 				id: '',
 				orderId: '',
-				phone: ifwork ? this.vuex_user.phone : this.vuex_user.workData.bossNumber,
-				staffNumber: this.vuex_user.phone,
+				phone: ifwork ? this.pinia_user.phone : this.pinia_user.workData.bossNumber,
+				staffNumber: this.pinia_user.phone,
 				description: '-',
 				specification: '-',
 				unit: '-',
@@ -627,8 +627,8 @@ export default {
 			} else {
 				//上传图片
 				var listImg = [];
-				var bossNumber = this.vuex_work == 'Y' ? this.vuex_user.workData.bossNumber : this.vuex_user.phone || this.vuex_user.data.phoneNumber;
-				var jobNumber = this.vuex_work == 'Y' ? that.vuex_user.workData.jobNumber : that.vuex_user.phone;
+				var bossNumber = this.pinia_work == 'Y' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone || this.pinia_user.data.phoneNumber;
+				var jobNumber = this.pinia_work == 'Y' ? that.pinia_user.workData.jobNumber : that.pinia_user.phone;
 				for (let key in this.imgList) {
 					if (this.imgList[key].file && this.imgList[key].file.path) {
 						uni.uploadFile({

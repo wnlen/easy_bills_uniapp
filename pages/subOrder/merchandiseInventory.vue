@@ -283,14 +283,14 @@ export default {
 		this.add();
 	},
 	onShow() {
-		var work = this.vuex_user.data.work == '0';
+		var work = this.pinia_user.data.work == '0';
 		if (work) {
 			//没工作
-			this.merchandiseInventory.staffNumber = this.vuex_user.phone;
-			this.merchandiseInventory.phone = this.vuex_user.phone;
+			this.merchandiseInventory.staffNumber = this.pinia_user.phone;
+			this.merchandiseInventory.phone = this.pinia_user.phone;
 		} else {
-			this.merchandiseInventory.staffNumber = this.vuex_user.phone;
-			this.merchandiseInventory.phone = this.vuex_user.workData.bossNumber;
+			this.merchandiseInventory.staffNumber = this.pinia_user.phone;
+			this.merchandiseInventory.phone = this.pinia_user.workData.bossNumber;
 		}
 		// #ifdef MP-WEIXIN
 		this.$refs.paging.reload();
@@ -535,12 +535,12 @@ export default {
 			this.save();
 		},
 		addEmp() {
-			var ifwork = this.vuex_user.data.work == '0';
+			var ifwork = this.pinia_user.data.work == '0';
 			var dx = {
 				id: '',
 				orderId: '',
-				phone: ifwork ? this.vuex_user.phone : this.vuex_user.workData.bossNumber,
-				staffNumber: this.vuex_user.phone,
+				phone: ifwork ? this.pinia_user.phone : this.pinia_user.workData.bossNumber,
+				staffNumber: this.pinia_user.phone,
 				description: '-',
 				specification: '-',
 				unit: '-',

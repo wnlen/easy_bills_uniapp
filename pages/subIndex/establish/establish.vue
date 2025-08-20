@@ -99,7 +99,7 @@ export default {
 			this.remark = e.target.value;
 		},
 		Init() {
-			var ifWorkPort = this.vuex_userRole == 'R';
+			var ifWorkPort = this.pinia_userRole == 'R';
 			if (ifWorkPort) {
 				uni.setNavigationBarTitle({
 					title: '创建供应商'
@@ -110,18 +110,18 @@ export default {
 					title: '创建新客户'
 				});
 			}
-			this.user.work = this.vuex_user.data.work == '0';
-			this.user.port = this.vuex_userRole;
-			this.submitUser.port = this.vuex_userRole;
+			this.user.work = this.pinia_user.data.work == '0';
+			this.user.port = this.pinia_userRole;
+			this.submitUser.port = this.pinia_userRole;
 			if (!this.user.work) {
-				this.user.identity = this.vuex_user.workData.identity;
-				this.user.bossNumber = this.vuex_user.workData.bossNumber;
-				this.submitUser.sBossNumber = this.vuex_user.workData.bossNumber;
+				this.user.identity = this.pinia_user.workData.identity;
+				this.user.bossNumber = this.pinia_user.workData.bossNumber;
+				this.submitUser.sBossNumber = this.pinia_user.workData.bossNumber;
 			} else {
-				this.user.bossNumber = this.vuex_user.phone;
+				this.user.bossNumber = this.pinia_user.phone;
 				this.submitUser.sBossNumber = this.user.bossNumber;
 			}
-			this.user.phone = this.vuex_user.phone;
+			this.user.phone = this.pinia_user.phone;
 		},
 		establishFriend() {
 			var ver = this.verification();

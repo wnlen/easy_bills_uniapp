@@ -98,7 +98,7 @@ export default {
 					console.log('删除员工邀请结果', res);
 					if (res.data.data == '1') {
 						this.getApply();
-						this.flushDBSX(this.vuex_user.phone);
+						this.flushDBSX(this.pinia_user.phone);
 						this.$u.toast('删除成功');
 						var that = this;
 
@@ -123,7 +123,7 @@ export default {
 		loadDataYG() {
 			let that = this;
 			var dx = {
-				bUser: this.vuex_user.phone,
+				bUser: this.pinia_user.phone,
 				state: '0'
 			};
 

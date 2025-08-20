@@ -4,20 +4,20 @@
 			class="flex-row justify-left items-start"
 			style="z-index: 9; height: 35vh; width: 100vw; background-color: transparent"
 			:style="{
-				backgroundImage: vuex_userRole != 'R' ? 'url(https://res-oss.elist.com.cn/wxImg/index/indexbg.png)' : 'url(https://res-oss.elist.com.cn/wxImg/index/indexR.png)',
+				backgroundImage: pinia_userRole != 'R' ? 'url(https://res-oss.elist.com.cn/wxImg/index/indexbg.png)' : 'url(https://res-oss.elist.com.cn/wxImg/index/indexR.png)',
 				backgroundSize: 'cover'
 			}"
 		>
 			<view class="flex-row justify-left items-center" style="width: 100%; height: 70%; background-color: transparent; text-align: center; z-index: 2">
 				<view class="mt16 ml14 mr15">
 					<!-- #ifdef MP-WEIXIN -->
-					<u-avatar size="45" @click="goPath('')" :src="vuex_user.data.headPortrait ? vuex_user.data.headPortrait : ImgUrl + '/wxImg/index/mr.svg'"></u-avatar>
+					<u-avatar size="45" @click="goPath('')" :src="pinia_user.data.headPortrait ? pinia_user.data.headPortrait : ImgUrl + '/wxImg/index/mr.svg'"></u-avatar>
 					<!-- #endif -->
 					<!-- #ifdef APP -->
 					<u-avatar
 						size="45"
 						@click="goPath('')"
-						:src="vuex_user.data.headPortrait ? vuex_user.data.headPortrait : 'https://res-oss.elist.com.cn/wxImg/index/mr.svg'"
+						:src="pinia_user.data.headPortrait ? pinia_user.data.headPortrait : 'https://res-oss.elist.com.cn/wxImg/index/mr.svg'"
 					></u-avatar>
 					<!-- #endif -->
 				</view>
@@ -36,11 +36,11 @@
 					</view>
 				</view>
 				<view class="btn_role">
-					<up-button v-if="vuex_userRole == 'D'" @click="sideClick" type="primary" shape="circle" text="发货端" :customStyle="btn_customStyle">
+					<up-button v-if="pinia_userRole == 'D'" @click="sideClick" type="primary" shape="circle" text="发货端" :customStyle="btn_customStyle">
 						发货端
 						<albb-icon icon="ydj-qiehuan" :iconStyle="iconStyle" size="40rpx" color="#fff"></albb-icon>
 					</up-button>
-					<up-button v-if="vuex_userRole == 'R'" @click="sideClick" type="primary" shape="circle" text="收货端" :customStyle="btn_customStyle">
+					<up-button v-if="pinia_userRole == 'R'" @click="sideClick" type="primary" shape="circle" text="收货端" :customStyle="btn_customStyle">
 						收货端
 						<albb-icon icon="ydj-qiehuan" :iconStyle="iconStyle" size="40rpx" color="#fff"></albb-icon>
 					</up-button>
@@ -49,15 +49,15 @@
 		</view>
 		<view class="home-main pl0 pr0 width100 mt10" style="background-color: transparent">
 			<view class="home-box">
-				<view class="" v-if="vuex_userRole == 'R'">
+				<view class="" v-if="pinia_userRole == 'R'">
 					<u-notice-bar
 						mode="horizontal"
 						padding="13rpx 22rpx"
 						speed="80"
-						:list="[vuex_user.chickenBloodTip || '欢迎使用易单据切换角色选择发货模式可使用～']"
+						:list="[pinia_user.chickenBloodTip || '欢迎使用易单据切换角色选择发货模式可使用～']"
 					></u-notice-bar>
 				</view>
-				<view v-if="vuex_userRole == 'D'" class="home-data cardShowPlus" style="background-color: #ffffff">
+				<view v-if="pinia_userRole == 'D'" class="home-data cardShowPlus" style="background-color: #ffffff">
 					<view class="">
 						<view class="flex-col height80 justify-left mt15 ml12">
 							<view class="flex-row items-center justify-left pb10 width100" style="display: flex; justify-content: space-between; align-items: center">
@@ -155,7 +155,7 @@
 			<view class="towCard flex-col justify-center height300 ml24 mr24" style="background-color: transparent">
 				<view class="home-menu-wrap flex-row justify-center width100" style="background-color: transparent">
 					<view
-						v-if="vuex_userRole == 'R'"
+						v-if="pinia_userRole == 'R'"
 						style="background-size: cover; border-radius: 18rpx"
 						:style="{
 							backgroundImage: 'url(' + ImgUrl + '/wxImg/index/dqrdj.png)'
@@ -200,7 +200,7 @@
 				</view>
 			</view>
 
-			<view class="sudoku u-margin-top-30 ml24 mr24 pb48 cardShowPlus" v-if="vuex_userRole != 'R'" style="border-radius: 12rpx">
+			<view class="sudoku u-margin-top-30 ml24 mr24 pb48 cardShowPlus" v-if="pinia_userRole != 'R'" style="border-radius: 12rpx">
 				<view class="grid-container">
 					<view class="grid-item mt10 items-center justify-center" @click="goList(item.type)" v-for="(item, index) in Sudoku.notLogD[0]" :key="index">
 						<u-icon size="60" :name="item.icon"></u-icon>
@@ -234,7 +234,7 @@
 				</view>
 			</view>
 
-			<view class="sudoku u-margin-top-30 ml24 mr24 pl10 pr10 pb48 cardShowPlus" v-if="vuex_userRole == 'R'" style="border-radius: 12rpx">
+			<view class="sudoku u-margin-top-30 ml24 mr24 pl10 pr10 pb48 cardShowPlus" v-if="pinia_userRole == 'R'" style="border-radius: 12rpx">
 				<view class="grid-container">
 					<view class="grid-item mt10" @click="goList(item.type)" v-for="(item, index) in Sudoku.notLogR[0]" :id="index == 0 ? 'box33' : ''" :key="index">
 						<u-icon size="60" :name="item.icon"></u-icon>
@@ -272,7 +272,7 @@
 				<u-swiper
 					@click="middleClick"
 					bg-color="#F6F7F7"
-					:list="middleBanner.length > 0 ? middleBanner : vuex_userRole == 'R' ? middleBannerlXR : middleBannerlXD"
+					:list="middleBanner.length > 0 ? middleBanner : pinia_userRole == 'R' ? middleBannerlXR : middleBannerlXD"
 					imgMode="aspectFill"
 					height="95"
 					interval="5000"
@@ -298,7 +298,7 @@
 					<view class="absolute flex-col justify-center items-center" style="top: 0; height: 160rpx; font-size: 36rpx; font-weight: bold">提示</view>
 
 					<!-- #ifdef MP-WEIXIN -->
-					<text style="font-size: 32rpx; color: #999999">该{{ vuex_user.workData.identity == 3 ? '财务' : '分管' }}人员权限已到期,请联系</text>
+					<text style="font-size: 32rpx; color: #999999">该{{ pinia_user.workData.identity == 3 ? '财务' : '分管' }}人员权限已到期,请联系</text>
 					<!-- #endif -->
 					<!-- #ifdef APP -->
 					<text style="font-size: 32rpx; color: #999999">人员权限已到期,请联系</text>
@@ -536,11 +536,11 @@ export default {
 	},
 	computed: {
 		isLogin() {
-			return this.vuex_token && this.vuex_user?.phone;
+			return this.pinia_token && this.pinia_user?.phone;
 		},
 		username() {
-			// console.log('this.vuex_user',this.vuex_user)
-			return this.vuex_user?.data?.name || this.vuex_user?.data?.phoneNumber || '用户';
+			// console.log('this.pinia_user',this.pinia_user)
+			return this.pinia_user?.data?.name || this.pinia_user?.data?.phoneNumber || '用户';
 		}
 	},
 	onLoad() {
@@ -554,7 +554,7 @@ export default {
 				this.tabHight = value;
 			}
 		});
-		console.log('vuex_userRole', this.vuex_userRole);
+		console.log('pinia_userRole', this.pinia_userRole);
 		console.log('albbIcon', albbIcon);
 	},
 	onShow() {
@@ -565,8 +565,8 @@ export default {
 			console.log('延迟后打印 token:', this.$u.getPinia('user.token'));
 		}, 3000); // 加一点延迟，确保持久化加载完毕
 		this.getmiddleBanner(); //加载广告
-		if (this.vuex_user.phone == undefined || this.vuex_user.phone == '10000000000' || this.vuex_user.phone == null) {
-			if (this.vuex_userRole == 'D') {
+		if (this.pinia_user.phone == undefined || this.pinia_user.phone == '10000000000' || this.pinia_user.phone == null) {
+			if (this.pinia_userRole == 'D') {
 				this.middleBanner = this.middleBannerlXD;
 			} else {
 				this.middleBanner = this.middleBannerlXR;
@@ -618,7 +618,7 @@ export default {
 		},
 		goPathIndex(item) {
 			// console.log(item);
-			if (this.vuex_user.phone == undefined) {
+			if (this.pinia_user.phone == undefined) {
 				uni.navigateTo({
 					url: '/pages/subUser/login'
 				});
@@ -655,8 +655,8 @@ export default {
 		},
 		getYear() {
 			var dx = {
-				bossNumberS: this.vuex_user.phone,
-				bossNumberE: this.vuex_user.phone
+				bossNumberS: this.pinia_user.phone,
+				bossNumberE: this.pinia_user.phone
 			};
 
 			this.$api.order.getOldOrders(dx).then((res) => {
@@ -668,11 +668,11 @@ export default {
 			});
 		},
 		menu() {
-			var login = this.vuex_user.phone != undefined;
+			var login = this.pinia_user.phone != undefined;
 			if (login) {
-				var work = this.vuex_user.data.work == '1';
+				var work = this.pinia_user.data.work == '1';
 				if (work) {
-					var identity = this.vuex_user.workData.identity;
+					var identity = this.pinia_user.workData.identity;
 					if (identity == '3') {
 						this.Sudoku.notLogD[1][1] = {
 							icon: '/static/img/index/icon/tb5.png',
@@ -721,9 +721,9 @@ export default {
 			}
 		},
 		guideCourse() {
-			if (this.vuex_user.phone != undefined) {
+			if (this.pinia_user.phone != undefined) {
 				// console.log("信息", this.guidanceD, this.guidanceR);
-				if (this.vuex_userRole == 'D') {
+				if (this.pinia_userRole == 'D') {
 					if (this.guidanceD == 1) {
 						this.guide();
 					}
@@ -744,7 +744,7 @@ export default {
 				...data
 			};
 
-			if (this.vuex_userRole == 'D') {
+			if (this.pinia_userRole == 'D') {
 				this.showFunctionGuideD();
 			} else {
 				this.showFunctionGuideR();
@@ -912,9 +912,9 @@ export default {
 				});
 		},
 		exitIfOpen() {
-			var workIF = this.vuex_user.data.work == '1';
+			var workIF = this.pinia_user.data.work == '1';
 			if (workIF) {
-				var s = this.vuex_user.workData.endTime;
+				var s = this.pinia_user.workData.endTime;
 				if (s == '0') {
 					this.expireShow = true;
 				}
@@ -959,26 +959,26 @@ export default {
 			);
 		},
 		getOrderDB() {
-			var workIF = this.vuex_user.data.work == '0';
+			var workIF = this.pinia_user.data.work == '0';
 			var dx = {
 				bUser: '',
 				bBoss: '',
-				port: this.vuex_userRole
+				port: this.pinia_userRole
 			};
 			if (workIF) {
-				dx.bBoss = this.vuex_user.phone;
+				dx.bBoss = this.pinia_user.phone;
 			} else {
 				//console.log("(待办事项)有工作:", workIF);
-				var identity = this.vuex_user.workData.identity;
+				var identity = this.pinia_user.workData.identity;
 				if (identity == '4') {
-					dx.bBoss = this.vuex_user.workData.bossNumber;
-					dx.bUser = this.vuex_user.phone;
+					dx.bBoss = this.pinia_user.workData.bossNumber;
+					dx.bUser = this.pinia_user.phone;
 				} else if (identity == '1') {
-					dx.bBoss = this.vuex_user.workData.bossNumber;
-					// dx.bUser = this.vuex_user.workData.bossNumber
+					dx.bBoss = this.pinia_user.workData.bossNumber;
+					// dx.bUser = this.pinia_user.workData.bossNumber
 				} else {
-					dx.bBoss = this.vuex_user.workData.bossNumber;
-					dx.bUser = this.vuex_user.phone;
+					dx.bBoss = this.pinia_user.workData.bossNumber;
+					dx.bUser = this.pinia_user.phone;
 				}
 			}
 
@@ -990,7 +990,7 @@ export default {
 			});
 		},
 		onPullDownRefresh() {
-			if (this.vuex_user.phone != undefined) {
+			if (this.pinia_user.phone != undefined) {
 				this.getData();
 				this.getDQS();
 				setTimeout(function () {
@@ -1003,8 +1003,8 @@ export default {
 		},
 		getmiddleBanner() {
 			// console.log('刷新')
-			var filer = this.vuex_userRole == 'D' ? '1' : '0';
-			// console.log('广告',this.vuex_userRole);
+			var filer = this.pinia_userRole == 'D' ? '1' : '0';
+			// console.log('广告',this.pinia_userRole);
 			console.log('this.$api.advert 是：', this.$api.advert);
 			this.$api.advert
 				.getAdvertList({
@@ -1014,7 +1014,7 @@ export default {
 					console.log('广告列表', res);
 
 					if (res.data.code == 401) {
-						if (this.vuex_userRole == 'D') {
+						if (this.pinia_userRole == 'D') {
 							this.middleBanner = this.middleBannerlXD;
 						} else {
 							this.middleBanner = this.middleBannerlXR;
@@ -1027,9 +1027,9 @@ export default {
 		},
 		getData() {
 			//是否工作
-			var ifwork = this.vuex_user.data.work == '0';
+			var ifwork = this.pinia_user.data.work == '0';
 			//是否为发获段
-			var ifWorkPort = this.vuex_userRole == 'D';
+			var ifWorkPort = this.pinia_userRole == 'D';
 			var realTimeSel = {
 				bossNumberS: '',
 				staffNumberS: ''
@@ -1043,14 +1043,14 @@ export default {
 
 			if (ifwork) {
 				//没工作
-				realTimeSel.bossNumberS = this.vuex_user.phone;
+				realTimeSel.bossNumberS = this.pinia_user.phone;
 			} else {
-				var identity = this.vuex_user.workData.identity == '4';
+				var identity = this.pinia_user.workData.identity == '4';
 				if (identity) {
-					realTimeSel.bossNumberS = this.vuex_user.workData.bossNumber;
-					realTimeSel.staffNumberS = this.vuex_user.phone;
+					realTimeSel.bossNumberS = this.pinia_user.workData.bossNumber;
+					realTimeSel.staffNumberS = this.pinia_user.phone;
 				}
-				realTimeSel.bossNumberS = this.vuex_user.workData.bossNumber;
+				realTimeSel.bossNumberS = this.pinia_user.workData.bossNumber;
 			}
 
 			if (ifWorkPort) {
@@ -1066,9 +1066,9 @@ export default {
 			}
 		},
 		getDQS() {
-			var ifwork = this.vuex_user.data.work == '0';
+			var ifwork = this.pinia_user.data.work == '0';
 			//是否为发获段
-			var ifWorkPort = this.vuex_userRole == 'D';
+			var ifWorkPort = this.pinia_userRole == 'D';
 
 			var realTimeSel = {
 				bossNumberS: '',
@@ -1098,14 +1098,14 @@ export default {
 
 			if (ifwork) {
 				//没工作
-				realTimeSel.bossNumberE = this.vuex_user.phone;
+				realTimeSel.bossNumberE = this.pinia_user.phone;
 			} else {
-				var identity = this.vuex_user.workData.identity == '4';
+				var identity = this.pinia_user.workData.identity == '4';
 				if (identity) {
-					realTimeSel.bossNumberE = this.vuex_user.workData.bossNumber;
-					realTimeSel.staffNumberE = this.vuex_user.phone;
+					realTimeSel.bossNumberE = this.pinia_user.workData.bossNumber;
+					realTimeSel.staffNumberE = this.pinia_user.phone;
 				}
-				realTimeSel.bossNumberE = this.vuex_user.workData.bossNumber;
+				realTimeSel.bossNumberE = this.pinia_user.workData.bossNumber;
 			}
 
 			this.$api.order
@@ -1135,7 +1135,7 @@ export default {
 		sideClick() {
 			this.$refs.popRole.roleShow = true;
 			this.$refs.popRole.pageid = 'index';
-			if (this.vuex_userRole == 'R') {
+			if (this.pinia_userRole == 'R') {
 				this.$refs.popRole.roleShowF = false;
 				this.$refs.popRole.roleShowS = true;
 				this.$refs.popRole.check = '2';

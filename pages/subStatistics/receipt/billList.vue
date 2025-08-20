@@ -23,24 +23,24 @@
 						</text>
 					</view>
 					<view class="ml20" style="margin-right: -20rpx">
-						<u-image v-if="vuex_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></u-image>
-						<u-image v-if="vuex_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/dqs.png"></u-image>
+						<u-image v-if="pinia_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></u-image>
+						<u-image v-if="pinia_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/dqs.png"></u-image>
 						<u-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="@/static/img/obj/bq2.png" :lazy-load="true"></u-image>
 						<u-image
-							v-if="vuex_userRole != 'R' && item.paymentState == '2'"
+							v-if="pinia_userRole != 'R' && item.paymentState == '2'"
 							width="120rpx"
 							height="50rpx"
 							class="u-img"
 							src="@/static/img/obj/bq3.png"
 							:lazy-load="true"
 						></u-image>
-						<u-image v-if="vuex_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/yfk.png"></u-image>
+						<u-image v-if="pinia_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/yfk.png"></u-image>
 					</view>
 				</view>
 				<view class="width100 pb25 text-left">
 					<text class="flex-col text-left">
 						<text
-							v-if="vuex_userRole == 'D'"
+							v-if="pinia_userRole == 'D'"
 							:style="{ color: ifZX(item.bossNumberE) ? '#AAAAAA' : '#3D3D3D' }"
 							class="ft34 u-line-bt width100"
 							style="font-weight: 500"
@@ -48,7 +48,7 @@
 							{{ item.organizationE || item.bossNumberE }}{{ ifZX(item.bossNumberE) ? '(已注销)' : '' }}
 						</text>
 						<text
-							v-if="vuex_userRole == 'R'"
+							v-if="pinia_userRole == 'R'"
 							:style="{ color: ifZX(item.bossNumberE) ? '#AAAAAA' : '#3D3D3D' }"
 							class="ft34 u-line-bt width100"
 							style="font-weight: 500"

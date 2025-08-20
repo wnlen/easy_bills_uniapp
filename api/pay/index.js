@@ -4,14 +4,14 @@ export default (http) => ({
 	 * 原始接口：/edo/vip/buy
 	 */
 	buyVip(params) {
-		return http.post('/edo/vip/buy', params);
+		return http.post('vip/buy', params);
 	},
 	/**
 	 * 获取当前账号的权限信息（套餐/功能）
 	 * 原始接口：/edo/jurisdiction/get
 	 */
 	getUserJurisdiction(params) {
-		return http.post('/edo/jurisdiction/get', params);
+		return http.post('jurisdiction/get', params);
 	},
 
 	/**
@@ -19,7 +19,7 @@ export default (http) => ({
 	 * 原始接口：/edo/jurisdiction/order
 	 */
 	createJurisdictionOrder(params) {
-		return http.post('/edo/jurisdiction/order', params);
+		return http.post('jurisdiction/order', params);
 	},
 
 	/**
@@ -27,14 +27,14 @@ export default (http) => ({
 	 * 原始接口：/edo/jurisdiction/getRenew
 	 */
 	getJurisdictionRenewInfo(params) {
-		return http.post('/edo/jurisdiction/getRenew', params);
+		return http.post('jurisdiction/getRenew', params);
 	},
 	/**
 	 * 获取当前权限下的数据库用量信息
 	 * 原始接口：/edo/jurisdiction/getDatabase
 	 */
 	getDatabaseUsage(params) {
-		return http.post('edo/jurisdiction/getDatabase', params);
+		return http.post('jurisdiction/getDatabase', params);
 	},
 
 	/**
@@ -42,7 +42,7 @@ export default (http) => ({
 	 * 原始接口：/edo/jurisdiction/getJOpenJurisdiction
 	 */
 	getOpenedPermissions(params) {
-		return http.post('edo/jurisdiction/getJOpenJurisdiction', params);
+		return http.post('jurisdiction/getJOpenJurisdiction', params);
 	},
 
 	/**
@@ -50,14 +50,14 @@ export default (http) => ({
 	 * 原始接口：/edo/jurisdiction/people
 	 */
 	getSubUserLimit(params) {
-		return http.post('edo/jurisdiction/people', params);
+		return http.post('jurisdiction/people', params);
 	},
 	/**
 	 * 验证支付记录是否合法/有效
 	 * 原始接口：/edo/payTable/verify
 	 */
 	verifyPayRecord(params) {
-		return http.post('/edo/payTable/verify', params);
+		return http.post('payTable/verify', params);
 	},
 
 	/**
@@ -65,6 +65,6 @@ export default (http) => ({
 	 * 原始接口：/edo/playItem/get
 	 */
 	getPayItems(params) {
-		return http.post('edo/playItem/get', params);
+		return http.post('playItem/get', params);
 	}
 });

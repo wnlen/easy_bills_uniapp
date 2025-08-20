@@ -149,7 +149,7 @@ export default {
 						uni.uploadFile({
 							url: uni.$http.config.baseURL + '/edo/user/modifyImage',
 							header: {
-								phone: that.vuex_user.phone
+								phone: that.pinia_user.phone
 							},
 							filePath: fileAvatar,
 							name: 'imageFile',

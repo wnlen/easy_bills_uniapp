@@ -8,7 +8,7 @@ export function prePage() {
 // 路由跳转（判断是否登录）
 export function goPath(path, vm) {
 	uni.setStorageSync('1003', '0');
-	if (vm?.vuex_user?.phone) {
+	if (vm?.pinia_user?.phone) {
 		uni.navigateTo({ url: path });
 	} else {
 		uni.navigateTo({ url: '/pages/subUser/login' });

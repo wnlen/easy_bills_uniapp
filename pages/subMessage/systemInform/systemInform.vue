@@ -133,7 +133,7 @@ export default {
 		getInformList() {
 			var dx = {
 				state: '1',
-				phone: this.vuex_user.phone
+				phone: this.pinia_user.phone
 			};
 			this.$api.inform
 				.getSystemInformList(dx)
