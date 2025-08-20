@@ -342,11 +342,11 @@ export default {
 									userRole: 'D',
 									token: resDate.loginToken,
 									user: resDate
-								},
-								guide: {
-									guidanceD: resDate.data.guidanceD,
-									guidanceR: resDate.data.guidanceR
 								}
+								// guide: {
+								// 	guidanceD: resDate.data.guidanceD,
+								// 	guidanceR: resDate.data.guidanceR
+								// }
 							});
 
 							if (resDate.phone != '' && resDate.data.work != null) {
