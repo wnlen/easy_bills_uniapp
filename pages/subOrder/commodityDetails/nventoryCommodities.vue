@@ -254,8 +254,8 @@ export default {
 
 	.del_product_icon {
 		position: absolute;
-		right: 20rpx;
-		bottom: 20rpx;
+		right: 34rpx;
+		bottom: 36rpx;
 	}
 }
 

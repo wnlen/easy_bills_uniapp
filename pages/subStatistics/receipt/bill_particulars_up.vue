@@ -767,7 +767,7 @@ export default {
 		justify-content: left;
 
 		padding-bottom: 30rpx;
-		padding-top: 30rpx;
+		padding-top: 35rpx;
 		margin-left: 30rpx;
 
 		// padding: 24rpx;
@@ -827,7 +827,7 @@ export default {
 .sendBill {
 	position: fixed;
 	z-index: 55;
-	bottom: 0;
+	bottom: 20rpx;
 	width: 100%;
 	padding: 24rpx;
 }

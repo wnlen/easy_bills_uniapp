@@ -1,6 +1,6 @@
 <template>
 	<view class="Myorder">
-		<u-navbar :autoBack="true" :placeholder="true" title="我的订购" leftIconColor="#fff" :bgColor="uNa" :titleStyle="{ color: '#fff' }"></u-navbar>
+		<u-navbar :autoBack="true" :placeholder="true" title="我的订购" leftIconColor="#fff" bgColor="transparent" :titleStyle="{ color: '#fff' }"></u-navbar>
 
 		<pop-details ref="popDetails"></pop-details>
 
@@ -45,7 +45,7 @@
 						<view class="card_people_title">
 							<view class="card_people_title_one">
 								<view class="relative flex-row items-start">
-									<text>{{ item.product || '' }}</text>
+									<text class="mr10">{{ item.product || '' }}</text>
 									<!-- #ifdef MP-WEIXIN -->
 									<u-icon @tap.stop @click="popDetails(1, item)" class="mb10 ml5 absolute" size="23rpx" name="question-circle" color="#AAAAAA"></u-icon>
 									<!-- #endif -->
@@ -114,20 +114,20 @@
 					<view class="Hand_icon"></view>
 					<text class="Hand_title">往年数据</text>
 				</view>
-				<view class="pt24 ml24 mr24 mt24" style="background: #ffffff; box-shadow: 0rpx 5.6rpx 8.4rpx 2rpx rgba(109, 99, 88, 0.2); border-radius: 13.02rpx">
+				<view class="ml24 mr24 mt24" style="background: #ffffff; box-shadow: 0rpx 5.6rpx 8.4rpx 2rpx rgba(109, 99, 88, 0.2); border-radius: 13.02rpx">
 					<view class="formerYearsCard width100 pd10 mt20 flex-row">
-						<view class="width40 flex-col mt20" @click="dropdownIcon" style="z-index: 98; height: 100%; text-align: center">
+						<view class="width40 flex-col pt20" @click="dropdownIcon" style="z-index: 98; height: 100%; text-align: center">
 							<liu-data-select elementId="data-select1" :dataList="dataListAll" @change="dropdown">
-								<view id="data-select1" class="btn-info flex-row justify-center">
-									<view class="mr10"><u-icon v-show="selectionIcon" name="arrow-down-fill" color="#333333" size="15rpx"></u-icon></view>
-									<view class="mr10"><u-icon v-show="!selectionIcon" name="arrow-up-fill" color="#333333" size="15rpx"></u-icon></view>
+								<view id="data-select1" class="btn-info flex-row justify-left pl30 items-center">
+									<view class="mr10" v-if="selectionIcon"><u-icon name="arrow-down-fill" color="#333333" size="20rpx"></u-icon></view>
+									<view class="mr10" v-else><u-icon name="arrow-up-fill" color="#333333" size="20rpx"></u-icon></view>
 									<text>{{ dropdownName || '' }}</text>
 								</view>
 							</liu-data-select>
 						</view>
 						<view class="flex-col">
 							<view class="">
-								<view class="flex-row justify-left items-center pb20 pt10" @click="checkboxClickdr(0)">
+								<view class="flex-row justify-left items-center pt20" @click="checkboxClickdr(0)">
 									<view
 										class="flex-col justify-center items-center"
 										:style="{
@@ -138,7 +138,7 @@
 										<u-icon name="checkbox-mark" color="#ffffff" size="25rpx"></u-icon>
 									</view>
 									<view class="ml15 relative mr48 flex-row items-start">
-										<text>{{ c_product_old_data[0] ? c_product_old_data[0].product : 0 }}</text>
+										<text class="mr10">{{ c_product_old_data[0] ? c_product_old_data[0].product : 0 }}</text>
 										<u-icon
 											@tap.stop
 											@click="popDetails(1, c_product_old_data[0])"
@@ -155,7 +155,7 @@
 
 								<u-divider color="#fa3534" half-width="190" :use-slot="false"></u-divider>
 
-								<view class="flex-row justify-left items-center pt20 pb10" @click="checkboxClickdr(1)">
+								<view class="flex-row justify-left items-center pb20" @click="checkboxClickdr(1)">
 									<view
 										class="flex-col justify-center items-center"
 										:style="{
@@ -167,7 +167,7 @@
 									</view>
 
 									<view class="ml15 relative mr48 flex-row items-start">
-										<text>{{ c_product_old_data[1] ? c_product_old_data[1].product : '' }}</text>
+										<text class="mr10">{{ c_product_old_data[1] ? c_product_old_data[1].product : '' }}</text>
 										<u-icon
 											@tap.stop
 											@click="popDetails(1, c_product_old_data[1])"
@@ -215,7 +215,7 @@
 					<view class="tabBodyOne" v-if="currentVip == 0">
 						<view class="tabBodyOne_card_body">
 							<view class="tabBodyOne_card_body_hand">
-								合伙人
+								<text class="mr10">合伙人</text>
 								<u-icon
 									@click="popDetails(4, c_product_people[2])"
 									size="20rpx"
@@ -236,7 +236,7 @@
 									:min="0"
 									bgColor="#EA7183"
 									v-model="playMoneyListSend.c_product_people.c"
-									@change="valChange"
+									@change="valChangec"
 									:iconStyle="{ color: '#fff', fontSize: '20rpx' }"
 								></u-number-box>
 							</view>
@@ -263,7 +263,7 @@
 
 						<view class="tabBodyOne_card_body">
 							<view class="tabBodyOne_card_body_hand">
-								财务
+								<text class="mr10">财务</text>
 								<u-icon
 									@click="popDetails(2, c_product_people[0])"
 									size="20rpx"
@@ -284,7 +284,7 @@
 									:min="0"
 									bgColor="#EA7183"
 									v-model="playMoneyListSend.c_product_people.a"
-									@change="valChange"
+									@change="valChangea"
 									:iconStyle="{ color: '#fff', fontSize: '20rpx' }"
 								></u-number-box>
 							</view>
@@ -311,7 +311,7 @@
 
 						<view class="tabBodyOne_card_body">
 							<view class="tabBodyOne_card_body_hand">
-								员工
+								<text class="mr10">员工</text>
 								<u-icon
 									@click="popDetails(2, c_product_people[1])"
 									size="20rpx"
@@ -332,7 +332,7 @@
 									:min="0"
 									bgColor="#EA7183"
 									v-model="playMoneyListSend.c_product_people.b"
-									@change="valChange"
+									@change="valChangeb"
 									:iconStyle="{ color: '#fff', fontSize: '20rpx' }"
 								></u-number-box>
 							</view>
@@ -365,7 +365,7 @@
 
 						<view class="tabBodyTwoTitle" v-if="renew['C3'] != null">
 							<view class="title_hhr">
-								合伙人
+								<text class="mr10">合伙人</text>
 								<u-icon
 									@click="popDetails(3, c_product_people[2])"
 									size="20rpx"
@@ -404,7 +404,7 @@
 						<!-- <view class="tabBodyTwoTitle" v-if="Object.keys(renew).length!=0"> -->
 						<view class="tabBodyTwoTitle" v-if="renew['C1'] != null">
 							<view class="title_cw">
-								财务
+								<text class="mr10">财务</text>
 								<u-icon
 									@click="popDetails(3, c_product_people[0])"
 									size="20rpx"
@@ -442,7 +442,7 @@
 						<!-- <view class="tabBodyTwoTitle" v-if="Object.keys(renew).length!=0"> -->
 						<view class="tabBodyTwoTitle" v-if="renew['C2'] != null">
 							<view class="title_cw">
-								员工
+								<text class="mr10">员工</text>
 								<u-icon
 									@click="popDetails(3, c_product_people[1])"
 									size="20rpx"
@@ -567,7 +567,7 @@
 						<view
 							v-for="(item3, index3) in item.product"
 							:key="index3"
-							v-if="getProductIFC(index3, 'B1')"
+							v-show="getProductIFC(index3, 'B1')"
 							class="flex-row justify-left relative mt30"
 							style="width: 100%"
 						>
@@ -585,7 +585,7 @@
 						<view
 							v-for="(item3, index3) in item.product"
 							:key="index3"
-							v-if="getProductIFC(index3, 'B2')"
+							v-show="getProductIFC(index3, 'B2')"
 							class="flex-row justify-left relative mt30"
 							style="width: 100%"
 						>
@@ -603,7 +603,7 @@
 						<view
 							v-for="(item3, index3) in item.product"
 							:key="index3"
-							v-if="getProductIFC(index3, 'A1')"
+							v-show="getProductIFC(index3, 'A1')"
 							class="flex-row justify-left relative mt30"
 							style="width: 100%"
 						>
@@ -620,7 +620,7 @@
 						<view
 							v-for="(item3, index3) in item.product"
 							:key="index3"
-							v-if="getProductIFC(index3, 'A2')"
+							v-show="getProductIFC(index3, 'A2')"
 							class="flex-row justify-left relative mt30"
 							style="width: 100%"
 						>
@@ -637,7 +637,7 @@
 						<view
 							v-for="(item3, index3) in item.product"
 							:key="index3"
-							v-if="getProductIFC(index3, 'C1')"
+							v-show="getProductIFC(index3, 'C1')"
 							class="flex-row justify-left relative mt30"
 							style="width: 100%"
 						>
@@ -651,7 +651,7 @@
 						<view
 							v-for="(item3, index3) in item.product"
 							:key="index3"
-							v-if="getProductIFC(index3, 'C2')"
+							v-show="getProductIFC(index3, 'C2')"
 							class="flex-row justify-left relative mt30"
 							style="width: 100%"
 						>
@@ -665,7 +665,7 @@
 						<view
 							v-for="(item3, index3) in item.product"
 							:key="index3"
-							v-if="getProductIFC(index3, 'C3')"
+							v-show="getProductIFC(index3, 'C3')"
 							class="flex-row justify-left relative mt30"
 							style="width: 100%"
 						>
@@ -683,7 +683,7 @@
 						<view
 							v-for="(item4, index4) in item.product"
 							:key="index4"
-							v-if="getProductIFC(index4, 'O1')"
+							v-show="getProductIFC(index4, 'O1')"
 							class="flex-row justify-left relative mt30"
 							style="width: 100%"
 						>
@@ -697,7 +697,7 @@
 						<view
 							v-for="(item4, index4) in item.product"
 							:key="index4"
-							v-if="getProductIFC(index4, 'O2')"
+							v-show="getProductIFC(index4, 'O2')"
 							class="flex-row justify-left relative mt30"
 							style="width: 100%"
 						>
@@ -763,14 +763,14 @@
 						</view>
 
 						<view class="flex-row justify-center mt30" style="width: 100%">
-							<view class="items-center dqsj" v-if="!item.open" @click="open(item, index)">
-								全部订单信息
+							<view class="items-center dqsj flex-row" v-if="!item.open" @click="open(item, index)">
+								<text>全部订单信息</text>
 								<view class="ml5">
 									<u-icon name="arrow-down" color="#999999" size="28rpx"></u-icon>
 								</view>
 							</view>
-							<view class="items-center dqsj" v-if="item.open" @click="close(item, index)">
-								收起
+							<view class="items-center dqsj flex-row" v-if="item.open" @click="close(item, index)">
+								<text>收起</text>
 								<view class="ml5">
 									<u-icon name="arrow-up" color="#999999" size="28rpx"></u-icon>
 								</view>
@@ -789,7 +789,7 @@
 					合计支付：
 					<text>￥{{ playMoneyListSend.totalPrice.toFixed(2) }}</text>
 				</view>
-				<view class="absolute" style="right: 80rpx; color: #3f311b; font-weight: 600" @click="Play">立即购买</view>
+				<view class="absolute" style="right: 64rpx; color: #3f311b; font-weight: 600" @click="Play">立即购买</view>
 			</view>
 		</view>
 	</view>
@@ -819,10 +819,6 @@ export default {
 					name: '人员续费'
 				}
 			],
-			uNa: {
-				background: 'transparent',
-				color: 'white'
-			},
 			selectionIcon: true,
 			checkboxYear: false,
 			tabUrlImg: {
@@ -1303,12 +1299,15 @@ export default {
 			this.playMoneyListSend.time = JSON.parse(JSON.stringify(jurisdiction));
 		},
 		dropdownIcon() {
-			console.log('打开');
-			this.selectionIcon = true;
+			// console.log('打开');
+			// this.selectionIcon = true;
 		},
 		dropdown(e) {
 			this.dropdownName = e;
 			this.selectionIcon = false;
+			this.check.B.checkA = false;
+			this.check.B.checkB = true;
+			this.checkboxClickdr(0);
 			console.log(e);
 		},
 		add() {
@@ -1395,8 +1394,19 @@ export default {
 				this.dataListAll = [...new Set([...this.dataList.D, ...this.dataList.R])];
 			});
 		},
-		valChange(e) {
+		valChangea(e) {
 			console.log('当前值为: ' + e.value);
+			this.playMoneyListSend.c_product_people.a = e.value;
+			this.play.people = this.playMoneyListSend.c_product_people;
+			this.add();
+		},
+		valChangeb(e) {
+			this.playMoneyListSend.c_product_people.b = e.value;
+			this.play.people = this.playMoneyListSend.c_product_people;
+			this.add();
+		},
+		valChangec(e) {
+			this.playMoneyListSend.c_product_people.c = e.value;
 			this.play.people = this.playMoneyListSend.c_product_people;
 			this.add();
 		},
@@ -1643,7 +1653,7 @@ export default {
 					.card_people_price {
 						display: flex;
 						flex-direction: row;
-						justify-content: left;
+						justify-content: flex-end;
 						align-items: center;
 
 						width: 30%;
@@ -1714,7 +1724,7 @@ export default {
 				justify-content: left;
 				align-items: center;
 
-				padding: 24rpx;
+				padding: 24rpx 0;
 				margin-left: 24rpx;
 				margin-right: 24rpx;
 				// background-color: #D6AE83;

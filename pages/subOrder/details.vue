@@ -8,14 +8,13 @@
 	>
 		<view v-show="show == 1">
 			<u-navbar
-				:autoBack="true"
 				:placeholder="true"
 				:border-bottom="false"
 				back-icon-color="#000000"
 				:titleBold="true"
 				title-color="#000000"
 				title="货单详情"
-				:custom-back="shareClick"
+				@leftClick="shareClick"
 				title-size="34"
 				bgColor="#ffffff"
 			></u-navbar>
@@ -346,7 +345,7 @@
 					</view>
 					<view class="flex-row justify-left items-center mt12">
 						<view
-							class="flex-row justify-left items-center mt15 relative"
+							class="flex-row justify-left items-center mt15 relative flex-1"
 							v-if="wxType != 1"
 							:style="{
 								width: pinia_userRole != 'R' ? ((pinia_user.data.work == '1' ? pinia_user.workData.identity != '3' : true) ? '48%' : '74%') : '74%'

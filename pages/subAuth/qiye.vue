@@ -31,19 +31,26 @@
 			</view>
 		</view>
 		<view v-if="show == 0" class="flex-col justify-center pl60 pr60 pb60 pt60 vw100" style="position: absolute; bottom: 0">
-			<u-button color="#01BB74" shape="circle" type="primary" @click="updateInfo">{{ up ? '提交信息' : '更新信息' }}</u-button>
+			<u-button color="#01BB74" shape="circle" :disabled="buttonDisabled" type="primary" @click="updateInfo">{{ up ? '提交信息' : '更新信息' }}</u-button>
 		</view>
 
 		<view v-if="show != 0" class="flex-col mt20 ml48 mr48">
-			<view class="flex-row justify-between items-center pl20 pr20 pt30 pb30 radius mb10">
+			<view class="flex-row justify-between items-center pl20 pt30 pb30 radius mb10">
 				<view class="flex-row items-center">
 					<u-image width="60" height="60" shape="circle" :src="pinia_user.data.headPortrait || '/static/img/obj/defind.svg'" :show-menu-by-longpress="false"></u-image>
-					<view class="ml30 mr30" style="max-width: 100px; font-weight: bold; font-size: 16px">
-						{{ pinia_user.data.name }}
+					<view class="ml30 mr20" style="max-width: 100px; font-weight: bold; font-size: 16px">
+						{{ vuex_user.data.name }}
 					</view>
 					<u-image class="ml15" width="50" height="20" src="/static/img/obj/yrz.svg" :show-menu-by-longpress="false"></u-image>
 				</view>
-				<u-button size="mini" v-if="pinia_user.workData.id == null" color="#01BB74" :customStyle="{ width: '150rpx' }" @click="authRefresh" shape="circle" type="success">
+				<u-button
+					v-if="pinia_user.workData.id == null"
+					color="#01BB74"
+					:customStyle="{ width: '154rpx', height: '54rpx', margin: 0, fontSize: '24rpx' }"
+					@click="authRefresh"
+					shape="circle"
+					type="success"
+				>
 					更新信息
 				</u-button>
 			</view>
@@ -71,6 +78,7 @@
 export default {
 	data() {
 		return {
+			buttonDisabled: false,
 			nameID: '',
 			showImg: false,
 			show: 0,
@@ -174,7 +182,7 @@ export default {
 
 			console.log(dx);
 			dx.enterpriseName = dx.enterpriseName.trim();
-			if (dx.enterpriseName.length <= 0 || dx.enterpriseName.length >= 14) {
+			if (dx.enterpriseName.length <= 0 || dx.enterpriseName.length > 14) {
 				this.$u.toast('请输入不超过14个字的企业名称');
 				return;
 			}
@@ -185,7 +193,7 @@ export default {
 				return;
 			}
 
-			if (dx.businessSite.length >= 14) {
+			if (dx.businessSite.length > 14) {
 				this.$u.toast('企业地址不能超过14位');
 				return;
 			}
@@ -207,11 +215,13 @@ export default {
 				boss: this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
 			};
 			send.name = send.name.trim();
-			if (send.name.length <= 0) {
+			if (this.nameID <= 0) {
 				this.$u.toast('请输入姓名');
 				return;
 			}
+			this.buttonDisabled = true;
 			this.$api.order.addAccountRecord(dx).then((res) => {
+				this.buttonDisabled = false;
 				//更新用户信息
 				if (res.data.data == '1') {
 					this.$u.setPinia({
@@ -219,8 +229,11 @@ export default {
 							user: {
 								ac: {
 									enterpriseName: dx.enterpriseName,
-									businessSite: dx.businessSite
-									// userName: dx.userName
+									businessSite: dx.businessSite,
+									userName: dx.userName
+								},
+								data: {
+									name: dx.userName
 								}
 							}
 						}

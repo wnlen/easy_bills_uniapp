@@ -11,8 +11,8 @@
 			bgColor="#ffffff"
 		></u-navbar>
 		<view class="w100 box">
-			<view class="mt20">
-				<u-icon name="https://res-oss.elist.com.cn/wxImg/user/invoic.png" size="200"></u-icon>
+			<view class="mb36">
+				<u-icon name="https://res-oss.elist.com.cn/wxImg/user/invoic.png" size="200rpx"></u-icon>
 			</view>
 			<view class="success">申请提交成功</view>
 			<view class="ts mt10 flex-col justify-center">

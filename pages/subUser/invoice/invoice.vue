@@ -1,12 +1,12 @@
 <template>
 	<view style="position: relative; height: 100vh">
-		<view class="ml20 mr48 pd30 bg-white mt10">
+		<view class="ml30 mr30 bg-white mt10">
 			<view class="flex-row pt30 pb30 u-border-bottom items-center justify-between">
-				<text style="color: red"><text class="ft-gray ml5">开票金额</text></text>
+				<text style="color: red"><text class="ft-black ft30 ml5">开票金额</text></text>
 				<view class="flex-row justify-end items-center flex-1">￥{{ invoice.price }}</view>
 			</view>
 			<view class="flex-row pt30 pb30 u-border-bottom items-center justify-between">
-				<text style="color: red"><text class="ft-gray ml5">抬头类型</text></text>
+				<text style="color: red"><text class="ft-black ft30 ml5">抬头类型</text></text>
 				<view class="flex-row justify-end items-center flex-1">
 					<view class="flex-row justify-center items-center">
 						<view
@@ -19,7 +19,7 @@
 						</view>
 						<view class="ml5">企业</view>
 					</view>
-					<view class="flex-row justify-center items-center ml24">
+					<view class="flex-row justify-center items-center ml48">
 						<view
 							class="flex-col justify-center items-center"
 							@click="check(2)"
@@ -35,58 +35,58 @@
 			<view class="flex-row pt30 pb30 u-border-bottom items-center justify-between">
 				<text style="color: red">
 					*
-					<text class="ft-gray ml5">发票抬头</text>
+					<text class="ft-black ft30 ml5">发票抬头</text>
 				</text>
 				<view class="flex-row justify-end items-center flex-1">
-					<input v-model="invoice.name" type="text" maxlength="50" class="text-right ft29" placeholder="请输入发票抬头 " />
+					<u-input v-model="invoice.name" border="none" inputAlign="right" type="text" maxlength="50" placeholder="请输入发票抬头 " />
 				</view>
 			</view>
 			<view v-if="type" class="flex-row pt30 pb30 u-border-bottom items-center justify-between">
 				<text style="color: red">
 					*
-					<text class="ft-gray ml5">税号</text>
+					<text class="ft-black ft30 ml5">税号</text>
 				</text>
 				<view class="flex-row justify-end items-center flex-1">
-					<input v-model="invoice.taxpayerNumber" type="text" maxlength="50" class="text-right ft29" placeholder="请输入纳税人识别号 " />
+					<u-input v-model="invoice.taxpayerNumber" type="text" maxlength="50" border="none" inputAlign="right" placeholder="请输入纳税人识别号 " />
 				</view>
 			</view>
 			<!-- 			<view class="flex-row pt30 pb30 u-border-bottom items-center justify-between">
-				<text style="color: red;">*<text class="ft-gray ml5">发票内容</text></text>
+				<text style="color: red;">*<text class="ft-black ft30 ml5">发票内容</text></text>
 				<view class="flex-row justify-end items-center flex-1">
-					<input v-model="invoice.content" type="text" maxlength="50"
+					<u-input v-model="invoice.content" type="text" maxlength="50"
 						class="text-right ft29" placeholder="请输入发票内容 " />
 				</view>
 			</view> -->
 			<!-- opening_bank -->
 			<view v-if="type" class="flex-row pt30 pb30 u-border-bottom items-center justify-between">
-				<text style="color: red"><text class="ft-gray ml5">开户行</text></text>
+				<text style="color: red"><text class="ft-black ft30 ml5">开户行</text></text>
 				<view class="flex-row justify-end items-center flex-1">
-					<input v-model="invoice.openingBank" type="text" maxlength="50" class="text-right ft29" placeholder="选填" />
+					<u-input v-model="invoice.openingBank" type="text" maxlength="50" border="none" inputAlign="right" placeholder="选填" />
 				</view>
 			</view>
 			<view v-if="type" class="flex-row pt30 pb30 u-border-bottom items-center justify-between">
-				<text style="color: red"><text class="ft-gray ml5">银行账号</text></text>
+				<text style="color: red"><text class="ft-black ft30 ml5">银行账号</text></text>
 				<view class="flex-row justify-end items-center flex-1">
-					<input v-model="Bank" type="text" maxlength="50" class="text-right ft29" placeholder="选填" />
+					<u-input v-model="Bank" type="text" maxlength="50" border="none" inputAlign="right" placeholder="选填" />
 				</view>
 			</view>
 			<view v-if="type" class="flex-row pt30 pb30 u-border-bottom items-center justify-between">
-				<text style="color: red"><text class="ft-gray ml5">企业地址</text></text>
+				<text style="color: red"><text class="ft-black ft30 ml5">企业地址</text></text>
 				<view class="flex-row justify-end items-center flex-1">
-					<input v-model="invoice.site" type="text" maxlength="20" class="text-right ft29" placeholder="选填" />
+					<u-input v-model="invoice.site" type="text" maxlength="20" border="none" inputAlign="right" placeholder="选填" />
 				</view>
 			</view>
 			<view v-if="type" class="flex-row pt30 pb30 u-border-bottom items-center justify-between">
-				<text style="color: red"><text class="ft-gray ml5">企业电话</text></text>
+				<text style="color: red"><text class="ft-black ft30 ml5">企业电话</text></text>
 				<view class="flex-row justify-end items-center flex-1">
-					<input v-model="invoice.phone" type="number" maxlength="11" class="text-right ft29" placeholder="选填" />
+					<u-input v-model="invoice.phone" type="number" maxlength="11" border="none" inputAlign="right" placeholder="选填" />
 				</view>
 			</view>
 		</view>
 
 		<view class="flex-col justify-center pl60 pr60 pb60 pt60 vw100" style="position: absolute; bottom: 0">
 			<text class="kpxz" @click="jump()">《开票须知》</text>
-			<u-button hover-class="none" :custom-style="{ backgroundColor: '#47506C' }" shape="circle" type="primary" @click="installInvoice">提交申请</u-button>
+			<u-button hover-class="none" color="#47506C" shape="circle" type="primary" @click="installInvoice">提交申请</u-button>
 		</view>
 	</view>
 </template>

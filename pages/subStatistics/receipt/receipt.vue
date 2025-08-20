@@ -54,7 +54,7 @@
 							<text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
 								{{ pinia_userRole === 'R' ? '供应商选择' : '客户选择' }}
 							</text>
-							<u-line direction="col" margin="0 20rpx" color="#333" length="40%"></u-line>
+							<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
 							<view class="my-input flex-1">
 								<u-input
 									border="none"
@@ -237,8 +237,8 @@
 
 		<u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" />
 
-		<u-popup :show="show_start" @click="show_start = false" mode="top" width="550rpx">
-			<view class="flex-col pd30 justify-between height100">
+		<u-popup :show="show_start" @close="show_start = false" mode="top" :safeAreaInsetBottom="false">
+			<view class="flex-col pl30 pr30 pb30 justify-between">
 				<view>
 					<view class="flex-col mt40">
 						<text
@@ -260,14 +260,14 @@
 								<text class="mr10" style="color: #999999">开始日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
 								<view @click="$refs.calendars.open()" class="ml24" style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
-									{{ date1 }}
+									{{ date1 || '开始日期' }}
 								</view>
 							</view>
 							<view class="flex-row items-center" style="width: 50%">
 								<text class="mr10 ml20" style="color: #999999">结束日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
 								<view @click="$refs.calendars.open()" class="ml24" style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
-									{{ date2 }}
+									{{ date2 || '结束日期' }}
 								</view>
 							</view>
 						</view>
@@ -351,7 +351,7 @@
 				</view>
 
 				<!-- 按钮 -->
-				<view class="flex-row justify-end">
+				<view class="flex-row justify-end mt40">
 					<u-button
 						color="#F4F4F4"
 						type="info"

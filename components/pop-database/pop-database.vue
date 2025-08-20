@@ -13,7 +13,10 @@
 					<view class="iconPeople flex-col justify-center items-center mt10">低至{{ (orderPriceBDiscount / 365).toFixed(2) }}元/天</view>
 				</view>
 				<view class="ml15 tab flex-col justify-center items-center" :style="{ backgroundColor: year == 2 ? '#FDF7ED' : '#FFFFFF' }" @click="orderInit('A2')">
-					<u-image :lazy-load="true" style="position: absolute; top: 0" src="https://res-oss.elist.com.cn/wxImg/order/tj.png" width="120rpx" height="30rpx"></u-image>
+					<view style="position: absolute; top: -4rpx">
+						<u-icon name="https://res-oss.elist.com.cn/wxImg/order/tj.png" width="120rpx" height="30rpx"></u-icon>
+					</view>
+
 					<text class="t1">{{ productCode[1] ? productCode[1].product : '' }}</text>
 					<text class="t2">￥{{ orderPriceQDiscount }}</text>
 					<text class="t3">￥{{ orderPriceQ }}</text>

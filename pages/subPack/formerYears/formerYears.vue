@@ -25,7 +25,7 @@
 				<view class="relative" style="width: 100%; height: 5vh">
 					<view class="absolute flex-col justify-center items-center" @click="selectionIconClick" style="width: 30%; left: 0; height: 100%">
 						<liu-data-select elementId="data-select1" :dataList="dataList" @change="dropdown" color="#965510">
-							<view id="data-select1" class="btn-info flex-row justify-center">
+							<view id="data-select1" class="btn-info flex-row justify-center items-center">
 								<view class="mr10" v-if="!selectionIcon"><u-icon name="arrow-up-fill" color=" #965510" size="15"></u-icon></view>
 								<view class="mr10" v-else><u-icon name="arrow-down-fill" color=" #965510" size="15"></u-icon></view>
 								<text style="color: #965510">{{ dropdownName }}</text>
@@ -103,7 +103,7 @@
 					<div class="flex-row items-center radius pr20 mr10 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%">
 						<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
 							<text class="ft11 ft-gray ml36" @click="CustomerGet">{{ pinia_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
-							<u-line direction="col" margin="0 20rpx" color="#333" length="40%"></u-line>
+							<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
 							<view class="ml24 flex-1">
 								<u-input border="none" @change="changeCustomer" v-model="customer" :placeholder="pinia_userRole == 'R' ? '请选择供应商' : '请选择客户'"></u-input>
 							</view>
@@ -139,7 +139,7 @@
 						iconSize="400rpx"
 						text="暂无数据~"
 						mode="search"
-						margin-top="-200"
+						margin-top="-150rpx"
 					></u-empty>
 				</view>
 				<view
@@ -322,21 +322,15 @@
 					</view>
 				</view>
 			</template>
-
-			<!-- <view slot="empty" class="flex-col justify-center items-center">
-				<view class="vw100" style="height: 200rpx;">
-					<u-empty :src="ImgUrl+'/wxImg/list/empty.svg'" icon-size="150" text="暂无数据~" mode="search"
-						margin-top="-250"></u-empty>
+			<template #empty>
+				<view style="padding-bottom: 200rpx">
+					<u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="360rpx"></u-icon>
 				</view>
-			</view> -->
-
-			<view slot="empty" style="padding-bottom: 200rpx">
-				<u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="360rpx"></u-icon>
-			</view>
+			</template>
 		</z-paging>
 
-		<u-popup :show="show_start" mode="top" width="550rpx" @close="show_start = false">
-			<view class="flex-col pd30 justify-between height100 pt100">
+		<u-popup :show="show_start" mode="top" width="550rpx" :safeAreaInsetBottom="false" @close="show_start = false">
+			<view class="flex-col pd30 justify-between pt100">
 				<view>
 					<view class="flex-col mt40">
 						<text
@@ -441,7 +435,7 @@
 					</view>
 				</view>
 				<!-- 按钮 -->
-				<view class="flex-row justify-end">
+				<view class="flex-row justify-end mt40">
 					<u-button
 						color="#F4F4F4"
 						type="info"

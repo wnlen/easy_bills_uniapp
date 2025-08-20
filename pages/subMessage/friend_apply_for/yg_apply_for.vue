@@ -1,51 +1,43 @@
 <template>
 	<view>
-		<view class="ml24 mr24" style="height: 10vh; width: 93vw; border-radius: 6px; align-items: center" v-show="SHOW == 1">
-			<u-swipe-action
-				:btn-width="180"
-				:index="index2"
-				:show="item2.show"
-				v-for="(item2, index2) in resApiT"
-				@open="open1"
-				:options="options"
-				:key="index2"
-				v-show="SHOW == 1"
-				@click="click1(item2, index2)"
-			>
-				<view style="width: 96vw; height: 80px" class="flex-row items-center u-border-bottom mt20 pd15">
-					<u-image :src="item2.img || defaultImg" shape="circle" width="50px" height="50px"></u-image>
-					<view class="flex-col justify-center ml26" style="height: 100%; width: 40%">
-						<text class="title mb8" style="font-size: 32rpx">{{ item2.aName || item2.aUser }}</text>
-						<view class="title" style="font-size: 27rpx; color: #999999; letter-spacing: 1rpx">
-							邀请您成为{{ item2.ifType == '0' ? '主账号' : item2.ifType == '1' ? '合伙人' : item2.ifType == '3' ? '财务' : '员工' }}
-						</view>
-					</view>
-					<view class="flex-col justify-evenly items-end" style="height: 70px; width: 40%">
-						<view class="flex-col relative items-end" style="height: 100%">
-							<view class="mt20" style="color: #d8d8d8; font-size: 12px">
-								<text>{{ $u.timeFormat(item2.createTime, 'yyyy-mm-dd hh:MM:ss') }}</text>
+		<view class="ml24 mr24 mt20" v-for="(item2, index2) in resApiT" :key="index2" style="border-radius: 6px; align-items: center" v-show="SHOW == 1">
+			<u-swipe-action>
+				<u-swipe-action-item :show="item2.show" :name="index2" @click="delclick(item2, index2)" :options="options">
+					<view style="width: 96vw; height: 80px" class="flex-row items-center u-border-bottom pd15">
+						<u-image :src="item2.img || defaultImg" shape="circle" width="50px" height="50px"></u-image>
+						<view class="flex-col justify-center ml26" style="height: 100%; width: 40%">
+							<text class="title mb8" style="font-size: 32rpx">{{ item2.aName || item2.aUser }}</text>
+							<view class="title" style="font-size: 27rpx; color: #999999; letter-spacing: 1rpx">
+								邀请您成为{{ item2.ifType == '0' ? '主账号' : item2.ifType == '1' ? '合伙人' : item2.ifType == '3' ? '财务' : '员工' }}
 							</view>
-							<view class="absolute flex-row justify-center items-center" style="bottom: 8px; right: 0">
-								<!-- <button plain v-if="item2.state==0" :style="{display:state==0?'none':'block'}"
+						</view>
+						<view class="flex-col justify-evenly items-end" style="height: 70px; width: 40%">
+							<view class="flex-col relative items-end" style="height: 100%">
+								<view class="mt20" style="color: #d8d8d8; font-size: 12px">
+									<text>{{ $u.timeFormat(item2.createTime, 'yyyy-mm-dd hh:MM:ss') }}</text>
+								</view>
+								<view class="absolute flex-row justify-center items-center" style="bottom: 8px; right: 0">
+									<!-- <button plain v-if="item2.state==0" :style="{display:state==0?'none':'block'}"
 									class="flex-row justify-center items-center" @click="getPhoneNumberT(item2)"
 									style="background-color: #E5F8F1;border-radius: 396px;width: 60px;height: 25px;font-size: 12px;color: #01BB74;">
 									同意
 								</button> -->
-								<view
-									v-if="item2.state == 0"
-									@click="getPhoneNumberT(item2)"
-									class="flex-row justify-center items-center"
-									style="background-color: #e5f8f1; border-radius: 396px; width: 60px; height: 25px; font-size: 12px; color: #01bb74"
-								>
-									同意
-								</view>
-								<!-- <button v-if="item2.state==1" :style="{display:state==1?'none':'block'}"
+									<view
+										v-if="item2.state == 0"
+										@click="getPhoneNumberT(item2)"
+										class="flex-row justify-center items-center"
+										style="background-color: #e5f8f1; border-radius: 396px; width: 60px; height: 25px; font-size: 12px; color: #01bb74"
+									>
+										同意
+									</view>
+									<!-- <button v-if="item2.state==1" :style="{display:state==1?'none':'block'}"
 									class="ml10 items-center flex-col justify-left"
 									style="width: 65px;height: 30.43px;font-size: 12px;color: #E5F8F1;background-color:  #01BB74;border:none;">已同意</button> -->
+								</view>
 							</view>
 						</view>
 					</view>
-				</view>
+				</u-swipe-action-item>
 			</u-swipe-action>
 		</view>
 	</view>
@@ -89,7 +81,7 @@ export default {
 			this.loadDataYG();
 			this.SHOW = 1;
 		},
-		click1(item, index) {
+		delclick(item, index) {
 			console.log('删除1', item);
 			this.resApiT[index].show = false;
 			this.$api.user
@@ -127,7 +119,7 @@ export default {
 				state: '0'
 			};
 
-			this.$api.apply
+			this.$api.bills
 				.getApplyList(dx)
 				.then((res) => {
 					this.resApiT = res.data.data.map((obj) => ({
@@ -157,7 +149,7 @@ export default {
 				};
 
 				console.log('员工统一');
-				this.$api.apply
+				this.$api.bills
 					.confirmApply(JSON.parse(JSON.stringify(dx)))
 					.then((res) => {
 						console.log(res.data.data);

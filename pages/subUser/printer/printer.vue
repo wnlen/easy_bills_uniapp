@@ -8,16 +8,16 @@
 			</u-button>
 		</view>
 
-		<view v-if="defShow" class="cardPrint flex-col justify-center items-start relative" v-for="(item, index) in def" :key="index">
+		<view v-if="defShow" class="cardPrint flex-col justify-center items-start relative mt40" v-for="(item, index) in def" :key="index">
 			<view class="ml15 flex-row justify-center items-center">
-				<u-icon name="https://res-oss.elist.com.cn/wxImg/print/print-icon.svg" size="80"></u-icon>
+				<u-icon name="https://res-oss.elist.com.cn/wxImg/print/print-icon.svg" size="80rpx"></u-icon>
 				<text class="ml15" style="color: #666666; font-size: 14px">默认设备名称：{{ item.name }}</text>
 				<view class="ml15" :style="{ backgroundColor: item.online ? '#01BB74' : '#F76565' }" style="width: 5px; height: 5px; border-radius: 45%"></view>
 			</view>
 			<view class="absolute flex-row justify-center items-center" style="right: 5px" @click="edit(item)">
 				<text class="mr20" style="color: #01bb74" v-show="item.online">在线</text>
 				<text class="mr20" style="color: #f76565" v-show="!item.online">离线</text>
-				<u-icon name="arrow-right" color="#666666" size="20"></u-icon>
+				<u-icon name="arrow-right" color="#666666" size="20rpx"></u-icon>
 			</view>
 		</view>
 
@@ -30,7 +30,7 @@
 				<view class="absolute flex-row justify-center items-center" style="right: 5px">
 					<text class="mr20" style="color: #01bb74" v-show="item.online">在线</text>
 					<text class="mr20" style="color: #f76565" v-show="!item.online">离线</text>
-					<u-icon name="arrow-right" color="#666666" size="20"></u-icon>
+					<u-icon name="arrow-right" color="#666666" size="20rpx"></u-icon>
 				</view>
 			</view>
 		</view>
@@ -49,7 +49,7 @@ export default {
 		};
 	},
 	onShow() {
-		// this.getPrinter();
+		this.getPrinter();
 	},
 	methods: {
 		buy() {

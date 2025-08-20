@@ -17,7 +17,7 @@
 		<view class="bg-white radius12 mt60 ml30 mr30">
 			<view class="mb54 flex-row justify-between">
 				<view class="charts-box">
-					<qiun-data-charts type="ring" :opts="ringOpts" :chartData="chartsDataPie2" />
+					<qiun-data-charts type="ring" :canvas2d="true" canvasId="myChartCanvas" :opts="ringOpts" :chartData="chartsDataPie2" />
 					<view class="text-center ft-bold">
 						<text class="ft24">￥</text>
 						<text v-for="(item, index) in allprice.toFixed(2).toString().split('.')" :class="index == 0 ? 'ft32' : 'ft24'" :key="index">
@@ -64,11 +64,12 @@
 		</view>
 		<view class="bg-white radius12 mt30 ml30 mr30">
 			<view class="flex-row flex-wrap">
-				<view class="flex-col width25_ items-center" @click="goPath(listItem.path)" v-for="(listItem, listIndex) in iconlist" :key="listIndex">
+				<view class="flex-col width25_ items-center relative" @click="goPath(listItem.path)" v-for="(listItem, listIndex) in iconlist" :key="listIndex">
 					<view class="mt10">
 						<u-icon size="80rpx" :name="listItem.icon"></u-icon>
 					</view>
 					<text>{{ listItem.title }}</text>
+					<u-badge bgColor="#E52829" :offset="['12rpx', '50rpx']" absolute :value="listItem.count"></u-badge>
 				</view>
 			</view>
 			<view class="flex-row justify-center pb20">
@@ -141,6 +142,8 @@ export default {
 			],
 			allprice: 0,
 			ringOpts: {
+				disableClick: true, // 关闭点击效果
+				highlight: false, // 禁用点击高亮
 				rotate: false,
 				rotateLock: false,
 				// color: ['#1890FF', '#01BB74', '#F7A944'],
@@ -157,7 +160,8 @@ export default {
 					name: '总销售',
 					fontSize: 14,
 					color: '#333',
-					fontWeigh: 700
+					offsetY: -5, // 设置与副标题的间距
+					fontWeight: 'bold' // 设置加粗
 				},
 				subtitle: {
 					name: '（今年）',
@@ -174,7 +178,8 @@ export default {
 						border: true,
 						borderWidth: 3,
 						borderColor: '#FFFFFF'
-					}
+					},
+					silent: true // 强制禁用该系列所有交互
 				}
 			},
 			chartsDataPie2: {
@@ -214,27 +219,32 @@ export default {
 				{
 					title: '客户',
 					icon: '/static/img/index/new/icon1.png',
-					path: '/pages/subIndex/my_customer/my_customer'
+					path: '/pages/subIndex/my_customer/my_customer',
+					count: 0
 				},
 				{
 					title: '商品库',
 					icon: '/static/img/index/new/icon2.png',
-					path: '/pages/subOrder/commodityDetails/nventoryCommodities'
+					path: '/pages/subOrder/commodityDetails/nventoryCommodities',
+					count: 0
 				},
 				{
 					title: '草稿箱',
 					icon: '/static/img/index/new/icon3.png',
-					path: '/pages/subOrder/drafts'
+					path: '/pages/subOrder/drafts',
+					count: 0
 				},
 				{
 					title: '待办事项',
 					icon: '/static/img/index/new/icon4.png',
-					path: '/pages/subIndex/backlog/backlog'
+					path: '/pages/subIndex/backlog/backlog',
+					count: 0
 				},
 				{
 					title: '更多功能',
 					icon: '/static/img/index/new/icon5.png',
-					path: '/pages/subPack/more/more?tid=更多功能'
+					path: '/pages/subPack/more/more?tid=更多功能',
+					count: 0
 				}
 			],
 			orderList2: [
@@ -272,10 +282,11 @@ export default {
 			//#ifdef APP
 			this.goToLogin();
 			//#endif
-		} else {
-			//新手引导
+		}else {
 			this.guideCourse();
+      this.getOrderDB();
 		}
+    
 		this.setDR(this.pinia_userRole);
 	},
 	onLoad() {},
@@ -294,7 +305,6 @@ export default {
 		},
 		// 新手指引
 		guideCourse() {
-			console.log(this.$u.getPinia('user.userRole'), this.$u.getPinia('guide.guidanceD'));
 			if (this.$u.getPinia('user.userRole') == 'D' && this.$u.getPinia('guide.guidanceD') != 1) {
 				this.$refs.FunctionGuide.init();
 			} else if (this.$u.getPinia('user.userRole') == 'R' && this.$u.getPinia('guide.guidanceR') != 1) {
@@ -329,8 +339,9 @@ export default {
 						position: {
 							top: res.top + 'px',
 							width: `${res.width}px`,
-							left: '58rpx',
-							height: `${res.height}px`
+							left: `${res.left}px`,
+							height: `${res.height}px`,
+							borderRadius: '27.54rpx'
 						}
 					});
 				});
@@ -346,14 +357,14 @@ export default {
 						btnGroupPosition: '550rpx',
 						tipsPosition: {
 							top: '-270rpx',
-							left: '-40rpx',
+							left: '-70rpx',
 							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc4.png)'
 						},
 						position: {
 							bottom: `${bottomSafeArea}px`,
-							height: '100rpx',
-							width: '86rpx',
-							left: `${res.left - 10}px`
+							height: '50px',
+							width: '43px',
+							left: `${res.left - 11}px`
 						}
 					});
 				});
@@ -364,11 +375,12 @@ export default {
 			this._step = this.functionGuideData.step;
 			if (this.functionGuideData.step == 1) {
 				this.getElementData('#box', (res) => {
+					console.log('#box', res);
 					this.setFunctionGuideData({
 						tips: '快速切换收发端口',
 						btnGroupPosition: '10rpx',
 						tipsPosition: {
-							top: '50rpx',
+							top: '100rpx',
 							right: '0',
 							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc1.png)'
 						},
@@ -381,7 +393,8 @@ export default {
 							top: `${res.top}px`,
 							right: '30rpx',
 							width: `${res.width}px`,
-							height: `${res.height}px`
+							height: `${res.height}px`,
+							borderRadius: '214rpx'
 						}
 					});
 				});
@@ -398,13 +411,13 @@ export default {
 						position: {
 							top: res.top + 'px',
 							width: `${res.width}px`,
-							left: '58rpx',
-							height: `${res.height}px`
+							left: `${res.left}px`,
+							height: `${res.height}px`,
+							borderRadius: '27.54rpx'
 						}
 					});
 				});
 			} else if (this.functionGuideData.step == 3) {
-				console.log('#box3');
 				this.getElementData('#box3', (res) => {
 					this.setFunctionGuideData({
 						tips: '简单快捷一键开单',
@@ -417,8 +430,9 @@ export default {
 						position: {
 							top: res.top + 'px',
 							width: `${res.width}px`,
-							right: '58rpx',
-							height: `${res.height}px`
+							left: `${res.left}px`,
+							height: `${res.height}px`,
+							borderRadius: '27.54rpx'
 						}
 					});
 				});
@@ -429,20 +443,19 @@ export default {
 				const bottomSafeArea = systemInfo.safeAreaInsets ? systemInfo.safeAreaInsets.bottom : 0;
 				var setting = platform === 'android';
 				this.getElementData('#box4', (res) => {
-					console.log('box4', res);
 					this.setFunctionGuideData({
 						tips: '查询订单一览无余',
 						btnGroupPosition: '550rpx',
 						tipsPosition: {
 							top: '-270rpx',
-							left: '-40rpx',
+							left: '-70rpx',
 							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc4.png)'
 						},
 						position: {
 							bottom: `${bottomSafeArea}px`,
-							height: '100rpx',
-							width: '86rpx',
-							left: `${res.left - 10}px`
+							height: '50px',
+							width: '43px',
+							left: `${res.left - 11}px`
 						}
 					});
 				});
@@ -479,14 +492,12 @@ export default {
 		},
 		// 加载广告
 		getmiddleBanner() {
-			var filer = this.pinia_userRole == 'D' ? '1' : '0';
-			console.log('this.$api.advert', this.$api);
+			var filer = this.vuex_userRole == 'D' ? '1' : '0';
 			this.$api.advert
 				.getAdvertList({
 					port: filer
 				})
 				.then((res) => {
-					console.log('广告列表', res);
 					if (res.data.code == 401) {
 						if (this.pinia_userRole == 'D') {
 							this.middleBanner = this.middleBannerlXD;
@@ -504,7 +515,6 @@ export default {
 			this.jumpToUrl(this.middleBanner[e].jump);
 		},
 		jumpToUrl(url) {
-			console.log('点击广告', url);
 			if (!url) return;
 			if (url.indexOf('http') < 0) {
 				// 内部跳转
@@ -513,7 +523,6 @@ export default {
 				});
 			} else {
 				// 外部跳转
-				console.log('外部跳转');
 				uni.previewImage({
 					loop: true,
 					urls: [url] //可以展示imgUrl 列表中所有的图片
@@ -546,6 +555,8 @@ export default {
 					]
 				};
 				this.ringOpts = {
+					highlight: false, // 禁用点击高亮
+					disableClick: true, // 关闭点击效果
 					rotate: false,
 					rotateLock: false,
 					// color: ['#1890FF', '#01BB74', '#F7A944'],
@@ -561,7 +572,9 @@ export default {
 					title: {
 						name: '总销售',
 						fontSize: 14,
-						color: '#333'
+						color: '#333',
+						offsetY: -5, // 设置与副标题的间距
+						fontWeight: 'bold' // 设置加粗
 					},
 					subtitle: {
 						name: '（今年）',
@@ -578,34 +591,40 @@ export default {
 							border: true,
 							borderWidth: 3,
 							borderColor: '#FFFFFF'
-						}
+						},
+						silent: true // 强制禁用该系列所有交互
 					}
 				};
 				this.iconlist = [
 					{
 						title: '客户',
 						icon: '/static/img/index/new/icon1.png',
-						path: '/pages/subIndex/my_customer/my_customer'
+						path: '/pages/subIndex/my_customer/my_customer',
+						count: 0
 					},
 					{
 						title: '商品库',
 						icon: '/static/img/index/new/icon2.png',
-						path: '/pages/subOrder/commodityDetails/nventoryCommodities'
+						path: '/pages/subOrder/commodityDetails/nventoryCommodities',
+						count: 0
 					},
 					{
 						title: '草稿箱',
 						icon: '/static/img/index/new/icon3.png',
-						path: '/pages/subOrder/drafts'
+						path: '/pages/subOrder/drafts',
+						count: 0
 					},
 					{
 						title: '待办事项',
 						icon: '/static/img/index/new/icon4.png',
-						path: '/pages/subIndex/backlog/backlog'
+						path: '/pages/subIndex/backlog/backlog',
+						count: 0
 					},
 					{
 						title: '更多功能',
 						icon: '/static/img/index/new/icon5.png',
-						path: '/pages/subPack/more/more?tid=更多功能'
+						path: '/pages/subPack/more/more?tid=更多功能',
+						count: 0
 					}
 				];
 				this.orderList2 = [
@@ -624,6 +643,8 @@ export default {
 				];
 			} else {
 				this.ringOpts = {
+					disableClick: true, // 关闭点击效果
+					highlight: false, // 禁用点击高亮
 					rotate: false,
 					rotateLock: false,
 					// color: ['#1890FF', '#01BB74', '#F7A944'],
@@ -637,9 +658,11 @@ export default {
 						show: false
 					},
 					title: {
-						name: '总供应',
+						name: '总销售',
 						fontSize: 14,
-						color: '#333'
+						color: '#333',
+						offsetY: -5, // 设置与副标题的间距
+						fontWeight: 'bold' // 设置加粗
 					},
 					subtitle: {
 						name: '（今年）',
@@ -656,7 +679,8 @@ export default {
 							border: true,
 							borderWidth: 3,
 							borderColor: '#FFFFFF'
-						}
+						},
+						silent: true // 强制禁用该系列所有交互
 					}
 				};
 				this.chartsDataPie2 = {
@@ -686,28 +710,33 @@ export default {
 					{
 						title: '供应商',
 						icon: '/static/img/index/new/icon1.png',
-						path: '/pages/subIndex/my_customer/my_customer'
+						path: '/pages/subIndex/my_customer/my_customer',
+						count: 0
 					},
 					{
 						title: '待办事项',
 						icon: '/static/img/index/new/icon4.png',
-						path: '/pages/subIndex/backlog/backlog'
+						path: '/pages/subIndex/backlog/backlog',
+						count: 0
 					},
 					{
 						title: '付款单列表',
 						icon: '/static/img/index/new/icon6.png',
-						path: '/pages/subStatistics/receipt/bill_receipt?tid=付款单列表'
+						path: '/pages/subStatistics/receipt/bill_receipt?tid=付款单列表',
+						count: 0
 					},
 					{
 						title: '开付款单',
 						icon: '/static/img/index/new/icon7.png',
-						path: '/pages/subStatistics/receipt/receipt?tid=开付款单'
+						path: '/pages/subStatistics/receipt/receipt?tid=开付款单',
+						count: 0
 					},
 
 					{
 						title: '更多功能',
 						icon: '/static/img/index/new/icon5.png',
-						path: '/pages/subPack/more/more?tid=更多功能'
+						path: '/pages/subPack/more/more?tid=更多功能',
+						count: 0
 					}
 				];
 				this.orderList2 = [
@@ -737,6 +766,40 @@ export default {
 				this.guideCourse();
 			}
 			this.setDR(value);
+			this.getOrderDB();
+		},
+		// 待办事项
+		getOrderDB() {
+			this.$u.getPinia('user.user.data.work');
+			var workIF = this.vuex_user.data.work == '0';
+			var dx = {
+				bUser: '',
+				bBoss: '',
+				port: this.vuex_userRole
+			};
+			if (workIF) {
+				dx.bBoss = this.vuex_user.phone;
+			} else {
+				var identity = this.vuex_user.workData.identity;
+				if (identity == '4') {
+					dx.bBoss = this.vuex_user.workData.bossNumber;
+					dx.bUser = this.vuex_user.phone;
+				} else if (identity == '1') {
+					dx.bBoss = this.vuex_user.workData.bossNumber;
+					// dx.bUser = this.vuex_user.workData.bossNumber
+				} else {
+					dx.bBoss = this.vuex_user.workData.bossNumber;
+					dx.bUser = this.vuex_user.phone;
+				}
+			}
+
+			this.$api.order.getOrderDraftList(dx).then((res) => {
+				if (this.$u.getPinia('user.userRole') == 'D') {
+					this.iconlist[3].count = res.data.data[0];
+				} else {
+					this.iconlist[2].count = res.data.data[0];
+				}
+			});
 		}
 	}
 };

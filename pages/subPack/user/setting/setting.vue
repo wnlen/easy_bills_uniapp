@@ -10,7 +10,7 @@
 			<up-cell title="个性化服务推荐" :arrow="false" arrow-direction="right" @click="menuClick(3)" border-bottom>
 				<u-switch v-model="checked2" active-color="#01BB74"></u-switch>
 			</up-cell>
-			<up-cell title="关于我们" :arrow="true" arrow-direction="right" @click="menuClick(4)" border-bottom></up-cell>
+			<up-cell title="关于我们" :isLink="true" arrow-direction="right" @click="menuClick(4)" border-bottom></up-cell>
 		</up-cell-group>
 	</view>
 </template>

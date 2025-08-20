@@ -1,10 +1,12 @@
 <template>
 	<view class="vh100 bg-gray">
-		<up-cell-group :border="false">
-			<up-cell :title="item.name" v-for="(item, index) in num" :arrow="true" :key="index" @click="jump(item)">
-				<text slot="right-icon" class="ft-lighgray"></text>
-			</up-cell>
-		</up-cell-group>
+		<view class="bg-white">
+			<up-cell-group :border="false">
+				<up-cell :titleStyle="{ color: '#666666' }" :title="item.name" v-for="(item, index) in num" :isLink="true" :key="index" @click="jump(item)">
+					<text slot="right-icon" class="ft-lighgray"></text>
+				</up-cell>
+			</up-cell-group>
+		</view>
 	</view>
 </template>
 
@@ -45,4 +47,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+::v-deep .u-line {
+	border-color: #f4f4f4 !important;
+}
+</style>

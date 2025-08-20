@@ -196,7 +196,7 @@
 						</view>
 					</view>
 					<view class="" style="width: 20%; display: flex; flex-direction: row; justify-content: right" v-if="identity">
-						<u-button v-if="item2.total > 0" type="success" shape="circle" @click="collection(item2)" size="mini">
+						<u-button v-if="item2.total > 0" color="#01BB74" :customStyle="{ width: '110rpx', height: '50rpx' }" shape="circle" @click="collection(item2)" size="mini">
 							{{ pinia_userRole != 'R' ? '去收款' : '去付款' }}
 						</u-button>
 					</view>
@@ -214,9 +214,9 @@
 				margin-top="200"
 			></u-empty>
 			<view class="" :style="{ display: show != 0 ? 'none' : 'block' }">
-				<view v-for="(item, index) in client" :key="index" @click="particulars(item, true)">
+				<view v-for="(item, index) in client" :key="index" @click="particulars(item, true)" style="border-bottom: 1px solid #f4f4f4">
 					<view class="ml20 mt15" style="width: 110vw">
-						<u-collapse arrow-color="#ffffff">
+						<u-collapse :border="false">
 							<view class="flex-col justify-center items-baseline" style="height: 80rpx" :style="{ color: ifZX(index) ? 'red' : 'black' }">
 								{{ getCompanyName(item) }}
 								<!-- {{ifCm(index)}} -->
@@ -462,34 +462,38 @@ export default {
 				aCompany: ''
 			};
 
-			this.$u.post('edo/user/search?phone=' + addPhone).then((res) => {
-				console.log('(检索添加人)： ', JSON.stringify(res.data.data.map));
-				var addUser = res.data.data;
-				var bossAdd = addPhone;
+			this.$api.user
+				.searchUser({
+					phone: addPhone
+				})
+				.then((res) => {
+					console.log('(检索添加人)： ', JSON.stringify(res.data.data.map));
+					var addUser = res.data.data;
+					var bossAdd = addPhone;
 
-				if (addUser.map.boss !== undefined) {
-					bossAdd = addUser.map.boss;
-				}
-				var bImg = addUser.headPortrait;
+					if (addUser.map.boss !== undefined) {
+						bossAdd = addUser.map.boss;
+					}
+					var bImg = addUser.headPortrait;
 
-				if (bossAdd == phone) {
-					this.showSF = false;
-					this.$u.toast('请勿添加自己~');
-					return;
-				}
+					if (bossAdd == phone) {
+						this.showSF = false;
+						this.$u.toast('请勿添加自己~');
+						return;
+					}
 
-				dx.bImg = bImg;
-				dx.bNumber = addPhone;
-				dx.bBossNumber = bossAdd;
+					dx.bImg = bImg;
+					dx.bNumber = addPhone;
+					dx.bBossNumber = bossAdd;
 
-				dx.port = this.role == 1 ? 'R' : 'D';
+					dx.port = this.role == 1 ? 'R' : 'D';
 
-				this.$u.post('edo/client/add', dx).then((res) => {
-					console.log('添加申请： ' + res.data.data);
-					var resAddFriend = res.data;
-					this.addResAlert(resAddFriend);
+					this.$api.user.addClient(dx).then((res) => {
+						console.log('添加申请： ' + res.data.data);
+						var resAddFriend = res.data;
+						this.addResAlert(resAddFriend);
+					});
 				});
-			});
 		},
 		addResAlert(data) {
 			this.$u.toast(data.message);
@@ -524,11 +528,17 @@ export default {
 			var that = this;
 			var phone = this.pinia_work == 'Y' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone;
 			var port = this.pinia_userRole == 'R' ? '1' : '0';
-			this.$u.post('edo/delivery/get?sBossNumber=' + phone + '&eBossNumber=' + phone + '&port=' + port).then((res) => {
-				console.log('edo/delivery/get?sBossNumber', res.data.data);
-				that.client = res.data.data;
-				this.clientCopy = res.data.data;
-			});
+
+			this.$api.order
+				.getDeliveryList({
+					sBossNumber: phone,
+					eBossNumber: phone,
+					port: port
+				})
+				.then((res) => {
+					that.client = res.data.data;
+					this.clientCopy = res.data.data;
+				});
 
 			var ifWorkPort = this.pinia_userRole == 'R';
 			var ifwork = this.pinia_user.data.work == '0';
@@ -579,7 +589,7 @@ export default {
 				}
 			}
 
-			this.$u.post('edo/order/market', dx).then((res) => {
+			this.$api.order.getMarketOrders(dx).then((res) => {
 				console.log('edo/order/market', res.data.data);
 				that.listO = res.data.data;
 				that.listOCopy = res.data.data;

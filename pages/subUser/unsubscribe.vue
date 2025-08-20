@@ -20,7 +20,7 @@
 					</u-input>
 				</view>
 			</view>
-			<view class="mt30">
+			<view class="mt45">
 				<view class="">验证码</view>
 				<view class="flex-row justify-center items-center u-border-bottom relative mt30 pb20" style="width: 100%; height: 60rpx">
 					<view class="absolute my-input" style="left: 0">
@@ -36,11 +36,11 @@
 					</text>
 				</view>
 			</view>
-			<view class="flex-col justify-center items-center mt60">
+			<view class="flex-col justify-center items-center mt120">
 				<view
 					@click="comparisonCode"
 					class="flex-row justify-center items-center"
-					style="width: 537.52rpx; height: 104rpx; border-radius: 376rpx; opacity: 1; background: #01bb74; color: #ffffff"
+					style="width: 508rpx; height: 90rpx; border-radius: 376rpx; opacity: 1; background: #01bb74; color: #ffffff"
 				>
 					下一步
 				</view>
@@ -80,11 +80,15 @@ export default {
 				color: '#666666',
 				position: 'absolute',
 				top: 0,
-				right: 0
-			}
+				right: '-20rpx'
+			},
+			userPhone: ''
 		};
 	},
 	onShareAppMessage(ops) {},
+	onShow() {
+		this.userPhone = this.maskPhoneNumber(this.$u.getPinia('user.user.phone'));
+	},
 	methods: {
 		comparisonCode() {
 			var code = this.form.code;
@@ -148,7 +152,7 @@ export default {
 								icon: 'success'
 							});
 						} else {
-							this.$u.toast(res.data.data.mes);
+							this.$u.toast(res.data.message);
 						}
 					});
 			} else {

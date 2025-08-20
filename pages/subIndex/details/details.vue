@@ -13,14 +13,23 @@
 
 		<uv-popup ref="popup" mode="center" round="50" :overlay="false" :customStyle="popup_style" zIndex="999999">
 			<view v-if="pinia_userRole == 'D'">
-				<uv-textarea v-model="up.remarkD" border="none" count placeholder="请输入内容" height="100" :customStyle="textareaStyle"></uv-textarea>
+				<uv-textarea v-model="up.remarkD" border="none" placeholder="请输入备注" height="100" :customStyle="textareaStyle"></uv-textarea>
 			</view>
 			<view v-if="pinia_userRole == 'R'">
-				<uv-textarea v-model="up.remarkR" border="none" count placeholder="请输入内容" height="100" :customStyle="textareaStyle"></uv-textarea>
+				<uv-textarea v-model="up.remarkR" border="none" placeholder="请输入备注" height="100" :customStyle="textareaStyle"></uv-textarea>
 			</view>
 
 			<view class="popup-box">
-				<view class="btn-l" @click="this.$refs.popup.close()">取消</view>
+				<view
+					class="btn-l"
+					@click="
+						this.$refs.popup.close();
+						up.remarkD = '';
+						up.remarkR = '';
+					"
+				>
+					取消
+				</view>
 				<view class="btn-r" @click="editRemark">完成</view>
 			</view>
 		</uv-popup>
@@ -338,6 +347,10 @@ export default {
 
 			if (remark === this.remark) {
 				console.log('备注无效或未变更');
+				this.$u.toast('备注无效或未变更');
+				return;
+			} else if (remark.length > 14) {
+				this.$u.toast('备注不能超过14位');
 				return;
 			}
 			console.log('sBossNumber', this.getBossNumber());
@@ -420,7 +433,8 @@ export default {
 		border-top: 1rpx solid #eaeaec;
 		border-right: 1rpx solid #eaeaec;
 		text-align: center;
-		font-size: 40rpx;
+		font-size: 30rpx;
+		font-weight: bold;
 	}
 	.btn-r {
 		position: absolute;
@@ -432,7 +446,9 @@ export default {
 		border-top: 1rpx solid #eaeaec;
 		border-left: 1rpx solid #eaeaec;
 		text-align: center;
-		font-size: 40rpx;
+		font-size: 30rpx;
+		color: #01bb74;
+		font-weight: bold;
 	}
 }
 </style>

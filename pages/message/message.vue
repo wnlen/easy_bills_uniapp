@@ -11,8 +11,8 @@
 			<u-empty icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg" iconSize="400rpx" text="暂无消息~" mode="search" margin-top="200"></u-empty>
 		</view>
 
-		<u-swipe-action :show="item.show" :index="index" v-for="(item, index) in list" :key="index" @click="click" disabled @open="open" :options="options">
-			<view class="item u-border-bottom" v-show="item.number > 0" v-if="item.ifwork && showMess && ifShow()">
+		<u-swipe-action :show="item.show" :index="index" v-for="(item, index) in list" :key="index" @click="click" disabled :options="options">
+			<view class="item u-border-bottom relative" v-show="item.number > 0" v-if="item.ifwork && showMess && ifShow()">
 				<view class="mr30"><u-icon :name="ImgUrl + item.images" size="100rpx"></u-icon></view>
 
 				<view class="title-wrap flex-col" style="background-color: #ffffff; width: 80%" @click="jumpChat(item.name, item.images, item)">
@@ -28,7 +28,7 @@
 					</view>
 					<view class="title-wrap">
 						<text class="title u-line-2">{{ item.title }}</text>
-						<u-badge size="default" type="error" v-show="item.right" :count="item.number"></u-badge>
+						<u-badge size="default" :offset="['10rpx', '20rpx']" absolute bgColor="#E52829" v-show="item.right" :value="item.number"></u-badge>
 					</view>
 				</view>
 			</view>

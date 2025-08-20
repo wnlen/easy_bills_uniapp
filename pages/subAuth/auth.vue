@@ -9,11 +9,7 @@
 			title-color="#000000"
 			title="公司资料"
 			title-size="34"
-			:background="{
-				background: 'transparent',
-				color: 'white',
-				fontSize: '28rpx'
-			}"
+			bgColor="transparent"
 		></u-navbar>
 
 		<image

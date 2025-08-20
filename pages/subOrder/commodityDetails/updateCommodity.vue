@@ -14,17 +14,12 @@
 				:previewFullImage="true"
 				:deletable="true"
 				:showRetry="false"
-				uploadIconColor="#01BB74"
-				uploadIcon="plus-circle-fill"
-				uploadText="添加图片"
 				height="16vh"
 				width="34vw"
 			>
-				<!-- <template #trigger>
-					<view class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150"> -->
-				<!-- <u-icon name="plus-circle-fill" color="#01BB74" size="50rpx" label="添加图片" labelPos="bottom" /> -->
-				<!-- </view>
-				</template> -->
+				<view class="">
+					<u-icon name="plus-circle-fill" space="16rpx" color="#01BB74" size="50rpx" label="添加图片" labelPos="bottom" />
+				</view>
 			</u-upload>
 		</view>
 
@@ -274,6 +269,9 @@ export default {
 </script>
 
 <style lang="scss">
+.u-upload__wrap {
+	justify-content: center !important;
+}
 .u-textarea {
 	background-color: transparent !important;
 	padding: 20rpx 0 !important;

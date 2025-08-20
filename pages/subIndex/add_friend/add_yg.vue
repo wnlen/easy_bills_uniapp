@@ -23,28 +23,27 @@
 				class="card ml24 mr24 bg-white flex-row justify-left items-center"
 				style="height: 10vh; width: 93vw; margin-top: 2vh; border-radius: 6px"
 			>
-				<view class="flex-col justify-center items-center" style="width: 13vw">
-					<u-image class="ml20" width="50px" height="50px" shape="circle" :src="item.headPortrait || defaultImg"></u-image>
+				<view class="flex-col justify-center items-center ml20" style="width: 13vw">
+					<u-image width="90rpx" height="90rpx" shape="circle" :src="item.headPortrait || defaultImg"></u-image>
 				</view>
-				<view class="ml10 flex-col justify-left items-baseline" style="width: 60vw; height: 100%">
+				<view class="ml10 flex-col justify-left items-baseline flex-1">
 					<!-- 			<view class="flex-row" style="height: 50%;"
 						:style="{height:item.work?'50%':'100%',alignItems: item.work?'flex-end':'center'}">
 						<text class="ml5" style="color:#01BB74;">{{item.phoneNumber}}</text> <text class="ml10"
 							style="">{{userName(item.name)||"用户"}}</text>
 					</view> -->
-					<view
-						class="flex-row"
-						style="height: 50%"
-						:style="{
-							height: item.map.boss ? '50%' : '100%',
-							alignItems: item.map.boss ? 'flex-end' : 'center'
-						}"
-					>
+
+					<!-- :style="{
+						height: item.map.boss ? '50%' : '100%',
+						alignItems: item.map.boss ? 'flex-end' : 'center'
+					}" -->
+					<view class="flex-row items-center">
 						<text class="ml5" style="color: #01bb74">{{ item.phoneNumber }}</text>
 						<text class="ml10" style="">{{ userName(item.name) || '用户' }}</text>
 					</view>
 					<view v-show="item.map != '' && item.map.boss" class="flex-row justify-start items-center" style="width: 60vw; font-size: 12px; height: 50%">
-						<u-icon name="https://res-oss.elist.com.cn/wxImg/user/yrz-s.svg" size="100"></u-icon>
+						<!-- <u-icon name="https://res-oss.elist.com.cn/wxImg/user/yrz-s.svg" width="200rpx" height="20rpx"></u-icon> -->
+						<image src="https://res-oss.elist.com.cn/wxImg/user/yrz-s.svg" style="width: 100rpx" mode="widthFix"></image>
 						<text class="ml10" style="color: #333333">
 							{{ item.map.enterpriseName != undefined ? item.map.enterpriseName : '该用户已进入其他账户' }}
 						</text>
@@ -56,13 +55,13 @@
 							{{item.map.enterpriseName!=undefined?item.map.enterpriseName:"该用户已进入其他账户"}}</text>
 					</view> -->
 				</view>
-				<view class="mr48" style="float: right; width: 10vw">
+				<view class="mr20">
 					<button
 						:style="{ display: state == 0 ? 'none' : 'block' }"
 						v-if="(item.work == '0' && item.work != '1') || !showYQZ"
-						class="items-center flex-col justify-left pr35"
+						class="items-center flex-col justify-left"
 						@click="addFriend(item.phoneNumber, item.headPortrait)"
-						style="background-color: #01bb74; border-radius: 396px; width: 60px; height: 30.43px; font-size: 12px; color: white"
+						style="background-color: #01bb74; border-radius: 396px; width: 110rpx; height: 50rpx; font-size: 12px; color: white; line-height: 50rpx"
 					>
 						添加
 					</button>

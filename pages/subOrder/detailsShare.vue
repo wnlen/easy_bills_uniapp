@@ -2,14 +2,13 @@
 	<view class="vh100 vw100" style="background-size: cover">
 		<view>
 			<u-navbar
-				:autoBack="true"
 				:placeholder="true"
 				:border-bottom="false"
 				back-icon-color="#000000"
 				:titleBold="true"
 				title-color="#000000"
 				title="货单详情"
-				:custom-back="shareClick"
+				@leftClick="shareClick"
 				title-size="34"
 				bgColor="#ffffff"
 			></u-navbar>
@@ -268,7 +267,7 @@
 			</view>
 		</view>
 
-		<u-popup class="flex-col justify-center items-center" border-radius="15" mode="center" v-model="showMask" width="600rpx" height="400rpx">
+		<u-popup class="flex-col justify-center items-center" round="15" mode="center" v-model="showMask" width="600rpx" height="400rpx">
 			<view class="flex-col justify-center items-center relative" style="height: 100%; width: 100%">
 				<view class="absolute pt20" style="width: 100%; top: 0; height: 75%">
 					<view class="flex-row items-center justify-center passwordTitle">请输入签收密码</view>

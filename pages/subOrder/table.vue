@@ -97,7 +97,7 @@
 				</u-button>
 			</view> -->
 			<view class="ml5 mr5" style="flex: 1">
-				<u-button :customStyle="SearchCustomStyle" shape="circle" @click="establish">
+				<u-button :customStyle="SearchCustomStyle" color="#FFAF38" shape="circle" @click="establish">
 					<view class="pr10">
 						<u-icon name="plus" color="#ffffff" size="30rpx"></u-icon>
 					</view>
@@ -117,26 +117,26 @@
 		</view>
 
 		<u-empty v-if="isEmptyObject(client)" icon="https://res-oss.elist.com.cn/wxImg/order/empty.svg" iconSize="200rpx" text="暂无好友~" mode="search" margin-top="200"></u-empty>
-		<view v-for="(item, index) in client" :key="index">
+		<view v-for="(item, index) in client" :key="index" style="border-bottom: 1px solid #f4f4f4">
 			<view class="ml20" style="width: 110vw" v-show="show == 1">
-				<u-collapse arrow-color="#ffffff">
-					<u-collapse-item v-if="!ifZX(index)" :title="getCompanyName(item)" arrow="false">
+				<u-collapse :border="false">
+					<u-collapse-item v-if="!ifZX(index)" :title="getCompanyName(item)" :border="false">
 						<view
 							v-for="(item2, index2) in item"
 							:key="index2"
-							style="border-bottom: 1px solid #f4f4f4; width: 85%; padding-top: 10rpx; padding-bottom: 10rpx"
+							style="width: 85%; padding-top: 10rpx; padding-bottom: 10rpx"
 							class="anchor-text ml48"
 							:style="{ color: item.state == '2' ? '#FA5151' : '#333333' }"
 						>
 							<view
-								class=""
-								style="display: flex; flex-direction: row; padding-top: 10rpx; color: black"
+								class="flex-row items-center"
+								style="padding-top: 10rpx; color: black"
 								:style="{
 									color: item2.identity == '3' ? '#AAAAAA' : '#333333'
 								}"
 								@click="jump(index, item2, item)"
 							>
-								{{ item2.name || item2.staffNumber }}
+								<text>{{ item2.name || item2.staffNumber }}</text>
 								<view
 									class="custom-style ml10"
 									:style="{
@@ -152,8 +152,8 @@
 					</u-collapse-item>
 				</u-collapse>
 			</view>
-			<view class="ml20 clickBack" v-show="show == 0" style="width: 110vw">
-				<view @click="jumpShow(item)" style="border-bottom: 2rpx solid #f4f4f4; width: 85%; padding-top: 10rpx; padding-bottom: 10rpx" class="anchor-text ml24">
+			<view class="ml20" v-show="show == 0" style="width: 110vw">
+				<view @click="jumpShow(item)" style="width: 85%; padding-top: 20rpx; padding-bottom: 20rpx" class="anchor-text ml24">
 					<view class="" style="display: flex; flex-direction: row; padding-top: 10rpx; color: black">
 						{{ ifZX(index) ? index.replace("zx-'", '') : getCompanyName(item) }}
 					</view>
@@ -195,7 +195,6 @@ export default {
 				height: '60rpx',
 				padding: '12rpx',
 				fontSize: '24rpx',
-				backgroundColor: '#FFAF38',
 				color: '#ffffff'
 			},
 			SearchCustomStyleWechat: {
@@ -406,34 +405,38 @@ export default {
 				aCompany: ''
 			};
 
-			this.$u.post('edo/user/search?phone=' + addPhone).then((res) => {
-				console.log('(检索添加人)： ', JSON.stringify(res.data.data.map));
-				var addUser = res.data.data;
-				var bossAdd = addPhone;
+			this.$api.user
+				.searchUser({
+					phone: addPhone
+				})
+				.then((res) => {
+					console.log('(检索添加人)： ', JSON.stringify(res.data.data.map));
+					var addUser = res.data.data;
+					var bossAdd = addPhone;
 
-				if (addUser.map.boss !== undefined) {
-					bossAdd = addUser.map.boss;
-				}
-				var bImg = addUser.headPortrait;
+					if (addUser.map.boss !== undefined) {
+						bossAdd = addUser.map.boss;
+					}
+					var bImg = addUser.headPortrait;
 
-				if (bossAdd == phone) {
-					this.showSF = false;
-					this.$u.toast('请勿添加自己~');
-					return;
-				}
+					if (bossAdd == phone) {
+						this.showSF = false;
+						this.$u.toast('请勿添加自己~');
+						return;
+					}
 
-				dx.bImg = bImg;
-				dx.bNumber = addPhone;
-				dx.bBossNumber = bossAdd;
+					dx.bImg = bImg;
+					dx.bNumber = addPhone;
+					dx.bBossNumber = bossAdd;
 
-				dx.port = this.role == 1 ? 'D' : 'R';
+					dx.port = this.role == 1 ? 'D' : 'R';
 
-				this.$api.user.addClient(dx).then.then((res) => {
-					console.log('添加申请： ' + res.data.data);
-					var resAddFriend = res.data;
-					this.addResAlert(resAddFriend);
+					this.$api.user.addClient(dx).then.then((res) => {
+						console.log('添加申请： ' + res.data.data);
+						var resAddFriend = res.data;
+						this.addResAlert(resAddFriend);
+					});
 				});
-			});
 		},
 		addResAlert(data) {
 			console.log('tab' + data);
@@ -516,9 +519,5 @@ export default {
 	text-align: center;
 	padding: 4rpx;
 	font-size: 24rpx;
-}
-
-.clickBack:hover {
-	background-color: #f2f2f5;
 }
 </style>

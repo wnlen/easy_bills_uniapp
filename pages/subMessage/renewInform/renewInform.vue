@@ -1,29 +1,28 @@
 <template>
 	<view class="c bg-gray pb150">
-		<!-- <u-swipe-action bg-color="#f5f5f5" :show="item.show" :index="index" v-for="(item,index) in renewInformList" :key="index"
-			@click="click" @open="open" :options="options"> -->
 		<view class="card mt30" v-for="(item, index) in renewInformList" :key="index">
 			<view class="hand">
 				{{ fjTime(item.createTime) }}
 			</view>
-
-			<u-swipe-action :btn-width="140" bg-color="#f5f5f5" :show="item.show" :index="index" @click="click" @open="open" :options="options">
-				<view class="body">
-					<view class="body_hand">
-						{{ item.type }}
-					</view>
-					<view class="body_body" v-if="ifCharA(item.path)">您购买的权益{{ item.type }}（{{ item.content }}）仅剩一个月到期，请您尽快续费</view>
-					<view class="body_body" v-if="ifCharB(item.path)">您购买的权益{{ item.type }}（{{ item.content }}）仅剩一个月到期，请您尽快续费</view>
-					<view class="body_body" v-if="ifCharC(item.path)">
-						您购买的权益{{ item.path == 'C1' ? '财务' : item.path == 'C3' ? '合伙人' : '员工' }}帐号仅剩一个月到期，请您尽快续费
-					</view>
-					<view class="body_end" @click="jump(item)">
-						<view class="title">立即续费</view>
-						<view class="icon">
-							<u-icon name="arrow-right" color="#b7b7b7" size="28rpx"></u-icon>
+			<u-swipe-action>
+				<u-swipe-action-item bg-color="#f5f5f5" :show="item.show" :name="index" @click="delclick" :options="options">
+					<view class="body">
+						<view class="body_hand">
+							{{ item.type }}
+						</view>
+						<view class="body_body" v-if="ifCharA(item.path)">您购买的权益{{ item.type }}（{{ item.content }}）仅剩一个月到期，请您尽快续费</view>
+						<view class="body_body" v-if="ifCharB(item.path)">您购买的权益{{ item.type }}（{{ item.content }}）仅剩一个月到期，请您尽快续费</view>
+						<view class="body_body" v-if="ifCharC(item.path)">
+							您购买的权益{{ item.path == 'C1' ? '财务' : item.path == 'C3' ? '合伙人' : '员工' }}帐号仅剩一个月到期，请您尽快续费
+						</view>
+						<view class="body_end" @click="jump(item)">
+							<view class="title">立即续费</view>
+							<view class="icon">
+								<u-icon name="arrow-right" color="#b7b7b7" size="28rpx"></u-icon>
+							</view>
 						</view>
 					</view>
-				</view>
+				</u-swipe-action-item>
 			</u-swipe-action>
 		</view>
 		<!-- </u-swipe-action> -->
@@ -58,16 +57,17 @@ export default {
 		ifCharC(char) {
 			return char.includes('C');
 		},
-		click(index, index1) {
-			if (index1 == 0) {
-				this.del(this.renewInformList[index]);
-				this.renewInformList.splice(index, 1);
-			}
+		delclick(item) {
+			this.del(this.renewInformList[item.name]);
+			this.renewInformList.splice(item.name, 1);
 		},
 		del(item) {
 			this.$api.inform
 				.deleteInformItem(item)
 				.then((res) => {
+					if (res.data.code != 200) {
+						return this.$u.toast(res.data.message);
+					}
 					var del = res.data.data;
 					console.log(del);
 					this.$u.toast(`删除成功`);

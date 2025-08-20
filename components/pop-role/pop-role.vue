@@ -1,5 +1,5 @@
 <template>
-	<u-popup :show="roleShow" @close="roleShow = false" mode="bottom" border-radius="15" height="750rpx" :closeable="true" :mask-close-able="false">
+	<u-popup :show="roleShow" @close="roleShow = false" mode="bottom" round="15" height="750rpx" :closeable="true" :mask-close-able="false">
 		<view class="pd36 flex-col justify-center jb" @tap.stop style="background-size: cover" :style="{ backgroundImage: 'url(' + ImgUrl + '/wxImg/index/backRD.png)' }">
 			<view class="flex-col" style="width: 100%">
 				<text class="ft30 ft-bold ft-green mb10" style="color: #333333; font-size: 40rpx; font-weight: bold">设置角色</text>
@@ -11,24 +11,13 @@
 					class="relative mr10"
 					style="height: 400rpx; width: 40%; margin-left: 4%; margin-right: 2%; border: 3rpx solid #01bb74; border-radius: 24rpx; box-sizing: content-box"
 				>
-					<u-image
-						width="100%"
-						height="400rpx"
-						v-if="roleShowF == true"
-						@click="qh(11)"
-						radius="20rpx"
-						:show-menu-by-longpress="false"
-						:src="ImgUrl + '/wxImg/index/01.png'"
-					></u-image>
-					<u-image
-						width="100%"
-						height="400rpx"
-						v-if="roleShowF == false"
-						@click="qh(1)"
-						radius="20rpx"
-						:show-menu-by-longpress="false"
-						:src="ImgUrl + '/wxImg/index/02.png'"
-					></u-image>
+					<view class="" v-show="roleShowF == true">
+						<u-image width="100%" height="400rpx" @click="qh(11)" radius="20rpx" :show-menu-by-longpress="false" :src="ImgUrl + '/wxImg/index/01.png'"></u-image>
+					</view>
+					<view class="" v-show="roleShowF == false">
+						<u-image width="100%" height="400rpx" @click="qh(1)" radius="20rpx" :show-menu-by-longpress="false" :src="ImgUrl + '/wxImg/index/02.png'"></u-image>
+					</view>
+
 					<view class="absolute" style="top: 20rpx; right: 20rpx">
 						<u-radio-group placement="column" @change="qh(1)" v-model="check">
 							<u-radio :customStyle="{ marginBottom: '16rpx' }" @change="" activeColor="#01BB74" v-model="roleShowF" name="1"></u-radio>
@@ -36,24 +25,13 @@
 					</view>
 				</view>
 				<view class="relative ml10" style="height: 400rpx; width: 40%; border: 3rpx solid #568ff2; border-radius: 24rpx; box-sizing: content-box">
-					<u-image
-						v-if="roleShowS == true"
-						height="400rpx"
-						@click="qh(22)"
-						radius="20rpx"
-						width="100%"
-						:show-menu-by-longpress="false"
-						:src="ImgUrl + '/wxImg/index/04.png'"
-					></u-image>
-					<u-image
-						v-if="roleShowS == false"
-						height="400rpx"
-						@click="qh(2)"
-						radius="20rpx"
-						width="100%"
-						:show-menu-by-longpress="false"
-						:src="ImgUrl + '/wxImg/index/03.png'"
-					></u-image>
+					<view class="" v-show="roleShowS == true">
+						<u-image height="400rpx" @click="qh(22)" radius="20rpx" width="100%" :show-menu-by-longpress="false" :src="ImgUrl + '/wxImg/index/04.png'"></u-image>
+					</view>
+					<view class="" v-show="roleShowS == false">
+						<u-image height="400rpx" @click="qh(2)" radius="20rpx" width="100%" :show-menu-by-longpress="false" :src="ImgUrl + '/wxImg/index/03.png'"></u-image>
+					</view>
+
 					<view class="absolute" style="top: 20rpx; right: 20rpx">
 						<u-radio-group placement="column" @change="qh(2)" v-model="check">
 							<u-radio :customStyle="{ marginBottom: '16rpx' }" @change="" activeColor="#568FF2" name="2"></u-radio>
@@ -61,7 +39,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="" style="margin: 8vh 0 0 30rpx; width: 85vw">
+			<view class="" style="margin: 10vh 0 0 30rpx; width: 85vw">
 				<u-button hover-class="none" color="#01BB74" type="primary" shape="circle" @click="submitRole">确定</u-button>
 			</view>
 		</view>

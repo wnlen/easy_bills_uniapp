@@ -47,7 +47,7 @@
 					<text @click="openTableChoice" style="color: #666666">
 						{{ pinia_userRole === 'R' ? '供应商选择' : '客户选择' }}
 					</text>
-					<u-line direction="col" margin="0 20rpx" color="#333" length="40%"></u-line>
+					<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
 					<view class="my-input flex-1">
 						<u-input
 							border="none"
@@ -179,16 +179,6 @@
 					</view>
 				</view>
 				<view class="OrderCard_end" @tap.stop>
-					<!-- <u-swipe-action bg-color="transparent" class="OrderCard_end_slider" :disabled="item.disabled"
-						:show="item.show" @click="click" @open="open(index)" :options="options" :index="index">
-						<view class="detail">
-							<view class="ddlb" @click="viewDetails(item)">
-								<u-icon :name="b64Img.img" label="订单列表" labelColor="#00B578" labelSize="30"
-									size="30rpx"></u-icon>
-							</view>
-						</view>
-					</u-swipe-action> -->
-
 					<u-button
 						class="ml30 bg-white"
 						v-if="
@@ -887,7 +877,7 @@ export default {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-
+	justify-content: space-between;
 	.fixedBarLeft {
 		height: 100%;
 		width: 40%;
@@ -927,9 +917,9 @@ export default {
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
-
+		margin-right: 20rpx;
 		height: 100%;
-		width: 60%;
+		width: 30%;
 	}
 }
 
@@ -1036,7 +1026,7 @@ export default {
 		align-items: center;
 		padding: 0 40rpx;
 		::v-deep button {
-			margin-right: 98rpx !important;
+			margin-right: 20rpx !important;
 			&:last-of-type {
 				margin-right: 0 !important;
 			}
