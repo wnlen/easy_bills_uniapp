@@ -22,8 +22,8 @@
 					:background="{ background: 'transparent' }"
 				></u-navbar>
 				<u-notice-bar v-if="uNoticeBarlist.length" direction="column" :text="uNoticeBarlist" padding="6rpx 12rpx"></u-notice-bar>
-				<view class="relative" style="width: 100%; height: 5vh">
-					<view class="absolute flex-col justify-center items-center" @click="selectionIconClick" style="width: 30%; left: 0; height: 100%">
+				<view class="flex-row justify-between pl30 pr30" style="width: 100%; height: 5vh">
+					<view class="flex-col justify-center items-center" @click="selectionIconClick" style="height: 100%">
 						<liu-data-select elementId="data-select1" :dataList="dataList" @change="dropdown" color="#965510">
 							<view id="data-select1" class="btn-info flex-row justify-center items-center">
 								<view class="mr10" v-if="!selectionIcon"><u-icon name="arrow-up-fill" color=" #965510" size="15"></u-icon></view>
@@ -33,8 +33,8 @@
 							</view>
 						</liu-data-select>
 					</view>
-					<view class="absolute flex-row justify-end items-center" style="width: 70%; right: 0; text-align: right; height: 100%">
-						<text class="mr24" @click="jumpnView">数据分析></text>
+					<view class="flex-row justify-end items-center" style="height: 100%">
+						<text @click="jumpnView">数据分析></text>
 					</view>
 				</view>
 			</template>
@@ -121,25 +121,27 @@
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
 							</view>
 
-							<view class="ml24 my-input">
-								<u-input border="none" v-if="showTage != '1'" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
+							<view class="ml24 my-input flex-1" v-if="showTage != '1'">
+								<u-input border="none" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
 							</view>
-							<view class="ml24 my-input">
-								<u-input border="none" v-if="showTage == '1'" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
+							<view class="ml24 my-input flex-1" v-if="showTage == '1'">
+								<u-input border="none" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
+							</view>
+							<view class="flex-col justify-center items-center" style="height: 5vh">
+								<view class="ml40"><u-icon name="/static/img/list/ss.svg" size="45rpx" @click="searchListenner"></u-icon></view>
 							</view>
 						</div>
 					</div>
 				</div>
 			</view>
-
-			<view class="flex-col justify-center items-center" style="height: 100vh" v-show="current == 0 && moneyCALL">
+			<view class="flex-col justify-center items-center" style="height: 80vh" v-show="current == 0 && moneyCALL">
 				<view class="vw100" style="height: 100rpx">
 					<u-empty
 						icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/empty.svg"
 						iconSize="400rpx"
-						text="暂无数据~"
+						text="暂无数据"
 						mode="search"
-						margin-top="-150rpx"
+						margin-top="-260rpx"
 					></u-empty>
 				</view>
 				<view
@@ -268,9 +270,9 @@
 
 			<template #bottom v-show="!(current == 0 && moneyCALL)">
 				<view
-					class="items-center flex-row justify-center pt48"
+					class="items-center flex-row justify-center"
 					style="
-						padding-right: 10%;
+						padding-right: 30rpx;
 						display: flex;
 						justify-content: space-between;
 						background-color: #ffffff;
@@ -322,11 +324,11 @@
 					</view>
 				</view>
 			</template>
-			<template #empty>
+			<!-- 		<template #empty>
 				<view style="padding-bottom: 200rpx">
-					<u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="360rpx"></u-icon>
+					<u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180rpx"></u-icon>
 				</view>
-			</template>
+			</template> -->
 		</z-paging>
 
 		<u-popup :show="show_start" mode="top" width="550rpx" :safeAreaInsetBottom="false" @close="show_start = false">
