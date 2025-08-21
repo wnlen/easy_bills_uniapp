@@ -96,7 +96,7 @@
 									:text="Title"
 									margin="0 0 0 20rpx"
 									suffixIcon="arrow-down-fill"
-									iconStyle="color: #666;margin:0 10rpx;fontSize:30rpx"
+									iconStyle="color: #606266;margin:0 10rpx;fontSize:20rpx"
 									@click="filtrateGet"
 								></u-text>
 							</template>
@@ -123,7 +123,7 @@
 									margin="0 0 0 20rpx"
 									:text="Title"
 									suffixIcon="arrow-down-fill"
-									iconStyle="color: #666;margin:0 10rpx;fontSize:30rpx"
+									iconStyle="color: #606266;margin:0 10rpx;fontSize:20rpx"
 									@click="filtrateGet"
 								></u-text>
 							</template>
