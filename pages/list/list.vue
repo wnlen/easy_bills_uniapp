@@ -65,13 +65,9 @@
 							@change="(e) => CustomerGetChange(e)"
 						>
 							<template #prefix>
-								<view v-if="userStore.userRole === 'R'">
-									<text style="color: #606266" class="ft30 ml20">供应商选择</text>
-									<text style="color: #606266" class="ft30 ml20 mr20">|</text>
-								</view>
-								<view v-if="userStore.userRole === 'D'">
-									<text style="color: #606266" class="ft30 ml20">客户选择</text>
-									<text style="color: #606266" class="ft30 ml20 mr20">|</text>
+								<view>
+									<text class="ft30 ft-gray ml20 mr20">{{ userStore.userRole === 'R' ? '供应商选择' : '客户选择' }}</text>
+									<text>|</text>
 								</view>
 							</template>
 							<template #suffix>
@@ -240,8 +236,16 @@
 					<view v-if="item.share" class="flex-row items-center justify-center" style="width: 100%">
 						<view class="flex-row justify-center items-center" style="width: 100%">
 							<view class="flex-row justify-center items-center" style="width: 40%; color: #cccccc">
-								<view class="hl-btn NY flex-row items-center justify-center">
-									<u-button type="default" @click="ShareY(item)" open-type="share" name="Y" :data-thumb="item.picturesId" :data-id="item.id">
+								<view class="flex-row items-center justify-center">
+									<button
+										class="hl-btn NY flex-row items-center justify-center"
+										type="default"
+										open-type="share"
+										name="Y"
+										:data-thumb="item.picturesId"
+										:data-id="item.id"
+										:data-versions="'Y'"
+									>
 										<view style="top: 2rpx">
 											<u-icon
 												name="share-square"
@@ -252,18 +256,18 @@
 												:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '有金额转发' : '有金额转发'"
 											></u-icon>
 										</view>
-									</u-button>
+									</button>
 								</view>
 							</view>
 							<view class="flex-row justify-center items-center u-border-left u-border-right" style="width: 40%; color: #cccccc">
 								<button
 									class="hl-btn NY flex-row items-center justify-center"
 									type="default"
-									@click="ShareN(item)"
 									open-type="share"
 									name="N"
 									:data-thumb="item.picturesId"
 									:data-id="item.id"
+									:data-versions="'N'"
 								>
 									<view style="top: 2rpx">
 										<u-icon
@@ -537,7 +541,16 @@
 				password = '';
 			"
 		>
-			<u-popup negative-top="200rpx" class="flex-col justify-center items-center" round="15" mode="center" v-model="showMask" width="600rpx" height="400rpx">
+			<u-popup
+				negative-top="200rpx"
+				class="flex-col justify-center items-center"
+				round="15"
+				:safeAreaInsetBottom="false"
+				mode="center"
+				v-model="showMask"
+				width="600rpx"
+				height="400rpx"
+			>
 				<view class="flex-col justify-center items-center relative" style="height: 100%; width: 100%">
 					<view class="absolute pt20" style="width: 100%; top: 0; height: 75%">
 						<view class="flex-row items-center justify-center passwordTitle">请输入签收密码</view>
@@ -674,7 +687,6 @@ const sum = ref(0);
 const type = ref(0);
 const hide = ref(true);
 const textKHGGS = ref('客户选择');
-const ShareDetails = ref('');
 const showMask = ref(false);
 const err = ref(false);
 const password = ref('');
@@ -784,7 +796,7 @@ onShareAppMessage((ops) => {
 		const pThumb = ops.target.dataset.thumb;
 		const phone = userStore.user.phone;
 		const port = userStore.userRole;
-		const versions = ShareDetails.value;
+		const versions = ops.target.dataset.versions;
 		console.log('分享参数：', pid, pThumb, phone, port, versions);
 		return {
 			title: '您有一张订单待确认~',
@@ -1409,38 +1421,6 @@ function copyBtn(val) {
 
 function shareNY(item, i) {
 	item.share = i === 1;
-}
-
-function ShareY(item) {
-	ShareDetails.value = 'Y';
-	appShare(item);
-}
-
-function ShareN(item) {
-	ShareDetails.value = 'N';
-	appShare(item);
-}
-
-function appShare(item) {
-	uni.share({
-		provider: 'weixin',
-		scene: 'WXSceneSession',
-		type: 5,
-		summary: '您有一张待确认单据！',
-		imageUrl: item.picturesId,
-		miniProgram: {
-			id: 'gh_65335aa354af',
-			path: `/pages/subOrder/detailsShare?id=${item.id}`,
-			type: 0,
-			webUrl: 'http://uniapp.dcloud.io'
-		},
-		success: (res) => {
-			console.log('分享成功:', res);
-		},
-		fail: (err) => {
-			console.log('分享失败:', err);
-		}
-	});
 }
 
 function compile(item) {

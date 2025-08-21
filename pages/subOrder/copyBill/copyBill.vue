@@ -3,10 +3,10 @@
 		<u-navbar :autoBack="true" :placeholder="true" title="开送货单" :border-bottom="false" :titleBold="true" title-color="#000000" title-size="34" bgColor="#ffffff"></u-navbar>
 
 		<view class="width100" style="height: 80vh; text-align: center; margin-left: 10vw" v-show="pinia_userRole == 'D' && shareShow == true">
-			<u-popup :show="showShare" mode="center" width="80%" height="20%" round="15">
-				<view class="relative" style="height: 100%; width: 100%">
-					<view class="flex-col justify-center items-center" style="height: 30%">提示</view>
-					<view class="flex-col justify-center items-center" style="height: 40%; font-size: 36rpx; font-weight: 600">请选择转发版本</view>
+			<u-popup :show="showShare" mode="center" round="15" :safeAreaInsetBottom="false" @close="showShare = false">
+				<view style="height: 356rpx; width: 580rpx">
+					<view class="flex-col justify-center items-center" style="height: 30%; font-size: 32rpx">提示</view>
+					<view class="flex-col justify-center items-center" style="height: 29%; font-size: 36rpx">请选择转发版本</view>
 					<view class="u-border-top absolute al" style="bottom: 0; height: 30%; width: 100%">
 						<view class="u-border-right item flex-col justify-center items-center" style="height: 100%">
 							<button
@@ -39,15 +39,24 @@
 			</u-popup>
 
 			<view class="mt45 flex-col justify-center" style="width: 80vw; text-align: center; align-items: center; height: 50vh">
-				<view class="" style="width: 60vw; height: 20vh">
-					<u-image style="" width="100%" height="100%" src="https://res-oss.elist.com.cn/wxImg/order/fscg.png"></u-image>
+				<view>
+					<u-image style="" width="414rpx" height="280rpx" src="https://res-oss.elist.com.cn/wxImg/order/fscg.png"></u-image>
 				</view>
-				<view class="text-center mt20" style="color: #01bb74; font-size: 34rpx; font-weight: bold; width: 100%">发送成功!</view>
-				<view class="text-center mt10" style="color: #aaaaaa; font-size: 26rpx; font-weight: normal">电子单据已发送给收货人</view>
-				<view class="flex-row justify-center items-center mt40">
+				<view class="text-center mt40" style="color: #01bb74; font-size: 34rpx; font-weight: bold; width: 100%">发送成功!</view>
+				<view class="text-center mt20" style="color: #aaaaaa; font-size: 26rpx; font-weight: normal">电子单据已发送给收货人</view>
+				<view class="flex-row justify-center items-center mt80">
 					<button
-						style="background-color: #ffffff; width: 271.24rpx; height: '79.98rpx'; border-radius: 338.4rpx; color: #262626; border: 2rpx solid #01bb74"
-						class="mr10"
+						style="
+							background-color: #ffffff;
+							width: 271.24rpx;
+							height: 79.98rpx;
+							line-height: 79.98rpx;
+							border-radius: 338.4rpx;
+							color: #262626;
+							border: 2rpx solid #01bb74;
+							font-size: 30rpx;
+						"
+						class="mr10 flex-row items-center justify-center"
 						size="medium"
 						shape="circle"
 						@click="showShare = true"
@@ -55,7 +64,11 @@
 						<view class="pr10"><u-icon labelColor="#01BB74" label="微信分享好友" labelPos="right" name="weixin-fill" color="#01BB74" size="30rpx"></u-icon></view>
 					</button>
 
-					<button style="background-color: #01bb74; width: 271.24rpx; height: '79.98rpx'; border-radius: 338.4rpx; color: #ffffff" class="ml10" @click="ContinueBilling">
+					<button
+						style="background-color: #01bb74; width: 271.24rpx; height: 79.98rpx; border-radius: 338.4rpx; color: #ffffff; font-size: 30rpx"
+						class="ml10 flex-row items-center justify-center"
+						@click="ContinueBilling"
+					>
 						继续开单
 					</button>
 				</view>
@@ -99,7 +112,7 @@
 			<view class="form-inner flex-col" style="font-size: 28rpx; background-color: #ffffff">
 				<view class="flex-col justify-left">
 					<u-image v-if="pinia_user.eorderLogo" :src="pinia_user.eorderLogo" width="152" height="60" mode="aspectFill" />
-					<view class="ft-bold pd10 handcolor relative">发货单信息</view>
+					<view class="ft-bold pt10 handcolor relative">发货单信息</view>
 					<view class="flex-row items-end pt20 pb20 u-border-bottom">
 						<text class="textcolor">订单编号:</text>
 						<text class="ft-red ml15" style="color: #fa5151; font-family: ddbh">
@@ -112,7 +125,6 @@
 							客户手机号:
 						</text>
 						<input
-							maxlength="11"
 							placeholder-class="placeholder_class"
 							style="color: #333333"
 							@input="searchIFNumber"
@@ -124,7 +136,7 @@
 							placeholder="请输入客户手机号"
 							class="flex-1 endcolor"
 						/>
-						<u-button shape="circle" size="mini" color="#01BB74" :customStyle="{ width: '140rpx' }" @click="jumpTable">选择客户</u-button>
+						<u-button shape="circle" size="mini" color="#01BB74" :customStyle="{ width: '120rpx' }" @click="jumpTable">选择客户</u-button>
 					</view>
 					<view class="flex-row items-center width100 pt20 pb20 u-border-bottom">
 						<text class="textcolor">收货方:</text>
@@ -264,7 +276,7 @@
 
 			<view class="form-inner-card flex-col" style="font-size: 28rpx; background-color: #ffffff">
 				<view v-if="recentlyData" class="flex-row justify-between items-center mt45 ft-bold">
-					<text class="line34 handcolor pl10">相关图片/票据</text>
+					<text class="line34 handcolor">相关图片/票据</text>
 				</view>
 
 				<view class="mt40" style="width: 95%">
@@ -274,13 +286,14 @@
 						:autoUploadApi="action"
 						autoUploadDriver="local"
 						v-model:fileList="fileList"
-						:maxSize="5242880"
 						:maxCount="3"
 						multiple
 						:showPreviewImage="true"
 						:previewFullImage="true"
 						:deletable="true"
 						:showRetry="false"
+						width="200rpx"
+						height="200rpx"
 					>
 						<u-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></u-icon>
 					</u-upload>
@@ -304,7 +317,7 @@
 				</view>
 
 				<view class="flex-col mt45" style="width: 95%">
-					<text class="handcolor line34 pl10" style="font-weight: bold">备注</text>
+					<text class="handcolor line34" style="font-weight: bold">备注</text>
 					<view class="mt40" style="border-radius: 6rpx; box-sizing: border-box; border: 1rpx solid rgba(216, 216, 216, 0.5)">
 						<input
 							v-model="receipts.signatureDescr"
@@ -319,7 +332,7 @@
 				</view>
 
 				<view class="flex-col justify-between pb10 mt45">
-					<text class="line34 ft-bold handcolor pl10">供应商信息</text>
+					<text class="line34 ft-bold handcolor">供应商信息</text>
 					<view class="form-bottom ft-gray">
 						<view class="flex-col justify-between ft24 pt20 pb10 mr24">
 							<view class="flex-row items-center width100 pt20 pb20">

@@ -1,20 +1,12 @@
 <template>
 	<view class="vh100 pb60 flex-col justify-center" style="background-color: #ffffff; overflow-x: hidden">
-		<u-navbar :autoBack="true" :placeholder="true" :custom-back="navBack" :border-bottom="false" :titleBold="true" title-color="#000000" title-size="34" bgColor="#ffffff">
-			<view class="flex-row items-center justify-center ml48" style="width: 100%">
-				<view class="" style="font-size: 34rpx; font-weight: 510">一键开单</view>
-				<!-- <view @click="jumpVideo" class="flex-row justify-center items-center ml12"
-					style="border: 2.2rpx solid #01BB74;height: 44rpx;width:136rpx;border-radius: 8rpx;color: #01BB74;font-size: 22rpx;">
-					使用方法<view class=></view><u-icon  "ml6" name="https://res-oss.elist.com.cn/wxImg/video.png" size="20"></u-icon>
-				</view> -->
-			</view>
-		</u-navbar>
+		<u-navbar :autoBack="true" :placeholder="true" title="开送货单" :border-bottom="false" :titleBold="true" title-color="#000000" title-size="34" bgColor="#ffffff"></u-navbar>
 
 		<view class="width100" style="height: 80vh; text-align: center; margin-left: 10vw" v-show="pinia_userRole == 'D' && shareShow == true">
-			<u-popup :show="showShare" mode="center" width="80%" height="20%" round="15">
-				<view class="relative" style="height: 100%; width: 100%">
-					<view class="flex-col justify-center items-center" style="height: 30%">提示</view>
-					<view class="flex-col justify-center items-center" style="height: 40%; font-size: 36rpx; font-weight: 600">请选择转发版本</view>
+			<u-popup :show="showShare" mode="center" round="15" :safeAreaInsetBottom="false" @close="showShare = false">
+				<view style="height: 356rpx; width: 580rpx">
+					<view class="flex-col justify-center items-center" style="height: 30%; font-size: 32rpx">提示</view>
+					<view class="flex-col justify-center items-center" style="height: 29%; font-size: 36rpx">请选择转发版本</view>
 					<view class="u-border-top absolute al" style="bottom: 0; height: 30%; width: 100%">
 						<view class="u-border-right item flex-col justify-center items-center" style="height: 100%">
 							<button
@@ -47,22 +39,35 @@
 			</u-popup>
 
 			<view class="mt45 flex-col justify-center" style="width: 80vw; text-align: center; align-items: center; height: 50vh">
-				<view class="" style="width: 60vw; height: 20vh">
-					<u-image style="" width="100%" height="100%" src="https://res-oss.elist.com.cn/wxImg/order/fscg.png"></u-image>
+				<view>
+					<u-image style="" width="414rpx" height="280rpx" src="https://res-oss.elist.com.cn/wxImg/order/fscg.png"></u-image>
 				</view>
-				<view class="text-center mt20" style="color: #01bb74; font-size: 34rpx; font-weight: bold; width: 100%">发送成功!</view>
-				<view class="text-center mt10" style="color: #aaaaaa; font-size: 26rpx; font-weight: normal">电子单据已发送给收货人</view>
-				<view class="flex-row justify-center items-center mt40">
+				<view class="text-center mt40" style="color: #01bb74; font-size: 34rpx; font-weight: bold; width: 100%">发送成功!</view>
+				<view class="text-center mt20" style="color: #aaaaaa; font-size: 26rpx; font-weight: normal">电子单据已发送给收货人</view>
+				<view class="flex-row justify-center items-center mt80">
 					<button
-						style="background-color: #ffffff; width: 271.24rpx; height: '79.98rpx'; border-radius: 338.4rpx; color: #262626; border: 2rpx solid #01bb74"
-						class="mr10"
+						style="
+							background-color: #ffffff;
+							width: 271.24rpx;
+							height: 79.98rpx;
+							line-height: 79.98rpx;
+							border-radius: 338.4rpx;
+							color: #262626;
+							border: 2rpx solid #01bb74;
+							font-size: 30rpx;
+						"
+						class="mr10 flex-row items-center justify-center"
 						size="medium"
 						shape="circle"
 						@click="showShare = true"
 					>
 						<view class="pr10"><u-icon labelColor="#01BB74" label="微信分享好友" labelPos="right" name="weixin-fill" color="#01BB74" size="30rpx"></u-icon></view>
 					</button>
-					<button style="background-color: #01bb74; width: 271.24rpx; height: '79.98rpx'; border-radius: 338.4rpx; color: #ffffff" class="ml10" @click="ContinueBilling">
+					<button
+						style="background-color: #01bb74; width: 271.24rpx; height: 79.98rpx; border-radius: 338.4rpx; color: #ffffff; font-size: 30rpx"
+						class="ml10 flex-row items-center justify-center"
+						@click="ContinueBilling"
+					>
 						返回草稿箱
 					</button>
 				</view>
@@ -106,14 +111,7 @@
 			<view class="form-inner flex-col" style="font-size: 28rpx; background-color: #ffffff">
 				<view class="flex-col justify-left">
 					<u-image v-if="pinia_user.eorderLogo" :src="pinia_user.eorderLogo" width="152" height="60" mode="aspectFill" />
-					<view class="ft-bold pd10 handcolor relative">
-						发货单信息
-						<!-- 			<view @click="jumDrafts" class="absolute flex-row items-center justify-center"
-							style="width: 180rpx;height: 80rpx;border-radius: 386rpx;background: #EBEBEB;right: 12rpx;top: 0;">
-							<u-icon label="草稿箱" size="40"
-								name="https://res-oss.elist.com.cn/wxImg/order/drafts.svg"></u-icon>
-						</view> -->
-					</view>
+					<view class="ft-bold pt10 handcolor relative">发货单信息</view>
 					<view class="flex-row items-end pt20 pb20 u-border-bottom">
 						<text class="textcolor">订单编号:</text>
 						<text class="ft-red ml15" style="color: #fa5151; font-family: ddbh">
@@ -121,22 +119,11 @@
 						</text>
 					</view>
 					<view class="flex-row items-center width100 u-border-bottom">
-						<!-- <text class="pt20 pb20 pr12 textcolor"><text style="color: #FA3534;">*</text>客户名称:</text> -->
-						<!-- <input maxlength="20" placeholder-class="placeholder_class" style="color:#D8D8D8;"
-							@input="searchIFNumber" @blur="searchIFNumberBlur" :focus="PhoneFocus"
-							@focus="searchIFNumber" type="text" v-model="receipts.organizationE"
-							:style="{color:ifInput(receipts.organizationE)}" placeholder="请输入客户手机号"
-							class="flex-1 endcolor" />
-						<u-button shape="circle" size="mini" hover-class="none"
-							:custom-style="{backgroundColor:'#01BB74',color:'#ffffff'}" @click="jumpTable">
-							选择客户
-						</u-button> -->
 						<text class="pt20 pb20 pr12 textcolor">
 							<text style="color: #fa3534">*</text>
 							客户手机号:
 						</text>
 						<input
-							maxlength="20"
 							placeholder-class="placeholder_class"
 							style="color: #333333"
 							@input="searchIFNumber"
@@ -148,12 +135,10 @@
 							placeholder="请输入客户手机号"
 							class="flex-1 endcolor"
 						/>
-						<u-button shape="circle" size="mini" hover-class="none" :custom-style="{ backgroundColor: '#01BB74', color: '#ffffff' }" @click="jumpTable">
-							选择客户
-						</u-button>
+						<u-button shape="circle" size="mini" color="#01BB74" :customStyle="{ width: '120rpx' }" @click="jumpTable">选择客户</u-button>
 					</view>
 					<view class="flex-row items-center width100 pt20 pb20 u-border-bottom">
-						<text class="textcolor" style="width: 106rpx">收货方:</text>
+						<text class="textcolor">收货方:</text>
 						<input
 							disabled
 							placeholder-class="placeholder_class"
@@ -182,14 +167,14 @@
 						/>
 						<view class="flex-row" @click="$refs.calendars.open()">
 							<view class="mr20">
-								<u-line class="" color="#D8D8D8" length="50" direction="col"></u-line>
+								<u-line class="" color="#D8D8D8" length="50rpx" direction="col"></u-line>
 							</view>
 							<u-icon size="45rpx" name="https://res-oss.elist.com.cn/wxImg/order/time.png"></u-icon>
 						</view>
-						<uv-calendars color="#01BB74" confirmColor="#01BB74" :startDate="getCurrentDateMin()" :endDate="getCurrentDate()" ref="calendars" @confirm="getConfirm" />
+						<uv-calendars color="#01BB74" confirmColor="#01BB74" ref="calendars" @confirm="getConfirm" :startDate="getCurrentDateMin()" :endDate="getCurrentDate()" />
 					</view>
 					<view class="flex-row items-center width100 pt20 pb20 u-border-bottom">
-						<text class="textcolor" style="width: 106rpx">收货人:</text>
+						<text class="textcolor">收货人:</text>
 						<input
 							placeholder-class="placeholder_class"
 							type="text"
@@ -279,13 +264,13 @@
 				</view>
 				<view class="pd12 flex-row justify-center" style="width: 100%">
 					<view class="flex-row justify-center items-center" style="width: 49%">
-						<u-icon labelPos="bottom" @click="merchandiseInventory(true)" name="https://res-oss.elist.com.cn/wxImg/order/bj.svg" size="70" label="修改"></u-icon>
+						<u-icon labelPos="bottom" @click="merchandiseInventory(true)" name="https://res-oss.elist.com.cn/wxImg/order/bj.svg" size="70rpx" label="修改"></u-icon>
 					</view>
 					<view class="flex-row justify-center items-center" style="width: 2%">
 						<u-line direction="col" length="50" color="#E0E0E0" />
 					</view>
 					<view class="flex-row justify-center items-center" style="width: 49%">
-						<u-icon labelPos="bottom" @click="merchandiseInventory(false)" name="https://res-oss.elist.com.cn/wxImg/order/spk.svg" size="70" label="商品库"></u-icon>
+						<u-icon labelPos="bottom" @click="merchandiseInventory(false)" name="https://res-oss.elist.com.cn/wxImg/order/spk.svg" size="70rpx" label="商品库"></u-icon>
 					</view>
 				</view>
 			</view>
@@ -302,13 +287,14 @@
 						:autoUploadApi="action"
 						autoUploadDriver="local"
 						v-model:fileList="fileList"
-						:maxSize="5242880"
 						:maxCount="3"
 						multiple
 						:showPreviewImage="true"
 						:previewFullImage="true"
 						:deletable="true"
 						:showRetry="false"
+						width="200rpx"
+						height="200rpx"
 					>
 						<u-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></u-icon>
 					</u-upload>
@@ -350,21 +336,21 @@
 					<text class="line34 ft-bold handcolor">供应商信息</text>
 					<view class="form-bottom ft-gray">
 						<view class="flex-col justify-between ft24 pt20 pb10 mr24">
-							<view class="textcolor pt20 pb20 u-border-bottom">
-								企业名称:
+							<view class="flex-row items-center width100 pt20 pb20">
+								<text class="textcolor">企业名称:</text>
 								<text :style="{ color: '#333333' }" class="ml15 endcolor" v-if="pinia_user.data.work == '0'">
-									{{ pinia_user.ac.enterpriseName || pinia_user.phone }}
+									{{ pinia_user.ac?.enterpriseName || pinia_user.phone }}
 								</text>
 								<text :style="{ color: '#333333' }" class="ml15 endcolor" v-else>
-									{{ pinia_user.ac.enterpriseName || pinia_user.workData.bossNumber }}
+									{{ pinia_user.ac?.enterpriseName || pinia_user.workData.bossNumber }}
 								</text>
 							</view>
-							<view class="textcolor pt20 pb20 u-border-bottom">
-								联系人:
+							<view class="flex-row items-center width100 pt20 pb20">
+								<text class="textcolor">联系人:</text>
 								<text :style="{ color: '#333333' }" class="ml15 endcolor">{{ pinia_user.data.name || pinia_user.phone || pinia_user.data.phone }}</text>
 							</view>
-							<view class="textcolor pt20 pb20 u-border-bottom">
-								联系电话:
+							<view class="flex-row items-center width100 pt20 pb20">
+								<text class="textcolor">联系电话:</text>
 								<text class="ml15 endcolor" :style="{ color: '#333333' }" @click="callPhone(pinia_user.phoneNumber)">
 									{{ pinia_user.phone || pinia_user.data.phone }}
 								</text>

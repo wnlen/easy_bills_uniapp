@@ -1,5 +1,5 @@
 <template>
-	<u-popup class="flex-col justify-center items-center" round="15" mode="center" v-model="showMask" width="600rpx" height="400rpx">
+	<u-popup class="flex-col justify-center items-center" round="15" :safeAreaInsetBottom="false" mode="center" v-model="showMask" width="600rpx" height="400rpx">
 		<view class="flex-col justify-center items-center relative" style="height: 100%; width: 100%">
 			<view class="absolute pt20" style="width: 100%; top: 0; height: 75%">
 				<view class="flex-row items-center justify-center passwordTitle">请输入签收密码</view>

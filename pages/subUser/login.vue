@@ -135,7 +135,7 @@
 		<!-- #endif -->
 		<!-- 微信小程序隐私弹窗 -->
 
-		<up-popup :show="yinsi_show" :round="10" mode="center" @close="yinsi_close" @open="yinsi_open" :customStyle="yisi_customStyle">
+		<u-popup :show="yinsi_show" :safeAreaInsetBottom="false" :round="10" mode="center" @close="yinsi_close" @open="yinsi_open" :customStyle="yisi_customStyle">
 			<view class="yinsi_box">
 				<view class="ml15">
 					<text>请详细阅读并同意</text>
@@ -148,7 +148,7 @@
 				<view class="btn_l" @click="yinsi_close">不同意</view>
 				<view @click="yinsi_agree"><button class="btn_r" open-type="getPhoneNumber" @getphonenumber="(e) => getPhoneNumber(e)">同意并继续</button></view>
 			</view>
-		</up-popup>
+		</u-popup>
 
 		<!-- <lq-privacy-dialog ref="privacyDialog" /> -->
 	</view>
