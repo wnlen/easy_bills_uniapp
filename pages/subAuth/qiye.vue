@@ -159,9 +159,8 @@ export default {
 		},
 		updateInfo() {
 			let that = this;
-			console.log('==== that.userInfo :', that.userInfo);
 			let userInfos = that.$u.deepClone(that.userInfo); //深度克隆
-			console.log(this.pinia_user.ac);
+
 			let id = '';
 			if (this.pinia_user.ac != null) {
 				id = this.pinia_user.ac.id;
@@ -172,7 +171,7 @@ export default {
 				id: id,
 				enterpriseName: that.userInfo.accountSubject.simpleNameQ, //企业全称
 				abbreviation: that.userInfo.accountSubject.simpleName,
-				userName: that.pinia_user.data.name,
+				userName: this.nameID,
 				phone: that.pinia_user.phone,
 				state: '1',
 				user: this.pinia_user.phone,
@@ -207,6 +206,11 @@ export default {
 				return;
 			}
 
+			if (this.nameID <= 0) {
+				this.$u.toast('请输入姓名');
+				return;
+			}
+
 			var send = {
 				id: this.pinia_user.data.id,
 				name: this.nameID,
@@ -215,10 +219,7 @@ export default {
 				boss: this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
 			};
 			send.name = send.name.trim();
-			if (this.nameID <= 0) {
-				this.$u.toast('请输入姓名');
-				return;
-			}
+
 			this.buttonDisabled = true;
 			this.$api.order.addAccountRecord(dx).then((res) => {
 				this.buttonDisabled = false;
