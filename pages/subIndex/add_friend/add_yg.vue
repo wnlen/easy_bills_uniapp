@@ -1,20 +1,23 @@
 <template>
 	<view class="bg-gray vh100 vw100" style="overflow: hidden">
-		<view class="ml24 mr24" style="padding-top: 20rpx">
-			<u-search
-				search-icon-color="#01bb74"
-				:show-action="false"
+		<view class="ml24 mr24 u-search" style="padding-top: 20rpx">
+			<up-input
+				prefixIcon="search"
+				prefixIconStyle="font-size: 22px;color: #01bb74"
+				type="number"
+				:showAction="false"
+				:clearable="true"
+				:focus="true"
 				placeholder="请输入电话号码"
-				:animation="true"
-				@change="SearchFriend"
-				@search="SearchFriend"
+				@change="(e) => SearchFriend(e)"
 				maxlength="11"
 				shape="square"
-				class="u-search"
 				height="90rpx"
-				bg-color="#ffffff"
-				v-model="searchNumber"
-			></u-search>
+				bgColor="#ffffff"
+				:modelValue="searchNumber"
+				border="surround"
+				:customStyle="customStyle"
+			></up-input>
 		</view>
 		<view class="vw100" style="height: 80vh">
 			<view
@@ -27,16 +30,6 @@
 					<u-image width="90rpx" height="90rpx" shape="circle" :src="item.headPortrait || defaultImg"></u-image>
 				</view>
 				<view class="ml10 flex-col justify-left items-baseline flex-1">
-					<!-- 			<view class="flex-row" style="height: 50%;"
-						:style="{height:item.work?'50%':'100%',alignItems: item.work?'flex-end':'center'}">
-						<text class="ml5" style="color:#01BB74;">{{item.phoneNumber}}</text> <text class="ml10"
-							style="">{{userName(item.name)||"用户"}}</text>
-					</view> -->
-
-					<!-- :style="{
-						height: item.map.boss ? '50%' : '100%',
-						alignItems: item.map.boss ? 'flex-end' : 'center'
-					}" -->
 					<view class="flex-row items-center">
 						<text class="ml5" style="color: #01bb74">{{ item.phoneNumber }}</text>
 						<text class="ml10" style="">{{ userName(item.name) || '用户' }}</text>
@@ -48,12 +41,6 @@
 							{{ item.map.enterpriseName != undefined ? item.map.enterpriseName : '该用户已进入其他账户' }}
 						</text>
 					</view>
-					<!-- 					<view v-show="item.work=='1'" class="flex-row justify-start items-center"
-						style="width: 60vw;font-size: 12px;height: 50%;">
-						<u-icon name="https://res-oss.elist.com.cn/wxImg/user/yrz-s.svg" size="100"></u-icon>
-						<text class="ml10" style="color:#333333;">
-							{{item.map.enterpriseName!=undefined?item.map.enterpriseName:"该用户已进入其他账户"}}</text>
-					</view> -->
 				</view>
 				<view class="mr20">
 					<button
@@ -76,6 +63,9 @@
 export default {
 	data() {
 		return {
+			customStyle: {
+				backgroundColor: '#fff'
+			},
 			showYQZ: false,
 			state: 1,
 			searchNumber: '',
@@ -164,15 +154,19 @@ export default {
 			}
 		},
 		loadData() {},
-		SearchFriend() {
+		SearchFriend(phone) {
+			console.log('干啊啊啊啊', phone);
 			this.showYQZ = false;
 			this.state = 1;
 			this.searchUser = [];
+
 			var that = this;
-			if (this.searchNumber.length == 11) {
+			if (phone.length == 11) {
+				const ok = uni.$u.test.mobile(phone);
+				if (!ok) return uni.$u.toast('手机号格式不正确');
 				this.$api.user
 					.searchUser({
-						phone: String(this.searchNumber),
+						phone: String(phone),
 						boss: '',
 						port: this.pinia_userRole
 					})

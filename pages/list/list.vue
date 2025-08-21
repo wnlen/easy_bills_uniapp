@@ -5,7 +5,7 @@
 				<!-- #ifdef MP-WEIXIN -->
 				<up-navbar :placeholder="true" leftIconColor="#fff" :titleStyle="titleStyle">
 					<template #left>
-						<view class="flex-row items-center justify-center ml96" style="width: 100%">
+						<view class="flex-row items-center justify-center" style="width: 100%; margin-left: 120rpx">
 							<view class="" style="font-size: 34rpx; font-weight: 510">查询订单</view>
 							<view
 								@click="jumpVideo"
@@ -62,7 +62,7 @@
 							:placeholder="userStore.userRole === 'R' ? '请选择供应商' : '请选择客户'"
 							:clearable="true"
 							border="none"
-							@change="CustomerGetChange"
+							@change="(e) => CustomerGetChange(e)"
 						>
 							<template #prefix>
 								<view>
@@ -92,6 +92,7 @@
 									:text="Title"
 									margin="0 0 0 20rpx"
 									suffixIcon="arrow-down-fill"
+									color="#606266"
 									iconStyle="color: #606266;margin:0 10rpx;fontSize:20rpx"
 									@click="filtrateGet"
 								></u-text>
@@ -373,7 +374,9 @@
 
 			<view class="NullView" style="height: 5vh; background-color: transparent"></view>
 			<!-- 自定义tab -->
-			<pop-tab :tabIndex="1" ref="popTab"></pop-tab>
+			<template #bottom>
+				<pop-tab :tabIndex="1" ref="popTab"></pop-tab>
+			</template>
 		</z-paging>
 
 		<u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" />
@@ -1035,9 +1038,10 @@ function changeTab(item) {
 	paging.value?.reload();
 }
 
-function CustomerGetChange() {
+function CustomerGetChange(e) {
 	const ifWorkPort = userStore.userRole === 'R';
-	const changeText = customer.value;
+	const changeText = e;
+
 	if (!ifWorkPort) {
 		realTimeSel.value.organizationE = changeText;
 	} else {
@@ -1456,6 +1460,7 @@ function getCurrentDate() {
 	background: #f5f5f5;
 	overflow-y: auto;
 	align-items: center;
+	position: relative;
 
 	.Card {
 		width: 94%;

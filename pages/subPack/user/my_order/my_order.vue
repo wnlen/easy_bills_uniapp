@@ -1378,7 +1378,8 @@ export default {
 				this.c_product_statistics = resData.statistics;
 				this.c_product_old_data = resData.database;
 				this.c_product_people = resData.location;
-				// this.c_product_people[2].priceDiscount = 0.01
+
+				this.c_product_people[2].priceDiscount = 0.01;
 			});
 
 			var dx = {
