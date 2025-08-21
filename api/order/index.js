@@ -18,7 +18,7 @@ export default (http) => ({
 	 * 原始接口：/edo/order/getById/{orderId}
 	 */
 	getOrderById(params) {
-		return http.post(`/edo/order/getById/${params.orderId}`, params);
+		return http.post(`order/getById/${params.orderId}`, params);
 	},
 
 	/**
@@ -65,7 +65,7 @@ export default (http) => ({
 	 * 原始接口：/edo/order/getByOrderNumber/{orderNumber}
 	 */
 	getOrderByNumber(params) {
-		return http.post(`/edo/order/getByOrderNumber/${params.orderNumber}`, params);
+		return http.post(`order/getByOrderNumber/${params.orderNumber}`, params);
 	},
 
 	/**
@@ -73,7 +73,7 @@ export default (http) => ({
 	 * 原始接口：/edo/order/getNumber{path}
 	 */
 	getNextOrderNumber(params) {
-		return http.post(`/edo/order/getNumber${params.path || ''}`, params);
+		return http.post(`order/getNumber${params.path || ''}`, params);
 	},
 
 	/**
@@ -178,7 +178,9 @@ export default (http) => ({
 	 * 原始接口：/edo/delivery/get
 	 */
 	getDeliveryList(params) {
-		return http.post(`/edo/delivery/get?sBossNumber=${params.sBossNumber}&eBossNumber=${params.eBossNumber}&port=${params.port}`, params);
+		return http.post(
+			`delivery/get?sBossNumber=${params.sBossNumber}&eBossNumber=${params.eBossNumber}&port=${params.port}`,
+			params);
 	},
 
 	/**

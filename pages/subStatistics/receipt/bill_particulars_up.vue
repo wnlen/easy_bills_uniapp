@@ -365,7 +365,7 @@ export default {
 			this.billFrom.check = jo.check;
 			uni.removeStorageSync('bill');
 		}
-		this.action = uni.$http.config.baseURL + '/edo/order/imgA';
+		this.action = uni.$http.config.baseURL + 'order/imgA';
 		console.log('bill', bill);
 	},
 	methods: {
@@ -622,7 +622,7 @@ export default {
 			return new Promise((resolve, reject) => {
 				let that = this;
 				uni.uploadFile({
-					url: uni.$http.config.baseURL + '/edo/bills/file',
+					url: uni.$http.config.baseURL + 'bills/file',
 					header: {
 						token: that.pinia_token,
 						phone: app ? that.pinia_user.phone : that.pinia_user.phone + '-app',

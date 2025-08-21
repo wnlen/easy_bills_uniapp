@@ -140,7 +140,7 @@ export default {
 			console.log('单个详情：', res);
 			this.billFrom = res.data.data;
 
-			this.billFrom.billTime = this.$u.timeFormat(new Date(), 'yyyy-mm-dd');
+			this.billFrom.billTime = this.$u.timeFormat(new Date(this.billFrom.billTime), 'yyyy-mm-dd');
 
 			var port = this.pinia_userRole == 'R';
 			if (port) {
@@ -330,7 +330,7 @@ export default {
 			return new Promise((resolve, reject) => {
 				let that = this;
 				uni.uploadFile({
-					url: uni.$http.config.baseURL + '/edo/bills/file',
+					url: uni.$http.config.baseURL + 'bills/file',
 					header: {
 						token: that.pinia_token,
 						phone: that.pinia_user.phone,

@@ -3,7 +3,7 @@
 		<up-navbar :autoBack="true" :placeholder="true" :titleBold="true" title="编辑商品"></up-navbar>
 		<view class="uploadingCommodityImg">
 			<u-upload
-				v-model:fileList="fileList"
+				v-model:fileList="imgList"
 				autoUpload
 				autoDelete
 				:autoUploadApi="action"
@@ -83,7 +83,6 @@ export default {
 			checked: false,
 			presentPicture: 'https://res-oss.elist.com.cn/wxImg/cs.png',
 			action: '',
-			fileList: [],
 			imgList: [],
 			uploadingCommodity: {
 				description: '',
@@ -109,7 +108,7 @@ export default {
 		this.getCommodityDetails();
 	},
 	onShow() {
-		this.action = uni.$http.config.baseURL + '/edo/order/imgA';
+		this.action = uni.$http.config.baseURL + 'order/imgA';
 	},
 	methods: {
 		onRemove(e, list) {
@@ -148,10 +147,6 @@ export default {
 					console.log(res);
 					this.$u.toast('获取失败');
 				});
-		},
-		handleUpload(e, list) {
-			this.imgList = list;
-			console.log(this.imgList);
 		},
 		uploadingCommodityAdd() {
 			console.log('添加', this.uploadingCommodity);
@@ -234,14 +229,14 @@ export default {
 			this.uploadingCommodity.imgId = 'QD' + new Date().getTime();
 
 			uni.uploadFile({
-				url: uni.$http.config.baseURL + '/edo/uploading/img',
+				url: uni.$http.config.baseURL + 'uploading/img',
 				header: {
 					phone: this.uploadingCommodity.staffNumber,
 					orderNumber: this.uploadingCommodity.imgId,
 					jobNumber: this.uploadingCommodity.staffNumber,
-					token: !this.pinia_token
+					token: this.pinia_token
 				},
-				filePath: this.imgList[0].file.path,
+				filePath: this.imgList[0].url,
 				name: 'file',
 				formData: {
 					imageType: '1'

@@ -147,7 +147,7 @@ export default {
 						// 上传签名
 						let fileAvatar = res.tempFilePath;
 						uni.uploadFile({
-							url: uni.$http.config.baseURL + '/edo/user/modifyImage',
+							url: uni.$http.config.baseURL + 'user/modifyImage',
 							header: {
 								phone: that.pinia_user.phone
 							},

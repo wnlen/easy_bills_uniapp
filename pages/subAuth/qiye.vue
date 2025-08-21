@@ -138,7 +138,7 @@ export default {
 					console.log(tempFilePaths);
 					var bossNumber = that.pinia_work == 'Y' ? that.pinia_user.workData.bossNumber : that.pinia_user.phone || that.pinia_user.data.phoneNumber;
 					uni.uploadFile({
-						url: uni.$http.config.baseURL + '/edo/user/modifyImage',
+						url: uni.$http.config.baseURL + 'user/modifyImage',
 						header: {
 							phone: bossNumber,
 							token: that.pinia_token

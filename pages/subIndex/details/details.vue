@@ -319,9 +319,9 @@ export default {
 			console.log('type', this.type);
 			var url = '';
 			if (this.type) {
-				url = '/edo/user/searchMarket?phone=';
+				url = 'user/searchMarket?phone=';
 			} else {
-				url = '/edo/user/search?phone=';
+				url = 'user/search?phone=';
 			}
 
 			this.$u.post(url + phone + '&boss=' + boss + '&port=' + this.pinia_userRole).then((res) => {

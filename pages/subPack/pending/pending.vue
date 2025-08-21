@@ -1512,18 +1512,18 @@ export default {
 					//发货端
 					if (stateOrder) {
 						//直接删除
-						url = '/edo/order/del';
+						url = 'order/del';
 						//console.log("直接删除");
 						dx = val;
 						delmess = 0;
 					} else {
 						//申请删除
-						url = '/edo/orderDel/add';
+						url = 'orderDel/add';
 						delmess = 1;
 					}
 				} else {
 					//收货端
-					url = '/edo/orderDel/add';
+					url = 'orderDel/add';
 					dx.bBoss = val.bossNumberS;
 					dx.bUser = val.staffNumberS;
 				}
