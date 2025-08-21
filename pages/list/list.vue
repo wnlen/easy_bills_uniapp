@@ -5,7 +5,7 @@
 				<!-- #ifdef MP-WEIXIN -->
 				<up-navbar :placeholder="true" leftIconColor="#fff" :titleStyle="titleStyle">
 					<template #left>
-						<view class="flex-row items-center justify-center ml96" style="width: 100%">
+						<view class="flex-row items-center justify-center" style="width: 100%; margin-left: 120rpx">
 							<view class="" style="font-size: 34rpx; font-weight: 510">查询订单</view>
 							<view
 								@click="jumpVideo"
@@ -47,7 +47,7 @@
 
 			<view class="Card cardShow">
 				<view class="priceCard">
-					<text class="ft-gray mb18 ml10" style="color: #999999; font-size: 20rpx">累计金额</text>
+					<text class="ft-gray mb18 ml10" style="color: #999999; font-size: 30rpx">累计金额</text>
 					<view class="">
 						<text class="ft40 ft-bold ml9">￥</text>
 						<u-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="20" decimals="2" bold></u-count-to>
@@ -62,16 +62,16 @@
 							:placeholder="userStore.userRole === 'R' ? '请选择供应商' : '请选择客户'"
 							:clearable="true"
 							border="none"
-							@change="CustomerGetChange"
+							@change="(e) => CustomerGetChange(e)"
 						>
 							<template #prefix>
 								<view v-if="userStore.userRole === 'R'">
-									<text class="ft30 ft-gray ml20">供应商选择</text>
-									<text>|</text>
+									<text style="color: #606266" class="ft30 ml20">供应商选择</text>
+									<text style="color: #606266" class="ft30 ml20 mr20">|</text>
 								</view>
 								<view v-if="userStore.userRole === 'D'">
-									<text class="ft30 ft-gray ml20">客户选择</text>
-									<text class="ft30 ft-gray ml20 mr20">|</text>
+									<text style="color: #606266" class="ft30 ml20">客户选择</text>
+									<text style="color: #606266" class="ft30 ml20 mr20">|</text>
 								</view>
 							</template>
 							<template #suffix>
@@ -96,6 +96,7 @@
 									:text="Title"
 									margin="0 0 0 20rpx"
 									suffixIcon="arrow-down-fill"
+									color="#606266"
 									iconStyle="color: #606266;margin:0 10rpx;fontSize:20rpx"
 									@click="filtrateGet"
 								></u-text>
@@ -369,7 +370,9 @@
 
 			<view class="NullView" style="height: 5vh; background-color: transparent"></view>
 			<!-- 自定义tab -->
-			<pop-tab :tabIndex="1" ref="popTab"></pop-tab>
+			<template #bottom>
+				<pop-tab :tabIndex="1" ref="popTab"></pop-tab>
+			</template>
 		</z-paging>
 
 		<u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" />
@@ -1023,9 +1026,10 @@ function changeTab(item) {
 	paging.value?.reload();
 }
 
-function CustomerGetChange() {
+function CustomerGetChange(e) {
 	const ifWorkPort = userStore.userRole === 'R';
-	const changeText = customer.value;
+	const changeText = e;
+
 	if (!ifWorkPort) {
 		realTimeSel.value.organizationE = changeText;
 	} else {
@@ -1476,6 +1480,7 @@ function getCurrentDate() {
 	background: #f5f5f5;
 	overflow-y: auto;
 	align-items: center;
+	position: relative;
 
 	.Card {
 		width: 94%;
