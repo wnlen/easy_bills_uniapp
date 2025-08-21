@@ -764,9 +764,9 @@ export default {
 			});
 			if (this.pinia_token) {
 				this.guideCourse();
+				this.getOrderDB();
 			}
 			this.setDR(value);
-			this.getOrderDB();
 		},
 		// 待办事项
 		getOrderDB() {

@@ -441,11 +441,11 @@
 			</view>
 		</view>
 
-		<u-popup :show="showZG" mode="center" :round="14" @close="showZG = false">
-			<image style="500rpx; height: 100%" :src="showZGImg" mode="aspectFit"></image>
+		<u-popup :show="showZG" mode="center" :round="14" @close="showZG = false" :safeAreaInsetBottom="false">
+			<image style="width: 500rpx; height: 100%" :src="showZGImg" mode="widthFix"></image>
 		</u-popup>
 
-		<u-popup class="flex-col justify-center items-center" :round="15" mode="center" :show="showMask" @close="showMask = false">
+		<u-popup class="flex-col justify-center items-center" :round="15" mode="center" :show="showMask" @close="showMask = false" :safeAreaInsetBottom="false">
 			<view class="flex-col justify-center items-center relative" style="height: 400rpx; width: 600rpx">
 				<view class="absolute pt20" style="width: 100%; top: 0; height: 75%">
 					<view class="flex-row items-center justify-center passwordTitle">请输入签收密码</view>
@@ -461,12 +461,8 @@
 				</view>
 			</view>
 		</u-popup>
-		<u-popup :show="showBrowsePrint" :custom-style="customStylePrint" mode="center" round="14" @close="showBrowsePrint = false">
-			<view
-				class="w100 pt30 relative flex-col items-center"
-				style="box-shadow: 2rpx 2rpx 2rpx 2rpx rgba(153, 153, 153, 0.05); width: 650rpx"
-				:style="`height:${showBrowsePrintHeight}`"
-			>
+		<u-popup :show="showBrowsePrint" :custom-style="customStylePrint" mode="center" :safeAreaInsetBottom="false" round="14" @close="showBrowsePrint = false">
+			<view class="w100 pt30 relative flex-col items-center" style="width: 650rpx" :style="`height:${showBrowsePrintHeight}`">
 				<scroll-view scroll-y="true" class="u-border pt20 pb20" style="width: 90%; overflow-y: auto" :style="{ height: ImageSoleHeight }">
 					<u-image width="100%" :src="item" mode="widthFix" v-for="(item, index) in browse" :show-menu-by-longpress="false" :key="index"></u-image>
 				</scroll-view>
@@ -474,7 +470,7 @@
 				<view
 					@click="print(1)"
 					class="absolute flex-col justify-center items-center"
-					style="bottom: 30rpx; width: 297.08rpx; height: 80rpx; border-radius: 10rpx; background-color: #01bb74; color: white"
+					style="bottom: 10rpx; width: 297.08rpx; height: 80rpx; border-radius: 10rpx; background-color: #01bb74; color: white"
 				>
 					确认打印
 				</view>

@@ -527,8 +527,8 @@
 				password = '';
 			"
 		>
-			<u-popup class="flex-col justify-center items-center" round="15" mode="center" v-model="showMask" width="600rpx" height="400rpx">
-				<view class="flex-col justify-center items-center relative" style="height: 100%; width: 100%">
+			<u-popup class="flex-col justify-center items-center" round="15" mode="center" :show="showMask" :safeAreaInsetBottom="false">
+				<view class="flex-col justify-center items-center relative" style="height: 400rpx; width: 600rpx">
 					<view class="absolute pt20" style="width: 100%; top: 0; height: 75%">
 						<view class="flex-row items-center justify-center passwordTitle">请输入签收密码</view>
 						<view class="flex-col items-center justify-center mt20" style="width: 100%; height: 35%">

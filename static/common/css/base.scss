@@ -28,9 +28,9 @@ text {
 	--u-button-shadow: none !important; /* 确保长按时也没有阴影 */
 	background: transparent !important;
 }
-::v-deep button::after {
-	border: none !important;
-}
+// ::v-deep button::after {
+// 	border: none !important;
+// }
 .ft-blue {
 	color: #3c8efb;
 }
@@ -1031,7 +1031,6 @@ text {
 	z-index: 1;
 	font-size: 28rpx;
 	border-radius: 100rpx;
-	border: 1px solid #bb9063;
 	&::after {
 		color: #bb9063;
 		content: '';

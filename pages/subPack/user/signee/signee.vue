@@ -72,13 +72,13 @@
 					<u-icon @click="defaultItem(item.id)" v-else name="minus-circle" labelSize="12" color="#ccc" size="38rpx" label="默认签收人"></u-icon>
 					<!-- 			<text class="ft-gray ft24" @click="deleteItem(item.id)">删除</text> -->
 				</view>
-				<u-popup :show="show" @close="show = false" mode="center" width="500rpx" height="800rpx" :closeable="true">
+				<u-popup :show="show" @close="show = false" :safeAreaInsetBottom="false" mode="center" :closeable="true">
 					<u-image style="transform: rotate(90deg)" width="500rpx" height="800rpx" :src="item.signatureImg"></u-image>
 				</u-popup>
 
 				<up-overlay :show="showMask" @click="showMask = false">
-					<u-popup class="flex-col justify-center items-center" round="15" mode="center" :show="showMask" :customStyle="{ width: '600rpx', height: '400rpx' }">
-						<view class="flex-col justify-center items-center relative" style="height: 100%; width: 100%">
+					<u-popup class="flex-col justify-center items-center" round="15" mode="center" :show="showMask" :safeAreaInsetBottom="false">
+						<view class="flex-col justify-center items-center relative" style="height: 400rpx; width: 600rpx">
 							<view class="absolute pt20" style="width: 100%; top: 0; height: 75%">
 								<view class="flex-row items-center justify-center passwordTitle">请输入签收密码</view>
 								<view class="flex-col items-center justify-center mt20" style="width: 100%; height: 35%">

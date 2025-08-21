@@ -228,15 +228,15 @@
 				<z-paging v-if="showCheck" ref="pagingCheck" :fixed="false" v-model="selectList" @query="queryListCheck">
 					<!-- 如果希望其他view跟着页面滚动，可以放在z-paging标签内 -->
 					<view solt="top" style="height: 24rpx"></view>
-					<view class="item">
+					<view class="item OrderCard" v-for="(item, index) in selectList" :key="item.id">
 						<u-swipe-action>
-							<u-swipe-action-item :show="item.show" :name="index" v-for="(item, index) in selectList" :key="item.id" @click="delclick" :options="options">
+							<u-swipe-action-item :show="item.show" :name="index" @click="delclick" :options="options">
 								<view
 									@click="
 										goPath('/pages/subOrder/details?id=' + item.id);
 										hide = false;
 									"
-									class="OrderCard"
+									class=""
 								>
 									<view class="OrderCardHand" @tap.stop>
 										<view class="title ml1" style="" @tap.stop>
@@ -249,7 +249,7 @@
 
 											<u-icon size="28rpx" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
 										</view>
-										<view class="ml20" style="margin-right: -20rpx">
+										<view class="ml20 absolute" style="top: 0; right: 0">
 											<u-image
 												v-if="pinia_userRole == 'D' && item.paymentState == '0'"
 												class="u-img"
@@ -1614,6 +1614,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+::v-deep .u-safe-bottom {
+	height: 0 !important;
+}
 .title {
 	color: $u-type-primary;
 	text-align: center;

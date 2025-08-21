@@ -18,7 +18,9 @@
 		</view>
 
 		<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/orderEmpty.svg" iconSize="400rpx" v-if="shareShow" text="订单已删除~" mode="search" margin-top="300"></u-empty>
-
+		<u-popup :show="showZG" mode="center" :round="14" @close="showZG = false" :safeAreaInsetBottom="false">
+			<image style="width: 500rpx; height: 100%" :src="showZGImg" mode="widthFix"></image>
+		</u-popup>
 		<view class="height80 fixed-bar-height" v-if="!shareShow">
 			<view class="ml20 mr20">
 				<view class="flex-row" style="margin-top: 2%">
@@ -267,8 +269,8 @@
 			</view>
 		</view>
 
-		<u-popup class="flex-col justify-center items-center" round="15" mode="center" v-model="showMask" width="600rpx" height="400rpx">
-			<view class="flex-col justify-center items-center relative" style="height: 100%; width: 100%">
+		<u-popup class="flex-col justify-center items-center" round="15" mode="center" v-model="showMask" :safeAreaInsetBottom="false">
+			<view class="flex-col justify-center items-center relative" style="height: 400rpx; width: 600rpx">
 				<view class="absolute pt20" style="width: 100%; top: 0; height: 75%">
 					<view class="flex-row items-center justify-center passwordTitle">请输入签收密码</view>
 					<view class="flex-col items-center justify-center mt20" style="width: 100%; height: 35%">
@@ -345,12 +347,9 @@ export default {
 		};
 	},
 	computed: {
-		pinia_user() {
-			return this.$store.state.pinia_user;
-		},
-		pinia_userRole() {
-			return this.$store.state.pinia_userRole;
-		}
+		// pinia_user() {
+		// 	return this.$store.state.pinia_user;
+		// },
 	},
 	onLoad(options) {
 		this.options = options;
@@ -358,11 +357,11 @@ export default {
 		//单据id
 		this.getOrder(options);
 	},
-	onShow(options) {
+	onShow() {
 		this.$getRecord(this);
-		if (this.pinia_user && this.pinia_user.phone) {
+		if (this.$u.getPinia('user') && this.$u.getPinia('user.user.phone')) {
 			this.getQs();
-			this.getOrder(this.options);
+			// this.getOrder(this.options);
 		} else {
 			console.warn('pinia_user 未初始化');
 		}
@@ -389,7 +388,7 @@ export default {
 		getQs() {
 			this.$api.sign
 				.getSignature({
-					phone: this.pinia_user.phone
+					phone: this.$u.getPinia('user.user.phone')
 				})
 				.then((res) => {
 					this.qsrList = res.data.data;
@@ -397,7 +396,7 @@ export default {
 				});
 			this.$api.order
 				.getAccountStatistics({
-					user: this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
+					user: this.$u.getPinia('user.user.data.work') == '0' ? this.$u.getPinia('user.user.phone') : this.$u.getPinia('user.user.workData.bossNumber')
 				})
 				.then((res) => {
 					this.qyList = res.data.data;
@@ -440,12 +439,12 @@ export default {
 			var port = options.port;
 			//分享金额限制${versions=="Y"?"有金额":"无金额"}
 			var versions = options.versions;
-
-			if (this.pinia_user.phone != undefined) {
+			console.log('this.pinia_user', this.$u.getPinia('user.user'));
+			if (this.$u.getPinia('user.user.phone') != undefined) {
 				//获取签收人
 				this.$api.sign
 					.getSignature({
-						phone: this.pinia_user.phone
+						phone: this.$u.getPinia('user.user.phone')
 					})
 					.then((res) => {
 						this.qsrList = res.data.data;
@@ -558,7 +557,7 @@ export default {
 		},
 		shareClick() {
 			console.log('返回', this.port);
-			if (this.pinia_user.phone != undefined) {
+			if (this.$u.getPinia('user.user.phone') != undefined) {
 				if (this.LookThree) {
 				} else {
 					if (this.LookThreeNo) {
@@ -583,7 +582,7 @@ export default {
 				});
 			}
 
-			if (this.pinia_userRole != null && this.pinia_userRole != undefined && this.pinia_userRole != '') {
+			if (this.$u.getPinia('user.userRole') != null && this.$u.getPinia('user.userRole') != undefined && this.$u.getPinia('user.userRole') != '') {
 				uni.switchTab({
 					url: '/pages/index/index'
 				});
@@ -599,11 +598,11 @@ export default {
 			}
 		},
 		async verificationOrder() {
-			if (this.pinia_user.phone != undefined) {
+			if (this.$u.getPinia('user.user.phone') != undefined) {
 				//获取当前手机号码
-				var phone = this.pinia_user.phone;
+				var phone = this.$u.getPinia('user.user.phone');
 				//判断是否工作
-				var work = this.pinia_user.data.work == '0';
+				var work = this.$u.getPinia('user.user.data.work') == '0';
 				//判断是否和单子有关系
 				var portE = phone == this.post.bossNumberE;
 				var portS = phone == this.post.bossNumberS;
@@ -761,11 +760,11 @@ export default {
 		onConfirm() {
 			console.log(this.qsrList);
 			var that = this;
-			if (that.qsrList.length == 0 || (that.qyList == null && this.pinia_user.data.work == '0')) {
+			if (that.qsrList.length == 0 || (that.qyList == null && this.$u.getPinia('user.user.data.work') == '0')) {
 				//  无签收人
 				if (that.qsrList.length == 0 && that.qyList == null) {
 					// /pages/subAuth/qiye
-					if (this.pinia_user.data.work == '1' && that.qsrList.length == 0) {
+					if (this.$u.getPinia('user.user.data.work') == '1' && that.qsrList.length == 0) {
 						uni.showModal({
 							title: '暂无签收信息，是否去添加？',
 							showCancel: true,
@@ -783,7 +782,7 @@ export default {
 						});
 					}
 
-					if (this.pinia_user.data.work == '0' && that.qsrList.length == 0 && that.qyList == null) {
+					if (this.$u.getPinia('user.user.data.work') == '0' && that.qsrList.length == 0 && that.qyList == null) {
 						uni.showModal({
 							title: '暂无完整信息，是否去添加？',
 							showCancel: true,
