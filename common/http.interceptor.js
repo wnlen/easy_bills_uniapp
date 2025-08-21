@@ -101,7 +101,6 @@ export const initRequest = () => {
 		// 注意：luch 在小程序端一般用 res.statusCode，H5 用 res.status；保险起见都判断一下
 		const httpCode = res?.statusCode ?? res?.status
 		const bizCode = res?.data?.code
-
 		if (httpCode === 401 || bizCode === 401) {
 			uni.hideLoading()
 			goLoginOnce()
