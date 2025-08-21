@@ -451,7 +451,7 @@ export default {
 			});
 		},
 		defImg() {
-			this.action = uni.$http.config.baseURL + '/edo/order/imgA';
+			this.action = uni.$http.config.baseURL + 'order/imgA';
 		},
 		ShareY(item) {
 			this.ShareDetails = 'Y';
@@ -630,15 +630,15 @@ export default {
 				var bossNumber = this.pinia_work == 'Y' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone || this.pinia_user.data.phoneNumber;
 				var jobNumber = this.pinia_work == 'Y' ? that.pinia_user.workData.jobNumber : that.pinia_user.phone;
 				for (let key in this.imgList) {
-					if (this.imgList[key].file && this.imgList[key].file.path) {
+					if (this.imgList[key].file && this.imgList[key].url) {
 						uni.uploadFile({
-							url: uni.$http.config.baseURL + '/edo/order/img',
+							url: uni.$http.config.baseURL + 'order/img',
 							header: {
 								phone: bossNumber,
 								orderNumber: that.receipts.orderNumber,
 								jobNumber: that.receipts.jobNumberS || jobNumber
 							},
-							filePath: this.imgList[key].file.path,
+							filePath: this.imgList[key].url,
 							name: 'file',
 							formData: {
 								imageType: '1'

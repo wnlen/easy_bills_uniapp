@@ -161,7 +161,7 @@ export default {
 				fileAvatar = e.detail.avatarUrl;
 
 			uni.uploadFile({
-				url: uni.$http.config.baseURL + '/edo/user/modifyImage',
+				url: uni.$http.config.baseURL + 'user/modifyImage',
 				header: {
 					phone: that.pinia_user.phone
 				},

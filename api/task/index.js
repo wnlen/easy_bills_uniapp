@@ -4,6 +4,6 @@ export default (http) => ({
 	 * 原始接口：/edo/rw/start
 	 */
 	startRWFlow(params) {
-		return http.post(`/edo/rw/start?list=${params.list}`, params);
+		return http.post(`rw/start?list=${params.list}`, params);
 	}
 });

@@ -307,7 +307,7 @@ export default {
 			this.imgFileList = lists;
 		},
 		Init() {
-			this.action = uni.$http.config.baseURL + '/edo/order/imgA';
+			this.action = uni.$http.config.baseURL + 'order/imgA';
 			this.billFrom.billTime = this.$u.timeFormat(new Date(), 'yyyy-mm-dd');
 			this.getOrderNumber();
 
@@ -505,7 +505,7 @@ export default {
 			return new Promise((resolve, reject) => {
 				let that = this;
 				uni.uploadFile({
-					url: uni.$http.config.baseURL + '/edo/bills/file',
+					url: uni.$http.config.baseURL + 'bills/file',
 					header: {
 						token: that.pinia_token,
 						phone: app ? that.pinia_user.phone : that.pinia_user.phone + '-app',

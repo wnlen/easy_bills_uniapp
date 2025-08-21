@@ -43,6 +43,6 @@ export default (http) => ({
 	 * 原始接口：/edo/draft/getById/{id}
 	 */
 	getDraftById(params) {
-		return http.post(`/edo/draft/getById/${params.id}`, params);
+		return http.post(`draft/getById/${params.id}`, params);
 	}
 });

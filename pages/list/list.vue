@@ -1271,13 +1271,13 @@ function deleteOrder(order, index) {
 
 	if (ifPort) {
 		if (stateOrder) {
-			url = '/edo/order/del';
+			url = 'order/del';
 			dx = order;
 		} else {
-			url = '/edo/orderDel/add';
+			url = 'orderDel/add';
 		}
 	} else {
-		url = '/edo/orderDel/add';
+		url = 'orderDel/add';
 		dx.bBoss = order.bossNumberS;
 		dx.bUser = order.staffNumberS;
 	}

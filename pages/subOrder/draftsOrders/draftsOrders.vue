@@ -723,7 +723,7 @@ export default {
 				});
 		},
 		defImg() {
-			this.action = uni.$http.config.baseURL + '/edo/order/imgA';
+			this.action = uni.$http.config.baseURL + 'order/imgA';
 			if (this.receipts.creationTime == '') {
 				this.receipts.creationTime = this.$u.timeFormat(new Date(), 'yyyy-mm-dd');
 			}
@@ -1601,14 +1601,14 @@ export default {
 
 				for (let key in imgList) {
 					uni.uploadFile({
-						url: uni.$http.config.baseURL + '/edo/order/img',
+						url: uni.$http.config.baseURL + 'order/img',
 						header: {
 							phone: bossNumber,
 							orderNumber: that.receipts.orderNumber,
 							jobNumber: that.receipts.jobNumberS || jobNumber,
 							token: that.pinia_user.loginToken
 						},
-						filePath: imgList[key].file.path,
+						filePath: imgList[key].url,
 						name: 'file',
 						formData: {
 							imageType: '1'

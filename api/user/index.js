@@ -12,7 +12,7 @@ export default (http) => ({
 	 * 原始接口：/edo/user/search
 	 */
 	searchUser(params) {
-		return http.get('/edo/user/search', params);
+		return http.get('user/search', params);
 	},
 	/**
 	 * 获取用户详情（通过手机号）

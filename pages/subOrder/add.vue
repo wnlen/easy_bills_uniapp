@@ -297,7 +297,7 @@
 
 			<view class="form-inner-card flex-col" style="font-size: 28rpx; background-color: #ffffff">
 				<view v-if="recentlyData" class="flex-row justify-between items-center mt45 ft-bold">
-					<text class="line34 handcolor">相关图片/票据</text>
+					<text class="line34 handcolor pl10">相关图片/票据</text>
 				</view>
 
 				<view class="mt40" style="width: 95%">
@@ -336,7 +336,7 @@
 				</view>
 
 				<view class="flex-col mt45" style="width: 95%">
-					<text class="handcolor line34" style="font-weight: bold">备注</text>
+					<text class="handcolor line34 pl10" style="font-weight: bold">备注</text>
 					<view class="mt40" style="border-radius: 6rpx; box-sizing: border-box; border: 1rpx solid rgba(216, 216, 216, 0.5)">
 						<input
 							v-model="receipts.signatureDescr"
@@ -351,7 +351,7 @@
 				</view>
 
 				<view class="flex-col justify-between pb10 mt45">
-					<text class="line34 ft-bold handcolor">供应商信息</text>
+					<text class="line34 ft-bold handcolor pl10">供应商信息</text>
 					<view class="form-bottom ft-gray">
 						<view class="flex-col justify-between ft24 pt20 pb10 mr24">
 							<view class="flex-row items-center width100 pt20 pb20">
@@ -662,7 +662,7 @@ export default {
 		defImg() {
 			console.log('uni.$http,this.$u', uni.$http);
 			console.log('uni.$http,this.$u', uni.$http.config);
-			this.action = uni.$http.config.baseURL + '/edo/order/imgA';
+			this.action = uni.$http.config.baseURL + 'order/imgA';
 			if (this.receipts.creationTime == '') {
 				this.receipts.creationTime = this.$u.timeFormat(new Date(), 'yyyy-mm-dd');
 			}
@@ -1321,14 +1321,14 @@ export default {
 
 				for (let key in this.imgList) {
 					uni.uploadFile({
-						url: uni.$http.config.baseURL + '/edo/order/img',
+						url: uni.$http.config.baseURL + 'order/img',
 						header: {
 							phone: bossNumber,
 							orderNumber: that.receipts.orderNumber,
 							jobNumber: that.receipts.jobNumberS || jobNumber,
 							token: that.pinia_user.loginToken
 						},
-						filePath: this.imgList[key].file.path,
+						filePath: this.imgList[key].url,
 						name: 'file',
 						formData: {
 							imageType: '1'
