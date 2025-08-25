@@ -100,7 +100,8 @@ export default {
 				id: null,
 				phone: '',
 				staffNumber: ''
-			}
+			},
+			fileList: []
 		};
 	},
 	onLoad(option) {
@@ -111,11 +112,6 @@ export default {
 		this.action = uni.$http.config.baseURL + 'order/imgA';
 	},
 	methods: {
-		onRemove(e, list) {
-			console.log('===e===>', e);
-			console.log('===list===>', list);
-			this.fileList = list;
-		},
 		getCommodityDetails(id) {
 			this.getByID.staffNumber = this.pinia_user.phone;
 			if (this.pinia_user.data.work == '0') {
@@ -137,7 +133,7 @@ export default {
 							this.uploadingCommodity.top = false;
 						}
 
-						this.fileList.push({
+						this.imgList.push({
 							url: this.uploadingCommodity.img === 'definde' ? 'https://res-oss.elist.com.cn/wxImg/order/emptyView.png' : this.uploadingCommodity.img,
 							uploading: false
 						});
@@ -207,7 +203,7 @@ export default {
 			if ((this.imgList.uploading == undefined && this.imgList.length > 0) || (this.imgList.uploading == null && this.imgList.length > 0)) {
 				this.updMerchandiseInventoryYes(that);
 			} else {
-				if (this.imgList.length <= 0 && this.uploadingCommodity.img != 'definde' && this.fileList.length <= 0) {
+				if (this.imgList.length <= 0 && this.uploadingCommodity.img != 'definde') {
 					this.uploadingCommodity.img = 'definde';
 				}
 

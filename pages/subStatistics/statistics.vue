@@ -16,7 +16,7 @@
 				<u-navbar :autoBack="true" :placeholder="true">
 					<template #center>
 						<view class="flex-row items-center justify-center ml50" style="width: 100%">
-							<view class="" style="font-size: 34rpx; font-weight: 510">订单统计</view>
+							<view class="" style="font-size: 34rpx; font-weight: 510">统计对账</view>
 							<view
 								@click="jumpVideo"
 								class="flex-row justify-center items-center ml12"
@@ -100,8 +100,9 @@
 
 						<div class="flex-row items-center radius pr20 mr10 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%">
 							<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
-								<text class="ft11 ft-gray ml36 mr20" @click="CustomerGet">{{ pinia_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
-								<view class="ml24 flex-1">
+								<text class="ft11 ft-gray ml36" @click="CustomerGet">{{ pinia_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
+								<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
+								<view class="flex-1">
 									<u-input
 										border="none"
 										@change="changeCustomer"
@@ -156,7 +157,7 @@
 									@click="checkboxGroupChange(item, index)"
 									style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 								>
-									<u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
+									<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
 								</view>
 								<view class="ml15">订单编号:</view>
 								<view class="ml10" style="color: #f76565">
@@ -238,9 +239,9 @@
 											:style="{
 												backgroundColor: checked ? '#01BB74' : '#ffffff'
 											}"
-											style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
+											style="border-radius: 50%; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 										>
-											<u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
+											<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
 										</view>
 										<view class="ml15" style="color: #333333; font-size: 28rpx">全选</view>
 									</view>
@@ -303,18 +304,20 @@
 			</view> -->
 
 			<u-popup :show="show_start" mode="top" :safeAreaInsetBottom="false" width="100%" @close="show_start = false">
-				<u-navbar :autoBack="true" :placeholder="true" :border-bottom="false" :titleBold="true" title-color="#000000" title-size="34" bgColor="#ffffff">
-					<view class="flex-row items-center justify-center ml50" style="width: 100%">
-						<view class="" style="font-size: 34rpx; font-weight: 510">订单统计</view>
-						<view
-							@click="jumpVideo"
-							class="flex-row justify-center items-center ml12"
-							style="border: 2.2rpx solid #01bb74; height: 44rpx; width: 136rpx; border-radius: 8rpx; color: #01bb74; font-size: 22rpx"
-						>
-							使用方法
-							<u-icon class="ml6" name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></u-icon>
+				<u-navbar :autoBack="true" :placeholder="true">
+					<template #center>
+						<view class="flex-row items-center justify-center ml50" style="width: 100%">
+							<view class="" style="font-size: 34rpx; font-weight: 510">统计对账</view>
+							<view
+								@click="jumpVideo"
+								class="flex-row justify-center items-center ml12"
+								style="border: 2.2rpx solid #01bb74; height: 44rpx; width: 136rpx; border-radius: 8rpx; color: #01bb74; font-size: 22rpx"
+							>
+								<text class="mr6">使用方法</text>
+								<u-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></u-icon>
+							</view>
 						</view>
-					</view>
+					</template>
 				</u-navbar>
 				<view class="flex-col pl30 pr30 pb30 justify-between" style="width: 100%">
 					<view class="flex-col mt20" style="width: 100%">

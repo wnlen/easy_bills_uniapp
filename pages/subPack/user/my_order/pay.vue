@@ -20,7 +20,7 @@
 
 			<view class="flex-row justify-center items-center hander mt30">
 				支付剩余时间
-				<u-count-down :end="end" format="mm:ss" :timestamp="1800000" :show-days="false" :show-hours="false"></u-count-down>
+				<u-count-down @finish="end" format="mm:ss" :time="1800000"></u-count-down>
 			</view>
 		</view>
 
@@ -34,7 +34,7 @@
 				</view>
 				<view class="absolute flex-row justify-center items-center" style="right: 0; width: 0">
 					<u-radio-group>
-						<u-radio @change="checkboxChange" size="25" active-color="#07C160" :disabled="index == 0" shape="circle"></u-radio>
+						<u-radio @change="checkboxChange" size="30rpx" active-color="#07C160" :disabled="index == 0" shape="circle"></u-radio>
 					</u-radio-group>
 				</view>
 			</view>
