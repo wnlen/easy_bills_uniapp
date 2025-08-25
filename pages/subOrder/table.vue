@@ -297,7 +297,7 @@ export default {
 			var that = this;
 			var port = this.pinia_userRole == 'R' ? '1' : '0';
 			var phone = this.pinia_work == 'Y' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone;
-			this.$api.order
+			uni.$api.order
 				.getDeliveryList({
 					sBossNumber: phone,
 					eBossNumber: phone,
@@ -405,7 +405,7 @@ export default {
 				aCompany: ''
 			};
 
-			this.$api.user
+			uni.$api.user
 				.searchUser({
 					phone: addPhone
 				})
@@ -431,7 +431,7 @@ export default {
 
 					dx.port = this.role == 1 ? 'D' : 'R';
 
-					this.$api.user.addClient(dx).then.then((res) => {
+					uni.$api.user.addClient(dx).then.then((res) => {
 						console.log('添加申请： ' + res.data.data);
 						var resAddFriend = res.data;
 						this.addResAlert(resAddFriend);

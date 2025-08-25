@@ -197,5 +197,12 @@ export default (http) => ({
 	 */
 	directDelivery(params) {
 		return http.post('delivery/direct', params);
+	},
+	/**
+	 * 创建客户、供应商
+	 * 原始接口：/edo/order/del
+	 */
+	delOrder(params) {
+		return http.post('order/del', params);
 	}
 });

@@ -67,7 +67,7 @@ export default {
 				return;
 			}
 
-			this.$api.order.shareDeliveryOrder(this.deliveryOrder).then((res) => {
+			uni.$api.order.shareDeliveryOrder(this.deliveryOrder).then((res) => {
 				this.$u.toast(res.data.message);
 				if (res.data.data == 1) {
 					setTimeout(function () {
@@ -112,7 +112,7 @@ export default {
 			} else {
 				var that = this;
 				console.log(e);
-				this.$api.user
+				uni.$api.user
 					.bindPhoneNumber({
 						loginCode: that.wxLoginRes,
 						phoneCode: e.detail.code

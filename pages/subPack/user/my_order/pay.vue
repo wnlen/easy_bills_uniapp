@@ -87,7 +87,7 @@ export default {
 				phone: phone,
 				orderNumber: number
 			};
-			this.$api.pay
+			uni.$api.pay
 				.verifyPayRecord(dx)
 				.then((res) => {
 					var yz = res.data.data;
@@ -109,7 +109,7 @@ export default {
 		ply() {
 			var order = this.order;
 			console.log('支付：', order);
-			this.$api.pay
+			uni.$api.pay
 				.buyVip(order)
 				.then((res) => {
 					this.playWX(res.data.data);

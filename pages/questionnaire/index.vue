@@ -141,7 +141,7 @@ export default {
 		 * 获取问卷数据
 		 */
 		getData() {
-			this.$api.survey
+			uni.$api.survey
 				.getSurveyList({
 					surveyId: this.surveyId
 				})
@@ -217,7 +217,7 @@ export default {
 			console.log('发起提交', data);
 
 			// 发起提交
-			this.$api.survey.submitSurvey(data).then((res) => {
+			uni.$api.survey.submitSurvey(data).then((res) => {
 				console.log('提交响应:', res);
 				const { code, message } = res.data;
 

@@ -11,7 +11,7 @@ export default {
 	},
 	methods: {
 		play() {
-			this.$api.pay
+			uni.$api.pay
 				.buyVip({})
 				.then((res) => {
 					console.log(res.data.data);

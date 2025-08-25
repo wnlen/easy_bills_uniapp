@@ -95,7 +95,7 @@ export default {
 			this.orderList = vList;
 		},
 		queryList(pageNo, pageSize) {
-			this.$api.bills
+			uni.$api.bills
 				.getBillOrdersByIds({
 					billList: this.billsList,
 					page: pageNo,

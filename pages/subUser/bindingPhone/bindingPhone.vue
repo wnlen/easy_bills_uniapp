@@ -96,7 +96,7 @@ export default {
 				type: 0
 			};
 
-			this.$api.user.getPasswordResetCode(dx).then((res) => {
+			uni.$api.user.getPasswordResetCode(dx).then((res) => {
 				var data = res.data;
 				var rescode = data.data == '1';
 				if (rescode) {
@@ -133,7 +133,7 @@ export default {
 			if (!verif) {
 				return;
 			}
-			// this.$api.user.loginWithWX(this.fromCode).then((res) => {
+			// uni.$api.user.loginWithWX(this.fromCode).then((res) => {
 			// 	console.log('===登陆结果===>', res);
 			// 	var data = res.data;
 			// 	if (data.data == '6') {

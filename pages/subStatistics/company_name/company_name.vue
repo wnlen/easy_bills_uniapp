@@ -47,7 +47,7 @@ export default {
 			});
 		}
 
-		this.$api.user.getMyOrderList(this.queryObj).then((res) => {
+		uni.$api.user.getMyOrderList(this.queryObj).then((res) => {
 			var listName = [];
 			for (let key in res) {
 				listName.push(res[key].orderReceiving.customerName);

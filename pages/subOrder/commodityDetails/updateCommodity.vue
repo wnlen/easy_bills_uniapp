@@ -124,7 +124,7 @@ export default {
 				this.getByID.phone = this.pinia_user.workData.bossNumber;
 			}
 
-			this.$api.library
+			uni.$api.library
 				.getCommodityById(this.getByID)
 				.then((res) => {
 					this.uploadingCommodity = res.data.data;

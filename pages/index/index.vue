@@ -265,7 +265,7 @@ export default {
 	},
 	onShow() {
 		// 手动刷新accessToken
-		// this.$api.user.accessTokenRefresh({}).then((res) => {
+		// uni.$api.user.accessTokenRefresh({}).then((res) => {
 		// 	console.log('手动刷新accessToken=====>', res);
 		// });
 
@@ -493,7 +493,7 @@ export default {
 		// 加载广告
 		getmiddleBanner() {
 			var filer = this.pinia_userRole == 'D' ? '1' : '0';
-			this.$api.advert
+			uni.$api.advert
 				.getAdvertList({
 					port: filer
 				})
@@ -793,7 +793,7 @@ export default {
 				}
 			}
 
-			this.$api.order.getOrderDraftList(dx).then((res) => {
+			uni.$api.order.getOrderDraftList(dx).then((res) => {
 				if (this.$u.getPinia('user.userRole') == 'D') {
 					this.iconlist[3].count = res.data.data[0];
 				} else {

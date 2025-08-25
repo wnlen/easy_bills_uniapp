@@ -81,7 +81,7 @@ export default {
 		},
 		delclick(item) {
 			console.log('删除2', item);
-			this.$api.user
+			uni.$api.user
 				.deleteClient(item)
 				.then((res) => {
 					console.log('(删除好友邀请结果)', res.data.data);
@@ -111,7 +111,7 @@ export default {
 		},
 		loadDataHY() {
 			let that = this;
-			this.$api.user
+			uni.$api.user
 				.getClientList({
 					bNumber: this.pinia_user.phone,
 					bBossNumber: this.pinia_user.data.work === '1' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone,
@@ -132,7 +132,7 @@ export default {
 		getPhoneNumber(s) {
 			let that = this;
 			let item = s;
-			this.$api.client
+			uni.$api.client
 				.enableClient(item)
 				.then((res) => {
 					console.log('同意好友申请：', res.data.data);
@@ -186,7 +186,7 @@ export default {
 			}
 
 			var list = [val];
-			this.$api.task
+			uni.$api.task
 				.startRWFlow({ list: list })
 				.then((res) => {
 					console.log('请求结果：' + res);

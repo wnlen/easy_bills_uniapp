@@ -362,7 +362,7 @@ export default {
 
 				console.log('this.billFrom:', this.billFrom);
 
-				this.$api.bills.addBill(this.billFrom).then((res) => {
+				uni.$api.bills.addBill(this.billFrom).then((res) => {
 					this.checkSend = true;
 					if (res.data.code == 200) {
 						this.$u.toast(res.data.message);
@@ -386,7 +386,7 @@ export default {
 		},
 		getOrderNumber() {
 			// billNumber
-			this.$api.bills.generateBillNumber().then((res) => {
+			uni.$api.bills.generateBillNumber().then((res) => {
 				console.log('编号', res);
 				this.billFrom.billNumber = res.data.data;
 			});

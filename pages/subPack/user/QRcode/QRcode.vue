@@ -257,7 +257,7 @@ export default {
 				aCompany: ''
 			};
 
-			this.$api.user.searchUser({ phone: addPhone }).then((res) => {
+			uni.$api.user.searchUser({ phone: addPhone }).then((res) => {
 				console.log('(检索添加人)： ', JSON.stringify(res.data.data.map));
 				var addUser = res.data.data;
 				var bossAdd = addPhone;
@@ -280,7 +280,7 @@ export default {
 
 				dx.port = this.role == 1 ? 'D' : 'R';
 
-				this.$api.user.addClient(dx).then.then((res) => {
+				uni.$api.user.addClient(dx).then.then((res) => {
 					console.log('添加申请： ' + res.data.data);
 					var resAddFriend = res.data;
 					this.addResAlert(resAddFriend);

@@ -151,7 +151,7 @@ export default {
 		},
 		finish(e) {
 			console.log('结果', e);
-			var pas = this.pinia_user.vuex_password == e;
+			var pas = this.pinia_user.password == e;
 			var type = this.type;
 			if (pas) {
 				if (type == 1) {
@@ -168,7 +168,7 @@ export default {
 		},
 		loadData() {
 			var that = this;
-			this.$api.sign
+			uni.$api.sign
 				.getSignature({
 					phone: this.pinia_user.phone
 				})
@@ -183,7 +183,7 @@ export default {
 				});
 		},
 		goDetails(val, type) {
-			var password = this.pinia_user.vuex_password;
+			var password = this.pinia_user.password;
 			this.val = val;
 			this.type = type;
 			this.showMask = true;
@@ -206,7 +206,7 @@ export default {
 		},
 		del(id) {
 			var that = this;
-			this.$api.sign
+			uni.$api.sign
 				.deleteSignature({
 					id: id
 				})

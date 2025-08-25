@@ -637,7 +637,7 @@ export default {
 			return timestampWithHoursOnly;
 		},
 		getPricePeopleAll(index) {
-			this.$api.pay.getSubUserLimit({}).then((res) => {
+			uni.$api.pay.getSubUserLimit({}).then((res) => {
 				console.log(res);
 				this.CrearOrderBuy(res.data.data, index);
 			});
@@ -647,7 +647,7 @@ export default {
 				id: id,
 				phone: phone
 			};
-			this.$api.pay.getOpenedPermissions(dx).then((res) => {
+			uni.$api.pay.getOpenedPermissions(dx).then((res) => {
 				this.CrearOrder(res.data.data, index);
 			});
 		},
@@ -678,7 +678,7 @@ export default {
 		},
 		loadDataPeop() {
 			var that = this;
-			this.$api.user
+			uni.$api.user
 				.getRelationList({
 					bossNumber: this.pinia_user.phone
 				})
@@ -771,7 +771,7 @@ export default {
 				success: (res) => {
 					if (res.confirm) {
 						console.log(val);
-						this.$api.user
+						uni.$api.user
 							.deleteRelation(val)
 							.then((res) => {
 								console.log(res);
@@ -785,7 +785,7 @@ export default {
 			});
 		},
 		verification(phone, json, e) {
-			this.$api.user.searchUser({ phone: phone }).then((res) => {
+			uni.$api.user.searchUser({ phone: phone }).then((res) => {
 				this.gs = res.data.data.map.enterpriseName;
 				if (res.data.data.work != '0') {
 					this.show = true;
@@ -795,7 +795,7 @@ export default {
 			});
 		},
 		selectDB(phone, json, e) {
-			this.$api.user.searchUser({ phone: phone }).then((res) => {
+			uni.$api.user.searchUser({ phone: phone }).then((res) => {
 				this.gs = res.data.data.map.enterpriseName;
 				if (res.data.data.work == '0') {
 					this.addFriendYG(json.phone, json.img, e);
@@ -840,7 +840,7 @@ export default {
 		},
 		addYg(json) {
 			var addPhone = json.phone;
-			this.$api.user.searchUser({ phone: addPhone }).then((res) => {
+			uni.$api.user.searchUser({ phone: addPhone }).then((res) => {
 				var data = res.data.data;
 				var work = data.work == '1';
 				var phone = data.phoneNumber;
@@ -865,7 +865,7 @@ export default {
 		},
 		flushDBSX(val) {
 			var list = [val];
-			this.$api.task
+			uni.$api.task
 				.startRWFlow({ list: list })
 				.then((res) => {
 					console.log('请求结果：' + res);
@@ -886,7 +886,7 @@ export default {
 				};
 
 				console.log('扫码添加员工：', yg);
-				this.$api.bills.addApply(JSON.stringify(yg)).then((res) => {
+				uni.$api.bills.addApply(JSON.stringify(yg)).then((res) => {
 					console.log(res.data.data);
 					this.$u.toast(res.data.message);
 					if (res.data.data == 1) {

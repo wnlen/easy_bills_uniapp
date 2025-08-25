@@ -55,7 +55,7 @@ export default {
 					var okif = res.confirm;
 					if (okif) {
 						console.log('---撤销---');
-						this.$api.user
+						uni.$api.user
 							.revokeUnsubscribe({
 								phone: this.pinia_user.phone
 							})

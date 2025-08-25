@@ -109,7 +109,7 @@ export default {
 					console.log(res.confirm);
 					if (res.confirm) {
 						// printDef
-						this.$api.printer.setDefaultPrinter(dx).then((res) => {
+						uni.$api.printer.setDefaultPrinter(dx).then((res) => {
 							console.log('打印及设置：', res);
 							if (res.data == '1') {
 								this.getPrinter();
@@ -148,7 +148,7 @@ export default {
 				dx.phone = boss;
 			}
 
-			this.$api.printer.getPrinterList(dx).then((res) => {
+			uni.$api.printer.getPrinterList(dx).then((res) => {
 				// console.log(res);
 				this.def = res.data.def ? res.data.def : [];
 				this.all = res.data.all ? res.data.all : [];

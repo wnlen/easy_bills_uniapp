@@ -560,7 +560,7 @@ export default {
 		LoginPhone(phone) {
 			console.log('手机号码：', phone);
 			this.fromLogin.phoneNumber = phone;
-			// this.$api.user.loginWithAppPhone(this.fromLogin).then.then((res) => {
+			// uni.$api.user.loginWithAppPhone(this.fromLogin).then.then((res) => {
 			// 	console.log(res);
 			// 	var mess = res.data;
 			// 	this.$u.toast(mess.message);
@@ -600,7 +600,7 @@ export default {
 				return;
 			}
 
-			// this.$api.user.loginWithAppAccount(this.fromLogin).then((res) => {
+			// uni.$api.user.loginWithAppAccount(this.fromLogin).then((res) => {
 			// 	var code = res.data.data;
 			// 	console.log(code);
 			// 	if (code.type == 1) {
@@ -632,7 +632,7 @@ export default {
 					var dx = {
 						code: loginRes.code
 					};
-					this.$api.user.verifyLoginWXIdentity(dx).then((res) => {
+					uni.$api.user.verifyLoginWXIdentity(dx).then((res) => {
 						console.log('后台获取=====>', res);
 						var data = res.data.data;
 						if (data.id) {
@@ -680,7 +680,7 @@ export default {
 			var dx = {
 				code: code
 			};
-			// this.$api.user.loginWithWX(dx).then((res) => {
+			// uni.$api.user.loginWithWX(dx).then((res) => {
 			// 	var code = res.data.data;
 			// 	console.log(res);
 			// 	uni.navigateTo({

@@ -141,7 +141,7 @@ export default {
 				}
 
 				console.log(yg);
-				this.$api.bills.addApply(JSON.stringify(yg)).then((res) => {
+				uni.$api.bills.addApply(JSON.stringify(yg)).then((res) => {
 					console.log(res.data.data);
 
 					if (res.data.data == 1) {
@@ -164,7 +164,7 @@ export default {
 			if (phone.length == 11) {
 				const ok = uni.$u.test.mobile(phone);
 				if (!ok) return uni.$u.toast('手机号格式不正确');
-				this.$api.user
+				uni.$api.user
 					.searchUser({
 						phone: String(phone),
 						boss: '',
@@ -187,7 +187,7 @@ export default {
 		},
 		flushDBSX(val) {
 			var list = [val];
-			this.$api.task
+			uni.$api.task
 				.startRWFlow({ list: list })
 				.then((res) => {
 					console.log('请求结果：' + res);

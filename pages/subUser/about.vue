@@ -46,7 +46,7 @@ export default {
 		};
 	},
 	onShow() {
-		this.$api.config.queryProgramConfig().then((res) => {
+		uni.$api.config.queryProgramConfig().then((res) => {
 			this.infos = res;
 		});
 	},

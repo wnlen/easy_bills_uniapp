@@ -114,7 +114,7 @@ export default {
 			let role = this.pinia_user.data.work == '1' ? 1 : 2;
 			console.log(this.pinia_user.data.work);
 			var that = this;
-			// this.$api.user
+			// uni.$api.user
 			// 	.refreshUser({
 			// 		phone: this.pinia_user.phone,
 			// 		role: role
@@ -139,7 +139,7 @@ export default {
 			var that = this;
 			this.userInfo.avatarUrl = this.pinia_user.data.headPortrait;
 			let role = this.pinia_work == 'Y' ? 1 : 2;
-			// this.$api.user
+			// uni.$api.user
 			// 	.refreshUser({
 			// 		phone: this.pinia_user.phone,
 			// 		role: role
@@ -181,7 +181,7 @@ export default {
 							work: this.pinia_user.data.work,
 							boss: this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
 						};
-						this.$api.user
+						uni.$api.user
 							.updateUserUp(data)
 							.then((res) => {
 								if (res.data.data == 1) {
@@ -217,7 +217,7 @@ export default {
 					work: this.pinia_user.data.work,
 					boss: this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
 				};
-				this.$api.user.updateUserUp(send).then((res) => {
+				uni.$api.user.updateUserUp(send).then((res) => {
 					if (res.data.data == '1') {
 						uni.navigateBack();
 					}

@@ -125,7 +125,7 @@ export default {
 				guidanceR: port ? 1 : 0,
 				port: this.pinia_userRole
 			};
-			this.$api.user.userGuidance(dx).then((res) => {});
+			uni.$api.user.userGuidance(dx).then((res) => {});
 		},
 		setFunctionGuideState() {
 			this.show = false;

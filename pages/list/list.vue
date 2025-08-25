@@ -534,39 +534,33 @@
 
 		<!-- <u-tabbar :list="vuex_tabbar" active-color="#0FB076"></u-tabbar> -->
 
-		<up-overlay
+		<!-- <up-overlay
 			:show="showMask"
 			@click="
 				showMask = false;
 				password = '';
 			"
-		>
-			<u-popup
-				negative-top="200rpx"
-				class="flex-col justify-center items-center"
-				round="15"
-				:safeAreaInsetBottom="false"
-				mode="center"
-				v-model="showMask"
-				width="600rpx"
-				height="400rpx"
-			>
+		> -->
+		<view class="flex-col justify-center items-center">
+			<u-popup round="15" mode="center" :show="showMask" :customStyle="customStyle_pop_pwd">
 				<view class="flex-col justify-center items-center relative" style="height: 100%; width: 100%">
 					<view class="absolute pt20" style="width: 100%; top: 0; height: 75%">
 						<view class="flex-row items-center justify-center passwordTitle">请输入签收密码</view>
 						<view class="flex-col items-center justify-center mt20" style="width: 100%; height: 35%">
-							<u-message-input :bold="false" @change="changeList" @finish="finishList" :dot-fill="true" :value="password" mode="box" maxlength="4"></u-message-input>
+							<u-code-input :bold="false" @change="(e) => changeList(e)" @finish="finishList" :dot="true" :modelValue="password" maxlength="4"></u-code-input>
 							<view class="mt20 err" v-show="err">密码错误，请重新输入</view>
 						</view>
 						<view @click="goPath('/pages/subUser/resetpassword')" class="ft12 pr30 flex-row justify-end pt15" style="color: #999; width: 100%">找回密码</view>
 					</view>
 					<view class="flex-row items-center absolute u-border-top" style="width: 100%; bottom: 0; height: 25%">
-						<view @click="cancel(password)" style="width: 50%; height: 100%" class="titlePas flex-col justify-center items-center">取消</view>
+						<view @click="close_mask" style="width: 50%; height: 100%" class="titlePas flex-col justify-center items-center">取消</view>
 						<view @click="confirm(password)" style="width: 50%; height: 100%" class="titlePasOK flex-col justify-center items-center u-border-left">确认</view>
 					</view>
 				</view>
 			</u-popup>
-		</up-overlay>
+		</view>
+
+		<!-- </up-overlay> -->
 	</view>
 </template>
 <script setup>
@@ -648,6 +642,10 @@ const searchList = ref({
 	type: 0,
 	customer: '',
 	searchText: ''
+});
+const customStyle_pop_pwd = ref({
+	width: '600rpx',
+	height: '400rpx'
 });
 const realTimeSel = ref({
 	bossNumberS: '',
@@ -939,12 +937,16 @@ function touchStart(e) {
 }
 
 function changeList(e) {
+	console.log('输入的值', e);
 	password.value = e;
 }
 
 function finishList(e) {
-	//console.log("finishList操作", e);
 	password.value = e;
+}
+function close_mask() {
+	showMask.value = false;
+	password.value = '';
 }
 
 function touchMove(e) {
@@ -1169,7 +1171,8 @@ function filterSubmit() {
 
 function VerifyAdd(item, index, type) {
 	err.value = false;
-	const pas = userStore.password;
+	const pas = userStore.user.password;
+	console.log('userStore', userStore);
 	if (!pas) {
 		uni.showModal({
 			title: '暂无签收人，是否去添加？',
@@ -1234,8 +1237,10 @@ function VerifyAdd(item, index, type) {
 }
 
 function confirm(passwordInput) {
-	const storedPass = userStore.password;
+	console.log('面膜', passwordInput);
+	const storedPass = userStore.user.password;
 	const { type, item, index } = verifyPassword.value;
+	console.log('雷系', type);
 
 	if (storedPass === passwordInput) {
 		if (type === 1) deleteOrder(item, index);
@@ -1266,6 +1271,8 @@ function verifyPasswordAdd(item, index, type) {
 }
 
 function deleteOrder(order, index) {
+	console.log('删除订单', order);
+	console.log('删除订单', index);
 	const aPhone = userStore.user.phone;
 	const workif = userStore.work === 'N';
 	const ifOne = order.bossNumberE === order.staffNumberE;
@@ -1300,19 +1307,23 @@ function deleteOrder(order, index) {
 		if (stateOrder) {
 			url = 'order/del';
 			dx = order;
+			proxy.$api.order.delOrder(dx).then((res) => {
+				finallyAlertDel(res.data, order);
+			});
 		} else {
-			url = 'orderDel/add';
+			proxy.$api.order.addTemporaryOrder(dx).then((res) => {
+				finallyAlertDel(res.data, order);
+			});
 		}
 	} else {
-		url = 'orderDel/add';
 		dx.bBoss = order.bossNumberS;
 		dx.bUser = order.staffNumberS;
+		proxy.$api.order.addTemporaryOrder(dx).then((res) => {
+			finallyAlertDel(res.data, order);
+		});
 	}
-
-	uni.$u
-		.post(url, dx)
-		.then((res) => finallyAlertDel(res.data, order))
-		.catch(() => {});
+	console.log('地址', url);
+	console.log('地址', dx);
 
 	totalMoney.value = orderList.value.reduce((total, obj) => total + obj.price, 0);
 }
@@ -1419,6 +1430,11 @@ function finallyAlertDel(resData, order) {
 		flushDBSX(order);
 		paging.value?.refresh();
 	}
+}
+
+function flushDBSX(val) {
+	var list = [val.bossNumberS, val.staffNumberS, val.bossNumberE, val.staffNumberE];
+	proxy.$inform(this, list);
 }
 
 function copyBtn(val) {

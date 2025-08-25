@@ -126,7 +126,7 @@ export default {
 		},
 		okPhone(fillPhone) {
 			console.log(fillPhone);
-			this.$api.user
+			uni.$api.user
 				.unsubscribeUser({
 					phone: this.pinia_user.phone,
 					fillPhone: fillPhone

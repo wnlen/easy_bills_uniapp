@@ -469,7 +469,7 @@ export default {
 				aCompany: ''
 			};
 
-			this.$api.user
+			uni.$api.user
 				.searchUser({
 					phone: addPhone
 				})
@@ -495,7 +495,7 @@ export default {
 
 					dx.port = this.role == 1 ? 'R' : 'D';
 
-					this.$api.user.addClient(dx).then((res) => {
+					uni.$api.user.addClient(dx).then((res) => {
 						console.log('添加申请： ' + res.data.data);
 						var resAddFriend = res.data;
 						this.addResAlert(resAddFriend);
@@ -536,7 +536,7 @@ export default {
 			var phone = this.pinia_work == 'Y' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone;
 			var port = this.pinia_userRole == 'R' ? '1' : '0';
 
-			this.$api.order
+			uni.$api.order
 				.getDeliveryList({
 					sBossNumber: phone,
 					eBossNumber: phone,
@@ -596,7 +596,7 @@ export default {
 				}
 			}
 
-			this.$api.order.getMarketOrders(dx).then((res) => {
+			uni.$api.order.getMarketOrders(dx).then((res) => {
 				console.log('edo/order/market', res.data.data);
 				that.listO = res.data.data;
 				that.listOCopy = res.data.data;

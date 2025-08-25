@@ -111,7 +111,7 @@ export default {
 	},
 	onLoad(options) {
 		var that = this;
-		this.$api.sign
+		uni.$api.sign
 			.getSignature({
 				phone: this.pinia_user.phone
 			})
@@ -125,7 +125,7 @@ export default {
 				this.switchVal = this.formData.ifDefault == 'Y' ? true : false;
 			});
 
-		this.$api.order
+		uni.$api.order
 			.getAccountStatistics({
 				user: this.pinia_user.phone
 			})
@@ -236,7 +236,7 @@ export default {
 				return;
 			}
 
-			this.$api.sign.mergeSignature(dx).then((res) => {
+			uni.$api.sign.mergeSignature(dx).then((res) => {
 				this.$u.toast(res.data.message);
 				setTimeout(function () {
 					uni.navigateBack();

@@ -213,7 +213,7 @@ export default {
 		getOrderStatistics() {
 			const portType = this.pinia_userRole == 'D' ? '0' : '1'; // 0=发货端, 1=收货端
 
-			this.$api.dashboard.getDashboardOrderStatistics(this.phone, portType).then((res) => {
+			uni.$api.dashboard.getDashboardOrderStatistics(this.phone, portType).then((res) => {
 				if (res.data.code === 200) {
 					this.Statisticsdata = res.data.data;
 					if (portType == '0') {
@@ -290,7 +290,7 @@ export default {
 				sBossNumber: sBossNumber,
 				eBossNumber: eBossNumber
 			};
-			this.$api.user.searchReceivableUsers(dx).then((res) => {
+			uni.$api.user.searchReceivableUsers(dx).then((res) => {
 				console.log('===未注册用户===>', res);
 				var wzcUser = res.data.data;
 				this.remark = ifWorkPort ? wzcUser.remarkD : wzcUser.remarkR;
@@ -319,24 +319,46 @@ export default {
 			console.log('type', this.type);
 			var url = '';
 			if (this.type) {
-				url = 'user/searchMarket?phone=';
+				uni.$api
+					.searchMarketUser({
+						phone: phone,
+						boss: boss,
+						port: this.pinia_userRole
+					})
+					.then((res) => {
+						this.userData = res.data.data;
+						this.remark = res.data.data.remark;
+
+						if (this.port) {
+							this.up.remarkR = this.remark ? this.remark : null;
+						} else {
+							this.up.remarkD = this.remark ? this.remark : null;
+						}
+						console.log('===获取个人信息===>', this.userData);
+						console.log('===获取个人备注===>', this.userData.remark);
+						console.log('===保存备注===>', this.remark);
+					});
 			} else {
-				url = 'user/search?phone=';
+				uni.$api
+					.searchUser({
+						phone: phone,
+						boss: boss,
+						port: this.pinia_userRole
+					})
+					.then((res) => {
+						this.userData = res.data.data;
+						this.remark = res.data.data.remark;
+
+						if (this.port) {
+							this.up.remarkR = this.remark ? this.remark : null;
+						} else {
+							this.up.remarkD = this.remark ? this.remark : null;
+						}
+						console.log('===获取个人信息===>', this.userData);
+						console.log('===获取个人备注===>', this.userData.remark);
+						console.log('===保存备注===>', this.remark);
+					});
 			}
-
-			this.$u.post(url + phone + '&boss=' + boss + '&port=' + this.pinia_userRole).then((res) => {
-				this.userData = res.data.data;
-				this.remark = res.data.data.remark;
-
-				if (this.port) {
-					this.up.remarkR = this.remark ? this.remark : null;
-				} else {
-					this.up.remarkD = this.remark ? this.remark : null;
-				}
-				console.log('===获取个人信息===>', this.userData);
-				console.log('===获取个人备注===>', this.userData.remark);
-				console.log('===保存备注===>', this.remark);
-			});
 		},
 		//更新备注
 		editRemark() {
@@ -364,7 +386,7 @@ export default {
 				remarkD: isR ? null : remark
 			};
 
-			this.$api.user.updateDeliveryRemark(payload).then((res) => {
+			uni.$api.user.updateDeliveryRemark(payload).then((res) => {
 				const msg = res.data.message;
 				this.$u.toast(msg);
 				this.$refs.popup.close();
