@@ -124,7 +124,7 @@ export default {
 			this.getMerchandiseInventory();
 		},
 		getMerchandiseInventory() {
-			this.$api.library
+			uni.$api.library
 				.getCommodityList(this.merchandiseInventory)
 				.then((res) => {
 					console.log('res111111111', res);
@@ -151,7 +151,7 @@ export default {
 				success: (res) => {
 					var okif = res.confirm;
 					if (okif) {
-						this.$api.library
+						uni.$api.library
 							.deleteCommodity(item)
 							.then((res) => {
 								this.$u.toast(res.data.message);

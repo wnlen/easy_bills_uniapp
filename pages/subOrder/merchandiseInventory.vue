@@ -372,7 +372,7 @@ export default {
 			this.getMerchandiseInventory();
 		},
 		getMerchandiseInventory() {
-			this.$api.library
+			uni.$api.library
 				.getCommodityList(this.merchandiseInventory)
 				.then((res) => {
 					var list = res.data.data.map((res) => {

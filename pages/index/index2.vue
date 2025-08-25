@@ -659,7 +659,7 @@ export default {
 				bossNumberE: this.pinia_user.phone
 			};
 
-			this.$api.order.getOldOrders(dx).then((res) => {
+			uni.$api.order.getOldOrders(dx).then((res) => {
 				var data = res.data.data;
 				if (data.D.length > 0 || data.R.length > 0) {
 					this.$refs.popAnnouncement.popAnnouncement = true;
@@ -982,7 +982,7 @@ export default {
 				}
 			}
 
-			this.$api.order.getOrderDraftList(dx).then((res) => {
+			uni.$api.order.getOrderDraftList(dx).then((res) => {
 				this.indexSumList = res.data.data[0];
 				// console.log("待办", this.indexSumList);
 				this.Sudoku.notLogD[2][0].count = res.data.data[0];
@@ -1005,8 +1005,8 @@ export default {
 			// console.log('刷新')
 			var filer = this.pinia_userRole == 'D' ? '1' : '0';
 			// console.log('广告',this.pinia_userRole);
-			console.log('this.$api.advert 是：', this.$api.advert);
-			this.$api.advert
+			console.log('uni.$api.advert 是：', uni.$api.advert);
+			uni.$api.advert
 				.getAdvertList({
 					port: filer
 				})
@@ -1054,7 +1054,7 @@ export default {
 			}
 
 			if (ifWorkPort) {
-				this.$api.order
+				uni.$api.order
 					.getFilteredOrderSum(realTimeSel)
 					.then((res) => {
 						//console.log(res.data.data);
@@ -1108,7 +1108,7 @@ export default {
 				realTimeSel.bossNumberE = this.pinia_user.workData.bossNumber;
 			}
 
-			this.$api.order
+			uni.$api.order
 				.getFilteredOrderCount(realTimeSel)
 				.then((res) => {
 					//console.log("index 当前订单个数：", res);

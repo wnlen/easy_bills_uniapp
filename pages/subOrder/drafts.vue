@@ -394,7 +394,7 @@ export default {
 				this.realTimeSel.bossNumberS = boss;
 				this.realTimeSel.staffNumberS = this.pinia_user.phone;
 			}
-			this.$api.draft.getDraftAmount(this.realTimeSel).then((res) => {
+			uni.$api.draft.getDraftAmount(this.realTimeSel).then((res) => {
 				this.DraftsAmount = res.data.data;
 				console.log('===草稿箱总数===>', res);
 			});
@@ -423,7 +423,7 @@ export default {
 				confirmText: '确认',
 				success: (res) => {
 					if (res.confirm) {
-						this.$api.draft.deleteDraftById(this.realTimeSel).then((res) => {
+						uni.$api.draft.deleteDraftById(this.realTimeSel).then((res) => {
 							this.$u.toast('删除成功~');
 							this.checked = false;
 							this.$refs.paging.reload();
@@ -627,7 +627,7 @@ export default {
 				this.onReachBottom = false;
 				this.realTimeSel.role = this.pinia_userRole == 'R' ? '1' : '0';
 				console.log('this.realTimeSel', this.realTimeSel);
-				this.$api.draft
+				uni.$api.draft
 					.getDraftList(this.realTimeSel)
 					.then((res) => {
 						var orderList = res.data.data.map((obj) => {

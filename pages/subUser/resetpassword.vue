@@ -91,7 +91,7 @@ export default {
 	methods: {
 		loadData() {
 			var that = this;
-			this.$api.sign
+			uni.$api.sign
 				.getSignature({
 					phone: this.pinia_user.phone
 				})
@@ -103,7 +103,7 @@ export default {
 		comparisonCode() {
 			var code = this.form.code;
 			if (code != '') {
-				this.$api.user
+				uni.$api.user
 					.verifyUnsubscribeCode({
 						phone: this.pinia_user.phone,
 						code: code
@@ -126,7 +126,7 @@ export default {
 		getCode() {
 			if (this.codeClick) {
 				this.codeClick = false;
-				this.$api.user
+				uni.$api.user
 					.getUnsubscribeCode({
 						phone: this.pinia_user.phone,
 						type: 1

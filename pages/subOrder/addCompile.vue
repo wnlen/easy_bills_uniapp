@@ -396,7 +396,7 @@ export default {
 	},
 	onLoad(options) {
 		uni.removeStorageSync('updInventoryStockpile');
-		this.$api.order
+		uni.$api.order
 			.getOrderById({
 				orderId: options.orderId
 			})
@@ -574,7 +574,7 @@ export default {
 
 			if (this.limitingCondition) {
 				this.limitingCondition = false;
-				this.$api.order
+				uni.$api.order
 					.editOrder(this.receipts)
 					.then((res) => {
 						console.log(res);
@@ -594,7 +594,7 @@ export default {
 		},
 		flushDBSX(val) {
 			var list = [val.bossNumberS, val.staffNumberS, val.bossNumberE, val.staffNumberE];
-			this.$api.task
+			uni.$api.task
 				.startRWFlow({ list: list })
 				.then((res) => {
 					console.log('请求结果：' + res);
@@ -607,7 +607,7 @@ export default {
 			});
 		},
 		searchIFNumber(phone) {
-			this.$api.user
+			uni.$api.user
 				.searchUserAddOrder({
 					phone: phone,
 					state: 1

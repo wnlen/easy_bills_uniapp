@@ -142,7 +142,7 @@
 							<text style="color: #fa3534">*</text>
 							客户手机号:
 						</text>
-						<input
+						<u-input
 							placeholder-class="placeholder_class"
 							style="color: #333333"
 							@input="searchIFNumber"
@@ -153,7 +153,7 @@
 							v-model="khPhone"
 							placeholder="请输入客户手机号"
 							class="flex-1 endcolor"
-						/>
+						></u-input>
 						<u-button shape="circle" size="mini" color="#01BB74" :customStyle="{ width: '120rpx' }" @click="jumpTable">选择客户</u-button>
 					</view>
 					<view class="flex-row items-center width100 pt20 pb20 u-border-bottom">
@@ -641,7 +641,7 @@ export default {
 			}
 		},
 		getProductAll() {
-			this.$api.product
+			uni.$api.product
 				.getAllProducts({
 					phone: this.pinia_user.phone
 				})
@@ -774,7 +774,7 @@ export default {
 				this.searchCopy = phone;
 				var port = this.pinia_userRole;
 
-				this.$api.user
+				uni.$api.user
 					.searchUserAddOrder({
 						phone: phone,
 						state: 1,
@@ -1212,7 +1212,7 @@ export default {
 			return new Promise((resolve) => {
 				if (this.limitingCondition) {
 					this.limitingCondition = false;
-					this.$api.order
+					uni.$api.order
 						.addOrder(this.receipts)
 						.then((res) => {
 							console.log(res);
@@ -1221,7 +1221,7 @@ export default {
 								this.shareShow = true;
 								this.limitingCondition = true;
 								this.backHomepageClick = true;
-								this.$api.order
+								uni.$api.order
 									.getOrderByNumber({
 										orderNumber: this.receipts.orderNumber
 									})
@@ -1255,7 +1255,7 @@ export default {
 			return new Promise((resolve) => {
 				if (this.limitingCondition) {
 					this.limitingCondition = false;
-					this.$api.draft
+					uni.$api.draft
 						.addDraft(this.receipts)
 						.then((res) => {
 							console.log(res);
@@ -1278,7 +1278,7 @@ export default {
 			return new Promise((resolve) => {
 				if (this.limitingCondition) {
 					this.limitingCondition = false;
-					this.$api.draft
+					uni.$api.draft
 						.addDraft(this.receipts)
 						.then((res) => {
 							console.log(res);
@@ -1386,7 +1386,7 @@ export default {
 		},
 		flushDBSX(val) {
 			var list = [val.bossNumberS, val.staffNumberS, val.bossNumberE, val.staffNumberE];
-			this.$api.task
+			uni.$api.task
 				.startRWFlow({ list: list })
 				.then((res) => {
 					console.log('请求结果：' + res);
@@ -1419,7 +1419,7 @@ export default {
 			var ifphon = this.pinia_work == 'Y' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone;
 			var path = '?time=' + this.getCurrentDate() + '&phone=' + ifphon;
 			console.log('path==', path);
-			this.$api.order
+			uni.$api.order
 				.getNextOrderNumber({
 					path: path
 				})

@@ -624,7 +624,7 @@ export default {
 
 		// 获取签收人
 		var that = this;
-		this.$api.sign
+		uni.$api.sign
 			.getSignature({
 				phone: this.pinia_user.phone
 			})
@@ -632,7 +632,7 @@ export default {
 				that.qsrList = res.data.data;
 				this.showZG = false;
 			});
-		this.$api.order
+		uni.$api.order
 			.getAccountStatistics({
 				user: this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
 			})
@@ -680,7 +680,7 @@ export default {
 				boss: this.pinia_user.data.work == '1' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone,
 				phone: this.pinia_user.phone
 			};
-			this.$api.order.getOrderRecords(dx).then((rest) => {
+			uni.$api.order.getOrderRecords(dx).then((rest) => {
 				this.PrintNum = rest.data.data;
 			});
 		},
@@ -717,7 +717,7 @@ export default {
 			print.port = this.pinia_userRole;
 			print.phone = this.pinia_user.phone;
 
-			this.$api.printer.previewPrintImage(print).then((rest) => {
+			uni.$api.printer.previewPrintImage(print).then((rest) => {
 				this.browse = rest.data;
 				if (rest.data.length == 1) {
 					this.showBrowsePrintHeight = '600rpx';
@@ -752,7 +752,7 @@ export default {
 				dx.staff = phone;
 				dx.phone = boss;
 			}
-			this.$api.printer.getPrinterList(dx).then((res) => {
+			uni.$api.printer.getPrinterList(dx).then((res) => {
 				console.log('打印及获取：', res.data);
 				if (Object.keys(res.data).length == 0) {
 					this.$u.toast('您还没有打印机~');
@@ -782,7 +782,7 @@ export default {
 					print.staff = phone;
 				}
 
-				this.$api.printer.printDocument(print).then((rest) => {
+				uni.$api.printer.printDocument(print).then((rest) => {
 					console.log('打印结果：', rest.data);
 					var list = rest.data;
 					var err = list[0].err;
@@ -815,7 +815,7 @@ export default {
 		},
 		confirm() {
 			console.log('确认');
-			var pas = this.password == this.pinia_user.vuex_password;
+			var pas = this.password == this.pinia_user.password;
 			if (pas) {
 				this.qs();
 				this.password = '';
@@ -893,7 +893,7 @@ export default {
 		getPhoneNumber(e) {
 			console.log('获取手机号：', e);
 			var that = this;
-			this.$api.user
+			uni.$api.user
 				.loginWithWXOld({
 					loginCode: that.wxLoginRes,
 					phoneCode: e.detail.code
@@ -919,7 +919,7 @@ export default {
 							if (resDate.phone == this.post.bossNumberE || resDate.phone == this.post.staffNumberE) {
 								//权限验证
 								// https://wxapi.elist.com.cn/edo/user/search?phone=19108696232&state=1
-								this.$api.user.searchUser({ phone: resDate.phone }).then((res) => {
+								uni.$api.user.searchUser({ phone: resDate.phone }).then((res) => {
 									console.log('自己的单子 关系状态：', res.data.data);
 									if (res.data.data.map) {
 										if (res.data.data.map.boss == this.post.bossNumberE) {
@@ -937,7 +937,7 @@ export default {
 							}
 						} else {
 							console.log('不是自己的单子', resDate.phone);
-							this.$api.user
+							uni.$api.user
 								.searchUser({ phone: resDate.phone })
 								.then((res) => {
 									var resDateGet = res.data.data.staffNumber;
@@ -1037,7 +1037,7 @@ export default {
 			this.post = [];
 			var that = this;
 			console.log('请求id：' + this.orderId);
-			this.$api.order
+			uni.$api.order
 				.getOrderById({
 					orderId: this.orderId
 				})
@@ -1205,7 +1205,7 @@ export default {
 			var _this = this;
 
 			// #ifdef MP-WEIXIN
-			this.$api.order
+			uni.$api.order
 				.generateOrderPDFWithId(dx)
 				.then((rest) => {
 					var url = rest.data.data;
@@ -1250,7 +1250,7 @@ export default {
 				});
 			// #endif
 			// #ifdef APP
-			this.$api.order
+			uni.$api.order
 				.generateOrderPDFWithId(dx)
 				.then((rest) => {
 					var url = rest.data.data;
@@ -1277,8 +1277,7 @@ export default {
 			this.post = [];
 			var that = this;
 			console.log('请求id：' + this.orderId);
-			/* 签收为什么掉两次signForOrder接口？ */
-			this.$api.order
+			uni.$api.order
 				.signForOrder(this.orderId)
 				.then((res) => {
 					console.log('请求结果：', res.data.data);
@@ -1298,7 +1297,7 @@ export default {
 			send.signatureName = qm.name;
 			send.paymentState = '1';
 
-			this.$api.order
+			uni.$api.order
 				.signForOrder(send)
 				.then((res) => {
 					console.log('res', res);
@@ -1324,7 +1323,7 @@ export default {
 		},
 		flushDBSX(val) {
 			var list = [val.bossNumberS, val.staffNumberS, val.bossNumberE, val.staffNumberE];
-			this.$api.task
+			uni.$api.task
 				.startRWFlow({ list: list })
 				.then((res) => {
 					console.log('实时更新通知结果：' + res);

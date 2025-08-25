@@ -62,7 +62,7 @@ export default {
 			this.renewInformList.splice(item.name, 1);
 		},
 		del(item) {
-			this.$api.inform
+			uni.$api.inform
 				.deleteInformItem(item)
 				.then((res) => {
 					if (res.data.code != 200) {
@@ -156,7 +156,7 @@ export default {
 				state: '1',
 				phone: this.pinia_user.phone
 			};
-			this.$api.inform
+			uni.$api.inform
 				.refreshInformStatus(dx)
 				.then((res) => {
 					this.renewInformList = res.data.data.map((obj) => ({

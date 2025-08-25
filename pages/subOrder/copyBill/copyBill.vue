@@ -559,7 +559,7 @@ export default {
 	methods: {
 		authenticationSynchronization() {
 			console.log('===authenticationSynchronization===>');
-			this.$api.order
+			uni.$api.order
 				.authenticateOrder(this.receipts)
 				.then((res) => {
 					const reIf = res.data.data;
@@ -673,7 +673,7 @@ export default {
 			uni.removeStorageSync('inventoryStockpile');
 		},
 		getProductAll() {
-			this.$api.product
+			uni.$api.product
 				.getAllProducts({
 					phone: this.pinia_user.phone
 				})
@@ -836,7 +836,7 @@ export default {
 				this.searchCopy = phone;
 				var port = this.pinia_userRole;
 
-				this.$api.user
+				uni.$api.user
 					.searchUserAddOrder({
 						phone: phone,
 						state: 1,
@@ -1380,7 +1380,7 @@ export default {
 					this.limitingCondition = false;
 					this.receipts.id = null;
 					console.log('===this.receipts===>', this.receipts);
-					this.$api.order
+					uni.$api.order
 						.addOrder(this.receipts)
 						.then((res) => {
 							console.log(res);
@@ -1389,7 +1389,7 @@ export default {
 								this.shareShow = true;
 								this.limitingCondition = true;
 								this.backHomepageClick = true;
-								this.$api.order
+								uni.$api.order
 									.getOrderByNumber({
 										orderNumber: this.receipts.orderNumber
 									})
@@ -1422,7 +1422,7 @@ export default {
 			return new Promise((resolve) => {
 				if (this.limitingCondition) {
 					this.limitingCondition = false;
-					this.$api.draft
+					uni.$api.draft
 						.addDraft(this.receipts)
 						.then((res) => {
 							console.log(res);
@@ -1591,7 +1591,7 @@ export default {
 		},
 		flushDBSX(val) {
 			var list = [val.bossNumberS, val.staffNumberS, val.bossNumberE, val.staffNumberE];
-			this.$api.task
+			uni.$api.task
 				.startRWFlow({ list: list })
 				.then((res) => {
 					console.log('请求结果：' + res);
@@ -1623,7 +1623,7 @@ export default {
 			var ifphon = this.pinia_work == 'Y' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone;
 			var path = '?time=' + this.getCurrentDate() + '&phone=' + ifphon;
 			console.log('path==', path);
-			this.$api.order
+			uni.$api.order
 				.getNextOrderNumber({
 					path: path
 				})

@@ -801,7 +801,7 @@ export default {
 				dx.bossNumberS = work ? this.pinia_user.phone : this.pinia_user.workData.bossNumber;
 			}
 			console.log('老数据', dx);
-			this.$api.order.getOldOrders(dx).then((res) => {
+			uni.$api.order.getOldOrders(dx).then((res) => {
 				console.log('获取数据:', res);
 				var resData = res.data.data;
 				if (role) {
@@ -944,7 +944,7 @@ export default {
 			if (this.refresh && timeO && timeT) {
 				this.refresh = false;
 				this.realTimeSel.role = this.pinia_userRole == 'R' ? '1' : '0';
-				this.$api.order
+				uni.$api.order
 					.getFilteredOrders(this.realTimeSel)
 					.then((res) => {
 						console.log(res.data.data);
@@ -969,7 +969,7 @@ export default {
 						this.$u.toast('服务器响应失败');
 					});
 
-				this.$api.order
+				uni.$api.order
 					.getFilteredOrderCount(this.realTimeSel)
 					.then((res) => {
 						console.log('当前订单个数：', res);
@@ -1032,7 +1032,7 @@ export default {
 				var dx = Object.assign({}, this.realTimeSel);
 				dx.limitS = '';
 				dx.role = this.pinia_userRole == 'R' ? '1' : '0';
-				this.$api.order
+				uni.$api.order
 					.getFilteredOrders(dx)
 					.then((res) => {
 						console.log('下载pdf的单据：', res.data.data);
@@ -1074,7 +1074,7 @@ export default {
 			this.downPdfCheck = false;
 
 			console.log(dx);
-			this.$api.order
+			uni.$api.order
 				.generateOrderPDF(dx)
 				.then((res) => {
 					uni.downloadFile({
@@ -1380,7 +1380,7 @@ export default {
 					};
 				}
 				console.log(dx);
-				this.$api.order
+				uni.$api.order
 					.getOrders(dx)
 					.then((res) => {
 						var resDate = res.data.data.map((item) => {
@@ -1413,7 +1413,7 @@ export default {
 					};
 				}
 				console.log(dx);
-				this.$api.order
+				uni.$api.order
 					.getOrders(dx)
 					.then((res) => {
 						console.log(res.data.data);

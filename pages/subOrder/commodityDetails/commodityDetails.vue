@@ -103,7 +103,7 @@ export default {
 				this.getByID.phone = this.pinia_user.workData.bossNumber;
 			}
 			console.log('getByID', this.getByID);
-			this.$api.library
+			uni.$api.library
 				.getCommodityById(this.getByID)
 				.then((res) => {
 					this.details = res.data.data;

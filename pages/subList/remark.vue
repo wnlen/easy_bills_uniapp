@@ -41,7 +41,7 @@ export default {
 			};
 			console.log(remark);
 			if (remark.remark.length > 0) {
-				this.$api.user
+				uni.$api.user
 					.addRemark(remark)
 					.then((res) => {
 						console.log(res.data.data);

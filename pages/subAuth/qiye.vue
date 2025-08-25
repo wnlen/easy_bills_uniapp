@@ -221,7 +221,7 @@ export default {
 			send.name = send.name.trim();
 
 			this.buttonDisabled = true;
-			this.$api.order.addAccountRecord(dx).then((res) => {
+			uni.$api.order.addAccountRecord(dx).then((res) => {
 				this.buttonDisabled = false;
 				//更新用户信息
 				if (res.data.data == '1') {

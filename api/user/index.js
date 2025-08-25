@@ -147,4 +147,11 @@ export default (http) => ({
 	deleteRelationApply(params) {
 		return http.post('relationApply/del', params);
 	}
+	/**
+	 * 搜索客户
+	 * 原始接口：/edo/user/searchMarket
+	 */
+	searchMarketUser(params) {
+		return http.post('user/searchMarket', params);
+	}
 });

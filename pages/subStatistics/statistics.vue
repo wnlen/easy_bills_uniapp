@@ -848,7 +848,7 @@ export default {
 			let role = this.pinia_user.data.work == '1' ? 1 : 2;
 			console.log(this.pinia_user.data.work);
 			var that = this;
-			// this.$api.user
+			// uni.$api.user
 			// 	.refreshUser({
 			// 		phone: this.pinia_user.phone,
 			// 		role: role
@@ -860,7 +860,7 @@ export default {
 			// 		a.data = res.data.data.data;
 			// 		a.workData = res.data.data.workData;
 			// 		a.jurisdiction = res.data.data.jurisdiction;
-			// 		a.vuex_password = res.data.data.password;
+			// 		a.password = res.data.data.password;
 			// 		that.$u.vuex('pinia_user', a);
 			// 		if (res.data.data.data.work == '1') {
 			// 			that.$u.vuex('pinia_work', 'Y');
@@ -952,7 +952,7 @@ export default {
 					var dx = Object.assign({}, this.realTimeSel);
 					dx.limitS = '';
 					dx.role = this.pinia_userRole == 'R' ? '1' : '0';
-					this.$api.order
+					uni.$api.order
 						.getFilteredOrders(dx)
 						.then((res) => {
 							console.log('下载pdf的单据：', res.data.data);
@@ -991,7 +991,7 @@ export default {
 			};
 
 			console.log(dx);
-			this.$api.order
+			uni.$api.order
 				.generateOrderPDF(dx)
 				.then((res) => {
 					// #ifdef APP-PLUS
@@ -1483,7 +1483,7 @@ export default {
 					};
 				}
 				console.log(dx);
-				this.$api.order
+				uni.$api.order
 					.getOrders(dx)
 					.then((res) => {
 						var resDate = res.data.data.map((item) => {
@@ -1516,7 +1516,7 @@ export default {
 					};
 				}
 				console.log(dx);
-				this.$api.order
+				uni.$api.order
 					.getOrders(dx)
 					.then((res) => {
 						console.log(res.data.data);
@@ -1633,7 +1633,7 @@ export default {
 			var dx = {
 				phone: this.pinia_user.phone
 			};
-			this.$api.pay.getDatabaseUsage(dx).then((res) => {
+			uni.$api.pay.getDatabaseUsage(dx).then((res) => {
 				this.CrearOrder(res.data.data, index);
 			});
 		},

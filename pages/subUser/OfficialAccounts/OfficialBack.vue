@@ -25,7 +25,7 @@ export default {
 				phoneNumber: this.pinia_user.phone
 			};
 			var that = this;
-			this.$api.gzh.getGzhVerificationCode(dx).then((res) => {
+			uni.$api.gzh.getGzhVerificationCode(dx).then((res) => {
 				console.log('结果', res.data.data);
 				var resGzh = res.data.data;
 				if (resGzh == '1') {

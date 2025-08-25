@@ -51,7 +51,7 @@ export default (http) => ({
 					localData.ac = getNowData.ac;
 					localData.data = getNowData.data;
 					localData.workData = getNowData.workData;
-					localData.vuex_password = getNowData.password;
+					localData.password = getNowData.password;
 					localData.jurisdiction = getNowData.jurisdiction;
 
 					store.user = localData;
@@ -85,9 +85,8 @@ export default (http) => ({
 
 		// 通知服务端
 		app.config.globalProperties.$inform = (list) => {
-			console.log('通知中...');
-			this.$api.task
-				.startRWFlow({
+			console.log('通知中...', uni.$api);
+			uni.$api.task.startRWFlow({
 					list: list
 				})
 				.then((res) => console.log('通知结果：', res))

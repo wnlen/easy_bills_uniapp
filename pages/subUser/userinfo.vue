@@ -138,7 +138,7 @@ export default {
 							work: this.pinia_user.data.work,
 							boss: this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
 						};
-						this.$api.user
+						uni.$api.user
 							.updateUserUp(data)
 							.then((res) => {
 								if (res.data.data == 1) {
@@ -174,7 +174,7 @@ export default {
 					work: this.pinia_user.data.work,
 					boss: this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
 				};
-				this.$api.user.updateUserUp(send).then((res) => {
+				uni.$api.user.updateUserUp(send).then((res) => {
 					if (res.data.data == '1') {
 						uni.navigateBack();
 					}
