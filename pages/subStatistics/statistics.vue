@@ -338,14 +338,28 @@
 							<view class="flex-row items-center flex-1">
 								<text class="mr10" style="color: #999999">开始日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="$refs.calendars.open()" class="ml14" style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx">
+								<view
+									@click="
+										$refs.calendars.open();
+										timeType = 1;
+									"
+									class="ml14"
+									style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx"
+								>
 									{{ date1 || '开始日期' }}
 								</view>
 							</view>
 							<view class="flex-row items-center flex-1">
 								<text class="mr10" style="color: #999999">结束日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="$refs.calendars.open()" class="ml14" style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx">
+								<view
+									@click="
+										$refs.calendars.open();
+										timeType = 2;
+									"
+									class="ml14"
+									style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx"
+								>
 									{{ date2 || '结束日期' }}
 								</view>
 							</view>
@@ -433,7 +447,7 @@
 						<u-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
 					</view>
 					<!-- 日历选择器 -->
-					<uv-calendars mode="range" :startDate="getMin()" :endDate="getMax()" ref="calendars" @confirm="date1Change" />
+					<uv-calendars color="#01BB74" confirmColor="#01BB74" :startDate="getMin()" :endDate="getMax()" ref="calendars" @confirm="date1Change" />
 				</view>
 			</u-popup>
 		</view>
@@ -552,7 +566,8 @@ export default {
 			Title: '条件筛选',
 			onReachBottom: false,
 			type: 0,
-			uNoticeBarlist: []
+			uNoticeBarlist: [],
+			timeType: null
 		};
 	},
 	onLoad() {
@@ -1290,40 +1305,18 @@ export default {
 			this.TitleFun(i);
 			this.$refs.paging.reload();
 		},
-		e1() {},
-		e2() {},
 		date1Change(e) {
-			this.date1 = e.range.before;
-			this.realTimeSel.startDate = e.range.before;
-			this.realTimeSel.endDate = e.range.after;
-			this.date2 = e.range.after;
-			// this.searchList.start = e.result
-			// if (this.date2 != '') {
-			// 	if (this.date2 >= e.result) {
-			// 		this.realTimeSel.startDate = this.date1;
-			// 	} else {
-			// 		this.$u.toast('开始日期不能大于结束日期~');
-			// 		this.date1 = '';
-			// 	}
-			// } else {
-			// 	this.realTimeSel.startDate = this.date1;
-			// }
+			if (this.timeType == 1) {
+				this.date1 = e.fulldate;
+			} else {
+				if (!this.date1) {
+					return uni.$u.toast('请先选择开始时间');
+				} else if (new Date(e.fulldate).getTime() < new Date(this.date1).getTime()) {
+					return uni.$u.toast('开始日期不能大于结束日期~');
+				}
+				this.date2 = e.fulldate;
+			}
 		},
-		// date2Change(e) {
-		// 	this.date2 = e.result;
-		// 	// this.searchList.end = e.result
-		// 	// this.realTimeSel.endDate = this.date1
-		// 	if (this.date1 != '') {
-		// 		if (this.date2 >= this.date1) {
-		// 			this.realTimeSel.endDate = this.date2;
-		// 		} else {
-		// 			this.$u.toast('开始日期不能大于结束日期~');
-		// 			this.date2 = '';
-		// 		}
-		// 	} else {
-		// 		this.realTimeSel.endDate = this.date2;
-		// 	}
-		// },
 		filterSubmit() {
 			this.show_start = false;
 			this.realTimeSel.startDate = this.date1 != '' ? this.date1 : this.$u.timeFormat(new Date(new Date().getFullYear(), 0, 1), 'yyyy-mm-dd');

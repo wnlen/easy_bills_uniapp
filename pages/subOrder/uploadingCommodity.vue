@@ -29,13 +29,13 @@
 					<text>*</text>
 					<text class="name">品名</text>
 				</text>
-				<view class="uploadingCommodityFromCardRowInput" style="width: 600rpx">
+				<view class="uploadingCommodityFromCardRowInput" style="width: 400rpx">
 					<u-input
 						type="text"
 						v-model="uploadingCommodity.description"
 						:customStyle="customStyle"
-						border="none"
 						inputAlign="right"
+						border="none"
 						:clearable="true"
 						placeholder="请您填写商品名称"
 					></u-input>
@@ -46,7 +46,7 @@
 					<text>*</text>
 					<text class="name">规格</text>
 				</text>
-				<view class="uploadingCommodityFromCardRowInput" style="width: 600rpx">
+				<view class="uploadingCommodityFromCardRowInput" style="width: 400rpx">
 					<u-input
 						type="text"
 						v-model="uploadingCommodity.specification"
@@ -63,7 +63,7 @@
 					<text>*</text>
 					<text class="name">单位</text>
 				</text>
-				<view class="uploadingCommodityFromCardRowInput mt24" style="width: 600rpx">
+				<view class="uploadingCommodityFromCardRowInput" style="width: 400rpx">
 					<u-input
 						type="text"
 						v-model="uploadingCommodity.unit"
@@ -131,9 +131,6 @@ export default {
 				img: 'definde',
 				explainRemark: '',
 				id: ''
-			},
-			customStyle: {
-				textAlign: 'right'
 			},
 			type: true,
 			check: true

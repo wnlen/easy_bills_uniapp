@@ -21,7 +21,7 @@
 							:key="o_item.id"
 							:label="o_item.content"
 							:name="o_item.id"
-							:customStyle="{ marginBottom: '16rpx' }"
+							:customStyle="{ marginBottom: '0rpx' }"
 							@change="
 								radioChange({
 									q_id: q_item.id,
@@ -55,7 +55,7 @@
 						@change="(val) => onCheckboxGroupChange(q_item.id, val)"
 					>
 						<uv-checkbox
-							:customStyle="{ marginBottom: '16rpx' }"
+							:customStyle="{ marginBottom: '24rpx', marginTop: '10rpx' }"
 							v-for="(o_item, o_index) in q_item.options"
 							:key="o_item.id"
 							:label="o_item.content"
@@ -86,7 +86,7 @@
 						:border-bottom="false"
 						label-width="0"
 					></up-input> -->
-					<u-textarea v-model="FormData[q_item.id].content" placeholder="填写更多答案"></u-textarea>
+					<u-textarea v-model="FormData[q_item.id].content" placeholder="填写更多答案" :customStyle="{ marginTop: '20rpx' }"></u-textarea>
 				</view>
 			</view>
 			<view class="Note">注：仅可领取一次，主体下多成员的累积领取至多四次</view>

@@ -44,6 +44,6 @@ export default {
 		readonly: false,
 		shape: 'square',
 		formatter: null,
-		cursorColor: ''
+		cursorColor: '#01bb74'
 	}
 }

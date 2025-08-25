@@ -1,6 +1,15 @@
 <template>
 	<view class="vh100 pb60 flex-col justify-center" style="background-color: #ffffff; overflow-x: hidden">
-		<u-navbar :autoBack="true" :placeholder="true" title="开送货单" :border-bottom="false" :titleBold="true" title-color="#000000" title-size="34" bgColor="#ffffff"></u-navbar>
+		<u-navbar
+			@leftClick="navBack"
+			:placeholder="true"
+			title="开送货单"
+			:border-bottom="false"
+			:titleBold="true"
+			title-color="#000000"
+			title-size="34"
+			bgColor="#ffffff"
+		></u-navbar>
 
 		<view class="width100" style="height: 80vh; text-align: center; margin-left: 10vw" v-show="pinia_userRole == 'D' && shareShow == true">
 			<u-popup :show="showShare" mode="center" round="15" :safeAreaInsetBottom="false" @close="showShare = false">

@@ -2,7 +2,7 @@
 	<view>
 		<!-- 自定义tab -->
 		<u-tabbar :value="tabIndex" activeColor="#01BB74" @change="changeTab">
-			<u-tabbar-item :text="item.text" v-for="(item, index) in tabbar" :key="index">
+			<u-tabbar-item :text="item.text" v-for="(item, index) in tabbar" :key="index" :badge="index == 2 ? messNum : 0">
 				<template #active-icon>
 					<u-icon size="40rpx" :name="item.selectedIconPath"></u-icon>
 				</template>
@@ -27,21 +27,48 @@ export default {
 	},
 	data() {
 		return {
-			tabbar: []
+			tabbar: [],
+			messNum: 0
 		};
 	},
 	created() {
-		console.log('底部导航', this.$u.getPinia('global.tabbar'));
 		this.tabbar = this.$u.getPinia('global.tabbar');
+		this.getMessNum();
 	},
 	methods: {
+		getMessNum() {
+			this.messNum = 0;
+			if (this.$u.getPinia('user.token')) {
+				var dx = {
+					boss: this.pinia_user.data.work == '1' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone,
+					staff: this.pinia_user.phone,
+					work: this.pinia_user.data.work
+				};
+				this.$api.inform
+					.getAllMessages(dx)
+					.then((res) => {
+						res.data.data.forEach((el) => {
+							this.messNum += el;
+						});
+					})
+					.catch((res) => {
+						this.$u.toast(this.message);
+					});
+			}
+		},
 		changeTab(e) {
 			uni.switchTab({
 				url: this.tabbar[e].pagePath
 			});
+			this.getMessNum();
 		}
 	}
 };
 </script>
 
-<style></style>
+<style lang="scss">
+::v-deep .u-badge--error {
+	transform: translateY(-20rpx);
+	background-color: #e52829 !important;
+}
+</style>

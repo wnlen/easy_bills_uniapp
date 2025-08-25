@@ -235,7 +235,7 @@
 			</template>
 		</z-paging>
 
-		<u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" />
+		<!-- <u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" /> -->
 
 		<u-popup :show="show_start" @close="show_start = false" mode="top" :safeAreaInsetBottom="false">
 			<view class="flex-col pl30 pr30 pb30 justify-between">
@@ -259,14 +259,28 @@
 							<view class="flex-row items-center" style="width: 50%">
 								<text class="mr10" style="color: #999999">开始日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="$refs.calendars.open()" class="ml24" style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
+								<view
+									@click="
+										$refs.calendars.open();
+										timeType = 1;
+									"
+									class="ml24"
+									style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;"
+								>
 									{{ date1 || '开始日期' }}
 								</view>
 							</view>
 							<view class="flex-row items-center" style="width: 50%">
 								<text class="mr10 ml20" style="color: #999999">结束日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="$refs.calendars.open()" class="ml24" style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;">
+								<view
+									@click="
+										$refs.calendars.open();
+										timeType = 2;
+									"
+									class="ml24"
+									style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;"
+								>
 									{{ date2 || '结束日期' }}
 								</view>
 							</view>
@@ -370,15 +384,7 @@
 					<u-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
 				</view>
 				<!-- 日历选择器 -->
-				<uv-calendars
-					color="#01BB74"
-					confirmColor="#01BB74"
-					mode="range"
-					:startDate="getCurrentYearFirstDay()"
-					:endDate="getCurrentDate()"
-					ref="calendars"
-					@confirm="date1Change"
-				/>
+				<uv-calendars color="#01BB74" confirmColor="#01BB74" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="date1Change" />
 			</view>
 		</u-popup>
 	</view>
@@ -528,7 +534,8 @@ export default {
 			hasCheck: false,
 			lock: {
 				sourcePhone: ''
-			}
+			},
+			timeType: null
 		};
 	},
 	onLoad(option) {
@@ -1413,8 +1420,16 @@ export default {
 			this.$u.toast('请先到后台发货~');
 		},
 		date1Change(e) {
-			this.date1 = e.range.before;
-			this.date2 = e.range.after;
+			if (this.timeType == 1) {
+				this.date1 = e.fulldate;
+			} else {
+				if (!this.date1) {
+					return uni.$u.toast('请先选择开始时间');
+				} else if (new Date(e.fulldate).getTime() < new Date(this.date1).getTime()) {
+					return uni.$u.toast('开始日期不能大于结束日期~');
+				}
+				this.date2 = e.fulldate;
+			}
 		},
 		filterReset() {
 			const date = new Date();
