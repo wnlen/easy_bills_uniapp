@@ -1,15 +1,7 @@
 <template>
 	<view class="billReceipt">
 		<!-- 日历选择器 -->
-		<uv-calendars
-			color="#01BB74"
-			confirmColor="#01BB74"
-			mode="range"
-			:startDate="getCurrentYearFirstDay()"
-			:endDate="getCurrentDate()"
-			ref="calendars"
-			@confirm="ChangeTimeStart"
-		/>
+		<uv-calendars color="#01BB74" confirmColor="#01BB74" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="ChangeTimeStart" />
 		<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" mode="search" margin-top="-200" v-if="!identity"></u-empty>
 
 		<z-paging
@@ -70,14 +62,28 @@
 					<view class="billCardTimeStart">
 						<text class="mr10" style="color: #666666">开始日期</text>
 						<u-icon name="arrow-down-fill" size="10"></u-icon>
-						<view @click="$refs.calendars.open()" class="ml10" style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx">
+						<view
+							@click="
+								$refs.calendars.open();
+								timeType = 1;
+							"
+							class="ml10"
+							style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx"
+						>
 							{{ time.start }}
 						</view>
 					</view>
 					<view class="billCardTimeEnd">
 						<text class="mr10" style="color: #666666">结束日期</text>
 						<u-icon name="arrow-down-fill" size="10"></u-icon>
-						<view @click="$refs.calendars.open()" class="ml10" style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx">
+						<view
+							@click="
+								$refs.calendars.open();
+								timeType = 2;
+							"
+							class="ml10"
+							style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx"
+						>
 							{{ time.end }}
 						</view>
 					</view>
@@ -353,7 +359,8 @@ export default {
 				margin: '0'
 			},
 			identity: false,
-			billTitle: '收款'
+			billTitle: '收款',
+			timeType: null
 		};
 	},
 	onLoad(option) {
@@ -467,10 +474,18 @@ export default {
 			});
 		},
 		ChangeTimeStart(e) {
-			this.time.start = e.range.before;
-			this.time.end = e.range.after;
-			this.billFrom.startTime = this.time.start;
-			this.billFrom.endTime = this.time.end;
+			if (this.timeType == 1) {
+				this.time.start = e.fulldate;
+				this.billFrom.startTime = this.time.start;
+			} else {
+				if (!this.time.start) {
+					return uni.$u.toast('请先选择开始时间');
+				} else if (new Date(e.fulldate).getTime() < new Date(this.time.start).getTime()) {
+					return uni.$u.toast('开始日期不能大于结束日期~');
+				}
+				this.time.end = e.fulldate;
+				this.billFrom.endTime = this.time.end;
+			}
 			//请求
 			this.$refs.paging.reload();
 			// if (this.EndBigStart(e.result, this.time.end)) {

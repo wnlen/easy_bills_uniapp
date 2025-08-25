@@ -3,7 +3,7 @@
 		<view class="flex-row justify-center pt30 mb20 avatar-area">
 			<button @chooseavatar="onChooseAvatar" open-type="chooseAvatar" type="default" mode="circle">
 				<view class="relative" style="">
-					<u-avatar :level-icon="camera" size="150rpx" :src="userInfo.avatarUrl"></u-avatar>
+					<u-avatar :level-icon="camera" size="150rpx" :src="userInfo.headPortrait"></u-avatar>
 					<!-- camera -->
 					<view
 						class="absolute flex-col justify-center items-center"
@@ -19,11 +19,11 @@
 			<view class="flex-row pb35 u-border-bottom items-center justify-between" @click="userInfoNickNameFocus = true">
 				<text class="ft-gray">姓名</text>
 				<view class="flex-row justify-end items-center flex-1">
-					<!-- <input v-model="userInfo.nickName" type="nickname" maxlength="20" class="text-right ft29 mr3"
+					<!-- <input v-model="userInfo.name" type="nickname" maxlength="20" class="text-right ft29 mr3"
 						placeholder="获取姓名" @blur="onNickname" /> -->
 					<input
 						:focus="userInfoNickNameFocus"
-						v-model="userInfo.nickName"
+						v-model="userInfo.name"
 						type="text"
 						maxlength="20"
 						class="text-right ft29 mr3"
@@ -76,11 +76,11 @@
 export default {
 	data() {
 		return {
-			gender: 0,
+			gender: '',
 			userInfo: {
-				nickName: '', //必填
+				name: '', //必填
 				gender: '', //性别：0-男 1-女
-				avatarUrl: ''
+				headPortrait: ''
 			},
 			array: ['男', '女'],
 			subjectRole: {
@@ -95,13 +95,11 @@ export default {
 			userInfoNickNameFocus: false
 		};
 	},
-	onLoad() {
-		// this.loadData();
-		// this.loadDataFlush();
-	},
+	onLoad() {},
 	onShow() {
 		this.userInfo = this.$u.getPinia('user.user.data');
-		this.ac = this.userInfo.ac;
+		this.gender = Number(this.$u.getPinia('user.user.data.gender'));
+		this.ac = this.$u.getPinia('user.user.ac');
 		this.time = this.userInfo.registrationDate;
 	},
 	methods: {
@@ -110,55 +108,14 @@ export default {
 				url: '/pages/subAuth/auth'
 			});
 		},
-		loadDataFlush() {
-			let role = this.pinia_user.data.work == '1' ? 1 : 2;
-			console.log(this.pinia_user.data.work);
-			var that = this;
-			// this.$api.user
-			// 	.refreshUser({
-			// 		phone: this.pinia_user.phone,
-			// 		role: role
-			// 	})
-			// 	.then((res) => {
-			// 		let a = that.pinia_user;
-			// 		a.ac = res.data.data.ac;
-			// 		a.data = res.data.data.data;
-			// 		a.workData = res.data.data.workData;
-			// 		that.$u.vuex('pinia_user', a);
-			// 		this.ac = a.ac;
-			// 		if (res.data.data.data.work == '1') {
-			// 			that.$u.vuex('pinia_work', 'Y');
-			// 		} else {
-			// 			that.$u.vuex('pinia_work', 'N');
-			// 		}
-			// 	});
-
-			console.log('用户信息实时更新 ', this.pinia_user);
-		},
-		loadData() {
-			var that = this;
-			this.userInfo.avatarUrl = this.pinia_user.data.headPortrait;
-			let role = this.pinia_work == 'Y' ? 1 : 2;
-			// this.$api.user
-			// 	.refreshUser({
-			// 		phone: this.pinia_user.phone,
-			// 		role: role
-			// 	})
-			// 	.then((res) => {
-			// 		let a = this.pinia_user;
-			// 		a.data = res.data.data.data;
-			// 		a.workData = res.data.workData;
-			// 		a.ac = res.data.ac;
-			// 		that.$u.vuex('pinia_user', a);
-			// 	});
-		},
 		bindPickerChange(e) {
+			console.log('性别', e);
 			this.gender = e.detail.value;
 			this.userInfo.gender = parseInt(e.detail.value);
 		},
 		onChooseAvatar(e) {
 			let that = this,
-				fileAvatar = e.detail.avatarUrl;
+				fileAvatar = e.detail.headPortrait;
 
 			uni.uploadFile({
 				url: uni.$http.config.baseURL + 'user/modifyImage',
@@ -173,11 +130,11 @@ export default {
 				success: (uploadFileRes) => {
 					console.log('uploadFileResuploadFileRes', uploadFileRes);
 					if (uploadFileRes.statusCode == '200') {
-						that.userInfo.avatarUrl = uploadFileRes.data;
+						that.userInfo.headPortrait = uploadFileRes.data;
 						var data = {
 							id: that.pinia_user.data.id,
-							headPortrait: that.userInfo.avatarUrl,
-							name: that.userInfo.nickName,
+							headPortrait: that.userInfo.headPortrait,
+							name: that.userInfo.name,
 							work: this.pinia_user.data.work,
 							boss: this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
 						};
@@ -200,18 +157,18 @@ export default {
 		},
 		onNickname(e) {
 			this.userInfoNickNameFocus = false;
-			// this.userInfo.nickName = e.detail.value;
+			// this.userInfo.name = e.detail.value;
 			//console.log("修改", this.userInfo);
 		},
 		updateInfo() {
 			let that = this;
-			this.userInfo.nickName = this.userInfo.nickName.trim();
-			var ifempty = this.userInfo.nickName != '';
+			this.userInfo.name = this.userInfo.name.trim();
+			var ifempty = this.userInfo.name != '';
 			if (ifempty) {
 				//console.log("修改", this.userInfo);
 				var send = {
 					id: this.pinia_user.data.id,
-					name: this.userInfo.nickName,
+					name: this.userInfo.name,
 					gender: this.userInfo.gender,
 					phoneNumber: this.pinia_user.phone,
 					work: this.pinia_user.data.work,

@@ -69,7 +69,7 @@
 			<view class="ml24 mr24 mt24" style="border-radius: 24rpx; overflow: hidden" v-for="(item, index) in list" :key="item.id">
 				<u-swipe-action>
 					<u-swipe-action-item :show="item.show" :name="index" @click="delclick(item)" :options="options">
-						<view class="pd20">
+						<view class="pt20 pl20 pr20">
 							<view class="item flex-col justify-left">
 								<!-- 此层wrap在此为必写的，否则可能会出现标题定位错误 -->
 								<view class="u-body-item u-flex u-row-between u-p-b-0 justify-between">
@@ -259,27 +259,32 @@ export default {
 			}
 		},
 		clickApply(item) {
-			let mes = null;
 			if (item.genre == 'P') {
-				mes = '确定同意吗？';
+				this.okPlay(item);
 			} else if (item.genre == 'D') {
-				mes = '确定删除吗？';
+				this.okDel(item);
 			}
-			uni.showModal({
-				title: '温馨提醒',
-				content: mes,
-				success: (res) => {
-					if (res.confirm) {
-						if (item.genre == 'P') {
-							this.okPlay(item);
-						} else if (item.genre == 'D') {
-							this.okDel(item);
-						}
-					} else if (res.cancel) {
-						// console.log('用户点击取消');
-					}
-				}
-			});
+			// let mes = null;
+			// if (item.genre == 'P') {
+			// 	mes = '确定同意吗？';
+			// } else if (item.genre == 'D') {
+			// 	mes = '确定删除吗？';
+			// }
+			// uni.showModal({
+			// 	title: '温馨提醒',
+			// 	content: mes,
+			// 	success: (res) => {
+			// 		if (res.confirm) {
+			// 			if (item.genre == 'P') {
+			// 				this.okPlay(item);
+			// 			} else if (item.genre == 'D') {
+			// 				this.okDel(item);
+			// 			}
+			// 		} else if (res.cancel) {
+			// 			// console.log('用户点击取消');
+			// 		}
+			// 	}
+			// });
 		},
 		okDel(item) {
 			//同意删除

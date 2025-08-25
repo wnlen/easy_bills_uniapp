@@ -142,8 +142,8 @@
 				</text>
 			</text>
 			<template #empty>
-				<view slot="empty" style="padding-bottom: 200rpx; margin-top: 22rpx">
-					<u-icon label-pos="bottom" :name="'/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180rpx"></u-icon>
+				<view style="padding-bottom: 200rpx; margin-top: 22rpx">
+					<u-icon label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180rpx"></u-icon>
 				</view>
 			</template>
 			<view
@@ -158,7 +158,7 @@
 				class="OrderCard"
 			>
 				<view class="OrderCardHand" @tap.stop>
-					<view class="title ml1" style="" @tap.stop>
+					<view class="title ml1 flex-row items-center" style="" @tap.stop>
 						<text class="ft30 ft-lighgray pr30" style="color: #666666">
 							订单编号:
 							<text class="ml15" @click="copyBtn(item.orderNumber)" style="color: #f76565">
@@ -167,7 +167,7 @@
 						</text>
 						<u-icon size="28rpx" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
 						<view class="ml15">
-							<u-icon size="56rpx" v-if="item.lockOrder == 1 && item.paymentState != 2" :name="bat64.lock" color="#666666"></u-icon>
+							<u-icon size="28rpx" v-if="item.lockOrder == 1 && item.paymentState != 2" :name="bat64.lock" color="#666666"></u-icon>
 						</view>
 					</view>
 					<view class="ml20" style="width: 30%">
@@ -331,7 +331,7 @@
 								<!-- &&item.lockOrder!=1 -->
 								<u-icon v-if="OperatingSystem" name="rmb-circle" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" :label="labText"></u-icon>
 								<view style="top: 2rpx">
-									<u-icon v-if="!OperatingSystem" name="rmb-circle" size="30rpx" color="#666666" labelSize="22rpx" labelColor="#333333" :label="labText"></u-icon>
+									<u-icon v-if="!OperatingSystem" name="rmb-circle" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" :label="labText"></u-icon>
 								</view>
 							</button>
 							<button
@@ -379,7 +379,7 @@
 			</template>
 		</z-paging>
 
-		<u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" />
+		<!-- <u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" /> -->
 		<!-- 弹出层 -->
 		<u-popup :show="show_start" @close="show_start = false" mode="top" :safeAreaInsetBottom="false" :safeAreaInsetTop="true" zIndex="999">
 			<!-- #ifdef MP-WEIXIN -->
@@ -423,14 +423,28 @@
 							<view class="flex-row items-center flex-1">
 								<text class="mr10" style="color: #999999">开始日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="calendars.open()" class="ml14" style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx">
+								<view
+									@click="
+										calendars.open();
+										timeType = 1;
+									"
+									class="ml14"
+									style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx"
+								>
 									{{ date1 }}
 								</view>
 							</view>
 							<view class="flex-row items-center flex-1">
 								<text class="mr10" style="color: #999999">结束日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="calendars.open()" class="ml14" style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx">
+								<view
+									@click="
+										calendars.open();
+										timeType = 2;
+									"
+									class="ml14"
+									style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx"
+								>
 									{{ date2 }}
 								</view>
 							</view>
@@ -520,15 +534,7 @@
 					<u-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
 				</view>
 				<!-- 日历选择器 -->
-				<uv-calendars
-					color="#01BB74"
-					confirmColor="#01BB74"
-					mode="range"
-					:startDate="getCurrentYearFirstDay()"
-					:endDate="getCurrentDate()"
-					ref="calendars"
-					@confirm="date1Change"
-				/>
+				<uv-calendars color="#01BB74" confirmColor="#01BB74" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="date1Change" />
 			</view>
 		</u-popup>
 
@@ -587,6 +593,7 @@ const globalStore = useGlobalStore();
 const { vuex_tabbar } = storeToRefs(systemStore);
 
 const paging = ref(null);
+const timeType = ref(null);
 const calendars = ref(null);
 const flushIndex = ref(systemStore.flush);
 
@@ -980,7 +987,17 @@ function getOperatingSystem() {
 
 function TitleFun(showTage) {
 	Title.value =
-		showTage == 0 ? '联系人' : showTage == 1 ? '联系号码' : showTage == 2 ? (userStore.userRole === 'R' ? '收货地址' : '收货地址') : showTage == 3 ? '产品名称' : '条件筛选';
+		showTage == '0'
+			? '联系人'
+			: showTage == '1'
+			? '联系号码'
+			: showTage == '2'
+			? userStore.userRole === 'R'
+				? '收货地址'
+				: '收货地址'
+			: showTage == '3'
+			? '产品名称'
+			: '条件筛选';
 }
 
 function refreshDataNew() {
@@ -1066,6 +1083,7 @@ function filtrateGet() {
 }
 function Filtrate(type) {
 	showTage.value = type;
+	TitleFun(type);
 }
 
 function virtualListChange(vList) {
@@ -1073,9 +1091,17 @@ function virtualListChange(vList) {
 }
 
 function date1Change(e) {
+	if (timeType.value == 1) {
+		date1.value = e.fulldate;
+	} else {
+		if (!date1.value) {
+			return uni.$u.toast('请先选择开始时间');
+		} else if (new Date(e.fulldate).getTime() < new Date(date1.value).getTime()) {
+			return uni.$u.toast('开始日期不能大于结束日期~');
+		}
+		date2.value = e.fulldate;
+	}
 	// 不是区间取 e.fulldate
-	date1.value = e.range.before;
-	date2.value = e.range.after;
 }
 function getCurrentYearFirstDay() {
 	const date = new Date();

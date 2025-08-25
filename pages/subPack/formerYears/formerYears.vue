@@ -354,7 +354,10 @@
 								<text class="mr10" style="color: #999999">开始日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
 								<view
-									@click="$refs.calendars.open()"
+									@click="
+										$refs.calendars.open();
+										timeType = 1;
+									"
 									class="ml14 text-center flex-row justify-center items-center"
 									style="border: 1rpx solid #999999; padding: 12rpx 6rpx; border-radius: 6rpx; min-width: 180rpx; height: 56rpx"
 								>
@@ -365,7 +368,10 @@
 								<text class="mr10" style="color: #999999">结束日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
 								<view
-									@click="$refs.calendars.open()"
+									@click="
+										$refs.calendars.open();
+										timeType = 2;
+									"
 									class="ml14 text-center flex-row justify-center items-center"
 									style="border: 1rpx solid #999999; padding: 12rpx 6rpx; border-radius: 6rpx; min-width: 180rpx; height: 56rpx"
 								>
@@ -456,7 +462,7 @@
 					<u-button color="#4E5777" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
 				</view>
 				<!-- 日历选择器 -->
-				<uv-calendars color="#01BB74" confirmColor="#01BB74" mode="range" :startDate="limitingTimeO" :endDate="limitingTimeT" ref="calendars" @confirm="date1Change" />
+				<uv-calendars color="#01BB74" confirmColor="#01BB74" :startDate="limitingTimeO" :endDate="limitingTimeT" ref="calendars" @confirm="date1Change" />
 			</view>
 		</u-popup>
 	</view>
@@ -555,7 +561,8 @@ export default {
 			Title: '条件筛选',
 			uNoticeBarlist: [],
 			downPdfCheck: true,
-			hideEmptyView: false
+			hideEmptyView: false,
+			timeType: null
 		};
 	},
 	onLoad(option) {
@@ -1193,8 +1200,6 @@ export default {
 			this.TitleFun(i);
 			this.$refs.paging.reload();
 		},
-		e1() {},
-		e2() {},
 		date1Change(e) {
 			var len = this.dataList.length > 0;
 			console.log(len);
@@ -1202,21 +1207,16 @@ export default {
 				this.$u.toast('您没有相关产品记录~');
 				return;
 			} else {
-				this.date1 = e.range.before;
-				this.date2 = e.range.after;
-				this.realTimeSel.startDate = this.date1;
-				this.realTimeSel.endDate = this.date2;
-				// this.searchList.start = e.result
-				// if (this.date2 != '') {
-				// 	if (this.date2 >= e.result) {
-				// 		this.realTimeSel.startDate = this.date1;
-				// 	} else {
-				// 		this.$u.toast('开始日期不能大于结束日期~');
-				// 		this.date1 = '';
-				// 	}
-				// } else {
-				// 	this.realTimeSel.startDate = this.date1;
-				// }
+				if (this.timeType == 1) {
+					this.date1 = e.fulldate;
+				} else {
+					if (!this.date1) {
+						return uni.$u.toast('请先选择开始时间');
+					} else if (new Date(e.fulldate).getTime() < new Date(this.date1).getTime()) {
+						return uni.$u.toast('开始日期不能大于结束日期~');
+					}
+					this.date2 = e.fulldate;
+				}
 			}
 		},
 		filterSubmit() {

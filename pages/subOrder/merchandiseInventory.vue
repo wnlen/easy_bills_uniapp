@@ -124,7 +124,7 @@
 										<u-td>数量</u-td>
 										<u-td>单位</u-td>
 										<u-td>单价</u-td>
-										<u-td>金额</u-td>
+										<u-td width="200rpx">金额</u-td>
 									</u-tr>
 									<u-tr>
 										<u-td>

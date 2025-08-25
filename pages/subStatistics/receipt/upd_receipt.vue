@@ -373,7 +373,7 @@
 			</view>
 		</u-popup>
 
-		<u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" />
+		<!-- <u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" /> -->
 
 		<u-popup :show="show_start" mode="top" width="550rpx" :safeAreaInsetBottom="false" @close="show_start = false">
 			<view class="flex-col pl30 pr30 pb30 justify-between">
@@ -397,14 +397,28 @@
 							<view class="flex-row items-center flex-1">
 								<text class="mr10" style="color: #999999">开始日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="$refs.calendars.open()" class="ml14" style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx">
+								<view
+									@click="
+										$refs.calendars.open();
+										timeType = 1;
+									"
+									class="ml14"
+									style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx"
+								>
 									{{ date1 == '' ? '开始日期' : date1 }}
 								</view>
 							</view>
 							<view class="flex-row items-center flex-1">
 								<text class="mr10" style="color: #999999">结束日期</text>
 								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<view @click="$refs.calendars.open()" class="ml14" style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx">
+								<view
+									@click="
+										$refs.calendars.open();
+										timeType = 2;
+									"
+									class="ml14"
+									style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx"
+								>
 									{{ date1 == '' ? '结束日期' : date1 }}
 								</view>
 							</view>
@@ -497,15 +511,7 @@
 		</u-popup>
 
 		<!-- 日历选择器 -->
-		<uv-calendars
-			color="#01BB74"
-			confirmColor="#01BB74"
-			mode="range"
-			:startDate="getCurrentYearFirstDay()"
-			:endDate="getCurrentDate()"
-			ref="calendars"
-			@confirm="date1Change"
-		/>
+		<uv-calendars color="#01BB74" confirmColor="#01BB74" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="date1Change" />
 	</view>
 </template>
 
@@ -669,7 +675,8 @@ export default {
 			},
 			uBadge: 0,
 			start: '',
-			end: ''
+			end: '',
+			timeType: null
 		};
 	},
 	onLoad(option) {
@@ -1548,8 +1555,16 @@ export default {
 			this.$u.toast('请先到后台发货~');
 		},
 		date1Change(e) {
-			this.date1 = e.range.before;
-			this.date2 = e.range.after;
+			if (this.timeType == 1) {
+				this.date1 = e.fulldate;
+			} else {
+				if (!this.date1) {
+					return uni.$u.toast('请先选择开始时间');
+				} else if (new Date(e.fulldate).getTime() < new Date(this.date1).getTime()) {
+					return uni.$u.toast('开始日期不能大于结束日期~');
+				}
+				this.date2 = e.fulldate;
+			}
 		},
 		filterReset() {
 			this.date1 = this.$u.timeFormat(new Date(new Date().getFullYear(), 0, 1), 'yyyy-mm-dd');

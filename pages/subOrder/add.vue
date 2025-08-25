@@ -1,7 +1,7 @@
 <template>
 	<view class="vh100 pb60 flex-col justify-center" style="background-color: #ffffff; overflow-x: hidden">
 		<!-- #ifdef MP-WEIXIN -->
-		<u-navbar :autoBack="true" :placeholder="true" bgColor="#ffffff">
+		<u-navbar :placeholder="true" bgColor="#ffffff" @leftClick="navBack">
 			<template #center>
 				<view class="flex-row items-center justify-center ml48" style="width: 100%">
 					<view class="" style="font-size: 34rpx; font-weight: 510">开送货单</view>
@@ -18,7 +18,7 @@
 		</u-navbar>
 		<!-- #endif -->
 		<!-- #ifndef  MP-WEIXIN -->
-		<u-navbar title="开送货单" :autoBack="true" :placeholder="true" bgColor="#ffffff"></u-navbar>
+		<u-navbar title="开送货单" :placeholder="true" bgColor="#ffffff" @leftClick="navBack"></u-navbar>
 		<!-- #endif -->
 		<view class="width100" style="height: 80vh; text-align: center; margin-left: 10vw" v-show="pinia_userRole == 'D' && shareShow == true">
 			<u-popup :show="showShare" mode="center" round="15" :safeAreaInsetBottom="false" @close="showShare = false">
