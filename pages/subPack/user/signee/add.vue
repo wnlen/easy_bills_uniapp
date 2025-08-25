@@ -109,7 +109,7 @@ export default {
 			let role = this.pinia_user.data.work == '1' ? 1 : 2;
 			console.log(this.pinia_user.data.work);
 			var that = this;
-			// this.$api.user
+			// uni.$api.user
 			// 	.refreshUser({
 			// 		phone: this.pinia_user.phone,
 			// 		role: role
@@ -120,7 +120,7 @@ export default {
 			// 		a.data = res.data.data.data;
 			// 		a.workData = res.data.data.workData;
 			// 		a.jurisdiction = res.data.data.jurisdiction;
-			// 		a.vuex_password = res.data.data.password;
+			// 		a.password = res.data.data.password;
 			// 		that.$u.vuex('pinia_user', a);
 			// 		if (res.data.data.data.work == '1') {
 			// 			that.$u.vuex('pinia_work', 'Y');
@@ -163,7 +163,7 @@ export default {
 				password: this.formData.password,
 				state: '1'
 			};
-			this.$api.sign.addSignature(dx).then((res) => {
+			uni.$api.sign.addSignature(dx).then((res) => {
 				this.$u.toast('保存成功～');
 				setTimeout(() => {
 					// this.loadData();

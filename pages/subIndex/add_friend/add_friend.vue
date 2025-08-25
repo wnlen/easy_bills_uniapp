@@ -359,7 +359,7 @@ export default {
 				return;
 			}
 
-			this.$api.client.addClient(dx).then((res) => {
+			uni.$api.client.addClient(dx).then((res) => {
 				console.log('添加申请： ' + res.data.data);
 				var resAddFriend = res.data;
 				this.addResAlert(resAddFriend, addPhone);
@@ -381,7 +381,7 @@ export default {
 			this.searchUser = [];
 			var that = this;
 			if (this.searchNumber.length == 11) {
-				this.$api.user.searchUser({ phone: this.searchNumber }).then((res) => {
+				uni.$api.user.searchUser({ phone: this.searchNumber }).then((res) => {
 					console.log('更具电话号码检索： ' + res.data);
 
 					try {
@@ -398,7 +398,7 @@ export default {
 		},
 		flushDBSX(val) {
 			var list = [val];
-			this.$api.task
+			uni.$api.task
 				.startRWFlow({ list: list })
 				.then((res) => {
 					console.log('请求结果：' + res);

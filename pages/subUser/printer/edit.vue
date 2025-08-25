@@ -86,7 +86,7 @@ export default {
 				wirelessPassword: this.wifiPass
 			};
 
-			this.$api.printer.updatePrinterName(dx).then((res) => {
+			uni.$api.printer.updatePrinterName(dx).then((res) => {
 				var up = res.data;
 				if (up == '1') {
 					uni.navigateBack();

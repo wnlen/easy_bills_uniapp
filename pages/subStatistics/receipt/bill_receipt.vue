@@ -411,7 +411,7 @@ export default {
 
 			if (billdel) {
 				//直接删除
-				this.$api.bills.deleteBill(bill).then((res) => {
+				uni.$api.bills.deleteBill(bill).then((res) => {
 					console.log('删除：', bill.id, res);
 					this.$u.toast(res.data.message);
 					this.$refs.paging.refresh();
@@ -454,7 +454,7 @@ export default {
 				this.defaultValues.createTime = new Date();
 				this.defaultValues.state = '1';
 				this.defaultValues.orderState = this.addingBill(bill.orders);
-				this.$api.bills.revokeBillApplication(this.defaultValues).then((res) => {
+				uni.$api.bills.revokeBillApplication(this.defaultValues).then((res) => {
 					console.log('删除：', bill.id, res);
 					this.$u.toast(res.data.message);
 					this.$refs.paging.refresh();
@@ -604,7 +604,7 @@ export default {
 
 			if (port) {
 				console.log('收费');
-				this.$api.bills
+				uni.$api.bills
 					.confirmBills({
 						billCheckList: okList,
 						phone: this.pinia_user.phone,
@@ -690,7 +690,7 @@ export default {
 				});
 
 				// batchBillApply
-				this.$api.bills.batchApplyBills({ cDelOrderApplyList: cDelOrderApplyList }).then((res) => {
+				uni.$api.bills.batchApplyBills({ cDelOrderApplyList: cDelOrderApplyList }).then((res) => {
 					this.$u.toast(res.data.message);
 					this.$refs.paging.reload().catch(() => {});
 					this.checkFalse();
@@ -731,7 +731,7 @@ export default {
 		queryList(pageNo, pageSize) {
 			this.billFrom.page = pageNo;
 			this.billFrom.size = pageSize;
-			this.$api.bills.searchBills(this.billFrom).then((res) => {
+			uni.$api.bills.searchBills(this.billFrom).then((res) => {
 				console.log(res);
 				var billsList = res.data.data.map((obj) => {
 					return {

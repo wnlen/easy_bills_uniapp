@@ -157,7 +157,7 @@ export default {
 				type: 0
 			};
 
-			this.$api.user.getPasswordResetCode(dx).then((res) => {
+			uni.$api.user.getPasswordResetCode(dx).then((res) => {
 				var data = res.data;
 				var rescode = data.data == '1';
 				if (rescode) {

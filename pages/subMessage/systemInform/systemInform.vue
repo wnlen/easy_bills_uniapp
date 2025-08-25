@@ -43,7 +43,7 @@ export default {
 			this.InformList.splice(item.name, 1);
 		},
 		del(item) {
-			this.$api.inform
+			uni.$api.inform
 				.deleteSystemInform(item)
 				.then((res) => {
 					var del = res.data.data;
@@ -135,7 +135,7 @@ export default {
 				state: '1',
 				phone: this.pinia_user.phone
 			};
-			this.$api.inform
+			uni.$api.inform
 				.getSystemInformList(dx)
 				.then((res) => {
 					this.InformList = res.data.data.map((obj) => ({

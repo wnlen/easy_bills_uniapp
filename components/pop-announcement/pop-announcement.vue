@@ -46,7 +46,7 @@ export default {
 				announcementRead: 1,
 				createTime: new Date()
 			};
-			this.$api.announcement.addAnnouncement(dx).then((res) => {
+			uni.$api.announcement.addAnnouncement(dx).then((res) => {
 				console.log(dx);
 			});
 

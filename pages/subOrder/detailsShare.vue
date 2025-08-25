@@ -385,7 +385,7 @@ export default {
 	},
 	methods: {
 		getQs() {
-			this.$api.sign
+			uni.$api.sign
 				.getSignature({
 					phone: this.$u.getPinia('user.user.phone')
 				})
@@ -393,7 +393,7 @@ export default {
 					this.qsrList = res.data.data;
 					this.showZG = false;
 				});
-			this.$api.order
+			uni.$api.order
 				.getAccountStatistics({
 					user: this.$u.getPinia('user.user.data.work') == '0' ? this.$u.getPinia('user.user.phone') : this.$u.getPinia('user.user.workData.bossNumber')
 				})
@@ -441,7 +441,7 @@ export default {
 			console.log('this.pinia_user', this.$u.getPinia('user.user'));
 			if (this.$u.getPinia('user.user.phone') != undefined) {
 				//获取签收人
-				this.$api.sign
+				uni.$api.sign
 					.getSignature({
 						phone: this.$u.getPinia('user.user.phone')
 					})
@@ -495,7 +495,7 @@ export default {
 		},
 		confirm() {
 			console.log('确认');
-			var pas = this.password == this.pinia_user.vuex_password;
+			var pas = this.password == this.pinia_user.password;
 			if (pas) {
 				this.qs();
 				this.password = '';
@@ -607,7 +607,7 @@ export default {
 				var portE = phone == this.post.bossNumberE;
 				var portS = phone == this.post.bossNumberS;
 
-				this.$api.user.getUserDetails({ phone: phone }).then((res) => {
+				uni.$api.user.getUserDetails({ phone: phone }).then((res) => {
 					var resRelation = res.data.data.cRelation;
 					var resDateGet = res.data.data.staffNumber;
 					var user = res.data.data.user.work == '0';
@@ -753,7 +753,7 @@ export default {
 		},
 		//根据id获取单据
 		loadData(id) {
-			return this.$api.order.getOrderById({
+			return uni.$api.order.getOrderById({
 				orderId: id
 			});
 		},
@@ -867,7 +867,7 @@ export default {
 			send.signaturePhone = qm.phone;
 			send.signatureName = qm.name;
 			send.paymentState = '1';
-			this.$api.order
+			uni.$api.order
 				.signForOrder(send)
 				.then((res) => {
 					if (res.data == '9') {
@@ -887,7 +887,7 @@ export default {
 		},
 		flushDBSX(val) {
 			var list = [val.bossNumberS, val.staffNumberS, val.bossNumberE, val.staffNumberE];
-			this.$api.task
+			uni.$api.task
 				.startRWFlow({ list: list })
 				.then((res) => {
 					console.log('实时更新通知结果：' + res);

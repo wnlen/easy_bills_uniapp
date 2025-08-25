@@ -125,7 +125,7 @@ export default {
 			}
 		},
 		loadData() {
-			this.$api.order
+			uni.$api.order
 				.getAccountStatistics({
 					user: this.pinia_user.phone
 				})

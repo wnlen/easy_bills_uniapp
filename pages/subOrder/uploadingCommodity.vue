@@ -220,7 +220,7 @@ export default {
 			} else {
 				if (this.check) {
 					this.check = false;
-					this.$api.library
+					uni.$api.library
 						.addCommodity(this.uploadingCommodity)
 						.then((res) => {
 							console.log(res);

@@ -74,7 +74,7 @@ export default {
 	},
 	methods: {
 		getData() {
-			this.$api.user.getInviteOverview().then((res) => {
+			uni.$api.user.getInviteOverview().then((res) => {
 				const data = res.data.data;
 				this.shareLink = data.shareLink;
 				this.qrCodeUrl = data.qrCodeUrl;
@@ -118,7 +118,7 @@ export default {
 		},
 		claimReward(type) {
 			console.log('领取');
-			this.$api.user
+			uni.$api.user
 				.claimInviteReward({ type })
 				.then((res) => {
 					if (res.data.code == 200) {

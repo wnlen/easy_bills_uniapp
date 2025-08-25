@@ -301,7 +301,7 @@ export default {
 		var dx = {
 			id: idNumber
 		};
-		this.$api.bills.getBillById(dx).then((res) => {
+		uni.$api.bills.getBillById(dx).then((res) => {
 			console.log('单个详情：', res);
 			this.billFrom = res.data.data;
 			this.billFrom.billTime = this.$u.timeFormat(this.billFrom.billTime, 'yyyy-mm-dd');
@@ -426,7 +426,7 @@ export default {
 				this.billFrom.uplImgFolderIdList = this.urlList;
 				this.billFrom.updFileAliList = this.updAttachmentFile;
 				this.billFrom.delFileList = this.delFileList;
-				this.$api.bills.updateBill(this.billFrom).then((res) => {
+				uni.$api.bills.updateBill(this.billFrom).then((res) => {
 					console.log(res);
 					this.checkSend = true;
 					this.$u.toast(res.data.message);

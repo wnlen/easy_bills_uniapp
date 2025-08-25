@@ -919,7 +919,7 @@ export default {
 				this.refresh = false;
 				this.onReachBottom = false;
 				this.realTimeSel.role = this.pinia_userRole == 'R' ? '1' : '0';
-				this.$api.order
+				uni.$api.order
 					.getFilteredOrders(this.realTimeSel)
 					.then((res) => {
 						//console.log(res.data.data);
@@ -944,7 +944,7 @@ export default {
 						this.refresh = true;
 					});
 
-				this.$api.order
+				uni.$api.order
 					.getFilteredOrderCount(this.realTimeSel)
 					.then((res) => {
 						//console.log("当前订单个数：", res);
@@ -993,7 +993,7 @@ export default {
 		},
 		getNewfreshData() {
 			this.realTimeSel.role = this.pinia_userRole == 'R' ? '1' : '0';
-			this.$api.order
+			uni.$api.order
 				.getFilteredOrders(this.realTimeSel)
 				.then((res) => {
 					//console.log("滑动触发", res);
@@ -1002,7 +1002,7 @@ export default {
 					this.refresh = true;
 				});
 
-			this.$api.order
+			uni.$api.order
 				.getFilteredOrderCount(this.realTimeSel)
 				.then((res) => {
 					//console.log("当前订单个数：", res);
@@ -1026,7 +1026,7 @@ export default {
 		},
 		VerifyAdd(item, index, type) {
 			this.err = false;
-			var pas = this.pinia_user.vuex_password;
+			var pas = this.pinia_user.password;
 			if (pas == '' || pas == null || pas == undefined) {
 				uni.showModal({
 					title: '暂无签收人，是否去添加？',
@@ -1122,7 +1122,7 @@ export default {
 		confirm(password) {
 			//console.log(password);
 
-			var pas = this.pinia_user.vuex_password;
+			var pas = this.pinia_user.password;
 			var type = this.verifyPassword.type;
 			var item = this.verifyPassword.item;
 			var index = this.verifyPassword.index;
@@ -1206,7 +1206,7 @@ export default {
 		},
 		flushDBSX(val) {
 			var list = [val.bossNumberS, val.staffNumberS, val.bossNumberE, val.staffNumberE];
-			this.$api.task
+			uni.$api.task
 				.startRWFlow({ list: list })
 				.then((res) => {
 					//console.log("flushDBSX：" + res);
@@ -1264,7 +1264,7 @@ export default {
 				}
 			}
 
-			this.$api.order
+			uni.$api.order
 				.addTemporaryOrder(dx)
 				.then((res) => {
 					this.finallyAlertDel(res.data, val);
@@ -1289,7 +1289,7 @@ export default {
 			}, 500);
 		},
 		updateOrder(order) {
-			this.$api.order
+			uni.$api.order
 				.signForOrder(order)
 				.then((res) => {
 					console.log(res);

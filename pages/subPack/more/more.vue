@@ -92,7 +92,7 @@ export default {
 			}
 		},
 		getIcon() {
-			this.$api.bills
+			uni.$api.bills
 				.checkSequenceExistence({
 					phone: this.pinia_user.phone
 				})

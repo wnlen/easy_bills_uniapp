@@ -165,7 +165,7 @@ export default {
 
 			console.log(this.invoice);
 
-			this.$api.invoice
+			uni.$api.invoice
 				.addInvoice(this.invoice)
 				.then((res) => {
 					if (res.data.data == '1') {

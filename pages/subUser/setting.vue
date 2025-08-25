@@ -103,7 +103,7 @@ export default {
 				success: async (res) => {
 					if (!res.confirm) return;
 
-					this.$api.user.loginlogout({});
+					uni.$api.user.loginlogout({});
 
 					this.$u.toast('已退出~');
 					this.$u.setPinia({

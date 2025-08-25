@@ -960,7 +960,7 @@ export default {
 			};
 			// CNotice
 			console.log('获取详情', item);
-			this.$api.inform.getNoticeList(dx).then((res) => {
+			uni.$api.inform.getNoticeList(dx).then((res) => {
 				this.$refs.popDetails.show = true;
 				this.$refs.popDetails.popupShowText = JSON.parse(JSON.parse(JSON.stringify(res.data.data)).json);
 				this.$refs.popDetails.type = type;
@@ -1094,7 +1094,7 @@ export default {
 			var dx = {
 				phone: phone
 			};
-			this.$api.pay
+			uni.$api.pay
 				.getJurisdictionRenewInfo(dx)
 				.then((res) => {
 					var renew = res.data.data;
@@ -1128,7 +1128,7 @@ export default {
 			var dx = {
 				phone: phone
 			};
-			this.$api.pay
+			uni.$api.pay
 				.createJurisdictionOrder(dx)
 				.then((res) => {
 					var data = res.data.data;
@@ -1145,7 +1145,7 @@ export default {
 			var dx = {
 				phone: phone
 			};
-			this.$api.pay
+			uni.$api.pay
 				.getUserJurisdiction(dx)
 				.then((res) => {
 					this.jurisdiction = res.data.data;
@@ -1372,7 +1372,7 @@ export default {
 				parseFloat(statistics) + parseFloat(old) + parseFloat(people) + parseFloat(c1RenewPrice) + parseFloat(c2RenewPrice) + parseFloat(c3RenewPrice);
 		},
 		getData() {
-			this.$api.pay.getPayItems({}).then((res) => {
+			uni.$api.pay.getPayItems({}).then((res) => {
 				console.log('获取数据:', res);
 				var resData = res.data.data;
 				this.c_product_statistics = resData.statistics;
@@ -1389,7 +1389,7 @@ export default {
 			dx.bossNumberE = this.pinia_user.phone;
 			dx.bossNumberS = this.pinia_user.phone;
 
-			this.$api.order.getOldOrders(dx).then((res) => {
+			uni.$api.order.getOldOrders(dx).then((res) => {
 				var resData = res.data.data;
 				this.dataList = resData;
 				this.dataListAll = [...new Set([...this.dataList.D, ...this.dataList.R])];

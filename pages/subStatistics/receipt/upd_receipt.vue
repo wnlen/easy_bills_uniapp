@@ -790,7 +790,7 @@ export default {
 				//全选
 				console.log('全选');
 				//获取单据id
-				this.$api.bills.checkAllLockedIds(this.realTimeSel).then((res) => {
+				uni.$api.bills.checkAllLockedIds(this.realTimeSel).then((res) => {
 					console.log(res);
 					var data = res.data.data;
 					var updateFrom = {
@@ -836,7 +836,7 @@ export default {
 				var priceNumber = 0;
 
 				//计算价格
-				this.$api.bills.getLockedBillTotalPrice(this.realTimeSel).then((res) => {
+				uni.$api.bills.getLockedBillTotalPrice(this.realTimeSel).then((res) => {
 					priceNumber = res.data.data;
 
 					var updateFrom = {
@@ -884,7 +884,7 @@ export default {
 				return;
 			} else {
 				this.realTimeSel.role = this.pinia_userRole == 'R' ? '1' : '0';
-				this.$api.bills.checkAllLockedBills(this.realTimeSel).then((res) => {
+				uni.$api.bills.checkAllLockedBills(this.realTimeSel).then((res) => {
 					console.log(res);
 					if (res.data.data == '0') {
 						this.$u.toast('请选择同一客户名称的订单~');
@@ -976,7 +976,7 @@ export default {
 			console.log(event);
 		},
 		getCheckedId() {
-			this.$api.bills.checkAllLockedIds(this.realTimeSel).then((res) => {
+			uni.$api.bills.checkAllLockedIds(this.realTimeSel).then((res) => {
 				console.log(res);
 				var data = res.data.data;
 				this.realTimeSel.ids = data.ids;
@@ -1046,7 +1046,7 @@ export default {
 		},
 		getCheck() {
 			// getFilterLockCheck
-			this.$api.bills
+			uni.$api.bills
 				.getCheckedLockedBills(this.realTimeSel)
 				.then((res) => {
 					console.log('getFilterLockCheck:', res.data.data);
@@ -1082,7 +1082,7 @@ export default {
 				this.refresh = false;
 				this.onReachBottom = false;
 				this.realTimeSel.role = this.pinia_userRole == 'R' ? '1' : '0';
-				this.$api.bills
+				uni.$api.bills
 					.getFilteredLockedBills(this.realTimeSel)
 					.then((res) => {
 						//console.log(res.data.data);
@@ -1114,7 +1114,7 @@ export default {
 						this.refresh = true;
 					});
 
-				this.$api.bills
+				uni.$api.bills
 					.getLockedBillQuantity(this.realTimeSel)
 					.then((res) => {
 						//console.log("当前订单个数：", res);
@@ -1163,7 +1163,7 @@ export default {
 		},
 		getNewfreshData() {
 			this.realTimeSel.role = this.pinia_userRole == 'R' ? '1' : '0';
-			this.$api.order
+			uni.$api.order
 				.getFilteredOrders(this.realTimeSel)
 				.then((res) => {
 					//console.log("滑动触发", res);
@@ -1172,7 +1172,7 @@ export default {
 					this.refresh = true;
 				});
 
-			this.$api.order
+			uni.$api.order
 				.getFilteredOrderCount(this.realTimeSel)
 				.then((res) => {
 					//console.log("当前订单个数：", res);
@@ -1187,7 +1187,7 @@ export default {
 			let role = this.pinia_user.data.work == '1' ? 1 : 2;
 			//console.log(this.pinia_user.data.work);
 			var that = this;
-			// this.$api.user
+			// uni.$api.user
 			// 	.refreshUser({
 			// 		phone: this.pinia_user.phone,
 			// 		role: role
@@ -1198,7 +1198,7 @@ export default {
 			// 		a.data = res.data.data.data;
 			// 		a.workData = res.data.data.workData;
 			// 		a.jurisdiction = res.data.data.jurisdiction;
-			// 		a.vuex_password = res.data.data.password;
+			// 		a.password = res.data.data.password;
 			// 		that.$u.vuex('pinia_user', a);
 			// 		if (res.data.data.data.work == '1') {
 			// 			that.$u.vuex('pinia_work', 'Y');
@@ -1321,7 +1321,7 @@ export default {
 			}
 
 			var okOrNo = 0;
-			this.$api.order
+			uni.$api.order
 				.addTemporaryOrder(dx)
 				.then((res) => {
 					okOrNo = res.data.data;
@@ -1389,7 +1389,7 @@ export default {
 			}, 500);
 		},
 		updateOrder(order) {
-			this.$api.order
+			uni.$api.order
 				.signForOrder(order)
 				.then((res) => {
 					if (res.data.data == '9') {

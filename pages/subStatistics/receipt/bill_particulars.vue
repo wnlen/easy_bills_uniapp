@@ -136,7 +136,7 @@ export default {
 		var dx = {
 			id: idNumber
 		};
-		this.$api.bills.getBillById(dx).then((res) => {
+		uni.$api.bills.getBillById(dx).then((res) => {
 			console.log('单个详情：', res);
 			this.billFrom = res.data.data;
 

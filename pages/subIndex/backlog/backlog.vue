@@ -283,7 +283,7 @@ export default {
 		},
 		okDel(item) {
 			//同意删除
-			this.$api.order.confirmOrderDraft(item).then((res) => {
+			uni.$api.order.confirmOrderDraft(item).then((res) => {
 				console.log(res.data.data);
 				if (res.data.data == '1') {
 					this.$u.toast(res.data.message);
@@ -297,7 +297,7 @@ export default {
 		},
 		okPlay(item) {
 			//同意支付
-			this.$api.order.confirmOrderDraft(item).then((res) => {
+			uni.$api.order.confirmOrderDraft(item).then((res) => {
 				console.log(res.data.data);
 				if (res.data.data == '1') {
 					this.$u.toast(res.data.message);
@@ -337,7 +337,7 @@ export default {
 				}
 			}
 
-			this.$api.order.getOrderDraftLimit(dx).then((res) => {
+			uni.$api.order.getOrderDraftLimit(dx).then((res) => {
 				var getList = res.data.data.map((obj) => ({
 					...obj,
 					show: false
@@ -375,7 +375,7 @@ export default {
 				}
 			}
 
-			this.$api.order.getOrderDraftList(dx).then((res) => {
+			uni.$api.order.getOrderDraftList(dx).then((res) => {
 				this.list = res.data.data.map((obj) => ({
 					...obj,
 					show: false
@@ -393,7 +393,7 @@ export default {
 		},
 		delclick(item) {
 			console.log('删除', item);
-			this.$api.order.updateOrderDraft(item).then((res) => {
+			uni.$api.order.updateOrderDraft(item).then((res) => {
 				console.log(res.data.data);
 				if (res.data.data == '1') {
 					this.$u.toast('已撤销申请~');

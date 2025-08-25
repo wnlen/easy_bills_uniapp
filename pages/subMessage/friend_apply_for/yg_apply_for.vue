@@ -84,7 +84,7 @@ export default {
 		delclick(item, index) {
 			console.log('删除1', item);
 			this.resApiT[index].show = false;
-			this.$api.user
+			uni.$api.user
 				.deleteRelationApply(item)
 				.then((res) => {
 					console.log('删除员工邀请结果', res);
@@ -119,7 +119,7 @@ export default {
 				state: '0'
 			};
 
-			this.$api.bills
+			uni.$api.bills
 				.getApplyList(dx)
 				.then((res) => {
 					this.resApiT = res.data.data.map((obj) => ({
@@ -149,7 +149,7 @@ export default {
 				};
 
 				console.log('员工统一');
-				this.$api.bills
+				uni.$api.bills
 					.confirmApply(JSON.parse(JSON.stringify(dx)))
 					.then((res) => {
 						console.log(res.data.data);
@@ -220,7 +220,7 @@ export default {
 			var list = [];
 			list.push(dx.aUser);
 			list.push(dx.bUser);
-			this.$api.task
+			uni.$api.task
 				.startRWFlow({ list: list })
 				.then((res) => {
 					console.log('请求结果：' + res);

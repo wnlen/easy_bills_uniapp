@@ -165,7 +165,7 @@ export default {
 				staff: this.pinia_user.phone,
 				work: this.pinia_user.data.work
 			};
-			this.$api.inform
+			uni.$api.inform
 				.getAllMessages(dx)
 				.then((res) => {
 					var list = res.data.data;
