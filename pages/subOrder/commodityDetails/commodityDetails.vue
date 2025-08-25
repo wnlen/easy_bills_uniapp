@@ -41,8 +41,9 @@
 					{{ details.explainRemark ? '' : '---' }}
 				</view>
 			</view>
-			<view class="ml24 mr24 pd24" style="background-color: #f9f9f9; border-radius: 12rpx; text-indent: 1em" v-if="details.explainRemark">
-				&nbsp;&nbsp;{{ details.explainRemark }}
+			<view class="ml24 mr24 pd24 mt24" style="background-color: #f9f9f9; border-radius: 12rpx; text-indent: 1em; color: #666" v-if="details.explainRemark">
+				<!-- &nbsp;&nbsp; -->
+				{{ details.explainRemark }}
 			</view>
 		</view>
 

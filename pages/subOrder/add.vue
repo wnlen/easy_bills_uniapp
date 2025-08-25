@@ -1467,7 +1467,10 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+::v-deep button::after {
+	border: none !important; //按钮外边框border隐藏
+}
 .form-cover {
 	position: fixed;
 	top: 0;
