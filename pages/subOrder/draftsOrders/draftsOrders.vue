@@ -16,7 +16,7 @@
 								:data-id="transmitList[0].id"
 								:data-thumb="transmitList[0].picturesId"
 								shape="circle"
-								@click="ShareY"
+								:data-versions="'Y'"
 							>
 								有金额转发
 							</button>
@@ -29,7 +29,7 @@
 								:data-id="transmitList[0].id"
 								:data-thumb="transmitList[0].picturesId"
 								shape="circle"
-								@click="ShareN"
+								:data-versions="'N'"
 							>
 								无金额转发
 							</button>
@@ -365,7 +365,7 @@
 					<u-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder" shape="circle">发送订单</u-button>
 				</view>
 				<view class="" style="width: 40%; padding: 12rpx">
-					<u-button plain hover-class="none" :custom-style="{ border: '2rpx solid #01BB74', color: '#01BB74' }" @click="draftOrder" shape="circle">存草稿</u-button>
+					<u-button plain hover-class="none" :customStyle="{ border: '2rpx solid #01BB74', color: '#01BB74' }" @click="draftOrder" shape="circle">存草稿</u-button>
 				</view>
 			</view>
 		</view>
@@ -477,7 +477,6 @@ export default {
 			openOrder: false,
 			staffNumberEName: '',
 			limitingCondition: true,
-			ShareDetails: '',
 			PhoneFocus: false,
 			uNoticeBarlist: ['当年创建的订单请在12月31日前完成收款，逾期将无法处理~'],
 			SearchCustomStyleWechat: {
@@ -614,7 +613,9 @@ export default {
 					if (this.receipts.inventoryList.length <= 0) {
 						this.addEmp();
 					}
-
+					if (this.khPhone) {
+						this.searchIFNumberBlur();
+					}
 					this.authenticationSynchronization(this.receipts);
 				});
 		},
@@ -735,14 +736,6 @@ export default {
 				}
 			}
 		},
-		ShareY(item) {
-			this.ShareDetails = 'Y';
-			console.log('有金额');
-		},
-		ShareN(item) {
-			console.log('无金额');
-			this.ShareDetails = 'N';
-		},
 		ifInput(val) {
 			// console.log("输入框", val);
 			if (val === '') {
@@ -778,7 +771,7 @@ export default {
 				var pThumb = ops.target.dataset.thumb;
 				var phone = this.pinia_user.phone;
 				var port = this.pinia_userRole;
-				var versions = this.ShareDetails;
+				var versions = ops.target.dataset.versions;
 				console.log(pThumb);
 				return {
 					// title: `这是您的${versions=="Y"?"有金额":"无金额"}货单，请打开易单据查看详情~`,
@@ -1757,7 +1750,10 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+::v-deep button::after {
+	border: none !important; //按钮外边框border隐藏
+}
 .form-cover {
 	position: fixed;
 	top: 0;

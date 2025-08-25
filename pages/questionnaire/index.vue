@@ -66,30 +66,32 @@
 					</uv-checkbox-group>
 
 					<view class="" v-show="FormData[q_item.id].is_qita">
-						<up-input
+						<!-- <up-input
 							v-model="FormData[q_item.id].content"
 							placeholder="填写更多答案"
 							type="textarea"
 							:field-style="field_style"
 							:border-bottom="false"
 							label-width="0"
-						></up-input>
+						></up-input> -->
+						<u-textarea v-model="FormData[q_item.id].content" placeholder="填写更多答案"></u-textarea>
 					</view>
 				</view>
 				<view v-if="q_item.type == 'text'">
-					<up-input
+					<!-- <up-input
 						v-model="FormData[q_item.id].content"
 						placeholder="填写更多答案"
 						type="textarea"
 						:field-style="field_style"
 						:border-bottom="false"
 						label-width="0"
-					></up-input>
+					></up-input> -->
+					<u-textarea v-model="FormData[q_item.id].content" placeholder="填写更多答案"></u-textarea>
 				</view>
 			</view>
 			<view class="Note">注：仅可领取一次，主体下多成员的累积领取至多四次</view>
 			<view class="btn_submit">
-				<u-button type="warning" shape="circle" size="default" @click="submit" :custom-style="btn_submitStyle">提交</u-button>
+				<u-button type="warning" shape="circle" size="default" @click="submit" :customStyle="btn_submitStyle">提交</u-button>
 			</view>
 			<u-toast ref="uToast1" />
 		</view>
@@ -101,9 +103,6 @@ export default {
 	data() {
 		return {
 			surveyId: 1, //问卷id
-			customStyle: {
-				width: '600rpx'
-			},
 			i_type: 'text',
 			survey_data: {},
 			aaaa: true,
@@ -173,7 +172,7 @@ export default {
 				const isEmptyText = !value.content && !value.qita_content;
 				if (value.isRequired && isEmptySelect && isEmptyText) {
 					this.$refs.uToast1.show({
-						title: '请填写完整信息',
+						message: '请填写完整信息',
 						type: 'warning'
 					});
 					return; // 阻止提交
@@ -223,7 +222,7 @@ export default {
 
 				if (code === 200) {
 					this.$refs.uToast1.show({
-						title: '提交成功，奖励已发放！',
+						message: '提交成功，奖励已发放！',
 						type: 'success'
 					});
 					setTimeout(() => {
@@ -233,7 +232,7 @@ export default {
 					}, 1500);
 				} else {
 					this.$refs.uToast1.show({
-						title: message || '提交失败',
+						message: message || '提交失败',
 						type: 'warning'
 					});
 					setTimeout(() => {

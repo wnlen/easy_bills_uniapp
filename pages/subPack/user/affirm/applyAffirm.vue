@@ -11,7 +11,7 @@
 				{{ withdrawText }}
 			</view>
 			<view class="relation">
-				<u-button hover-class="none" :hair-line="false" open-type="contact" :custom-style="buttonStyle">联系客服</u-button>
+				<u-button hover-class="none" :hair-line="false" open-type="contact" :customStyle="buttonStyle">联系客服</u-button>
 			</view>
 		</view>
 	</view>

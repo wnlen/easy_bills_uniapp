@@ -73,7 +73,7 @@
 				</view>
 			</view>
 			<view class="flex-row justify-center pb20">
-				<u-button hover-class="none" :active="false" :hair-line="false" class="no-shadow-button" :custom-style="buttonStyle" open-type="contact">
+				<u-button hover-class="none" :active="false" :hair-line="false" class="no-shadow-button" :customStyle="buttonStyle" open-type="contact">
 					<u-icon name="kefu-ermai" size="28rpx"></u-icon>
 					<text class="ft28 ml10">客服咨询 ></text>
 				</u-button>
@@ -96,7 +96,61 @@
 			></u-swiper>
 			<!-- <image src="/static/img/index/new/banner.png" style="width: 100%;" mode="widthFix"></image> -->
 		</view>
+		<!-- 权限到期提示弹窗 -->
+		<up-overlay :show="expireShow">
+			<view class="flex-col justify-center items-center" style="width: 100%; height: 100%; background-color: transparent">
+				<view
+					class="flex-col justify-center items-center relative"
+					style="width: 80%; height: 25%; border-radius: 28rpx; background-image: url('https://res-oss.elist.com.cn/wxImg/user/dqalert.png'); background-size: cover"
+				>
+					<view class="absolute flex-col justify-center items-center" style="top: 0; height: 160rpx; font-size: 36rpx; font-weight: bold">提示</view>
 
+					<!-- #ifdef MP-WEIXIN -->
+					<text style="font-size: 32rpx; color: #999999">该{{ pinia_user.workData.identity == 3 ? '财务' : '分管' }}人员权限已到期,请联系</text>
+					<!-- #endif -->
+					<!-- #ifdef APP -->
+					<text style="font-size: 32rpx; color: #999999">人员权限已到期,请联系</text>
+					<!-- #endif -->
+					<text style="font-size: 32rpx; color: #999999">主账号续费</text>
+
+					<view class="absolute flex-col justify-center items-center" style="bottom: 0; height: 160rpx; width: 100%" @click="exit">
+						<view
+							class=""
+							style="
+								background: linear-gradient(0deg, #f18341 -17%, #ffb963 100%);
+								width: 320rpx;
+								height: 80rpx;
+								box-shadow: 0rpx 2rpx 6rpx 0rpx rgba(222, 118, 14, 0.2);
+								border-radius: 760rpx;
+								display: flex;
+								flex-direction: row;
+								justify-content: center;
+								align-items: center;
+							"
+						>
+							<view
+								class=""
+								style="
+									width: 284rpx;
+									height: 60rpx;
+									font-size: 28rpx;
+									font-weight: bold;
+									background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 68%);
+									border-radius: 440rpx;
+									color: white;
+									display: flex;
+									flex-direction: row;
+									justify-content: center;
+									align-items: center;
+								"
+							>
+								确认
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+		</up-overlay>
 		<!-- 切换角色 -->
 		<pop-role ref="popRole"></pop-role>
 		<!-- 新手指引 -->
@@ -215,7 +269,7 @@ export default {
 					value: 'R'
 				}
 			],
-			iconlist: [
+			iconlistD: [
 				{
 					title: '客户',
 					icon: '/static/img/index/new/icon1.png',
@@ -247,6 +301,73 @@ export default {
 					count: 0
 				}
 			],
+			iconlistR: [
+				{
+					title: '供应商',
+					icon: '/static/img/index/new/icon1.png',
+					path: '/pages/subIndex/my_customer/my_customer',
+					count: 0
+				},
+				{
+					title: '待办事项',
+					icon: '/static/img/index/new/icon4.png',
+					path: '/pages/subIndex/backlog/backlog',
+					count: 0
+				},
+				{
+					title: '付款单列表',
+					icon: '/static/img/index/new/icon6.png',
+					path: '/pages/subStatistics/receipt/bill_receipt?tid=付款单列表',
+					count: 0
+				},
+				{
+					title: '开付款单',
+					icon: '/static/img/index/new/icon7.png',
+					path: '/pages/subStatistics/receipt/receipt?tid=开付款单',
+					count: 0
+				},
+
+				{
+					title: '更多功能',
+					icon: '/static/img/index/new/icon5.png',
+					path: '/pages/subPack/more/more?tid=更多功能',
+					count: 0
+				}
+			],
+			// 财务列表
+			iconlistC: [
+				{
+					title: '客户',
+					icon: '/static/img/index/new/icon1.png',
+					path: '/pages/subIndex/my_customer/my_customer',
+					count: 0
+				},
+				{
+					icon: '/static/img/index/new/icon6.png',
+					title: '收款单列表',
+					path: '/pages/subStatistics/receipt/bill_receipt',
+					count: 0
+				},
+				{
+					icon: '/static/img/index/new/icon7.png',
+					title: '开收款单',
+					path: '/pages/subStatistics/receipt/receipt?tid=开收款单',
+					count: 0
+				},
+				{
+					title: '待办事项',
+					icon: '/static/img/index/new/icon4.png',
+					path: '/pages/subIndex/backlog/backlog',
+					count: 0
+				},
+				{
+					title: '更多功能',
+					icon: '/static/img/index/new/icon5.png',
+					path: '/pages/subPack/more/more?tid=更多功能',
+					count: 0
+				}
+			],
+			iconlist: [],
 			orderList2: [
 				{
 					name: '开送货单',
@@ -260,7 +381,8 @@ export default {
 					icon: '/static/img/index/new/index2.png',
 					path: '/pages/subStatistics/statistics'
 				}
-			]
+			],
+			expireShow: false
 		};
 	},
 	onShow() {
@@ -283,6 +405,7 @@ export default {
 			this.goToLogin();
 			//#endif
 		} else {
+			this.$loadUser(this);
 			this.guideCourse();
 			this.getOrderDB();
 		}
@@ -595,38 +718,22 @@ export default {
 						silent: true // 强制禁用该系列所有交互
 					}
 				};
-				this.iconlist = [
-					{
-						title: '客户',
-						icon: '/static/img/index/new/icon1.png',
-						path: '/pages/subIndex/my_customer/my_customer',
-						count: 0
-					},
-					{
-						title: '商品库',
-						icon: '/static/img/index/new/icon2.png',
-						path: '/pages/subOrder/commodityDetails/nventoryCommodities',
-						count: 0
-					},
-					{
-						title: '草稿箱',
-						icon: '/static/img/index/new/icon3.png',
-						path: '/pages/subOrder/drafts',
-						count: 0
-					},
-					{
-						title: '待办事项',
-						icon: '/static/img/index/new/icon4.png',
-						path: '/pages/subIndex/backlog/backlog',
-						count: 0
-					},
-					{
-						title: '更多功能',
-						icon: '/static/img/index/new/icon5.png',
-						path: '/pages/subPack/more/more?tid=更多功能',
-						count: 0
+
+				// 设置菜单
+				if (this.pinia_token) {
+					if (this.pinia_user.data.work == '0') {
+						this.iconlist = this.iconlistD;
+					} else {
+						if (this.pinia_user.workData.identity == '3') {
+							this.iconlist = this.iconlistC;
+						} else {
+							this.iconlist = this.iconlistD;
+						}
 					}
-				];
+				} else {
+					this.iconlist = this.iconlistD;
+				}
+
 				this.orderList2 = [
 					{
 						name: '开送货单',
@@ -658,7 +765,7 @@ export default {
 						show: false
 					},
 					title: {
-						name: '总销售',
+						name: '总供应',
 						fontSize: 14,
 						color: '#333',
 						offsetY: -5, // 设置与副标题的间距
@@ -706,39 +813,7 @@ export default {
 						}
 					]
 				};
-				this.iconlist = [
-					{
-						title: '供应商',
-						icon: '/static/img/index/new/icon1.png',
-						path: '/pages/subIndex/my_customer/my_customer',
-						count: 0
-					},
-					{
-						title: '待办事项',
-						icon: '/static/img/index/new/icon4.png',
-						path: '/pages/subIndex/backlog/backlog',
-						count: 0
-					},
-					{
-						title: '付款单列表',
-						icon: '/static/img/index/new/icon6.png',
-						path: '/pages/subStatistics/receipt/bill_receipt?tid=付款单列表',
-						count: 0
-					},
-					{
-						title: '开付款单',
-						icon: '/static/img/index/new/icon7.png',
-						path: '/pages/subStatistics/receipt/receipt?tid=开付款单',
-						count: 0
-					},
-
-					{
-						title: '更多功能',
-						icon: '/static/img/index/new/icon5.png',
-						path: '/pages/subPack/more/more?tid=更多功能',
-						count: 0
-					}
-				];
+				this.iconlist = this.iconlistR;
 				this.orderList2 = [
 					{
 						name: '送货单签收',
@@ -764,13 +839,20 @@ export default {
 			});
 			if (this.pinia_token) {
 				this.guideCourse();
-				this.getOrderDB();
 			}
 			this.setDR(value);
 		},
-		// 待办事项
+		// 待办事项  权限是否过期
 		getOrderDB() {
-			this.$u.getPinia('user.user.data.work');
+			// 版权过期
+			var workIFS = this.pinia_user.data.work == '1';
+			if (workIFS) {
+				var s = this.pinia_user.workData.endTime;
+				if (s == '0') {
+					this.expireShow = true;
+				}
+				return;
+			}
 			var workIF = this.pinia_user.data.work == '0';
 			var dx = {
 				bUser: '',
@@ -797,7 +879,17 @@ export default {
 				if (this.$u.getPinia('user.userRole') == 'D') {
 					this.iconlist[3].count = res.data.data[0];
 				} else {
-					this.iconlist[2].count = res.data.data[0];
+					this.iconlist[1].count = res.data.data[0];
+				}
+			});
+		},
+		exit() {
+			wx.exitMiniProgram({
+				success: function () {
+					console.log('成功退出小程序');
+				},
+				fail: function (err) {
+					console.error('退出小程序失败', err);
 				}
 			});
 		}

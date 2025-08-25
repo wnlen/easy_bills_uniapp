@@ -73,7 +73,7 @@
 					<!-- 			<text class="ft-gray ft24" @click="deleteItem(item.id)">删除</text> -->
 				</view>
 				<u-popup :show="show" @close="show = false" :safeAreaInsetBottom="false" mode="center" :closeable="true">
-					<u-image style="transform: rotate(90deg)" width="500rpx" height="800rpx" :src="item.signatureImg"></u-image>
+					<u-image style="transform: rotate(90deg)" width="500rpx" mode="widthFix" :src="item.signatureImg"></u-image>
 				</u-popup>
 
 				<up-overlay :show="showMask" @click="showMask = false">
@@ -88,7 +88,7 @@
 										@change="change"
 										@finish="finish"
 										:dot-fill="true"
-										:value="password"
+										v-model="password"
 										mode="box"
 									></u-message-input>
 									<view class="mt20 err" v-show="err">密码错误，请重新输入</view>
@@ -183,11 +183,11 @@ export default {
 				});
 		},
 		goDetails(val, type) {
+      this.password = '';
 			var password = this.pinia_user.password;
 			this.val = val;
 			this.type = type;
 			this.showMask = true;
-			console.log('密码：', password);
 		},
 		defaultItem(id) {},
 		deleteItem(id) {

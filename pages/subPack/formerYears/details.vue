@@ -342,7 +342,7 @@
 			</view>
 		</view>
 
-		<u-popup :show="showZG" mode="center" :round="14" @close="showZG = false" :safeAreaInsetBottom="false">
+		<u-popup :show="showZG" mode="center" @close="showZG = false" :safeAreaInsetBottom="false">
 			<image style="width: 500rpx; height: 100%" :src="showZGImg" mode="widthFix"></image>
 		</u-popup>
 
@@ -363,7 +363,7 @@
 			</view>
 		</u-popup>
 
-		<u-popup :show="showBrowsePrint" :custom-style="customStylePrint" mode="center" :safeAreaInsetBottom="false" round="14" @close="showBrowsePrint = false">
+		<u-popup :show="showBrowsePrint" :customStyle="customStylePrint" mode="center" :safeAreaInsetBottom="false" round="14" @close="showBrowsePrint = false">
 			<view class="w100 pt30 relative flex-col items-center" style="width: 650rpx" :style="`height:${showBrowsePrintHeight}`">
 				<scroll-view scroll-y="true" class="u-border pt20 pb20" style="width: 90%; overflow-y: auto" :style="{ height: ImageSoleHeight }">
 					<u-image width="100%" :src="item" mode="widthFix" v-for="(item, index) in browse" :show-menu-by-longpress="false" :key="index"></u-image>

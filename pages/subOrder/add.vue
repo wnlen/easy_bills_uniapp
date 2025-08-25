@@ -34,8 +34,7 @@
 								:data-id="transmitList[0].id"
 								:data-thumb="transmitList[0].picturesId"
 								shape="circle"
-								@click="beforeShare('Y')"
-								:disabled="!shareReady"
+								:data-versions="'Y'"
 							>
 								有金额转发
 							</button>
@@ -47,9 +46,8 @@
 								open-type="share"
 								:data-id="transmitList[0].id"
 								:data-thumb="transmitList[0].picturesId"
+								:data-versions="'N'"
 								shape="circle"
-								@click="beforeShare('N')"
-								:disabled="!shareReady"
 							>
 								无金额转发
 							</button>
@@ -382,7 +380,7 @@
 					<u-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder" shape="circle">发送订单</u-button>
 				</view>
 				<view class="" style="width: 40%; padding: 12rpx">
-					<u-button plain hover-class="none" :custom-style="{ border: '2rpx solid #01BB74', color: '#01BB74' }" @click="draftOrder" shape="circle">存草稿</u-button>
+					<u-button plain hover-class="none" :customStyle="{ border: '2rpx solid #01BB74', color: '#01BB74' }" @click="draftOrder" shape="circle">存草稿</u-button>
 				</view>
 			</view>
 		</view>
@@ -493,7 +491,6 @@ export default {
 			openOrder: false,
 			staffNumberEName: '',
 			limitingCondition: true,
-			ShareDetails: '',
 			PhoneFocus: false,
 			uNoticeBarlist: ['当年创建的订单请在12月31日前完成收款，逾期将无法处理~'],
 			SearchCustomStyleWechat: {
@@ -514,10 +511,9 @@ export default {
 			var pid = ops.target.dataset.id;
 			var phone = this.pinia_user.phone;
 			var port = this.pinia_userRole;
-			var versions = this.ShareDetails;
 			return {
 				title: `您有一张订单待确认~`,
-				path: '/pages/subOrder/detailsShare?share_id=' + pid + '&&type=1' + '&&phone=' + phone + '&&port=' + port + '&&versions=' + versions,
+				path: '/pages/subOrder/detailsShare?share_id=' + pid + '&&type=1' + '&&phone=' + phone + '&&port=' + port + '&&versions=' + ops.target.dataset.versions,
 				imageUrl: this.transmitList[0].picturesId || '/static/share.png'
 			};
 		} else {
@@ -685,12 +681,6 @@ export default {
 					}
 				}
 			}
-		},
-		beforeShare(type) {
-			this.ShareDetails = type;
-			return new Promise((resolve) => {
-				setTimeout(resolve, 100); // 等待 ShareDetails 设置完成
-			});
 		},
 		ifInput(val) {
 			if (val === '') {
@@ -1477,7 +1467,10 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+::v-deep button::after {
+	border: none !important; //按钮外边框border隐藏
+}
 .form-cover {
 	position: fixed;
 	top: 0;

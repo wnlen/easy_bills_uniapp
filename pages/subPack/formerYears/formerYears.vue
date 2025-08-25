@@ -391,7 +391,7 @@
 
 							<view class="flex-row mt20" style="width: 100%">
 								<view
-									class="text-center items-center mr24 pt5 tages"
+									class="justify-center items-center mr24 tages flex-row"
 									@click="Filtrate('0')"
 									:style="{
 										backgroundColor: showTage == '0' ? '#4E5777' : '#FFFBF1',
@@ -401,7 +401,7 @@
 									联系人
 								</view>
 								<view
-									class="text-center items-center mr24 pt5 tages"
+									class="justify-center items-center mr24 tages flex-row"
 									@click="Filtrate('1')"
 									:style="{
 										backgroundColor: showTage == '1' ? '#4E5777' : '#FFFBF1',
@@ -411,7 +411,7 @@
 									联系号码
 								</view>
 								<view
-									class="text-center items-center pt5 tages"
+									class="justify-center items-center tages flex-row"
 									@click="Filtrate('2')"
 									:style="{
 										backgroundColor: showTage == '2' ? '#4E5777' : '#FFFBF1',
@@ -423,7 +423,7 @@
 							</view>
 							<view class="flex-row mt20" style="width: 100%">
 								<view
-									class="text-center items-center pt5 tages"
+									class="justify-center items-center tages flex-row"
 									@click="Filtrate('3')"
 									:style="{
 										backgroundColor: showTage == '3' ? '#4E5777' : '#FFFBF1',
@@ -444,7 +444,7 @@
 						@click="filterReset"
 						shape="circle"
 						size="medium"
-						:custom-style="{
+						:customStyle="{
 							width: '154rpx',
 							color: '#999999',
 							margin: '0 20rpx 0 0',
@@ -453,7 +453,7 @@
 					>
 						重置
 					</u-button>
-					<u-button color="#4E5777" @click="filterSubmit" shape="circle" size="medium" :custom-style="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
+					<u-button color="#4E5777" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
 				</view>
 				<!-- 日历选择器 -->
 				<uv-calendars color="#01BB74" confirmColor="#01BB74" mode="range" :startDate="limitingTimeO" :endDate="limitingTimeT" ref="calendars" @confirm="date1Change" />
@@ -1453,6 +1453,9 @@ export default {
 </script>
 
 <style lang="scss">
+.card-list {
+	text-align: center !important;
+}
 .fliter-wrap {
 	.fliter-scroll {
 		width: 520rpx;

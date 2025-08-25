@@ -82,7 +82,7 @@
 										<text class="ml20" style="font-size: 32rpx; font-weight: bold">确认付款申请</text>
 									</view>
 									<div>
-										<u-button :custom-style="customStyle" color="#01BB74" shape="circle" @click="clickApply(item)">同意</u-button>
+										<u-button :customStyle="customStyle" color="#01BB74" shape="circle" @click="clickApply(item)">同意</u-button>
 									</div>
 								</view>
 								<view class="">
@@ -259,17 +259,20 @@ export default {
 			}
 		},
 		clickApply(item) {
+			let mes = null;
+			if (item.genre == 'P') {
+				mes = '确定同意吗？';
+			} else if (item.genre == 'D') {
+				mes = '确定删除吗？';
+			}
 			uni.showModal({
 				title: '温馨提醒',
-				content: '确定删除吗？',
+				content: mes,
 				success: (res) => {
 					if (res.confirm) {
-						// console.log('用户点击确定');
-						console.log(item);
-						var genre = item.genre;
-						if (genre == 'P') {
+						if (item.genre == 'P') {
 							this.okPlay(item);
-						} else if (genre == 'D') {
+						} else if (item.genre == 'D') {
 							this.okDel(item);
 						}
 					} else if (res.cancel) {

@@ -95,7 +95,7 @@
 						合计:
 						<text style="color: #01bb74">￥{{ totalPrices }}</text>
 					</text>
-					<u-button shape="circle" :custom-style="bottomCustomStyle" color="#01bb74" @click="save">保存</u-button>
+					<u-button shape="circle" :customStyle="bottomCustomStyle" color="#01bb74" @click="save">保存</u-button>
 				</view>
 			</template>
 		</z-paging>
@@ -135,7 +135,7 @@
 													maxlength="10"
 													placeholder="请输入"
 													@input="calculate"
-													:custom-style="uploadingCommodityInputStyle"
+													:customStyle="uploadingCommodityInputStyle"
 												/>
 											</view>
 										</u-td>
@@ -148,7 +148,7 @@
 													maxlength="10"
 													@input="calculate"
 													placeholder="请输入"
-													:custom-style="uploadingCommodityInputStyle"
+													:customStyle="uploadingCommodityInputStyle"
 												/>
 											</view>
 										</u-td>
@@ -159,7 +159,7 @@
 												disabled
 												maxlength="10"
 												placeholder="请输入"
-												:custom-style="uploadingCommodityInputStyle"
+												:customStyle="uploadingCommodityInputStyle"
 											/>
 										</u-td>
 									</u-tr>

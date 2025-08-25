@@ -90,7 +90,7 @@
 				</u-button>
 			</view>
 			<!-- <view class="ml5 mr5" style="flex: 1">
-				<u-button :custom-style="SearchCustomStyle"  shape="circle"
+				<u-button :customStyle="SearchCustomStyle"  shape="circle"
 					@click="goPath('/pages/subIndex/add_friend/add_friend')">
 					<view class=></view><u-icon  "pr10" name="phone-fill" color="#ffffff" size="30rpx"></u-icon>
 					手机号邀请

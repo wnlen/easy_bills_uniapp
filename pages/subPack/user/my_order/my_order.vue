@@ -98,7 +98,7 @@
 									justify-content: center;border: none;appearance: none;outline: none;box-shadow: none;">
 
 								</button> -->
-								<u-button hover-class="none" :hair-line="false" :custom-style="buttonStyle" open-type="contact">
+								<u-button hover-class="none" :hair-line="false" :customStyle="buttonStyle" open-type="contact">
 									报价咨询
 									<view class="ml8 mt1"><u-icon name="play-right-fill" color="#E7647F" size="16rpx"></u-icon></view>
 								</u-button>

@@ -8,53 +8,56 @@
 			@virtualListChange="virtualListChange"
 			@query="queryList"
 		>
-			<view slot="empty" style="padding-bottom: 200rpx">
-				<u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="360rpx"></u-icon>
-			</view>
-			<view class="Card cardShow">
-				<view class="InputCard">
-					<view class="InputOne">
-						<text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
-							{{ pinia_userRole === 'R' ? '供应商选择' : '客户选择' }}
-						</text>
-						<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
-						<view class="my-input flex-1">
-							<u-input
-								border="none"
-								@change="CustomerGetChange"
-								v-model="customer"
-								:customStyle="{ backgroundColor: 'transparent' }"
-								:placeholder="pinia_userRole === 'R' ? '请选择供应商' : '请选择客户'"
-								:clearable="true"
-							></u-input>
+			<template #empty>
+				<view style="padding-bottom: 200rpx">
+					<u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180rpx"></u-icon>
+				</view>
+			</template>
+			<template #top>
+				<view class="Card cardShow">
+					<view class="InputCard">
+						<view class="InputOne">
+							<text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
+								{{ pinia_userRole === 'R' ? '供应商选择' : '客户选择' }}
+							</text>
+							<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
+							<view class="my-input flex-1">
+								<u-input
+									border="none"
+									@change="CustomerGetChange"
+									v-model="customer"
+									:customStyle="{ backgroundColor: 'transparent' }"
+									:placeholder="pinia_userRole === 'R' ? '请选择供应商' : '请选择客户'"
+									:clearable="true"
+								></u-input>
+							</view>
+
+							<view class="flex-col justify-center items-center" style="height: 5vh">
+								<view class="ml40"><u-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon></view>
+							</view>
 						</view>
 
-						<view class="flex-col justify-center items-center" style="height: 5vh">
-							<view class="ml40"><u-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon></view>
-						</view>
-					</view>
+						<view class="InputOne">
+							<text class="ft11 ft-gray ml20" @click="filtrateGet">
+								{{ Title }}
+							</text>
+							<view class="ml10 mr10"><u-icon name="arrow-down-fill" size="20rpx"></u-icon></view>
+							<view class="my-input flex-1" v-if="showTage !== '1'">
+								<u-input border="none" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
+							</view>
+							<view class="ml24 my-input flex-1" v-if="showTage === '1'">
+								<u-input border="none" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
+							</view>
 
-					<view class="InputOne">
-						<text class="ft11 ft-gray ml20" @click="filtrateGet">
-							{{ Title }}
-						</text>
-						<view class="ml10 mr10"><u-icon name="arrow-down-fill" size="20rpx"></u-icon></view>
-						<view class="my-input flex-1" v-if="showTage !== '1'">
-							<u-input border="none" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
-						</view>
-						<view class="ml24 my-input flex-1" v-if="showTage === '1'">
-							<u-input border="none" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
-						</view>
-
-						<view class="flex-col justify-center items-center" style="height: 5vh">
-							<view class="ml40">
-								<u-icon name="/static/img/list/ss.svg" size="45rpx"></u-icon>
+							<view class="flex-col justify-center items-center" style="height: 5vh">
+								<view class="ml40">
+									<u-icon name="/static/img/list/ss.svg" size="45rpx"></u-icon>
+								</view>
 							</view>
 						</view>
 					</view>
 				</view>
-			</view>
-
+			</template>
 			<text class="NumOrder ml10">
 				<!-- <text>共<text style="color: #01BB74;">{{OrderQuantity}}</text>个订单</text> -->
 			</text>
@@ -249,7 +252,7 @@
 						@click="filterReset"
 						shape="circle"
 						size="medium"
-						:custom-style="{
+						:customStyle="{
 							width: '154rpx',
 							color: '#999999',
 							margin: '0 20rpx 0 0',
@@ -258,7 +261,7 @@
 					>
 						重置
 					</u-button>
-					<u-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :custom-style="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
+					<u-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
 				</view>
 				<!-- 日历选择器 -->
 				<uv-calendars

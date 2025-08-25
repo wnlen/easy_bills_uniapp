@@ -96,62 +96,64 @@
 			@virtualListChange="virtualListChange"
 			@query="queryList"
 		>
-			<view slot="empty" style="padding-bottom: 200rpx">
-				<u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="360rpx"></u-icon>
-			</view>
+			<template #empty>
+				<view style="padding-bottom: 200rpx">
+					<u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180rpx"></u-icon>
+				</view>
+			</template>
+			<template #top>
+				<view class="Card cardShow">
+					<view class="priceCard">
+						<text class="ft-gray mb18 ml10" style="color: #999999">累计金额</text>
+						<view class="">
+							<text class="ft40 ft-bold ml9">￥</text>
+							<u-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="40rpx" decimals="2" bold></u-count-to>
+						</view>
+					</view>
 
-			<view class="Card cardShow">
-				<view class="priceCard">
-					<text class="ft-gray mb18 ml10" style="color: #999999">累计金额</text>
-					<view class="">
-						<text class="ft40 ft-bold ml9">￥</text>
-						<u-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="40rpx" decimals="2" bold></u-count-to>
+					<view class="InputCard">
+						<view class="InputOne">
+							<text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
+								{{ pinia_userRole === 'R' ? '供应商选择' : '客户选择' }}
+							</text>
+							<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
+							<!-- <view style="width: 24rpx;height: 32rpx;border-right: 2rpx solid #666666;"></view> -->
+							<view class="my-input flex-1">
+								<u-input
+									border="none"
+									@change="CustomerGetChange"
+									v-model="customer"
+									:customStyle="{ backgroundColor: 'transparent' }"
+									:placeholder="pinia_userRole === 'R' ? '请选择供应商' : '请选择客户'"
+									:clearable="true"
+								></u-input>
+							</view>
+
+							<view class="flex-col justify-center items-center" style="height: 5vh">
+								<view class="ml40"><u-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon></view>
+							</view>
+						</view>
+
+						<view class="InputOne">
+							<text class="ft11 ft-gray ml20" @click="filtrateGet">
+								<!-- {{showTage==0?"联系人":(showTage==1?"联系号码":showTage==2?(pinia_userRole=='R'?'收货地址':'收货地址'):showTage==3?"产品名称":"条件筛选")}} -->
+								{{ Title }}
+							</text>
+							<view class="ml10 mr10"><u-icon name="arrow-down-fill" size="20rpx"></u-icon></view>
+							<view class="my-input flex-1" v-if="showTage !== '1'">
+								<u-input border="none" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
+							</view>
+							<view class="ml24 my-input flex-1" v-if="showTage === '1'">
+								<u-input border="none" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
+							</view>
+
+							<view class="flex-col justify-center items-center" style="height: 5vh">
+								<view class="ml40"><u-icon name="/static/img/list/ss.svg" size="45rpx" @click="SearchBtn"></u-icon></view>
+							</view>
+						</view>
 					</view>
 				</view>
-
-				<view class="InputCard">
-					<view class="InputOne">
-						<text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
-							{{ pinia_userRole === 'R' ? '供应商选择' : '客户选择' }}
-						</text>
-						<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
-						<!-- <view style="width: 24rpx;height: 32rpx;border-right: 2rpx solid #666666;"></view> -->
-						<view class="my-input flex-1">
-							<u-input
-								border="none"
-								@change="CustomerGetChange"
-								v-model="customer"
-								:customStyle="{ backgroundColor: 'transparent' }"
-								:placeholder="pinia_userRole === 'R' ? '请选择供应商' : '请选择客户'"
-								:clearable="true"
-							></u-input>
-						</view>
-
-						<view class="flex-col justify-center items-center" style="height: 5vh">
-							<view class="ml40"><u-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon></view>
-						</view>
-					</view>
-
-					<view class="InputOne">
-						<text class="ft11 ft-gray ml20" @click="filtrateGet">
-							<!-- {{showTage==0?"联系人":(showTage==1?"联系号码":showTage==2?(pinia_userRole=='R'?'收货地址':'收货地址'):showTage==3?"产品名称":"条件筛选")}} -->
-							{{ Title }}
-						</text>
-						<view class="ml10 mr10"><u-icon name="arrow-down-fill" size="20rpx"></u-icon></view>
-						<view class="my-input flex-1" v-if="showTage !== '1'">
-							<u-input border="none" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
-						</view>
-						<view class="ml24 my-input flex-1" v-if="showTage === '1'">
-							<u-input border="none" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
-						</view>
-
-						<view class="flex-col justify-center items-center" style="height: 5vh">
-							<view class="ml40"><u-icon name="/static/img/list/ss.svg" size="45rpx" @click="SearchBtn"></u-icon></view>
-						</view>
-					</view>
-				</view>
-			</view>
-
+			</template>
 			<text class="NumOrder ml10">
 				<text>
 					共
@@ -268,7 +270,7 @@
 								<button
 									class="hl-btn NY flex-row items-center justify-center"
 									type="default"
-									@click="ShareY(item)"
+									:data-versions="'Y'"
 									open-type="share"
 									name="Y"
 									:data-thumb="item.picturesId"
@@ -289,7 +291,7 @@
 								<button
 									class="hl-btn NY flex-row items-center justify-center"
 									type="default"
-									@click="ShareN(item)"
+									:data-versions="'N'"
 									open-type="share"
 									name="N"
 									:data-thumb="item.picturesId"
@@ -496,7 +498,7 @@
 						@click="filterReset"
 						shape="circle"
 						size="medium"
-						:custom-style="{
+						:customStyle="{
 							width: '154rpx',
 							color: '#999999',
 							margin: '0 20rpx 0 0',
@@ -505,7 +507,7 @@
 					>
 						重置
 					</u-button>
-					<u-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :custom-style="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
+					<u-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
 				</view>
 				<!-- 日历选择器 -->
 				<uv-calendars
@@ -645,7 +647,6 @@ export default {
 			type: 0,
 			hide: true,
 			textKHGGS: '客户选择',
-			ShareDetails: '',
 			showMask: false,
 			err: false,
 			password: '',
@@ -705,7 +706,7 @@ export default {
 			var pThumb = ops.target.dataset.thumb;
 			var phone = this.pinia_user.phone;
 			var port = this.pinia_userRole;
-			var versions = this.ShareDetails;
+			var versions = ops.target.dataset.versions;
 			console.log(pThumb);
 			return {
 				// title: `这是您的${versions=="Y"?"有金额":"无金额"}货单，请打开易单据查看详情~`,
@@ -1145,14 +1146,6 @@ export default {
 			this.verifyPassword.item = {};
 			this.verifyPassword.index = 0;
 			this.showMask = false;
-		},
-		ShareY(item) {
-			this.ShareDetails = 'Y';
-			//console.log("有金额");
-		},
-		ShareN(item) {
-			//console.log("无金额");
-			this.ShareDetails = 'N';
 		},
 		shareNY(item, i) {
 			item.share = i == 1 ? true : false;

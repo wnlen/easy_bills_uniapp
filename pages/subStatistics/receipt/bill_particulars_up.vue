@@ -62,7 +62,7 @@
 					<view class="" style="font-weight: bold; padding-top: 12rpx">修改订单</view>
 					<view class="absolute" style="right: 12rpx">
 						<!-- <u-button class="form-btn-big" hover-class="none" size="mini"
-							:custom-style="{backgroundColor:'#01BB74',color:'#ffffff'}" @click="selectOrder"
+							:customStyle="{backgroundColor:'#01BB74',color:'#ffffff'}" @click="selectOrder"
 							shape="circle">选择&gt;</u-button> -->
 						<view
 							@click="selectOrder"
@@ -135,6 +135,8 @@
 							:previewFullImage="true"
 							:deletable="true"
 							:showRetry="false"
+							width="200rpx"
+							height="200rpx"
 						>
 							<u-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></u-icon>
 						</u-upload>

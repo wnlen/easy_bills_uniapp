@@ -58,7 +58,7 @@
 										border="none"
 										@change="CustomerGetChange"
 										v-model="customer"
-										:custom-style="{ backgroundColor: 'transparent' }"
+										:customStyle="{ backgroundColor: 'transparent' }"
 										disabled="true"
 										:placeholder="pinia_userRole === 'R' ? '请选择供应商' : '请选择客户'"
 										:clearable="true"
@@ -108,7 +108,7 @@
 				</view>
 			</template>
 			<view slot="empty" style="padding-bottom: 200rpx">
-				<u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="360rpx"></u-icon>
+				<u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180rpx"></u-icon>
 			</view>
 
 			<view
@@ -482,7 +482,7 @@
 						@click="filterReset"
 						shape="circle"
 						size="medium"
-						:custom-style="{
+						:customStyle="{
 							width: '154rpx',
 							color: '#999999',
 							margin: '0 20rpx 0 0',
@@ -491,7 +491,7 @@
 					>
 						重置
 					</u-button>
-					<u-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :custom-style="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
+					<u-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
 				</view>
 			</view>
 		</u-popup>

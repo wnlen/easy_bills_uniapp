@@ -70,7 +70,7 @@
 				<view class="box_l">
 					<text>销售总额：</text>
 					<text style="color: #ffc300">
-						￥
+						<text>￥</text>
 						<uv-count-to color="#FFC300" fontSize="15" :startVal="0" decimals="2" separator="," :endVal="Statisticsdata.totalAmount"></uv-count-to>
 					</text>
 				</view>
@@ -317,7 +317,7 @@ export default {
 			}
 
 			console.log('type', this.type);
-			var url = '';
+			var searchapi = '';
 			if (this.type) {
 				uni.$api
 					.searchMarketUser({

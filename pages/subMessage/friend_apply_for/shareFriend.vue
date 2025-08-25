@@ -5,7 +5,7 @@
 		</view>
 		<view class="shareFriendBottom">
 			<view class="shareFriendBottomButton">
-				<u-button hover-class="none" shape="circle" :custom-style="customStyle" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">
+				<u-button hover-class="none" shape="circle" :customStyle="customStyle" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">
 					{{ invitationRole == 'D' ? '成为客户' : '成为供应商' }}
 				</u-button>
 			</view>
