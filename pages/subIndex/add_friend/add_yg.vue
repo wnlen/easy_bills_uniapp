@@ -52,7 +52,7 @@
 					>
 						添加
 					</button>
-					<view v-if="showYQZ" style="width: 100px; font-size: 13px; color: #01bb74" class="flex-row">邀请中</view>
+					<view v-if="showYQZ" style="width: 110rpx; color: #01bb74" class="flex-row justify-center ft26">邀请中</view>
 				</view>
 			</view>
 		</view>

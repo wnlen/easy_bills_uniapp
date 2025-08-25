@@ -615,7 +615,7 @@
 					"path": "statistics",
 					"style": {
 						"navigationBarTitleText": "订单统计",
-						"enablePullDownRefresh": false,
+						"enablePullDownRefresh": true,
 						"navigationBarBackgroundColor": "#ffffff",
 						"navigationStyle": "custom"
 					}

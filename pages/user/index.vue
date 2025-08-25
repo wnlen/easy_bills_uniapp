@@ -116,17 +116,17 @@
 					<u-cell-group :border="false">
 						<u-cell :title="menus[0].name" :titleStyle="{ color: '#666666' }" isLink @click="menuClick(menus[0])">
 							<template #icon>
-								<u-icon slot="icon" size="40rpx" :name="ImgUrl + menus[0].icon" color="#999" :custom-style="{ marginRight: '20rpx' }"></u-icon>
+								<u-icon slot="icon" size="40rpx" :name="ImgUrl + menus[0].icon" color="#999" :customStyle="{ marginRight: '20rpx' }"></u-icon>
 							</template>
 						</u-cell>
 						<u-cell :titleStyle="{ color: '#666666' }" v-for="(item, index) in filteredMenus" :key="index" :title="item.name" isLink @click="menuClick(item)">
 							<template #icon>
-								<u-icon slot="icon" size="40rpx" :name="ImgUrl + item.icon" color="#999" :custom-style="{ marginRight: '20rpx' }"></u-icon>
+								<u-icon slot="icon" size="40rpx" :name="ImgUrl + item.icon" color="#999" :customStyle="{ marginRight: '20rpx' }"></u-icon>
 							</template>
 						</u-cell>
 						<u-cell :titleStyle="{ color: '#666666' }" :title="menus[menus.length - 1].name" isLink @click="menuClick(menus[menus.length - 1])" :border="false">
 							<template #icon>
-								<u-icon slot="icon" size="40rpx" :name="ImgUrl + menus[menus.length - 1].icon" color="#999" :custom-style="{ marginRight: '20rpx' }"></u-icon>
+								<u-icon slot="icon" size="40rpx" :name="ImgUrl + menus[menus.length - 1].icon" color="#999" :customStyle="{ marginRight: '20rpx' }"></u-icon>
 							</template>
 						</u-cell>
 					</u-cell-group>

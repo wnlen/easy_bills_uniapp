@@ -18,7 +18,7 @@
 		</view>
 
 		<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/orderEmpty.svg" iconSize="400rpx" v-if="shareShow" text="订单已删除~" mode="search" margin-top="300"></u-empty>
-		<u-popup :show="showZG" mode="center" :round="14" @close="showZG = false" :safeAreaInsetBottom="false">
+		<u-popup :show="showZG" mode="center" @close="showZG = false" :safeAreaInsetBottom="false">
 			<image style="width: 500rpx; height: 100%" :src="showZGImg" mode="widthFix"></image>
 		</u-popup>
 		<view class="height80 fixed-bar-height" v-if="!shareShow">
@@ -40,7 +40,6 @@
 						</view>
 					</view>
 				</view>
-
 				<view class="bg-white pb350 flex-co mt10">
 					<view v-if="wxType == 1 && LookShar == 'D'" class="absolute" style="right: 20rpx">
 						<u-image
@@ -466,6 +465,7 @@ export default {
 					this.show = 0;
 					this.wxType = 1;
 					this.port = port;
+					this.LookShar = port;
 					this.sharePhone = phone;
 					this.versions = versions;
 

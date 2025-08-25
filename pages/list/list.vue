@@ -4,8 +4,8 @@
 			<template #top>
 				<!-- #ifdef MP-WEIXIN -->
 				<up-navbar :placeholder="true" leftIconColor="#fff" :titleStyle="titleStyle">
-					<template #left>
-						<view class="flex-row items-center justify-center" style="width: 100%; margin-left: 120rpx">
+					<template #center>
+						<view class="flex-row items-center justify-center">
 							<view class="" style="font-size: 34rpx; font-weight: 510">查询订单</view>
 							<view
 								@click="jumpVideo"
@@ -141,11 +141,11 @@
 					个订单
 				</text>
 			</text>
-
-			<view slot="empty" style="padding-bottom: 200rpx; margin-top: 22rpx">
-				<u-icon label-pos="bottom" :name="'/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="360rpx"></u-icon>
-			</view>
-
+			<template #empty>
+				<view slot="empty" style="padding-bottom: 200rpx; margin-top: 22rpx">
+					<u-icon label-pos="bottom" :name="'/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180rpx"></u-icon>
+				</view>
+			</template>
 			<view
 				v-for="(item, index) in orderList"
 				:key="item.id"
@@ -508,7 +508,7 @@
 						@click="filterReset"
 						shape="circle"
 						size="medium"
-						:custom-style="{
+						:customStyle="{
 							width: '154rpx',
 							color: '#999999',
 							margin: '0 20rpx 0 0',
@@ -517,7 +517,7 @@
 					>
 						重置
 					</u-button>
-					<u-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :custom-style="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
+					<u-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
 				</view>
 				<!-- 日历选择器 -->
 				<uv-calendars
@@ -1158,7 +1158,7 @@ function filterSubmit() {
 
 function VerifyAdd(item, index, type) {
 	err.value = false;
-	const pas = userStore.password;
+	const pas = pinia_user.value.vuex_password;
 	if (!pas) {
 		uni.showModal({
 			title: '暂无签收人，是否去添加？',
@@ -1223,7 +1223,7 @@ function VerifyAdd(item, index, type) {
 }
 
 function confirm(passwordInput) {
-	const storedPass = userStore.password;
+	const storedPass = pinia_user.value.vuex_password;
 	const { type, item, index } = verifyPassword.value;
 
 	if (storedPass === passwordInput) {

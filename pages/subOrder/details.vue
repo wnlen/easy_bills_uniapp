@@ -423,7 +423,7 @@
 					class="mt20"
 					hover-class="none"
 					shape="circle"
-					:custom-style="customStyle"
+					:customStyle="customStyle"
 					open-type="getPhoneNumber"
 					@getphonenumber="getPhoneNumber"
 					@click=""
@@ -436,12 +436,12 @@
 					<u-icon name="arrow-right" color="#aaaaaa" size="28rpx"></u-icon>
 				</view>
 
-				<!-- <u-button v-if="text" class="mt20" shape="circle" :custom-style="customStyle"
+				<!-- <u-button v-if="text" class="mt20" shape="circle" :customStyle="customStyle"
 					@click="exit">关闭单据</u-button> -->
 			</view>
 		</view>
 
-		<u-popup :show="showZG" mode="center" :round="14" @close="showZG = false" :safeAreaInsetBottom="false">
+		<u-popup :show="showZG" mode="center" @close="showZG = false" :safeAreaInsetBottom="false">
 			<image style="width: 500rpx; height: 100%" :src="showZGImg" mode="widthFix"></image>
 		</u-popup>
 
@@ -461,7 +461,7 @@
 				</view>
 			</view>
 		</u-popup>
-		<u-popup :show="showBrowsePrint" :custom-style="customStylePrint" mode="center" :safeAreaInsetBottom="false" round="14" @close="showBrowsePrint = false">
+		<u-popup :show="showBrowsePrint" :customStyle="customStylePrint" mode="center" :safeAreaInsetBottom="false" round="14" @close="showBrowsePrint = false">
 			<view class="w100 pt30 relative flex-col items-center" style="width: 650rpx" :style="`height:${showBrowsePrintHeight}`">
 				<scroll-view scroll-y="true" class="u-border pt20 pb20" style="width: 90%; overflow-y: auto" :style="{ height: ImageSoleHeight }">
 					<u-image width="100%" :src="item" mode="widthFix" v-for="(item, index) in browse" :show-menu-by-longpress="false" :key="index"></u-image>
@@ -1277,6 +1277,7 @@ export default {
 			this.post = [];
 			var that = this;
 			console.log('请求id：' + this.orderId);
+			/* 签收为什么掉两次signForOrder接口？ */
 			this.$api.order
 				.signForOrder(this.orderId)
 				.then((res) => {

@@ -11,15 +11,15 @@
 				<u-input border="none" v-model="formData.remark" placeholder="请输入备注" ></u-input>
 			</u-form-item> -->
 			<u-form-item label="手写签名" required prop="signeeImage" labelPosition="top" label-width="170rpx">
-				<!-- <view v-if="formData.signeeImage" class="text-center width100 mt30 signeeBox">
+				<view v-if="formData.signeeImage" class="text-center width100 mt30 signeeBox">
 					<image
 						@click="goPath('/pages/subSignature/signature')"
 						style="transform: rotate(-90deg); height: 50vw; width: 100%"
 						:src="formData.signeeImage"
 						mode="heightFix"
 					></image>
-				</view> -->
-				<view class="bg-white pd20 text-center width100 mt30 signeeBox flex-row items-center justify-center" @click="goPath('/pages/subSignature/signature')">
+				</view>
+				<view v-else class="bg-white pd20 text-center width100 mt30 signeeBox flex-row items-center justify-center" @click="goPath('/pages/subSignature/signature')">
 					<u-icon label="点击去签名" labelColor="#eee" name="edit-pen" color="#eee"></u-icon>
 				</view>
 			</u-form-item>
