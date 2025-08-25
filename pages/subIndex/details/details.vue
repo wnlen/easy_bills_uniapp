@@ -70,7 +70,7 @@
 				<view class="box_l">
 					<text>销售总额：</text>
 					<text style="color: #ffc300">
-						￥
+						<text>￥</text>
 						<uv-count-to color="#FFC300" fontSize="15" :startVal="0" decimals="2" separator="," :endVal="Statisticsdata.totalAmount"></uv-count-to>
 					</text>
 				</view>
@@ -317,14 +317,17 @@ export default {
 			}
 
 			console.log('type', this.type);
-			var url = '';
+			var searchapi = '';
 			if (this.type) {
-				url = 'user/searchMarket?phone=';
+				searchapi = this.$api.user.searchMarketUser;
 			} else {
-				url = 'user/search?phone=';
+				searchapi = this.$api.user.searchUser;
 			}
-
-			this.$u.post(url + phone + '&boss=' + boss + '&port=' + this.pinia_userRole).then((res) => {
+			searchapi({
+				phone: phone,
+				boss: boss,
+				port: this.pinia_userRole
+			}).then((res) => {
 				this.userData = res.data.data;
 				this.remark = res.data.data.remark;
 
@@ -333,9 +336,6 @@ export default {
 				} else {
 					this.up.remarkD = this.remark ? this.remark : null;
 				}
-				console.log('===获取个人信息===>', this.userData);
-				console.log('===获取个人备注===>', this.userData.remark);
-				console.log('===保存备注===>', this.remark);
 			});
 		},
 		//更新备注

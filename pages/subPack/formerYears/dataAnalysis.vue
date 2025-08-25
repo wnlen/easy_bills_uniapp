@@ -13,9 +13,9 @@ export default {
 	},
 	mounted() {},
 	onLoad(option) {
-		var work = this.pinia_user.data.work != '0';
-		var phone = this.pinia_user.phone;
-		var port = this.pinia_userRole;
+		var work = this.$u.getPinia('user.user.data.work') != '0';
+		var phone = this.$u.getPinia('user.user.phone');
+		var port = this.$u.getPinia('user.userRole');
 		console.log('!this.pinia_token', !this.pinia_token);
 		console.log('phone', this.phone);
 		console.log('port', port);

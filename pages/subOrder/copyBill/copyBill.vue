@@ -11,12 +11,12 @@
 						<view class="u-border-right item flex-col justify-center items-center" style="height: 100%">
 							<button
 								class="fx"
+								:data-versions="'Y'"
 								size="medium"
 								open-type="share"
 								:data-id="transmitList[0].id"
 								:data-thumb="transmitList[0].picturesId"
 								shape="circle"
-								@click="ShareY"
 							>
 								有金额转发
 							</button>
@@ -24,12 +24,12 @@
 						<view class="item flex-col justify-center items-center" style="height: 100%">
 							<button
 								class="fx"
+								:data-versions="'N'"
 								size="medium"
 								open-type="share"
 								:data-id="transmitList[0].id"
 								:data-thumb="transmitList[0].picturesId"
 								shape="circle"
-								@click="ShareN"
 							>
 								无金额转发
 							</button>
@@ -470,7 +470,6 @@ export default {
 			openOrder: false,
 			staffNumberEName: '',
 			limitingCondition: true,
-			ShareDetails: '',
 			PhoneFocus: false,
 			uNoticeBarlist: ['当年创建的订单请在12月31日前完成收款，逾期将无法处理~'],
 			SearchCustomStyleWechat: {
@@ -548,6 +547,9 @@ export default {
 
 		uni.setStorageSync('inventoryStockpile', this.orderItemList);
 		console.log('===this.receipts.bossNumberE===>', this.receipts.bossNumberE);
+		if (this.khPhone) {
+			this.searchIFNumberBlur();
+		}
 
 		this.authenticationSynchronization();
 	},
@@ -710,14 +712,6 @@ export default {
 				}
 			}
 		},
-		ShareY(item) {
-			this.ShareDetails = 'Y';
-			console.log('有金额');
-		},
-		ShareN(item) {
-			console.log('无金额');
-			this.ShareDetails = 'N';
-		},
 		ifInput(val) {
 			// console.log("输入框", val);
 			if (val === '') {
@@ -754,7 +748,7 @@ export default {
 				var pThumb = ops.target.dataset.thumb;
 				var phone = this.pinia_user.phone;
 				var port = this.pinia_userRole;
-				var versions = this.ShareDetails;
+				var versions = ops.target.dataset.versions;
 				console.log(pThumb);
 				return {
 					// title: `这是您的${versions=="Y"?"有金额":"无金额"}货单，请打开易单据查看详情~`,

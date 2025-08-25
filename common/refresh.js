@@ -129,10 +129,10 @@ export default (http) => ({
 					phone
 				})
 				.then((res) => {
-					console.log('记录结果：', res);
+					console.log('记录结果：', refs.$refs.popLetter);
 					if (res.data.data) {
-						refs?.popLetter?.letter?.();
-						refs.popLetter.show = true;
+						refs.$refs.popLetter.letter();
+						refs.$refs.popLetter.show = true;
 						app.config.globalProperties.$record();
 					}
 				})

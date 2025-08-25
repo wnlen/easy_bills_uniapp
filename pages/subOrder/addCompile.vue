@@ -380,7 +380,6 @@ export default {
 			openOrder: false,
 			staffNumberEName: '',
 			limitingCondition: true,
-			ShareDetails: '',
 			PhoneFocus: false,
 			newImg: []
 		};
@@ -453,14 +452,6 @@ export default {
 		defImg() {
 			this.action = uni.$http.config.baseURL + 'order/imgA';
 		},
-		ShareY(item) {
-			this.ShareDetails = 'Y';
-			console.log('有金额');
-		},
-		ShareN(item) {
-			console.log('无金额');
-			this.ShareDetails = 'N';
-		},
 		getCurrentDate() {
 			const date = new Date();
 			date.setDate(date.getDate() + 15);
@@ -492,81 +483,6 @@ export default {
 				console.log('不满足', val);
 				return false;
 			}
-		},
-		jumpTable() {
-			this.receipts.phoneE = '';
-			this.goPath('/pages/subOrder/table');
-		},
-		onShareAppMessage(ops) {
-			if (ops.from === 'button') {
-				console.log('分享：', ops);
-				var pid = ops.target.dataset.id;
-				var pThumb = ops.target.dataset.thumb;
-				var phone = this.pinia_user.phone;
-				var port = this.pinia_userRole;
-				var versions = this.ShareDetails;
-				console.log(pThumb);
-				return {
-					// title: `这是您的${versions=="Y"?"有金额":"无金额"}货单，请打开易单据查看详情~`,
-					title: `您有一张订单待确认~`,
-					path: '/pages/subOrder/detailsShare?share_id=' + pid + '&&type=1' + '&&phone=' + phone + '&&port=' + port + '&&versions=' + versions,
-					imageUrl: pThumb
-				};
-			} else {
-				return {
-					title: '打开易单据小程序，极速管理您的货单~',
-					path: '/pages/index/index',
-					imageUrl: '/static/share.png'
-				};
-			}
-		},
-		transpond() {
-			console.log('转发');
-		},
-		addEmp() {
-			var ifwork = this.pinia_user.data.work == '0';
-			var dx = {
-				id: '',
-				orderId: '',
-				phone: ifwork ? this.pinia_user.phone : this.pinia_user.workData.bossNumber,
-				staffNumber: this.pinia_user.phone,
-				description: '-',
-				specification: '-',
-				unit: '-',
-				quantity: '-',
-				unitPrice: '-',
-				color: {
-					description: 'transparent',
-					specification: 'transparent',
-					unit: 'transparent',
-					quantity: 'transparent',
-					unitPrice: 'transparent'
-				}
-			};
-
-			for (var i = 0; i < 1; i++) {
-				this.orderItemList.push(dx);
-			}
-		},
-		isAllNumbers(str) {
-			return /^\d+$/.test(str);
-		},
-		clear() {
-			this.searchCopy = '';
-			this.receipts.bossNumberE = '';
-			this.receipts.staffNumberE = '';
-			this.receipts.organizationE = '';
-			this.receipts.takeE = '';
-			this.searchDomain = '';
-		},
-		save() {
-			this.show = false;
-		},
-		handleUpload(e, list) {
-			this.imgList = list;
-		},
-		onRemoveImg(index, list) {
-			this.newImg.push(this.fileList[index]);
 		},
 		navBack() {
 			uni.navigateBack();

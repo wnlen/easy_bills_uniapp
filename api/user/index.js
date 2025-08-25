@@ -15,6 +15,13 @@ export default (http) => ({
 		return http.get('user/search', params);
 	},
 	/**
+	 * 搜索Marke用户（通过手机号）
+	 * 原始接口：/edo/user/search
+	 */
+	searchMarketUser(params) {
+		return http.get('user/searchMarket', params);
+	},
+	/**
 	 * 获取用户详情（通过手机号）
 	 * 原始接口：/edo/user/details
 	 */

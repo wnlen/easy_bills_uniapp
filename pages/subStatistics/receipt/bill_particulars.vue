@@ -52,18 +52,18 @@
 			</view>
 
 			<view class="FromFile">
-				<view class="FromFileTitle" v-if="billFrom.cBillFolderList.length > 0">图片</view>
+				<view class="FromFileTitle" v-if="imgFileList.length > 0">图片</view>
 				<view class="recently-cat flex-row flex-wrap" style="width: 95%">
 					<view class="ImgView">
 						<u-image
 							class="ml24"
-							v-for="(item, index) in billFrom.cBillFolderList"
+							v-for="(item, index) in imgFileList"
 							:key="index"
 							v-show="item.type == '0'"
 							width="150rpx"
 							height="150rpx"
 							:src="item.file"
-							@click="LookImg(billFrom.cBillFolderList)"
+							@click="LookImg(imgFileList)"
 						></u-image>
 					</view>
 				</view>
@@ -150,6 +150,7 @@ export default {
 			}
 
 			var list = [];
+			this.imgFileList = [];
 			this.billFrom.cBillFolderList.forEach((res) => {
 				if (res.type == '1') {
 					var split = res.file.split('-');
@@ -163,6 +164,8 @@ export default {
 						http: true
 					};
 					list.push(dx);
+				} else {
+					this.imgFileList.push(res);
 				}
 			});
 

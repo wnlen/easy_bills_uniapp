@@ -195,15 +195,8 @@
 							<text class="ft-bold" size="mini" :style="{ color: item2.total > 0 ? '#01BB74' : '#999999' }">￥{{ formatAmount(item2.total) }}</text>
 						</view>
 					</view>
-					<view class="" style="width: 20%; display: flex; flex-direction: row; justify-content: right" v-if="identity">
-						<u-button
-							v-if="item2.total > 0"
-							color="#01BB74"
-							:customStyle="{ width: '110rpx', height: '50rpx' }"
-							shape="circle"
-							@click.stop="collection(item2)"
-							size="mini"
-						>
+					<view class="" style="width: 20%; display: flex; flex-direction: row; justify-content: right" @click.stop="collection(item2)" v-if="identity">
+						<u-button v-if="item2.total > 0" color="#01BB74" :customStyle="{ width: '110rpx', height: '50rpx' }" shape="circle" size="mini">
 							{{ pinia_userRole != 'R' ? '去收款' : '去付款' }}
 						</u-button>
 					</view>

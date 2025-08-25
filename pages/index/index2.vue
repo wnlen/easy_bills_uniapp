@@ -223,7 +223,7 @@
 							<u-badge v-if="item.count" bgColor="#E52829" :count="item.count" class="mr30" absolute :offset="['0', '0']"></u-badge>
 						</view>
 						<view v-else>
-							<u-button hover-class="none" :hair-line="false" :custom-style="buttonStyle" open-type="contact">
+							<u-button hover-class="none" :hair-line="false" :customStyle="buttonStyle" open-type="contact">
 								<view class="flex-col justify-center items-center" style="width: 100%">
 									<u-icon size="55" :name="item.icon"></u-icon>
 									<view class="grid-text" style="">{{ item.text }}</view>
@@ -258,7 +258,7 @@
 							<u-badge v-if="item.count" bgColor="#E52829" :count="item.count" class="mr30" style="position: absolute; top: 0rpx; right: 0rpx"></u-badge>
 						</view>
 						<view class="" v-else>
-							<u-button hover-class="none" :hair-line="false" :custom-style="buttonStyle" open-type="contact">
+							<u-button hover-class="none" :hair-line="false" :customStyle="buttonStyle" open-type="contact">
 								<view class="flex-col justify-center items-center" style="width: 100%">
 									<u-icon size="110" :name="item.icon"></u-icon>
 									<view class="grid-text" style="">{{ item.text }}</view>

@@ -47,7 +47,7 @@
 		</view>
 
 		<view class="" style="position: absolute; bottom: 40rpx; width: 94%; justify-content: center; left: 3%">
-			<u-button hover-class="none" :custom-style="{ backgroundColor: '#01BB74', color: '#ffffff' }" class="form-btn-big" @click="commodityDetailsUpdate" shape="circle">
+			<u-button hover-class="none" :customStyle="{ backgroundColor: '#01BB74', color: '#ffffff' }" class="form-btn-big" @click="commodityDetailsUpdate" shape="circle">
 				编辑商品
 			</u-button>
 		</view>
