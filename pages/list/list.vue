@@ -600,7 +600,7 @@ const OrderQuantity = ref(0);
 const OrderQuantitySum = ref(0);
 const searchText = ref('');
 const companyIndex = ref(0);
-const tabsList = ref([
+let tabsList = ref([
 	{
 		name: '全部'
 	},
@@ -734,7 +734,7 @@ onLoad(() => {
 		tabHight.value = value || '100rpx';
 	});
 	OperatingSystem.value = getOperatingSystem();
-
+	console.log('userStore.userRole11111111111111111', userStore.userRole);
 	if (userStore.userRole == 'R') {
 		tabsList = ref([
 			{
@@ -750,23 +750,34 @@ onLoad(() => {
 				name: '已付款'
 			}
 		]);
+	} else {
+		tabsList = ref([
+			{
+				name: '全部'
+			},
+			{
+				name: '待签收'
+			},
+			{
+				name: '已签收'
+			},
+			{
+				name: '已收款'
+			}
+		]);
 	}
 	console.log('OperatingSystem:', OperatingSystem.value);
 });
 
 // 页面进入展示
 onShow(() => {
+	current.value = globalStore.tabIndex;
 	if (userStore.user.phone) {
-		console.log('globalStore.tabIndex', globalStore.tabIndex);
-		current.value = globalStore.tabIndex;
 		loadData();
 		useInitPage(realTimeSel, searchList, paging, date1, date2, tabsList.value, customer, current);
 		// paging.value?.reload()
 	} else {
 		uni.$u.toast('登录查看更多');
-		if (globalStore.tabIndex !== '') {
-			current.value = Number(globalStore.tabIndex) + 1;
-		}
 	}
 });
 
