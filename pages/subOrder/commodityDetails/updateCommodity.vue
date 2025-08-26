@@ -135,7 +135,9 @@ export default {
 
 						this.imgList.push({
 							url: this.uploadingCommodity.img === 'definde' ? 'https://res-oss.elist.com.cn/wxImg/order/emptyView.png' : this.uploadingCommodity.img,
-							uploading: false
+							uploading: false,
+							status: 'success',
+							type: 'image'
 						});
 					}
 				})
@@ -199,27 +201,28 @@ export default {
 		},
 		updMerchandiseInventory() {
 			var that = this;
-
-			if ((this.imgList.uploading == undefined && this.imgList.length > 0) || (this.imgList.uploading == null && this.imgList.length > 0)) {
-				this.updMerchandiseInventoryYes(that);
-			} else {
-				if (this.imgList.length <= 0 && this.uploadingCommodity.img != 'definde') {
-					this.uploadingCommodity.img = 'definde';
+			if (this.imgList.length) {
+				if (this.imgList[0].url.includes('http://tmp/')) {
+					this.updMerchandiseInventoryYes(that);
+					return;
+				} else {
+					this.uploadingCommodity.img = this.imgList[0].url;
 				}
-
-				that.$api.library
-					.updateCommodity(that.uploadingCommodity)
-					.then((res) => {
-						console.log(res);
-						that.$u.toast(res.data.message);
-						if (res.data.data == '1') {
-							uni.navigateBack();
-						}
-					})
-					.catch((res) => {
-						that.$u.toast('获取失败');
-					});
+			} else {
+				this.uploadingCommodity.img = 'definde';
 			}
+			uni.$api.library
+				.updateCommodity(that.uploadingCommodity)
+				.then((res) => {
+					console.log('res', res);
+					that.$u.toast(res.data.message);
+					if (res.data.data == '1') {
+						uni.navigateBack();
+					}
+				})
+				.catch((res) => {
+					that.$u.toast('获取失败');
+				});
 		},
 		updMerchandiseInventoryYes(that) {
 			this.uploadingCommodity.imgId = 'QD' + new Date().getTime();
@@ -238,7 +241,7 @@ export default {
 					imageType: '1'
 				},
 				success: (uploadFileRes) => {
-					console.log(uploadFileRes.data);
+					console.log('uploadFileRes.data', uploadFileRes.data);
 					that.uploadingCommodity.img = uploadFileRes.data;
 					that.$api.library
 						.updateCommodity(that.uploadingCommodity)

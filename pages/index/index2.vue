@@ -947,7 +947,7 @@ export default {
 			}
 		},
 		SOCKETfLUSH() {
-			this.unwatchFlush = this.$store.watch(
+			this.unwatchFlush = this.$watch(
 				(state) => state.flush, // 监听状态
 				(newVal, oldVal) => {
 					this.flushIndex = newVal;

@@ -28,7 +28,8 @@ export default {
 	data() {
 		return {
 			tabbar: [],
-			messNum: 0
+			messNum: 0,
+			isDsabled: false
 		};
 	},
 	created() {
@@ -37,6 +38,10 @@ export default {
 	},
 	methods: {
 		getMessNum() {
+			if (this.isDsabled) {
+				return;
+			}
+			this.isDsabled = true;
 			this.messNum = 0;
 			if (this.$u.getPinia('user.token')) {
 				var dx = {
@@ -44,23 +49,27 @@ export default {
 					staff: this.pinia_user.phone,
 					work: this.pinia_user.data.work
 				};
-				this.$api.inform
+				uni.$api.inform
 					.getAllMessages(dx)
 					.then((res) => {
 						res.data.data.forEach((el) => {
 							this.messNum += el;
 						});
+						this.isDsabled = false;
 					})
-					.catch((res) => {
-						this.$u.toast(this.message);
+					.catch((err) => {
+						this.isDsabled = false;
 					});
 			}
 		},
 		changeTab(e) {
+			console.log(e);
 			uni.switchTab({
 				url: this.tabbar[e].pagePath
 			});
-			this.getMessNum();
+			if (e != 2) {
+				this.getMessNum();
+			}
 		}
 	}
 };

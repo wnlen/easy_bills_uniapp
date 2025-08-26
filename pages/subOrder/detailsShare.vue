@@ -273,7 +273,7 @@
 				<view class="absolute pt20" style="width: 100%; top: 0; height: 75%">
 					<view class="flex-row items-center justify-center passwordTitle">请输入签收密码</view>
 					<view class="flex-col items-center justify-center mt20" style="width: 100%; height: 35%">
-						<u-message-input @change="changePassword" @finish="finishPassword" :dot-fill="true" :value="password" mode="box"></u-message-input>
+						<u-message-input active-color="#01BB74" @change="changePassword" @finish="finishPassword" :dot-fill="true" v-model="password" mode="box"></u-message-input>
 						<view class="mt20 err" v-show="err">密码错误，请重新输入</view>
 					</view>
 					<view @click="goPath('/pages/subUser/resetpassword')" class="ft12 pr30 flex-row justify-end pt15" style="color: #999; width: 100%">找回密码</view>
@@ -557,7 +557,7 @@ export default {
 		},
 		shareClick() {
 			console.log('返回', this.port);
-			if (this.$u.getPinia('user.user.phone') != undefined) {
+			if (this.$u.getPinia('user.user.phone')) {
 				if (this.LookThree) {
 				} else {
 					if (this.LookThreeNo) {
@@ -581,8 +581,8 @@ export default {
 					}
 				});
 			}
-
-			if (this.$u.getPinia('user.userRole') != null && this.$u.getPinia('user.userRole') != undefined && this.$u.getPinia('user.userRole') != '') {
+			// && this.$u.getPinia('user.userRole') != undefined && this.$u.getPinia('user.userRole') != ''
+			if (this.$u.getPinia('user.userRole')) {
 				uni.switchTab({
 					url: '/pages/index/index'
 				});
@@ -808,7 +808,7 @@ export default {
 						success: (res) => {
 							if (res.confirm) {
 								uni.navigateTo({
-									url: '/pages/subAuth/qiye'
+									url: '/pages/subAuth/qiye?btn=0'
 								});
 							}
 						},

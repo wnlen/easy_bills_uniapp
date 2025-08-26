@@ -217,8 +217,8 @@
 					<u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180rpx"></u-icon>
 				</view>
 			</template>
-			<template #bottom :style="{ display: current == 0 ? 'block' : 'none' }">
-				<view class="fixedBar pd10" style="">
+			<template #bottom>
+				<view class="fixedBar pd10" style="" v-if="current == 0">
 					<view class="fixedBarLeft">
 						<view class="fixedBarLeftTop">
 							<view class="LeftTop_text">
@@ -365,8 +365,6 @@ export default {
 	},
 	onLoad(option) {
 		console.log('进入', option);
-	},
-	onShow() {
 		if (this.pinia_userRole == 'D') {
 			uni.setNavigationBarTitle({
 				title: '收款单列表'
@@ -390,9 +388,10 @@ export default {
 			this.$refs.paging.reload();
 		}
 	},
+	onShow() {},
 	methods: {
 		SOCKETfLUSH() {
-			this.unwatchFlush = this.$store.watch(
+			this.unwatchFlush = this.$watch(
 				(state) => state.flush, // 监听状态
 				(newVal, oldVal) => {
 					this.flushIndex = newVal;

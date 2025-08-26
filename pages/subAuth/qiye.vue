@@ -98,9 +98,7 @@ export default {
 			license: 'https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/auth/upload.svg'
 		};
 	},
-	onShow() {
-		this.loadData();
-	},
+	onShow() {},
 	onLoad(a) {
 		this.show = a.btn;
 		console.log(this.show);
@@ -116,9 +114,9 @@ export default {
 			this.userInfo.accountSubject.contactPhone = this.pinia_user.ac.phone;
 			this.userInfo.accountSubject.address = this.pinia_user.ac.businessSite;
 		},
-		loadData(a) {
-			let that = this;
-		},
+		// loadData(a) {
+		// 	let that = this;
+		// },
 		// 上传订单logo
 		upOrderLogo() {
 			var that = this;
