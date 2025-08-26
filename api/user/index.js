@@ -147,5 +147,4 @@ export default (http) => ({
 	deleteRelationApply(params) {
 		return http.post('relationApply/del', params);
 	}
-
 });

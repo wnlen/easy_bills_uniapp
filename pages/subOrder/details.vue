@@ -1278,7 +1278,9 @@ export default {
 			var that = this;
 			console.log('请求id：' + this.orderId);
 			uni.$api.order
-				.signForOrder(this.orderId)
+				.getOrderById({
+					orderId: this.orderId
+				})
 				.then((res) => {
 					console.log('请求结果：', res.data.data);
 					that.post = res.data.data.post;
