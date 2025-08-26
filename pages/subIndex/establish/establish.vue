@@ -92,7 +92,7 @@ export default {
 	},
 	methods: {
 		changeText(e) {
-			// console.log(e);
+			//
 		},
 		searchPhoneInput(e) {
 			this.submitUser.eBossNumber = e.target.value;
@@ -125,11 +125,9 @@ export default {
 		},
 		establishFriend() {
 			var ver = this.verification();
-			console.log('添加', ver);
+
 			if (ver) {
-				console.log('添加', this.submitUser);
 				uni.$api.order.directDelivery(this.submitUser).then((res) => {
-					console.log('===添加结果===>', res.data);
 					var mes = res.data;
 					this.$u.toast(mes.message);
 					if (mes.data >= 1) {
@@ -141,13 +139,6 @@ export default {
 			}
 		},
 		verification() {
-			console.log('eBossNumber-searchPhone====>', this.submitUser.eBossNumber == this.submitUser.searchPhone);
-			console.log('eBossNumber===>', this.submitUser.eBossNumber);
-			console.log('searchPhone===>', this.submitUser.searchPhone);
-			console.log('remarkD===>', this.user.port == 'D' ? this.submitUser.remarkD : this.submitUser.remarkR);
-			console.log('remark===>', remark != null && remark != '');
-			console.log('submitUser===>', this.submitUser);
-
 			var search = this.submitUser.searchPhone;
 			var remark = this.user.port == 'D' ? this.submitUser.remarkD : this.submitUser.remarkR;
 
@@ -186,7 +177,7 @@ export default {
 
 			const regex = /^1[3-9]\d{9}$/;
 			var zz = regex.test(search);
-			console.log('===手机号码验证===>', zz);
+
 			if (!zz) {
 				this.$u.toast('请输入11位数字手机号码！');
 				return false;
