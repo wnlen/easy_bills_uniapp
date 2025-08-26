@@ -382,7 +382,8 @@ export default {
 					path: '/pages/subStatistics/statistics'
 				}
 			],
-			expireShow: false
+			expireShow: false,
+			unwatchFlush: null
 		};
 	},
 	onShow() {
@@ -407,13 +408,24 @@ export default {
 		} else {
 			this.$loadUser(this);
 			this.guideCourse();
-			this.getOrderDB();
+			this.SOCKETfLUSH();
 		}
 
 		this.setDR(this.pinia_userRole);
 	},
 	onLoad() {},
 	methods: {
+		// 监听数据
+		SOCKETfLUSH() {
+			this.unwatchFlush = this.$watch(
+				(state) => state.flush, // 监听状态
+				(newVal, oldVal) => {
+					this.getOrderDB();
+					console.log('监听SOCKET状态');
+				},
+				{ deep: true, immediate: true }
+			);
+		},
 		// 跳转订单页
 		goList(val) {
 			// this.current=val

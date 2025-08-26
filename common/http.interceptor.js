@@ -99,16 +99,17 @@ export const initRequest = () => {
 	// ===== 收到响应后的统一处理（token 过期等） =====
 	http.interceptors.response.use((res) => {
 		// 注意：luch 在小程序端一般用 res.statusCode，H5 用 res.status；保险起见都判断一下
-		const httpCode = res?.statusCode ?? res?.status
-		const bizCode = res?.data?.code
+		return res
+	}, (error) => {
+		console.log('响应错误:', error);
+		const httpCode = error?.statusCode ?? error?.status
+		const bizCode = error?.data?.code
 		if (httpCode === 401 || bizCode === 401) {
 			uni.hideLoading()
 			goLoginOnce()
 			// 抛错给业务，避免错误被吃掉
-			return Promise.reject(res)
+			return Promise.reject(error)
 		}
-
-		return res
 	})
 	return http;
 };

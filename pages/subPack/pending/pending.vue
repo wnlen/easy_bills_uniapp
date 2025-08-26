@@ -540,7 +540,16 @@
 					<view class="absolute pt20" style="width: 100%; top: 0; height: 75%">
 						<view class="flex-row items-center justify-center passwordTitle">请输入签收密码</view>
 						<view class="flex-col items-center justify-center mt20" style="width: 100%; height: 35%">
-							<u-message-input bold="false" @change="changeList" @finish="finishList" :dot-fill="true" :value="password" mode="box" maxlength="4"></u-message-input>
+							<u-message-input
+								active-color="#01BB74"
+								bold="false"
+								@change="changeList"
+								@finish="finishList"
+								:dot-fill="true"
+								v-model="password"
+								mode="box"
+								maxlength="4"
+							></u-message-input>
 							<view class="mt20 err" v-show="err">密码错误，请重新输入</view>
 						</view>
 						<view @click="goPath('/pages/subUser/resetpassword')" class="ft12 pr30 flex-row justify-end pt15" style="color: #999; width: 100%">找回密码</view>
@@ -1172,7 +1181,7 @@ export default {
 			return val.includes('zx-');
 		},
 		SOCKETfLUSH() {
-			this.unwatchFlush = this.$store.watch(
+			this.unwatchFlush = this.$watch(
 				(state) => state.flush, // 监听状态
 				(newVal, oldVal) => {
 					this.flushIndex = newVal; // 当状态变化时，更新本地数据

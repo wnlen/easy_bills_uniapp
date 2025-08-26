@@ -143,6 +143,7 @@ export default {
 			this.loadData();
 			// this.SOCKETfLUSH();
 			this.getAllNum();
+			this.$refs.popTab.getMessNum();
 		} else {
 			this.$u.toast('登录了解更多');
 		}
@@ -204,7 +205,7 @@ export default {
 			console.log('用户信息实时更新 ', this.pinia_user);
 		},
 		SOCKETfLUSH() {
-			this.unwatchFlush = this.$store.watch(
+			this.unwatchFlush = this.$watch(
 				(state) => state.flush, // 监听状态
 				(newVal, oldVal) => {
 					this.flushIndex = newVal; // 当状态变化时，更新本地数据

@@ -439,7 +439,7 @@ export default {
 	},
 	methods: {
 		SOCKETfLUSH() {
-			this.unwatchFlush = this.$store.watch(
+			this.unwatchFlush = this.$watch(
 				(state) => state.flush, // 监听状态
 				(newVal, oldVal) => {
 					this.flushIndex = newVal; // 当状态变化时，更新本地数据

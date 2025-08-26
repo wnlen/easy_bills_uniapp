@@ -2,30 +2,41 @@
 	<view class="pl48 pr48 pb38 vw100">
 		<view class="sign" style="color: #333333">企业信息</view>
 		<u-form class="vw100" :model="formDataFirm" ref="uFormQy" labelPosition="left" :label-style="{ 'line-height': 1 }" :error-type="['toast']">
-			<u-form-item label="姓名" prop="formDataFirm" required label-width="170">
+			<u-form-item borderBottom label="姓名" prop="formDataFirm" required label-width="170">
 				<u-input border="none" v-model="formDataFirm.userName" placeholder="请输入姓名" maxlength="50"></u-input>
 			</u-form-item>
-			<u-form-item label="企业名称" prop="password" required label-width="170">
+			<u-form-item borderBottom label="企业名称" prop="password" required label-width="170">
 				<u-input border="none" v-model="formDataFirm.enterpriseName" placeholder="请输入企业名称" maxlength="50"></u-input>
 			</u-form-item>
-			<!-- <u-form-item label="企业简称" prop="password" required label-width="170">
+			<!-- <u-form-item borderBottom label="企业简称" prop="password" required label-width="170">
 				<u-input border="none" v-model="formDataFirm.abbreviation" placeholder="请输入企业简称" />
 			</u-form-item> -->
-			<u-form-item label="企业地址" prop="password" required label-width="170">
+			<u-form-item borderBottom label="企业地址" prop="password" required label-width="170">
 				<u-input border="none" v-model="formDataFirm.businessSite" placeholder="请输入企业地址"></u-input>
 			</u-form-item>
 		</u-form>
 
 		<view class="sign" style="color: #333333">签收管理</view>
 		<u-form class="vw100" :model="formData" ref="uForm" labelPosition="left" :label-style="{ 'line-height': 1 }" :error-type="['toast']">
-			<u-form-item label="签收人姓名" prop="signeeName" required label-width="170">
+			<u-form-item borderBottom label="签收人姓名" prop="signeeName" required label-width="170">
 				<u-input border="none" v-model="formData.signeeName" placeholder="请输入签收人姓名" maxlength="50"></u-input>
 			</u-form-item>
-			<u-form-item label="签收密码" prop="password" required label-width="170">
+			<u-form-item borderBottom label="签收密码" prop="password" required label-width="170">
 				<u-input border="none" v-model="formData.password" type="number" placeholder="请设置密码" maxlength="4"></u-input>
 			</u-form-item>
 			<u-form-item label="手写签名" required prop="signeeImage" labelPosition="top" label-width="170">
-				<view v-if="formData.signeeImage" class="text-center width100" style="height: 50vw; border: 4rpx dashed #eee">
+				<view v-if="formData.signeeImage" class="text-center width100 mt30 signeeBox">
+					<image
+						@click="goPath('/pages/subSignature/signature')"
+						style="transform: rotate(-90deg); height: 50vw; width: 100%"
+						:src="formData.signeeImage"
+						mode="heightFix"
+					></image>
+				</view>
+				<view v-else class="bg-white pd20 text-center width100 mt30 signeeBox flex-row items-center justify-center" @click="goPath('/pages/subSignature/signature')">
+					<u-icon label="点击去签名" labelColor="#eee" name="edit-pen" color="#eee"></u-icon>
+				</view>
+				<!-- <view v-if="formData.signeeImage" class="text-center width100" style="height: 50vw; border: 4rpx dashed #eee">
 					<image
 						@click="goPath('/pages/subSignature/signature')"
 						style="transform: rotate(-90deg); height: 50vw; width: 100%"
@@ -35,7 +46,7 @@
 				</view>
 				<view v-else class="bg-white pd20 text-center width100" @click="goPath('/pages/subSignature/signature')">
 					<u-icon label="点击去签名" name="edit-pen"></u-icon>
-				</view>
+				</view> -->
 			</u-form-item>
 		</u-form>
 		<view class="mt60">
@@ -256,5 +267,13 @@ export default {
 	letter-spacing: 0rpx;
 	padding-top: 24rpx;
 	padding-bottom: 24rpx;
+}
+::v-deep .u-form-item__body__left__content__required {
+	left: -25rpx !important;
+	top: -2rpx !important;
+}
+.signeeBox {
+	height: 50vw;
+	border: 4rpx dashed #eee;
 }
 </style>
