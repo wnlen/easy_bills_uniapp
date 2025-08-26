@@ -44,101 +44,95 @@
 						</view>
 					</view>
 				</view>
-
-				<view class="ml24 mr24 mb24">
-					<div class="bg-white pd20 mt20 radius flex-col justify-center items-center cardShow">
-						<view class="flex-col" style="width: 100%">
-							<text class="ft30 ft-gray mb18" style="color: #999999">累计金额</text>
-							<view class="">
-								<text class="ft42 ft-bold">￥</text>
-								<u-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="40rpx" decimals="2" bold></u-count-to>
-							</view>
+			</template>
+			<view class="ml24 mr24 mb24">
+				<div class="bg-white pd20 mt20 radius flex-col justify-center items-center cardShow">
+					<view class="flex-col" style="width: 100%">
+						<text class="ft30 ft-gray mb18" style="color: #999999">累计金额</text>
+						<view class="">
+							<text class="ft42 ft-bold">￥</text>
+							<u-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="40rpx" decimals="2" bold></u-count-to>
 						</view>
+					</view>
 
-						<view class="flex-row justify-center items-center mt20" style="width: 100%">
-							<view
-								class="flex-row justify-center items-center mr24 tags2"
-								@click="choiceGET(0)"
-								:style="{
-									color: showOrderTage == '0' ? '#01BB74' : '#999999',
-									border: '2rpx solid ' + (showOrderTage == '0' ? '#01BB74' : '#999999')
-								}"
-							>
-								全部
-							</view>
-							<view
-								class="flex-row justify-center items-center mr24 tags2"
-								@click="choiceGET(1)"
-								:style="{
-									color: showOrderTage == '1' ? '#01BB74' : '#999999',
-									border: '2rpx solid ' + (showOrderTage == '1' ? '#01BB74' : '#999999')
-								}"
-							>
-								{{ pinia_userRole == 'R' ? '待确收' : '待签收' }}
-							</view>
-							<view
-								class="flex-row justify-center items-center tags2"
-								@click="choiceGET(2)"
-								:style="{
-									color: showOrderTage == '2' ? '#01BB74' : '#999999',
-									border: '2rpx solid ' + (showOrderTage == '2' ? '#01BB74' : '#999999')
-								}"
-							>
-								已签收
-							</view>
-							<view
-								class="flex-row justify-center items-center ml20 tags2"
-								@click="choiceGET(3)"
-								:style="{
-									color: showOrderTage == '3' ? '#01BB74' : '#999999',
-									border: '2rpx solid ' + (showOrderTage == '3' ? '#01BB74' : '#999999')
-								}"
-							>
-								{{ pinia_userRole == 'R' ? '已付款' : '已收款' }}
-							</view>
+					<view class="flex-row justify-center items-center mt20" style="width: 100%">
+						<view
+							class="flex-row justify-center items-center mr24 tags2"
+							@click="choiceGET(0)"
+							:style="{
+								color: showOrderTage == '0' ? '#01BB74' : '#999999',
+								border: '2rpx solid ' + (showOrderTage == '0' ? '#01BB74' : '#999999')
+							}"
+						>
+							全部
 						</view>
+						<view
+							class="flex-row justify-center items-center mr24 tags2"
+							@click="choiceGET(1)"
+							:style="{
+								color: showOrderTage == '1' ? '#01BB74' : '#999999',
+								border: '2rpx solid ' + (showOrderTage == '1' ? '#01BB74' : '#999999')
+							}"
+						>
+							{{ pinia_userRole == 'R' ? '待确收' : '待签收' }}
+						</view>
+						<view
+							class="flex-row justify-center items-center tags2"
+							@click="choiceGET(2)"
+							:style="{
+								color: showOrderTage == '2' ? '#01BB74' : '#999999',
+								border: '2rpx solid ' + (showOrderTage == '2' ? '#01BB74' : '#999999')
+							}"
+						>
+							已签收
+						</view>
+						<view
+							class="flex-row justify-center items-center ml20 tags2"
+							@click="choiceGET(3)"
+							:style="{
+								color: showOrderTage == '3' ? '#01BB74' : '#999999',
+								border: '2rpx solid ' + (showOrderTage == '3' ? '#01BB74' : '#999999')
+							}"
+						>
+							{{ pinia_userRole == 'R' ? '已付款' : '已收款' }}
+						</view>
+					</view>
 
-						<div class="flex-row items-center radius pr20 mr10 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%">
-							<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
-								<text class="ft11 ft-gray ml36" @click="CustomerGet">{{ pinia_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
-								<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
-								<view class="flex-1">
-									<u-input
-										border="none"
-										@change="changeCustomer"
-										v-model="customer"
-										:placeholder="pinia_userRole == 'R' ? '请选择供应商' : '请选择客户'"
-									></u-input>
-								</view>
+					<div class="flex-row items-center radius pr20 mr10 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%">
+						<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
+							<text class="ft11 ft-gray ml36" @click="CustomerGet">{{ pinia_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
+							<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
+							<view class="flex-1">
+								<u-input border="none" @change="changeCustomer" v-model="customer" :placeholder="pinia_userRole == 'R' ? '请选择供应商' : '请选择客户'"></u-input>
+							</view>
 
-								<div class="flex-col justify-center items-center" style="height: 5vh">
-									<u-icon class="ml48" name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon>
-								</div>
-							</div>
-						</div>
-
-						<div class="flex-row items-center radius pr20 mr10 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%">
-							<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
-								<text class="ft11 ft-gray ml36 mr10" @click="filtrateGet">
-									{{ Title }}
-								</text>
-								<u-icon name="arrow-down-fill" size="10"></u-icon>
-								<text class="mr20"></text>
-								<view class="my-input flex-1" v-if="showTage != '1'">
-									<u-input border="none" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
-								</view>
-								<view class="ml24 my-input flex-1" v-if="showTage == '1'">
-									<u-input border="none" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
-								</view>
-
-								<div class="flex-col justify-center items-center" style="height: 5vh">
-									<u-icon class="ml48" name="/static/img/list/ss.svg" size="45rpx"></u-icon>
-								</div>
+							<div class="flex-col justify-center items-center" style="height: 5vh">
+								<u-icon class="ml48" name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon>
 							</div>
 						</div>
 					</div>
-				</view>
-			</template>
+
+					<div class="flex-row items-center radius pr20 mr10 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%">
+						<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
+							<text class="ft11 ft-gray ml36 mr10" @click="filtrateGet">
+								{{ Title }}
+							</text>
+							<u-icon name="arrow-down-fill" size="10"></u-icon>
+							<text class="mr20"></text>
+							<view class="my-input flex-1" v-if="showTage != '1'">
+								<u-input border="none" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
+							</view>
+							<view class="ml24 my-input flex-1" v-if="showTage == '1'">
+								<u-input border="none" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
+							</view>
+
+							<div class="flex-col justify-center items-center" style="height: 5vh">
+								<u-icon class="ml48" name="/static/img/list/ss.svg" size="45rpx"></u-icon>
+							</div>
+						</div>
+					</div>
+				</div>
+			</view>
 			<view class="order-list ml24 mr24 pt10">
 				<view
 					v-for="(item, index) in orderList"
@@ -222,48 +216,50 @@
 					<up-loading-icon mode="flower"></up-loading-icon>
 				</view>
 			</view>
-			<view v-if="!orderList.length" style="padding-bottom: 200rpx">
+			<!-- <view v-if="!orderList.length" style="padding-bottom: 200rpx">
 				<u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" label-color="#AAAAAA" label="暂无记录" size="180rpx"></u-icon>
-			</view>
-			<view style="height: 200rpx"></view>
-			<view class="fixed" style="background-color: #ffffff; box-shadow: 0rpx 4rpx 6rpx 0rpx rgba(51, 51, 51, 0.2); bottom: 0">
-				<view class="flex-row justify-between items-center" style="height: 10vh">
-					<view class="flex-row items-center vw100">
-						<view class="items-center flex-row" style="width: 92%; display: flex; justify-content: space-between">
-							<view class="" style="text-align: left; font-size: 24rpx; color: #01bb74" :disabled="false">
-								<view class="ml24" style="">
-									<view class="flex-row justify-center items-center">
-										<view
-											class="flex-col justify-center items-center"
-											@click="checkedAll"
-											:style="{
-												backgroundColor: checked ? '#01BB74' : '#ffffff'
-											}"
-											style="border-radius: 50%; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
-										>
-											<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
+			</view> -->
+			<!-- <view style="height: 200rpx"></view> -->
+			<template #bottom>
+				<view style="background-color: #ffffff; box-shadow: 0rpx 4rpx 6rpx 0rpx rgba(51, 51, 51, 0.2)">
+					<view class="flex-row justify-between items-center" style="height: 10vh">
+						<view class="flex-row items-center vw100">
+							<view class="items-center flex-row" style="width: 92%; display: flex; justify-content: space-between">
+								<view class="" style="text-align: left; font-size: 24rpx; color: #01bb74" :disabled="false">
+									<view class="ml24" style="">
+										<view class="flex-row justify-center items-center">
+											<view
+												class="flex-col justify-center items-center"
+												@click="checkedAll"
+												:style="{
+													backgroundColor: checked ? '#01BB74' : '#ffffff'
+												}"
+												style="border-radius: 50%; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
+											>
+												<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
+											</view>
+											<view class="ml15" style="color: #333333; font-size: 28rpx">全选</view>
 										</view>
-										<view class="ml15" style="color: #333333; font-size: 28rpx">全选</view>
 									</view>
 								</view>
-							</view>
-							<view class="mr20 flex-row" style="text-align: left; font-size: 28rpx; width: 30%; color: #666666">
-								统计：
-								<view style="color: #01bb74">{{ OrderQuantity }}个订单</view>
-							</view>
-							<view
-								:disabled="!hasCheck"
-								@click="dlPdf"
-								class="flex-row justify-center items-center"
-								style="width: 280rpx; height: 80rpx; border-radius: 90rpx; opacity: 1; background-color: #01bb74; color: white; float: right; font-weight: 600"
-							>
-								<u-icon name="https://res-oss.elist.com.cn/wxImg/statistics/down.svg" size="40rpx"></u-icon>
-								下载PDF
+								<view class="mr20 flex-row" style="text-align: left; font-size: 28rpx; width: 30%; color: #666666">
+									统计：
+									<view style="color: #01bb74">{{ OrderQuantity }}个订单</view>
+								</view>
+								<view
+									:disabled="!hasCheck"
+									@click="dlPdf"
+									class="flex-row justify-center items-center"
+									style="width: 280rpx; height: 80rpx; border-radius: 90rpx; opacity: 1; background-color: #01bb74; color: white; float: right; font-weight: 600"
+								>
+									<u-icon name="https://res-oss.elist.com.cn/wxImg/statistics/down.svg" size="40rpx"></u-icon>
+									下载PDF
+								</view>
 							</view>
 						</view>
 					</view>
 				</view>
-			</view>
+			</template>
 		</z-paging>
 
 		<view class="order-simple-list pl30 pr30">
@@ -749,7 +745,7 @@ export default {
 				this.refresh = false;
 				this.onReachBottom = false;
 				this.realTimeSel.role = this.pinia_userRole == 'R' ? '1' : '0';
-				this.$api.order
+				uni.$api.order
 					.getFilteredOrders(this.realTimeSel)
 					.then((res) => {
 						var orderList = res.data.data.map((obj) => {
@@ -773,7 +769,7 @@ export default {
 						this.refresh = true;
 					});
 
-				this.$api.order
+				uni.$api.order
 					.getFilteredOrderCount(this.realTimeSel)
 					.then((res) => {
 						//console.log("当前订单个数：", res);

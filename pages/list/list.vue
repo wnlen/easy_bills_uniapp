@@ -67,7 +67,7 @@
 							<template #prefix>
 								<view>
 									<text class="ft30 ft-gray ml20 mr20">{{ userStore.userRole === 'R' ? '供应商选择' : '客户选择' }}</text>
-									<text>|</text>
+									<text class="mr20">|</text>
 								</view>
 							</template>
 							<template #suffix>
@@ -329,9 +329,25 @@
 								@click="VerifyAdd(item, index, 2)"
 							>
 								<!-- &&item.lockOrder!=1 -->
-								<u-icon v-if="OperatingSystem" name="rmb-circle" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" :label="labText"></u-icon>
+								<u-icon
+									v-if="OperatingSystem"
+									name="rmb-circle"
+									size="25rpx"
+									color="#666666"
+									labelSize="22rpx"
+									labelColor="#333333"
+									:label="userStore.userRole === 'R' ? '确认付款' : '确认收款'"
+								></u-icon>
 								<view style="top: 2rpx">
-									<u-icon v-if="!OperatingSystem" name="rmb-circle" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" :label="labText"></u-icon>
+									<u-icon
+										v-if="!OperatingSystem"
+										name="rmb-circle"
+										size="25rpx"
+										color="#666666"
+										labelSize="22rpx"
+										labelColor="#333333"
+										:label="userStore.userRole === 'R' ? '确认付款' : '确认收款'"
+									></u-icon>
 								</view>
 							</button>
 							<button
@@ -384,8 +400,8 @@
 		<u-popup :show="show_start" @close="show_start = false" mode="top" :safeAreaInsetBottom="false" :safeAreaInsetTop="true" zIndex="999">
 			<!-- #ifdef MP-WEIXIN -->
 			<u-navbar leftIconColor="#fff" :titleStyle="titleStyle">
-				<template #left>
-					<view class="flex-row items-center justify-center ml96" style="width: 100%">
+				<template #center>
+					<view class="flex-row items-center justify-center">
 						<view class="" style="font-size: 34rpx; font-weight: 510">查询订单</view>
 						<view
 							@click="jumpVideo"
@@ -553,7 +569,16 @@
 					<view class="absolute pt20" style="width: 100%; top: 0; height: 75%">
 						<view class="flex-row items-center justify-center passwordTitle">请输入签收密码</view>
 						<view class="flex-col items-center justify-center mt20" style="width: 100%; height: 35%">
-							<u-code-input :bold="false" @change="(e) => changeList(e)" @finish="finishList" :dot="true" :modelValue="password" maxlength="4"></u-code-input>
+							<u-message-input
+								active-color="#01BB74"
+								:bold="false"
+								@change="(e) => changeList(e)"
+								@finish="finishList"
+								:dot-fill="true"
+								v-model="password"
+								mode="box"
+							></u-message-input>
+							<!-- <u-code-input :bold="false" @change="(e) => changeList(e)" @finish="finishList" :dot="true" :modelValue="password" maxlength="4"></u-code-input> -->
 							<view class="mt20 err" v-show="err">密码错误，请重新输入</view>
 						</view>
 						<view @click="goPath('/pages/subUser/resetpassword')" class="ft12 pr30 flex-row justify-end pt15" style="color: #999; width: 100%">找回密码</view>
@@ -1125,7 +1150,7 @@ function getCurrentYearFirstDay() {
 }
 
 function queryList(pageNo, pageSize) {
-	if (userStore.user.phone !== undefined) {
+	if (userStore.user.phone) {
 		realTimeSel.value.page = pageNo;
 		realTimeSel.value.pageSize = pageSize;
 		refreshDataNew();

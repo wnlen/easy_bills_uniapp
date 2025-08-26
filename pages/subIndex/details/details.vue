@@ -319,7 +319,7 @@ export default {
 			console.log('type', this.type);
 			var searchapi = '';
 			if (this.type) {
-				uni.$api
+				uni.$api.user
 					.searchMarketUser({
 						phone: phone,
 						boss: boss,
@@ -339,7 +339,7 @@ export default {
 						console.log('===保存备注===>', this.remark);
 					});
 			} else {
-				uni.$api
+				uni.$api.user
 					.searchUser({
 						phone: phone,
 						boss: boss,
