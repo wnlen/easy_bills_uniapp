@@ -56,7 +56,7 @@
 
 				<view class="InputCard">
 					<view class="InputOne">
-						<u-input
+						<uv-input
 							v-model="customer"
 							:customStyle="{ backgroundColor: 'transparent' }"
 							:placeholder="userStore.userRole === 'R' ? '请选择供应商' : '请选择客户'"
@@ -75,11 +75,11 @@
 									<u-icon name="/static/img/list/lxr.svg" size="46rpx" @click="CustomerGet"></u-icon>
 								</view>
 							</template>
-						</u-input>
+						</uv-input>
 					</view>
 
 					<view class="InputOne" v-if="showTage !== '1'">
-						<u-input
+						<uv-input
 							v-model="field"
 							:customStyle="{ backgroundColor: 'transparent' }"
 							placeholder="输入关键字进行检索"
@@ -102,10 +102,10 @@
 									<u-icon name="/static/img/list/ss.svg" size="46rpx"></u-icon>
 								</view>
 							</template>
-						</u-input>
+						</uv-input>
 					</view>
 					<view class="InputOne" v-if="showTage === '1'">
-						<u-input
+						<uv-input
 							v-model="field"
 							maxlength="11"
 							:customStyle="{ backgroundColor: 'transparent' }"
@@ -129,7 +129,7 @@
 									<u-icon name="/static/img/list/ss.svg" size="46rpx"></u-icon>
 								</view>
 							</template>
-						</u-input>
+						</uv-input>
 					</view>
 				</view>
 			</view>
