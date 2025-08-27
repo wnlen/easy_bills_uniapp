@@ -1660,7 +1660,7 @@ export default {
 		margin-bottom: 24rpx;
 
 		.HnadCard {
-			height: 10%;
+			// height: 10%;
 			width: 100%;
 			// background-color: aqua;
 
@@ -1693,7 +1693,7 @@ export default {
 			display: flex;
 			flex-direction: column;
 			width: 100%;
-			margin-top: 20rpx;
+			// margin-top: 20rpx;
 
 			.InputOne {
 				background-color: #f9f9f9;

@@ -74,7 +74,7 @@
 								<u-icon name="checkbox-mark" color="#ffffff" size="20rpx"></u-icon>
 							</view>
 
-							<view class="absolute" style="right: 30rpx; top: -1rpx" v-if="index == 1">
+							<view class="absolute" style="right: 30rpx; top: -4rpx" v-if="index == 1">
 								<u-image width="140rpx" height="50rpx" src="https://res-oss.elist.com.cn/wxImg/order/tj.png"></u-image>
 							</view>
 						</view>

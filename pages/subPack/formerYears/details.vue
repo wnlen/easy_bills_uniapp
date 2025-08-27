@@ -493,10 +493,6 @@ export default {
 
 		console.log('单据id:', id);
 		console.log('单据进入路径:', type);
-	},
-	onShow() {
-		this.$loadUser(this);
-
 		// 获取签收人
 		var that = this;
 		uni.$api.sign
@@ -518,6 +514,9 @@ export default {
 			});
 
 		this.getPrintNum();
+	},
+	onShow() {
+		// this.$loadUser(this);
 	},
 	onShareAppMessage(ops) {
 		return {

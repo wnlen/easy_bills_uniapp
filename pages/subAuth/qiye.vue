@@ -251,10 +251,10 @@ export default {
 							.join('&');
 						query = params ? `?${params}` : '';
 					}
-
-					uni.redirectTo({
-						url: `${currentRoute}${query}`
-					});
+					uni.navigateBack();
+					// uni.redirectTo({
+					// 	url: `${currentRoute}${query}`
+					// });
 				}
 			});
 		}

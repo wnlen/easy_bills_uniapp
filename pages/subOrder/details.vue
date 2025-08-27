@@ -618,10 +618,6 @@ export default {
 			}
 		});
 		// #endif
-	},
-	onShow(options) {
-		this.$loadUser(this);
-
 		// 获取签收人
 		var that = this;
 		uni.$api.sign
@@ -641,8 +637,11 @@ export default {
 			});
 
 		this.getPrintNum();
+	},
+	onShow(options) {
+		// this.$loadUser(this);
 
-		this.loadData();
+		// this.loadData();
 
 		console.log(options);
 	},
