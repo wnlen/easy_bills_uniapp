@@ -31,6 +31,10 @@ text {
 // ::v-deep button::after {
 // 	border: none !important;//按钮外边框border隐藏
 // }
+/* 锁定滚动：隐藏 body 滚动条 */
+.body-no-scroll {
+	position: fixed;
+}
 .ft-blue {
 	color: #3c8efb;
 }
