@@ -1,5 +1,5 @@
 <template>
-	<view class="vh100 pb60 flex-col justify-center" style="background-color: #ffffff; overflow-x: hidden">
+	<view class="vh100 pb60 flex-col justify-center" :class="showCalendar ? 'body-no-scroll' : ''" style="background-color: #ffffff; overflow-x: hidden">
 		<u-navbar
 			@leftClick="navBack"
 			:placeholder="true"
@@ -167,7 +167,10 @@
 						</text>
 						<input
 							placeholder-class="placeholder_class"
-							@click="$refs.calendars.open()"
+							@click="
+								$refs.calendars.open();
+								showCalendar = true;
+							"
 							:style="{ color: ifInput(receipts.creationTime) ? '#333333' : '#D8D8D8' }"
 							type="text"
 							v-model="receipts.creationTime"
@@ -175,13 +178,30 @@
 							placeholder="发货日期"
 							class="flex-1 ml15 endcolor"
 						/>
-						<view class="flex-row" @click="$refs.calendars.open()">
+						<view
+							class="flex-row"
+							@click="
+								$refs.calendars.open();
+								showCalendar = true;
+							"
+						>
 							<view class="mr20">
 								<u-line class="" color="#D8D8D8" length="50rpx" direction="col"></u-line>
 							</view>
 							<u-icon size="45rpx" name="https://res-oss.elist.com.cn/wxImg/order/time.png"></u-icon>
 						</view>
-						<uv-calendars color="#01BB74" confirmColor="#01BB74" ref="calendars" @confirm="getConfirm" :startDate="getCurrentDateMin()" :endDate="getCurrentDate()" />
+						<uv-calendars
+							color="#01BB74"
+							confirmColor="#01BB74"
+							ref="calendars"
+							@close="showCalendar = false"
+							@confirm="
+								getConfirm;
+								showCalendar = false;
+							"
+							:startDate="getCurrentDateMin()"
+							:endDate="getCurrentDate()"
+						/>
 					</view>
 					<view class="flex-row items-center width100 pt20 pb20 u-border-bottom">
 						<text class="textcolor">收货人:</text>
@@ -497,7 +517,8 @@ export default {
 				color: '#01BB74'
 			},
 			newImg: [],
-			khPhone: ''
+			khPhone: '',
+			showCalendar: false
 		};
 	},
 	onShow() {

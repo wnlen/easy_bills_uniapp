@@ -268,8 +268,9 @@
 				</view>
 			</view> -->
 
-			<template #bottom v-show="!(current == 0 && moneyCALL)">
+			<template #bottom>
 				<view
+					v-if="!(current == 0 && moneyCALL)"
 					class="items-center flex-row justify-center"
 					style="
 						padding-right: 30rpx;
@@ -655,18 +656,18 @@ export default {
 
 			if (ifWorkPort) {
 				if (b2) {
-					this.uNoticeBarlist.push('往年数据收货端免费截至' + this.$u.timeFormat(this.pinia_user.jurisdiction['B2'], 'yyyy-mm-dd') + '到期');
+					this.uNoticeBarlist.push('往年数据收货端截至' + this.$u.timeFormat(this.pinia_user.jurisdiction['B2'], 'yyyy-mm-dd') + '到期');
 				}
 				if (b2y) {
-					this.uNoticeBarlist.push('往年数据收货端免费截至' + this.$u.timeFormat(this.pinia_user.jurisdiction['B2-' + this.dropdownName], 'yyyy-mm-dd') + '到期');
+					this.uNoticeBarlist.push('往年数据收货端截至' + this.$u.timeFormat(this.pinia_user.jurisdiction['B2-' + this.dropdownName], 'yyyy-mm-dd') + '到期');
 				}
 			} else {
 				if (b1) {
-					this.uNoticeBarlist.push('往年数据发货端免费截至' + this.$u.timeFormat(this.pinia_user.jurisdiction['B1'], 'yyyy-mm-dd') + '到期');
+					this.uNoticeBarlist.push('往年数据发货端截至' + this.$u.timeFormat(this.pinia_user.jurisdiction['B1'], 'yyyy-mm-dd') + '到期');
 				}
 
 				if (b1y) {
-					this.uNoticeBarlist.push('往年数据发货端免费截至' + this.$u.timeFormat(this.pinia_user.jurisdiction['B1-' + this.dropdownName], 'yyyy-mm-dd') + '到期');
+					this.uNoticeBarlist.push('往年数据发货端截至' + this.$u.timeFormat(this.pinia_user.jurisdiction['B1-' + this.dropdownName], 'yyyy-mm-dd') + '到期');
 				}
 			}
 		},

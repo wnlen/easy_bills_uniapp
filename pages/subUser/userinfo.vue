@@ -115,7 +115,7 @@ export default {
 		},
 		onChooseAvatar(e) {
 			let that = this,
-				fileAvatar = e.detail.headPortrait;
+				fileAvatar = e.detail.avatarUrl;
 
 			uni.uploadFile({
 				url: uni.$http.config.baseURL + 'user/modifyImage',
