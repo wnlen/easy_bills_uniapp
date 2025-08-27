@@ -256,7 +256,7 @@
 							</view>
 						</view>
 					</view>
-					<view class="flex-row justify-center items-end mt5" @click="exit" style="width: 100%; color: #aaaaaa">关闭单据 ></view>
+					<view class="flex-row justify-center items-end mt5" @click="exit" style="width: 100%; color: #aaaaaa">关闭单据{{ ' >' }}</view>
 				</view>
 				{{ `LookBtn:${LookBtn},post.paymentState:${post.paymentState},post.lockOrder:${post.lockOrder},` }}
 				<view class="fixed-bar">
@@ -269,7 +269,7 @@
 			</view>
 		</view>
 
-		<u-popup class="flex-col justify-center items-center" round="15" mode="center" v-model="showMask" :safeAreaInsetBottom="false">
+		<u-popup class="flex-col justify-center items-center" round="15" mode="center" :show="showMask" :customStyle="customStyle_pop_pwd">
 			<view class="flex-col justify-center items-center relative" style="height: 400rpx; width: 600rpx">
 				<view class="absolute pt20" style="width: 100%; top: 0; height: 75%">
 					<view class="flex-row items-center justify-center passwordTitle">请输入签收密码</view>
@@ -293,6 +293,10 @@
 export default {
 	data() {
 		return {
+			customStyle_pop_pwd: {
+				width: '600rpx',
+				height: '400rpx'
+			},
 			color: '#01BA74',
 			colorT: '#01BA74',
 			show: 0,
@@ -463,6 +467,8 @@ export default {
 				//验证分享
 				if (type != undefined) {
 					console.log('------------->分享页验证成功');
+					console.log('port', port);
+					console.log('phone', phone);
 					this.navbar = false;
 					this.show = 0;
 					this.wxType = 1;
@@ -621,7 +627,6 @@ export default {
 					console.log('-------------->签收判断：', portE);
 					console.log('-------------->签收判断：', portS);
 					if (user) {
-						console.log('-------------->没有工作：');
 						//没工作
 						if (portE) {
 							//收货端
