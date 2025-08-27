@@ -56,14 +56,14 @@
 							</text>
 							<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
 							<view class="my-input flex-1">
-								<u-input
+								<uv-input
 									border="none"
 									@change="CustomerGetChange"
 									v-model="customer"
 									:customStyle="{ backgroundColor: 'transparent' }"
 									:placeholder="pinia_userRole === 'R' ? '请选择供应商' : '请选择客户'"
 									:clearable="true"
-								></u-input>
+								></uv-input>
 							</view>
 
 							<view class="flex-col justify-center items-center" style="height: 5vh">
@@ -77,10 +77,10 @@
 							</text>
 							<view class="ml10 mr10"><u-icon name="arrow-down-fill" size="20rpx"></u-icon></view>
 							<view class="my-input flex-1" v-if="showTage !== '1'">
-								<u-input border="none" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
+								<uv-input border="none" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></uv-input>
 							</view>
 							<view class="ml24 my-input flex-1" v-if="showTage === '1'">
-								<u-input border="none" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
+								<uv-input border="none" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></uv-input>
 							</view>
 
 							<view class="flex-col justify-center items-center" style="height: 5vh">

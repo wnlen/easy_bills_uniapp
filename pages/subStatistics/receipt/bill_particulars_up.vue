@@ -161,14 +161,14 @@
 
 				<view class="FromFileTitle">备注说明</view>
 				<view class="FromFileTitleRemark" style="height: '100%'">
-					<u-input
+					<uv-input
 						type="textarea"
 						border="none"
 						placeholder="请填写备注，字数不超过50字"
 						v-model="billFrom.billRemark"
 						placeholderClass="placeholder_class"
 						maxlength="50"
-					></u-input>
+					></uv-input>
 				</view>
 			</view>
 

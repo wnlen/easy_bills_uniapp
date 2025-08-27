@@ -61,7 +61,7 @@
 				<view class="search"><u-icon name="search" color="#01BB74" size="40rpx"></u-icon></view>
 			</view>
 			<view class="pd10 flex-1">
-				<u-input
+				<uv-input
 					border="none"
 					v-model="searchValue"
 					@change="search"
@@ -74,7 +74,7 @@
 							? '请输入关键字进行账单查询'
 							: '请输入关键字进行销售查询'
 					"
-				></u-input>
+				></uv-input>
 			</view>
 		</view>
 

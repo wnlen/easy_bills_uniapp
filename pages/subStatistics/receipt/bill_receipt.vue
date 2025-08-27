@@ -41,14 +41,14 @@
 					</text>
 					<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
 					<view class="my-input flex-1">
-						<u-input
+						<uv-input
 							border="none"
 							@change="InputTextOne"
 							v-model="InputOneText"
 							:customStyle="{ backgroundColor: 'transparent' }"
 							:placeholder="pinia_userRole === 'R' ? '请选择供应商' : '请选择客户'"
 							:clearable="true"
-						></u-input>
+						></uv-input>
 					</view>
 
 					<view class="flex-col justify-center items-center" style="height: 100%">
