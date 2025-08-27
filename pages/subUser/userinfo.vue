@@ -7,7 +7,7 @@
 					<!-- camera -->
 					<view
 						class="absolute flex-col justify-center items-center"
-						style="border-radius: 50%; width: 60rpx; height: 60rpx; background-color: #f4f4f4; z-index: 9999; right: 0; bottom: 20rpx"
+						style="border-radius: 50%; width: 50rpx; height: 50rpx; background-color: #f4f4f4; z-index: 9999; right: 0; bottom: 10rpx"
 					>
 						<u-icon name="camera" color="#333333" size="30rpx"></u-icon>
 					</view>
@@ -15,7 +15,7 @@
 			</button>
 		</view>
 		<!-- <view class="box ml48 mr48 pd30 bg-white"> -->
-		<view class="ml32 mr32 bg-white">
+		<view class="ml32 mr32 bg-white mt40">
 			<view class="flex-row pb35 u-border-bottom items-center justify-between" @click="userInfoNickNameFocus = true">
 				<text class="ft-gray">姓名</text>
 				<view class="flex-row justify-end items-center flex-1">
@@ -55,8 +55,8 @@
 			<view class="flex-row pt35 pb35 items-center u-border-bottom justify-between">
 				<text class="ft-gray">状态</text>
 				<view class="flex-row justify-end items-center flex-1" @click="jump">
-					<u-tag v-if="ac ? ac.id != undefined : false" text="已完善" mode="plain" type="success" />
-					<u-tag v-if="ac ? ac.id == undefined : true" text="未完善" mode="plain" type="error" />
+					<u-tag v-if="ac ? ac.id != undefined : false" :plain="true" text="已完善" type="success" @click="jump" />
+					<u-tag v-if="ac ? ac.id == undefined : true" :plain="true" text="未完善" type="error" @click="jump" />
 				</view>
 			</view>
 			<view class="flex-row pt35 pb35 u-border-bottom items-center justify-between">

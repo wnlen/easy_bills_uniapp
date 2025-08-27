@@ -173,7 +173,7 @@
 				class="OrderCard"
 			>
 				<view class="OrderCardHand" @tap.stop>
-					<view class="title ml1" style="" @tap.stop>
+					<view class="title ml1 flex-row items-center" @tap.stop>
 						<text class="ft30 ft-lighgray pr30" style="color: #666666">
 							订单编号:
 							<text class="ml15" @click="copyBtn(item.orderNumber)" style="color: #f76565">
@@ -186,40 +186,22 @@
 						<!-- 			<u-icon size="28" v-if="item.paymentState!=2" :name="bat64.bz" @click="remark(item)"></u-icon>
 						<view class=></view><u-icon  "ml15" size="28" v-if="item.lockOrder==1" :name="bat64.lock" color="#666666" @click="remark(item)"></u-icon> -->
 					</view>
-					<view class="ml20" style="width: 30%">
-						<u-image
-							v-if="pinia_userRole == 'D' && item.paymentState == '0'"
-							:show-menu-by-longpress="false"
-							class="u-img"
-							width="120rpx"
-							height="50rpx"
-							:src="bat64.dqs"
-						></u-image>
-						<u-image
-							v-if="pinia_userRole == 'R' && item.paymentState == '0'"
-							:show-menu-by-longpress="false"
-							class="u-img"
-							width="120rpx"
-							height="50rpx"
-							:src="bat64.dqss"
-						></u-image>
-						<u-image
-							v-if="pinia_userRole == 'R' && item.paymentState == '2'"
-							:show-menu-by-longpress="false"
-							class="u-img"
-							width="120rpx"
-							height="50rpx"
-							:src="bat64.yfk"
-						></u-image>
-						<u-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" :show-menu-by-longpress="false" class="u-img" :src="bat64.yqs"></u-image>
-						<u-image
-							v-if="pinia_userRole != 'R' && item.paymentState == '2'"
-							:show-menu-by-longpress="false"
-							width="120rpx"
-							height="50rpx"
-							class="u-img"
-							:src="bat64.ysk"
-						></u-image>
+					<view class="ml20 flex-1" style="margin-right: -10px">
+						<view class="u-img" v-if="pinia_userRole == 'D' && item.paymentState == '0'">
+							<u-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.dqs"></u-image>
+						</view>
+						<view class="u-img" v-if="pinia_userRole == 'R' && item.paymentState == '0'">
+							<u-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.dqss"></u-image>
+						</view>
+						<view class="u-img" v-if="pinia_userRole == 'R' && item.paymentState == '2'">
+							<u-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.yfk"></u-image>
+						</view>
+						<view class="u-img" v-if="item.paymentState == '1'">
+							<u-image width="120rpx" height="50rpx" :show-menu-by-longpress="false" :src="bat64.yqs"></u-image>
+						</view>
+						<view class="u-img" v-if="pinia_userRole != 'R' && item.paymentState == '2'">
+							<u-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.ysk"></u-image>
+						</view>
 					</view>
 				</view>
 				<view class="width100 pb25 text-left">
@@ -278,11 +260,11 @@
 								>
 									<u-icon
 										top="2rpx"
-										name="zhuanfa"
+										name="share-square"
 										size="25rpx"
 										color="#666666"
 										labelColor="#333333"
-										labelSize="22"
+										labelSize="22rpx"
 										:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '有金额转发' : '有金额转发'"
 									></u-icon>
 								</button>
@@ -299,11 +281,11 @@
 								>
 									<u-icon
 										top="2rpx"
-										name="zhuanfa"
+										name="share-square"
 										size="25rpx"
 										color="#666666"
 										labelColor="#333333"
-										labelSize="22"
+										labelSize="22rpx"
 										:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '无金额转发' : '无金额转发'"
 									></u-icon>
 								</button>
@@ -318,26 +300,26 @@
 							<button class="hl-btn flex-row items-center justify-center" @click="shareNY(item, 1)" type="default">
 								<u-icon
 									v-show="OperatingSystem"
-									name="zhuanfa"
+									name="share-square"
 									size="25rpx"
 									v-if="pinia_userRole === 'D' || pinia_userRole === 'R'"
 									color="#666666"
 									labelColor="#333333"
-									labelSize="22"
+									labelSize="22rpx"
 									:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发'"
 								></u-icon>
 
-								<u-icon
+								<!-- <u-icon
 									top="2rpx"
 									v-show="!OperatingSystem"
-									name="zhuanfa"
+									name="share-square"
 									size="25rpx"
 									v-if="pinia_userRole === 'D' || pinia_userRole === 'R'"
 									color="#666666"
 									labelColor="#333333"
-									labelSize="22"
+									labelSize="22rpx"
 									:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发'"
-								></u-icon>
+								></u-icon> -->
 							</button>
 							<button
 								v-if="pinia_userRole === 'R' && pinia_user.workData.identity !== '3' && item.paymentState === '0' && item.lockOrder != 1"
@@ -346,9 +328,18 @@
 								@click="goPath('/pages/subOrder/details?id=' + item.id)"
 							>
 								<!-- &&item.lockOrder!=1 -->
-								<u-icon name="order" v-if="OperatingSystem" size="25rpx" color="#666666" labelSize="22" labelColor="#333333" label="确认签收"></u-icon>
+								<u-icon name="order" v-if="OperatingSystem" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="确认签收"></u-icon>
 
-								<u-icon top="2rrpx" name="order" v-if="!OperatingSystem" size="25rpx" color="#666666" labelSize="22" labelColor="#333333" label="确认签收"></u-icon>
+								<u-icon
+									top="2rrpx"
+									name="order"
+									v-if="!OperatingSystem"
+									size="25rpx"
+									color="#666666"
+									labelSize="22rpx"
+									labelColor="#333333"
+									label="确认签收"
+								></u-icon>
 							</button>
 							<button
 								v-if="pinia_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
@@ -357,7 +348,7 @@
 								@click="VerifyAdd(item, index, 2)"
 							>
 								<!-- &&item.lockOrder!=1 -->
-								<u-icon v-if="OperatingSystem" name="rmb-circle" size="30rpx" color="#666666" labelSize="22" labelColor="#333333" :label="labText"></u-icon>
+								<u-icon v-if="OperatingSystem" name="rmb-circle" size="30rpx" color="#666666" labelSize="22rpx" labelColor="#333333" :label="labText"></u-icon>
 
 								<u-icon
 									top="2rpx"
@@ -365,7 +356,7 @@
 									name="rmb-circle"
 									size="30"
 									color="#666666"
-									labelSize="22"
+									labelSize="22rpx"
 									labelColor="#333333"
 									:label="labText"
 								></u-icon>
@@ -377,8 +368,8 @@
 								@click="VerifyAdd(item, index, 1)"
 							>
 								<!-- &&item.lockOrder!=1 -->
-								<u-icon v-if="OperatingSystem" name="trash" size="25rpx" color="#666666" labelSize="22" labelColor="#333333" label="删除"></u-icon>
-								<u-icon v-if="!OperatingSystem" top="2rrpx" name="trash" size="25rpx" color="#666666" labelSize="22" labelColor="#333333" label="删除"></u-icon>
+								<u-icon v-if="OperatingSystem" name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></u-icon>
+								<u-icon v-if="!OperatingSystem" top="2rrpx" name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></u-icon>
 							</button>
 						</view>
 					</view>

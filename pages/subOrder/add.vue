@@ -152,6 +152,7 @@
 							type="number"
 							v-model="khPhone"
 							placeholder="请输入客户手机号"
+							border="none"
 							class="flex-1 endcolor"
 						></u-input>
 						<u-button shape="circle" size="mini" color="#01BB74" :customStyle="{ width: '120rpx' }" @click="jumpTable">选择客户</u-button>

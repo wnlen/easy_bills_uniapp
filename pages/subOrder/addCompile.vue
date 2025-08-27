@@ -81,21 +81,22 @@
 							发货日期:
 						</text>
 						<input
-							@click="$refs.calendars.open()"
-							disabled
 							placeholder-class="placeholder_class"
+							@click="$refs.calendars.open()"
+							:style="{ color: ifInput(receipts.creationTime) ? '#333333' : '#D8D8D8' }"
 							type="text"
 							v-model="receipts.creationTime"
+							disabled
 							placeholder="发货日期"
 							class="flex-1 ml15 endcolor"
 						/>
 						<view class="flex-row" @click="$refs.calendars.open()">
 							<view class="mr20">
-								<u-line color="#D8D8D8" length="50" direction="col"></u-line>
+								<u-line class="" color="#D8D8D8" length="50rpx" direction="col"></u-line>
 							</view>
 							<u-icon size="45rpx" name="https://res-oss.elist.com.cn/wxImg/order/time.png"></u-icon>
 						</view>
-						<uv-calendars color="#01BB74" confirmColor="#01BB74" :startDate="getCurrentDateMin()" :endDate="getCurrentDate()" ref="calendars" @confirm="getConfirm" />
+						<uv-calendars color="#01BB74" confirmColor="#01BB74" ref="calendars" @confirm="getConfirm" :startDate="getCurrentDateMin()" :endDate="getCurrentDate()" />
 					</view>
 					<view class="flex-row items-center width100 pt20 pb20 u-border-bottom">
 						<text class="textcolor" style="width: 106rpx">收货人:</text>
@@ -137,7 +138,7 @@
 							/>
 						</view>
 					</view>
-					<view class="flex-row justify-between items-center mb20 pb12">
+					<view class="flex-row justify-between items-center">
 						<text class="line34 ft-bold handcolor pt24">发货清单</text>
 					</view>
 				</view>
@@ -185,13 +186,13 @@
 				</view>
 				<view class="pd12 flex-row justify-center" style="width: 100%">
 					<view class="flex-row justify-center items-center" style="width: 49%">
-						<u-icon labelPos="bottom" @click="merchandiseInventory(true)" name="https://res-oss.elist.com.cn/wxImg/order/bj.svg" size="70" label="修改"></u-icon>
+						<u-icon labelPos="bottom" @click="merchandiseInventory(true)" name="https://res-oss.elist.com.cn/wxImg/order/bj.svg" size="70rpx" label="修改"></u-icon>
 					</view>
 					<view class="flex-row justify-center items-center" style="width: 2%">
 						<u-line direction="col" length="50" color="#E0E0E0" />
 					</view>
 					<view class="flex-row justify-center items-center" style="width: 49%">
-						<u-icon labelPos="bottom" @click="merchandiseInventory(false)" name="https://res-oss.elist.com.cn/wxImg/order/spk.svg" size="70" label="商品库"></u-icon>
+						<u-icon labelPos="bottom" @click="merchandiseInventory(false)" name="https://res-oss.elist.com.cn/wxImg/order/spk.svg" size="70rpx" label="商品库"></u-icon>
 					</view>
 				</view>
 			</view>
@@ -256,16 +257,16 @@
 					<text class="line34 ft-bold handcolor">供应商信息</text>
 					<view class="form-bottom ft-gray">
 						<view class="flex-col justify-between ft24 pt20 pb10 mr24">
-							<view class="textcolor pt20 pb20 u-border-bottom">
-								企业名称:
+							<view class="textcolor pt20 pb20">
+								<text>企业名称:</text>
 								<text :style="{ color: '#333333' }" class="ml15 endcolor">{{ receipts.enterpriseS }}</text>
 							</view>
-							<view class="textcolor pt20 pb20 u-border-bottom">
-								联系人:
+							<view class="textcolor pt20 pb20">
+								<text>联系人:</text>
 								<text :style="{ color: '#333333' }" class="ml15 endcolor">{{ receipts.contactsS }}</text>
 							</view>
-							<view class="textcolor pt20 pb20 u-border-bottom">
-								联系电话:
+							<view class="textcolor pt20 pb20">
+								<text>联系电话:</text>
 								<text class="ml15 endcolor" :style="{ color: '#333333' }" @click="callPhone(receipts.bossNumberS)">{{ receipts.bossNumberS }}</text>
 							</view>
 						</view>

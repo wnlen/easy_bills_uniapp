@@ -258,7 +258,8 @@
 					</view>
 					<view class="flex-row justify-center items-end mt5" @click="exit" style="width: 100%; color: #aaaaaa">关闭单据{{ ' >' }}</view>
 				</view>
-				<view class="fixed-bar" style="background: none">
+				{{ `LookBtn:${LookBtn},post.paymentState:${post.paymentState},post.lockOrder:${post.lockOrder},` }}
+				<view class="fixed-bar">
 					<view class="pl30 pr30 pb30 flex-row justify-between items-center">
 						<view v-if="LookBtn == 'Y' && post.paymentState == '0' && post.lockOrder != 1" class="flex-row flex-1 items-center">
 							<u-button hover-class="none" color="#01BB74" class="width100" type="primary" shape="circle" @click="onConfirm">确认签收</u-button>
@@ -355,20 +356,21 @@ export default {
 		// },
 	},
 	onLoad(options) {
-		this.options = options;
-		this.$loadUser(this);
-		//单据id
-		this.getOrder(options);
-	},
-	onShow() {
-		this.$getRecord(this);
 		if (this.$u.getPinia('user') && this.$u.getPinia('user.user.phone')) {
+			this.options = options;
+			this.$loadUser(this);
+			//单据id
+			this.getOrder(options);
+			this.$getRecord(this);
 			this.getQs();
-			// this.getOrder(this.options);
 		} else {
 			console.warn('pinia_user 未初始化');
+			uni.navigateTo({
+				url: '/pages/subUser/login'
+			});
 		}
 	},
+	onShow() {},
 	onShareAppMessage(ops) {
 		return {
 			title: '这是您的货单，请打开易单据查看详情~',
@@ -614,6 +616,7 @@ export default {
 				var portS = phone == this.post.bossNumberS;
 
 				uni.$api.user.getUserDetails({ phone: phone }).then((res) => {
+					console.log('res', res);
 					var resRelation = res.data.data.cRelation;
 					var resDateGet = res.data.data.staffNumber;
 					var user = res.data.data.user.work == '0';
