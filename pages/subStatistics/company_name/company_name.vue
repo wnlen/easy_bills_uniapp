@@ -7,7 +7,7 @@
 						<view class="mr10"><u-icon name="search" color="#01BB74" size="30rpx"></u-icon></view>
 					</view>
 					<view class="ml20" style="width: 90%; height: 100%">
-						<u-input border="none"></u-input>
+						<uv-input border="none"></uv-input>
 					</view>
 				</view>
 

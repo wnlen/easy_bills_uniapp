@@ -6,7 +6,7 @@
 				<view class="ml24 mr24 flex-row items-center justify-center pb30">
 					<view class="flex-row items-center justify-center pl20 pr10" style="background: #ffffff; border-radius: 254rpx; width: 75%; height: 60rpx">
 						<u-icon name="search" color="#01BB74" size="40rpx"></u-icon>
-						<u-input
+						<uv-input
 							:customStyle="{
 								backgroundColor: 'transparent',
 								marginLeft: '10rpx'
@@ -16,7 +16,7 @@
 							:clearable="true"
 							border="none"
 							@change="SearchInventoryChange"
-						></u-input>
+						></uv-input>
 					</view>
 					<u-button @click="jumpAddCommodity" :customStyle="SearchCustomStyle" color="#01BB74" type="success">添加商品</u-button>
 				</view>

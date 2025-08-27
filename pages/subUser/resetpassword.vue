@@ -12,19 +12,19 @@
 			<view class="mt45">
 				<view class="">手机号</view>
 				<view class="flex-row justify-center items-center u-border-bottom relative mt30">
-					<u-input border="none" v-model="userPhone" disabledColor="#fff" type="text" disabled="true" placeholder="请输入手机号">
+					<uv-input border="none" v-model="userPhone" disabledColor="#fff" type="text" disabled="true" placeholder="请输入手机号">
 						<template #prefix>
 							<u-text text="+86" margin="0 3px 0 0" type="tips"></u-text>
 							<!-- <u-text mode="phone" :text="$u.getPinia('user.user.phone')" format="encrypt"></u-text> -->
 						</template>
-					</u-input>
+					</uv-input>
 				</view>
 			</view>
 			<view class="mt45">
 				<view class="">验证码</view>
 				<view class="flex-row justify-center items-center u-border-bottom relative mt30 pb20" style="width: 100%; height: 60rpx">
 					<view class="absolute my-input" style="left: 0">
-						<u-input border="none" v-model="form.code" type="text" placeholder="请输入您的验证码"></u-input>
+						<uv-input border="none" v-model="form.code" type="text" placeholder="请输入您的验证码"></uv-input>
 					</view>
 					<text
 						class="absolute"

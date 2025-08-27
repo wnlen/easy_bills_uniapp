@@ -8,14 +8,14 @@
 				<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
 
 				<view class="my-input">
-					<u-input
+					<uv-input
 						border="none"
 						@change="InputTextOne"
 						v-model="InputOneText"
 						:customStyle="{ backgroundColor: 'transparent' }"
 						:placeholder="pinia_userRole === 'R' ? InputOneName.a : InputOneName.b"
 						clearable="true"
-					></u-input>
+					></uv-input>
 				</view>
 
 				<view class="flex-col justify-center items-center" style="height: 5vh">
@@ -32,10 +32,10 @@
 				</view>
 
 				<view class="my-input">
-					<u-input border="none" v-if="showTage !== '1'" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
+					<uv-input border="none" v-if="showTage !== '1'" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></uv-input>
 				</view>
 				<view class="ml24 my-input">
-					<u-input border="none" v-if="showTage === '1'" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
+					<uv-input border="none" v-if="showTage === '1'" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></uv-input>
 				</view>
 
 				<view class="flex-col justify-center items-center ml40" style="height: 5vh">

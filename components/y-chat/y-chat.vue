@@ -117,7 +117,7 @@
 				<u-icon custom-style="padding: 0 10rpx" :size="iconSize" name="mic" v-else @click="showText"></u-icon> -->
 				<view class="y-wrap_footer_show_box__ipt" style="background-color: #f4f4f4">
 					<!-- <input v-if="textShowFlag" v-model="sendVal" :focus="focus" @blur="blur"></input> -->
-					<u-input
+					<uv-input
 						:border="true"
 						v-if="textShowFlag"
 						v-model="sendVal"
@@ -126,7 +126,7 @@
 						:disabled="bannedToPost"
 						:focus="focus"
 						@blur="blur"
-					></u-input>
+					></uv-input>
 					<!-- <u-button v-else @touchstart="startAudio" @touchend="endAudio">按住说话</u-button> -->
 					<button v-else style="font-size: 32rpx; overflow: inherit" @touchstart="startAudio" @touchmove="moveAudio" @touchend="endAudio">按住说话</button>
 				</view>

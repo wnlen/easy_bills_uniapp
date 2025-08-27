@@ -105,7 +105,7 @@
 							<text class="ft11 ft-gray ml36" @click="CustomerGet">{{ pinia_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
 							<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
 							<view class="ml24 flex-1">
-								<u-input border="none" @change="changeCustomer" v-model="customer" :placeholder="pinia_userRole == 'R' ? '请选择供应商' : '请选择客户'"></u-input>
+								<uv-input border="none" @change="changeCustomer" v-model="customer" :placeholder="pinia_userRole == 'R' ? '请选择供应商' : '请选择客户'"></uv-input>
 							</view>
 
 							<view class="flex-col justify-center items-center" style="height: 5vh">
@@ -122,10 +122,10 @@
 							</view>
 
 							<view class="ml24 my-input flex-1" v-if="showTage != '1'">
-								<u-input border="none" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></u-input>
+								<uv-input border="none" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></uv-input>
 							</view>
 							<view class="ml24 my-input flex-1" v-if="showTage == '1'">
-								<u-input border="none" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></u-input>
+								<uv-input border="none" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></uv-input>
 							</view>
 							<view class="flex-col justify-center items-center" style="height: 5vh">
 								<view class="ml40"><u-icon name="/static/img/list/ss.svg" size="45rpx" @click="searchListenner"></u-icon></view>

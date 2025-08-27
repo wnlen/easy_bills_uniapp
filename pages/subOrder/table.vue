@@ -111,7 +111,7 @@
 					<u-icon name="search" color="#01BB74" size="40rpx"></u-icon>
 				</view>
 				<view class="SearchTablePageInput">
-					<u-input placeholder="请输入关键字进行查找" border="none" @change="search"></u-input>
+					<uv-input placeholder="请输入关键字进行查找" border="none" @change="search"></uv-input>
 				</view>
 			</view>
 		</view>
