@@ -210,14 +210,14 @@ export default {
 			console.log('this.share_data.versionsthis.share_data.versionsthis.share_data.versions', this.share_data.versions);
 		}
 
-		var that = this;
-		uni.login({
-			provider: 'weixin',
-			success: function (loginRes) {
-				that.wxLoginCode = loginRes.code;
-				console.log(loginRes.code, '------CQL');
-			}
-		});
+		// var that = this;
+		// uni.login({
+		// 	provider: 'weixin',
+		// 	success: function (loginRes) {
+		// 		that.wxLoginCode = loginRes.code;
+		// 		console.log(loginRes.code, '------CQL');
+		// 	}
+		// });
 
 		// if (option.url) {
 		// 	that.pageroute = option.url;
@@ -296,7 +296,7 @@ export default {
 		radioGroupChange(e) {
 			this.ischeck = !this.ischeck;
 		},
-		//获取手机号，并登录
+		//微信小程序登录和获取手机号
 		getPhoneNumber(e) {
 			var that = this;
 			uni.login({
@@ -304,9 +304,6 @@ export default {
 				onlyAuthorize: true,
 				success: function (res) {
 					const inviterId = uni.getStorageSync('inviterId') || null; // 登录前保存过
-					console.log('开始登录', that.$api.user);
-					console.log('开始登录', res);
-					console.log('开始登录', e.detail.code);
 					that.$api.user
 						.loginMpWX({
 							loginCode: res.code, //登录code
@@ -314,10 +311,10 @@ export default {
 							inviterId: inviterId || null //邀请id
 						})
 						.then((res) => {
-							console.log('res', res);
+							console.log('看公共关系', res);
 							var resDate = res.data.data;
 							that.message = resDate.loginState;
-
+							console.log('看公共关系', resDate);
 							if (resDate.data == null || resDate.data.work == null) {
 								that.$u.toast(that.message);
 								return;
@@ -343,15 +340,13 @@ export default {
 									token: resDate.loginToken,
 									user: resDate
 								}
-								// guide: {
-								// 	guidanceD: resDate.data.guidanceD,
-								// 	guidanceR: resDate.data.guidanceR
-								// }
 							});
+							console.log('亘古不变', that.$u.getPinia('user.user'));
 
 							if (resDate.phone != '' && resDate.data.work != null) {
-								that.$loadUser(that);
-								//接收分享参数
+								// that.$loadUser(that);
+								console.log('授权完', that.share_data);
+								// 接收分享参数
 								if (Object.keys(that.share_data).length != 0) {
 									console.log('接收分享参数', that.share_data);
 									uni.redirectTo({

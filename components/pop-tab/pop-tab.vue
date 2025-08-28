@@ -49,6 +49,7 @@ export default {
 					staff: this.pinia_user.phone,
 					work: this.pinia_user.data.work
 				};
+				console.log('满江红', this.pinia_user);
 				uni.$api.inform
 					.getAllMessages(dx)
 					.then((res) => {

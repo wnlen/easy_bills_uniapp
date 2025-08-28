@@ -17,37 +17,21 @@ const videoList = [
 
 export default (http) => ({
 	install(app) {
-		console.log('[createRefresh] 传入 http：', http);
 		app.config.globalProperties.$loadUser = (options = {}) => {
 			console.log('--------->全局刷新个人信息START<-------------');
 
 			const store = useUserStore();
-			const vuexUser = store.user;
+			const User = store.user;
 
-			if (!vuexUser.phone) {
-				console.warn('pinia_user 不存在或未登录，跳转登录页');
-
-				const query = Object.entries(options)
-					.map(([k, v]) => `${k}=${v}`)
-					.join('&');
-				const url = query ? `/pages/subUser/login?${query}` : '/pages/subUser/login';
-				uni.redirectTo({
-					url
-				});
-
-				return;
-			}
-
-			console.log('当前用户信息', vuexUser);
-
-			const role = vuexUser.data?.work === '1' ? 1 : 2;
-			http.post(`user/renewal?phone=${vuexUser.phone}&role=${role}`)
-				.then((res) => {
+			const role = User.data?.work === '1' ? 1 : 2;
+			uni.$api.user.refreshUser({
+					phone: User.phone,
+					role: role
+				}).then(res => {
 					const getNowData = res.data.data;
 					const localData = {
-						...vuexUser
+						...User
 					};
-
 					localData.ac = getNowData.ac;
 					localData.data = getNowData.data;
 					localData.workData = getNowData.workData;
@@ -68,16 +52,16 @@ export default (http) => ({
 				})
 				.catch((err) => {
 					console.error('用户信息刷新失败', err);
-					store.user = {
-						workData: {},
-						data: {
-							work: null
-						},
-						ac: {
-							enterpriseName: null
-						},
-						phone: null
-					};
+					// store.user = {
+					// 	workData: {},
+					// 	data: {
+					// 		work: null
+					// 	},
+					// 	ac: {
+					// 		enterpriseName: null
+					// 	},
+					// 	phone: null
+					// };
 				});
 
 			console.log('--------->全局刷新个人信息END<-------------');
@@ -111,7 +95,7 @@ export default (http) => ({
 				createTime: new Date(),
 				state: 1
 			};
-			http.post('behavior/add', dx)
+			uni.$api.user.behaviorAdd(dx)
 				.then((res) => console.log('记录结果：', res))
 				.catch((err) => console.log('记录失败：', err));
 		};

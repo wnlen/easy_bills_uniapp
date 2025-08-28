@@ -265,7 +265,7 @@ export default {
 	onShow() {
 		console.log('dayin啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊', this.pinia_user);
 		if (this.pinia_user.phone != undefined) {
-			this.$loadUser(this);
+			// this.$loadUser(this);
 			// this.guideCourse();
 		} else {
 			console.log('未登录');

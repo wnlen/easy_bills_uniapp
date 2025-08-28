@@ -392,7 +392,7 @@ export default {
 		// 	console.log('手动刷新accessToken=====>', res);
 		// });
 
-		console.log('dayin啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊', this.pinia_user);
+		console.log('啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊', this.pinia_user);
 		this.getmiddleBanner(); //加载广告
 
 		if (!this.pinia_token) {
@@ -406,6 +406,7 @@ export default {
 			this.goToLogin();
 			//#endif
 		} else {
+			console.log('有token', this.pinia_token);
 			this.$loadUser(this);
 			this.guideCourse();
 			this.SOCKETfLUSH();
@@ -413,7 +414,6 @@ export default {
 
 		this.setDR(this.pinia_userRole);
 	},
-	onLoad() {},
 	methods: {
 		// 监听数据
 		SOCKETfLUSH() {
