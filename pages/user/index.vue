@@ -11,7 +11,7 @@
 						<!-- #ifdef MP-WEIXIN -->
 						<u-avatar
 							size="60"
-							:src="pinia_user.data.headPortrait == null ? ImgUrl + '/wxImg/index/mr.svg' : pinia_user.data.headPortrait"
+							:src="pinia_user.data.headPortrait == null ? ImgUrl + '/wxImg/index/mr.svg' : pinia_user.data.headPortrait + '?t=' + timestamp"
 							@click="userClick"
 						></u-avatar>
 						<!-- #endif -->
@@ -243,7 +243,8 @@ export default {
 				tipsPosition: '', // 介绍 显示位置
 				btnGroupPosition: '', // 按钮组显示位置
 				position: {}
-			}
+			},
+			timestamp: Date.now()
 		};
 	},
 	computed: {
@@ -270,8 +271,12 @@ export default {
 		} else {
 			console.log('未登录');
 		}
+		this.refreshImg();
 	},
 	methods: {
+		refreshImg() {
+			this.timestamp = Date.now(); // 更新时间戳
+		},
 		guideCourse() {
 			if (this.pinia_user.phone != undefined) {
 				console.log(11, this.$u.getPinia('guide.guidanceD'));

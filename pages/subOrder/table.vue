@@ -115,7 +115,7 @@
 				</view>
 			</view>
 		</view>
-
+		<!-- borderBottom: item.length > 1 && index2 != item.length ? '1px solid #f4f4f4' : '' -->
 		<u-empty v-if="isEmptyObject(client)" icon="https://res-oss.elist.com.cn/wxImg/order/empty.svg" iconSize="200rpx" text="暂无好友~" mode="search" margin-top="200"></u-empty>
 		<view v-for="(item, index) in client" :key="index" style="border-bottom: 1px solid #f4f4f4">
 			<view class="ml20" style="width: 110vw" v-show="show == 1">

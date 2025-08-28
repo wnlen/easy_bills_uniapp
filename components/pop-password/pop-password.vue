@@ -6,7 +6,7 @@
 				<view class="flex-col items-center justify-center mt20" style="width: 100%; height: 35%">
 					<u-message-input
 						active-color="#01BB74"
-						bold="false"
+						:bold="false"
 						@change="changeList"
 						@finish="finishList"
 						:dot-fill="true"

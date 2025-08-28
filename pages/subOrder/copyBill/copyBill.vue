@@ -1,5 +1,5 @@
 <template>
-	<view class="vh100 pb60 flex-col justify-center" style="background-color: #ffffff; overflow-x: hidden">
+	<view class="vh100 pb60 flex-col justify-center" :class="showCalendar ? 'body-no-scroll' : ''" style="background-color: #ffffff; overflow-x: hidden">
 		<u-navbar :autoBack="true" :placeholder="true" title="开送货单" :border-bottom="false" :titleBold="true" title-color="#000000" title-size="34" bgColor="#ffffff"></u-navbar>
 
 		<view class="width100" style="height: 80vh; text-align: center; margin-left: 10vw" v-show="pinia_userRole == 'D' && shareShow == true">
@@ -125,9 +125,8 @@
 							客户手机号:
 						</text>
 						<uv-input
-							placeholder-class="placeholder_class"
-							style="color: #333333"
-							@input="searchIFNumber"
+							placeholderStyle="color: #d8d8d8;fontSize:28rpx"
+							@change="searchIFNumber"
 							@blur="searchIFNumberBlur"
 							:focus="PhoneFocus"
 							@focus="searchIFNumberFocus"
@@ -136,6 +135,7 @@
 							placeholder="请输入客户手机号"
 							border="none"
 							class="flex-1 endcolor"
+							fontSize="28rpx"
 						></uv-input>
 						<u-button shape="circle" size="mini" color="#01BB74" :customStyle="{ width: '120rpx' }" @click="jumpTable">选择客户</u-button>
 					</view>
@@ -159,7 +159,10 @@
 						</text>
 						<input
 							placeholder-class="placeholder_class"
-							@click="$refs.calendars.open()"
+							@click="
+								$refs.calendars.open();
+								showCalendar = true;
+							"
 							:style="{ color: ifInput(receipts.creationTime) ? '#333333' : '#D8D8D8' }"
 							type="text"
 							v-model="receipts.creationTime"
@@ -167,13 +170,27 @@
 							placeholder="发货日期"
 							class="flex-1 ml15 endcolor"
 						/>
-						<view class="flex-row" @click="$refs.calendars.open()">
+						<view
+							class="flex-row"
+							@click="
+								$refs.calendars.open();
+								showCalendar = true;
+							"
+						>
 							<view class="mr20">
 								<u-line class="" color="#D8D8D8" length="50rpx" direction="col"></u-line>
 							</view>
 							<u-icon size="45rpx" name="https://res-oss.elist.com.cn/wxImg/order/time.png"></u-icon>
 						</view>
-						<uv-calendars color="#01BB74" confirmColor="#01BB74" ref="calendars" @confirm="getConfirm" :startDate="getCurrentDateMin()" :endDate="getCurrentDate()" />
+						<uv-calendars
+							color="#01BB74"
+							confirmColor="#01BB74"
+							ref="calendars"
+							@close="showCalendar = false"
+							@confirm="getConfirm"
+							:startDate="getCurrentDateMin()"
+							:endDate="getCurrentDate()"
+						/>
 					</view>
 					<view class="flex-row items-center width100 pt20 pb20 u-border-bottom">
 						<text class="textcolor">收货人:</text>
@@ -481,7 +498,8 @@ export default {
 				color: '#01BB74'
 			},
 			newImg: [],
-			khPhone: ''
+			khPhone: '',
+			showCalendar: false
 		};
 	},
 	onShow() {
@@ -1618,6 +1636,7 @@ export default {
 		},
 		// 获取选择的时间
 		getConfirm(e) {
+			this.showCalendar = false;
 			this.receipts.creationTime = e.fulldate; //传给接口
 		},
 		getOrderNumber() {
