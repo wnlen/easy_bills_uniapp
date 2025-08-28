@@ -1,12 +1,13 @@
 <template>
 	<view class="root">
-		<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" mode="search" margin-top="-200" v-if="!identity"></u-empty>
-
+		<view class="flex-row items-center justify-center" style="height: 66%">
+			<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" v-if="!identity"></u-empty>
+		</view>
 		<z-paging
 			ref="paging"
 			use-virtual-list
 			:force-close-inner-list="true"
-			v-show="identity"
+			v-if="identity"
 			:cell-height-mode="1 === 0 ? 'fixed' : 'dynamic'"
 			@virtualListChange="virtualListChange"
 			@query="queryList"

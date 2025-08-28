@@ -348,13 +348,13 @@
 								@click="VerifyAdd(item, index, 2)"
 							>
 								<!-- &&item.lockOrder!=1 -->
-								<u-icon v-if="OperatingSystem" name="rmb-circle" size="30rpx" color="#666666" labelSize="22rpx" labelColor="#333333" :label="labText"></u-icon>
+								<u-icon v-if="OperatingSystem" name="rmb-circle" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" :label="labText"></u-icon>
 
 								<u-icon
 									top="2rpx"
 									v-if="!OperatingSystem"
 									name="rmb-circle"
-									size="30"
+									size="25rpx"
 									color="#666666"
 									labelSize="22rpx"
 									labelColor="#333333"

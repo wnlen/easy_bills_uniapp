@@ -125,9 +125,8 @@
 							客户手机号:
 						</text>
 						<uv-input
-							placeholder-class="placeholder_class"
-							style="color: #333333"
-							@input="searchIFNumber"
+							placeholderStyle="color: #d8d8d8;fontSize:28rpx"
+							@change="searchIFNumber"
 							@blur="searchIFNumberBlur"
 							:focus="PhoneFocus"
 							@focus="searchIFNumberFocus"
@@ -136,6 +135,7 @@
 							placeholder="请输入客户手机号"
 							border="none"
 							class="flex-1 endcolor"
+							fontSize="28rpx"
 						></uv-input>
 						<u-button shape="circle" size="mini" color="#01BB74" :customStyle="{ width: '120rpx' }" @click="jumpTable">选择客户</u-button>
 					</view>
@@ -187,10 +187,7 @@
 							confirmColor="#01BB74"
 							ref="calendars"
 							@close="showCalendar = false"
-							@confirm="
-								getConfirm;
-								showCalendar = false;
-							"
+							@confirm="getConfirm"
 							:startDate="getCurrentDateMin()"
 							:endDate="getCurrentDate()"
 						/>
@@ -1639,6 +1636,7 @@ export default {
 		},
 		// 获取选择的时间
 		getConfirm(e) {
+			this.showCalendar = false;
 			this.receipts.creationTime = e.fulldate; //传给接口
 		},
 		getOrderNumber() {

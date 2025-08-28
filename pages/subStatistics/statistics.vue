@@ -103,7 +103,13 @@
 							<text class="ft11 ft-gray ml36" @click="CustomerGet">{{ pinia_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
 							<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
 							<view class="flex-1">
-								<uv-input border="none" @change="changeCustomer" v-model="customer" :placeholder="pinia_userRole == 'R' ? '请选择供应商' : '请选择客户'"></uv-input>
+								<uv-input
+									border="none"
+									@change="changeCustomer"
+									clearable
+									v-model="customer"
+									:placeholder="pinia_userRole == 'R' ? '请选择供应商' : '请选择客户'"
+								></uv-input>
 							</view>
 
 							<div class="flex-col justify-center items-center" style="height: 5vh">

@@ -17,7 +17,7 @@
 			</view>
 		</view>
 
-		<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/orderEmpty.svg" iconSize="400rpx" v-if="shareShow" text="订单已删除~" mode="search" margin-top="300"></u-empty>
+		<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/orderEmpty.svg" iconSize="400rpx" v-if="shareShow" text="订单已删除~" mode="search" marginTop="300rpx"></u-empty>
 		<u-popup :show="showZG" mode="center" @close="showZG = false" :safeAreaInsetBottom="false">
 			<image style="width: 500rpx; height: 100%" :src="showZGImg" mode="widthFix"></image>
 		</u-popup>

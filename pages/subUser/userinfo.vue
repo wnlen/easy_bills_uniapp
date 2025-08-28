@@ -1,9 +1,10 @@
 <template>
 	<view class="pt60">
 		<view class="flex-row justify-center pt30 mb20 avatar-area">
-			<button @chooseavatar="onChooseAvatar" open-type="chooseAvatar" type="default" mode="circle">
+			<button open-type="chooseAvatar" @chooseavatar="onChooseAvatar" type="default" mode="circle">
 				<view class="relative" style="">
-					<u-avatar :level-icon="camera" size="150rpx" :src="userInfo.headPortrait"></u-avatar>
+					{{ userInfo.headPortrait }}
+					<u-avatar :level-icon="camera" size="150rpx" :src="`${userInfo.headPortrait}?t=${timestamp}`"></u-avatar>
 					<!-- camera -->
 					<view
 						class="absolute flex-col justify-center items-center"
@@ -76,6 +77,7 @@
 export default {
 	data() {
 		return {
+			timestamp: Date.now(),
 			gender: '',
 			userInfo: {
 				name: '', //必填
@@ -103,6 +105,9 @@ export default {
 		this.time = this.userInfo.registrationDate;
 	},
 	methods: {
+		refreshImg() {
+			this.timestamp = Date.now(); // 更新时间戳
+		},
 		jump() {
 			uni.navigateTo({
 				url: '/pages/subAuth/auth'
@@ -128,9 +133,10 @@ export default {
 					imageType: '0'
 				},
 				success: (uploadFileRes) => {
-					console.log('uploadFileResuploadFileRes', uploadFileRes);
-					if (uploadFileRes.statusCode == '200') {
+					console.log('uploadFileResuploadFileRes', uploadFileRes, uploadFileRes.statusCode);
+					if (uploadFileRes.statusCode == 200) {
 						that.userInfo.headPortrait = uploadFileRes.data;
+						that.refreshImg();
 						var data = {
 							id: that.pinia_user.data.id,
 							headPortrait: that.userInfo.headPortrait,
@@ -143,6 +149,7 @@ export default {
 							.then((res) => {
 								if (res.data.data == 1) {
 									that.$u.toast('修改成功');
+									this.onShow();
 								}
 							})
 							.catch((res) => {
