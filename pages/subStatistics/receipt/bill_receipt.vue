@@ -2,14 +2,16 @@
 	<view class="billReceipt">
 		<!-- 日历选择器 -->
 		<uv-calendars color="#01BB74" confirmColor="#01BB74" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="ChangeTimeStart" />
-		<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" mode="search" margin-top="-200" v-if="!identity"></u-empty>
+		<view class="flex-row items-center justify-center" style="height: 66%">
+			<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" v-if="!identity"></u-empty>
+		</view>
 
 		<z-paging
 			:paging-style="{ marginTop: '0' }"
 			ref="paging"
 			use-virtual-list
 			:force-close-inner-list="true"
-			v-show="identity"
+			v-if="identity"
 			:auto="true"
 			:refresher-enabled="true"
 			:cell-height-mode="0 != 0 ? 'fixed' : 'dynamic'"
@@ -879,7 +881,7 @@ export default {
 <style scoped lang="scss">
 .billReceipt {
 	width: 100vw;
-	height: 110vh;
+	height: 100vh;
 	background-color: #f4f4f4;
 }
 

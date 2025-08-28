@@ -110,10 +110,7 @@
 							confirmColor="#01BB74"
 							ref="calendars"
 							@close="showCalendar = false"
-							@confirm="
-								getConfirm;
-								showCalendar = false;
-							"
+							@confirm="getConfirm"
 							:startDate="getCurrentDateMin()"
 							:endDate="getCurrentDate()"
 						/>
@@ -640,6 +637,7 @@ export default {
 		},
 		// 获取选择的时间
 		getConfirm(e) {
+			this.showCalendar = false;
 			this.receipts.creationTime = e.fulldate; //传给接口
 		},
 		digitUppercase(n = 0) {
