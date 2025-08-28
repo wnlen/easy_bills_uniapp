@@ -144,7 +144,7 @@ export default (http) => ({
 	},
 
 	/**
-	 * 获取订单草稿列表
+	 * 获取系统消息列表
 	 * 原始接口：/edo/orderDel/get
 	 */
 	getOrderDraftList(params) {
@@ -153,10 +153,10 @@ export default (http) => ({
 
 	/**
 	 * 获取订单草稿条数上限（限制规则）
-	 * 原始接口：/edo/orderDel/getLimit
+	 * 原始接口：/edo/Limit
 	 */
 	getOrderDraftLimit(params) {
-		return http.post('orderDel/getLimit', params);
+		return http.post('Limit', params);
 	},
 
 	/**

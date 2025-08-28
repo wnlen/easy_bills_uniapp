@@ -76,7 +76,7 @@ export default {
 		},
 		getPendingTasks() {
 			uni.$api.order.getOrderDraftList({ bUser: this.pinia_user.phone }).then((res) => {
-				console.log('系统消息', res);
+				console.warn('系统消息', res);
 				const isDirector = this.pinia_userRole === 'D';
 				const tasks = res.data.data.filter((item) => (isDirector ? item.port === '1' || item.port === 'f' : item.port === '0'));
 				this.todoCount = tasks.length;
