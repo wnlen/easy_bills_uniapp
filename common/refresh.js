@@ -73,8 +73,12 @@ export default (http) => ({
 			uni.$api.task.startRWFlow({
 					list: list
 				})
-				.then((res) => console.log('通知结果：', res))
-				.catch((err) => console.log('通知失败：', err));
+				.then((res) => {
+					console.log('通知结果：', res)
+				})
+				.catch((err) => {
+					console.log('通知失败：', err)
+				});
 		};
 
 		// 记录用户行为
@@ -96,8 +100,12 @@ export default (http) => ({
 				state: 1
 			};
 			uni.$api.user.behaviorAdd(dx)
-				.then((res) => console.log('记录结果：', res))
-				.catch((err) => console.log('记录失败：', err));
+				.then((res) => {
+					console.log('记录结果：', res)
+				})
+				.catch((err) => {
+					console.log('记录失败：', err)
+				});
 		};
 
 		// 获取记录提醒
@@ -119,7 +127,9 @@ export default (http) => ({
 						app.config.globalProperties.$record();
 					}
 				})
-				.catch((err) => console.log('记录失败：', err));
+				.catch((err) => {
+					console.log('记录失败：', err)
+				});
 		};
 
 		// 打开视频号
@@ -127,8 +137,12 @@ export default (http) => ({
 			uni.openChannelsActivity({
 				finderUserName: 'sphgIVBwvsJcDEZ',
 				feedId: videoList[index],
-				success: (res) => console.log('跳转成功', res),
-				fail: (err) => console.log('跳转失败', err)
+				success: (res) => {
+					console.log('跳转成功', res)
+				},
+				fail: (err) => {
+					console.log('跳转失败', err)
+				}
 			});
 		};
 
