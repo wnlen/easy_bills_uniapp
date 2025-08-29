@@ -12,9 +12,6 @@
 				title-size="34"
 				bgColor="#ffffff"
 			></u-navbar>
-			<view class="content">
-				<!-- 正文内容 -->
-			</view>
 		</view>
 
 		<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/orderEmpty.svg" iconSize="400rpx" v-if="shareShow" text="订单已删除~" mode="search" marginTop="300rpx"></u-empty>
@@ -205,7 +202,7 @@
 								<image
 									v-if="post.signatureImg != ''"
 									:src="post.signatureImg"
-									style="transform: rotate(270deg) translateY(20%); width: 120rpx"
+									style="transform: rotate(270deg) translateY(20%); width: 100rpx"
 									class=""
 									mode="widthFix"
 								></image>
@@ -258,7 +255,6 @@
 					</view>
 					<view class="flex-row justify-center items-end mt5" @click="exit" style="width: 100%; color: #aaaaaa">关闭单据{{ ' >' }}</view>
 				</view>
-				{{ `LookBtn:${LookBtn},post.paymentState:${post.paymentState},post.lockOrder:${post.lockOrder},` }}
 				<view class="fixed-bar">
 					<view class="pl30 pr30 pb30 flex-row justify-between items-center">
 						<view v-if="LookBtn == 'Y' && post.paymentState == '0' && post.lockOrder != 1" class="flex-row flex-1 items-center">
@@ -356,8 +352,8 @@ export default {
 		// },
 	},
 	onLoad(options) {
+		this.options = options;
 		if (this.$u.getPinia('user') && this.$u.getPinia('user.user.phone')) {
-			this.options = options;
 			this.$loadUser(this);
 			//单据id
 			this.getOrder(options);
@@ -366,11 +362,20 @@ export default {
 		} else {
 			console.warn('pinia_user 未初始化');
 			uni.navigateTo({
-				url: '/pages/subUser/login'
+				url: '/pages/subUser/login?sharePath=detailsShare'
 			});
 		}
 	},
-	onShow() {},
+	onShow() {
+		if (this.$u.getPinia('user') && this.$u.getPinia('user.user.phone')) {
+			this.$loadUser(this);
+			//单据id
+			this.getOrder(this.options);
+			this.$getRecord(this);
+			this.getQs();
+		} else {
+		}
+	},
 	onShareAppMessage(ops) {
 		return {
 			title: '这是您的货单，请打开易单据查看详情~',

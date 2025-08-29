@@ -3,8 +3,7 @@
 		<view class="flex-row justify-center pt30 mb20 avatar-area">
 			<button open-type="chooseAvatar" @chooseavatar="onChooseAvatar" type="default" mode="circle">
 				<view class="relative" style="">
-					{{ userInfo.headPortrait }}
-					<u-avatar :level-icon="camera" size="150rpx" :src="`${userInfo.headPortrait}?t=${timestamp}`"></u-avatar>
+					<u-avatar :level-icon="camera" size="150rpx" :src="`${userInfo.headPortrait}`"></u-avatar>
 					<!-- camera -->
 					<view
 						class="absolute flex-col justify-center items-center"
@@ -56,7 +55,7 @@
 			<view class="flex-row pt35 pb35 items-center u-border-bottom justify-between">
 				<text class="ft-gray">状态</text>
 				<view class="flex-row justify-end items-center flex-1" @click="jump">
-					<u-tag v-if="ac ? ac.id != undefined : false" :plain="true" text="已完善" type="success" @click="jump" />
+					<u-tag v-if="ac ? ac.id != undefined : false" :plain="true" text="已完善" borderColor="#01BB74" color="#01BB74" @click="jump" />
 					<u-tag v-if="ac ? ac.id == undefined : true" :plain="true" text="未完善" type="error" @click="jump" />
 				</view>
 			</view>
@@ -77,7 +76,6 @@
 export default {
 	data() {
 		return {
-			timestamp: Date.now(),
 			gender: '',
 			userInfo: {
 				name: '', //必填
@@ -105,9 +103,6 @@ export default {
 		this.time = this.userInfo.registrationDate;
 	},
 	methods: {
-		refreshImg() {
-			this.timestamp = Date.now(); // 更新时间戳
-		},
 		jump() {
 			uni.navigateTo({
 				url: '/pages/subAuth/auth'

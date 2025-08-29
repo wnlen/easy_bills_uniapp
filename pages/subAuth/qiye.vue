@@ -221,8 +221,10 @@ export default {
 			this.buttonDisabled = true;
 			uni.$api.order.addAccountRecord(dx).then((res) => {
 				this.buttonDisabled = false;
+
 				//更新用户信息
 				if (res.data.data == '1') {
+					uni.navigateBack();
 					this.$u.setPinia({
 						user: {
 							user: {
@@ -251,7 +253,7 @@ export default {
 							.join('&');
 						query = params ? `?${params}` : '';
 					}
-					uni.navigateBack();
+
 					// uni.redirectTo({
 					// 	url: `${currentRoute}${query}`
 					// });

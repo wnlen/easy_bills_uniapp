@@ -237,8 +237,15 @@ export default {
 				}
 			},
 			chartsDataPie2: {
+				tooltip: {
+					trigger: 'none' // 禁用提示框
+				},
 				series: [
 					{
+						emphasis: {
+							disabled: true // 禁用高亮效果
+						},
+						silent: true,
 						data: [
 							{
 								name: '待签收',
@@ -667,8 +674,15 @@ export default {
 		setDR(value) {
 			if (value === 'D') {
 				this.chartsDataPie2 = {
+					tooltip: {
+						trigger: 'none' // 禁用提示框
+					},
 					series: [
 						{
+							emphasis: {
+								disabled: true // 禁用高亮效果
+							},
+							silent: true,
 							data: [
 								{
 									name: '待签收',
@@ -803,8 +817,15 @@ export default {
 					}
 				};
 				this.chartsDataPie2 = {
+					tooltip: {
+						trigger: 'none' // 禁用提示框
+					},
 					series: [
 						{
+							emphasis: {
+								disabled: true // 禁用高亮效果
+							},
+							silent: true,
 							data: [
 								{
 									name: '待确收',
