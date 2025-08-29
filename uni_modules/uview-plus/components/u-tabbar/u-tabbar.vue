@@ -119,6 +119,10 @@
 <style lang="scss" scoped>
 
 	.u-tabbar {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
 		@include flex(column);
 		flex: 1;
 		justify-content: center;

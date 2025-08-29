@@ -128,17 +128,17 @@ export default {
 	},
 	onShow() {
 		if (this.pinia_user.phone != undefined) {
-			this.$u.setPinia({
-				global: {
-					tabbar: [
-						{},
-						{},
-						{
-							count: 0
-						}
-					]
-				}
-			});
+			// this.$u.setPinia({
+			// 	global: {
+			// 		tabbar: [
+			// 			{},
+			// 			{},
+			// 			{
+			// 				count: 0
+			// 			}
+			// 		]
+			// 	}
+			// });
 			this.showMess = false;
 			this.loadData();
 			// this.SOCKETfLUSH();
@@ -180,19 +180,19 @@ export default {
 
 					console.log(this.list);
 
-					if (this.$u.getPinia('global.tabbar.2.count') != sum) {
-						this.$u.setPinia({
-							global: {
-								tabbar: [
-									{},
-									{},
-									{
-										count: sum
-									}
-								]
-							}
-						});
-					}
+					// if (this.$u.getPinia('global.tabbar.2.count') != sum) {
+					// 	this.$u.setPinia({
+					// 		global: {
+					// 			tabbar: [
+					// 				{},
+					// 				{},
+					// 				{
+					// 					count: sum
+					// 				}
+					// 			]
+					// 		}
+					// 	});
+					// }
 
 					this.showMess = true;
 				})

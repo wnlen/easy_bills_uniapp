@@ -192,7 +192,7 @@ export default {
 			err: false,
 			phoneNumberErr: false,
 			passsswordErr: false,
-			share_data: {}
+			sharePath: null
 		};
 	},
 	onLoad(option) {
@@ -200,14 +200,8 @@ export default {
 		// this.getSystemInfoSyncInit();
 
 		//接收分享参数
-		if (option && option.share_id) {
-			console.log('option', option);
-			this.share_data.id = option.share_id;
-			this.share_data.phone = option.phone;
-			this.share_data.type = option.type;
-			this.share_data.port = option.port;
-			this.share_data.versions = option.versions;
-			console.log('this.share_data.versionsthis.share_data.versionsthis.share_data.versions', this.share_data.versions);
+		if (option && option.sharePath) {
+			this.sharePath = option.sharePath;
 		}
 
 		// var that = this;
@@ -345,23 +339,24 @@ export default {
 
 							if (resDate.phone != '' && resDate.data.work != null) {
 								// that.$loadUser(that);
-								console.log('授权完', that.share_data);
+								console.log('授权完', that.sharePath);
 								// 接收分享参数
-								if (Object.keys(that.share_data).length != 0) {
-									console.log('接收分享参数', that.share_data);
-									uni.redirectTo({
-										url:
-											'/pages/subOrder/detailsShare?share_id=' +
-											that.share_data.id +
-											'&phone=' +
-											that.share_data.phone +
-											'&port=' +
-											that.share_data.port +
-											'&type=' +
-											that.share_data.type +
-											'&versions=' +
-											that.share_data.versions
-									});
+								if (that.sharePath) {
+									uni.navigateBack();
+									// console.log('接收分享参数', that.share_data);
+									// uni.redirectTo({
+									// 	url:
+									// 		'/pages/subOrder/detailsShare?share_id=' +
+									// 		that.share_data.id +
+									// 		'&phone=' +
+									// 		that.share_data.phone +
+									// 		'&port=' +
+									// 		that.share_data.port +
+									// 		'&type=' +
+									// 		that.share_data.type +
+									// 		'&versions=' +
+									// 		that.share_data.versions
+									// });
 								} else {
 									uni.switchTab({
 										url: '/pages/index/index'

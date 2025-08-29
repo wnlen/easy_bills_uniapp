@@ -118,9 +118,11 @@
 						</view>
 
 						<view class="flex-row justify-end items-center" style="width: 92%">
-							<u-icon v-if="item.name != ''" @click="deleteRole(item)" name="trash" size="35rpx" color="#333333" class="mr15"></u-icon>
+							<view class="mr30" v-if="item.name != ''">
+								<u-icon @click="deleteRole(item)" name="trash" size="35rpx" color="#333333"></u-icon>
+							</view>
 
-							<u-icon @click="changeUser(1)" name="" :customStyle="{ margin: '0 0 0 30rpx' }" size="38rpx" class="mr30"></u-icon>
+							<!--  <u-icon @click="changeUser(1)" name="" :customStyle="{ margin: '0 0 0 30rpx' }" size="38rpx" class="mr30"></u-icon> -->
 						</view>
 					</view>
 				</view>
@@ -222,9 +224,11 @@
 						</view>
 
 						<view class="flex-row justify-end items-center" style="width: 92%">
-							<u-icon v-if="item.name != ''" @click="deleteRole(item)" name="trash" size="35rpx" color="#333333" class="mr15"></u-icon>
+							<view class="mr30" v-if="item.name != ''">
+								<u-icon @click="deleteRole(item)" name="trash" size="35rpx" color="#333333"></u-icon>
+							</view>
 
-							<u-icon @click="changeUser(3)" name="" :customStyle="{ margin: '0 0 0 30rpx' }" size="38rpx" class="mr30"></u-icon>
+							<!-- <u-icon @click="changeUser(3)" name="" :customStyle="{ margin: '0 0 0 30rpx' }" size="38rpx" class="mr30"></u-icon> -->
 						</view>
 					</view>
 				</view>
@@ -325,9 +329,11 @@
 							</view>
 						</view>
 						<view class="flex-row justify-end" style="width: 92%">
-							<u-icon v-if="item.name != ''" @click="deleteRole(item)" name="trash" size="35rpx" color="#333333" class="mr15"></u-icon>
+							<view class="mr30" v-if="item.name != ''">
+								<u-icon @click="deleteRole(item)" name="trash" size="35rpx" color="#333333"></u-icon>
+							</view>
 
-							<u-icon @click="changeUser(4)" name="" :customStyle="{ margin: '0 0 0 30rpx' }" size="38rpx" class="mr30"></u-icon>
+							<!-- <u-icon @click="changeUser(4)" name="" :customStyle="{ margin: '0 0 0 30rpx' }" size="38rpx" class="mr30"></u-icon> -->
 						</view>
 					</view>
 				</view>

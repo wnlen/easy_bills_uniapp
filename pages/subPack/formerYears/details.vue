@@ -253,7 +253,7 @@
 								<image
 									v-if="post.signatureImg != ''"
 									:src="post.signatureImg"
-									style="transform: rotate(270deg) translateY(20%); width: 120rpx"
+									style="transform: rotate(270deg) translateY(20%); width: 100rpx"
 									class=""
 									mode="widthFix"
 								></image>

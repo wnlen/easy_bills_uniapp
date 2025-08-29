@@ -124,11 +124,10 @@
 								{{ Title }}
 							</text>
 							<u-icon name="arrow-down-fill" size="10"></u-icon>
-							<text class="mr20"></text>
-							<view class="my-input flex-1" v-if="showTage != '1'">
+							<view class="my-input flex-1 ml10" v-if="showTage != '1'">
 								<uv-input border="none" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></uv-input>
 							</view>
-							<view class="ml24 my-input flex-1" v-if="showTage == '1'">
+							<view class="ml10 my-input flex-1" v-if="showTage == '1'">
 								<uv-input border="none" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></uv-input>
 							</view>
 
@@ -591,9 +590,9 @@ export default {
 				// "近三月，近一年 到期时间2024.12.31"
 				var code = key.split('-')[0];
 				if (code == 'A1') {
-					text = text + '  近三月 已到期' + date;
+					text = text + '~近三月 已到期' + date;
 				} else if (code == 'A2') {
-					text = text + '    近一年 已到期' + date;
+					text = text + '~近一年 已到期' + date;
 				}
 				// else if(code == "B1"){
 				// 	text = text + "  往年数据 已到期" + date
@@ -603,13 +602,13 @@ export default {
 				console.log('`````````````````', key);
 			} else {
 				if (key.includes('A')) {
-					text = text + (key == 'A1' ? '  近三月 到期时间' + date : '    近一年 到期时间' + date);
+					text = text + (key == 'A1' ? '~近三月 到期时间' + date : '~近一年 到期时间' + date);
 				}
 				console.log('`````````````````', key);
 			}
 		}
 		if (text !== '') {
-			this.uNoticeBarlist.push(text);
+			this.uNoticeBarlist = text.split('~').slice(1);
 		}
 	},
 	onReachBottom() {

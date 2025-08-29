@@ -2,7 +2,7 @@
 	<view class="viewTabbar">
 		<!-- 自定义tab -->
 		<u-tabbar :value="tabIndex" activeColor="#01BB74" @change="changeTab" :placeholder="true" :fixed="true" :safeAreaInsetBottom="true">
-			<u-tabbar-item :text="item.text" v-for="(item, index) in tabbar" :key="index" :badge="index == 2 ? messNum : 0">
+			<u-tabbar-item :text="item.text" v-for="(item, index) in tabbar" :key="index" :badge="index == 2 ? messNum : 0" badgeStyle="background-color:#e52829;">
 				<template #active-icon>
 					<u-icon size="40rpx" :name="item.selectedIconPath"></u-icon>
 				</template>
@@ -77,14 +77,11 @@ export default {
 </script>
 
 <style lang="scss">
-::v-deep .u-badge--error {
-	transform: translateY(-20rpx);
-	background-color: #e52829 !important;
-}
 .viewTabbar {
 	position: fixed;
 	bottom: 0;
 	left: 0;
 	right: 0;
+	z-index: 999;
 }
 </style>

@@ -838,7 +838,7 @@ onShareAppMessage((ops) => {
 		const phone = userStore.user.phone;
 		const port = userStore.userRole;
 		const versions = ops.target.dataset.versions;
-		console.log('分享参数：', pid, pThumb, phone, port, versions);
+		console.log('分享参数：', `share_id=${pid}&&type=1&&phone=${phone}&&port=${port}&&versions=${versions}`);
 		return {
 			title: '您有一张订单待确认~',
 			path: `/pages/subOrder/detailsShare?share_id=${pid}&&type=1&&phone=${phone}&&port=${port}&&versions=${versions}`,

@@ -156,7 +156,7 @@ export default (http) => ({
 	 * 原始接口：/edo/Limit
 	 */
 	getOrderDraftLimit(params) {
-		return http.post('Limit', params);
+		return http.post('orderDel/getLimit', params);
 	},
 
 	/**
