@@ -102,7 +102,7 @@ export default {
 						uni.reLaunch({
 							url: '/pages/subPack/user/my_order/my_order'
 						});
-					}, 1500);
+					}, 1000);
 				})
 				.catch((res) => {});
 		},

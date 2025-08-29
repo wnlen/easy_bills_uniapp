@@ -105,6 +105,14 @@ export const initRequest = () => {
 		const httpCode = error?.statusCode ?? error?.status
 		const bizCode = error?.data?.code
 		if (httpCode === 401 || bizCode === 401) {
+			uni.$u.setPinia({
+				user: {
+					token: '',
+					user: {
+						phone: undefined
+					}
+				}
+			})
 			uni.hideLoading()
 			goLoginOnce()
 			// 抛错给业务，避免错误被吃掉

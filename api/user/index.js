@@ -146,5 +146,12 @@ export default (http) => ({
 	 */
 	deleteRelationApply(params) {
 		return http.post('relationApply/del', params);
+	},
+	/**
+	 * 删除员工的关联申请记录
+	 * 原始接口：/edo/relationApply/del
+	 */
+	behaviorAdd(params) {
+		return http.post('behavior/add', params);
 	}
 });
