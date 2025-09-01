@@ -106,7 +106,8 @@ export default {
 				uni.$api.user
 					.verifyUnsubscribeCode({
 						phone: this.pinia_user.phone,
-						code: code
+						code: code,
+						scene: 'Logout'
 					})
 					.then((res) => {
 						if (res.data.code == 200) {
@@ -129,7 +130,7 @@ export default {
 				uni.$api.user
 					.getUnsubscribeCode({
 						phone: this.pinia_user.phone,
-						type: 1
+						scene: 'Logout'
 					})
 					.then((res) => {
 						if (res.data.code === 200) {

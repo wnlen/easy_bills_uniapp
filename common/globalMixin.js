@@ -18,13 +18,6 @@ export default {
 			const store = useUserStore();
 			console.log('vvvvvvvvvvvvvvvvvvvvvvvv', useUserStore())
 			return {
-				// phone: '',
-				// data: {
-				// 	headPortrait: '',
-				// 	name: '',
-				// 	work: ''
-				// },
-				// workData: {},
 				...store.user
 			};
 		},

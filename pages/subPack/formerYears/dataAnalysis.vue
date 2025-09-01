@@ -17,7 +17,7 @@ export default {
 		var phone = this.$u.getPinia('user.user.phone');
 		var port = this.$u.getPinia('user.userRole');
 		console.log('!this.pinia_token', !this.pinia_token);
-		console.log('phone', this.phone);
+		console.log('phone', phone);
 		console.log('port', port);
 		console.log('option', option);
 		var href = 'https://www.upbill.cn/echarts/statistics?phone=' + phone + '&year=' + option.year + '&port=' + port + '&token=' + !this.pinia_token;
