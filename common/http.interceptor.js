@@ -73,8 +73,8 @@ export const initRequest = () => {
 
 	http.setConfig((config) => {
 		// config.baseURL = 'https://wxapi.elist.com.cn/edo/'
-		// config.baseURL = 'https://wxapi.elist.com.cn/test/edo/';
-		config.baseURL = 'http://192.168.124.2:8081/test/edo/';
+		config.baseURL = 'https://wxapi.elist.com.cn/test/edo/';
+		// config.baseURL = 'http://192.168.124.2:8081/test/edo/';
 		config.showLoading = true;
 		config.loadingText = '加载中~';
 		config.loadingTime = 800;
@@ -107,9 +107,9 @@ export const initRequest = () => {
 			const hdr = {
 				...config.header
 			};
-			if (token) hdr.Authorization = `Bearer ${token}`, hdr.token = token;
-			if (userStore.user?.phone) hdr.phone = userStore.user.phone;
-			if (userStore.user?.workData?.bossNumber) hdr.boss = userStore.user.workData.bossNumber;
+			hdr.Authorization = `Bearer ${token}`, hdr.token = token;
+			hdr.phone = userStore.user.phone || '';
+			hdr.boss = userStore.user.workData.bossNumber || '0';
 			config.header = hdr;
 		}
 

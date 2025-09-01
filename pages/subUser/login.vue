@@ -338,7 +338,7 @@ export default {
 							console.log('亘古不变', that.$u.getPinia('user.user'));
 
 							if (resDate.phone != '' && resDate.data.work != null) {
-								// that.$loadUser(that);
+								that.$loadUser(that);
 								console.log('授权完', that.sharePath);
 								// 接收分享参数
 								if (that.sharePath) {
