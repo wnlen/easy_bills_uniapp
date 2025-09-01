@@ -34,7 +34,7 @@
 						</liu-data-select>
 					</view>
 					<view class="flex-row justify-end items-center" style="height: 100%">
-						<text @click="jumpnView">数据分析></text>
+						<!-- <text @click="jumpnView">数据分析></text> -->
 					</view>
 				</view>
 			</template>

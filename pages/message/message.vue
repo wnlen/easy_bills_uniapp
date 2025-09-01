@@ -1,39 +1,48 @@
 <template>
-	<view class="content bg-white pb38">
-		<u-navbar title="消息" :placeholder="true">
-			<template #left></template>
-		</u-navbar>
-		<view>
-			<u-notice-bar direction="column" :text="list2"></u-notice-bar>
-		</view>
-
-		<view class="vw100" style="margin-top: 50%; height: 200rpx" v-if="!ifShow()">
-			<u-empty icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg" iconSize="400rpx" text="暂无消息~" mode="search" margin-top="200"></u-empty>
-		</view>
-
-		<u-swipe-action :show="item.show" :index="index" v-for="(item, index) in list" :key="index" @click="click" disabled :options="options">
-			<view class="item u-border-bottom relative" v-show="item.number > 0" v-if="item.ifwork && showMess && ifShow()">
-				<view class="mr30"><u-icon :name="ImgUrl + item.images" size="100rpx"></u-icon></view>
-
-				<view class="title-wrap flex-col" style="background-color: #ffffff; width: 80%" @click="jumpChat(item.name, item.images, item)">
-					<view class="flex-row" style="width: 100%">
-						<view class="" style="width: 60%; font-size: 32rpx; margin-top: 4rpx">
-							<text>{{ item.name }}</text>
-						</view>
-						<view class="" style="width: 40%">
-							<text class="" style="font-size: 24rpx; color: #cccccc; margin-right: 0; width: 20%">
-								{{ item.time }}
-							</text>
-						</view>
-					</view>
-					<view class="title-wrap">
-						<text class="title u-line-2">{{ item.title }}</text>
-						<u-badge size="default" :offset="['10rpx', '20rpx']" absolute bgColor="#E52829" v-show="item.right" :value="item.number"></u-badge>
-					</view>
-				</view>
+	<view class="content bg-white">
+		<z-paging ref="paging" use-virtual-list :force-close-inner-list="true" cell-height-mode="dynamic" @virtualListChange="virtualListChange" @query="queryList">
+			<!-- <template #top> -->
+			<u-navbar title="消息" :placeholder="true">
+				<template #left></template>
+			</u-navbar>
+			<view>
+				<u-notice-bar direction="column" :text="list2"></u-notice-bar>
 			</view>
-		</u-swipe-action>
+			<!-- </template> -->
+			<view class="vw100" style="margin-top: 50%; height: 200rpx" v-if="!ifShow()">
+				<u-empty
+					icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg"
+					iconSize="400rpx"
+					text="暂无消息~"
+					mode="search"
+					margin-top="200"
+				></u-empty>
+			</view>
+			<view class="">
+				<u-swipe-action :show="item.show" :index="index" v-for="(item, index) in list" :key="index" @click="click" disabled :options="options">
+					<view class="item u-border-bottom relative" v-show="item.number > 0" v-if="item.ifwork && showMess && ifShow()">
+						<view class="mr30"><u-icon :name="ImgUrl + item.images" size="100rpx"></u-icon></view>
 
+						<view class="title-wrap flex-col" style="background-color: #ffffff; width: 80%" @click="jumpChat(item.name, item.images, item)">
+							<view class="flex-row" style="width: 100%">
+								<view class="" style="width: 60%; font-size: 32rpx; margin-top: 4rpx">
+									<text>{{ item.name }}</text>
+								</view>
+								<view class="" style="width: 40%">
+									<text class="" style="font-size: 24rpx; color: #cccccc; margin-right: 0; width: 20%">
+										{{ item.time }}
+									</text>
+								</view>
+							</view>
+							<view class="title-wrap">
+								<text class="title u-line-2">{{ item.title }}</text>
+								<u-badge size="default" :offset="['10rpx', '20rpx']" absolute bgColor="#E52829" v-show="item.right" :value="item.number"></u-badge>
+							</view>
+						</view>
+					</view>
+				</u-swipe-action>
+			</view>
+		</z-paging>
 		<!-- 自定义tab -->
 		<pop-tab :tabIndex="2" ref="popTab"></pop-tab>
 		<!-- <u-tabbar :list="vuex_tabbar" :height="tabHight" iconSize="40" active-color="#0FB076"></u-tabbar> -->
@@ -117,31 +126,17 @@ export default {
 		};
 	},
 	onLoad() {
-		this.$getModel((value) => {
-			if (value) {
-				this.tabHight = value;
-				// 在这里可以根据获取到的值进行其他操作
-			} else {
-				this.tabHight = value;
-			}
-		});
+		// this.$getModel((value) => {
+		// 	if (value) {
+		// 		this.tabHight = value;
+		// 		// 在这里可以根据获取到的值进行其他操作
+		// 	} else {
+		// 		this.tabHight = value;
+		// 	}
+		// });
 	},
 	onShow() {
 		if (this.pinia_user.phone != undefined) {
-			// this.$u.setPinia({
-			// 	global: {
-			// 		tabbar: [
-			// 			{},
-			// 			{},
-			// 			{
-			// 				count: 0
-			// 			}
-			// 		]
-			// 	}
-			// });
-			this.showMess = false;
-			this.loadData();
-			// this.SOCKETfLUSH();
 			this.getAllNum();
 			this.$refs.popTab.getMessNum();
 		} else {
@@ -160,6 +155,18 @@ export default {
 		}
 	},
 	methods: {
+		virtualListChange() {},
+		queryList() {
+			if (this.pinia_user.phone != undefined) {
+				this.showMess = false;
+				this.loadData();
+				// this.SOCKETfLUSH();
+				this.getAllNum();
+				this.$refs.popTab.getMessNum();
+			} else {
+				this.$u.toast('登录了解更多');
+			}
+		},
 		getAllNum() {
 			var dx = {
 				boss: this.pinia_user.data.work == '1' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone,

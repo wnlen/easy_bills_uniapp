@@ -391,7 +391,7 @@
 			<view class="NullView" style="height: 5vh; background-color: transparent"></view>
 			<!-- 自定义tab -->
 			<template #bottom>
-				<pop-tab :tabIndex="1" ref="popTab"></pop-tab>
+				<pop-tab :tabIndex="1" ref="popTabCom"></pop-tab>
 			</template>
 		</z-paging>
 
@@ -612,7 +612,9 @@ const globalStore = useGlobalStore();
 const { vuex_tabbar } = storeToRefs(systemStore);
 
 const paging = ref(null);
+
 const timeType = ref(null);
+const popTabCom = ref(null);
 const calendars = ref(null);
 const flushIndex = ref(systemStore.flush);
 
@@ -803,6 +805,7 @@ onLoad(() => {
 onShow(() => {
 	current.value = globalStore.tabIndex;
 	if (userStore.user.phone) {
+		popTabCom.value.getMessNum();
 		loadData();
 		useInitPage(realTimeSel, searchList, paging, date1, date2, tabsList.value, customer, current);
 		// paging.value?.reload()
