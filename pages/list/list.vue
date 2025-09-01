@@ -595,7 +595,7 @@
 	</view>
 </template>
 <script setup>
-import { ref, watch, onMounted, onBeforeUnmount } from 'vue';
+import { ref, watch, onMounted, onBeforeUnmount, nextTick } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useSystemStore } from '@/store/system';
 import { useUserStore } from '@/store/user';
@@ -805,9 +805,12 @@ onLoad(() => {
 onShow(() => {
 	current.value = globalStore.tabIndex;
 	if (userStore.user.phone) {
-		popTabCom.value.getMessNum();
 		loadData();
 		useInitPage(realTimeSel, searchList, paging, date1, date2, tabsList.value, customer, current);
+		nextTick(() => {
+			console.log('popTabCom.value', popTabCom.value);
+			popTabCom.value?.getMessNum();
+		});
 		// paging.value?.reload()
 	} else {
 		uni.$u.toast('登录查看更多');
