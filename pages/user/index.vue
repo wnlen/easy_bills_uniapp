@@ -267,6 +267,7 @@ export default {
 		if (this.pinia_user.phone != undefined) {
 			// this.$loadUser(this);
 			// this.guideCourse();
+			this.$refs.popTab.getMessNum();
 		} else {
 			console.log('未登录');
 		}
