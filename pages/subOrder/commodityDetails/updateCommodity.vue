@@ -216,9 +216,11 @@ export default {
 				.then((res) => {
 					console.log('res', res);
 					that.$u.toast(res.data.message);
-					if (res.data.data == '1') {
-						uni.navigateBack();
-					}
+					setTimeout(() => {
+						if (res.data.data == '1') {
+							uni.navigateBack();
+						}
+					}, 1500);
 				})
 				.catch((res) => {
 					that.$u.toast('获取失败');

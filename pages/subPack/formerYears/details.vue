@@ -343,7 +343,7 @@
 		</view>
 
 		<u-popup :show="showZG" mode="center" @close="showZG = false" :safeAreaInsetBottom="false">
-			<image style="width: 500rpx; height: 100%" :src="showZGImg" mode="widthFix"></image>
+			<image style="width: 500rpx; height: 100%; display: block" :src="showZGImg" mode="widthFix"></image>
 		</u-popup>
 
 		<u-popup class="flex-col justify-center items-center" :round="15" mode="center" :show="showMask" @close="showMask = false" :safeAreaInsetBottom="false">

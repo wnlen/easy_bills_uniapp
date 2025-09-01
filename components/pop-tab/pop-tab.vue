@@ -34,10 +34,10 @@ export default {
 	},
 	created() {
 		this.tabbar = this.$u.getPinia('global.tabbar');
-		this.getMessNum();
 	},
 	methods: {
 		getMessNum() {
+			console.log('this.isDsabled', this.isDsabled);
 			if (this.isDsabled) {
 				return;
 			}

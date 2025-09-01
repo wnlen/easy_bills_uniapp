@@ -16,7 +16,7 @@
 		</view>
 		<view class="bg-white radius12 mt60 ml30 mr30">
 			<view class="mb54 flex-row justify-between">
-				<view class="charts-box">
+				<view class="charts-box" @touchmove.stop.prevent>
 					<qiun-data-charts type="ring" :canvas2d="true" canvasId="myChartCanvas" :opts="ringOpts" :chartData="chartsDataPie2" />
 					<view class="text-center ft-bold">
 						<text class="ft24">￥</text>
@@ -106,7 +106,9 @@
 					<view class="absolute flex-col justify-center items-center" style="top: 0; height: 160rpx; font-size: 36rpx; font-weight: bold">提示</view>
 
 					<!-- #ifdef MP-WEIXIN -->
-					<text style="font-size: 32rpx; color: #999999">该{{ pinia_user.workData.identity == 3 ? '财务' : '分管' }}人员权限已到期,请联系</text>
+					<text style="font-size: 32rpx; color: #999999" v-if="pinia_user.workData">
+						该{{ pinia_user.workData.identity == 3 ? '财务' : '分管' }}人员权限已到期,请联系
+					</text>
 					<!-- #endif -->
 					<!-- #ifdef APP -->
 					<text style="font-size: 32rpx; color: #999999">人员权限已到期,请联系</text>
@@ -242,6 +244,7 @@ export default {
 				},
 				series: [
 					{
+						legendShape: 'none',
 						emphasis: {
 							disabled: true // 禁用高亮效果
 						},
@@ -413,7 +416,7 @@ export default {
 			this.goToLogin();
 			//#endif
 		} else {
-			console.log('有token', this.pinia_token);
+			this.$refs.popTab.getMessNum();
 			this.$loadUser(this);
 			this.guideCourse();
 			this.SOCKETfLUSH();
@@ -421,6 +424,7 @@ export default {
 
 		this.setDR(this.pinia_userRole);
 	},
+	onLoad() {},
 	methods: {
 		// 监听数据
 		SOCKETfLUSH() {
@@ -679,6 +683,7 @@ export default {
 					},
 					series: [
 						{
+							legendShape: 'none',
 							emphasis: {
 								disabled: true // 禁用高亮效果
 							},
@@ -822,6 +827,7 @@ export default {
 					},
 					series: [
 						{
+							legendShape: 'none',
 							emphasis: {
 								disabled: true // 禁用高亮效果
 							},
