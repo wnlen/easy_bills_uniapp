@@ -18,7 +18,7 @@
 		</view>
 		<view class="flex-col justify-center items-center mt30">
 			<view class="">
-				<u-icon name="https://res-oss.elist.com.cn/wxImg/user/del.svg" size="200"></u-icon>
+				<u-icon name="https://res-oss.elist.com.cn/wxImg/user/del.svg" size="200rpx"></u-icon>
 			</view>
 			<view class="" style="font-size: 36rpx; font-weight: 700; text-align: center; letter-spacing: 0rpx">注销账号将永久失效且不可恢复</view>
 		</view>
@@ -47,21 +47,20 @@
 		</view>
 
 		<view class="absolute flex-col justify-center items-center" style="bottom: 140rpx">
-			<view class="flex-row justify-center items-center mr24 ml24 mb20" @click="radioGroupChange">
-				<u-radio-group>
-					<u-radio :disabled="disabled" active-color="#01BB74" icon-size="12" class="flex-row justify-center" style="text-align: center">
+			<view class="flex-row justify-center items-center mr24 ml24 mb20">
+				<uv-checkbox-group>
+					<uv-checkbox @change="radiochange" active-color="#01BB74" icon-size="12" class="flex-row justify-center" style="text-align: center">
 						<view class="">
-							<text @tap.stop @click="radioGroupChange" style="color: #aaaaaa; font-size: 24rpx">同意并遵行易单据</text>
-							<text @tap.stop style="color: #01bb74; font-size: 24rpx" @click="jumpWord()">《账号注销须知》</text>
+							<text style="color: #aaaaaa; font-size: 24rpx">同意并遵行易单据</text>
+							<text @tap.stop style="color: #01bb74; font-size: 24rpx" @tap="jumpWord()">《账号注销须知》</text>
 						</view>
-					</u-radio>
-				</u-radio-group>
+					</uv-checkbox>
+				</uv-checkbox-group>
 			</view>
 
 			<view class="flex-col justify-center items-center" style="width: 100%">
 				<view
-					@tap.stop
-					@click="zx"
+					@click="logout"
 					class="flex-row justify-center items-center ml24 mr24"
 					style="background: #01bb74; width: 701.84rpx; height: 104rpx; border-radius: 376rpx; font-size: 36rpx; font-weight: bold; color: white"
 				>
@@ -76,7 +75,7 @@
 				<view class="text">稍后易单据客服会给您来电回访，</view>
 				<view class="text">请输入回访号码</view>
 				<view class="number">
-					<u-message-input width="40" :value="addPhone" mode="middleLine" font-size="50" @change="change" @finish="finish" maxlength="11"></u-message-input>
+					<u-code-input size="50rpx" space="15rpx" :v-model="addPhone" fontSize="50rpx" @change="change" @finish="finish" maxlength="11"></u-code-input>
 				</view>
 				<view class="flex-row items-center absolute u-border-top" style="width: 100%; bottom: 0; height: 25%">
 					<view @click="cancel()" style="width: 50%; height: 100%" class="titlePas flex-col justify-center items-center">取消</view>
@@ -91,7 +90,7 @@
 export default {
 	data() {
 		return {
-			disabled: true,
+			disabled: false,
 			wordUrl: "https://docs.google.com/gview?url='https://res-oss.elist.com.cn/excel/ydj.docx'",
 			showAddPhone: false,
 			addPhone: ''
@@ -140,7 +139,7 @@ export default {
 							url: '/pages/subPack/user/affirm/applyAffirm'
 						});
 					} else {
-						this.$u.toast(res.data.data.message);
+						this.$u.toast(res.data.data.data);
 					}
 				});
 		},
@@ -148,14 +147,6 @@ export default {
 			uni.switchTab({
 				url: '/pages/user/index'
 			});
-		},
-		radioGroupChange(e) {
-			console.log('点击');
-			if (this.disabled) {
-				this.disabled = false;
-			} else {
-				this.disabled = true;
-			}
 		},
 		jumpWord() {
 			console.log('查看须知');
@@ -178,13 +169,17 @@ export default {
 				});
 			}, 1000);
 		},
-		zx() {
-			if (this.disabled) {
+		logout() {
+			console.log('zhuxiao ');
+			if (!this.disabled) {
 				this.$u.toast('请勾选账号注销须知协议');
 				return;
 			}
 
 			this.showAddPhone = true;
+		},
+		radiochange(e) {
+			this.disabled = e;
 		}
 	}
 };

@@ -5,7 +5,7 @@ import {
 } from 'vue';
 
 // ========== UI 框架 ==========
-import uViewPlus from '@/uni_modules/uview-plus';
+import uView from '@/uni_modules/uview-plus';
 
 // ========== 状态管理 ==========
 import * as Pinia from 'pinia';
@@ -43,7 +43,7 @@ export function createApp() {
 	const http = initRequest();
 
 	// UI 框架
-	app.use(uViewPlus, () => ({
+	app.use(uView, () => ({
 		httpIns: () => http
 	}));
 

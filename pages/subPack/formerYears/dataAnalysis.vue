@@ -17,7 +17,7 @@ export default {
 		var phone = this.$u.getPinia('user.user.phone');
 		var port = this.$u.getPinia('user.userRole');
 		console.log('!this.pinia_token', !this.pinia_token);
-		console.log('phone', this.$u.getPinia('user.user.phone'));
+		console.log('phone', phone);
 		console.log('port', port);
 		console.log('option', option);
 		console.log('token', this.$u.getPinia('user.token'), this.pinia_token);

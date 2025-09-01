@@ -71,7 +71,7 @@ export default {
 										});
 									}
 								} else {
-									this.$u.toast(res.data.message);
+									this.$u.toast(res.data.data);
 								}
 							});
 					}

@@ -4,15 +4,7 @@ import SocketManager from '@/utils/socketManager.js';
 export default {
 	data() {
 		return {
-			// todoCount: 0,
-			// messageCount: 0,
-			// size: {
-			//     message: 0,
-			//     todo: 0,
-			//     contact: 0,
-			//     emp: 0,
-			//     notice: 0
-			// }
+			todoCount: 0
 		};
 	},
 	onLaunch(options) {

@@ -13,25 +13,37 @@ function isWhiteListedPath(url = '') {
 		'rest/v1/refresh',
 		'rest/v1/phone',
 		'rest/v1/auth/mp-weixin/login',
-		"rest/v1/auth/app-weixin/login",
-		"rest/v1/auth/app-yijian/login",
-		"rest/v1/auth/app-phone/login",
-		"rest/v1/auth/app-pwd/login",
-		"rest/v1/auth/app-apple/login",
-		"rest/v1/auth/refresh",
-		"rest/v1/auth/logout"
+		'rest/v1/auth/app-weixin/login',
+		'rest/v1/auth/app-yijian/login',
+		'rest/v1/auth/app-phone/login',
+		'rest/v1/auth/app-pwd/login',
+		'rest/v1/auth/app-apple/login',
+		'rest/v1/auth/refresh',
+		'rest/v1/auth/logout'
 	];
-	const whitePrefixList = ['/public/'];
-	const cleanUrl = url.split('?')[0];
-	return noAuthUrls.includes(cleanUrl) || whitePrefixList.some((prefix) => cleanUrl.startsWith(prefix));
+	const whitePrefixList = ['public/']; // 统一为不带前导斜杠
+
+	let clean = url.split('?')[0] || '';
+	// 提取 pathname
+	try {
+		if (/^https?:\/\//i.test(clean)) {
+			clean = new URL(clean).pathname || '';
+		}
+	} catch (e) {}
+	// 去掉前导斜杠 & 去掉开头可能的 '/test/edo/'
+	clean = clean.replace(/^\/+/, '').replace(/^test\/edo\/+/, '');
+
+	// 完整匹配 & 前缀匹配
+	if (noAuthUrls.includes(clean)) return true;
+	return whitePrefixList.some(prefix => clean.startsWith(prefix));
 }
 
 function goLoginOnce() {
 	if (hasRedirectedToLogin) return
 	hasRedirectedToLogin = true
-	// 1 秒内防抖，避免并发多次跳转
-	setTimeout(() => (hasRedirectedToLogin = false), 1000)
-	uni.navigateTo({
+	// 2 秒内防抖，避免并发多次跳转
+	setTimeout(() => (hasRedirectedToLogin = false), 2000)
+	uni.redirectTo({
 		url: '/pages/subUser/login'
 	})
 }
@@ -41,19 +53,28 @@ export const initRequest = () => {
 
 	const _rawGet = http.get.bind(http)
 	http.get = function(url, dataOrOptions = {}, options = {}) {
-		// 如果第二个参数看起来是“纯数据对象”，而不是包含 params 的 options，就包一层 params
-		const hasParamsField = dataOrOptions && typeof dataOrOptions === 'object' && 'params' in dataOrOptions
-		const finalOptions = hasParamsField ? dataOrOptions : {
-			params: dataOrOptions,
-			...options
+		let finalOptions;
+		if (dataOrOptions && typeof dataOrOptions === 'object' && ('params' in dataOrOptions || 'header' in
+				dataOrOptions || 'custom' in dataOrOptions)) {
+			// 第二参就是 options：和第三参 merge（第三参优先生效）
+			finalOptions = {
+				...dataOrOptions,
+				...options
+			};
+		} else {
+			// 第二参是纯查询对象：塞进 params，并与第三参合并（第三参优先）
+			finalOptions = {
+				params: dataOrOptions,
+				...options
+			};
 		}
-		return _rawGet(url, finalOptions)
+		return _rawGet(url, finalOptions);
 	}
 
 	http.setConfig((config) => {
 		// config.baseURL = 'https://wxapi.elist.com.cn/edo/'
-		config.baseURL = 'https://wxapi.elist.com.cn/test/edo/';
-		// config.baseURL = 'http://192.168.124.2:8081/test/edo/';
+		// config.baseURL = 'https://wxapi.elist.com.cn/test/edo/';
+		config.baseURL = 'http://192.168.124.2:8081/test/edo/';
 		config.showLoading = true;
 		config.loadingText = '加载中~';
 		config.loadingTime = 800;
@@ -63,7 +84,6 @@ export const initRequest = () => {
 
 	// ===== 核心：请求前拦截，无 token 就取消并跳转 =====
 	http.interceptors.request.use((config) => {
-		console.log('config', config);
 		const userStore = useUserStore()
 		const isWhite = isWhiteListedPath(config.url)
 		const skipAuth = config.custom?.noAuth === true
@@ -71,26 +91,26 @@ export const initRequest = () => {
 		if (!isWhite && !skipAuth) {
 			const token = (userStore.token || '').trim()
 			if (!token) {
-				// 先关掉 loading（否则会一直在转）
+				// 先关掉 loading
 				uni.hideLoading()
 				goLoginOnce()
 				// 取消本次请求（不发到服务器）
 				return Promise.reject({
-					code: 200,
-					message: '请登录'
-				})
+					statusCode: 401, // 或者 status: 401
+					data: {
+						code: 401,
+						message: '请登录'
+					}
+				});
 			}
 
-			// 有 token 才加头
-			config.header = {
-				...config.header,
-				Authorization: `Bearer ${token}`,
-				token,
-				phone: userStore.user?.phone || '',
-				boss: userStore.user?.workData?.bossNumber || '0'
-				// userRole: userStore.userRole || '',
-				// work: userStore.work || '',
-			}
+			const hdr = {
+				...config.header
+			};
+			if (token) hdr.Authorization = `Bearer ${token}`, hdr.token = token;
+			if (userStore.user?.phone) hdr.phone = userStore.user.phone;
+			if (userStore.user?.workData?.bossNumber) hdr.boss = userStore.user.workData.bossNumber;
+			config.header = hdr;
 		}
 
 		return config
@@ -118,6 +138,16 @@ export const initRequest = () => {
 			// 抛错给业务，避免错误被吃掉
 			return Promise.reject(error)
 		}
+		if (!httpCode && !bizCode) {
+			uni.hideLoading();
+			uni.showToast({
+				title: '网络异常，请检查连接',
+				icon: 'none'
+			});
+			return Promise.reject(error);
+		}
+		// 其它错误都要 reject 出去，避免被吃掉
+		return Promise.reject(error);
 	})
 	return http;
 };
