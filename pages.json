@@ -45,9 +45,9 @@
 			"path": "pages/message/message",
 			"style": {
 				"navigationBarTitleText": "消息",
-				"navigationStyle": "custom",
-				"enablePullDownRefresh": true,
-				"onReachBottomDistance": 50
+				"navigationStyle": "custom"
+				// "enablePullDownRefresh": true,
+				// "onReachBottomDistance": 50
 			}
 		},
 		{
