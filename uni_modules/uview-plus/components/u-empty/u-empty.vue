@@ -121,6 +121,10 @@
 			justify-content: center;
 			align-items: center;
 			margin-top: $u-empty-text-margin-top;
+			font-size: 30rpx;
+			width: 380rpx;
+			text-align: center;
+			line-height: 48rpx
 		}
 	}
 		.u-slot-wrap {

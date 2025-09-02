@@ -3,10 +3,10 @@
 		<z-paging ref="paging" use-virtual-list :force-close-inner-list="true" cell-height-mode="dynamic" @virtualListChange="virtualListChange" @query="queryList">
 			<template #top>
 				<!-- #ifdef MP-WEIXIN -->
-				<up-navbar :placeholder="true" leftIconColor="#fff" :titleStyle="titleStyle">
+				<up-navbar :placeholder="true" leftIconColor="#fff">
 					<template #center>
 						<view class="flex-row items-center justify-center">
-							<view class="" style="font-size: 34rpx; font-weight: 510">查询订单</view>
+							<view class="" style="font-size: 34rpx; font-weight: 500">查询订单</view>
 							<view
 								@click="jumpVideo"
 								class="flex-row justify-center items-center ml12"
@@ -20,7 +20,7 @@
 				</up-navbar>
 				<!-- #endif -->
 				<!-- #ifndef MP-WEIXIN -->
-				<up-navbar title="查询订单" :placeholder="true" leftIconColor="#fff" :titleBold="true" :titleStyle="titleStyle"></up-navbar>
+				<up-navbar title="查询订单" :placeholder="true" leftIconColor="#fff"></up-navbar>
 				<!-- #endif -->
 				<view style="width: 100%">
 					<u-tabs
@@ -142,9 +142,40 @@
 				</text>
 			</text>
 			<template #empty>
-				<view style="padding-bottom: 200rpx; margin-top: 22rpx">
-					<u-icon label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180rpx"></u-icon>
-				</view>
+				<u-empty
+					:icon="ImgUrl + '/wxImg/list/empty.svg'"
+					iconSize="200rpx"
+					:text="pinia_userRole == 'D' ? '还没有送货单呢~快去开一个单试试吧！' : '还没收到订单呢~快去邀请供应<br/>商开单吧！'"
+					marginTop="-200"
+				>
+					<u-button
+						v-if="pinia_userRole == 'D'"
+						color="#01BB74"
+						iconColor="#ECFFF9"
+						:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent' }"
+						shape="circle"
+						:plain="true"
+						@click="
+							uni.navigateTo({
+								url: '/pages/subOrder/add'
+							})
+						"
+					>
+						<text>去开单</text>
+					</u-button>
+					<u-button
+						v-else
+						dataName="shareFriend"
+						openType="share"
+						color="#01BB74"
+						iconColor="#ECFFF9"
+						:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent' }"
+						shape="circle"
+						:plain="true"
+					>
+						<text>去邀请</text>
+					</u-button>
+				</u-empty>
 			</template>
 			<view
 				v-for="(item, index) in orderList"
@@ -399,10 +430,10 @@
 		<!-- 弹出层 -->
 		<u-popup :show="show_start" @close="show_start = false" mode="top" :safeAreaInsetBottom="false" :safeAreaInsetTop="true" zIndex="999">
 			<!-- #ifdef MP-WEIXIN -->
-			<u-navbar leftIconColor="#fff" :titleStyle="titleStyle">
+			<u-navbar leftIconColor="#fff">
 				<template #center>
 					<view class="flex-row items-center justify-center">
-						<view class="" style="font-size: 34rpx; font-weight: 510">查询订单</view>
+						<view class="" style="font-size: 34rpx; font-weight: 500">查询订单</view>
 						<view
 							@click="jumpVideo"
 							class="flex-row justify-center items-center ml12"
@@ -416,7 +447,7 @@
 			</u-navbar>
 			<!-- #endif -->
 			<!-- #ifdef APP -->
-			<u-navbar title="查询订单" leftIconColor="#fff" :titleBold="true" :titleStyle="titleStyle"></u-navbar>
+			<u-navbar title="查询订单" leftIconColor="#fff" :placeholder="true"></u-navbar>
 			<!-- #endif -->
 			<view style="height: 44px"></view>
 			<view class="pl30 pr30 pb30">
@@ -618,11 +649,6 @@ const popTabCom = ref(null);
 const calendars = ref(null);
 const flushIndex = ref(systemStore.flush);
 
-const titleStyle = ref({
-	fontWeight: 'bold',
-	fontSize: '34rpx',
-	color: '#000'
-});
 const tabHight = ref('100rpx');
 const OrderQuantity = ref(0);
 const OrderQuantitySum = ref(0);
@@ -838,18 +864,42 @@ onPullDownRefresh(() => {
 
 // 分享页面逻辑
 onShareAppMessage((ops) => {
+	const store = useUserStore();
+	const pinia_user = store.user;
+	const pinia_userRole = store.userRole;
 	if (ops.from === 'button') {
-		const pid = ops.target.dataset.id;
-		const pThumb = ops.target.dataset.thumb;
-		const phone = userStore.user.phone;
-		const port = userStore.userRole;
-		const versions = ops.target.dataset.versions;
-		console.log('分享参数：', `share_id=${pid}&&type=1&&phone=${phone}&&port=${port}&&versions=${versions}`);
-		return {
-			title: '您有一张订单待确认~',
-			path: `/pages/subOrder/detailsShare?share_id=${pid}&&type=1&&phone=${phone}&&port=${port}&&versions=${versions}`,
-			imageUrl: pThumb
-		};
+		if (ops.target.dataset.name == 'shareFriend') {
+			// 邀请成为供应商
+			let title = '',
+				imageUrl = '';
+			if (pinia_userRole == 'D') {
+				title = '邀请您成为他的客户~';
+				imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareD.png';
+			} else {
+				title = '邀请您成为他的供应商~';
+				imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareR.png';
+			}
+			var phone = pinia_user.data.work == '0' ? pinia_user.phone : pinia_user.workData.bossNumber;
+			return {
+				title: title,
+				path: '/pages/subMessage/friend_apply_for/shareFriend?phone=' + phone + '&invitationRole=' + pinia_userRole,
+				imageUrl: imageUrl
+				// imageUrl: 'https://res-oss.elist.com.cn/wxImg/message/share.png'
+			};
+		} else {
+			// 分享订单
+			const pid = ops.target.dataset.id;
+			const pThumb = ops.target.dataset.thumb;
+			const phone = userStore.user.phone;
+			const port = userStore.userRole;
+			const versions = ops.target.dataset.versions;
+			console.log('分享参数：', `share_id=${pid}&&type=1&&phone=${phone}&&port=${port}&&versions=${versions}`);
+			return {
+				title: '您有一张订单待确认~',
+				path: `/pages/subOrder/detailsShare?share_id=${pid}&&type=1&&phone=${phone}&&port=${port}&&versions=${versions}`,
+				imageUrl: pThumb
+			};
+		}
 	} else {
 		return {
 			title: '打开易单据小程序，极速管理您的货单~',

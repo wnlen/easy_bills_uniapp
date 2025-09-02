@@ -23,9 +23,9 @@
 						class="flex-col justify-center items-center"
 						:style="{ backgroundColor: ischeck ? '#01BB74' : '#ffffff' }"
 						@click="radioGroupChange"
-						style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
+						style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 					>
-						<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
+						<u-icon name="checkbox-mark" color="#ffffff" size="20rpx"></u-icon>
 					</view>
 					<view class="ml15">
 						<text style="color: #aaaaaa; font-size: 24rpx">同意并遵行易单据</text>

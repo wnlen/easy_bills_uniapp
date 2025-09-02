@@ -331,11 +331,6 @@
 					</view>
 				</view>
 			</template>
-			<!-- 		<template #empty>
-				<view style="padding-bottom: 200rpx">
-					<u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180rpx"></u-icon>
-				</view>
-			</template> -->
 		</z-paging>
 
 		<u-popup :show="show_start" mode="top" width="550rpx" :safeAreaInsetBottom="false" @close="show_start = false">

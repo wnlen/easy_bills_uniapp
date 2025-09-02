@@ -40,7 +40,26 @@
 				</view>
 			</template>
 
-			<view class="items-center" v-if="invCardEmpty && hideEmptyView">
+			<u-empty
+				v-if="invCardEmpty && hideEmptyView"
+				icon="https://res-oss.elist.com.cn/wxImg/order/goodsEmpty.svg"
+				iconSize="200rpx"
+				text="商品库空空如也~尝试添加一个新商品吧！"
+				marginTop="200rpx"
+			>
+				<u-button
+					color="#01BB74"
+					iconColor="#ECFFF9"
+					:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: '#ECFFF9' }"
+					shape="circle"
+					:plain="true"
+					@click="jumpAddCommodity"
+				>
+					<text>去创建</text>
+				</u-button>
+			</u-empty>
+
+			<!-- <view class="items-center" v-if="invCardEmpty && hideEmptyView">
 				<view class="invCard" @click="jumpAddCommodity">
 					<view class="">
 						<u-image radius="12rpx" width="200rpx" height="200rpx" :show-menu-by-longpress="false" src="https://res-oss.elist.com.cn/wxImg/order/SlView.png"></u-image>
@@ -63,7 +82,7 @@
 						</view>
 					</view>
 				</view>
-			</view>
+			</view> -->
 
 			<view class="invCard" v-for="(item, index) in orderList" :key="index">
 				<view class="" @click="jumpCommodityDetails(item)">

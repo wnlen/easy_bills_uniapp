@@ -428,11 +428,11 @@ export default {
 	methods: {
 		// 监听数据
 		SOCKETfLUSH() {
+			console.log('uni', uni);
 			this.unwatchFlush = this.$watch(
-				(state) => state.flush, // 监听状态
+				() => this.$u.getPinia('system.flush'), // 监听状态
 				(newVal, oldVal) => {
 					this.getOrderDB();
-					console.log('监听SOCKET状态');
 				},
 				{ deep: true, immediate: true }
 			);

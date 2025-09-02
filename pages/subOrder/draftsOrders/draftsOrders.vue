@@ -297,7 +297,7 @@
 						<u-line direction="col" length="50" color="#E0E0E0" />
 					</view>
 					<view class="flex-row justify-center items-center" style="width: 49%">
-						<u-icon labelPos="bottom" @click="merchandiseInventory(false)" name="https://res-oss.elist.com.cn/wxImg/order/spk.svg" size="70rpx" label="商品库"></u-icon>
+						<u-icon labelPos="bottom" @click="merchandiseInventory(false)" name="https://res-oss.elist.com.cn/wxImg/order/spk.svg" size="70rpx" label="添加商品"></u-icon>
 					</view>
 				</view>
 			</view>

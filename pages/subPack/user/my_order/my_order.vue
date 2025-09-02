@@ -490,7 +490,7 @@
 					iconSize="400rpx"
 					text="暂无购买记录~"
 					mode="search"
-					margin-top="200"
+					marginTop="200rpx"
 				></u-empty>
 			</view>
 

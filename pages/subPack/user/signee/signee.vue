@@ -7,7 +7,7 @@
 				iconSize="400rpx"
 				text="暂无签收人~"
 				mode="search"
-				marginTop="200"
+				marginTop="200rpx"
 			></u-empty>
 			<view class="mt25 vw100 text-center" style="font-size: 28rpx">
 				<u-button
@@ -183,7 +183,7 @@ export default {
 				});
 		},
 		goDetails(val, type) {
-      this.password = '';
+			this.password = '';
 			var password = this.pinia_user.password;
 			this.val = val;
 			this.type = type;

@@ -221,10 +221,41 @@
 					<up-loading-icon mode="flower"></up-loading-icon>
 				</view>
 			</view>
-			<!-- <view v-if="!orderList.length" style="padding-bottom: 200rpx">
-				<u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" label-color="#AAAAAA" label="暂无记录" size="180rpx"></u-icon>
-			</view> -->
-			<!-- <view style="height: 200rpx"></view> -->
+			<template #empty>
+				<u-empty
+					:icon="ImgUrl + '/wxImg/list/empty.svg'"
+					iconSize="200rpx"
+					:text="pinia_userRole == 'D' ? '还没有送货单呢~快去开一个单试试吧！' : '还没收到订单呢~快去邀请供应商开单吧！'"
+					marginTop="-100rpx"
+				>
+					<u-button
+						v-if="pinia_userRole == 'D'"
+						color="#01BB74"
+						iconColor="#ECFFF9"
+						:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent' }"
+						shape="circle"
+						:plain="true"
+						@click="
+							uni.navigateTo({
+								url: '/pages/subOrder/add'
+							})
+						"
+					>
+						<text>去开单</text>
+					</u-button>
+					<u-button
+						v-else
+						openType="share"
+						color="#01BB74"
+						iconColor="#ECFFF9"
+						:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent' }"
+						shape="circle"
+						:plain="true"
+					>
+						<text>去邀请</text>
+					</u-button>
+				</u-empty>
+			</template>
 			<template #bottom>
 				<view style="background-color: #ffffff; box-shadow: 0rpx 4rpx 6rpx 0rpx rgba(51, 51, 51, 0.2)">
 					<view class="flex-row justify-between items-center" style="height: 10vh">
@@ -628,6 +659,26 @@ export default {
 			this.$refs.paging.reload();
 		} else {
 			this.uloading = false;
+		}
+	},
+	onShareAppMessage(ops) {
+		let title = '',
+			imageUrl = '';
+		if (this.pinia_userRole == 'D') {
+			title = '邀请您成为他的客户~';
+			imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareD.png';
+		} else {
+			title = '邀请您成为他的供应商~';
+			imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareR.png';
+		}
+		if (ops.from === 'button') {
+			var phone = this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber;
+			return {
+				title: title,
+				path: '/pages/subMessage/friend_apply_for/shareFriend?phone=' + phone + '&invitationRole=' + this.pinia_userRole,
+				imageUrl: imageUrl
+				// imageUrl: 'https://res-oss.elist.com.cn/wxImg/message/share.png'
+			};
 		}
 	},
 	onHide() {
