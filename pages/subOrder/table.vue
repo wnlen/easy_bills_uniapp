@@ -116,7 +116,37 @@
 			</view>
 		</view>
 		<!-- borderBottom: item.length > 1 && index2 != item.length ? '1px solid #f4f4f4' : '' -->
-		<u-empty v-if="isEmptyObject(client)" icon="https://res-oss.elist.com.cn/wxImg/order/empty.svg" iconSize="200rpx" text="暂无好友~" mode="search" margin-top="200"></u-empty>
+		<u-empty
+			v-if="isEmptyObject(client)"
+			icon="https://res-oss.elist.com.cn/wxImg/order/empty.svg"
+			iconSize="200rpx"
+			:text="pinia_userRole == 'D' ? '客户空空如也~快尝试创建一个新客户吧！' : '供应商空空如也~邀请供应商一起开单吧！'"
+			mode="search"
+			marginTop="200rpx"
+		>
+			<u-button
+				v-if="pinia_userRole == 'D'"
+				color="#01BB74"
+				iconColor="#ECFFF9"
+				:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: '#ECFFF9' }"
+				shape="circle"
+				:plain="true"
+				@click="establish"
+			>
+				<text>去创建</text>
+			</u-button>
+			<u-button
+				v-else
+				openType="share"
+				color="#01BB74"
+				iconColor="#ECFFF9"
+				:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: '#ECFFF9' }"
+				shape="circle"
+				:plain="true"
+			>
+				<text>去邀请</text>
+			</u-button>
+		</u-empty>
 		<view v-for="(item, index) in client" :key="index" style="border-bottom: 1px solid #f4f4f4">
 			<view class="ml20" style="width: 110vw" v-show="show == 1">
 				<u-collapse :border="false">

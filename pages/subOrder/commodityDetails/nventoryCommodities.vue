@@ -2,7 +2,7 @@
 	<view class="modification">
 		<z-paging ref="paging" use-virtual-list :force-close-inner-list="true" cell-height-mode="dynamic" @virtualListChange="virtualListChange" @query="queryList">
 			<template #top>
-				<u-navbar :autoBack="true" :placeholder="true" bgColor="#00000000" :titleBold="true" :titleStyle="titleStyle" title="商品库"></u-navbar>
+				<u-navbar :autoBack="true" :placeholder="true" bgColor="transparent" :titleStyle="titleStyle" title="商品库"></u-navbar>
 				<view class="ml24 mr24 flex-row items-center justify-center pb30">
 					<view class="flex-row items-center justify-center pl20 pr10" style="background: #ffffff; border-radius: 254rpx; width: 75%; height: 60rpx">
 						<u-icon name="search" color="#01BB74" size="40rpx"></u-icon>
@@ -20,6 +20,26 @@
 					</view>
 					<u-button @click="jumpAddCommodity" :customStyle="SearchCustomStyle" color="#01BB74" type="success">添加商品</u-button>
 				</view>
+			</template>
+			<template #empty>
+				<u-empty
+					icon="https://res-oss.elist.com.cn/wxImg/order/goodsEmpty.svg"
+					iconSize="200rpx"
+					:text="pinia_userRole == 'D' ? '商品库空空如也~尝试添加一个新商品吧！' : '还没有收到订单呢~快去邀请供应商开单吧！'"
+					marginTop="-200"
+				>
+					<u-button
+						v-if="pinia_userRole == 'D'"
+						color="#01BB74"
+						iconColor="#ECFFF9"
+						:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: '#ECFFF9' }"
+						shape="circle"
+						:plain="true"
+						@click="jumpAddCommodity"
+					>
+						<text>去创建</text>
+					</u-button>
+				</u-empty>
 			</template>
 			<view class="box1">
 				<view class="invCard" v-for="(item, index) in orderList" :key="index">
@@ -52,8 +72,8 @@ export default {
 	data() {
 		return {
 			titleStyle: {
-				fontSize: '34',
-				fontWeight: 'bold'
+				fontSize: '34rpx',
+				fontWeight: '500'
 			},
 			orderList: [],
 			SearchInventory: '',

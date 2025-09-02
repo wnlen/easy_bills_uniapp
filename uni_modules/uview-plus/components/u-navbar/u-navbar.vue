@@ -183,8 +183,9 @@
 
 			&__title {
 				text-align: center;
-				font-size: 16px;
-				color: $u-main-color;
+				font-size: 34rpx;
+				font-weight: 500;
+				color: '#000';
 			}
 
 			&__right {

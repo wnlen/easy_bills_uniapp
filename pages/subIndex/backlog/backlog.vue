@@ -50,7 +50,7 @@
 						iconSize="400rpx"
 						text="暂无待办事项~"
 						mode="search"
-						margin-top="200"
+						marginTop="200rpx"
 					></u-empty>
 				</view>
 			</template>
@@ -63,7 +63,7 @@
 					"
 					style="padding-bottom: 1000rpx"
 				>
-					<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" mode="search" margin-top="200"></u-empty>
+					<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" mode="search" marginTop="200rpx"></u-empty>
 				</view>
 			</template>
 			<view class="ml24 mr24 mt24" style="border-radius: 24rpx; overflow: hidden" v-for="(item, index) in list" :key="item.id">

@@ -9,9 +9,22 @@
 			@query="queryList"
 		>
 			<template #empty>
-				<view style="padding-bottom: 200rpx">
-					<u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180rpx"></u-icon>
-				</view>
+				<u-empty :icon="ImgUrl + '/wxImg/list/empty.svg'" iconSize="200rpx" text="还没有送货单呢~快去开一个单试试吧！" marginTop="-200">
+					<u-button
+						color="#01BB74"
+						iconColor="#ECFFF9"
+						:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent' }"
+						shape="circle"
+						:plain="true"
+						@click="
+							uni.navigateTo({
+								url: '/pages/subOrder/add'
+							})
+						"
+					>
+						<text>去开单</text>
+					</u-button>
+				</u-empty>
 			</template>
 			<!-- <template #top> -->
 			<view class="Card cardShow">

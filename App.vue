@@ -35,14 +35,12 @@ export default {
 		if (options.scene !== 1007 && this.pinia_user?.phone) {
 			// 使用封装模块连接 WebSocket
 			SocketManager.connect(this.pinia_user.phone, (data) => {
-				if (data.success == 'ok') {
-					this.updateMessageCounts();
-					this.$u.setPinia({
-						system: {
-							Flush: data.success
-						}
-					});
-				}
+				this.updateMessageCounts();
+				this.$u.setPinia({
+					system: {
+						flush: data
+					}
+				});
 			});
 
 			this.redirectToIndexIfNeeded();
@@ -51,11 +49,11 @@ export default {
 	onHide() {
 		SocketManager.close(); // 页面隐藏时清理 WebSocket
 
-		this.$u.setPinia({
-			guide: {
-				guidance: 0
-			}
-		});
+		// this.$u.setPinia({
+		// 	guide: {
+		// 		guidance: 0
+		// 	}
+		// });
 	},
 	onUnload() {
 		uni.setStorageSync('auth', '0');

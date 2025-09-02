@@ -216,7 +216,7 @@
 			</view>
 			<template #empty>
 				<view style="padding-bottom: 200rpx">
-					<u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180rpx"></u-icon>
+					<u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180"></u-icon>
 				</view>
 			</template>
 			<template #bottom>

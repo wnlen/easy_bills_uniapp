@@ -1,13 +1,7 @@
 <template>
 	<view class="page-container">
 		<uv-toast ref="toast"></uv-toast>
-		<uv-navbar title="分享给好友" @leftClick="leftClick" :placeholder="true">
-			<template v-slot:left>
-				<view class="uv-nav-slot">
-					<uv-icon name="arrow-left" size="19"></uv-icon>
-				</view>
-			</template>
-		</uv-navbar>
+		<u-navbar title="分享给好友" :autoBack="true" :placeholder="true"></u-navbar>
 		<view class="top-img">
 			<image class="banner" src="https://res-oss.elist.com.cn/share/banner.png" mode="widthFix"></image>
 		</view>
@@ -89,11 +83,6 @@ export default {
 				this.claimed12Month = data.claimed12Month;
 
 				console.log('邀请数据：', data);
-			});
-		},
-		leftClick() {
-			uni.navigateBack({
-				delta: 1 // 返回的页面层数，默认是1
 			});
 		},
 		saveQr() {

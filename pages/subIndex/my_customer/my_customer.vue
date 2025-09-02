@@ -165,16 +165,38 @@
 				v-if="isEmptyObject(listO) && show == 1 && pinia_userRole == 'D'"
 				icon="https://res-oss.elist.com.cn/wxImg/order/empty.svg"
 				iconSize="200rpx"
-				text="暂无客户~"
-				marginTop="200rpx"
-			></u-empty>
+				text="客户空空如也~快尝试创建一个新客户吧！"
+				marginTop="100rpx"
+			>
+				<u-button
+					color="#01BB74"
+					iconColor="#ECFFF9"
+					:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: '#ECFFF9' }"
+					shape="circle"
+					:plain="true"
+					@click="establish"
+				>
+					<text>去创建</text>
+				</u-button>
+			</u-empty>
 			<u-empty
 				v-if="isEmptyObject(listO) && show == 1 && pinia_userRole == 'R'"
 				icon="https://res-oss.elist.com.cn/wxImg/order/empty.svg"
 				iconSize="200rpx"
-				text="暂无供应商~"
-				marginTop="200"
-			></u-empty>
+				text="供应商空空如也~邀请供应商一起开单吧！"
+				marginTop="100rpx"
+			>
+				<u-button
+					openType="share"
+					color="#01BB74"
+					iconColor="#ECFFF9"
+					:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: '#ECFFF9' }"
+					shape="circle"
+					:plain="true"
+				>
+					<text>去邀请</text>
+				</u-button>
+			</u-empty>
 			<view class="mt20 pb150" :style="{ display: show != 1 ? 'none' : 'block' }" @click="showAl = showAl == true ? false : false">
 				<view class="ml20 flex-row items-center vw100" v-for="(item2, index2) in listO" :key="index2" style="height: 9vh" @click="particulars(item2, false)">
 					<view class="" style="width: 10%">
@@ -211,7 +233,7 @@
 				iconSize="400rpx"
 				text="暂无好友~"
 				mode="search"
-				margin-top="200"
+				margin-top="100rpx"
 			></u-empty>
 			<view class="" :style="{ display: show != 0 ? 'none' : 'block' }">
 				<view v-for="(item, index) in client" :key="index" @click="particulars(item, true)" style="border-bottom: 1px solid #f4f4f4">
@@ -317,12 +339,22 @@ export default {
 		}, 500);
 	},
 	onShareAppMessage(ops) {
+		let title = '',
+			imageUrl = '';
+		if (this.pinia_userRole == 'D') {
+			title = '邀请您成为他的客户~';
+			imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareD.png';
+		} else {
+			title = '邀请您成为他的供应商~';
+			imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareR.png';
+		}
 		if (ops.from === 'button') {
 			var phone = this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber;
 			return {
-				title: `您有一个好友邀请~`,
-				path: '/pages/subMessage/friend_apply_for/shareFriend?phone=' + phone,
-				imageUrl: 'https://res-oss.elist.com.cn/wxImg/message/share.png'
+				title: title,
+				path: '/pages/subMessage/friend_apply_for/shareFriend?phone=' + phone + '&invitationRole=' + this.pinia_userRole,
+				imageUrl: imageUrl
+				// imageUrl: 'https://res-oss.elist.com.cn/wxImg/message/share.png'
 			};
 		}
 	},
@@ -331,7 +363,6 @@ export default {
 			return uni.getStorageSync('wzc_img');
 		},
 		establish() {
-			console.log('establish');
 			uni.navigateTo({
 				url: '/pages/subIndex/establish/establish'
 			});

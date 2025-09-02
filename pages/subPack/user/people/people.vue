@@ -905,14 +905,16 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .jzzh {
 	color: #999999;
 	font-size: 28rpx;
 	font-weight: normal;
 	letter-spacing: 0.05em;
 }
-
+::v-deep button::after {
+	border: none !important; //按钮外边框border隐藏
+}
 .xf {
 	background: linear-gradient(286deg, #f9d2aa 7%, #ffecd3 82%);
 	border-radius: 397.32rpx;

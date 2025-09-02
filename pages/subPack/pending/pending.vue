@@ -97,9 +97,19 @@
 			@query="queryList"
 		>
 			<template #empty>
-				<view style="padding-bottom: 200rpx">
-					<u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180rpx"></u-icon>
-				</view>
+				<u-empty :icon="ImgUrl + '/wxImg/list/empty.svg'" iconSize="200rpx" text="还没收到订单呢~快去邀请供应商开单吧！" marginTop="-200">
+					<u-button
+						dataName="shareFriend"
+						openType="share"
+						color="#01BB74"
+						iconColor="#ECFFF9"
+						:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent' }"
+						shape="circle"
+						:plain="true"
+					>
+						<text>去邀请</text>
+					</u-button>
+				</u-empty>
 			</template>
 			<!-- <template #top> -->
 			<view class="Card cardShow">
@@ -708,19 +718,38 @@ export default {
 	},
 	onShareAppMessage(ops) {
 		if (ops.from === 'button') {
-			console.log('分享：', ops);
-			var pid = ops.target.dataset.id;
-			var pThumb = ops.target.dataset.thumb;
-			var phone = this.pinia_user.phone;
-			var port = this.pinia_userRole;
-			var versions = ops.target.dataset.versions;
-			console.log(pThumb);
-			return {
-				// title: `这是您的${versions=="Y"?"有金额":"无金额"}货单，请打开易单据查看详情~`,
-				title: `您有一张订单待确认~`,
-				path: '/pages/subOrder/detailsShare?share_id=' + pid + '&&type=1' + '&&phone=' + phone + '&&port=' + port + '&&versions=' + versions,
-				imageUrl: pThumb
-			};
+			if (ops.target.dataset.name == 'shareFriend') {
+				let title = '',
+					imageUrl = '';
+				if (this.pinia_userRole == 'D') {
+					title = '邀请您成为他的客户~';
+					imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareD.png';
+				} else {
+					title = '邀请您成为他的供应商~';
+					imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareR.png';
+				}
+				var phone = this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber;
+				return {
+					title: title,
+					path: '/pages/subMessage/friend_apply_for/shareFriend?phone=' + phone + '&invitationRole=' + this.pinia_userRole,
+					imageUrl: imageUrl
+					// imageUrl: 'https://res-oss.elist.com.cn/wxImg/message/share.png'
+				};
+			} else {
+				console.log('分享：', ops);
+				var pid = ops.target.dataset.id;
+				var pThumb = ops.target.dataset.thumb;
+				var phone = this.pinia_user.phone;
+				var port = this.pinia_userRole;
+				var versions = ops.target.dataset.versions;
+				console.log(pThumb);
+				return {
+					// title: `这是您的${versions=="Y"?"有金额":"无金额"}货单，请打开易单据查看详情~`,
+					title: `您有一张订单待确认~`,
+					path: '/pages/subOrder/detailsShare?share_id=' + pid + '&&type=1' + '&&phone=' + phone + '&&port=' + port + '&&versions=' + versions,
+					imageUrl: pThumb
+				};
+			}
 		} else {
 			return {
 				title: '打开易单据小程序，极速管理您的货单~',

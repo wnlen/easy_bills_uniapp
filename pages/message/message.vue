@@ -15,7 +15,7 @@
 					iconSize="400rpx"
 					text="暂无消息~"
 					mode="search"
-					margin-top="200"
+					marginTop="200rpx"
 				></u-empty>
 			</view>
 			<view class="">
