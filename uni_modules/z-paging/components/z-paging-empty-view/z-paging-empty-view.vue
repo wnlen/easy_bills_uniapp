@@ -183,12 +183,12 @@ export default {
 }
 
 .zp-main-image-rpx {
-    width: 200rpx;
-    height: 200rpx;
+    width: 400rpx;
+    height: 400rpx;
 }
 .zp-main-image-px {
-    width: 120px;
-    height: 120px;
+    width: 220px;
+    height: 220px;
 }
 
 .zp-main-title {

@@ -1,12 +1,12 @@
 <template>
 	<view class="pl48 pr48 pt38 pb38 vw100">
-		<u-form class="vw100" :model="formData" ref="uForm" labelPosition="left" :label-style="{ 'line-height': 1 }" :error-type="['toast']">
+		<u-form class="vw100" :model="formData" ref="uForm" labelPosition="left" :label-style="{ 'line-height': 1 }">
 			<u-form-item borderBottom label="签收人姓名" prop="signeeName" required label-width="170rpx">
 				<uv-input border="none" v-model="formData.signeeName" placeholder="请输入签收人姓名" maxlength="50"></uv-input>
 			</u-form-item>
-			<u-form-item borderBottom label="签收密码" prop="password" required label-width="170rpx">
+			<!-- <u-form-item borderBottom label="签收密码" prop="password" required label-width="170rpx">
 				<uv-input border="none" v-model="formData.password" type="number" placeholder="请设置密码" maxlength="4"></uv-input>
-			</u-form-item>
+			</u-form-item> -->
 			<!-- 			<u-form-item label="其他备注" prop="remark" label-width="170">
 				<uv-input border="none" v-model="formData.remark" placeholder="请输入备注" ></uv-input>
 			</u-form-item> -->
@@ -40,8 +40,8 @@ export default {
 				phoneNumer: '',
 				ifDefault: 'N', //是否默认 Y | N
 				signeeImage: '', //签名图
-				remark: '',
-				password: ''
+				remark: ''
+				// password: ''
 			},
 			switchVal: false,
 			rules: {
@@ -89,7 +89,7 @@ export default {
 			this.formData.phoneNumer = json.phone;
 			this.formData.signeeName = json.name;
 			this.formData.signeeImage = json.signatureImg;
-			this.formData.password = json.password;
+			// this.formData.password = json.password;
 			this.switchVal = this.formData.ifDefault == 'Y' ? true : false;
 		}
 	},
@@ -105,32 +105,6 @@ export default {
 		this.$refs.uForm.setRules(this.rules);
 	},
 	methods: {
-		loadData() {
-			let role = this.pinia_user.data.work == '1' ? 1 : 2;
-			console.log(this.pinia_user.data.work);
-			var that = this;
-			// uni.$api.user
-			// 	.refreshUser({
-			// 		phone: this.pinia_user.phone,
-			// 		role: role
-			// 	})
-			// 	.then((res) => {
-			// 		let a = that.pinia_user;
-			// 		a.ac = res.data.data.ac;
-			// 		a.data = res.data.data.data;
-			// 		a.workData = res.data.data.workData;
-			// 		a.jurisdiction = res.data.data.jurisdiction;
-			// 		a.password = res.data.data.password;
-			// 		that.$u.vuex('pinia_user', a);
-			// 		if (res.data.data.data.work == '1') {
-			// 			that.$u.vuex('pinia_work', 'Y');
-			// 		} else {
-			// 			that.$u.vuex('pinia_work', 'N');
-			// 		}
-			// 	});
-
-			console.log('用户信息实时更新 ', this.pinia_user);
-		},
 		switchChange(val) {
 			console.log(val);
 			this.formData.ifDefault = val ? 'Y' : 'N';
@@ -141,15 +115,15 @@ export default {
 				return;
 			}
 
-			if (this.formData.password.length == 0) {
-				this.$u.toast('请设置4位签名密码');
-				return;
-			}
+			// if (this.formData.password.length == 0) {
+			// 	this.$u.toast('请设置4位签名密码');
+			// 	return;
+			// }
 
-			if (this.formData.password.length != 4) {
-				this.$u.toast('请设置4位签名密码');
-				return;
-			}
+			// if (this.formData.password.length != 4) {
+			// 	this.$u.toast('请设置4位签名密码');
+			// 	return;
+			// }
 
 			if (this.formData.signeeName.length == 0) {
 				this.$u.toast('请设置签收姓名');
@@ -160,17 +134,26 @@ export default {
 				name: this.formData.signeeName,
 				phone: this.pinia_user.phone,
 				signatureImg: this.formData.signeeImage,
-				password: this.formData.password,
+				// password: this.formData.password,
+				password: 1111,
 				state: '1'
 			};
 			uni.$api.sign.addSignature(dx).then((res) => {
-				this.$u.toast('保存成功～');
-				setTimeout(() => {
-					// this.loadData();
-					uni.navigateBack({
-						delta: 1
+				this.$u.toast(res.data.message);
+				if (res.data.code == 200) {
+					this.$u.setPinia({
+						user: {
+							user: {
+								password: 1111
+							}
+						}
 					});
-				}, 1500);
+					setTimeout(() => {
+						uni.navigateBack({
+							delta: 1
+						});
+					}, 1500);
+				}
 			});
 			// this.$refs.uForm.validate((valid) => {
 			// 	console.log(11111, valid);

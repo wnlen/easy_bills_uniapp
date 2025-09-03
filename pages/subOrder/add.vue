@@ -61,8 +61,11 @@
 					<u-image style="" width="414rpx" height="280rpx" src="https://res-oss.elist.com.cn/wxImg/order/fscg.png"></u-image>
 				</view>
 				<view class="text-center mt40" style="color: #01bb74; font-size: 34rpx; font-weight: bold; width: 100%">发送成功!</view>
-				<view class="text-center mt20" style="color: #aaaaaa; font-size: 26rpx; font-weight: normal">电子单据已发送给收货人</view>
+				<view class="text-center mt20" style="color: #aaaaaa; font-size: 26rpx; font-weight: normal; width: 300rpx; line-height: 40rpx">
+					客户登录易单据即可线上签署送货单
+				</view>
 				<view class="flex-row justify-center items-center mt80">
+					<!-- @click="showShare = true" -->
 					<button
 						style="
 							background-color: #ffffff;
@@ -76,10 +79,13 @@
 						"
 						class="mr10 flex-row items-center justify-center"
 						size="medium"
+						open-type="share"
+						:data-id="transmitList[0].id"
+						:data-thumb="transmitList[0].picturesId"
 						shape="circle"
-						@click="showShare = true"
+						:data-versions="'Y'"
 					>
-						<view class="pr10"><u-icon labelColor="#01BB74" label="微信分享好友" labelPos="right" name="weixin-fill" color="#01BB74" size="30rpx"></u-icon></view>
+						<view class="pr10"><u-icon labelColor="#01BB74" label="微信分享签单" labelPos="right" name="weixin-fill" color="#01BB74" size="30rpx"></u-icon></view>
 					</button>
 
 					<button
@@ -304,7 +310,13 @@
 						<u-line direction="col" length="50" color="#E0E0E0" />
 					</view>
 					<view class="flex-row justify-center items-center" style="width: 49%">
-						<u-icon labelPos="bottom" @click="merchandiseInventory(false)" name="https://res-oss.elist.com.cn/wxImg/order/spk.svg" size="70rpx" label="添加商品"></u-icon>
+						<u-icon
+							labelPos="bottom"
+							@click="merchandiseInventory(false)"
+							name="https://res-oss.elist.com.cn/wxImg/order/spk.svg"
+							size="70rpx"
+							label="添加商品"
+						></u-icon>
 					</view>
 				</view>
 			</view>

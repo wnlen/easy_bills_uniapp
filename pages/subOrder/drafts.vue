@@ -9,7 +9,7 @@
 			@query="queryList"
 		>
 			<template #empty>
-				<u-empty :icon="ImgUrl + '/wxImg/list/empty.svg'" iconSize="200rpx" text="还没有送货单呢~快去开一个单试试吧！" marginTop="-200">
+				<u-empty :icon="ImgUrl + '/wxImg/list/empty.svg'" iconSize="200rpx" text="暂时还空着呢~先去开一个单试试吧！" marginTop="-200">
 					<u-button
 						color="#01BB74"
 						iconColor="#ECFFF9"
@@ -56,10 +56,10 @@
 						</text>
 						<view class="ml10 mr10"><u-icon name="arrow-down-fill" size="20rpx"></u-icon></view>
 						<view class="my-input flex-1" v-if="showTage !== '1'">
-							<uv-input border="none" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></uv-input>
+							<uv-input border="none" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入关键字进行检索"></uv-input>
 						</view>
 						<view class="ml24 my-input flex-1" v-if="showTage === '1'">
-							<uv-input border="none" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></uv-input>
+							<uv-input border="none" maxlength="11" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入号码进行检索"></uv-input>
 						</view>
 
 						<view class="flex-col justify-center items-center" style="height: 5vh">

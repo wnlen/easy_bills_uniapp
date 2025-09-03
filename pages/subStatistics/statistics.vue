@@ -125,10 +125,10 @@
 							</text>
 							<u-icon name="arrow-down-fill" size="10"></u-icon>
 							<view class="my-input flex-1 ml10" v-if="showTage != '1'">
-								<uv-input border="none" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></uv-input>
+								<uv-input border="none" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入关键字进行检索"></uv-input>
 							</view>
 							<view class="ml10 my-input flex-1" v-if="showTage == '1'">
-								<uv-input border="none" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></uv-input>
+								<uv-input border="none" maxlength="11" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入号码进行检索"></uv-input>
 							</view>
 
 							<div class="flex-col justify-center items-center" style="height: 5vh">

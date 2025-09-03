@@ -855,7 +855,8 @@ export default {
 					confirmText: '确认',
 					success: (res) => {
 						if (res.confirm) {
-							this.showMask = true;
+							this.qs();
+							// this.showMask = true;
 						}
 					}
 				});

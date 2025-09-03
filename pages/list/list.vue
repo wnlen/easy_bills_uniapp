@@ -145,7 +145,7 @@
 				<u-empty
 					:icon="ImgUrl + '/wxImg/list/empty.svg'"
 					iconSize="200rpx"
-					:text="pinia_userRole == 'D' ? '还没有送货单呢~快去开一个单试试吧！' : '还没收到订单呢~快去邀请供应<br/>商开单吧！'"
+					:text="pinia_userRole == 'D' ? '还没有送货单呢~快去开一个单试试吧！' : '还没收到订单呢~快去邀请供应商开单吧！'"
 					marginTop="-200"
 				>
 					<u-button
@@ -319,7 +319,16 @@
 					<!-- 未分享区域 -->
 					<view v-if="!item.share" class="flex-row items-center justify-center">
 						<view class="flex-row items-center justify-center">
-							<button class="hl-btn flex-row items-center justify-center" @click="shareNY(item, 1)" type="default">
+							<!-- @click="shareNY(item, 1)" -->
+							<button
+								class="hl-btn flex-row items-center justify-center"
+								type="default"
+								open-type="share"
+								name="Y"
+								:data-thumb="item.picturesId"
+								:data-id="item.id"
+								:data-versions="'Y'"
+							>
 								<u-icon
 									name="share-square"
 									size="25rpx"
@@ -329,7 +338,6 @@
 									labelSize="22rpx"
 									:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发'"
 								></u-icon>
-								<view style="top: 2rrpx"></view>
 
 								<u-icon
 									name="share-square"
@@ -616,7 +624,7 @@
 					</view>
 					<view class="flex-row items-center absolute u-border-top" style="width: 100%; bottom: 0; height: 25%">
 						<view @click="close_mask" style="width: 50%; height: 100%" class="titlePas flex-col justify-center items-center">取消</view>
-						<view @click="confirm(password)" style="width: 50%; height: 100%" class="titlePasOK flex-col justify-center items-center u-border-left">确认</view>
+						<view @click="onsubmit(password)" style="width: 50%; height: 100%" class="titlePasOK flex-col justify-center items-center u-border-left">确认</view>
 					</view>
 				</view>
 			</u-popup>
@@ -1280,22 +1288,22 @@ function VerifyAdd(item, index, type) {
 	err.value = false;
 	const pas = userStore.user.password;
 	console.log('userStore', userStore);
-	if (!pas) {
-		uni.showModal({
-			title: '暂无签收人，是否去添加？',
-			showCancel: true,
-			cancelText: '取消',
-			confirmText: '去添加',
-			success: (res) => {
-				if (res.confirm) {
-					uni.navigateTo({
-						url: '/pages/subPack/user/signee/add'
-					});
-				}
-			}
-		});
-		return;
-	}
+	// if (!pas) {
+	// 	uni.showModal({
+	// 		title: '暂无签收人，是否去添加？',
+	// 		showCancel: true,
+	// 		cancelText: '取消',
+	// 		confirmText: '去添加',
+	// 		success: (res) => {
+	// 			if (res.confirm) {
+	// 				uni.navigateTo({
+	// 					url: '/pages/subPack/user/signee/add'
+	// 				});
+	// 			}
+	// 		}
+	// 	});
+	// 	return;
+	// }
 
 	if (type === 1) {
 		let tips = '是否确认删除该单据，删除后该单据将从单据列表中移除？';
@@ -1312,7 +1320,8 @@ function VerifyAdd(item, index, type) {
 			confirmText: '确定',
 			success: (res) => {
 				if (res.confirm) {
-					showMask.value = true;
+					// showMask.value = true;
+					onsubmit();
 				}
 			}
 		});
@@ -1330,7 +1339,8 @@ function VerifyAdd(item, index, type) {
 			confirmText: '确定',
 			success: (res) => {
 				if (res.confirm) {
-					showMask.value = true;
+					// showMask.value = true;
+					onsubmit();
 				}
 			}
 		});
@@ -1343,23 +1353,25 @@ function VerifyAdd(item, index, type) {
 	};
 }
 
-function confirm(passwordInput) {
-	console.log('面膜', passwordInput);
-	const storedPass = userStore.user.password;
+function onsubmit(passwordInput) {
+	// console.log('面膜', passwordInput);
+	// const storedPass = userStore.user.password;
 	const { type, item, index } = verifyPassword.value;
-	console.log('雷系', type);
+	// console.log('雷系', type);
 
-	if (storedPass === passwordInput) {
-		if (type === 1) deleteOrder(item, index);
-		else if (type === 2) payment(item);
-		else compile(item);
-	} else {
-		err.value = true;
-		uni.$u.toast('密码验证失败');
-		password.value = '';
-		return;
-	}
-
+	// if (storedPass === passwordInput) {
+	// 	if (type === 1) deleteOrder(item, index);
+	// 	else if (type === 2) payment(item);
+	// 	else compile(item);
+	// } else {
+	// 	err.value = true;
+	// 	uni.$u.toast('密码验证失败');
+	// 	password.value = '';
+	// 	return;
+	// }
+	if (type === 1) deleteOrder(item, index);
+	else if (type === 2) payment(item);
+	else compile(item);
 	password.value = '';
 	verifyPassword.value = {
 		item: {},
