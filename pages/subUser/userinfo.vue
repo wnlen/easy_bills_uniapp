@@ -116,6 +116,8 @@ export default {
 		onChooseAvatar(e) {
 			let that = this,
 				fileAvatar = e.detail.avatarUrl;
+			console.log('fileAvatar', fileAvatar);
+			console.log('uni.$http.config.baseURL', uni.$http.config.baseURL);
 
 			uni.uploadFile({
 				url: uni.$http.config.baseURL + 'user/modifyImage',
@@ -128,10 +130,9 @@ export default {
 					imageType: '0'
 				},
 				success: (uploadFileRes) => {
-					console.log('uploadFileResuploadFileRes', uploadFileRes, uploadFileRes.statusCode);
 					if (uploadFileRes.statusCode == 200) {
-						that.userInfo.headPortrait = uploadFileRes.data;
-						that.refreshImg();
+						const timestampSeconds = Math.floor(Date.now() / 1000);
+						that.userInfo.headPortrait = uploadFileRes.data + '?v=' + timestampSeconds;
 						var data = {
 							id: that.pinia_user.data.id,
 							headPortrait: that.userInfo.headPortrait,
@@ -139,17 +140,13 @@ export default {
 							work: this.pinia_user.data.work,
 							boss: this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
 						};
-						uni.$api.user
-							.updateUserUp(data)
-							.then((res) => {
-								if (res.data.data == 1) {
-									that.$u.toast('修改成功');
-									this.onShow();
-								}
-							})
-							.catch((res) => {
-								that.$u.toast(res.data.message);
-							});
+
+						uni.$api.user.updateUserUp(data).then((res) => {
+							if (res.data.data == 1) {
+								that.$u.toast('修改成功');
+								this.onShow();
+							}
+						});
 					}
 				},
 				complete: (mess) => {
