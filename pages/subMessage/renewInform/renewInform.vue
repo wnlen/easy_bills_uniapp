@@ -4,26 +4,28 @@
 			<view class="hand">
 				{{ fjTime(item.createTime) }}
 			</view>
-			<u-swipe-action>
-				<u-swipe-action-item bg-color="#f5f5f5" :show="item.show" :name="index" @click="delclick" :options="options">
-					<view class="body">
-						<view class="body_hand">
-							{{ item.type }}
-						</view>
-						<view class="body_body" v-if="ifCharA(item.path)">您购买的权益{{ item.type }}（{{ item.content }}）仅剩一个月到期，请您尽快续费</view>
-						<view class="body_body" v-if="ifCharB(item.path)">您购买的权益{{ item.type }}（{{ item.content }}）仅剩一个月到期，请您尽快续费</view>
-						<view class="body_body" v-if="ifCharC(item.path)">
-							您购买的权益{{ item.path == 'C1' ? '财务' : item.path == 'C3' ? '合伙人' : '员工' }}帐号仅剩一个月到期，请您尽快续费
-						</view>
-						<view class="body_end" @click="jump(item)">
-							<view class="title">立即续费</view>
-							<view class="icon">
-								<u-icon name="arrow-right" color="#b7b7b7" size="28rpx"></u-icon>
+			<view class="swipeBox">
+				<u-swipe-action>
+					<u-swipe-action-item bg-color="#f5f5f5" :show="item.show" :name="index" @click="delclick" :options="options">
+						<view class="body">
+							<view class="body_hand">
+								{{ item.type }}
+							</view>
+							<view class="body_body" v-if="ifCharA(item.path)">您购买的权益{{ item.type }}（{{ item.content }}）仅剩一个月到期，请您尽快续费</view>
+							<view class="body_body" v-if="ifCharB(item.path)">您购买的权益{{ item.type }}（{{ item.content }}）仅剩一个月到期，请您尽快续费</view>
+							<view class="body_body" v-if="ifCharC(item.path)">
+								您购买的权益{{ item.path == 'C1' ? '财务' : item.path == 'C3' ? '合伙人' : '员工' }}帐号仅剩一个月到期，请您尽快续费
+							</view>
+							<view class="body_end" @click="jump(item)">
+								<view class="title">立即续费</view>
+								<view class="icon">
+									<u-icon name="arrow-right" color="#b7b7b7" size="28rpx"></u-icon>
+								</view>
 							</view>
 						</view>
-					</view>
-				</u-swipe-action-item>
-			</u-swipe-action>
+					</u-swipe-action-item>
+				</u-swipe-action>
+			</view>
 		</view>
 		<!-- </u-swipe-action> -->
 	</view>
@@ -174,6 +176,10 @@ export default {
 </script>
 
 <style lang="scss">
+.swipeBox {
+	border-radius: 10rpx;
+	overflow: hidden;
+}
 .c {
 	width: 100vw;
 	height: 100vh;

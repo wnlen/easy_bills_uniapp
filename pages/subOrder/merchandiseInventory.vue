@@ -55,7 +55,7 @@
 					:plain="true"
 					@click="jumpAddCommodity"
 				>
-					<text>去创建</text>
+					<text>去添加</text>
 				</u-button>
 			</u-empty>
 

@@ -5,13 +5,13 @@
 			<u-form-item borderBottom label="姓名" prop="formDataFirm" required label-width="170rpx">
 				<uv-input border="none" v-model="formDataFirm.userName" placeholder="请输入姓名" maxlength="50"></uv-input>
 			</u-form-item>
-			<u-form-item borderBottom label="企业名称" prop="password" required label-width="170rpx">
+			<u-form-item borderBottom label="企业名称" required label-width="170rpx">
 				<uv-input border="none" v-model="formDataFirm.enterpriseName" placeholder="请输入企业名称" maxlength="50"></uv-input>
 			</u-form-item>
-			<!-- <u-form-item borderBottom label="企业简称" prop="password" required label-width="170rpx">
+			<!-- <u-form-item borderBottom label="企业简称"  required label-width="170rpx">
 				<uv-input border="none" v-model="formDataFirm.abbreviation" placeholder="请输入企业简称" />
 			</u-form-item> -->
-			<u-form-item borderBottom label="企业地址" prop="password" required label-width="170rpx">
+			<u-form-item borderBottom label="企业地址" required label-width="170rpx">
 				<uv-input border="none" v-model="formDataFirm.businessSite" placeholder="请输入企业地址"></uv-input>
 			</u-form-item>
 		</u-form>
@@ -21,9 +21,9 @@
 			<u-form-item borderBottom label="签收人姓名" prop="signeeName" required label-width="170rpx">
 				<uv-input border="none" v-model="formData.signeeName" placeholder="请输入签收人姓名" maxlength="50"></uv-input>
 			</u-form-item>
-			<u-form-item borderBottom label="签收密码" prop="password" required label-width="170rpx">
+			<!-- <u-form-item borderBottom label="签收密码"  required label-width="170rpx">
 				<uv-input border="none" v-model="formData.password" type="number" placeholder="请设置密码" maxlength="4"></uv-input>
-			</u-form-item>
+			</u-form-item> -->
 			<u-form-item label="手写签名" required prop="signeeImage" labelPosition="top" label-width="170rpx">
 				<view v-if="formData.signeeImage" class="text-center width100 mt30 signeeBox">
 					<image
@@ -77,7 +77,7 @@ export default {
 				ifDefault: 'N', //是否默认 Y | N
 				signeeImage: '', //签名图
 				remark: '',
-				password: '',
+				// password: '',
 				cEnterpriseVerification: {}
 			},
 			switchVal: false,
@@ -132,7 +132,7 @@ export default {
 				this.formData.phoneNumer = json.phone;
 				this.formData.signeeName = json.name;
 				this.formData.signeeImage = json.signatureImg;
-				this.formData.password = json.password;
+				// this.formData.password = json.password;
 				this.switchVal = this.formData.ifDefault == 'Y' ? true : false;
 			});
 
@@ -181,7 +181,8 @@ export default {
 				name: this.formData.signeeName,
 				phone: this.pinia_user.phone,
 				signatureImg: this.formData.signeeImage,
-				password: this.formData.password,
+				// password: this.formData.password,
+				password: 1111,
 				state: '1',
 				cEnterpriseVerification: this.formDataFirm
 			};
@@ -232,15 +233,15 @@ export default {
 				return;
 			}
 
-			if (this.formData.password.length == 0) {
-				this.$u.toast('请设置4位签名密码');
-				return;
-			}
+			// if (this.formData.password.length == 0) {
+			// 	this.$u.toast('请设置4位签名密码');
+			// 	return;
+			// }
 
-			if (this.formData.password.length != 4) {
-				this.$u.toast('请设置4位签名密码');
-				return;
-			}
+			// if (this.formData.password.length != 4) {
+			// 	this.$u.toast('请设置4位签名密码');
+			// 	return;
+			// }
 
 			if (this.formData.signeeName.length == 0) {
 				this.$u.toast('请设置签收姓名');
@@ -249,9 +250,18 @@ export default {
 
 			uni.$api.sign.mergeSignature(dx).then((res) => {
 				this.$u.toast(res.data.message);
-				setTimeout(function () {
-					uni.navigateBack();
-				}, 100);
+				if (rea.data.code == 200) {
+					this.$u.setPinia({
+						user: {
+							user: {
+								password: 1111
+							}
+						}
+					});
+					setTimeout(function () {
+						uni.navigateBack();
+					}, 1500);
+				}
 			});
 		}
 	}

@@ -32,10 +32,18 @@
 				</view>
 
 				<view class="my-input">
-					<uv-input border="none" v-if="showTage !== '1'" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></uv-input>
+					<uv-input border="none" v-if="showTage !== '1'" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入关键字进行检索"></uv-input>
 				</view>
 				<view class="ml24 my-input">
-					<uv-input border="none" v-if="showTage === '1'" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></uv-input>
+					<uv-input
+						border="none"
+						v-if="showTage === '1'"
+						maxlength="11"
+						v-model="field"
+						@change="searchListenner"
+						:clearable="true"
+						placeholder="输入号码进行检索"
+					></uv-input>
 				</view>
 
 				<view class="flex-col justify-center items-center ml40" style="height: 5vh">

@@ -457,7 +457,7 @@
 				</view>
 				<view class="flex-row items-center absolute u-border-top" style="width: 100%; bottom: 0; height: 25%">
 					<view @click="cancel" style="width: 50%; height: 100%" class="titlePas flex-col justify-center items-center">取消</view>
-					<view @click="confirm" style="width: 50%; height: 100%" class="titlePasOK flex-col justify-center items-center u-border-left">确认</view>
+					<view @click="onsubmit" style="width: 50%; height: 100%" class="titlePasOK flex-col justify-center items-center u-border-left">确认</view>
 				</view>
 			</view>
 		</u-popup>
@@ -618,6 +618,10 @@ export default {
 			}
 		});
 		// #endif
+
+		this.getPrintNum();
+	},
+	onShow() {
 		// 获取签收人
 		var that = this;
 		uni.$api.sign
@@ -635,15 +639,6 @@ export default {
 			.then((res) => {
 				that.qyList = res.data.data;
 			});
-
-		this.getPrintNum();
-	},
-	onShow(options) {
-		// this.$loadUser(this);
-
-		// this.loadData();
-
-		console.log(options);
 	},
 	onShareAppMessage(ops) {
 		return {
@@ -812,7 +807,7 @@ export default {
 			this.showMask = false;
 			this.err = false;
 		},
-		confirm() {
+		onsubmit() {
 			console.log('确认');
 			var pas = this.password == this.pinia_user.password;
 			if (pas) {
@@ -1142,7 +1137,8 @@ export default {
 					confirmText: '确认',
 					success: (res) => {
 						if (res.confirm) {
-							this.showMask = true;
+							this.qs();
+							// this.showMask = true;
 						}
 					}
 				});

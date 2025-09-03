@@ -37,7 +37,7 @@
 						:plain="true"
 						@click="jumpAddCommodity"
 					>
-						<text>去创建</text>
+						<text>去添加</text>
 					</u-button>
 				</u-empty>
 			</template>
@@ -64,6 +64,23 @@
 				</view>
 			</view>
 		</z-paging>
+		<!-- 第一次添加成功商品提示 -->
+		<u-overlay :show="showTip" @click="showTip = false">
+			<view class="warp">
+				<view class="rect relative" @tap.stop>
+					<view
+						class="rectBtn"
+						@click="
+							uni.navigateTo({
+								url: '/pages/subOrder/add'
+							});
+							showTip = false;
+						"
+					></view>
+					<u-image src="https://res-oss.elist.com.cn/wxImg/list/productTip.svg" width="540rpx" height="584rpx"></u-image>
+				</view>
+			</view>
+		</u-overlay>
 	</view>
 </template>
 
@@ -71,6 +88,7 @@
 export default {
 	data() {
 		return {
+			showTip: false,
 			titleStyle: {
 				fontSize: '34rpx',
 				fontWeight: '500'
@@ -139,7 +157,6 @@ export default {
 			this.orderList = vList;
 		},
 		queryList(pageNo, pageSize) {
-			console.log(pageNo, pageSize);
 			this.merchandiseInventory.pages = pageNo;
 			this.getMerchandiseInventory();
 		},
@@ -147,7 +164,6 @@ export default {
 			uni.$api.library
 				.getCommodityList(this.merchandiseInventory)
 				.then((res) => {
-					console.log('res111111111', res);
 					this.$refs.paging.complete(res.data.data);
 				})
 				.catch((res) => {
@@ -215,6 +231,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.rectBtn {
+	position: absolute;
+	width: 328rpx;
+	height: 80rpx;
+	bottom: 42rpx;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 100;
+	border-radius: 394.89px;
+}
+.warp {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
 .modification {
 	width: 100vw;
 	height: 100vh;

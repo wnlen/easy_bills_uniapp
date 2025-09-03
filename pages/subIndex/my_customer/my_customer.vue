@@ -227,14 +227,44 @@
 		</view>
 
 		<view class="">
-			<u-empty
+			<!-- <u-empty
 				v-if="isEmptyObject(client) && show == 0"
 				icon="https://res-oss.elist.com.cn/wxImg/order/empty.svg"
 				iconSize="400rpx"
 				text="暂无好友~"
 				mode="search"
 				margin-top="100rpx"
-			></u-empty>
+			></u-empty> -->
+			<u-empty
+				v-if="isEmptyObject(client) && show == 0"
+				icon="https://res-oss.elist.com.cn/wxImg/order/empty.svg"
+				iconSize="200rpx"
+				:text="pinia_userRole == 'D' ? '客户空空如也~快尝试创建一个新客户吧！' : '供应商空空如也~邀请供应商一起开单吧！'"
+				marginTop="100rpx"
+			>
+				<u-button
+					v-if="pinia_userRole == 'D'"
+					color="#01BB74"
+					iconColor="#ECFFF9"
+					:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: '#ECFFF9' }"
+					shape="circle"
+					:plain="true"
+					@click="establish"
+				>
+					<text>去创建</text>
+				</u-button>
+				<u-button
+					v-else
+					openType="share"
+					color="#01BB74"
+					iconColor="#ECFFF9"
+					:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: '#ECFFF9' }"
+					shape="circle"
+					:plain="true"
+				>
+					<text>去邀请</text>
+				</u-button>
+			</u-empty>
 			<view class="" :style="{ display: show != 0 ? 'none' : 'block' }">
 				<view v-for="(item, index) in client" :key="index" @click="particulars(item, true)" style="border-bottom: 1px solid #f4f4f4">
 					<view class="ml20 mt15" style="width: 110vw">
@@ -260,12 +290,30 @@
 				<text class="ft39 ft-bold">￥{{ formatAmount(all) }}</text>
 			</view>
 		</view>
+		<!-- 第一次添加成功客户提示 -->
+		<u-overlay :show="showTip" @click="showTip = false">
+			<view class="warp">
+				<view class="rect relative" @tap.stop>
+					<view
+						class="rectBtn"
+						@click="
+							uni.navigateTo({
+								url: '/pages/subOrder/add'
+							});
+							showTip = false;
+						"
+					></view>
+					<u-image src="https://res-oss.elist.com.cn/wxImg/list/customerTip.svg" width="540rpx" height="584rpx"></u-image>
+				</view>
+			</view>
+		</u-overlay>
 	</view>
 </template>
 <script>
 export default {
 	data() {
 		return {
+			showTip: false,
 			showAl: false,
 			list: [
 				{
@@ -643,6 +691,22 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.rectBtn {
+	position: absolute;
+	width: 328rpx;
+	height: 80rpx;
+	bottom: 42rpx;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 100;
+	border-radius: 394.89px;
+}
+.warp {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
 .list-cell {
 	display: flex;
 	box-sizing: border-box;

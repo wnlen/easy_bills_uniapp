@@ -183,11 +183,19 @@ export default {
 				});
 		},
 		goDetails(val, type) {
-			this.password = '';
-			var password = this.pinia_user.password;
+			// this.password = '';
+			// var password = this.pinia_user.password;
 			this.val = val;
-			this.type = type;
-			this.showMask = true;
+			// this.type = type;
+			// this.showMask = true;
+			if (type == 1) {
+				uni.navigateTo({
+					url: '/pages/subPack/user/signee/add?item=' + JSON.stringify(this.val)
+				});
+			}
+			if (type == 2) {
+				this.deleteItem(this.val);
+			}
 		},
 		defaultItem(id) {},
 		deleteItem(id) {
@@ -205,13 +213,21 @@ export default {
 			});
 		},
 		del(id) {
-			var that = this;
 			uni.$api.sign
 				.deleteSignature({
 					id: id
 				})
 				.then((res) => {
-					that.$u.toast(res.data.data == '1' ? '删除成功' : '删除失败');
+					this.$u.toast(res.data.data == '1' ? '删除成功' : '删除失败');
+					if (res.data.data == 1) {
+						this.$u.setPinia({
+							user: {
+								user: {
+									password: null
+								}
+							}
+						});
+					}
 					this.loadData();
 				});
 		}

@@ -190,12 +190,30 @@
 				</view>
 			</view>
 		</view>
+		<!-- 第一次添加成功客户提示 -->
+		<u-overlay :show="showTip" @click="showTip = false">
+			<view class="warp">
+				<view class="rect relative" @tap.stop>
+					<view
+						class="rectBtn"
+						@click="
+							uni.navigateTo({
+								url: '/pages/subOrder/add'
+							});
+							showTip = false;
+						"
+					></view>
+					<u-image src="https://res-oss.elist.com.cn/wxImg/list/customerTip.svg" width="540rpx" height="584rpx"></u-image>
+				</view>
+			</view>
+		</u-overlay>
 	</view>
 </template>
 <script>
 export default {
 	data() {
 		return {
+			showTip: false,
 			client: {},
 			scrollTop: 0,
 			indexList: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
@@ -243,13 +261,9 @@ export default {
 	onShow() {
 		if (this.pinia_userRole == 'R') {
 			uni.setNavigationBarTitle({
-				title: '供应商列表',
-				success: function () {
-					// 标题设置成功
-				}
+				title: '供应商列表'
 			});
 		}
-		console.log(111111, this.pinia_userRole);
 		this.loadData();
 	},
 	onShareAppMessage(ops) {
@@ -480,6 +494,22 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.rectBtn {
+	position: absolute;
+	width: 328rpx;
+	height: 80rpx;
+	bottom: 42rpx;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 100;
+	border-radius: 394.89px;
+}
+.warp {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
 .list-cell {
 	display: flex;
 	box-sizing: border-box;

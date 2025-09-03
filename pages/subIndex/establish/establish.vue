@@ -27,7 +27,6 @@
 					class="input"
 					placeholder-class="placeholder_class_establish"
 					type="text"
-					@input="changeText"
 					v-model="submitUser.remarkD"
 					style="color: '#333333'"
 					maxlength="20"
@@ -39,7 +38,6 @@
 					class="input"
 					placeholder-class="placeholder_class_establish"
 					type="text"
-					@input="changeText"
 					v-model="submitUser.remarkR"
 					style="color: '#333333'"
 					maxlength="20"
@@ -91,9 +89,6 @@ export default {
 		this.Init();
 	},
 	methods: {
-		changeText(e) {
-			//
-		},
 		searchPhoneInput(e) {
 			this.submitUser.eBossNumber = e.target.value;
 			this.remark = e.target.value;
@@ -131,9 +126,34 @@ export default {
 					var mes = res.data;
 					this.$u.toast(mes.message);
 					if (mes.data >= 1) {
-						setTimeout(function () {
+						if (this.pinia_userRole == 'D') {
+							// 获取上一个页面的值
+							// 在当前页面中获取并修改上一页数据
+							let pages = getCurrentPages(); // 获取当前页面栈
+							let prevPage1 = pages[pages.length - 3];
+							if (prevPage1.route != 'pages/subOrder/add') {
+								// 获取上一个页面实例
+								let prevPage = pages[pages.length - 2];
+								if (prevPage.route == 'pages/subOrder/table') {
+									if (JSON.stringify(prevPage.$vm.client) == '{}') {
+										// 修改上一页的数据
+										prevPage.$vm.$set(prevPage.$vm, 'showTip', true);
+										// 如果需要强制更新视图（某些特殊情况）
+										prevPage.$vm.$forceUpdate();
+									}
+								} else {
+									if (!prevPage.$vm.listO.length) {
+										// 修改上一页的数据
+										prevPage.$vm.$set(prevPage.$vm, 'showTip', true);
+										// 如果需要强制更新视图（某些特殊情况）
+										prevPage.$vm.$forceUpdate();
+									}
+								}
+							}
+						}
+						setTimeout(() => {
 							uni.navigateBack();
-						}, 500);
+						}, 1500);
 					}
 				});
 			}

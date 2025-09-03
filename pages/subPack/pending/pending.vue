@@ -151,10 +151,10 @@
 						</text>
 						<view class="ml10 mr10"><u-icon name="arrow-down-fill" size="20rpx"></u-icon></view>
 						<view class="my-input flex-1" v-if="showTage !== '1'">
-							<uv-input border="none" v-model="field" @change="searchListenner" placeholder="输入关键字进行检索"></uv-input>
+							<uv-input border="none" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入关键字进行检索"></uv-input>
 						</view>
 						<view class="ml24 my-input flex-1" v-if="showTage === '1'">
-							<uv-input border="none" maxlength="11" v-model="field" @change="searchListenner" placeholder="输入号码进行检索"></uv-input>
+							<uv-input border="none" maxlength="11" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入号码进行检索"></uv-input>
 						</view>
 
 						<view class="flex-col justify-center items-center" style="height: 5vh">
@@ -307,7 +307,16 @@
 					<!-- 未分享区域 -->
 					<view v-if="!item.share" class="flex-row items-center justify-center">
 						<view class="flex-row items-center justify-center">
-							<button class="hl-btn flex-row items-center justify-center" @click="shareNY(item, 1)" type="default">
+							<!-- @click="shareNY(item, 1)" -->
+							<button
+								class="hl-btn flex-row items-center justify-center"
+								type="default"
+								open-type="share"
+								name="Y"
+								:data-thumb="item.picturesId"
+								:data-id="item.id"
+								:data-versions="'Y'"
+							>
 								<u-icon
 									v-show="OperatingSystem"
 									name="share-square"
