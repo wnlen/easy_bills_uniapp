@@ -135,8 +135,18 @@ export default {
 					var resD = res.data.data.data;
 					console.log(resD);
 					if (resD == 1) {
+						// uni.reLaunch({
+						// 	url: '/pages/subPack/user/affirm/applyAffirm'
+						// });
+						this.$u.setPinia({
+							user: {
+								userRole: this.pinia_userRole,
+								token: '',
+								user: { phone: undefined }
+							}
+						});
 						uni.reLaunch({
-							url: '/pages/subPack/user/affirm/applyAffirm'
+							url: '/pages/index/index'
 						});
 					} else {
 						this.$u.toast(res.data.data.data);
