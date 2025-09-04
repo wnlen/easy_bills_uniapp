@@ -11,7 +11,7 @@
 				<text v-if="q_item.isRequired" class="item-title-required">*</text>
 				<text class="item-title">
 					<text v-show="q_index < 9">0</text>
-					{{ q_index + 1 }} {{ q_item.title }}
+					<text>{{ q_index + 1 }} {{ q_item.title }}</text>
 				</text>
 				<text class="item-title-type" v-if="q_item.type == 'single' || q_item.type == 'multi'">({{ getStatusText(q_item.type) }})</text>
 				<view class="list-item-radio" v-if="q_item.type == 'single'">

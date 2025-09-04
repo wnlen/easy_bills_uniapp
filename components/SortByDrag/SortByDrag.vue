@@ -32,7 +32,7 @@ export default {
 	props: {
 		minusColor: {
 			type: String,
-			default: '#E52829'
+			default: '#FA5151'
 		},
 		minusName: {
 			type: String,

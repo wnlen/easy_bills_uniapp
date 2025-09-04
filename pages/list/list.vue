@@ -67,7 +67,7 @@
 							<template #prefix>
 								<view>
 									<text class="ft30 ft-gray ml20 mr20">{{ userStore.userRole === 'R' ? '供应商选择' : '客户选择' }}</text>
-									<text class="mr20">|</text>
+									<text class="mr15">|</text>
 								</view>
 							</template>
 							<template #suffix>
@@ -146,7 +146,7 @@
 					:icon="ImgUrl + '/wxImg/list/empty.svg'"
 					iconSize="200rpx"
 					:text="pinia_userRole == 'D' ? '还没有送货单呢~快去开一个单试试吧！' : '还没收到订单呢~快去邀请供应商开单吧！'"
-					marginTop="-200"
+					marginTop="-100"
 				>
 					<u-button
 						v-if="pinia_userRole == 'D'"
@@ -366,11 +366,11 @@
 								type="default"
 								@click="goPath('/pages/subOrder/details?id=' + item.id)"
 							>
-								<!-- &&item.lockOrder!=1 -->
-								<u-icon name="order" v-if="OperatingSystem" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="确认签收"></u-icon>
-								<view style="top: 2rpx">
+								<!-- &&item.lockOrder!=1 v-if="OperatingSystem" -->
+								<u-icon name="order" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="确认签收"></u-icon>
+								<!-- <view style="top: 2rpx">
 									<u-icon name="order" v-if="!OperatingSystem" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="确认签收"></u-icon>
-								</view>
+								</view> -->
 							</button>
 							<button
 								v-if="pinia_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
@@ -380,7 +380,6 @@
 							>
 								<!-- &&item.lockOrder!=1 -->
 								<u-icon
-									v-if="OperatingSystem"
 									name="rmb-circle"
 									size="25rpx"
 									color="#666666"
@@ -388,7 +387,7 @@
 									labelColor="#333333"
 									:label="userStore.userRole === 'R' ? '确认付款' : '确认收款'"
 								></u-icon>
-								<view style="top: 2rpx">
+								<!-- <view style="top: 2rpx">
 									<u-icon
 										v-if="!OperatingSystem"
 										name="rmb-circle"
@@ -398,7 +397,7 @@
 										labelColor="#333333"
 										:label="userStore.userRole === 'R' ? '确认付款' : '确认收款'"
 									></u-icon>
-								</view>
+								</view> -->
 							</button>
 							<button
 								v-if="pinia_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
@@ -407,8 +406,8 @@
 								@click="VerifyAdd(item, index, 1)"
 							>
 								<!-- &&item.lockOrder!=1 -->
-								<u-icon v-if="OperatingSystem" name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></u-icon>
-								<u-icon v-if="!OperatingSystem" name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></u-icon>
+								<u-icon name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></u-icon>
+								<!-- <u-icon v-if="!OperatingSystem" name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></u-icon> -->
 							</button>
 							<button
 								v-if="
@@ -423,8 +422,8 @@
 								@click="VerifyAdd(item, index, 3)"
 							>
 								<!-- &&item.lockOrder!=1 -->
-								<u-icon v-if="OperatingSystem" name="edit-pen" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="修改"></u-icon>
-								<u-icon v-if="!OperatingSystem" name="edit-pen" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="修改"></u-icon>
+								<u-icon name="edit-pen" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="修改"></u-icon>
+								<!-- <u-icon v-if="!OperatingSystem" name="edit-pen" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="修改"></u-icon> -->
 							</button>
 							<!-- 							<button class="hl-btn ml20 flex-row items-center justify-center" type="default"
 								@click="VerifyAdd(item, index, 4)">
@@ -846,7 +845,8 @@ onLoad(() => {
 
 // 页面进入展示
 onShow(() => {
-	if (globalStore.tabIndex) {
+	console.log('globalStore.tabIndex', globalStore.tabIndex);
+	if (globalStore.tabIndex > 0) {
 		current.value = globalStore.tabIndex;
 	} else {
 		current.value = 0;
@@ -935,16 +935,21 @@ function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList,
 	const global = useGlobalStore();
 	const pinia_user = store.user;
 	const pinia_userRole = store.userRole;
-	const vuex_tabIndex = global.tabIndex || '';
-
+	// const vuex_tabIndex = global.tabIndex || '';
+	// if (globalStore.tabIndex) {
+	// 	current.value = globalStore.tabIndex;
+	// } else {
+	// 	current.value = 0;
+	// }
 	const hide = true;
 	const password = '';
-
-	if (vuex_tabIndex !== '') {
-		current.value = Number(vuex_tabIndex);
-		realTimeSel.value.paymentState = Number(vuex_tabIndex) - 1;
+	console.log('current.value', current.value);
+	if (Number(current.value) > 0) {
+		realTimeSel.value.paymentState = Number(current.value) - 1;
+	} else {
+		realTimeSel.value.paymentState = '';
 	}
-	console.log('globalStore.tabIndex1', globalStore.tabIndex);
+
 	realTimeSel.value.getPhone = pinia_user.phone;
 
 	const ifwork = pinia_user.data?.work === '0';
@@ -1025,7 +1030,7 @@ function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList,
 	if (pinia_userRole === 'R') {
 		tabsList[tabsList.length - 1].name = '已付款';
 	}
-
+	// console.log('globalStore.tabIndex3', globalStore.tabIndex, vuex_tabIndex, realTimeSel.value.paymentState);
 	// #ifdef MP-WEIXIN
 	pagingRef.value?.refresh();
 	// #endif
@@ -1122,7 +1127,7 @@ function refreshDataNew() {
 		onReachBottom.value = false;
 		realTimeSel.value.role = userStore.userRole === 'R' ? '1' : '0';
 		console.log('globalStore.tabIndex', globalStore.tabIndex);
-		if (globalStore.tabIndex !== '') {
+		if (globalStore.tabIndex > 0) {
 			realTimeSel.value.paymentState = Number(globalStore.tabIndex) - 1;
 		}
 		console.log('111', realTimeSel);

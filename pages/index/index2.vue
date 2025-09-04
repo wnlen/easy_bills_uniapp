@@ -220,7 +220,7 @@
 						<view class="justify-center" v-if="!item.chat">
 							<u-icon size="60" :name="item.icon"></u-icon>
 							<view class="grid-text">{{ item.text }}</view>
-							<u-badge v-if="item.count" bgColor="#E52829" :count="item.count" class="mr30" absolute :offset="['0', '0']"></u-badge>
+							<u-badge v-if="item.count" bgColor="#FA5151" :count="item.count" class="mr30" absolute :offset="['0', '0']"></u-badge>
 						</view>
 						<view v-else>
 							<u-button hover-class="none" :hair-line="false" :customStyle="buttonStyle" open-type="contact">
@@ -239,7 +239,7 @@
 					<view class="grid-item mt10" @click="goList(item.type)" v-for="(item, index) in Sudoku.notLogR[0]" :id="index == 0 ? 'box33' : ''" :key="index">
 						<u-icon size="60" :name="item.icon"></u-icon>
 						<view class="grid-text">{{ item.text }}</view>
-						<u-badge v-if="item.count" bgColor="#E52829" :count="item.count" class="mr30" style="position: absolute; top: 0rpx; right: 0rpx"></u-badge>
+						<u-badge v-if="item.count" bgColor="#FA5151" :count="item.count" class="mr30" style="position: absolute; top: 0rpx; right: 0rpx"></u-badge>
 					</view>
 				</view>
 
@@ -255,7 +255,7 @@
 						<view class="" v-if="!item.chat">
 							<u-icon size="60" :name="item.icon"></u-icon>
 							<view class="grid-text">{{ item.text }}</view>
-							<u-badge v-if="item.count" bgColor="#E52829" :count="item.count" class="mr30" style="position: absolute; top: 0rpx; right: 0rpx"></u-badge>
+							<u-badge v-if="item.count" bgColor="#FA5151" :count="item.count" class="mr30" style="position: absolute; top: 0rpx; right: 0rpx"></u-badge>
 						</view>
 						<view class="" v-else>
 							<u-button hover-class="none" :hair-line="false" :customStyle="buttonStyle" open-type="contact">

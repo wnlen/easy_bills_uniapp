@@ -36,7 +36,7 @@
 							</view>
 							<view class="title-wrap">
 								<text class="title u-line-2">{{ item.title }}</text>
-								<u-badge size="default" :offset="['10rpx', '20rpx']" absolute bgColor="#E52829" v-show="item.right" :value="item.number"></u-badge>
+								<u-badge size="default" :offset="['10rpx', '20rpx']" absolute bgColor="#FA5151" v-show="item.right" :value="item.number"></u-badge>
 							</view>
 						</view>
 					</view>

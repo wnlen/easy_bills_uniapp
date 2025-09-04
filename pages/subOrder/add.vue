@@ -266,9 +266,9 @@
 				<view style="width: 100%; background-color: #ffffff" v-for="(item, index) in orderItemList" :key="index" class="mb12 mt12" @click="merchandiseInventory(false)">
 					<view class="flex-row pt24 pb24" style="width: 100%">
 						<view style="width: 10%" class="ml20">品名:</view>
-						<view style="width: 40%; color: #666666">{{ item.description }}</view>
+						<view style="color: #666666" class="up-line-1 flex-1">{{ item.description }}</view>
 						<view style="width: 10%" class="ml20">规格:</view>
-						<view style="width: 40%; color: #666666">{{ item.specification }}</view>
+						<view style="color: #666666" class="up-line-1 flex-1">{{ item.specification }}</view>
 					</view>
 					<view class="flex-row items-center justify-center" style="width: 100%">
 						<u-line class="u-line ml24 mr24" color="#F4F4F4" length="100%"></u-line>
@@ -284,7 +284,11 @@
 							<u-td>{{ item.quantity }}</u-td>
 							<u-td>{{ item.unit }}</u-td>
 							<u-td>{{ item.unitPrice }}</u-td>
-							<u-td>￥{{ item.quantity != '-' && item.quantity != '' ? (item.unitPrice * item.quantity).toFixed(2) : 0 }}</u-td>
+							<u-td>
+								<text style="width: 200rpx" class="up-line-1">
+									￥{{ item.quantity != '-' && item.quantity != '' ? formatAmount(item.unitPrice * item.quantity) : 0 }}
+								</text>
+							</u-td>
 						</u-tr>
 					</u-table>
 				</view>
@@ -293,7 +297,7 @@
 			<view class="pt12 mt12" style="background-color: #ffffff">
 				<view class="relative pt12 pb12">
 					<text class="pl20 textcolor">合计</text>
-					<text class="absolute" style="right: 24rpx; color: #01bb74">￥{{ orderTotal.toFixed(2) }}</text>
+					<text class="absolute" style="right: 24rpx; color: #01bb74">￥{{ formatAmount(orderTotal) }}</text>
 				</view>
 				<view class="relative pt12 pb12">
 					<text class="pl20 textcolor">金额大写</text>
@@ -685,8 +689,6 @@ export default {
 				});
 		},
 		defImg() {
-			console.log('uni.$http,this.$u', uni.$http);
-			console.log('uni.$http,this.$u', uni.$http.config);
 			this.action = uni.$http.config.baseURL + 'order/imgA';
 			if (this.receipts.creationTime == '') {
 				this.receipts.creationTime = this.$u.timeFormat(new Date(), 'yyyy-mm-dd');
@@ -1062,6 +1064,8 @@ export default {
 					console.log('companyNameJSON======>', res);
 					this.receipts.bossNumberE = res.data.identity == '0' ? res.data.staffNumber : res.data.bossNumber;
 					this.receipts.staffNumberE = res.data.staffNumber;
+					this.receipts.kTakeE = res.data.name;
+					this.receipts.kPhoneE = res.data.staffNumber;
 					this.receipts.organizationE = res.company;
 					this.receipts.takeE = res.data.name || res.data.staffNumber || res.data.bossNumber;
 					this.receipts.phoneE = res.data.staffNumber || res.data.bossNumber;
@@ -1243,8 +1247,10 @@ export default {
 			return new Promise((resolve) => {
 				if (this.limitingCondition) {
 					this.limitingCondition = false;
+					let receiptsData = JSON.parse(JSON.stringify(this.receipts));
+					receiptsData.creationTime = receiptsData.creationTime + ' 00:00:00';
 					uni.$api.order
-						.addOrder(this.receipts)
+						.addOrder(receiptsData)
 						.then((res) => {
 							console.log(res);
 							var code = res.data.data;
@@ -1309,8 +1315,10 @@ export default {
 			return new Promise((resolve) => {
 				if (this.limitingCondition) {
 					this.limitingCondition = false;
+					let receiptsData = JSON.parse(JSON.stringify(this.receipts));
+					receiptsData.creationTime = receiptsData.creationTime + ' 00:00:00';
 					uni.$api.draft
-						.addDraft(this.receipts)
+						.addDraft(receiptsData)
 						.then((res) => {
 							console.log(res);
 							var code = res.data.data;

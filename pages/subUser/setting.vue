@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import SocketManager from '@/utils/socketManager.js';
 export default {
 	data() {
 		return {
@@ -118,6 +119,7 @@ export default {
 					setTimeout(() => {
 						uni.reLaunch({ url: '/pages/subUser/login' });
 					}, 500);
+					SocketManager.close();
 				}
 			});
 		}

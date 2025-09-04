@@ -54,7 +54,7 @@
 					</view>
 					<view class="invText" @click="jumpCommodityDetails(item)">
 						<text>{{ item.description }}</text>
-						<text>规格：{{ item.specification }}</text>
+						<text class="up-line-1">规格：{{ item.specification }}</text>
 						<text>单位：{{ item.unit }}</text>
 						<text>单价：{{ item.unitPrice == '0' ? '-' : '￥' + item.unitPrice }}</text>
 					</view>
