@@ -1,19 +1,19 @@
 <template>
-	<view class="viewTabbar">
-		<!-- 自定义tab -->
-		<u-tabbar :value="tabIndex" activeColor="#01BB74" @change="changeTab" :placeholder="true" :fixed="true" :safeAreaInsetBottom="true">
-			<u-tabbar-item :text="item.text" v-for="(item, index) in tabbar" :key="index" :badge="index == 2 ? messNum : 0" badgeStyle="background-color:#e52829;">
-				<template #active-icon>
-					<u-icon size="40rpx" :name="item.selectedIconPath"></u-icon>
-				</template>
-				<template #inactive-icon>
-					<view :id="index == 1 ? 'box4' : ''">
-						<u-icon size="40rpx" :name="item.iconPath"></u-icon>
-					</view>
-				</template>
-			</u-tabbar-item>
-		</u-tabbar>
-	</view>
+	<!-- <view> -->
+	<!-- 自定义tab -->
+	<u-tabbar :value="tabIndex" activeColor="#01BB74" @change="changeTab" :placeholder="true" :fixed="true" :safeAreaInsetBottom="true">
+		<u-tabbar-item :text="item.text" v-for="(item, index) in tabbar" :key="index" :badge="index == 2 ? messNum : 0" badgeStyle="background-color:#e52829;">
+			<template #active-icon>
+				<u-icon size="40rpx" :name="item.selectedIconPath"></u-icon>
+			</template>
+			<template #inactive-icon>
+				<view :id="index == 1 ? 'box4' : ''">
+					<u-icon size="40rpx" :name="item.iconPath"></u-icon>
+				</view>
+			</template>
+		</u-tabbar-item>
+	</u-tabbar>
+	<!-- </view> -->
 </template>
 
 <script>
@@ -37,7 +37,6 @@ export default {
 	},
 	methods: {
 		getMessNum() {
-			console.log('this.isDsabled', this.isDsabled);
 			if (this.isDsabled) {
 				return;
 			}
@@ -49,7 +48,6 @@ export default {
 					staff: this.pinia_user.phone,
 					work: this.pinia_user.data.work
 				};
-				console.log('满江红', this.pinia_user);
 				uni.$api.inform
 					.getAllMessages(dx)
 					.then((res) => {
@@ -64,7 +62,6 @@ export default {
 			}
 		},
 		changeTab(e) {
-			console.log(e);
 			uni.switchTab({
 				url: this.tabbar[e].pagePath
 			});
@@ -76,12 +73,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.viewTabbar {
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	z-index: 999;
-}
-</style>
+<style lang="scss"></style>

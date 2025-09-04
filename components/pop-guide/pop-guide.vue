@@ -27,6 +27,10 @@ export default {
 					position: {}
 				};
 			}
+		},
+		guideType: {
+			type: String,
+			default: 'index' //goods为商品库引导页
 		}
 	},
 	data() {
@@ -77,8 +81,17 @@ export default {
 			}, 500);
 
 			console.log(this.functionGuideData.step);
-			console.log(this.$u.getPinia('user.userRole'));
-
+			if (this.guideType == 'goods') {
+				if (this.functionGuideData.step == 2) {
+					this.$u.setPinia({
+						guide: {
+							guidanceGoods: 1
+						}
+					});
+					this.show = false;
+				}
+				return;
+			}
 			var port = this.pinia_userRole == 'D';
 			if (port) {
 				// if (this.$parent.guidancePage == 4) {

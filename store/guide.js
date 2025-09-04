@@ -1,11 +1,14 @@
 // store/guide.js
-import { defineStore } from 'pinia';
+import {
+	defineStore
+} from 'pinia';
 
 export const useGuideStore = defineStore('guide', {
 	unistorage: true, // 开启后对 state 的数据读写都将持久化
 	state: () => ({
 		guidanceD: null,
 		guidanceR: null,
+		guidanceGoods: null,
 		guidance: 0,
 		draft: false
 	}),
@@ -18,6 +21,9 @@ export const useGuideStore = defineStore('guide', {
 		},
 		setGuidanceR(val) {
 			this.guidanceD = val;
+		},
+		setGuidanceGoods(val) {
+			this.guidanceGoods = val;
 		}
 	}
 });
