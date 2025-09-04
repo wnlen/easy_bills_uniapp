@@ -154,8 +154,8 @@ export default {
 				return;
 			}
 
-			if (this.uploadingCommodity.description.length > 7) {
-				this.$u.toast('品名不能超过7位');
+			if (this.uploadingCommodity.description.length > 12) {
+				this.$u.toast('品名不能超过12位');
 				return;
 			}
 
@@ -163,7 +163,10 @@ export default {
 				this.$u.toast('请填写规格');
 				return;
 			}
-
+			if (this.uploadingCommodity.specification.length > 12) {
+				this.$u.toast('规格不能超过12位');
+				return;
+			}
 			if (this.uploadingCommodity.unit == '') {
 				this.$u.toast('请填写单位');
 				return;

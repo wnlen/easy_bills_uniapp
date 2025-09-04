@@ -146,8 +146,8 @@ export default {
 				return;
 			}
 
-			if (this.uploadingCommodity.description.length > 7) {
-				this.$u.toast('品名不能超过7位');
+			if (this.uploadingCommodity.description.length > 12) {
+				this.$u.toast('品名不能超过12位');
 				return;
 			}
 

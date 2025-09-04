@@ -97,7 +97,7 @@ export default {
 	},
 	onLoad() {},
 	onShow() {
-		this.userInfo = this.$u.getPinia('user.user.data');
+		this.userInfo = JSON.parse(JSON.stringify(this.$u.getPinia('user.user.data')));
 		this.gender = Number(this.$u.getPinia('user.user.data.gender'));
 		this.ac = this.$u.getPinia('user.user.ac');
 		this.time = this.userInfo.registrationDate;
@@ -136,7 +136,7 @@ export default {
 						var data = {
 							id: that.pinia_user.data.id,
 							headPortrait: that.userInfo.headPortrait,
-							name: that.userInfo.name,
+							// name: that.userInfo.name,
 							work: this.pinia_user.data.work,
 							boss: this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
 						};
@@ -176,10 +176,11 @@ export default {
 				uni.$api.user.updateUserUp(send).then((res) => {
 					if (res.data.data == '1') {
 						uni.navigateBack();
+						this.$loadUser(this);
 					}
 				});
 			} else {
-				this.$u.toast('请填写昵称~');
+				this.$u.toast('请输入姓名~');
 			}
 		}
 	}

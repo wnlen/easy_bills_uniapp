@@ -84,7 +84,7 @@
 				</view>
 			</view> -->
 
-			<view class="invCard" v-for="(item, index) in orderList" :key="index">
+			<view class="invCard relative" v-for="(item, index) in orderList" :key="index">
 				<view class="" @click="jumpCommodityDetails(item)">
 					<u-image
 						radius="12rpx"
@@ -94,13 +94,13 @@
 						:src="item.img === 'definde' ? 'https://res-oss.elist.com.cn/wxImg/order/emptyView.png' : item.img"
 					></u-image>
 				</view>
-				<view class="invText" style="width: 350rpx" @click="jumpCommodityDetails(item)">
+				<view class="invText flex-1" @click="jumpCommodityDetails(item)">
 					<text>{{ item.description }}</text>
-					<text>规格：{{ item.specification }}</text>
+					<text class="up-line-1" style="width: 418rpx">规格：{{ item.specification }}</text>
 					<text>单位：{{ item.unit }}</text>
 					<text>单价：{{ item.unitPrice == '0' ? '-' : '￥' + item.unitPrice }}</text>
 				</view>
-				<view class="" :id="index == 0 ? 'box1' : ''">
+				<view class="absolute addicon" :id="index == 0 ? 'box1' : ''">
 					<u-icon @tab.stop class="absolute" style="bottom: 24rpx; right: 24rpx" name="plus-circle" color="#01BB74" size="50rpx" @click="addOrderBill(item)"></u-icon>
 				</view>
 			</view>
@@ -109,12 +109,12 @@
 				<view class="bottomCard">
 					<view class="relative pd10" id="box2">
 						<u-icon name="https://res-oss.elist.com.cn/wxImg/order/merchandiseInventory.png" size="110rpx" @click="AlertCard"></u-icon>
-						<u-badge absolute bgColor="#E52829" :value="orderItemList.length" :offset="['0rpx', '-20rpx']"></u-badge>
+						<u-badge absolute bgColor="#FA5151" :value="orderItemList.length" :offset="['0rpx', '-20rpx']"></u-badge>
 					</view>
 
 					<text class="">
 						合计:
-						<text style="color: #01bb74">￥{{ totalPrices }}</text>
+						<text style="color: #01bb74">￥{{ formatAmount(totalPrices) }}</text>
 					</text>
 					<u-button shape="circle" :customStyle="bottomCustomStyle" color="#01bb74" @click="save">保存</u-button>
 				</view>
@@ -132,13 +132,13 @@
 					<view class="OrderCard" style="width: 94vw" v-for="(item, index) in orderItemList" :key="index">
 						<!-- <u-swipe-action-item :show="item.show" :options="options" :name="index" @click="delclick" @open="open"> -->
 						<view class="absolute" style="right: 24rpx">
-							<u-icon name="minus-circle-fill" color="#FA5151" @click="delclick(index)"></u-icon>
+							<u-icon name="minus-circle-fill" color="#FA5151" size="34rpx" @click="delclick(index)"></u-icon>
 						</view>
-						<view class="flex-row pb24" style="width: 100%">
-							<view style="width: 10%" class="ml20">品名:</view>
-							<view class="flex-1">{{ item.description }}</view>
-							<view style="width: 10%" class="ml20">规格:</view>
-							<view class="flex-1">{{ item.specification }}</view>
+						<view class="flex-row pb24" style="width: 93%">
+							<view class="">品名:</view>
+							<view class="flex-1 up-line-1">{{ item.description }}</view>
+							<view class="ml10">规格:</view>
+							<view class="flex-1 up-line-1">{{ item.specification }}</view>
 						</view>
 						<view class="flex-row items-center justify-center" style="width: 100%">
 							<u-line class="u-line ml24 mr24" color="#F4F4F4" :dashed="true" length="100%"></u-line>
@@ -152,43 +152,40 @@
 							</u-tr>
 							<u-tr>
 								<u-td>
-									<view class="u-border-bottom">
-										<uv-input
-											type="digit"
-											inputAlign="center"
-											clearable
-											border="none"
-											v-model="item.quantity"
-											maxlength="10"
-											placeholder="请输入"
-											@change="calculate"
-										></uv-input>
+									<view class="flex-row items-center">
+										<view class="u-border-bottom flex-1">
+											<input type="digit" v-model="item.quantity" maxlength="10" placeholder="请输入" @input="calculate" />
+										</view>
+										<u-icon
+											color="#999"
+											name="close-circle"
+											@click="
+												item.quantity = '';
+												calculate();
+											"
+										></u-icon>
 									</view>
 								</u-td>
 								<u-td>{{ item.unit }}</u-td>
 								<u-td>
-									<view class="u-border-bottom">
-										<uv-input
-											type="digit"
-											inputAlign="center"
-											clearable
-											border="none"
-											v-model="item.unitPrice"
-											maxlength="10"
-											placeholder="请输入"
-											@change="calculate"
-										></uv-input>
+									<view class="flex-row items-center">
+										<view class="u-border-bottom flex-1">
+											<input type="digit" v-model="item.unitPrice" maxlength="10" @input="calculate" placeholder="请输入" />
+										</view>
+										<u-icon
+											color="#999"
+											name="close-circle"
+											@click="
+												item.unitPrice = '';
+												calculate();
+											"
+										></u-icon>
 									</view>
 								</u-td>
 								<u-td width="200rpx">
-									<input
-										type="text"
-										:value="formatAmount(item.unitPrice * item.quantity)"
-										disabled
-										maxlength="10"
-										placeholder="请输入"
-										:customStyle="uploadingCommodityInputStyle"
-									/>
+									<text style="width: 200rpx" class="up-line-1">{{ `￥${formatAmount(item.unitPrice * item.quantity)}` }}</text>
+
+									<!-- <input type="text" :value="`￥${formatAmount(item.unitPrice * item.quantity)}`" disabled maxlength="10" placeholder="请输入" /> -->
 								</u-td>
 							</u-tr>
 						</u-table>
@@ -200,11 +197,11 @@
 						<view class="bottomCard">
 							<view class="relative">
 								<u-icon name="https://res-oss.elist.com.cn/wxImg/order/merchandiseInventory.png" size="110rpx" @click="closeOpen"></u-icon>
-								<u-badge absolute bgColor="#E52829" :value="orderItemList.length" :offset="['0rpx', '-20rpx']"></u-badge>
+								<u-badge absolute bgColor="#FA5151" :value="orderItemList.length" :offset="['0rpx', '-20rpx']"></u-badge>
 							</view>
 							<text class="ml12">
 								合计:
-								<text style="color: #01bb74">￥{{ totalPrices }}</text>
+								<text style="color: #01bb74">￥{{ formatAmount(totalPrices) }}</text>
 							</text>
 							<u-button shape="circle" :customStyle="bottomCustomStyle" color="#01BB74" @click="closeOpen">保存</u-button>
 						</view>
@@ -249,11 +246,6 @@ export default {
 				position: 'absolute',
 				right: '24rpx',
 				bottom: '25%'
-			},
-			uploadingCommodityInputStyle: {
-				width: '100%',
-				height: '100%',
-				textAlign: 'center'
 			},
 			shoppingTrolley: false,
 			addList: [],
@@ -628,6 +620,9 @@ export default {
 			this.orderItemList.splice(index, 1);
 			this.$u.toast(`删除了${order.description}`);
 			this.add();
+			if (!this.orderItemList.length) {
+				this.shoppingTrolley = false;
+			}
 			// let order = this.orderItemList[item.name];
 			// this.orderItemList.splice(item.name, 1);
 			// this.$u.toast(`删除了${order.description}`);
@@ -680,9 +675,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#box1 {
+.addicon {
 	padding: 10rpx;
 	border-radius: 50%;
+	bottom: 20rpx;
+	z-index: 10;
+	right: 22rpx;
 }
 ::v-deep .u-border-bottom,
 .up-border-bottom {

@@ -947,7 +947,7 @@ export default {
 				this.tabsList[this.tabsList.length - 1].name = '已付款';
 			}
 
-			this.$refs.paging.reload();
+			this.$refs.paging.refresh();
 		},
 		virtualListChange(vList) {
 			this.orderList = vList;

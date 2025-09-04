@@ -844,7 +844,7 @@ export default {
 		clear() {
 			this.$u.setPinia({
 				global: {
-					tabIndex: 0
+					tabIndex: ''
 				}
 			});
 			this.realTimeSel.paymentState = '';

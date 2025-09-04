@@ -69,7 +69,7 @@
 						<u-icon size="80rpx" :name="listItem.icon"></u-icon>
 					</view>
 					<text>{{ listItem.title }}</text>
-					<u-badge bgColor="#E52829" :offset="['12rpx', '50rpx']" absolute :value="listItem.count"></u-badge>
+					<u-badge bgColor="#FA5151" :offset="['12rpx', '50rpx']" absolute :value="listItem.count"></u-badge>
 				</view>
 			</view>
 			<view class="flex-row justify-center pb20">

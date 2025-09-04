@@ -88,16 +88,11 @@
 
 				<view class="BodyQBQYScrollView_CardTwo">
 					<view class="tempCard">
-						<view class="tempCard_img">
+						<view class="tempCard_img flex-row items-center justify-center">
 							<image class="" :src="srdz.ls" style="height: 172rpx; width: 260rpx"></image>
 						</view>
-						<view class="tempCard_title">
+						<view class="tempCard_title flex-row justify-end">
 							<view class="bjzx">
-								<!-- <button open-type="contact" style="background-color: transparent;width: 100%;height: 100%;font-size: 20rpx;
-									align-items: center;color: #E7647F;display: flex;flex-direction: row;padding: 0;
-									justify-content: center;border: none;appearance: none;outline: none;box-shadow: none;">
-
-								</button> -->
 								<u-button hover-class="none" :hair-line="false" :customStyle="buttonStyle" open-type="contact">
 									报价咨询
 									<view class="ml8 mt1"><u-icon name="play-right-fill" color="#E7647F" size="16rpx"></u-icon></view>
@@ -1751,15 +1746,12 @@ export default {
 
 					.tempCard_title {
 						position: relative;
-
+						padding: 0 24rpx;
 						.bjzx {
 							display: flex;
 							flex-direction: row;
 							justify-content: center;
 							align-items: center;
-
-							position: absolute;
-
 							width: 150.22rpx;
 							height: 44.12rpx;
 							border-radius: 5.02rpx;
