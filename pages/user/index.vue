@@ -9,11 +9,16 @@
 				<view class="flex-row flex-1 ml24 items-center" style="">
 					<view>
 						<!-- #ifdef MP-WEIXIN -->
-						<u-avatar
-							size="60"
-							:src="pinia_user.data.headPortrait == null ? ImgUrl + '/wxImg/index/mr.svg' : pinia_user.data.headPortrait"
-							@click="userClick"
-						></u-avatar>
+						<view v-if="pinia_token">
+							<u-avatar
+								size="60"
+								:src="pinia_user.data.headPortrait == null ? ImgUrl + '/wxImg/index/mr.svg' : pinia_user.data.headPortrait"
+								@click="userClick"
+							></u-avatar>
+						</view>
+						<view v-else>
+							<u-avatar size="60" :src="ImgUrl + '/wxImg/index/mr.svg'" @click="userClick"></u-avatar>
+						</view>
 						<!-- #endif -->
 						<!-- #ifdef APP -->
 						<u-avatar size="60" src="https://res-oss.elist.com.cn/wxImg/index/mr.svg" @click="userClick"></u-avatar>

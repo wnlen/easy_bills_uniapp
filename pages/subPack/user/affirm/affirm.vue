@@ -49,10 +49,10 @@
 		<view class="absolute flex-col justify-center items-center" style="bottom: 140rpx">
 			<view class="flex-row justify-center items-center mr24 ml24 mb20">
 				<uv-checkbox-group>
-					<uv-checkbox @change="radiochange" active-color="#01BB74" icon-size="12" class="flex-row justify-center" style="text-align: center">
+					<uv-checkbox @change="radiochange" shape="circle" active-color="#01BB74" icon-size="12" class="flex-row justify-center" style="text-align: center">
 						<view class="">
 							<text style="color: #aaaaaa; font-size: 24rpx">同意并遵行易单据</text>
-							<text @tap.stop style="color: #01bb74; font-size: 24rpx" @tap="jumpWord()">《账号注销须知》</text>
+							<text style="color: #01bb74; font-size: 24rpx" @tap.stop="jumpWord()">《账号注销须知》</text>
 						</view>
 					</uv-checkbox>
 				</uv-checkbox-group>
@@ -106,13 +106,9 @@ export default {
 			this.showAddPhone = false;
 		},
 		confirm() {
-			console.log('请求', this.addPhone);
-
 			var mobileRegex = /^1(3|4|5|6|7|8|9)\d{9}$/;
 			var fixedLineRegex = /^(0\d{2,3})?[\s-]?(\d{7,8})$/;
 			var phoneRegex = /^1(3|4|5|6|7|8|9)\d{9}$|^(0\d{2,3})?[\s-]?(\d{7,8})$/;
-
-			console.log(mobileRegex.test(this.addPhone), fixedLineRegex.test(this.addPhone), phoneRegex.test(this.addPhone));
 
 			if (mobileRegex.test(this.addPhone) || fixedLineRegex.test(this.addPhone) || phoneRegex.test(this.addPhone)) {
 				this.showAddPhone = false;
@@ -124,20 +120,15 @@ export default {
 			}
 		},
 		okPhone(fillPhone) {
-			console.log(fillPhone);
 			uni.$api.user
 				.unsubscribeUser({
 					phone: this.pinia_user.phone,
 					fillPhone: fillPhone
 				})
 				.then((res) => {
-					console.log(res.data);
 					var resD = res.data.data.data;
-					console.log(resD);
+
 					if (resD == 1) {
-						// uni.reLaunch({
-						// 	url: '/pages/subPack/user/affirm/applyAffirm'
-						// });
 						this.$u.setPinia({
 							user: {
 								userRole: this.pinia_userRole,
@@ -149,7 +140,7 @@ export default {
 							url: '/pages/index/index'
 						});
 					} else {
-						this.$u.toast(res.data.data.data);
+						this.$u.toast(res.data.data.message);
 					}
 				});
 		},
@@ -159,7 +150,7 @@ export default {
 			});
 		},
 		jumpWord() {
-			console.log('查看须知');
+			console.log('点击');
 			uni.navigateTo({
 				url: '/pages/subPack/user/affirm/word?url=' + 'https://res-oss.elist.com.cn/notice/AccountCancellationNotice-v1.htm'
 			});
@@ -180,7 +171,6 @@ export default {
 			}, 1000);
 		},
 		logout() {
-			console.log('zhuxiao ');
 			if (!this.disabled) {
 				this.$u.toast('请勾选账号注销须知协议');
 				return;

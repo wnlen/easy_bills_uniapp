@@ -24,7 +24,6 @@ export default {
 			return useUserStore().userRole || 'D';
 		},
 		pinia_token() {
-			console.log('useUserStore().token', useUserStore().token);
 			return useUserStore().token || '';
 		},
 		pinia_work() {

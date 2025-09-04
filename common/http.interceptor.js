@@ -43,9 +43,12 @@ function goLoginOnce() {
 	hasRedirectedToLogin = true
 	// 2 秒内防抖，避免并发多次跳转
 	setTimeout(() => (hasRedirectedToLogin = false), 2000)
-	uni.redirectTo({
-		url: '/pages/subUser/login'
-	})
+
+	setTimeout(() => {
+		uni.redirectTo({
+			url: '/pages/subUser/login'
+		})
+	}, 1500)
 }
 
 export const initRequest = () => {
@@ -82,7 +85,7 @@ export const initRequest = () => {
 		return config;
 	});
 
-	// ===== 核心：请求前拦截，无 token 就取消并跳转 =====
+	// ===== 请求拦截：无 token 直接拦截，不发给后端 =====
 	http.interceptors.request.use((config) => {
 		const userStore = useUserStore()
 		const isWhite = isWhiteListedPath(config.url)
@@ -91,63 +94,97 @@ export const initRequest = () => {
 		if (!isWhite && !skipAuth) {
 			const token = (userStore.token || '').trim()
 			if (!token) {
-				// 先关掉 loading
-				uni.hideLoading()
 				goLoginOnce()
-				// 取消本次请求（不发到服务器）
 				return Promise.reject({
-					statusCode: 401, // 或者 status: 401
+					statusCode: 401,
 					data: {
-						code: 401,
+						code: '40101',
 						message: '请登录'
-					}
-				});
+					},
+					__from__: 'client-short-circuit'
+				})
 			}
-
 			const hdr = {
 				...config.header
-			};
-			hdr.Authorization = `Bearer ${token}`, hdr.token = token;
-			hdr.phone = userStore.user.phone || '';
-			hdr.boss = userStore.user.workData.bossNumber || '0';
-			config.header = hdr;
+			}
+			hdr.Authorization = `Bearer ${token}`
+			hdr.token = token // 兼容老后端
+			hdr.phone = userStore.user?.phone || ''
+			hdr.boss = userStore.user?.workData?.bossNumber || '0'
+			config.header = hdr
 		}
 
 		return config
 	})
 
-	// ===== 收到响应后的统一处理（token 过期等） =====
-	http.interceptors.response.use((res) => {
-		// 注意：luch 在小程序端一般用 res.statusCode，H5 用 res.status；保险起见都判断一下
-		return res
-	}, (error) => {
-		console.log('响应错误:', error);
-		const httpCode = error?.statusCode ?? error?.status
-		const bizCode = error?.data?.code
-		if (httpCode === 401 || bizCode === 401) {
-			uni.$u.setPinia({
-				user: {
-					token: '',
+	// ===== 响应拦截：细分 401 场景，不要误清 token =====
+	http.interceptors.response.use(
+		(res) => res,
+		async (error) => {
+
+
+			const httpCode = error?.statusCode ?? error?.status
+			const data = error?.data || {}
+			// 兼容后端把业务码放 header（推荐做法）
+			const hdrCode = error?.header?.['X-Auth-Error-Code'] || error?.headers?.['X-Auth-Error-Code']
+			const bizCode = String(data?.code || hdrCode || '')
+
+			// --- 网络层异常（如断网、超时、DNS），既没有 httpCode 也没有 bizCode ---
+			if (!httpCode && !bizCode) {
+				uni.showToast({
+					title: '网络异常，请检查连接',
+					icon: 'none'
+				})
+				return Promise.reject(error)
+			}
+
+			// --- 会话/Redis 等服务端异常：HTTP 503 + 业务码 50001 -> 不清 token，只提示 ---
+			if (httpCode === 503 || bizCode == '50001') {
+
+				uni.showToast({
+					title: error.data.message,
+					icon: 'none'
+				})
+				// 可选：对幂等 GET 请求做一次轻量重试，避免偶发抖动
+				// if (error?.config && error.config.method?.toUpperCase() === 'GET' && !error.config.__retried) {
+				//   error.config.__retried = true
+				//   return http.request(error.config)
+				// }
+				return Promise.reject(error)
+			}
+
+			// --- 鉴权相关：只在确认为“失效/冲突/缺失”时清 token ---
+			const shouldLogout =
+				httpCode === 401 || ['40101', '40102', '40103', 401].includes(bizCode)
+
+
+			if (shouldLogout) {
+
+				// 40101 未带/格式错；40102 过期；40103 被挤下线
+				uni.$u.setPinia({
 					user: {
-						phone: undefined
+						token: '',
+						user: {
+							phone: undefined
+						}
 					}
+				})
+
+				// 针对 40103 友好提示
+				if (bizCode === '40103') {
+
+					uni.showToast({
+						title: error.data.message,
+						icon: 'none'
+					})
 				}
-			})
-			uni.hideLoading()
-			goLoginOnce()
-			// 抛错给业务，避免错误被吃掉
+				goLoginOnce()
+				return Promise.reject(error)
+			}
+
+			// 其它错误，交给业务层
 			return Promise.reject(error)
 		}
-		if (!httpCode && !bizCode) {
-			uni.hideLoading();
-			uni.showToast({
-				title: '网络异常，请检查连接',
-				icon: 'none'
-			});
-			return Promise.reject(error);
-		}
-		// 其它错误都要 reject 出去，避免被吃掉
-		return Promise.reject(error);
-	})
+	)
 	return http;
 };
