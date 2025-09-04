@@ -4,7 +4,6 @@
 			ref="paging"
 			use-virtual-list
 			:force-close-inner-list="true"
-			:hide-empty-view="hideEmptyView"
 			:cell-height-mode="1 === 0 ? 'fixed' : 'dynamic'"
 			@virtualListChange="virtualListChange"
 			@query="queryList"
@@ -38,7 +37,15 @@
 					</view>
 				</view>
 			</template>
-
+			<template #empty>
+				<u-empty
+					v-if="current == 0 && !moneyCALL"
+					icon="https://res-oss.elist.com.cn/wxImg/list/empty.svg"
+					iconSize="200rpx"
+					text="没有数据哦~"
+					marginTop="-200rpx"
+				></u-empty>
+			</template>
 			<view class="order-simple-list pl30 pr30" v-show="current == 0 && !moneyCALL">
 				<div class="bg-white pd20 mt20 radius flex-col justify-center items-center cardShow">
 					<view class="flex-col" style="width: 100%">
@@ -163,7 +170,6 @@
 			<view class="contentView flex-col justify-center items-center" style="height: 600rpx" v-show="current == 1">
 				<!-- 正在开发中~ -->
 			</view>
-
 			<view class="order-list ml24 mr24 pt10 mt24" v-show="current == 0 && !moneyCALL">
 				<view
 					v-for="(item, index) in orderList"

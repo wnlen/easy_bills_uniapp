@@ -98,8 +98,8 @@
 								></u-text>
 							</template>
 							<template #suffix>
-								<view class="flex-col justify-center items-center" @click="SearchBtn">
-									<u-icon name="/static/img/list/ss.svg" size="46rpx"></u-icon>
+								<view class="flex-col justify-center items-center">
+									<u-icon name="/static/img/list/ss.svg" size="46rpx" @click="searchListenner"></u-icon>
 								</view>
 							</template>
 						</uv-input>
@@ -125,8 +125,8 @@
 								></u-text>
 							</template>
 							<template #suffix>
-								<view class="ml40 flex-col justify-center items-center" @click="SearchBtn">
-									<u-icon name="/static/img/list/ss.svg" size="46rpx"></u-icon>
+								<view class="ml40 flex-col justify-center items-center">
+									<u-icon name="/static/img/list/ss.svg" size="46rpx" @click="searchListenner"></u-icon>
 								</view>
 							</template>
 						</uv-input>
@@ -155,16 +155,12 @@
 						:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent' }"
 						shape="circle"
 						:plain="true"
-						@click="
-							uni.navigateTo({
-								url: '/pages/subOrder/add'
-							})
-						"
+						@click="addOrder"
 					>
 						<text>去开单</text>
 					</u-button>
 					<u-button
-						v-else
+						v-if="pinia_userRole == 'R' && pinia_user.phone"
 						dataName="shareFriend"
 						openType="share"
 						color="#01BB74"
@@ -172,6 +168,21 @@
 						:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent' }"
 						shape="circle"
 						:plain="true"
+					>
+						<text>去邀请</text>
+					</u-button>
+					<u-button
+						v-if="pinia_userRole == 'R' && !pinia_user.phone"
+						color="#01BB74"
+						iconColor="#ECFFF9"
+						:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent' }"
+						shape="circle"
+						:plain="true"
+						@click="
+							uni.navigateTo({
+								url: '/pages/subUser/login'
+							})
+						"
 					>
 						<text>去邀请</text>
 					</u-button>
@@ -427,14 +438,12 @@
 				</view>
 			</view>
 
-			<view class="NullView" style="height: 5vh; background-color: transparent"></view>
 			<!-- 自定义tab -->
 			<template #bottom>
-				<pop-tab :tabIndex="1" ref="popTabCom"></pop-tab>
+				<view class="" style="height: 170rpx"></view>
 			</template>
 		</z-paging>
-
-		<!-- <u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" /> -->
+		<pop-tab :tabIndex="1" ref="popTabCom"></pop-tab>
 		<!-- 弹出层 -->
 		<u-popup :show="show_start" @close="show_start = false" mode="top" :safeAreaInsetBottom="false" :safeAreaInsetTop="true" zIndex="999">
 			<!-- #ifdef MP-WEIXIN -->
@@ -837,22 +846,26 @@ onLoad(() => {
 
 // 页面进入展示
 onShow(() => {
-	current.value = globalStore.tabIndex;
+	if (globalStore.tabIndex) {
+		current.value = globalStore.tabIndex;
+	} else {
+		current.value = 0;
+	}
+
 	if (userStore.user.phone) {
 		loadData();
 		useInitPage(realTimeSel, searchList, paging, date1, date2, tabsList.value, customer, current);
 		nextTick(() => {
-			console.log('popTabCom.value', popTabCom.value);
 			popTabCom.value?.getMessNum();
 		});
-		// paging.value?.reload()
+		// paging.value?.reload();
 	} else {
 		uni.$u.toast('登录查看更多');
 	}
 });
 
 onReady(async () => {
-	current.value = 0;
+	// current.value = 0;
 });
 
 // 页面隐藏（如切后台）
@@ -1179,7 +1192,17 @@ function CustomerGet() {
 		proxy.$u.toast('登录查看更多');
 	}
 }
-
+function addOrder() {
+	if (pinia_user.value.phone != undefined) {
+		uni.navigateTo({
+			url: '/pages/subOrder/add'
+		});
+	} else {
+		uni.navigateTo({
+			url: '/pages/subUser/login'
+		});
+	}
+}
 function filtrateGet() {
 	show_start.value = true;
 }
@@ -1278,6 +1301,11 @@ function filterReset() {
 function filterSubmit() {
 	show_start.value = false;
 	const date = new Date();
+	field.value = '';
+	realTimeSel.value.kTakeE = '';
+	realTimeSel.value.kPhoneE = '';
+	realTimeSel.value.kSiteE = '';
+	realTimeSel.value.inventoryName = '';
 	date.setDate(date.getDate() + 15);
 	realTimeSel.value.startDate = date1.value || uni.$u.timeFormat(new Date(new Date().getFullYear(), 0, 1), 'yyyy-mm-dd');
 	realTimeSel.value.endDate = date2.value || uni.$u.timeFormat(date, 'yyyy-mm-dd');
@@ -1515,6 +1543,9 @@ function updateOrder(order) {
 }
 
 function searchListenner(e) {
+	const store = useUserStore();
+	const pinia_user = store.user;
+	const pinia_userRole = store.userRole;
 	const filterIndex = showTage.value;
 	const ifWorkPort = pinia_userRole.value === 'R';
 

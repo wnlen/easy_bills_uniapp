@@ -82,8 +82,7 @@
 				"pagePath": "pages/list/list",
 				"iconPath": "static/images/tab/tab-list.png",
 				"selectedIconPath": "static/images/tab/tab-list-active.png",
-				"text": "查单",
-				"class": "tab-order"
+				"text": "查单"
 			},
 			{
 				"pagePath": "pages/message/message",

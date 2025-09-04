@@ -100,17 +100,19 @@
 					<text>单位：{{ item.unit }}</text>
 					<text>单价：{{ item.unitPrice == '0' ? '-' : '￥' + item.unitPrice }}</text>
 				</view>
-				<u-icon @tab.stop class="absolute" style="bottom: 24rpx; right: 24rpx" name="plus-circle" color="#01BB74" size="50rpx" @click="addOrderBill(item)"></u-icon>
+				<view class="" :id="index == 0 ? 'box1' : ''">
+					<u-icon @tab.stop class="absolute" style="bottom: 24rpx; right: 24rpx" name="plus-circle" color="#01BB74" size="50rpx" @click="addOrderBill(item)"></u-icon>
+				</view>
 			</view>
 
 			<template #bottom>
 				<view class="bottomCard">
-					<view class="relative">
+					<view class="relative pd10" id="box2">
 						<u-icon name="https://res-oss.elist.com.cn/wxImg/order/merchandiseInventory.png" size="110rpx" @click="AlertCard"></u-icon>
 						<u-badge absolute bgColor="#E52829" :value="orderItemList.length" :offset="['0rpx', '-20rpx']"></u-badge>
 					</view>
 
-					<text class="ml12">
+					<text class="">
 						合计:
 						<text style="color: #01bb74">￥{{ totalPrices }}</text>
 					</text>
@@ -126,66 +128,73 @@
 					<template #top>
 						<view style="height: 24rpx"></view>
 					</template>
-					<u-swipe-action>
-						<view class="OrderCard" style="width: 94vw" v-for="(item, index) in orderItemList" :key="index">
-							<u-swipe-action-item :show="item.show" :options="options" :name="index" @click="delclick" @open="open">
-								<view class="flex-row pt24 pb24" style="width: 100%">
-									<view style="width: 10%" class="ml20">品名:</view>
-									<view style="width: 40%">{{ item.description }}</view>
-									<view style="width: 10%" class="ml20">规格:</view>
-									<view style="width: 40%">{{ item.specification }}</view>
-								</view>
-								<view class="flex-row items-center justify-center" style="width: 100%">
-									<u-line class="u-line ml24 mr24" color="#F4F4F4" length="100%"></u-line>
-								</view>
-								<u-table border-color="#ffffff">
-									<u-tr>
-										<u-td>数量</u-td>
-										<u-td>单位</u-td>
-										<u-td>单价</u-td>
-										<u-td width="200rpx">金额</u-td>
-									</u-tr>
-									<u-tr>
-										<u-td>
-											<view class="u-border-bottom">
-												<input
-													type="digit"
-													v-model="item.quantity"
-													maxlength="10"
-													placeholder="请输入"
-													@input="calculate"
-													:customStyle="uploadingCommodityInputStyle"
-												/>
-											</view>
-										</u-td>
-										<u-td>{{ item.unit }}</u-td>
-										<u-td>
-											<view class="u-border-bottom">
-												<input
-													type="digit"
-													v-model="item.unitPrice"
-													maxlength="10"
-													@input="calculate"
-													placeholder="请输入"
-													:customStyle="uploadingCommodityInputStyle"
-												/>
-											</view>
-										</u-td>
-										<u-td width="200rpx">
-											<input
-												type="text"
-												:value="formatAmount(item.unitPrice * item.quantity)"
-												disabled
-												maxlength="10"
-												placeholder="请输入"
-												:customStyle="uploadingCommodityInputStyle"
-											/>
-										</u-td>
-									</u-tr>
-								</u-table>
-							</u-swipe-action-item>
+					<!-- <u-swipe-action> -->
+					<view class="OrderCard" style="width: 94vw" v-for="(item, index) in orderItemList" :key="index">
+						<!-- <u-swipe-action-item :show="item.show" :options="options" :name="index" @click="delclick" @open="open"> -->
+						<view class="absolute" style="right: 24rpx">
+							<u-icon name="minus-circle-fill" color="#FA5151" @click="delclick(index)"></u-icon>
 						</view>
-					</u-swipe-action>
+						<view class="flex-row pb24" style="width: 100%">
+							<view style="width: 10%" class="ml20">品名:</view>
+							<view class="flex-1">{{ item.description }}</view>
+							<view style="width: 10%" class="ml20">规格:</view>
+							<view class="flex-1">{{ item.specification }}</view>
+						</view>
+						<view class="flex-row items-center justify-center" style="width: 100%">
+							<u-line class="u-line ml24 mr24" color="#F4F4F4" :dashed="true" length="100%"></u-line>
+						</view>
+						<u-table border-color="#ffffff">
+							<u-tr>
+								<u-td>数量</u-td>
+								<u-td>单位</u-td>
+								<u-td>单价</u-td>
+								<u-td width="200rpx">金额</u-td>
+							</u-tr>
+							<u-tr>
+								<u-td>
+									<view class="u-border-bottom">
+										<uv-input
+											type="digit"
+											inputAlign="center"
+											clearable
+											border="none"
+											v-model="item.quantity"
+											maxlength="10"
+											placeholder="请输入"
+											@change="calculate"
+										></uv-input>
+									</view>
+								</u-td>
+								<u-td>{{ item.unit }}</u-td>
+								<u-td>
+									<view class="u-border-bottom">
+										<uv-input
+											type="digit"
+											inputAlign="center"
+											clearable
+											border="none"
+											v-model="item.unitPrice"
+											maxlength="10"
+											placeholder="请输入"
+											@change="calculate"
+										></uv-input>
+									</view>
+								</u-td>
+								<u-td width="200rpx">
+									<input
+										type="text"
+										:value="formatAmount(item.unitPrice * item.quantity)"
+										disabled
+										maxlength="10"
+										placeholder="请输入"
+										:customStyle="uploadingCommodityInputStyle"
+									/>
+								</u-td>
+							</u-tr>
+						</u-table>
+						<!-- </u-swipe-action-item> -->
+					</view>
+					<!-- </u-swipe-action> -->
 
 					<template #bottom>
 						<view class="bottomCard">
@@ -203,13 +212,25 @@
 				</z-paging>
 			</view>
 		</u-popup>
+		<!-- 新手指引 -->
+		<pop-guide :max-step="2" :guideType="'goods'" :guideData="functionGuideData" ref="FunctionGuide"></pop-guide>
 	</view>
 </template>
 
 <script>
+import { nextTick } from 'vue';
+
 export default {
 	data() {
 		return {
+			intoView: '',
+			functionGuideData: {
+				step: 0,
+				tips: '', // 介绍
+				tipsPosition: '', // 介绍 显示位置
+				btnGroupPosition: '', // 按钮组显示位置
+				position: {}
+			},
 			orderList: [],
 			SearchInventory: '',
 			SearchCustomStyle: {
@@ -316,9 +337,7 @@ export default {
 			this.merchandiseInventory.staffNumber = this.pinia_user.phone;
 			this.merchandiseInventory.phone = this.pinia_user.workData.bossNumber;
 		}
-		// #ifdef MP-WEIXIN
 		this.$refs.paging.reload();
-		// #endif
 	},
 	onUnload() {
 		// uni.showModal({
@@ -341,6 +360,74 @@ export default {
 		// });
 	},
 	methods: {
+		setFunctionGuideData(data) {
+			this.functionGuideData = {
+				...this.functionGuideData,
+				...data
+			};
+
+			this.showFunctionGuideR();
+		},
+		showFunctionGuideR() {
+			if (this._step == this.functionGuideData.step) return;
+			this._step = this.functionGuideData.step;
+			if (this.functionGuideData.step == 1) {
+				this.getElementData('#box1', (res) => {
+					this.setFunctionGuideData({
+						tips: '点击按钮添加到清单',
+						btnGroupPosition: '',
+						tipsPosition: {
+							top: '30rpx',
+							right: '-24rpx',
+							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc6.png)'
+						},
+						position: {
+							borderRadius: '50%',
+							top: res.top + 'px',
+							width: `${res.width}px`,
+							left: `${res.left}px`,
+							height: `${res.height}px`
+						}
+					});
+				});
+			} else if (this.functionGuideData.step == 2) {
+				let systemInfo = uni.getSystemInfoSync();
+				let platform = systemInfo.platform;
+				let osName = systemInfo.osName;
+				const bottomSafeArea = systemInfo.safeAreaInsets ? systemInfo.safeAreaInsets.bottom : 0;
+				var setting = platform === 'android';
+				this.getElementData('#box2', (res) => {
+					this.setFunctionGuideData({
+						tips: '点击修改商品数量/单价',
+						btnGroupPosition: '550rpx',
+						tipsPosition: {
+							top: '-232rpx',
+							left: '0rpx',
+							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc7.png)'
+						},
+						position: {
+							borderRadius: '50%',
+							top: `${res.top}px`,
+							width: `${res.width}px`,
+							left: `${res.left}px`,
+							height: `${res.height}px`
+						}
+					});
+				});
+			}
+		},
+		getElementData(el, cb) {
+			let query = null;
+			query = uni.createSelectorQuery().in(this);
+			query
+				.select(el)
+				.boundingClientRect()
+				.exec((res) => {
+					if (res[0]) {
+						cb(res[0]);
+					}
+				});
+		},
 		customBack() {
 			console.log('返回');
 			if (this.orderItemList.length > 0 && this.update == false) {
@@ -384,6 +471,11 @@ export default {
 		},
 		virtualListChange(vList) {
 			this.orderList = vList;
+			// 新手指引
+			console.log('this.orderList.length', this.orderList.length, this.$u.getPinia('guide.guidanceGoods'));
+			if (this.orderList.length && this.$u.getPinia('guide.guidanceGoods') != 1) {
+				this.$refs.FunctionGuide.init();
+			}
 		},
 		queryList(pageNo, pageSize) {
 			console.log(pageNo, pageSize);
@@ -531,11 +623,15 @@ export default {
 				url: 'commodityDetails/commodityDetails?id=' + item.id
 			});
 		},
-		delclick(item) {
-			let order = this.orderItemList[item.name];
-			this.orderItemList.splice(item.name, 1);
+		delclick(index) {
+			let order = this.orderItemList[index];
+			this.orderItemList.splice(index, 1);
 			this.$u.toast(`删除了${order.description}`);
 			this.add();
+			// let order = this.orderItemList[item.name];
+			// this.orderItemList.splice(item.name, 1);
+			// this.$u.toast(`删除了${order.description}`);
+			// this.add();
 		},
 		// 如果打开一个的时候，不需要关闭其他，则无需实现本方法
 		open(index) {
@@ -584,6 +680,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#box1 {
+	padding: 10rpx;
+	border-radius: 50%;
+}
+::v-deep .u-border-bottom,
+.up-border-bottom {
+	border-color: #01bb74 !important;
+}
 ::v-deep .u-safe-bottom {
 	height: 0 !important;
 }
