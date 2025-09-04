@@ -16,7 +16,6 @@ export default {
 	computed: {
 		pinia_user() {
 			const store = useUserStore();
-			console.log('vvvvvvvvvvvvvvvvvvvvvvvv', useUserStore())
 			return {
 				...store.user
 			};
