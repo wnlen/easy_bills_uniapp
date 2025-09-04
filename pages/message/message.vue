@@ -187,19 +187,19 @@ export default {
 
 					console.log(this.list);
 
-					// if (this.$u.getPinia('global.tabbar.2.count') != sum) {
-					// 	this.$u.setPinia({
-					// 		global: {
-					// 			tabbar: [
-					// 				{},
-					// 				{},
-					// 				{
-					// 					count: sum
-					// 				}
-					// 			]
-					// 		}
-					// 	});
-					// }
+					if (this.$u.getPinia('global.tabbar.2.count') != sum) {
+						this.$u.setPinia({
+							global: {
+								tabbar: [
+									{},
+									{},
+									{
+										count: sum
+									}
+								]
+							}
+						});
+					}
 
 					this.showMess = true;
 				})
