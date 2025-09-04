@@ -225,20 +225,18 @@
 					<text class="line34 handcolor">相关图片/票据</text>
 				</view>
 
-				<view class="recently-cat flex-row flex-wrap mt40" style="width: 95%">
+				<view class="flex-row flex-wrap mt40" style="width: 95%">
 					<u-upload
-						autoUpload
 						autoDelete
-						:autoUploadApi="action"
 						autoUploadDriver="local"
 						v-model:fileList="fileList"
 						:maxSize="5242880"
 						:maxCount="3"
+						width="100"
+						height="100"
 						multiple
-						:showPreviewImage="true"
 						:previewFullImage="true"
-						:deletable="true"
-						:showRetry="false"
+						@afterRead="handleUpload"
 					>
 						<u-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></u-icon>
 					</u-upload>
@@ -414,7 +412,7 @@ export default {
 
 		if (uni.getStorageSync('updInventoryStockpile') != undefined && uni.getStorageSync('updInventoryStockpile') != null && uni.getStorageSync('updInventoryStockpile') != '') {
 			this.orderItemList = uni.getStorageSync('updInventoryStockpile');
-			console.log('updInventoryStockpile', uni.getStorageSync('updInventoryStockpile'));
+
 			this.add();
 			uni.removeStorageSync('updInventoryStockpile');
 		}
@@ -426,7 +424,6 @@ export default {
 				orderId: options.orderId
 			})
 			.then((res) => {
-				console.log('请求结果：' + res.data.data.post);
 				var data = res.data.data.post;
 				data.creationTime = this.$u.timeFormat(data.creationTime, 'yyyy-mm-dd');
 				this.receipts = data;
@@ -450,7 +447,6 @@ export default {
 				// uni.setStorageSync("updInventoryStockpile", this.orderItemList)
 				this.fileList = res.data.data.imgList;
 				this.add();
-				console.log('清单=========》', this.fileList);
 			})
 			.catch((res) => {});
 	},
@@ -462,13 +458,11 @@ export default {
 			});
 		},
 		modification() {
-			console.log('modification');
 			uni.navigateTo({
 				url: 'modification'
 			});
 		},
 		merchandiseInventory(type) {
-			console.log('merchandiseInventory', type);
 			uni.setStorageSync('updInventoryStockpile', this.orderItemList);
 			uni.navigateTo({
 				url: '/pages/subOrder/merchandiseInventory?type=' + (type ? 1 : 0) + '&update=1'
@@ -476,6 +470,11 @@ export default {
 		},
 		defImg() {
 			this.action = uni.$http.config.baseURL + 'order/imgA';
+		},
+		handleUpload(res) {
+			console.log('图片', res);
+			this.imgList = res.file;
+			this.fileList = res.file;
 		},
 		getCurrentDate() {
 			const date = new Date();
@@ -491,21 +490,16 @@ export default {
 			return `${year}-01-01`;
 		},
 		ifInput(val) {
-			console.log('输入框', val);
 			if (val === '') {
-				console.log('输入框 满足', val);
 				return '#D8D8D8';
 			} else {
-				console.log('输入框 不满足', val);
 				return '#333333';
 			}
 		},
 		ifColor(val) {
 			if (val != '请输入' && val != '0.00' && val != '') {
-				console.log('满足', val);
 				return true;
 			} else {
-				console.log('不满足', val);
 				return false;
 			}
 		},
@@ -539,8 +533,6 @@ export default {
 			}
 
 			if (shouldBreak) {
-				console.log(this.orderItemList[aIndex - 1]);
-				console.log(aIndex, bIndex);
 				this.orderItemList[aIndex - 1].color[bIndex] = '#FA5151';
 
 				this.orderItemList = this.orderItemList;
@@ -562,16 +554,15 @@ export default {
 			});
 
 			this.receipts.inventoryList = this.orderItemList;
-
 			if (this.imgList.length <= 0) {
-				console.log('没有要提交的图片：===========》', this.imgList);
 			} else {
 				//上传图片
 				var listImg = [];
 				var bossNumber = this.pinia_work == 'Y' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone || this.pinia_user.data.phoneNumber;
 				var jobNumber = this.pinia_work == 'Y' ? that.pinia_user.workData.jobNumber : that.pinia_user.phone;
 				for (let key in this.imgList) {
-					if (this.imgList[key].file && this.imgList[key].url) {
+					if (this.imgList[key].url) {
+						console.log('上传本地图片', this.imgList[key].url);
 						uni.uploadFile({
 							url: uni.$http.config.baseURL + 'order/img',
 							header: {
@@ -585,12 +576,11 @@ export default {
 								imageType: '1'
 							},
 							success: (uploadFileRes) => {
-								console.log(uploadFileRes);
+								console.log('上传成功', uploadFileRes);
 							}
 						});
 					}
 				}
-				console.log(this.searchCopy);
 			}
 
 			this.receipts.price = this.orderTotal;
@@ -602,7 +592,6 @@ export default {
 				uni.$api.order
 					.editOrder(this.receipts)
 					.then((res) => {
-						console.log(res);
 						this.$u.toast(res.data.message);
 						if (res.data.data == 1) {
 							uni.removeStorageSync('updInventoryStockpile');
@@ -621,9 +610,7 @@ export default {
 			var list = [val.bossNumberS, val.staffNumberS, val.bossNumberE, val.staffNumberE];
 			uni.$api.task
 				.startRWFlow({ list: list })
-				.then((res) => {
-					console.log('请求结果：' + res);
-				})
+				.then((res) => {})
 				.catch((res) => {});
 		},
 		callPhone(phone) {
@@ -700,23 +687,6 @@ export default {
 		padding-top: 270rpx;
 		background: url('https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/images/vip-pop.png') top center no-repeat;
 		background-size: 100% 100%;
-	}
-}
-
-.recently-cat {
-	text {
-		font-size: 24rpx;
-		border: 1rpx solid #eee;
-		padding: 10rpx 30rpx;
-		color: #666;
-		border-radius: 100rpx;
-		margin: 8rpx;
-		color: #999;
-
-		&:active {
-			background: #f8f8f8;
-			color: #333;
-		}
 	}
 }
 
