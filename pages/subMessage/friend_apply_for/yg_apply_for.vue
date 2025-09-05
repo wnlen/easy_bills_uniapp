@@ -85,12 +85,10 @@ export default {
 			this.SHOW = 1;
 		},
 		delclick(item, index) {
-			console.log('删除1', item);
 			this.resApiT[index].show = false;
 			uni.$api.user
 				.deleteRelationApply(item)
 				.then((res) => {
-					console.log('删除员工邀请结果', res);
 					if (res.data.data == '1') {
 						this.getApply();
 						this.flushDBSX(this.pinia_user.phone);
@@ -122,23 +120,17 @@ export default {
 				state: '0'
 			};
 
-			uni.$api.bills
-				.getApplyList(dx)
-				.then((res) => {
-					this.resApiT = res.data.data.map((obj) => ({
-						...obj,
-						show: false
-					}));
-					console.log(this.resApiT);
-					this.ClickSafe = true;
-				})
-				.catch((res) => {
-					that.$u.toast(that.message);
-				});
+			uni.$api.bills.getApplyList(dx).then((res) => {
+				this.resApiT = res.data.data.map((obj) => ({
+					...obj,
+					show: false
+				}));
+
+				this.ClickSafe = true;
+			});
 		},
 		getIcon(listPhone, listState) {},
 		getPhoneNumberT(item) {
-			console.log('同意', item);
 			//判断是否有单据 待签收 已签收
 			//判断是否有待办
 			if (this.ClickSafe) {
@@ -151,11 +143,9 @@ export default {
 					ifType: item.ifType
 				};
 
-				console.log('员工统一');
 				uni.$api.bills
 					.confirmApply(JSON.parse(JSON.stringify(dx)))
 					.then((res) => {
-						console.log(res.data.data);
 						if (res.data.data == 1) {
 							this.loadDataYG();
 							this.flushDBSX(dx, res.data.message);
@@ -184,7 +174,6 @@ export default {
 						}, 800);
 					})
 					.catch((res) => {
-						console.log('添加异常：', res);
 						// that.$u.toast("登陆异常 请重新登录")
 						this.$u.toast('添加失败');
 						this.ClickSafe = true;
@@ -226,8 +215,7 @@ export default {
 			uni.$api.task
 				.startRWFlow({ list: list })
 				.then((res) => {
-					console.log('请求结果：' + res);
-					this.$u.toast(mes);
+					// this.$u.toast(mes);
 				})
 				.catch((res) => {});
 		}

@@ -31,6 +31,7 @@ wechat_devtools/
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
+common/http.interceptor.js
 
 # 环境变量文件（如使用）
 .env.local

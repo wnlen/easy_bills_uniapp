@@ -123,20 +123,16 @@
 				<view class="recently-cat flex-row flex-wrap" style="width: 100%">
 					<view class="recently-cat flex-row flex-wrap mt24" style="width: 95%">
 						<u-upload
-							autoUpload
-							autoDelete
-							:autoUploadApi="action"
+							@delete="deleteimg"
 							autoUploadDriver="local"
 							v-model:fileList="imgFileList"
-							:maxSize="524288"
+							:maxSize="10485760"
 							:maxCount="3"
 							multiple
-							:showPreviewImage="true"
 							:previewFullImage="true"
-							:deletable="true"
-							:showRetry="false"
 							width="200rpx"
 							height="200rpx"
+							@afterRead="afterRead"
 						>
 							<u-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></u-icon>
 						</u-upload>
@@ -281,7 +277,6 @@ export default {
 		};
 	},
 	onLoad(option) {
-		console.log('单个详情：', option);
 		var port = this.pinia_userRole == 'D';
 		if (port) {
 			uni.setNavigationBarTitle({
@@ -302,7 +297,6 @@ export default {
 			id: idNumber
 		};
 		uni.$api.bills.getBillById(dx).then((res) => {
-			console.log('单个详情：', res);
 			this.billFrom = res.data.data;
 			this.billFrom.billTime = this.$u.timeFormat(this.billFrom.billTime, 'yyyy-mm-dd');
 
@@ -347,17 +341,14 @@ export default {
 				};
 				this.fileList.push(dx);
 			});
-
-			console.log('图片', imgList);
-			console.log('附件', fileList);
 		});
 	},
 	onShow() {
 		var bill = uni.getStorageSync('bill');
-		console.log(bill);
+
 		if (bill != null && bill != undefined && bill != '') {
 			var jo = JSON.parse(bill);
-			console.log(jo);
+
 			this.billFrom.billPrice = jo.priceNumber;
 			this.billFrom.searchJson = JSON.stringify(JSON.parse(JSON.stringify(jo.searchJson)));
 			this.billFrom.billAfterPrice = (this.billFrom.billPrice * (1 - this.billFrom.billDiscountPrice / 100)).toFixed(2);
@@ -368,28 +359,33 @@ export default {
 			uni.removeStorageSync('bill');
 		}
 		this.action = uni.$http.config.baseURL + 'order/imgA';
-		console.log('bill', bill);
 	},
 	methods: {
+		deleteimg(res) {
+			this.removeList.push(res.file);
+			this.imgFileList.splice(res.index, 1);
+		},
+		afterRead(res) {
+			this.loadList.push(res.file[0]);
+			const res1 = res.file[0];
+			const dx = {
+				url: res1.url,
+				id: res1.id,
+				size: res1.size,
+				billId: res1.billId
+			};
+			this.imgFileList.push(dx);
+		},
 		async sendOrder(app) {
-			console.log('', this.imgFileList);
-			console.log('', this.fileList);
-			console.log('要删除的元素', this.removeList);
-
 			if (this.checkSend) {
 				this.checkSend = false;
-
 				//要删除的
 				const uniqueIds = [...new Set(this.removeList.map((item) => item.id))];
-				console.log('要删除的元素', uniqueIds);
-				//要添加的
-				console.log('loadList', this.loadList);
 
 				var ifWorkPort = this.pinia_userRole == 'R';
 				this.billFrom.type = ifWorkPort ? 0 : 1;
 
 				for (const res of this.fileList) {
-					console.log(res);
 					if (res.id == null) {
 						const url = await this.UploadFilePdf(res.path, this.billFrom.billNumber, true, res.size, app);
 						this.updAttachmentFile.push({
@@ -402,9 +398,9 @@ export default {
 
 				// 图片文件上传
 				for (const res of this.loadList) {
-					if (res.file != undefined) {
+					if (res.url != undefined) {
 						const url = await this.UploadFilePdf(res.url, this.billFrom.billNumber, false, res.size, app);
-						console.log('1上传结果', url);
+
 						var dx = {
 							file: url.url,
 							size: url.size,
@@ -412,36 +408,27 @@ export default {
 						};
 						this.urlList.push(dx);
 					} else {
-						console.log('无需上传');
 					}
 				}
-
-				console.log('要删除的元素', uniqueIds);
-				console.log('要上传的', this.urlList);
-				console.log('附件文件', this.fileList);
-				console.log('附件文件', this.updAttachmentFile);
-				console.log('待删除附件文件', this.delFileList);
 
 				this.billFrom.delImgFolderIdList = uniqueIds;
 				this.billFrom.uplImgFolderIdList = this.urlList;
 				this.billFrom.updFileAliList = this.updAttachmentFile;
 				this.billFrom.delFileList = this.delFileList;
-				uni.$api.bills.updateBill(this.billFrom).then((res) => {
-					console.log(res);
+				const param = uni.$u.deepClone(this.billFrom);
+				param.billTime = param.billTime + ' 00:00:00';
+				uni.$api.bills.updateBill(param).then((res) => {
 					this.checkSend = true;
 					this.$u.toast(res.data.message);
 					setTimeout(function () {
 						uni.navigateBack();
 					}, 300);
-					// uni.navigateBack()
 				});
 			} else {
 				this.$u.toast('请勿重复点击~');
 			}
 		},
 		selectOrder() {
-			console.log(this.billFrom.orders);
-			console.log(this.billFrom.searchJson);
 			uni.navigateTo({
 				url: `upd_receipt?searchJson=${this.billFrom.searchJson}&ids=${this.billFrom.orders}&start=${this.billFrom.sourcePhone}&end=${this.billFrom.receptionPhone}`
 			});
@@ -471,27 +458,19 @@ export default {
 			this.billFrom.billAfterPrice = (this.billFrom.billPrice * (1 - prc / 100)).toFixed(2);
 		},
 		moveImgFileList(index, lists) {
-			console.log(index, lists);
 			if (this.updImgFile[index] != undefined) {
 				this.removeList.push(this.updImgFile[index]);
 			}
 			this.loadList = lists;
 		},
-		handleUpload(e, list) {
-			this.loadList = list;
-			console.log(list);
-		},
 		chooseFile() {
 			chooseFile((path) => {
-				console.log('111111111', path);
 				uni.getFileInfo({
 					//读取文件大小
 					filePath: path,
 					success: (res) => {
-						console.log('11111111', res);
 						const binSize = res.size;
-						console.log('size', binSize);
-						console.log('size', path.split('.')[path.split('.').length - 1]);
+
 						var dx = {
 							type: path.split('.')[path.split('.').length - 1],
 							name: path,
@@ -500,16 +479,12 @@ export default {
 							http: false
 						};
 						this.fileList.push(dx);
-						console.log(this.fileList);
 					},
-					fail: (err) => {
-						console.log('222222222', err);
-					}
+					fail: (err) => {}
 				});
 			});
 		},
 		uploadFile() {
-			console.log('上传');
 			var that = this;
 			uni.chooseMessageFile({
 				count: 1,
@@ -517,8 +492,6 @@ export default {
 				extension: ['doc', 'docx', 'pdf', 'pptx', 'ppt', 'xls', 'xlsx'],
 				sourceType: ['album'],
 				success(res) {
-					console.log('选择的文件', res);
-
 					var FileVerify = that.UploadFileVerify(res);
 					var FileVerifySize = that.FileVerifySize(res);
 					if (FileVerifySize) {
@@ -529,7 +502,6 @@ export default {
 						return;
 					}
 					if (FileVerify) {
-						console.log();
 						//size  name  path
 						var file = res.tempFiles[0];
 						var dx = {
@@ -637,8 +609,7 @@ export default {
 							url: '',
 							size: size
 						};
-						console.log('文件大小', fileAvatar);
-						console.log('文件大小', size);
+
 						if (type) {
 							// that.billFrom.fileAliList.push()
 							dx.url = uploadFileRes.data;
