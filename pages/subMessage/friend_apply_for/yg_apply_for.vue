@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="ml24 mr24 mt20" v-for="(item2, index2) in resApiT" :key="index2" style="border-radius: 6px; align-items: center" v-show="SHOW == 1">
+		<view class="ml24 mr24 mt20 swipeBox" v-for="(item2, index2) in resApiT" :key="index2" v-show="SHOW == 1">
 			<u-swipe-action>
 				<u-swipe-action-item :show="item2.show" :name="index2" @click="delclick(item2, index2)" :options="options">
 					<view style="width: 96vw; height: 80px" class="flex-row items-center u-border-bottom pd15">
@@ -66,7 +66,10 @@ export default {
 				{
 					text: '删除',
 					style: {
-						backgroundColor: '#ff6e55'
+						backgroundColor: '#ff6e55',
+						borderRadius: '0 10rpx 10rpx 0',
+						height: '100%',
+						padding: '0 15px'
 					}
 				}
 			],

@@ -4,7 +4,7 @@ import {
 
 // 视频列表
 const videoList = [
-	'export/UzFfAgtgekIEAQAAAAAAxJYlyJg3FgAAAAstQy6ubaLX4KHWvLEZgBPE_KFcQGI6MYyJzNPgMJotuHr8u0KB2xfY4RN8QuoS' /**发货端订单统计**/ ,
+	'export/UzFfAgtgekIEAQAAAAAAxJYlyJg3FgAAAAstQy6ubaLX4KHWvLEZgBPE_KFcQGI6MYyJzNPgMJotuHr8u0KB2xfY4RN8QuoS' /**发货端统计对账**/ ,
 	'export/UzFfAgtgekIEAQAAAAAAP-EjEVINjQAAAAstQy6ubaLX4KHWvLEZgBPExaF0MGY1MIyJzNPgMJp9aViioFslDPj5E1FlonlH' /**收货端如何对账**/ ,
 	'export/UzFfAgtgekIEAQAAAAAAvGY07g_ulQAAAAstQy6ubaLX4KHWvLEZgBPEx6EAbgBXMoyJzNPgMJrhNSRp3beWs3QsBOqn-goU' /**开单**/ ,
 	'export/UzFfAgtgekIEAQAAAAAA5MwzpLcNFgAAAAstQy6ubaLX4KHWvLEZgBPEjqI0EiobM4yJzNPgMJpb1yCwlhD4QRwrvoYqs0B-' /**发货端查单**/ ,
@@ -96,7 +96,7 @@ export default (http) => ({
 				phone,
 				pages: currentPagePath,
 				type: 0,
-				createTime: new Date(),
+				createTime: new Date().getTime(), //时间戳
 				state: 1
 			};
 			uni.$api.user.behaviorAdd(dx)

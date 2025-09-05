@@ -28,6 +28,10 @@ text {
 	--u-button-shadow: none !important; /* 确保长按时也没有阴影 */
 	background: transparent !important;
 }
+.swipeBox {
+	border-radius: 10rpx; //u-swipe-action圆角
+	overflow: hidden;
+} //
 // ::v-deep button::after {
 // 	border: none !important;//按钮外边框border隐藏
 // }

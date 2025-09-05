@@ -439,7 +439,7 @@
 
 			<!-- 自定义tab -->
 			<template #bottom>
-				<view class="" style="height: 170rpx"></view>
+				<view class="" :style="`height:${bottomSafeArea + 50}px`"></view>
 			</template>
 		</z-paging>
 		<pop-tab :tabIndex="1" ref="popTabCom"></pop-tab>
@@ -793,7 +793,7 @@ const OperatingSystem = ref(false);
 const startX = ref(0);
 const startY = ref(0);
 const uNoticeBarlist = ref(['请及时完成2024年订单收款，逾期将无法处理；跨年后，可前往更多功能-往年数据处查看往年订单。']);
-
+const bottomSafeArea = ref(0);
 watch(
 	() => systemStore.flush,
 	(newVal) => {
@@ -1097,6 +1097,7 @@ function xyTabar(x) {
 
 function getOperatingSystem() {
 	const systemInfo = uni.getSystemInfoSync();
+	bottomSafeArea.value = systemInfo.safeAreaInsets ? systemInfo.safeAreaInsets.bottom : 0;
 	if (systemInfo.system.toLowerCase().includes('ios')) {
 		return true;
 	}
@@ -1212,8 +1213,14 @@ function filtrateGet() {
 	show_start.value = true;
 }
 function Filtrate(type) {
+	field.value = '';
+	realTimeSel.value.kTakeE = '';
+	realTimeSel.value.kPhoneE = '';
+	realTimeSel.value.kSiteE = '';
+	realTimeSel.value.inventoryName = '';
 	showTage.value = type;
 	TitleFun(type);
+	paging.value?.reload();
 }
 
 function virtualListChange(vList) {
@@ -1306,11 +1313,6 @@ function filterReset() {
 function filterSubmit() {
 	show_start.value = false;
 	const date = new Date();
-	field.value = '';
-	realTimeSel.value.kTakeE = '';
-	realTimeSel.value.kPhoneE = '';
-	realTimeSel.value.kSiteE = '';
-	realTimeSel.value.inventoryName = '';
 	date.setDate(date.getDate() + 15);
 	realTimeSel.value.startDate = date1.value || uni.$u.timeFormat(new Date(new Date().getFullYear(), 0, 1), 'yyyy-mm-dd');
 	realTimeSel.value.endDate = date2.value || uni.$u.timeFormat(date, 'yyyy-mm-dd');
@@ -1411,7 +1413,7 @@ function onsubmit(passwordInput) {
 		index: 0,
 		type: 0
 	};
-	showMask.value = false;
+	// showMask.value = false;
 }
 
 function verifyPasswordAdd(item, index, type) {
@@ -1501,7 +1503,7 @@ function applyUpdatePlay(order) {
 		bUser: order.bossNumberS,
 		orderNumber: order.orderNumber,
 		orderId: order.id,
-		createTime: new Date(),
+		createTime: new Date().getTime(), //时间戳
 		updateTime: '',
 		state: 1,
 		aBoss: '',

@@ -40,7 +40,10 @@ export default {
 				{
 					text: '删除',
 					style: {
-						backgroundColor: '#ff6e55'
+						backgroundColor: '#ff6e55',
+						borderRadius: '0 10rpx 10rpx 0',
+						height: '100%',
+						padding: '0 15px'
 					}
 				}
 			]
@@ -176,10 +179,6 @@ export default {
 </script>
 
 <style lang="scss">
-.swipeBox {
-	border-radius: 10rpx;
-	overflow: hidden;
-}
 .c {
 	width: 100vw;
 	height: 100vh;

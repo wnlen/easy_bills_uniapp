@@ -255,7 +255,7 @@
 			</view>
 
 			<scroll-view enhanced :show-scrollbar="false" scroll-y="true" style="background-color: #f4f4f4; max-height: 670rpx; margin-top: 12rpx">
-				<view style="width: 100%; background-color: #ffffff" v-for="(item, index) in orderItemList" :key="index" class="mb12 mt12">
+				<view style="width: 100%; background-color: #ffffff" v-for="(item, index) in orderItemList" :key="index" class="mb12 mt12" @click="merchandiseInventory(false)">
 					<view class="flex-row pt24 pb24" style="width: 100%">
 						<view style="width: 10%" class="ml20">品名:</view>
 						<view style="color: #666666" class="up-line-1 flex-1">{{ item.description }}</view>

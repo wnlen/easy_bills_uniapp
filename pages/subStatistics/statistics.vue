@@ -1458,7 +1458,7 @@ export default {
 			this.realTimeSel.kTakeE = '';
 			this.realTimeSel.kPhoneE = '';
 			this.realTimeSel.kSiteE = '';
-
+			this.customer = '';
 			this.Title = '条件筛选';
 			this.$refs.paging.reload();
 		},
@@ -1749,12 +1749,12 @@ export default {
 
 			this.OrderInit(productCode);
 
-			if (this.system) {
-				this.$refs.popDatabase.src = 'https://res-oss.elist.com.cn/wxImg/vip/ddtj.svg';
-			} else {
-				this.$refs.popDatabase.src = 'https://res-oss.elist.com.cn/wxImg/vip/ddtj.png';
-			}
-
+			// if (this.system) {
+			// 	this.$refs.popDatabase.src = 'https://res-oss.elist.com.cn/wxImg/vip/ddtj.svg';
+			// } else {
+			// 	this.$refs.popDatabase.src = 'https://res-oss.elist.com.cn/wxImg/vip/ddtjNew.png';
+			// }
+			this.$refs.popDatabase.src = 'https://res-oss.elist.com.cn/wxImg/vip/ddtjNew.png';
 			this.$refs.popDatabase.roleShow = true;
 			console.log('当前点击类：');
 			var type = index == 3 ? 'A1' : 'A2';

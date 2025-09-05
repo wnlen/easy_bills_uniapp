@@ -66,7 +66,7 @@
 					<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" mode="search" marginTop="400rpx"></u-empty>
 				</view>
 			</template>
-			<view class="ml24 mr24 mt24" style="border-radius: 20rpx; overflow: hidden" v-for="(item, index) in list" :key="item.id">
+			<view class="ml24 mr24 mt24 swipeBox" v-for="(item, index) in list" :key="item.id">
 				<u-swipe-action>
 					<u-swipe-action-item :show="item.show" :name="index" @click="delclick(item)" :options="options">
 						<view class="pt20 pl20 pr20">
@@ -169,7 +169,10 @@ export default {
 				{
 					text: '删除',
 					style: {
-						backgroundColor: '#ff6e55'
+						backgroundColor: '#ff6e55',
+						borderRadius: '0 10rpx 10rpx 0',
+						height: '100%',
+						padding: '0 15px'
 					}
 				}
 			],
