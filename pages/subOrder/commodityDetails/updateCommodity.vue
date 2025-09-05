@@ -9,7 +9,7 @@
 				:autoUploadApi="action"
 				autoUploadDriver="local"
 				:maxCount="1"
-				:maxSize="9999999"
+				:maxSize="10485760"
 				:showPreviewImage="true"
 				:previewFullImage="true"
 				:deletable="true"

@@ -193,7 +193,7 @@
 						@click="goPath('/pages/subStatistics/statistics')"
 					>
 						<view class="flex-col">
-							<text class="ft36 ml10" style="color: #1d5594">订单统计</text>
+							<text class="ft36 ml10" style="color: #1d5594">统计对账</text>
 							<text class="ft24 ft-lighgray mt5 ml10" style="color: #1d5594">下载统计PDF</text>
 						</view>
 					</view>

@@ -234,7 +234,7 @@
 						autoDelete
 						autoUploadDriver="local"
 						v-model:fileList="fileList"
-						:maxSize="5242880"
+						:maxSize="10485760"
 						:maxCount="3"
 						width="100"
 						height="100"
@@ -244,23 +244,6 @@
 					>
 						<u-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></u-icon>
 					</u-upload>
-					<!-- <u-upload
-						:custom-btn="true"
-						:action="action"
-						:show-retry="false"
-						:file-list="fileList"
-						:show-tips="false"
-						:before-upload="handleUpload"
-						max-size="5242880"
-						max-count="3"
-						multiple
-						@on-remove="onRemoveImg"
-						del-bg-color="#e9e9e9"
-					>
-						<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
-							<u-icon name="https://res-oss.elist.com.cn/wxImg/order/down.png" size="200"></u-icon>
-						</view>
-					</u-upload> -->
 				</view>
 
 				<view class="flex-col mt45" style="width: 95%">

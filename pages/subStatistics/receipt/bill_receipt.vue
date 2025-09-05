@@ -367,6 +367,7 @@ export default {
 	},
 	onLoad(option) {
 		console.log('进入', option);
+		console.log('ggggggggggg', uni);
 		if (this.pinia_userRole == 'D') {
 			uni.setNavigationBarTitle({
 				title: '收款单列表'
@@ -747,7 +748,10 @@ export default {
 		queryList(pageNo, pageSize) {
 			this.billFrom.page = pageNo;
 			this.billFrom.size = pageSize;
-			uni.$api.bills.searchBills(this.billFrom).then((res) => {
+			const param = uni.$u.deepClone(this.billFrom);
+			param.startTime = param.startTime + ' 00:00:00';
+			param.endTime = param.endTime + ' 00:00:00';
+			uni.$api.bills.searchBills(param).then((res) => {
 				console.log(res);
 				var billsList = res.data.data.map((obj) => {
 					return {

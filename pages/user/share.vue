@@ -31,7 +31,7 @@
 			</view>
 			<view class="page-list-ddtj">
 				<image class="ddtj_icon" src="https://res-oss.elist.com.cn/share/dingdanicon.png" mode="widthFix"></image>
-				<view class="ddtj_text1">订单统计 近三月</view>
+				<view class="ddtj_text1">统计对账 近三月</view>
 				<view class="ddtj_text2">需要邀请5人即可领取</view>
 				<view class="ddtj_btn_disabled" v-if="claimed3Month">已领取</view>
 				<view class="ddtj_btn" v-else-if="canClaim3Month" @click="claimReward('invitation3month')">领取</view>
@@ -40,7 +40,7 @@
 
 			<view class="page-list-ddtj">
 				<image class="ddtj_icon" src="https://res-oss.elist.com.cn/share/dingdanicon.png" mode="widthFix"></image>
-				<view class="ddtj_text1">订单统计 近一年</view>
+				<view class="ddtj_text1">统计对账 近一年</view>
 				<view class="ddtj_text2">需要邀请15人即可领取</view>
 				<view class="ddtj_btn_disabled" v-if="claimed12Month">已领取</view>
 				<view class="ddtj_btn" v-else-if="canClaim12Month" @click="claimReward('invitation12month')">领取</view>

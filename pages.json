@@ -613,7 +613,7 @@
 			"pages": [{
 					"path": "statistics",
 					"style": {
-						"navigationBarTitleText": "订单统计",
+						"navigationBarTitleText": "统计对账",
 						"enablePullDownRefresh": true,
 						"navigationBarBackgroundColor": "#ffffff",
 						"navigationStyle": "custom"
