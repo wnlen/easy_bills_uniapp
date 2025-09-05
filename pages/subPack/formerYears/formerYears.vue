@@ -1171,39 +1171,10 @@ export default {
 			this.showTage = i;
 			this.searchList.scope = i;
 			this.field = '';
-			if (i == '0') {
-				this.realTimeSel.phoneE = '';
-				this.realTimeSel.siteE = '';
-				this.realTimeSel.inventoryName = '';
-
-				this.realTimeSel.phoneS = '';
-				this.realTimeSel.enterpriseDz = '';
-				this.realTimeSel.inventoryName = '';
-			} else if (i == '1') {
-				this.realTimeSel.takeE = '';
-				this.realTimeSel.siteE = '';
-				this.realTimeSel.inventoryName = '';
-
-				this.realTimeSel.contactsS = '';
-				this.realTimeSel.enterpriseDz = '';
-				this.realTimeSel.inventoryName = '';
-			} else if (i == '2') {
-				this.realTimeSel.phoneE = '';
-				this.realTimeSel.takeE = '';
-				this.realTimeSel.inventoryName = '';
-
-				this.realTimeSel.contactsS = '';
-				this.realTimeSel.phoneS = '';
-				this.realTimeSel.inventoryName = '';
-			} else if (i == '3') {
-				this.realTimeSel.phoneE = '';
-				this.realTimeSel.takeE = '';
-				this.realTimeSel.siteE = '';
-
-				this.realTimeSel.contactsS = '';
-				this.realTimeSel.phoneS = '';
-				this.realTimeSel.enterpriseDz = '';
-			}
+			this.realTimeSel.kTakeE = '';
+			this.realTimeSel.kSiteE = '';
+			this.realTimeSel.kPhoneE = '';
+			this.realTimeSel.inventoryName = '';
 
 			this.TitleFun(i);
 			this.$refs.paging.reload();
@@ -1228,14 +1199,21 @@ export default {
 			}
 		},
 		filterSubmit() {
-			if (this.dataList.length > 0) {
-				this.show_start = false;
-				this.realTimeSel.startDate = this.date1;
-				this.realTimeSel.endDate = this.date2;
-				this.$refs.paging.refresh();
-			} else {
-				this.show_start = false;
-			}
+			// if (this.dataList.length > 0) {
+			// 	this.show_start = false;
+			// 	this.realTimeSel.startDate = this.date1;
+			// 	this.realTimeSel.endDate = this.date2;
+			// } else {
+			// 	this.show_start = false;
+			// }
+			this.show_start = false;
+
+			const date = new Date();
+			date.setDate(date.getDate() + 15);
+
+			this.realTimeSel.startDate = this.date1 != '' ? this.date1 : this.$u.timeFormat(new Date(new Date().getFullYear(), 0, 1), 'yyyy-mm-dd');
+			this.realTimeSel.endDate = this.date2 != '' ? this.date2 : this.$u.timeFormat(date, 'yyyy-mm-dd');
+			this.$refs.paging.refresh();
 		},
 		getLastMillisecondOfYear(year) {
 			const lastMillisecond = new Date(year, 11, 31, 23, 59, 59, 999);
@@ -1329,7 +1307,7 @@ export default {
 			this.realTimeSel.kTakeE = '';
 			this.realTimeSel.kPhoneE = '';
 			this.realTimeSel.kSiteE = '';
-
+			this.customer = '';
 			this.$refs.paging.reload();
 		},
 		checkboxGroupChange(event, index) {

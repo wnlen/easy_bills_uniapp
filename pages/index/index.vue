@@ -163,6 +163,7 @@
 </template>
 
 <script>
+import SocketManager from '@/utils/socketManager.js';
 export default {
 	data() {
 		return {
@@ -432,7 +433,12 @@ export default {
 			this.unwatchFlush = this.$watch(
 				() => this.$u.getPinia('system.flush'), // 监听状态
 				(newVal, oldVal) => {
-					this.getOrderDB();
+					if (this.pinia_token) {
+						this.getOrderDB();
+					} else {
+						// 关闭socket
+						SocketManager.close();
+					}
 				},
 				{ deep: true, immediate: true }
 			);
@@ -878,6 +884,7 @@ export default {
 			});
 			if (this.pinia_token) {
 				this.guideCourse();
+				this.getOrderDB();
 			}
 			this.setDR(value);
 		},

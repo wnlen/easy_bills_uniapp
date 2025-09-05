@@ -35,12 +35,14 @@ export default {
 		if (options.scene !== 1007 && this.pinia_user?.phone) {
 			// 使用封装模块连接 WebSocket
 			SocketManager.connect(this.pinia_user.phone, (data) => {
-				this.updateMessageCounts();
-				this.$u.setPinia({
-					system: {
-						flush: data
-					}
-				});
+				if (this.pinia_user?.phone) {
+					this.updateMessageCounts();
+					this.$u.setPinia({
+						system: {
+							flush: data
+						}
+					});
+				}
 			});
 
 			this.redirectToIndexIfNeeded();

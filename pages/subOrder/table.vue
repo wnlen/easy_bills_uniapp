@@ -147,22 +147,28 @@
 				<text>去邀请</text>
 			</u-button>
 		</u-empty>
-		<view v-for="(item, index) in client" :key="index" style="border-bottom: 1px solid #f4f4f4">
-			<view class="ml20" style="width: 110vw" v-show="show == 1">
+		<view v-for="(item, index) in client" :key="index">
+			<view class="ml20 mr20" v-show="show == 1" style="border-bottom: 1px solid #f4f4f4">
 				<u-collapse :border="false">
-					<u-collapse-item v-if="!ifZX(index)" :title="getCompanyName(item)" :border="false">
+					<u-collapse-item v-if="!ifZX(index)" :border="false">
+						<template #right-icon></template>
+						<template #title>
+							<view class="" style="font-weight: 500">
+								{{ getCompanyName(item) }}
+							</view>
+						</template>
 						<view
 							v-for="(item2, index2) in item"
 							:key="index2"
-							style="width: 85%; padding-top: 10rpx; padding-bottom: 10rpx"
-							class="anchor-text ml48"
-							:style="{ color: item.state == '2' ? '#FA5151' : '#333333' }"
+							style="padding: 20rpx 0 20rpx 48rpx"
+							class="anchor-text"
+							:style="{ color: item.state == '2' ? '#FA5151' : '#333333', borderTop: index2 == 0 ? '' : '1px solid #f4f4f4' }"
 						>
 							<view
 								class="flex-row items-center"
-								style="padding-top: 10rpx; color: black"
+								style="color: black"
 								:style="{
-									color: item2.identity == '3' ? '#AAAAAA' : '#333333'
+									color: item2.identity == '3' ? '#999' : '#333'
 								}"
 								@click="jump(index, item2, item)"
 							>
@@ -494,6 +500,12 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+::v-deep .u-cell__body {
+	padding: 26rpx !important;
+}
+::v-deep .u-collapse-item__content__text {
+	padding: 0 15px !important;
+}
 .rectBtn {
 	position: absolute;
 	width: 328rpx;

@@ -44,7 +44,9 @@ const SocketManager = {
 		// #endif
 
 		// #ifdef MP-WEIXIN
-		uni.connectSocket({ url });
+		uni.connectSocket({
+			url
+		});
 		console.log('phone', url);
 		uni.onSocketOpen(() => {
 			console.log('[WS] 小程序连接成功');
@@ -86,7 +88,9 @@ const SocketManager = {
 			// #endif
 
 			// #ifdef MP-WEIXIN
-			uni.sendSocketMessage({ data: msg });
+			uni.sendSocketMessage({
+				data: msg
+			});
 			// console.log('[WS] 小程序心跳发送');
 			// #endif
 		}, HEARTBEAT_INTERVAL);
@@ -134,7 +138,9 @@ const SocketManager = {
 		// #endif
 
 		// #ifdef MP-WEIXIN
-		uni.sendSocketMessage({ data: msg });
+		uni.sendSocketMessage({
+			data: msg
+		});
 		// #endif
 	},
 
@@ -164,10 +170,10 @@ const SocketManager = {
 
 		// #ifdef MP-WEIXIN
 		uni.closeSocket();
-		uni.offSocketMessage();
 		uni.offSocketOpen();
 		uni.offSocketClose();
 		uni.offSocketError();
+		uni.offSocketMessage();
 		// #endif
 	}
 };

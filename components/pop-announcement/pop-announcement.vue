@@ -44,7 +44,7 @@ export default {
 				phone: this.pinia_user.phone,
 				state: 1,
 				announcementRead: 1,
-				createTime: new Date()
+				createTime: new Date().getTime() //时间戳
 			};
 			uni.$api.announcement.addAnnouncement(dx).then((res) => {
 				console.log(dx);

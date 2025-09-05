@@ -30,8 +30,9 @@
 						width="100rpx"
 						height="100rpx"
 					></u-image>
+
 					<text class="ml10" style="font-weight: bold; color: #333333; font-size: 36rpx">{{ userName(pinia_user.data.name) || '未设置' }}</text>
-					<image class="ml15" :src="!qy ? ImgUrl + '/wxImg/order/no-is.svg' : ImgUrl + '/wxImg/order/yes-is.svg'" style="width: 80rpx; height: 50rpx"></image>
+					<image class="ml15" :src="pinia_user.ac ? ImgUrl + '/wxImg/order/yes-is.svg' : ImgUrl + '/wxImg/order/no-is.svg'" style="width: 80rpx; height: 50rpx"></image>
 				</view>
 				<view
 					class="flex-row items-center ml24 mr24 flex-row mb18"

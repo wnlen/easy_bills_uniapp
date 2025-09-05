@@ -25,7 +25,7 @@
 			<scroll-view class="BodyQBQYScrollView" :show-scrollbar="true" scroll-y="true" height="100%">
 				<view class="BodyQBQYScrollViewHand">
 					<view class="Hand_icon"></view>
-					<text class="Hand_title">订单统计</text>
+					<text class="Hand_title">统计对账</text>
 				</view>
 
 				<view class="BodyQBQYScrollView_CardOne">
@@ -603,7 +603,7 @@
 							style="width: 100%"
 						>
 							<view class="items-center">
-								<view class="flex-col justify-center ddbt" style="height: 50%">订单统计(近三月数据)一年</view>
+								<view class="flex-col justify-center ddbt" style="height: 50%">统计对账(近三月数据)一年</view>
 								<view class="flex-col justify-center dqsj" style="height: 50%">{{ item3 }}到期</view>
 							</view>
 							<view class="absolute" style="right: 10rpx">￥{{ item.priceAll.A1 }}</view>
@@ -620,7 +620,7 @@
 							style="width: 100%"
 						>
 							<view class="items-center">
-								<view class="flex-col justify-center ddbt" style="height: 50%">订单统计(近一年数据)一年</view>
+								<view class="flex-col justify-center ddbt" style="height: 50%">统计对账(近一年数据)一年</view>
 								<view class="flex-col justify-center dqsj" style="height: 50%">{{ item3 }}到期</view>
 							</view>
 							<view class="absolute" style="right: 10rpx">￥{{ item.priceAll.A2 }}</view>
@@ -1358,7 +1358,7 @@ export default {
 				}
 			}
 
-			console.log('订单统计选中：', statisticsIndex, ' (单价)：', statistics);
+			console.log('统计对账选中：', statisticsIndex, ' (单价)：', statistics);
 			console.log('往年数据：', oldIndex, ' (单价)：', old);
 			console.log('人员总价：', statisticsIndex, ' (单价)：', people);
 			console.log('数据：', this.playMoneyListSend);

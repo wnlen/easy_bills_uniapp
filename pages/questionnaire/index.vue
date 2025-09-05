@@ -4,7 +4,7 @@
 			<uv-icon name="arrow-left" size="18" color="#333333"></uv-icon>
 		</view>
 		<view class="top-img">
-			<image class="banner" src="https://res-oss.elist.com.cn/advertising/wenjuan_background.png" mode="widthFix"></image>
+			<image class="banner" src="https://res-oss.elist.com.cn/advertising/wenjuan_backgroundT.png" mode="widthFix"></image>
 		</view>
 		<view class="page-list">
 			<view class="list-item" v-for="(q_item, q_index) in survey_data.questions" :key="q_index">
