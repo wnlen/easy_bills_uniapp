@@ -150,7 +150,7 @@
 								<uv-input border="none" maxlength="11" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入号码进行检索"></uv-input>
 							</view>
 							<view class="flex-col justify-center items-center" style="height: 5vh">
-								<view class="ml40"><u-icon name="https://res-oss.elist.com.cn/wxImg/statistics/ssOther.svg" size="45rpx" @click="searchListenner"></u-icon></view>
+								<view class="ml40"><u-icon name="https://res-oss.elist.com.cn/wxImg/statistics/ssOther.svg" size="36rpx" @click="searchListenner"></u-icon></view>
 							</view>
 						</div>
 					</div>

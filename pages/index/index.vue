@@ -149,6 +149,34 @@
 		<pop-guide :max-step="4" :guideData="functionGuideData" ref="FunctionGuide"></pop-guide>
 		<!-- 自定义tab -->
 		<pop-tab ref="popTab" :tabIndex="0"></pop-tab>
+		<!-- 未签收提醒 -->
+		<up-popup :show="showUnreceived" :safeAreaInsetBottom="false" mode="center" :customStyle="unreceivedStyle">
+			<view>
+				<view class="">小易提醒您:</view>
+				<view class="">
+					<text>近期有多个订单未签收，可进入“</text>
+					<text
+						class="ft-green"
+						@click="
+							uni.switchTab({
+								url: '/pages/list/list'
+							})
+						"
+					>
+						查单
+					</text>
+					<text>”转发分享进行送货单签收。或者养成开单后立即分享给签收人，提示签字~</text>
+				</view>
+				<view class="flex-row justify-center">
+					<u-checkbox-group :labelSize="12" activeColor="#01bb74" shape="circle" v-model="unreceivedValue">
+						<u-checkbox label="不再提醒" :name="true" :labelSize="12"></u-checkbox>
+					</u-checkbox-group>
+				</view>
+				<view class="">
+					<view class="unreceivedBtn" @click="closeUnreceived">我知道啦</view>
+				</view>
+			</view>
+		</up-popup>
 	</view>
 </template>
 
@@ -157,6 +185,19 @@ import SocketManager from '@/utils/socketManager.js';
 export default {
 	data() {
 		return {
+			unreceivedValue: [],
+			unreceivedStyle: {
+				width: '530rpx',
+				height: '534rpx',
+				padding: '130rpx 40rpx 0',
+				background: 'url(https://res-oss.elist.com.cn/wxImg/index/wqstx.png) no-repeat',
+				backgroundSize: '100% 100%',
+				boxSizing: 'border-box',
+				fontSize: '28rpx',
+				lineHeight: '48rpx',
+				textAlign: 'justify'
+			},
+			showUnreceived: false,
 			CACHE_TTL_MS: 20 * 1000, // 允许缓存 60 秒，可按需调整
 			lastFetchedAt: 0,
 			intoView: '',
@@ -196,6 +237,7 @@ export default {
 				rotate: false,
 				rotateLock: false,
 				padding: [0, 0, 0, 0],
+				color: ['#ECECEC', '#ECECEC', '#ECECEC'],
 				width: 130,
 				height: 130,
 				dataLabel: false,
@@ -389,7 +431,10 @@ export default {
 	},
 	onLoad() {
 		// this.fetchDashboard();
-		this.setDR(this.pinia_userRole);
+
+		if (this.pinia_token) {
+			this.openUnreceived();
+		}
 	},
 	onShow() {
 		// 手动刷新accessToken
@@ -398,7 +443,7 @@ export default {
 		// });
 
 		this.getmiddleBanner(); //加载广告
-
+		this.setDR(this.pinia_userRole); //从收货端点击登录要在onShow的时候设置角色
 		if (!this.pinia_token) {
 			if (this.pinia_userRole == 'D') {
 				this.middleBanner = this.middleBannerlXD;
@@ -420,6 +465,27 @@ export default {
 		}
 	},
 	methods: {
+		// 关闭未签收提醒弹窗
+		closeUnreceived() {
+			// 不再提醒操作
+			if (this.unreceivedValue.length) {
+				uni.$u.setPinia({
+					guide: {
+						unreceivedReminder: 1
+					}
+				});
+			}
+			this.showUnreceived = false;
+		},
+		// 开启提醒弹窗
+		openUnreceived() {
+			if (uni.$u.getPinia('guide.unreceivedReminder')) {
+				this.showUnreceived = false;
+			} else {
+				// 经过接口调用判断
+				this.showUnreceived = true;
+			}
+		},
 		getdaiban(type) {
 			var dx = {
 				bUser: '',
@@ -755,6 +821,7 @@ export default {
 					rotate: false,
 					rotateLock: false,
 					padding: [0, 0, 0, 0],
+					color: ['#ECECEC', '#ECECEC', '#ECECEC'],
 					width: 130,
 					height: 130,
 					dataLabel: false,
@@ -828,6 +895,7 @@ export default {
 					rotate: false,
 					rotateLock: false,
 					padding: [0, 0, 0, 0],
+					color: ['#ECECEC', '#ECECEC', '#ECECEC'],
 					width: 130,
 					height: 130,
 					dataLabel: false,
@@ -959,6 +1027,23 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+.unreceivedBtn {
+	width: 308rpx;
+	height: 74rpx;
+	border-radius: 750.62rpx;
+	background: #00d081;
+	margin: 0 auto;
+	color: #fff;
+	font-size: 30rpx;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+::v-deep .u-checkbox__icon-wrap {
+	width: 24rpx !important;
+	height: 24rpx !important;
+}
 .Index {
 	height: 100vh;
 	overflow: hidden;

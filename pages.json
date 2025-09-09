@@ -716,6 +716,7 @@
 						"navigationBarTitleText": "登录",
 						"enablePullDownRefresh": false,
 						"navigationStyle": "custom",
+						"disableScroll": true,
 						"navigationBarBackgroundColor": "#fff"
 					}
 				},

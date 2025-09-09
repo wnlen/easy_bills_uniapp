@@ -29,7 +29,6 @@
 					type="text"
 					v-model="submitUser.remarkD"
 					style="color: '#333333'"
-					maxlength="20"
 					placeholder="请输入客户备注"
 				/>
 			</view>
@@ -40,7 +39,6 @@
 					type="text"
 					v-model="submitUser.remarkR"
 					style="color: '#333333'"
-					maxlength="20"
 					placeholder="请输入供应商备注"
 				/>
 			</view>
