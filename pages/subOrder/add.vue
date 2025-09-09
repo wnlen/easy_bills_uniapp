@@ -61,10 +61,10 @@
 					<u-image style="" width="414rpx" height="280rpx" src="https://res-oss.elist.com.cn/wxImg/order/fscg.png"></u-image>
 				</view>
 				<view class="text-center mt40" style="color: #01bb74; font-size: 34rpx; font-weight: bold; width: 100%">发送成功!</view>
-				<view class="text-center mt20" style="color: #aaaaaa; font-size: 26rpx; font-weight: normal; width: 300rpx; line-height: 40rpx">
+				<view class="text-center mt20" style="color: #aaaaaa; font-size: 28rpx; font-weight: normal; width: 300rpx; line-height: 40rpx">
 					客户登录易单据即可线上签署送货单
 				</view>
-				<view class="flex-row justify-center items-center mt80">
+				<view class="flex-row justify-center items-center mt90">
 					<!-- @click="showShare = true" -->
 					<button
 						style="
@@ -77,7 +77,7 @@
 							border: 2rpx solid #01bb74;
 							font-size: 30rpx;
 						"
-						class="mr10 flex-row items-center justify-center"
+						class="mr15 flex-row items-center justify-center"
 						size="medium"
 						open-type="share"
 						:data-id="transmitList[0].id"
@@ -90,7 +90,7 @@
 
 					<button
 						style="background-color: #01bb74; width: 271.24rpx; height: 79.98rpx; border-radius: 338.4rpx; color: #ffffff; font-size: 30rpx"
-						class="ml10 flex-row items-center justify-center"
+						class="ml15 flex-row items-center justify-center"
 						@click="ContinueBilling"
 					>
 						继续开单
@@ -256,14 +256,20 @@
 							/>
 						</view>
 					</view>
-					<view class="flex-row justify-between items-center">
+					<view class="flex-row justify-between items-center mt20">
 						<text class="line34 ft-bold handcolor pt24">发货清单</text>
 					</view>
 				</view>
 			</view>
 
-			<scroll-view enhanced :show-scrollbar="false" scroll-y="true" style="max-height: 670rpx; margin-top: 12rpx">
-				<view style="width: 100%; background-color: #ffffff" v-for="(item, index) in orderItemList" :key="index" class="mb12 mt12" @click="merchandiseInventory(false)">
+			<scroll-view enhanced :show-scrollbar="false" scroll-y="true" style="background-color: #f4f4f4; max-height: 670rpx; margin-top: 12rpx">
+				<view
+					style="width: 100%; background-color: #ffffff"
+					v-for="(item, index) in orderItemList"
+					:key="index"
+					:class="index == 0 ? '' : 'mt12'"
+					@click="merchandiseInventory(false)"
+				>
 					<view class="flex-row pt24 pb24" style="width: 100%">
 						<view style="width: 10%" class="ml20">品名:</view>
 						<view style="color: #666666" class="up-line-1 flex-1">{{ item.description }}</view>
@@ -1292,8 +1298,10 @@ export default {
 			return new Promise((resolve) => {
 				if (this.limitingCondition) {
 					this.limitingCondition = false;
+					let receiptsData = JSON.parse(JSON.stringify(this.receipts));
+					receiptsData.creationTime = receiptsData.creationTime + ' 00:00:00';
 					uni.$api.draft
-						.addDraft(this.receipts)
+						.addDraft(receiptsData)
 						.then((res) => {
 							console.log(res);
 							var code = res.data.data;
