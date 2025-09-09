@@ -461,7 +461,17 @@
 				</view>
 			</view>
 		</u-popup>
-		<u-popup :show="showBrowsePrint" :customStyle="customStylePrint" mode="center" :safeAreaInsetBottom="false" round="14" @close="showBrowsePrint = false">
+		<u-popup
+			:show="showBrowsePrint"
+			:customStyle="customStylePrint"
+			mode="center"
+			:safeAreaInsetBottom="false"
+			round="14"
+			@close="
+				showBrowsePrint = false;
+				isPrinterOK = false;
+			"
+		>
 			<view class="w100 pt30 relative flex-col items-center" style="width: 650rpx" :style="`height:${showBrowsePrintHeight}`">
 				<scroll-view scroll-y="true" class="u-border pt20 pb20" style="width: 90%; overflow-y: auto" :style="{ height: ImageSoleHeight }">
 					<u-image width="100%" :src="item" mode="widthFix" v-for="(item, index) in browse" :show-menu-by-longpress="false" :key="index"></u-image>
@@ -538,7 +548,8 @@ export default {
 			LookShar: '',
 			workState: true,
 			downPdf: true,
-			throttleTimer: null
+			throttleTimer: null,
+			isPrinterOK: false
 		};
 	},
 	onLoad(options) {
@@ -681,22 +692,16 @@ export default {
 		print(type) {
 			console.log('打印', this.orderId);
 			//获取默认打印机
-			if (this.throttleTimer) {
-				this.$u.toast('请勿频繁点击~');
-				return;
+			if (this.isPrinterOK) {
+				return this.$u.toast('请勿频繁点击~');
 			}
-
-			this.throttleTimer = setTimeout(() => {
-				console.log('打印', this.orderId);
-				// 获取默认打印机
-				if (type == 1) {
-					// 打印
-					this.printerOK();
-				} else {
-					this.printerBrowse();
-				}
-				this.throttleTimer = null;
-			}, 500); // 500ms 内只执行一次
+			this.isPrinterOK = true;
+			if (type == 1) {
+				//打印
+				this.printerOK();
+			} else {
+				this.printerBrowse();
+			}
 		},
 		printerBrowse() {
 			var print = {
@@ -711,19 +716,26 @@ export default {
 			print.port = this.pinia_userRole;
 			print.phone = this.pinia_user.phone;
 
-			uni.$api.printer.previewPrintImage(print).then((rest) => {
-				this.browse = rest.data;
-				if (rest.data.length == 1) {
-					this.showBrowsePrintHeight = '600rpx';
-					this.ImageSoleHeight = '400rpx';
-				} else {
-					this.showBrowsePrintHeight = '1000rpx';
-					this.ImageSoleHeight = '800rpx';
-				}
-				this.showBrowsePrint = true;
-			});
+			uni.$api.printer
+				.previewPrintImage(print)
+				.then((rest) => {
+					this.browse = rest.data;
+					if (rest.data.length == 1) {
+						this.showBrowsePrintHeight = '600rpx';
+						this.ImageSoleHeight = '400rpx';
+					} else {
+						this.showBrowsePrintHeight = '1000rpx';
+						this.ImageSoleHeight = '800rpx';
+					}
+					this.showBrowsePrint = true;
+					this.isPrinterOK = false;
+				})
+				.catch((err) => {
+					this.isPrinterOK = false;
+				});
 		},
 		printerOK() {
+			this.isPrinterOK = true;
 			var ifwork = this.pinia_user.data.work == '0';
 			var ifWorkPort = this.pinia_userRole == 'R';
 
@@ -751,6 +763,7 @@ export default {
 				if (Object.keys(res.data).length == 0) {
 					this.$u.toast('您还没有打印机~');
 					this.showBrowsePrint = false;
+					this.isPrinterOK = false;
 					return;
 				}
 				console.log('默认机器：', res.data.def[0].deviceopenid);
@@ -776,27 +789,33 @@ export default {
 					print.staff = phone;
 				}
 
-				uni.$api.printer.printDocument(print).then((rest) => {
-					console.log('打印结果：', rest.data);
-					var list = rest.data;
-					var err = list[0].err;
-					this.showBrowsePrint = false;
+				uni.$api.printer
+					.printDocument(print)
+					.then((rest) => {
+						this.isPrinterOK = false;
+						console.log('打印结果：', rest.data);
+						var list = rest.data;
+						var err = list[0].err;
+						this.showBrowsePrint = false;
 
-					if (err == undefined) {
-						this.$u.toast('添加打印任务成功');
-					} else {
-						if (err == '100020008') {
-							this.$u.toast('请检查打印机是否缺纸或者处于开盖状态！');
-						} else if (err == '100020001') {
-							this.$u.toast('设备处于离线状态！');
+						if (err == undefined) {
+							this.$u.toast('添加打印任务成功');
 						} else {
-							this.$u.toast('打印失败！');
+							if (err == '100020008') {
+								this.$u.toast('请检查打印机是否缺纸或者处于开盖状态！');
+							} else if (err == '100020001') {
+								this.$u.toast('设备处于离线状态！');
+							} else {
+								this.$u.toast('打印失败！');
+							}
 						}
-					}
-					// list.forEach(res=>{
+						// list.forEach(res=>{
 
-					// })
-				});
+						// })
+					})
+					.catch((err) => {
+						this.isPrinterOK = false;
+					});
 			});
 
 			this.getPrintNum();

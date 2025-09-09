@@ -101,53 +101,43 @@
 			<view class="flex-col justify-center items-center" style="width: 100%; height: 100%; background-color: transparent">
 				<view
 					class="flex-col justify-center items-center relative"
-					style="width: 80%; height: 25%; border-radius: 28rpx; background-image: url('https://res-oss.elist.com.cn/wxImg/user/dqalert.png'); background-size: cover"
+					style="
+						width: 80%;
+						height: 25%;
+						background-image: url('https://res-oss.elist.com.cn/wxImg/index/xftx.png');
+						background-size: 100%;
+						box-sizing: border-box;
+						padding-top: 28rpx;
+					"
 				>
-					<view class="absolute flex-col justify-center items-center" style="top: 0; height: 160rpx; font-size: 36rpx; font-weight: bold">提示</view>
+					<!-- <view class="absolute flex-col justify-center items-center" style="top: 0; height: 160rpx; font-size: 36rpx; font-weight: bold">提示</view> -->
 
 					<!-- #ifdef MP-WEIXIN -->
-					<text style="font-size: 32rpx; color: #999999" v-if="pinia_user.workData">
-						该{{ pinia_user.workData.identity == 3 ? '财务' : '分管' }}人员权限已到期,请联系
-					</text>
+					<text style="font-size: 28rpx" v-if="pinia_user.workData">该{{ pinia_user.workData.identity == 3 ? '财务' : '分管' }}人员权限已到期,请联系</text>
 					<!-- #endif -->
 					<!-- #ifdef APP -->
-					<text style="font-size: 32rpx; color: #999999">人员权限已到期,请联系</text>
+					<text style="font-size: 28rpx">人员权限已到期,请联系</text>
 					<!-- #endif -->
-					<text style="font-size: 32rpx; color: #999999">主账号续费</text>
+					<text style="font-size: 28rpx">主账号续费</text>
 
-					<view class="absolute flex-col justify-center items-center" style="bottom: 0; height: 160rpx; width: 100%" @click="exit">
+					<view class="absolute flex-col justify-center items-center" style="bottom: 0; height: 140rpx; width: 100%">
 						<view
+							@click="exit"
 							class=""
 							style="
-								background: linear-gradient(0deg, #f18341 -17%, #ffb963 100%);
-								width: 320rpx;
-								height: 80rpx;
-								box-shadow: 0rpx 2rpx 6rpx 0rpx rgba(222, 118, 14, 0.2);
+								background: #00d081;
+								width: 280rpx;
+								height: 68rpx;
 								border-radius: 760rpx;
 								display: flex;
-								flex-direction: row;
 								justify-content: center;
 								align-items: center;
+								font-size: 28rpx;
+								color: #fff;
+								font-weight: bold;
 							"
 						>
-							<view
-								class=""
-								style="
-									width: 284rpx;
-									height: 60rpx;
-									font-size: 28rpx;
-									font-weight: bold;
-									background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 68%);
-									border-radius: 440rpx;
-									color: white;
-									display: flex;
-									flex-direction: row;
-									justify-content: center;
-									align-items: center;
-								"
-							>
-								确认
-							</view>
+							确认
 						</view>
 					</view>
 				</view>
@@ -395,7 +385,7 @@ export default {
 					path: '/pages/subStatistics/statistics'
 				}
 			],
-			expireShow: false,
+			expireShow: true,
 			unwatchFlush: null
 		};
 	},
