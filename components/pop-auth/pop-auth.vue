@@ -2,35 +2,30 @@
 	<view v-show="authShow" class="flex-col justify-center items-center pop-wrap">
 		<view
 			class="radius flex-col justify-center items-center relative"
-			style="
-				height: 37vh;
-				background-image: url('https://res-oss.elist.com.cn/wxImg/order/auth.png');
-				background-size: cover;
-				border-radius: 38rpx;
-				width: 75%;
-				margin-top: 400rpx;
-			"
+			style="height: 488rpx; background: url('https://res-oss.elist.com.cn/wxImg/order/wskdxx.png') no-repeat; background-size: 100% 100%; width: 540rpx; margin-top: 400rpx"
 		>
-			<view class="absolute" style="right: 0; top: 40rpx">
+			<view class="absolute" style="right: 0; top: 10rpx">
 				<u-icon @click="close" name="https://res-oss.elist.com.cn/wxImg/order/cha.png" size="40rpx"></u-icon>
 			</view>
 
-			<view class="flex-col justify-center items-center absolute" style="bottom: 20rpx">
-				<view class="color">完善开单信息</view>
-				<view class="mt15 title ml60 mr60">您还未填写公司信息，为保证单据信息的完整性，请您填写信息</view>
+			<view class="flex-col justify-center items-center absolute" style="bottom: 30rpx">
+				<!-- <view class="color">完善开单信息</view> -->
+				<view class="title ml60 mr60 mb20">您还未填写公司信息，为保证单据信息的完整性，请您填写信息</view>
 
 				<view
-					class="flex-col justify-center items-center mt25"
+					class="flex-col justify-center items-center mt20"
 					style="
-						background-image: url(https://res-oss.elist.com.cn/wxImg/order/auth-btn.png);
-						background-size: cover;
-						width: 70%;
-						height: 120rpx;
+						background: url(https://res-oss.elist.com.cn/wxImg/order/wskdxx-btn.png) no-repeat;
+						background-size: 100% 100%;
+						width: 360rpx;
+						height: 100rpx;
 						color: #ffffff;
-						font-size: 28rpx;
+						font-size: 30rpx;
 						font-weight: bold;
 						line-height: normal;
 						letter-spacing: 0em;
+						box-sizing: border-box;
+						padding-bottom: 10rpx;
 					"
 					@click="jump"
 				>
@@ -104,6 +99,6 @@ export default {
 	line-height: normal;
 	text-align: center;
 	letter-spacing: 0em;
-	color: #999999;
+	// color: #999999;
 }
 </style>

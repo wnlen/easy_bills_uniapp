@@ -52,10 +52,10 @@
 					<u-image style="" width="414rpx" height="280rpx" src="https://res-oss.elist.com.cn/wxImg/order/fscg.png"></u-image>
 				</view>
 				<view class="text-center mt40" style="color: #01bb74; font-size: 34rpx; font-weight: bold; width: 100%">发送成功!</view>
-				<view class="text-center mt20" style="color: #aaaaaa; font-size: 26rpx; font-weight: normal; width: 300rpx; line-height: 40rpx">
+				<view class="text-center mt20" style="color: #aaaaaa; font-size: 28rpx; font-weight: normal; width: 300rpx; line-height: 40rpx">
 					客户登录易单据即可线上签署送货单
 				</view>
-				<view class="flex-row justify-center items-center mt80">
+				<view class="flex-row justify-center items-center mt90">
 					<button
 						style="
 							background-color: #ffffff;
@@ -75,11 +75,11 @@
 						shape="circle"
 						:data-versions="'Y'"
 					>
-						<view class="pr10"><u-icon labelColor="#01BB74" label="微信分享签单" labelPos="right" name="weixin-fill" color="#01BB74" size="30rpx"></u-icon></view>
+						<view class="pr15"><u-icon labelColor="#01BB74" label="微信分享签单" labelPos="right" name="weixin-fill" color="#01BB74" size="30rpx"></u-icon></view>
 					</button>
 					<button
 						style="background-color: #01bb74; width: 271.24rpx; height: 79.98rpx; border-radius: 338.4rpx; color: #ffffff; font-size: 30rpx"
-						class="ml10 flex-row items-center justify-center"
+						class="ml15 flex-row items-center justify-center"
 						@click="ContinueBilling"
 					>
 						返回草稿箱
@@ -245,7 +245,7 @@
 							/>
 						</view>
 					</view>
-					<view class="flex-row justify-between items-center mb20 pb12">
+					<view class="flex-row justify-between items-center mt20">
 						<text class="line34 ft-bold handcolor pt24">发货清单</text>
 						<!-- 			<text class="line34 handcolorClear pt24" @click="ClearOrderItemList">
 							一键清空
@@ -255,7 +255,13 @@
 			</view>
 
 			<scroll-view enhanced :show-scrollbar="false" scroll-y="true" style="background-color: #f4f4f4; max-height: 670rpx; margin-top: 12rpx">
-				<view style="width: 100%; background-color: #ffffff" v-for="(item, index) in orderItemList" :key="index" class="mb12 mt12" @click="merchandiseInventory(false)">
+				<view
+					style="width: 100%; background-color: #ffffff"
+					v-for="(item, index) in orderItemList"
+					:key="index"
+					:class="index == 0 ? '' : 'mt12'"
+					@click="merchandiseInventory(false)"
+				>
 					<view class="flex-row pt24 pb24" style="width: 100%">
 						<view style="width: 10%" class="ml20">品名:</view>
 						<view style="color: #666666" class="up-line-1 flex-1">{{ item.description }}</view>

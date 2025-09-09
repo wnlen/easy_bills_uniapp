@@ -135,9 +135,10 @@
 		<!-- #endif -->
 		<!-- 微信小程序隐私弹窗 -->
 
-		<u-popup :show="yinsi_show" :safeAreaInsetBottom="false" :round="10" mode="center" @close="yinsi_close" @open="yinsi_open" :customStyle="yisi_customStyle">
+		<u-popup :show="yinsi_show" :safeAreaInsetBottom="false" mode="center" @close="yinsi_close" @open="yinsi_open" :customStyle="yisi_customStyle">
 			<view class="yinsi_box">
-				<view class="ml15">
+				<view class="yinsi_title">用户协议及隐私政策</view>
+				<view class="pl20 pr20" style="text-align: justify">
 					<text>请详细阅读并同意</text>
 					<text style="color: #01bb74" @top.stop @click="jump(0)">《用户服务协议》</text>
 					<text>和</text>
@@ -161,9 +162,11 @@ export default {
 			xy: ['https://res-oss.elist.com.cn/notice/ServiceAgreement-v1.htm', 'https://res-oss.elist.com.cn/notice/ApplicationPrivacyAgreement-v1.htm'],
 			role: 0,
 			yisi_customStyle: {
-				width: '90%',
-				height: '330rpx',
-				padding: '40rpx'
+				width: '560rpx',
+				height: '558rpx',
+				padding: '94rpx 40rpx 0',
+				background: 'url(https://res-oss.elist.com.cn/wxImg/user/yinsibg.png) no-repeat',
+				backgroundSize: '100% 100%'
 			},
 			yinsi_show: false,
 			ischeck: false,
@@ -869,35 +872,43 @@ input {
 }
 .yinsi_box {
 	position: relative;
-	height: 250rpx;
-
+	height: 372rpx;
+	.yinsi_title {
+		font-size: 36rpx;
+		font-weight: bold;
+		text-align: center;
+		margin-bottom: 52rpx;
+	}
 	.btn_l {
 		position: absolute;
-		width: 260rpx;
-		height: 80rpx;
+		width: 220rpx;
+		height: 70rpx;
 		bottom: 0;
 		left: 0;
-		border: 2rpx solid #01bb74;
-		color: #01bb74;
-		border-radius: 20rpx;
+		border-radius: 750.62rpx;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-size: 30rpx;
+		font-size: 28rpx;
+		color: #aaaaaa;
+		background: #f0f0f0;
 	}
 	.btn_r {
-		font-size: 30rpx;
+		font-size: 28rpx;
 		position: absolute;
-		width: 260rpx;
-		height: 80rpx;
+		width: 220rpx;
+		height: 70rpx;
 		bottom: 0;
 		right: 0;
-		background-color: #01bb74;
+		background-color: #00d081;
 		color: #fff;
-		border-radius: 20rpx;
+		border-radius: 750.62rpx;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		&::after {
+			border: none;
+		}
 	}
 }
 .login_box {
