@@ -32,7 +32,7 @@
 							</view>
 						</liu-data-select>
 					</view>
-					<view class="" style="height: 100%; width: 63%">
+					<view class="" v-if="!moneyCALL" style="height: 100%; width: 63%">
 						<u-tabs
 							:scrollable="false"
 							:list="tabslist"
@@ -131,7 +131,7 @@
 							</view>
 
 							<view class="flex-col justify-center items-center" style="height: 5vh">
-								<view class="ml40"><u-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon></view>
+								<view class="ml40"><u-icon name="https://res-oss.elist.com.cn/wxImg/statistics/lxrOther.svg" size="45rpx" @click="CustomerGet"></u-icon></view>
 							</view>
 						</div>
 					</div>
@@ -150,7 +150,7 @@
 								<uv-input border="none" maxlength="11" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入号码进行检索"></uv-input>
 							</view>
 							<view class="flex-col justify-center items-center" style="height: 5vh">
-								<view class="ml40"><u-icon name="/static/img/list/ss.svg" size="45rpx" @click="searchListenner"></u-icon></view>
+								<view class="ml40"><u-icon name="https://res-oss.elist.com.cn/wxImg/statistics/ssOther.svg" size="45rpx" @click="searchListenner"></u-icon></view>
 							</view>
 						</div>
 					</div>
@@ -730,9 +730,6 @@ export default {
 
 		this.setGD();
 	},
-	onReady() {
-		this.getServerData();
-	},
 	methods: {
 		getServerData() {
 			//模拟从服务器获取数据时的延时
@@ -771,6 +768,9 @@ export default {
 		changeTabs(tabItem) {
 			console.log(tabItem, this.current);
 			this.current = tabItem.index;
+			if (this.current == 1) {
+				this.getServerData();
+			}
 		},
 		virtualListChange(vList) {
 			this.orderList = vList;

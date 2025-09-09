@@ -195,8 +195,6 @@ export default {
 				highlight: false, // 禁用点击高亮
 				rotate: false,
 				rotateLock: false,
-				// color: ['#1890FF', '#01BB74', '#F7A944'],
-				color: ['#ECECEC', '#ECECEC', '#ECECEC'],
 				padding: [0, 0, 0, 0],
 				width: 130,
 				height: 130,
@@ -390,7 +388,7 @@ export default {
 		};
 	},
 	onLoad() {
-		this.fetchDashboard();
+		// this.fetchDashboard();
 		this.setDR(this.pinia_userRole);
 	},
 	onShow() {
@@ -400,20 +398,21 @@ export default {
 		// });
 
 		this.getmiddleBanner(); //加载广告
-		this.fetchDashboard(); //加载统计数据
-		this.getdaiban(true); //获取待办数量
-		this.getdaiban(false); //获取待办数量
+
 		if (!this.pinia_token) {
 			if (this.pinia_userRole == 'D') {
 				this.middleBanner = this.middleBannerlXD;
 			} else {
 				this.middleBanner = this.middleBannerlXR;
 			}
-
+			this.ringOpts.color = ['#ECECEC', '#ECECEC', '#ECECEC'];
 			//#ifdef APP
 			this.goToLogin();
 			//#endif
 		} else {
+			this.fetchDashboard(); //加载统计数据
+			this.getdaiban(true); //获取待办数量
+			this.getdaiban(false); //获取待办数量
 			this.$refs.popTab.getMessNum();
 			this.$loadUser(this);
 			this.guideCourse();
@@ -467,7 +466,7 @@ export default {
 			if (!isqiehuan) {
 				if (now - this.lastFetchedAt < this.CACHE_TTL_MS) return; // 命中 TTL，跳过
 			}
-
+			this.ringOpts.color = ['#ECECEC', '#ECECEC', '#ECECEC'];
 			const portType = this.pinia_userRole == 'D' ? '0' : '1'; // 0=发货端, 1=收货端
 			const phone = uni.$u.getPinia('user.user.phone');
 			uni.$api.dashboard
@@ -481,8 +480,14 @@ export default {
 					this.chartsDataPie2.series[0].data[0].value = data.pendingAmount ?? 0;
 					this.chartsDataPie2.series[0].data[1].value = data.signedAmount ?? 0;
 					this.chartsDataPie2.series[0].data[2].value = data.receivedAmount ?? 0;
+
 					this.allprice = data.totalAmount ?? 0;
 					this.lastFetchedAt = now;
+					if (data.totalAmount) {
+						this.ringOpts.color = ['#F7A944', '#1890FF', '#01BB74'];
+					} else {
+						this.ringOpts.color = ['#ECECEC', '#ECECEC', '#ECECEC'];
+					}
 				});
 		},
 		// 监听数据
@@ -749,8 +754,6 @@ export default {
 					disableClick: true, // 关闭点击效果
 					rotate: false,
 					rotateLock: false,
-					// color: ['#1890FF', '#01BB74', '#F7A944'],
-					color: ['#ECECEC', '#ECECEC', '#ECECEC'],
 					padding: [0, 0, 0, 0],
 					width: 130,
 					height: 130,
@@ -824,8 +827,6 @@ export default {
 					highlight: false, // 禁用点击高亮
 					rotate: false,
 					rotateLock: false,
-					// color: ['#1890FF', '#01BB74', '#F7A944'],
-					color: ['#ECECEC', '#ECECEC', '#ECECEC'],
 					padding: [0, 0, 0, 0],
 					width: 130,
 					height: 130,
