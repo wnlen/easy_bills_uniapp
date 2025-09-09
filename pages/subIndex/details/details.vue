@@ -213,65 +213,70 @@ export default {
 		getOrderStatistics() {
 			const portType = this.pinia_userRole == 'D' ? '0' : '1'; // 0=发货端, 1=收货端
 
-			uni.$api.dashboard.getDashboardOrderStatistics(this.phone, portType).then((res) => {
-				if (res.data.code === 200) {
-					this.Statisticsdata = res.data.data;
-					if (portType == '0') {
-						this.chartsData = JSON.parse(
-							JSON.stringify({
-								categories: ['待签收', '已签收', '已收款'],
-								series: [
-									{
-										name: '',
-										legendShape: 'none',
-										data: [
-											{
-												value: res.data.data.pendingAmount,
-												color: '#F7A944'
-											},
-											{
-												value: res.data.data.signedAmount,
-												color: '#418AFF'
-											},
-											{
-												value: res.data.data.receivedAmount,
-												color: '#01BB74'
-											}
-										]
-									}
-								]
-							})
-						);
-					} else if (portType == '1') {
-						this.chartsData = JSON.parse(
-							JSON.stringify({
-								categories: ['待确收', '已签收', '已付款'],
-								series: [
-									{
-										name: '',
-										legendShape: 'none',
-										data: [
-											{
-												value: res.data.data.pendingAmount,
-												color: '#F7A944'
-											},
-											{
-												value: res.data.data.signedAmount,
-												color: '#418AFF'
-											},
-											{
-												value: res.data.data.receivedAmount,
-												color: '#01BB74'
-											}
-										]
-									}
-								]
-							})
-						);
+			uni.$api.dashboard
+				.getDashboardOrderStatistics({
+					targetPhone: this.phone,
+					portType: portType
+				})
+				.then((res) => {
+					if (res.data.code === 200) {
+						this.Statisticsdata = res.data.data;
+						if (portType == '0') {
+							this.chartsData = JSON.parse(
+								JSON.stringify({
+									categories: ['待签收', '已签收', '已收款'],
+									series: [
+										{
+											name: '',
+											legendShape: 'none',
+											data: [
+												{
+													value: res.data.data.pendingAmount,
+													color: '#F7A944'
+												},
+												{
+													value: res.data.data.signedAmount,
+													color: '#418AFF'
+												},
+												{
+													value: res.data.data.receivedAmount,
+													color: '#01BB74'
+												}
+											]
+										}
+									]
+								})
+							);
+						} else if (portType == '1') {
+							this.chartsData = JSON.parse(
+								JSON.stringify({
+									categories: ['待确收', '已签收', '已付款'],
+									series: [
+										{
+											name: '',
+											legendShape: 'none',
+											data: [
+												{
+													value: res.data.data.pendingAmount,
+													color: '#F7A944'
+												},
+												{
+													value: res.data.data.signedAmount,
+													color: '#418AFF'
+												},
+												{
+													value: res.data.data.receivedAmount,
+													color: '#01BB74'
+												}
+											]
+										}
+									]
+								})
+							);
+						}
+						console.log('this.chartsData', res.data.data);
 					}
-					console.log('this.chartsData', res.data.data);
-				}
-			});
+				});
 		},
 		editRemarkFocusClick() {
 			this.$refs.popup.open();

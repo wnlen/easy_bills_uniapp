@@ -167,6 +167,8 @@ import SocketManager from '@/utils/socketManager.js';
 export default {
 	data() {
 		return {
+			CACHE_TTL_MS: 20 * 1000, // 允许缓存 60 秒，可按需调整
+			lastFetchedAt: 0,
 			intoView: '',
 			functionGuideData: {
 				step: 0,
@@ -397,15 +399,20 @@ export default {
 			unwatchFlush: null
 		};
 	},
+	onLoad() {
+		this.fetchDashboard();
+		this.setDR(this.pinia_userRole);
+	},
 	onShow() {
 		// 手动刷新accessToken
 		// uni.$api.user.accessTokenRefresh({}).then((res) => {
 		// 	console.log('手动刷新accessToken=====>', res);
 		// });
 
-		console.log('啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊', this.pinia_user);
 		this.getmiddleBanner(); //加载广告
-
+		this.fetchDashboard(); //加载统计数据
+		this.getdaiban(true); //获取待办数量
+		this.getdaiban(false); //获取待办数量
 		if (!this.pinia_token) {
 			if (this.pinia_userRole == 'D') {
 				this.middleBanner = this.middleBannerlXD;
@@ -422,11 +429,72 @@ export default {
 			this.guideCourse();
 			this.SOCKETfLUSH();
 		}
-
-		this.setDR(this.pinia_userRole);
 	},
-	onLoad() {},
 	methods: {
+		getdaiban(type) {
+			var dx = {
+				bUser: '',
+				bBoss: '',
+				type: type
+			};
+			if (workIF) {
+				//没工作
+				dx.bBoss = this.pinia_user.phone;
+			} else {
+				//有工作
+				console.log('(待办事项)有工作:', workIF);
+				var identity = this.pinia_user.workData.identity;
+				if (identity == '4') {
+					dx.bBoss = this.pinia_user.workData.bossNumber;
+					dx.bUser = this.pinia_user.phone;
+				} else if (identity == '1') {
+					dx.bBoss = this.pinia_user.workData.bossNumber;
+					// dx.bUser = this.pinia_user.phone
+				} else {
+					dx.bBoss = this.pinia_user.workData.bossNumber;
+					dx.bUser = this.pinia_user.workData.bossNumber;
+				}
+			}
+
+			uni.$api.order.getOrderDraftLimit(dx).then((res) => {
+				// var getList = res.data.data.map((obj) => ({
+				// 	...obj,
+				// 	show: false
+				// }));
+
+				// var filer = this.pinia_userRole == 'D';
+				// if (filer) {
+				// 	this.$refs.paging.complete(getList.filter((res) => res.port == 'R' || res.port == 'E'));
+				// } else {
+				// 	this.$refs.paging.complete(getList.filter((res) => res.port == 'D' || res.port == 'S'));
+				// }
+				console.log('筛选条件后111111111: ', res);
+			});
+		},
+		fetchDashboard(isqiehuan = false) {
+			const now = Date.now();
+			console.log('this.lastFetchedAt', this.lastFetchedAt);
+			if (!isqiehuan) {
+				if (now - this.lastFetchedAt < this.CACHE_TTL_MS) return; // 命中 TTL，跳过
+			}
+
+			const portType = this.pinia_userRole == 'D' ? '0' : '1'; // 0=发货端, 1=收货端
+			const phone = uni.$u.getPinia('user.user.phone');
+			uni.$api.dashboard
+				.getDashboardOrderStatistics({
+					targetPhone: phone,
+					portType: portType
+				})
+				.then((res) => {
+					console.log('统计数据', res);
+					const data = res.data.data || {};
+					this.chartsDataPie2.series[0].data[0].value = data.pendingAmount ?? 0;
+					this.chartsDataPie2.series[0].data[1].value = data.signedAmount ?? 0;
+					this.chartsDataPie2.series[0].data[2].value = data.receivedAmount ?? 0;
+					this.allprice = data.totalAmount ?? 0;
+					this.lastFetchedAt = now;
+				});
+		},
 		// 监听数据
 		SOCKETfLUSH() {
 			console.log('uni', uni);
@@ -683,37 +751,9 @@ export default {
 		},
 		setDR(value) {
 			if (value === 'D') {
-				this.chartsDataPie2 = {
-					tooltip: {
-						trigger: 'none' // 禁用提示框
-					},
-					series: [
-						{
-							legendShape: 'none',
-							emphasis: {
-								disabled: true // 禁用高亮效果
-							},
-							silent: true,
-							data: [
-								{
-									name: '待签收',
-									value: 0,
-									type: 1
-								},
-								{
-									name: '已签收',
-									value: 0,
-									type: 2
-								},
-								{
-									name: '已收款',
-									value: 0,
-									type: 3
-								}
-							]
-						}
-					]
-				};
+				this.chartsDataPie2.series[0].data[0].name = '待签收';
+				this.chartsDataPie2.series[0].data[1].name = '已签收';
+				this.chartsDataPie2.series[0].data[2].name = '已收款';
 				this.ringOpts = {
 					highlight: false, // 禁用点击高亮
 					disableClick: true, // 关闭点击效果
@@ -786,6 +826,9 @@ export default {
 					}
 				];
 			} else {
+				this.chartsDataPie2.series[0].data[0].name = '待确收';
+				this.chartsDataPie2.series[0].data[1].name = '已签收';
+				this.chartsDataPie2.series[0].data[2].name = '已付款';
 				this.ringOpts = {
 					disableClick: true, // 关闭点击效果
 					highlight: false, // 禁用点击高亮
@@ -827,37 +870,7 @@ export default {
 						silent: true // 强制禁用该系列所有交互
 					}
 				};
-				this.chartsDataPie2 = {
-					tooltip: {
-						trigger: 'none' // 禁用提示框
-					},
-					series: [
-						{
-							legendShape: 'none',
-							emphasis: {
-								disabled: true // 禁用高亮效果
-							},
-							silent: true,
-							data: [
-								{
-									name: '待确收',
-									value: 0,
-									type: 1
-								},
-								{
-									name: '已签收',
-									value: 0,
-									type: 2
-								},
-								{
-									name: '已付款',
-									value: 0,
-									type: 3
-								}
-							]
-						}
-					]
-				};
+
 				this.iconlist = this.iconlistR;
 				this.orderList2 = [
 					{
@@ -877,6 +890,7 @@ export default {
 		},
 		/*切换角色  */
 		changeRole(value) {
+			this.setDR(value);
 			this.$u.setPinia({
 				user: {
 					userRole: value
@@ -885,8 +899,8 @@ export default {
 			if (this.pinia_token) {
 				this.guideCourse();
 				this.getOrderDB();
+				this.fetchDashboard(true);
 			}
-			this.setDR(value);
 		},
 		// 待办事项  权限是否过期
 		getOrderDB() {
@@ -955,7 +969,8 @@ export default {
 
 <style lang="scss" scoped>
 .Index {
-	min-height: 100vh;
+	height: 100vh;
+	overflow: hidden;
 }
 
 .Indexbg1 {
