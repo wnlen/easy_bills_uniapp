@@ -385,7 +385,7 @@ export default {
 					path: '/pages/subStatistics/statistics'
 				}
 			],
-			expireShow: true,
+			expireShow: false,
 			unwatchFlush: null
 		};
 	},
