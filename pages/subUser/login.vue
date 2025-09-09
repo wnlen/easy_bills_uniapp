@@ -826,7 +826,7 @@ input {
 }
 
 .button:active {
-	background-color: #00d382;
+	background-color: #01bb74;
 	/* 按下时改变背景颜色 */
 	transform: translateY(2rpx);
 	/* 按下时稍微向下移动一点，增加反馈 */
@@ -870,26 +870,29 @@ input {
 .yinsi_box {
 	position: relative;
 	height: 250rpx;
+
 	.btn_l {
 		position: absolute;
-		width: 280rpx;
+		width: 260rpx;
 		height: 80rpx;
 		bottom: 0;
 		left: 0;
-		border: 2rpx solid #00d382;
-		color: #00d382;
+		border: 2rpx solid #01bb74;
+		color: #01bb74;
 		border-radius: 20rpx;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		font-size: 30rpx;
 	}
 	.btn_r {
+		font-size: 30rpx;
 		position: absolute;
-		width: 280rpx;
+		width: 260rpx;
 		height: 80rpx;
 		bottom: 0;
 		right: 0;
-		background-color: #00d382;
+		background-color: #01bb74;
 		color: #fff;
 		border-radius: 20rpx;
 		display: flex;
