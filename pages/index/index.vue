@@ -154,6 +154,7 @@
 
 <script>
 import SocketManager from '@/utils/socketManager.js';
+import { useSystemStore } from '@/store/system';
 export default {
 	data() {
 		return {
@@ -327,7 +328,6 @@ export default {
 					path: '/pages/subStatistics/receipt/receipt?tid=开付款单',
 					count: 0
 				},
-
 				{
 					title: '更多功能',
 					icon: '/static/img/index/new/icon5.png',
@@ -384,7 +384,8 @@ export default {
 				}
 			],
 			expireShow: false,
-			unwatchFlush: null
+			unwatchFlush: null,
+			daibannum: 0
 		};
 	},
 	onLoad() {
@@ -411,8 +412,8 @@ export default {
 			//#endif
 		} else {
 			this.fetchDashboard(); //加载统计数据
-			this.getdaiban(true); //获取待办数量
-			this.getdaiban(false); //获取待办数量
+			// this.getdaiban(true); //获取待办数量
+			// this.getdaiban(); //获取待办数量
 			this.$refs.popTab.getMessNum();
 			this.$loadUser(this);
 			this.guideCourse();
@@ -420,46 +421,6 @@ export default {
 		}
 	},
 	methods: {
-		getdaiban(type) {
-			var dx = {
-				bUser: '',
-				bBoss: '',
-				type: type
-			};
-			if (workIF) {
-				//没工作
-				dx.bBoss = this.pinia_user.phone;
-			} else {
-				//有工作
-				console.log('(待办事项)有工作:', workIF);
-				var identity = this.pinia_user.workData.identity;
-				if (identity == '4') {
-					dx.bBoss = this.pinia_user.workData.bossNumber;
-					dx.bUser = this.pinia_user.phone;
-				} else if (identity == '1') {
-					dx.bBoss = this.pinia_user.workData.bossNumber;
-					// dx.bUser = this.pinia_user.phone
-				} else {
-					dx.bBoss = this.pinia_user.workData.bossNumber;
-					dx.bUser = this.pinia_user.workData.bossNumber;
-				}
-			}
-
-			uni.$api.order.getOrderDraftLimit(dx).then((res) => {
-				// var getList = res.data.data.map((obj) => ({
-				// 	...obj,
-				// 	show: false
-				// }));
-
-				// var filer = this.pinia_userRole == 'D';
-				// if (filer) {
-				// 	this.$refs.paging.complete(getList.filter((res) => res.port == 'R' || res.port == 'E'));
-				// } else {
-				// 	this.$refs.paging.complete(getList.filter((res) => res.port == 'D' || res.port == 'S'));
-				// }
-				console.log('筛选条件后111111111: ', res);
-			});
-		},
 		fetchDashboard(isqiehuan = false) {
 			const now = Date.now();
 			console.log('this.lastFetchedAt', this.lastFetchedAt);
@@ -492,12 +453,16 @@ export default {
 		},
 		// 监听数据
 		SOCKETfLUSH() {
-			console.log('uni', uni);
+			console.log('univvvvvvvvvvvvvvvvv', uni);
+
+			const system = useSystemStore();
+			var that = this;
 			this.unwatchFlush = this.$watch(
-				() => this.$u.getPinia('system.flush'), // 监听状态
+				() => system.flush, // 监听状态
 				(newVal, oldVal) => {
-					if (this.pinia_token) {
-						this.getOrderDB();
+					console.log('tokenaaaaaaaaaaaaaaa', that.pinia_token);
+					if (that.pinia_token) {
+						that.getOrderDB();
 					} else {
 						// 关闭socket
 						SocketManager.close();
@@ -889,21 +854,22 @@ export default {
 			});
 			if (this.pinia_token) {
 				this.guideCourse();
-				this.getOrderDB();
+				this.getOrderDB(); //待办事项
 				this.fetchDashboard(true);
 			}
 		},
 		// 待办事项  权限是否过期
 		getOrderDB() {
+			console.log('sgd大概多少小');
 			// 版权过期
-			var workIFS = this.pinia_user.data.work == '1';
-			if (workIFS) {
-				var s = this.pinia_user.workData.endTime;
-				if (s == '0') {
-					this.expireShow = true;
-				}
-				return;
-			}
+			// var workIFS = this.pinia_user.data.work == '1';
+			// if (workIFS) {
+			// 	var s = this.pinia_user.workData.endTime;
+			// 	if (s == '0') {
+			// 		this.expireShow = true;
+			// 	}
+			// 	return;
+			// }
 			var workIF = this.pinia_user.data.work == '0';
 			var dx = {
 				bUser: '',
@@ -919,13 +885,13 @@ export default {
 					dx.bUser = this.pinia_user.phone;
 				} else if (identity == '1') {
 					dx.bBoss = this.pinia_user.workData.bossNumber;
-					// dx.bUser = this.pinia_user.workData.bossNumber
+					dx.bUser = this.pinia_user.workData.bossNumber;
 				} else {
 					dx.bBoss = this.pinia_user.workData.bossNumber;
 					dx.bUser = this.pinia_user.phone;
 				}
 			}
-
+			console.log('待办事项参数', dx);
 			uni.$api.order.getOrderDraftList(dx).then((res) => {
 				if (this.$u.getPinia('user.userRole') == 'D') {
 					this.iconlist[3].count = res.data.data[0];
