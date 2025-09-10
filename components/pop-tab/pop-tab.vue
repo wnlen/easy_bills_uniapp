@@ -62,8 +62,12 @@ export default {
 			}
 		},
 		changeTab(e) {
+			if (e == 1) {
+				uni.$emit('switchTabToList');
+			}
 			uni.switchTab({
-				url: this.tabbar[e].pagePath
+				url: this.tabbar[e].pagePath,
+				success: () => {}
 			});
 			if (e != 2) {
 				this.getMessNum();

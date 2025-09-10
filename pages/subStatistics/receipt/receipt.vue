@@ -115,20 +115,18 @@
 							class="flex-col justify-center items-center mr15"
 							@tap.stop
 							:style="{ backgroundColor: item.check ? '#01BB74' : '#ffffff' }"
-							@click="checkboxGroupChange(item, index)"
 							style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 						>
-							<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
+							<u-icon name="checkbox-mark" @click="checkboxGroupChange(item, index)" color="#ffffff" size="28rpx"></u-icon>
 						</view>
 						<!-- #endif -->
 						<!-- #ifdef APP -->
 						<view
 							class="flex-col justify-center items-center mr15"
 							:style="{ backgroundColor: item.check ? '#01BB74' : '#ffffff' }"
-							@click="checkboxGroupChange(item, index)"
 							style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 						>
-							<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
+							<u-icon name="checkbox-mark" @click="checkboxGroupChange(item, index)" color="#ffffff" size="28rpx"></u-icon>
 						</view>
 						<!-- #endif -->
 
@@ -806,11 +804,11 @@ export default {
 		Init() {
 			this.password = '';
 			this.hide = true;
-			let tabIndex = this.$u.getPinia('global.tabIndex');
-			if (tabIndex != '') {
-				this.current = Number(tabIndex) + 1;
-				this.realTimeSel.paymentState = tabIndex;
-			}
+			// let tabIndex = this.$u.getPinia('global.tabIndex');
+			// if (tabIndex != '') {
+			// 	this.current = Number(tabIndex) + 1;
+			// 	this.realTimeSel.paymentState = tabIndex;
+			// }
 
 			this.realTimeSel.getPhone = this.pinia_user.phone;
 
@@ -1746,7 +1744,7 @@ export default {
 				display: flex;
 				flex-direction: row;
 				align-items: center;
-				width: 70%;
+				width: 82%;
 			}
 		}
 	}
