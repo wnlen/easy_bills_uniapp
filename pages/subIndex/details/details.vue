@@ -384,8 +384,8 @@ export default {
 			console.log('eBossNumber', this.userData.phoneNumber);
 			console.log('eBossNumber', this.userData.phone);
 			const payload = {
-				sBossNumber: this.getBossNumber(),
-				eBossNumber: this.userData.phoneNumber || this.userData.phone,
+				sBossNumber: isR ? this.userData.phoneNumber || this.userData.phone : this.getBossNumber(),
+				eBossNumber: isR ? this.getBossNumber() : this.userData.phoneNumber || this.userData.phone,
 				port: isR ? 'R' : 'D',
 				remarkR: isR ? remark : null,
 				remarkD: isR ? null : remark
