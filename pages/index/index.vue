@@ -150,9 +150,9 @@
 		<!-- 自定义tab -->
 		<pop-tab ref="popTab" :tabIndex="0"></pop-tab>
 		<!-- 未签收提醒 -->
-		<up-popup :show="showUnreceived" :safeAreaInsetBottom="false" mode="center" :customStyle="unreceivedStyle">
-			<view>
-				<view class="">小易提醒您:</view>
+		<u-popup :show="showUnreceived" :safeAreaInsetBottom="false" mode="center" :customStyle="unreceivedStyle">
+			<view class="unreceivedBox">
+				<view class="mb10 unreceivedTitle">小易提醒您:</view>
 				<view class="">
 					<text>近期有多个订单未签收，可进入“</text>
 					<text
@@ -176,7 +176,7 @@
 					<view class="unreceivedBtn" @click="closeUnreceived">我知道啦</view>
 				</view>
 			</view>
-		</up-popup>
+		</u-popup>
 	</view>
 </template>
 
@@ -188,9 +188,6 @@ export default {
 		return {
 			unreceivedValue: [],
 			unreceivedStyle: {
-				width: '530rpx',
-				height: '534rpx',
-				padding: '130rpx 40rpx 0',
 				background: 'url(https://res-oss.elist.com.cn/wxImg/index/wqstx.png) no-repeat',
 				backgroundSize: '100% 100%',
 				boxSizing: 'border-box',
@@ -1033,6 +1030,14 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+.unreceivedBox {
+	width: 530rpx;
+	padding: 140rpx 50rpx 26rpx;
+	box-sizing: border-box;
+	.unreceivedTitle {
+		font-weight: 500;
+	}
+}
 .unreceivedBtn {
 	width: 308rpx;
 	height: 74rpx;
