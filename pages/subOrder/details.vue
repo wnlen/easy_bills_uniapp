@@ -728,10 +728,14 @@ export default {
 			print.orderId = this.orderId;
 			print.port = this.pinia_userRole;
 			print.phone = this.pinia_user.phone;
-
+			uni.showLoading({
+				title: '加载中...', // 提示文字
+				mask: true // 是否显示透明蒙层，防止触摸穿透
+			});
 			uni.$api.printer
 				.previewPrintImage(print)
 				.then((rest) => {
+					uni.hideLoading();
 					this.browse = rest.data;
 					if (rest.data.length == 1) {
 						this.showBrowsePrintHeight = '600rpx';
@@ -744,6 +748,7 @@ export default {
 					this.isPrinterOK = false;
 				})
 				.catch((err) => {
+					uni.hideLoading();
 					this.isPrinterOK = false;
 				});
 		},

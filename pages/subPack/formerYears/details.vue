@@ -351,7 +351,14 @@
 				<view class="absolute pt20" style="width: 100%; top: 0; height: 75%">
 					<view class="flex-row items-center justify-center passwordTitle">请输入签收密码</view>
 					<view class="flex-col items-center justify-center mt20" style="width: 100%; height: 35%">
-						<up-message-input active-color="#01BB74" @change="changePassword" @finish="finishPassword" :dot-fill="true" v-model="password" mode="box"></up-message-input>
+						<up-message-input
+							active-color="#01BB74"
+							@change="changePassword"
+							@finish="finishPassword"
+							:dot-fill="true"
+							v-model="password"
+							mode="box"
+						></up-message-input>
 						<view class="mt20 err" v-show="err">密码错误，请重新输入</view>
 					</view>
 					<view @click="goPath('/pages/subUser/resetpassword')" class="ft12 pr30 flex-row justify-end pt15" style="color: #999; width: 100%">找回密码</view>
@@ -593,10 +600,14 @@ export default {
 			print.orderId = this.orderId;
 			print.port = this.pinia_userRole;
 			print.phone = this.pinia_user.phone;
-
+			uni.showLoading({
+				title: '加载中...', // 提示文字
+				mask: true // 是否显示透明蒙层，防止触摸穿透
+			});
 			uni.$api.printer
 				.previewPrintImage(print)
 				.then((rest) => {
+					uni.hideLoading();
 					this.browse = rest.data;
 					if (rest.data.length == 1) {
 						this.showBrowsePrintHeight = '600rpx';
@@ -609,6 +620,7 @@ export default {
 					this.isPrinterOK = false;
 				})
 				.catch((err) => {
+					uni.hideLoading();
 					this.isPrinterOK = false;
 				});
 		},
@@ -665,10 +677,14 @@ export default {
 					print.boss = boss;
 					print.staff = phone;
 				}
-
+				uni.showLoading({
+					title: '加载中...', // 提示文字
+					mask: true // 是否显示透明蒙层，防止触摸穿透
+				});
 				uni.$api.printer
 					.printDocument(print)
 					.then((rest) => {
+						uni.hideLoading();
 						this.isPrinterOK = false;
 						console.log('打印结果：', rest.data);
 						var list = rest.data;
@@ -691,6 +707,7 @@ export default {
 						// })
 					})
 					.catch((err) => {
+						uni.hideLoading();
 						this.isPrinterOK = false;
 					});
 			});
