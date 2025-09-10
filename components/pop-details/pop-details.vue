@@ -1,5 +1,5 @@
 <template>
-	<u-popup mode="center" :show="show" :safeAreaInsetBottom="false" :round="10" :closeable="true" @close="show = false">
+	<up-popup mode="center" :show="show" :safeAreaInsetBottom="false" :round="10" :closeable="true" @close="show = false">
 		<view class="bossCiew" style="width: 100%; height: 100%">
 			<scroll-view scroll-y="true" class="detail">
 				<view class="detailTitleHand">{{ popupShowText.headline }}</view>
@@ -8,7 +8,7 @@
 				</view>
 			</scroll-view>
 		</view>
-	</u-popup>
+	</up-popup>
 </template>
 
 <script>

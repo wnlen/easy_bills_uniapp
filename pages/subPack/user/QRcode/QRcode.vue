@@ -1,7 +1,7 @@
 <template>
 	<view class="root">
 		<view>
-			<u-navbar
+			<up-navbar
 				:autoBack="true"
 				:placeholder="true"
 				:border-bottom="false"
@@ -11,12 +11,12 @@
 				title="我的二维码"
 				title-size="34"
 				bgColor="transparent"
-			></u-navbar>
+			></up-navbar>
 		</view>
 		<view class="card">
 			<view class="cardCode">
 				<view class="icon flex-col justify-center items-center absolute" style="position: relative; top: -80rpx">
-					<u-avatar :src="pinia_user.data.headPortrait" size="150rpx" mode="circle"></u-avatar>
+					<up-avatar :src="pinia_user.data.headPortrait" size="150rpx" mode="circle"></up-avatar>
 				</view>
 				<view class="absolute" style="position: relative; width: 100%; top: -100rpx">
 					<view
@@ -26,7 +26,7 @@
 						{{ pinia_user.data.name }}
 						<view class="width100 flex-row justify-center items-center">
 							<view class="flex-row justify-center items-center">
-								<u-icon name="phone" color="#AAAAAA" size="28rpx"></u-icon>
+								<up-icon name="phone" color="#AAAAAA" size="28rpx"></up-icon>
 							</view>
 							<view class="ml2 ft14" style="color: #aaaaaa; font-weight: 400">
 								{{ pinia_user.phone }}
@@ -44,7 +44,7 @@
 			<view class="cardThree">
 				<view class="flex-row justify-center items-center" style="">
 					<view class="icon">
-						<u-icon
+						<up-icon
 							name="https://res-oss.elist.com.cn/wxImg/user/bc.svg"
 							size="130rpx"
 							label="保存"
@@ -52,10 +52,10 @@
 							labelPos="bottom"
 							labelColor="#ffffff"
 							@click="uiconGet('1')"
-						></u-icon>
+						></up-icon>
 					</view>
 					<view class="icon">
-						<u-icon
+						<up-icon
 							name="https://res-oss.elist.com.cn/wxImg/user/sys.svg"
 							size="130rpx"
 							label="扫一扫"
@@ -63,10 +63,10 @@
 							labelPos="bottom"
 							labelColor="#ffffff"
 							@click="uiconGet('2')"
-						></u-icon>
+						></up-icon>
 					</view>
 					<view class="icon">
-						<u-icon
+						<up-icon
 							name="https://res-oss.elist.com.cn/wxImg/user/fx.svg"
 							size="130rpx"
 							label="分享"
@@ -74,7 +74,7 @@
 							labelPos="bottom"
 							labelColor="#ffffff"
 							@click="uiconGet('3')"
-						></u-icon>
+						></up-icon>
 					</view>
 				</view>
 			</view>
@@ -102,8 +102,8 @@
 						{{ role == 1 ? '客户' : '供应商' }}
 					</view>
 					<view class="ml10">
-						<u-icon v-if="!showChecked" name="arrow-down-fill" color="#000000" size="15"></u-icon>
-						<u-icon v-if="showChecked" name="arrow-up-fill" color="#000000" size="15"></u-icon>
+						<up-icon v-if="!showChecked" name="arrow-down-fill" color="#000000" size="15"></up-icon>
+						<up-icon v-if="showChecked" name="arrow-up-fill" color="#000000" size="15"></up-icon>
 					</view>
 				</view>
 				<view v-if="!showChecked" class="u-border-top flex-row absolute" style="width: 100%; height: 104rpx; bottom: 0" @tap.stop>
@@ -135,7 +135,7 @@
 					>
 						<view>客户</view>
 						<view v-if="role == 1" class="absolute" style="right: 20rpx">
-							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></u-icon>
+							<up-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></up-icon>
 						</view>
 					</view>
 					<view
@@ -153,7 +153,7 @@
 					>
 						<view>供应商</view>
 						<view v-if="role == 0" class="absolute" style="right: 20rpx">
-							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></u-icon>
+							<up-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></up-icon>
 						</view>
 					</view>
 				</view>

@@ -1,6 +1,6 @@
 <template>
 	<view class="vh100 vw100 flex-col items-center" style="background-size: cover; background-image: url('https://res-oss.elist.com.cn/wxImg/user/unsubscribe.png')">
-		<u-navbar :autoBack="true" :placeholder="true" bgColor="transparent"></u-navbar>
+		<up-navbar :autoBack="true" :placeholder="true" bgColor="transparent"></up-navbar>
 
 		<view
 			class="flex-row justify-center items-center"
@@ -14,8 +14,8 @@
 				<view class="flex-row justify-center items-center u-border-bottom relative mt30">
 					<uv-input border="none" v-model="userPhone" disabledColor="#fff" type="text" disabled="true" placeholder="请输入手机号">
 						<template #prefix>
-							<u-text text="+86" margin="0 3px 0 0" type="tips"></u-text>
-							<!-- <u-text mode="phone" :text="$u.getPinia('user.user.phone')" format="encrypt"></u-text> -->
+							<up-text text="+86" margin="0 3px 0 0" type="tips"></up-text>
+							<!-- <up-text mode="phone" :text="$u.getPinia('user.user.phone')" format="encrypt"></up-text> -->
 						</template>
 					</uv-input>
 				</view>
@@ -45,7 +45,7 @@
 					下一步
 				</view>
 				<view class="relative" style="width: 100%">
-					<u-button hover-class="none" :hair-line="false" :customStyle="buttonStyle" open-type="contact">人工服务</u-button>
+					<up-button hover-class="none" :hair-line="false" :customStyle="buttonStyle" open-type="contact">人工服务</up-button>
 				</view>
 			</view>
 		</view>

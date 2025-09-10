@@ -31,7 +31,7 @@
      * @property {Array} flow-list 用于渲染的数据
      * @property {String Number} add-time 单条数据添加到队列的时间间隔，单位ms，见上方注意事项说明（默认200）
      * @property {String Number} columns 瀑布流列数，默认为2，设置为auto时自动根据屏幕宽度调整列数
-     * @example <u-waterfall :flowList="flowList"></u-waterfall>
+     * @example <up-waterfall :flowList="flowList"></up-waterfall>
      */
     import { mpMixin } from '../../libs/mixin/mpMixin';
 	import { mixin } from '../../libs/mixin/mixin';

@@ -5,8 +5,8 @@
 				{{ fjTime(item.createTime) }}
 			</view>
 			<view class="swipeBox">
-				<u-swipe-action>
-					<u-swipe-action-item bg-color="#f5f5f5" :show="item.show" :name="index" @click="delclick" :options="options">
+				<up-swipe-action>
+					<up-swipe-action-item bg-color="#f5f5f5" :show="item.show" :name="index" @click="delclick" :options="options">
 						<view class="body">
 							<view class="body_hand">
 								{{ item.type }}
@@ -19,15 +19,15 @@
 							<view class="body_end" @click="jump(item)">
 								<view class="title">立即续费</view>
 								<view class="icon">
-									<u-icon name="arrow-right" color="#b7b7b7" size="28rpx"></u-icon>
+									<up-icon name="arrow-right" color="#b7b7b7" size="28rpx"></up-icon>
 								</view>
 							</view>
 						</view>
-					</u-swipe-action-item>
-				</u-swipe-action>
+					</up-swipe-action-item>
+				</up-swipe-action>
 			</view>
 		</view>
-		<!-- </u-swipe-action> -->
+		<!-- </up-swipe-action> -->
 	</view>
 </template>
 

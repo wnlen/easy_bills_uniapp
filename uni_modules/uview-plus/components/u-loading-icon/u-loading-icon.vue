@@ -82,7 +82,7 @@
 	 * @property {String | Number}	duration		动画执行周期时间（默认 1200）
 	 * @property {String}			inactiveColor	mode=circle时的暗边颜色 
 	 * @property {Object}			customStyle		定义需要用到的外部样式
-	 * @example <u-loading mode="circle"></u-loading>
+	 * @example <up-loading mode="circle"></up-loading>
 	 */
 	export default {
 		name: 'u-loading-icon',

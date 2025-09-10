@@ -74,7 +74,7 @@
 	 * @property {String ｜ Number}	preLoadScreen		列表前后预渲染的屏数，1代表一个屏幕的高度，1.5代表1个半屏幕高度  （默认 1 ）
 	 * @property {Object}			customStyle			定义需要用到的外部样式
 	 *
-	 * @example <u-list @scrolltolower="scrolltolower"></u-list>
+	 * @example <up-list @scrolltolower="scrolltolower"></up-list>
 	 */
 	export default {
 		name: 'u-list',

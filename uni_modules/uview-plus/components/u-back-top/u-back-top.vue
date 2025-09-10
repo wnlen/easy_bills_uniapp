@@ -1,5 +1,5 @@
 <template>
-	<u-transition
+	<up-transition
 	    mode="fade"
 	    :customStyle="backTopStyle"
 	    :show="show"
@@ -10,17 +10,17 @@
 		    v-if="!$slots.default && !$slots.$default"
 			@click="backToTop"
 		>
-			<u-icon
+			<up-icon
 			    :name="icon"
 			    :custom-style="iconStyle"
-			></u-icon>
+			></up-icon>
 			<text
 			    v-if="text"
 			    class="u-back-top__text"
 			>{{text}}</text>
 		</view>
 		<slot v-else />
-	</u-transition>
+	</up-transition>
 </template>
 
 <script>
@@ -48,7 +48,7 @@
 	 * @property {Object<Object>}  	iconStyle 	图标的样式，对象形式   （默认 {color: '#909399',fontSize: '19px'}）
 	 * @property {Object}			customStyle	定义需要用到的外部样式
 	 * 
-	 * @example <u-back-top :scrollTop="scrollTop"></u-back-top>
+	 * @example <up-back-top :scrollTop="scrollTop"></up-back-top>
 	 */
 	export default {
 		name: 'u-back-top',

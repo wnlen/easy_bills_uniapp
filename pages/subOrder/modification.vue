@@ -1,8 +1,8 @@
 <template>
 	<view style="width: 100vw; height: 100vh">
-		<u-popup :show="shoppingTrolley" mode="bottom">
-			<u-swipe-action>
-				<u-swipe-action-item :show="item.show" :name="index" v-for="(item, index) in list" :key="item.id" @click="delclick" :options="options">
+		<up-popup :show="shoppingTrolley" mode="bottom">
+			<up-swipe-action>
+				<up-swipe-action-item :show="item.show" :name="index" v-for="(item, index) in list" :key="item.id" @click="delclick" :options="options">
 					<view class="item u-border-bottom">
 						<image mode="aspectFill" :src="item.images" />
 						<!-- 此层wrap在此为必写的，否则可能会出现标题定位错误 -->
@@ -10,9 +10,9 @@
 							<text class="title u-line-2">{{ item.title }}</text>
 						</view>
 					</view>
-				</u-swipe-action-item>
-			</u-swipe-action>
-		</u-popup>
+				</up-swipe-action-item>
+			</up-swipe-action>
+		</up-popup>
 	</view>
 </template>
 

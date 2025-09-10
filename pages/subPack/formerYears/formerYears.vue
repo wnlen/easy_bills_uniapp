@@ -9,7 +9,7 @@
 			@query="queryList"
 		>
 			<template #top>
-				<u-navbar
+				<up-navbar
 					:autoBack="true"
 					:placeholder="true"
 					:border-bottom="false"
@@ -19,21 +19,21 @@
 					title-size="34"
 					bgColor="transparent"
 					:background="{ background: 'transparent' }"
-				></u-navbar>
-				<u-notice-bar v-if="uNoticeBarlist.length" direction="column" :text="uNoticeBarlist" padding="6rpx 12rpx"></u-notice-bar>
+				></up-navbar>
+				<up-notice-bar v-if="uNoticeBarlist.length" direction="column" :text="uNoticeBarlist" padding="6rpx 12rpx"></up-notice-bar>
 				<view class="flex-row justify-between pl30 pr30" style="width: 100%; height: 5vh">
 					<view class="flex-col justify-center items-center" @click="selectionIconClick" style="height: 100%">
 						<liu-data-select elementId="data-select1" :dataList="dataList" @change="dropdown" color="#965510">
 							<view id="data-select1" class="btn-info flex-row justify-center items-center">
-								<view class="mr10" v-if="!selectionIcon"><u-icon name="arrow-up-fill" color=" #965510" size="15"></u-icon></view>
-								<view class="mr10" v-else><u-icon name="arrow-down-fill" color=" #965510" size="15"></u-icon></view>
+								<view class="mr10" v-if="!selectionIcon"><up-icon name="arrow-up-fill" color=" #965510" size="15"></up-icon></view>
+								<view class="mr10" v-else><up-icon name="arrow-down-fill" color=" #965510" size="15"></up-icon></view>
 								<text style="color: #965510">{{ dropdownName }}</text>
 								<text style="color: #965510" v-if="dropdownName != '请选择'">年</text>
 							</view>
 						</liu-data-select>
 					</view>
 					<view class="" v-if="!moneyCALL" style="height: 100%; width: 63%">
-						<u-tabs
+						<up-tabs
 							:scrollable="false"
 							:list="tabslist"
 							@change="changeTabs"
@@ -41,19 +41,19 @@
 							:activeStyle="{ color: '#965510', fontSize: '32rpx' }"
 							:inactiveStyle="{ color: '#333', fontSize: '32rpx' }"
 							lineColor="#965510"
-						></u-tabs>
+						></up-tabs>
 						<!-- <text @click="jumpnView">数据分析></text> -->
 					</view>
 				</view>
 			</template>
 			<template #empty>
-				<u-empty
+				<up-empty
 					v-if="current == 0 && !moneyCALL"
 					icon="https://res-oss.elist.com.cn/wxImg/list/empty.svg"
 					iconSize="200rpx"
 					text="没有数据哦~"
 					marginTop="-200rpx"
-				></u-empty>
+				></up-empty>
 			</template>
 			<view class="order-simple-list pl30 pr30" v-show="current == 0 && !moneyCALL">
 				<div class="bg-white pd20 mt20 radius flex-col justify-center items-center cardShow">
@@ -61,7 +61,7 @@
 						<text class="ft30 ft-gray mb18" style="color: #999999">累计金额</text>
 						<view class="">
 							<text class="ft42 ft-bold">￥</text>
-							<u-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="40rpx" decimals="2" bold></u-count-to>
+							<up-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="40rpx" decimals="2" bold></up-count-to>
 						</view>
 					</view>
 
@@ -119,7 +119,7 @@
 					<div class="flex-row items-center radius pr20 mr10 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%">
 						<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
 							<text class="ft11 ft-gray ml36" @click="CustomerGet">{{ pinia_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
-							<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
+							<up-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></up-line>
 							<view class="flex-1">
 								<uv-input
 									border="none"
@@ -131,7 +131,7 @@
 							</view>
 
 							<view class="flex-col justify-center items-center" style="height: 5vh">
-								<view class="ml40"><u-icon name="https://res-oss.elist.com.cn/wxImg/statistics/lxrOther.svg" size="45rpx" @click="CustomerGet"></u-icon></view>
+								<view class="ml40"><up-icon name="https://res-oss.elist.com.cn/wxImg/statistics/lxrOther.svg" size="45rpx" @click="CustomerGet"></up-icon></view>
 							</view>
 						</div>
 					</div>
@@ -140,7 +140,7 @@
 						<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
 							<text class="ft11 ft-gray ml36" @click="filtrateGet">{{ Title }}</text>
 							<view class="ml10">
-								<u-icon name="arrow-down-fill" size="10"></u-icon>
+								<up-icon name="arrow-down-fill" size="10"></up-icon>
 							</view>
 
 							<view class="ml10 my-input flex-1" v-if="showTage != '1'">
@@ -150,7 +150,7 @@
 								<uv-input border="none" maxlength="11" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入号码进行检索"></uv-input>
 							</view>
 							<view class="flex-col justify-center items-center" style="height: 5vh">
-								<view class="ml40"><u-icon name="https://res-oss.elist.com.cn/wxImg/statistics/ssOther.svg" size="36rpx" @click="searchListenner"></u-icon></view>
+								<view class="ml40"><up-icon name="https://res-oss.elist.com.cn/wxImg/statistics/ssOther.svg" size="36rpx" @click="searchListenner"></up-icon></view>
 							</view>
 						</div>
 					</div>
@@ -158,13 +158,13 @@
 			</view>
 			<view class="flex-col justify-center items-center" style="height: 80vh" v-show="current == 0 && moneyCALL">
 				<view class="vw100" style="height: 100rpx">
-					<u-empty
+					<up-empty
 						icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/empty.svg"
 						iconSize="400rpx"
 						text="暂无数据"
 						mode="search"
 						margin-top="-260rpx"
-					></u-empty>
+					></up-empty>
 				</view>
 				<view
 					@click="goPath('/pages/subPack/user/my_order/my_order')"
@@ -185,7 +185,7 @@
 						<view class="flex-row items-center">
 							<text>总金额</text>
 							<view class="flex-row items-center ml20">
-								<u-icon name="arrow-downward" size="20rpx" color="#F53F3F"></u-icon>
+								<up-icon name="arrow-downward" size="20rpx" color="#F53F3F"></up-icon>
 								<text class="ft12" style="color: #f53f3f">0.8%</text>
 							</view>
 						</view>
@@ -235,16 +235,16 @@
 					<view class="u-skeleton-fillet mb10 flex-row" @tap.stop style="width: 100%">
 						<view class="flex-row justify-left items-center flex-1">
 							<view>
-								<!-- 	<u-checkbox-group :key="index" @change="checkboxGroupChange(item.orderNumber,index)">
-									<u-checkbox v-model="item.check" shape="circle" active-color="#965510">
+								<!-- 	<up-checkbox-group :key="index" @change="checkboxGroupChange(item.orderNumber,index)">
+									<up-checkbox v-model="item.check" shape="circle" active-color="#965510">
 										<view class="ft30 ft-lighgray pr30" style="color: #666666;">
 											订单编号
 											<text class="ml15" style="color: #F76565;">
 												{{item.orderNumber}}
 											</text>
 										</view>
-									</u-checkbox>
-								</u-checkbox-group> -->
+									</up-checkbox>
+								</up-checkbox-group> -->
 								<view class="flex-row justify-center items-center">
 									<view
 										class="flex-col justify-center items-center"
@@ -254,7 +254,7 @@
 										}"
 										style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 									>
-										<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
+										<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
 									</view>
 									<view class="ft30 ft-lighgray pr30 ml24" style="color: #666666">
 										订单编号
@@ -266,23 +266,23 @@
 							</view>
 						</view>
 						<view class="ml20" style="margin-right: -20rpx">
-							<u-image v-if="pinia_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></u-image>
-							<u-image v-if="pinia_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/dqs.png"></u-image>
-							<u-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="@/static/img/obj/bq2.png" :lazy-load="true"></u-image>
-							<u-image
+							<up-image v-if="pinia_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></up-image>
+							<up-image v-if="pinia_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/dqs.png"></up-image>
+							<up-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="@/static/img/obj/bq2.png" :lazy-load="true"></up-image>
+							<up-image
 								v-if="pinia_userRole != 'R' && item.paymentState == '2'"
 								width="120rpx"
 								height="50rpx"
 								class="u-img"
 								src="@/static/img/obj/bq3.png"
 								:lazy-load="true"
-							></u-image>
-							<u-image v-if="pinia_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/yfk.png"></u-image>
+							></up-image>
+							<up-image v-if="pinia_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/yfk.png"></up-image>
 						</view>
 					</view>
 					<view class="width100 pb25 pt10 u-skeleton-fillet">
-						<u-row gutter="16" justify="between">
-							<u-col span="20">
+						<up-row gutter="16" justify="between">
+							<up-col span="20">
 								<view class="flex-col items-center text-left">
 									<text
 										v-if="pinia_userRole != 'R'"
@@ -305,8 +305,8 @@
 										{{ item.enterpriseS || item.bossNumberS }}{{ ifZX(item.bossNumberS) ? '(已注销)' : '' }}
 									</text>
 								</view>
-							</u-col>
-						</u-row>
+							</up-col>
+						</up-row>
 					</view>
 					<view class="u-skeleton-fillet ft30 line25 ft-lighgray">
 						<text>日期：{{ $u.timeFormat(item.creationTime, 'yyyy-mm-dd') }}</text>
@@ -326,8 +326,8 @@
 
 			<!-- 			<view class="flex-col justify-center items-center" style="height: 80vh;" v-show="current==0&&moneyCALL">
 				<view class="vw100" style="height: 200rpx;">
-					<u-empty src="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/empty.svg"
-						icon-size="400" text="暂无消息~" mode="search" margin-top="-200"></u-empty>
+					<up-empty src="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/empty.svg"
+						icon-size="400" text="暂无消息~" mode="search" margin-top="-200"></up-empty>
 				</view>
 				<view @click="goPath('/pages/subPack/user/my_order/my_order')"
 					class="buyOrder flex-col justify-center items-center" style="">
@@ -361,7 +361,7 @@
 										}"
 										style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 									>
-										<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
+										<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
 									</view>
 									<view class="ml15" style="color: #333333; font-size: 28rpx">全选</view>
 								</view>
@@ -387,14 +387,14 @@
 							font-weight: 600;
 						"
 					>
-						<u-icon name="https://res-oss.elist.com.cn/wxImg/statistics/down.svg" size="40rpx"></u-icon>
+						<up-icon name="https://res-oss.elist.com.cn/wxImg/statistics/down.svg" size="40rpx"></up-icon>
 						下载PDF
 					</view>
 				</view>
 			</template>
 		</z-paging>
 
-		<u-popup :show="show_start" mode="top" width="550rpx" :safeAreaInsetBottom="false" @close="show_start = false">
+		<up-popup :show="show_start" mode="top" width="550rpx" :safeAreaInsetBottom="false" @close="show_start = false">
 			<view class="flex-col pd30 justify-between pt100">
 				<view>
 					<view class="flex-col mt40">
@@ -415,7 +415,7 @@
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
 							<view class="flex-row items-center" style="width: 50%">
 								<text class="mr10" style="color: #999999">开始日期</text>
-								<u-icon name="arrow-down-fill" size="10"></u-icon>
+								<up-icon name="arrow-down-fill" size="10"></up-icon>
 								<view
 									@click="
 										$refs.calendars.open();
@@ -429,7 +429,7 @@
 							</view>
 							<view class="flex-row items-center" style="width: 50%">
 								<text class="mr10" style="color: #999999">结束日期</text>
-								<u-icon name="arrow-down-fill" size="10"></u-icon>
+								<up-icon name="arrow-down-fill" size="10"></up-icon>
 								<view
 									@click="
 										$refs.calendars.open();
@@ -507,7 +507,7 @@
 				</view>
 				<!-- 按钮 -->
 				<view class="flex-row justify-end mt40">
-					<u-button
+					<up-button
 						color="#F4F4F4"
 						type="info"
 						@click="filterReset"
@@ -521,13 +521,13 @@
 						}"
 					>
 						重置
-					</u-button>
-					<u-button color="#4E5777" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
+					</up-button>
+					<up-button color="#4E5777" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</up-button>
 				</view>
 				<!-- 日历选择器 -->
 				<uv-calendars color="#01BB74" confirmColor="#01BB74" :startDate="limitingTimeO" :endDate="limitingTimeT" ref="calendars" @confirm="date1Change" />
 			</view>
-		</u-popup>
+		</up-popup>
 	</view>
 </template>
 

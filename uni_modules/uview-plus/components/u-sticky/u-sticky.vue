@@ -32,7 +32,7 @@
 	 * @property {Object}			customStyle		组件的样式，对象形式
 	 * @event {Function} fixed		组件吸顶时触发
 	 * @event {Function} unfixed	组件取消吸顶时触发
-	 * @example <u-sticky offsetTop="200"><view>塞下秋来风景异，衡阳雁去无留意</view></u-sticky>
+	 * @example <up-sticky offsetTop="200"><view>塞下秋来风景异，衡阳雁去无留意</view></up-sticky>
 	 */
 	export default {
 		name: 'u-sticky',

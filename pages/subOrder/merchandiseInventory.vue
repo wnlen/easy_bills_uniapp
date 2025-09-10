@@ -11,7 +11,7 @@
 			@query="queryList"
 		>
 			<template #top>
-				<u-navbar
+				<up-navbar
 					:placeholder="true"
 					back-icon-color="#000000"
 					:titleBold="true"
@@ -20,10 +20,10 @@
 					title-size="34"
 					@leftClick="customBack"
 					bgColor="transparent"
-				></u-navbar>
+				></up-navbar>
 				<view class="ml24 mr24 flex-row items-center justify-center pb30">
 					<view class="flex-row items-center justify-center pl20 pr10" style="background: #ffffff; border-radius: 254rpx; width: 75%; height: 60rpx">
-						<u-icon name="search" color="#01BB74" size="40rpx"></u-icon>
+						<up-icon name="search" color="#01BB74" size="40rpx"></up-icon>
 						<uv-input
 							:customStyle="{
 								backgroundColor: 'transparent',
@@ -36,18 +36,18 @@
 							@change="SearchInventoryChange"
 						></uv-input>
 					</view>
-					<u-button @click="jumpAddCommodity" :customStyle="SearchCustomStyle" color="#01BB74" type="success">添加商品</u-button>
+					<up-button @click="jumpAddCommodity" :customStyle="SearchCustomStyle" color="#01BB74" type="success">添加商品</up-button>
 				</view>
 			</template>
 
-			<u-empty
+			<up-empty
 				v-if="invCardEmpty && hideEmptyView"
 				icon="https://res-oss.elist.com.cn/wxImg/order/goodsEmpty.svg"
 				iconSize="200rpx"
 				text="商品库空空如也~尝试添加一个新商品吧！"
 				marginTop="200rpx"
 			>
-				<u-button
+				<up-button
 					color="#01BB74"
 					iconColor="#ECFFF9"
 					:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: '#ECFFF9' }"
@@ -56,20 +56,20 @@
 					@click="jumpAddCommodity"
 				>
 					<text>去添加</text>
-				</u-button>
-			</u-empty>
+				</up-button>
+			</up-empty>
 
 			<!-- <view class="items-center" v-if="invCardEmpty && hideEmptyView">
 				<view class="invCard" @click="jumpAddCommodity">
 					<view class="">
-						<u-image radius="12rpx" width="200rpx" height="200rpx" :show-menu-by-longpress="false" src="https://res-oss.elist.com.cn/wxImg/order/SlView.png"></u-image>
+						<up-image radius="12rpx" width="200rpx" height="200rpx" :show-menu-by-longpress="false" src="https://res-oss.elist.com.cn/wxImg/order/SlView.png"></up-image>
 					</view>
 					<view class="invText" style="width: 350rpx">
 						<text>示例商品 1</text>
 						<text>规格：00A1</text>
 						<text>单位：个</text>
 					</view>
-					<u-icon @tab.stop class="absolute" style="bottom: 24rpx; right: 24rpx" name="plus-circle" color="#01BB74" size="50rpx"></u-icon>
+					<up-icon @tab.stop class="absolute" style="bottom: 24rpx; right: 24rpx" name="plus-circle" color="#01BB74" size="50rpx"></up-icon>
 				</view>
 				<view class="flex-row justify-center items-center mt80 pb24">
 					<view
@@ -78,7 +78,7 @@
 						style="width: 280rpx; height: 80rpx; border-radius: 338.4rpx; box-sizing: border-box; border: 3rpx solid #01bb74"
 					>
 						<view class="absolute">
-							<u-icon label="添加商品" labelColor="#01BB74" name="plus" color="#01BB74" size="30rpx"></u-icon>
+							<up-icon label="添加商品" labelColor="#01BB74" name="plus" color="#01BB74" size="30rpx"></up-icon>
 						</view>
 					</view>
 				</view>
@@ -86,13 +86,13 @@
 
 			<view class="invCard relative" v-for="(item, index) in orderList" :key="index">
 				<view class="" @click="jumpCommodityDetails(item)">
-					<u-image
+					<up-image
 						radius="12rpx"
 						width="200rpx"
 						height="200rpx"
 						:show-menu-by-longpress="false"
 						:src="item.img === 'definde' ? 'https://res-oss.elist.com.cn/wxImg/order/emptyView.png' : item.img"
-					></u-image>
+					></up-image>
 				</view>
 				<view class="invText flex-1" @click="jumpCommodityDetails(item)">
 					<text>{{ item.description }}</text>
@@ -101,38 +101,38 @@
 					<text>单价：{{ item.unitPrice == '0' ? '-' : '￥' + item.unitPrice }}</text>
 				</view>
 				<view class="absolute addicon" :id="index == 0 ? 'box1' : ''">
-					<u-icon @tab.stop class="absolute" style="bottom: 24rpx; right: 24rpx" name="plus-circle" color="#01BB74" size="50rpx" @click="addOrderBill(item)"></u-icon>
+					<up-icon @tab.stop class="absolute" style="bottom: 24rpx; right: 24rpx" name="plus-circle" color="#01BB74" size="50rpx" @click="addOrderBill(item)"></up-icon>
 				</view>
 			</view>
 
 			<template #bottom>
 				<view class="bottomCard">
 					<view class="relative pd10" id="box2">
-						<u-icon name="https://res-oss.elist.com.cn/wxImg/order/merchandiseInventory.png" size="110rpx" @click="AlertCard"></u-icon>
-						<u-badge absolute bgColor="#FA5151" :value="orderItemList.length" :offset="['0rpx', '-20rpx']"></u-badge>
+						<up-icon name="https://res-oss.elist.com.cn/wxImg/order/merchandiseInventory.png" size="110rpx" @click="AlertCard"></up-icon>
+						<up-badge absolute bgColor="#FA5151" :value="orderItemList.length" :offset="['0rpx', '-20rpx']"></up-badge>
 					</view>
 
 					<text class="">
 						合计:
 						<text style="color: #01bb74">￥{{ formatAmount(totalPrices) }}</text>
 					</text>
-					<u-button shape="circle" :customStyle="bottomCustomStyle" color="#01bb74" @click="save">保存</u-button>
+					<up-button shape="circle" :customStyle="bottomCustomStyle" color="#01bb74" @click="save">保存</up-button>
 				</view>
 			</template>
 		</z-paging>
 
-		<u-popup :show="shoppingTrolley" @close="shoppingTrolley = false" mode="bottom" round="15">
+		<up-popup :show="shoppingTrolley" @close="shoppingTrolley = false" mode="bottom" round="15">
 			<view class="" style="width: 100%; height: 70vh; padding-top: 24rpx">
 				<z-paging v-if="shoppingTrolley" ref="pagingCheck" :fixed="false" v-model="addList" @query="queryListCheck">
 					<!-- 如果希望其他view跟着页面滚动，可以放在z-paging标签内 -->
 					<template #top>
 						<view style="height: 24rpx"></view>
 					</template>
-					<!-- <u-swipe-action> -->
+					<!-- <up-swipe-action> -->
 					<view class="OrderCard" style="width: 94vw" v-for="(item, index) in orderItemList" :key="index">
-						<!-- <u-swipe-action-item :show="item.show" :options="options" :name="index" @click="delclick" @open="open"> -->
+						<!-- <up-swipe-action-item :show="item.show" :options="options" :name="index" @click="delclick" @open="open"> -->
 						<view class="absolute" style="right: 24rpx">
-							<u-icon name="minus-circle-fill" color="#FA5151" size="34rpx" @click="delclick(index)"></u-icon>
+							<up-icon name="minus-circle-fill" color="#FA5151" size="34rpx" @click="delclick(index)"></up-icon>
 						</view>
 						<view class="flex-row pb24" style="width: 93%">
 							<view class="">品名:</view>
@@ -141,74 +141,74 @@
 							<view class="flex-1 up-line-1">{{ item.specification }}</view>
 						</view>
 						<view class="flex-row items-center justify-center" style="width: 100%">
-							<u-line class="u-line ml24 mr24" color="#F4F4F4" :dashed="true" length="100%"></u-line>
+							<up-line class="u-line ml24 mr24" color="#F4F4F4" :dashed="true" length="100%"></up-line>
 						</view>
-						<u-table border-color="#ffffff">
-							<u-tr>
-								<u-td>数量</u-td>
-								<u-td>单位</u-td>
-								<u-td>单价</u-td>
-								<u-td width="200rpx">金额</u-td>
-							</u-tr>
-							<u-tr>
-								<u-td>
+						<up-table border-color="#ffffff">
+							<up-tr>
+								<up-td>数量</up-td>
+								<up-td>单位</up-td>
+								<up-td>单价</up-td>
+								<up-td width="200rpx">金额</up-td>
+							</up-tr>
+							<up-tr>
+								<up-td>
 									<view class="flex-row items-center">
 										<view class="u-border-bottom flex-1">
 											<input type="digit" v-model="item.quantity" maxlength="10" placeholder="请输入" @input="calculate" />
 										</view>
-										<u-icon
+										<up-icon
 											color="#999"
 											name="close-circle"
 											@click="
 												item.quantity = '';
 												calculate();
 											"
-										></u-icon>
+										></up-icon>
 									</view>
-								</u-td>
-								<u-td>{{ item.unit }}</u-td>
-								<u-td>
+								</up-td>
+								<up-td>{{ item.unit }}</up-td>
+								<up-td>
 									<view class="flex-row items-center">
 										<view class="u-border-bottom flex-1">
 											<input type="digit" v-model="item.unitPrice" maxlength="10" @input="calculate" placeholder="请输入" />
 										</view>
-										<u-icon
+										<up-icon
 											color="#999"
 											name="close-circle"
 											@click="
 												item.unitPrice = '';
 												calculate();
 											"
-										></u-icon>
+										></up-icon>
 									</view>
-								</u-td>
-								<u-td width="200rpx">
+								</up-td>
+								<up-td width="200rpx">
 									<text style="width: 200rpx" class="up-line-1">{{ `￥${formatAmount(item.unitPrice * item.quantity)}` }}</text>
 
 									<!-- <input type="text" :value="`￥${formatAmount(item.unitPrice * item.quantity)}`" disabled maxlength="10" placeholder="请输入" /> -->
-								</u-td>
-							</u-tr>
-						</u-table>
-						<!-- </u-swipe-action-item> -->
+								</up-td>
+							</up-tr>
+						</up-table>
+						<!-- </up-swipe-action-item> -->
 					</view>
-					<!-- </u-swipe-action> -->
+					<!-- </up-swipe-action> -->
 
 					<template #bottom>
 						<view class="bottomCard">
 							<view class="relative">
-								<u-icon name="https://res-oss.elist.com.cn/wxImg/order/merchandiseInventory.png" size="110rpx" @click="closeOpen"></u-icon>
-								<u-badge absolute bgColor="#FA5151" :value="orderItemList.length" :offset="['0rpx', '-20rpx']"></u-badge>
+								<up-icon name="https://res-oss.elist.com.cn/wxImg/order/merchandiseInventory.png" size="110rpx" @click="closeOpen"></up-icon>
+								<up-badge absolute bgColor="#FA5151" :value="orderItemList.length" :offset="['0rpx', '-20rpx']"></up-badge>
 							</view>
 							<text class="ml12">
 								合计:
 								<text style="color: #01bb74">￥{{ formatAmount(totalPrices) }}</text>
 							</text>
-							<u-button shape="circle" :customStyle="bottomCustomStyle" color="#01BB74" @click="closeOpen">保存</u-button>
+							<up-button shape="circle" :customStyle="bottomCustomStyle" color="#01BB74" @click="closeOpen">保存</up-button>
 						</view>
 					</template>
 				</z-paging>
 			</view>
-		</u-popup>
+		</up-popup>
 		<!-- 新手指引 -->
 		<pop-guide :max-step="2" :guideType="'goods'" :guideData="functionGuideData" ref="FunctionGuide"></pop-guide>
 	</view>

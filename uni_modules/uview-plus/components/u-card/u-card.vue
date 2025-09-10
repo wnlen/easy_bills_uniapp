@@ -106,7 +106,7 @@
      * @event {Function} head-click 卡片头部被点击时触发
      * @event {Function} body-click 卡片主体部分被点击时触发
      * @event {Function} foot-click 卡片底部部分被点击时触发
-     * @example <u-card paddingFoot="2px 15px" title="card"></u-card>
+     * @example <up-card paddingFoot="2px 15px" title="card"></up-card>
      */
     export default {
         name: 'up-card',

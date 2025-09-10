@@ -30,7 +30,7 @@ import { addUnit } from '../../libs/function/index';
  * @property {Boolean}			bold		字体是否加粗（默认 false ）
  * @property {String}			separator	千位分隔符，见官网说明
  * @event {Function} end 数值滚动到目标值时触发
- * @example <u-count-to ref="uCountTo" :end-val="endVal" :autoplay="autoplay"></u-count-to>
+ * @example <up-count-to ref="uCountTo" :end-val="endVal" :autoplay="autoplay"></up-count-to>
  */
 export default {
 	name: 'u-count-to',

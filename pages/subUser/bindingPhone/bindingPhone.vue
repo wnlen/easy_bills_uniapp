@@ -4,7 +4,7 @@
 		style="background-size: cover; background-image: url('https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/user/login.png')"
 	>
 		<view class="" style="background-color: transparent">
-			<u-navbar
+			<up-navbar
 				:placeholder="true"
 				:custom-back="customBack"
 				:border-bottom="false"
@@ -16,7 +16,7 @@
 					color: 'white',
 					fontSize: '28rpx'
 				}"
-			></u-navbar>
+			></up-navbar>
 		</view>
 		<view v-if="hint" class="flex-col justify-center items-center" style="margin-top: 10%; width: 100%">
 			<view class="InputTab">

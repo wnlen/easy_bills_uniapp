@@ -28,7 +28,7 @@
 	 * @property {String}			textAlign	文字水平对齐方式 (默认 'left' ) 
 	 * @property {Object}			customStyle	定义需要用到的外部样式
 	 * @event {Function}	click	col被点击，会阻止事件冒泡到row
-	 * @example	 <u-col  span="3" offset="3" > <view class="demo-layout bg-purple"></view> </u-col>
+	 * @example	 <up-col  span="3" offset="3" > <view class="demo-layout bg-purple"></view> </up-col>
 	 */
 	export default {
 		name: 'u-col',

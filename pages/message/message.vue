@@ -10,26 +10,26 @@
 			@query="queryList"
 		>
 			<template #top>
-				<u-navbar title="消息" :placeholder="true">
+				<up-navbar title="消息" :placeholder="true">
 					<template #left></template>
-				</u-navbar>
+				</up-navbar>
 				<view>
-					<u-notice-bar direction="column" :text="list2"></u-notice-bar>
+					<up-notice-bar direction="column" :text="list2"></up-notice-bar>
 				</view>
 
 				<view class="vw100" style="margin-top: 50%; height: 200rpx" v-if="!ifShow()">
-					<u-empty
+					<up-empty
 						icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg"
 						iconSize="400rpx"
 						text="暂无消息~"
 						mode="search"
 						marginTop="200rpx"
-					></u-empty>
+					></up-empty>
 				</view>
 				<view class="">
-					<u-swipe-action :show="item.show" :index="index" v-for="(item, index) in list" :key="index" @click="click" disabled :options="options">
+					<up-swipe-action :show="item.show" :index="index" v-for="(item, index) in list" :key="index" @click="click" disabled :options="options">
 						<view class="item u-border-bottom relative" v-show="item.number > 0" v-if="item.ifwork && showMess && ifShow()">
-							<view class="mr30"><u-icon :name="ImgUrl + item.images" size="100rpx"></u-icon></view>
+							<view class="mr30"><up-icon :name="ImgUrl + item.images" size="100rpx"></up-icon></view>
 
 							<view class="title-wrap flex-col" style="background-color: #ffffff; width: 80%" @click="jumpChat(item.name, item.images, item)">
 								<view class="flex-row" style="width: 100%">
@@ -44,17 +44,17 @@
 								</view>
 								<view class="title-wrap">
 									<text class="title u-line-2">{{ item.title }}</text>
-									<u-badge size="default" :offset="['10rpx', '20rpx']" absolute bgColor="#FA5151" v-show="item.right" :value="item.number"></u-badge>
+									<up-badge size="default" :offset="['10rpx', '20rpx']" absolute bgColor="#FA5151" v-show="item.right" :value="item.number"></up-badge>
 								</view>
 							</view>
 						</view>
-					</u-swipe-action>
+					</up-swipe-action>
 				</view>
 			</template>
 		</z-paging>
 		<!-- 自定义tab -->
 		<pop-tab :tabIndex="2" ref="popTab"></pop-tab>
-		<!-- <u-tabbar :list="vuex_tabbar" :height="tabHight" iconSize="40" active-color="#0FB076"></u-tabbar> -->
+		<!-- <up-tabbar :list="vuex_tabbar" :height="tabHight" iconSize="40" active-color="#0FB076"></up-tabbar> -->
 	</view>
 </template>
 

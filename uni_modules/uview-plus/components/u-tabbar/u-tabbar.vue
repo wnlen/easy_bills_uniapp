@@ -10,7 +10,7 @@
 			<view class="u-tabbar__content__item-wrapper">
 				<slot />
 			</view>
-			<u-safe-bottom v-if="safeAreaInsetBottom"></u-safe-bottom>
+			<up-safe-bottom v-if="safeAreaInsetBottom"></up-safe-bottom>
 		</view>
 		<view
 		    class="u-tabbar__placeholder"
@@ -44,7 +44,7 @@
 	 * @property {Boolean}			placeholder			fixed定位固定在底部时，是否生成一个等高元素防止塌陷（默认 true ）
 	 * @property {Object}			customStyle			定义需要用到的外部样式
 	 * 
-	 * @example <u-tabbar :value="value2" :placeholder="false" @change="name => value2 = name" :fixed="false" :safeAreaInsetBottom="false"><u-tabbar-item text="首页" icon="home" dot ></u-tabbar-item></u-tabbar>
+	 * @example <up-tabbar :value="value2" :placeholder="false" @change="name => value2 = name" :fixed="false" :safeAreaInsetBottom="false"><up-tabbar-item text="首页" icon="home" dot ></up-tabbar-item></up-tabbar>
 	 */
 	export default {
 		name: 'u-tabbar',

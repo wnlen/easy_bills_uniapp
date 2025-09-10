@@ -41,7 +41,7 @@
 	 * @property {String | Number}	size	列表锚点文字大小，单位默认px ( 默认 14 )
 	 * @property {String}			bgColor	列表锚点背景颜色 ( 默认 '#dedede' )
 	 * @property {String | Number}	height	列表锚点高度，单位默认px ( 默认 32 )
-	 * @example <u-index-anchor :text="indexList[index]"></u-index-anchor>
+	 * @example <up-index-anchor :text="indexList[index]"></up-index-anchor>
 	 */
 	export default {
 		name: 'u-index-anchor',

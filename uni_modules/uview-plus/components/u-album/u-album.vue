@@ -89,7 +89,7 @@ const dom = uni.requireNativePlugin('dom')
  * @property {Boolean}         autoWrap         自适应换行模式，不受rowCount限制，图片会自动换行 （默认 false ）
  * @property {String}          unit             图片单位 （默认 px ）
  * @event    {Function}        albumWidth       某些特殊的情况下，需要让文字与相册的宽度相等，这里事件的形式对外发送  （回调参数 width ）
- * @example <u-album :urls="urls2" @albumWidth="width => albumWidth = width" multipleSize="68" ></u-album>
+ * @example <up-album :urls="urls2" @albumWidth="width => albumWidth = width" multipleSize="68" ></up-album>
  */
 export default {
     name: 'u-album',

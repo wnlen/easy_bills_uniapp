@@ -12,7 +12,7 @@
 			>
 				<view class="" v-if="item.formUserId != pinia_user.phone">
 					<view class="" style="position: absolute; left: 0; top: 0">
-						<u-icon :name="item.img" size="80"></u-icon>
+						<up-icon :name="item.img" size="80"></up-icon>
 					</view>
 					<view class="mt30" style="font-size: 24rpx; height: 100%; margin-left: 12vw">
 						<view class="">
@@ -40,7 +40,7 @@
 
 				<view class="mt45 mr30" v-if="item.formUserId == pinia_user.phone">
 					<view class="" style="position: absolute; right: 20rpx; top: 0">
-						<u-icon :name="item.img" size="80"></u-icon>
+						<up-icon :name="item.img" size="80"></up-icon>
 					</view>
 					<view class="" style="font-size: 24rpx; height: 100%; margin-right: 12vw"></view>
 					<view
@@ -77,33 +77,33 @@
 							font-size: 28rpx;
 						"
 					>
-						<u-image :src="item.message.img" width="60rpx" height="100rpx"></u-image>
+						<up-image :src="item.message.img" width="60rpx" height="100rpx"></up-image>
 					</view>
 				</view>
 			</view>
 
 			<view class="flex-row justify-center items-center" style="width: 100%" v-if="messageList.length > 20">
-				<u-icon name="close-circle" label="清空" color="#4c4c4c" size="28" label-siz="20" @click="clearMessage"></u-icon>
+				<up-icon name="close-circle" label="清空" color="#4c4c4c" size="28" label-siz="20" @click="clearMessage"></up-icon>
 			</view>
 		</scroll-view>
 
 		<view class="inpMess bg-white vw100 pt25" style="height: 14vh; background-color: #ffffff">
 			<view class="flex-row ml20 bg-white" style="width: 95%; height: 40%" v-if="showTag == 1">
 				<view class="ml10" v-for="(item, index) in tagList" :key="index" @click="copyIteam(item)">
-					<u-tag :text="item" bg-color="#ffffff" border-color="#ccc" color="#ccc" mode="light" shape="circle" closeable :show="show" @close="tagClick(item)" />
+					<up-tag :text="item" bg-color="#ffffff" border-color="#ccc" color="#ccc" mode="light" shape="circle" closeable :show="show" @close="tagClick(item)" />
 				</view>
 			</view>
 
 			<view class="flex-row mt10 mb20 ml20" style="height: 60%">
 				<view class="mt10" style="height: 100%; align-items: center">
-					<view class="mic"><u-icon size="50"></u-icon></view>
+					<view class="mic"><up-icon size="50"></up-icon></view>
 				</view>
 				<view :style="{ width: showFile == 1 ? '70%' : '80%' }">
 					<uv-input type="text" placeholde="输入您想咨询的问题" v-model="message" border="bottom"></uv-input>
 				</view>
 
 				<view class="mt10 ml10" style="height: 100%; align-items: center">
-					<view :style="{ display: showFile == 0 ? 'block' : 'none' }" class="mr10 ml10"><u-icon name="plus-circle" size="50" @click="sendImg"></u-icon></view>
+					<view :style="{ display: showFile == 0 ? 'block' : 'none' }" class="mr10 ml10"><up-icon name="plus-circle" size="50" @click="sendImg"></up-icon></view>
 
 					<button @click="send" :style="{ display: showFile == 1 ? 'block' : 'none' }" class="fsbtm">发送</button>
 				</view>

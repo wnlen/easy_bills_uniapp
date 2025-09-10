@@ -1,9 +1,9 @@
 <template>
 	<view class="content items-center pt20">
-		<!-- 		<u-navbar :border-bottom="false" title-color="#333333" title="更多功能" title-size="28"
-			background="{background:transparent,color:white,fontSize: 28rpx;}"></u-navbar> -->
+		<!-- 		<up-navbar :border-bottom="false" title-color="#333333" title="更多功能" title-size="28"
+			background="{background:transparent,color:white,fontSize: 28rpx;}"></up-navbar> -->
 
-		<u-navbar :autoBack="true" :placeholder="true" :border-bottom="false" :titleBold="true" title-color="#000000" title="更多功能" title-size="34" bgColor="#ffffff"></u-navbar>
+		<up-navbar :autoBack="true" :placeholder="true" :border-bottom="false" :titleBold="true" title-color="#000000" title="更多功能" title-size="34" bgColor="#ffffff"></up-navbar>
 
 		<view class="ml24 mr24">
 			<!-- <view class="titleMore">
@@ -15,9 +15,9 @@
 					<template v-slot="{item, index}">
 						<view class="ml5 mr5 flex-col justify-center items-center relative"
 							style="background-color: transparent;">
-							<u-icon :label="item.name" size="100" :name="item.icon" labelPos="bottom" labelSize="25"
+							<up-icon :label="item.name" size="100" :name="item.icon" labelPos="bottom" labelSize="25"
 								labelColor="#333333" @touchstart="handleTouchStart" @touchend="handleTouchEnd"
-								@touchcancel="handleTouchCancel"></u-icon>
+								@touchcancel="handleTouchCancel"></up-icon>
 						</view>
 					</template>
 
@@ -38,7 +38,7 @@
 				>
 					<template v-slot="{ item, index }">
 						<view class="ml5 mr5 flex-col justify-center items-center relative" style="background-color: transparent">
-							<u-icon
+							<up-icon
 								:label="item.name"
 								size="100rpx"
 								:name="item.icon"
@@ -49,7 +49,7 @@
 								@touchend="handleTouchEnd"
 								@click="jump(item)"
 								@touchcancel="handleTouchCancel"
-							></u-icon>
+							></up-icon>
 						</view>
 					</template>
 				</SortByDrag>

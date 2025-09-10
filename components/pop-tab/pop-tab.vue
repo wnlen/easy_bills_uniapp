@@ -1,18 +1,18 @@
 <template>
 	<!-- <view> -->
 	<!-- 自定义tab -->
-	<u-tabbar :value="tabIndex" activeColor="#01BB74" @change="changeTab" :placeholder="true" :fixed="true" :safeAreaInsetBottom="true">
-		<u-tabbar-item :text="item.text" v-for="(item, index) in tabbar" :key="index" :badge="index == 2 ? messNum : 0" badgeStyle="background-color:#FA5151;">
+	<up-tabbar :value="tabIndex" activeColor="#01BB74" @change="changeTab" :placeholder="true" :fixed="true" :safeAreaInsetBottom="true">
+		<up-tabbar-item :text="item.text" v-for="(item, index) in tabbar" :key="index" :badge="index == 2 ? messNum : 0" badgeStyle="background-color:#FA5151;">
 			<template #active-icon>
-				<u-icon size="40rpx" :name="item.selectedIconPath"></u-icon>
+				<up-icon size="40rpx" :name="item.selectedIconPath"></up-icon>
 			</template>
 			<template #inactive-icon>
 				<view :id="index == 1 ? 'box4' : ''">
-					<u-icon size="40rpx" :name="item.iconPath"></u-icon>
+					<up-icon size="40rpx" :name="item.iconPath"></up-icon>
 				</view>
 			</template>
-		</u-tabbar-item>
-	</u-tabbar>
+		</up-tabbar-item>
+	</up-tabbar>
 	<!-- </view> -->
 </template>
 

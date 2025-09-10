@@ -1,9 +1,9 @@
 <template>
 	<view class="vw100 flex-col w100 justify-center items-center">
-		<!-- 	<u-navbar :custom-back="payBack" :border-bottom="false" title-color="#333333" title="支付订单" title-size="28"
-			background="{background:transparent,color:white,fontSize: 28rpx;}"></u-navbar> -->
+		<!-- 	<up-navbar :custom-back="payBack" :border-bottom="false" title-color="#333333" title="支付订单" title-size="28"
+			background="{background:transparent,color:white,fontSize: 28rpx;}"></up-navbar> -->
 
-		<u-navbar
+		<up-navbar
 			:placeholder="true"
 			@leftClick="payBack"
 			:border-bottom="false"
@@ -12,7 +12,7 @@
 			title="支付订单"
 			title-size="34"
 			bgColor="#ffffff"
-		></u-navbar>
+		></up-navbar>
 
 		<view class="flex-col w100 justify-center items-center mt120 ml24 mr24">
 			<view class="flex-col justify-center items-center hander">付款给易单据</view>
@@ -20,7 +20,7 @@
 
 			<view class="flex-row justify-center items-center hander mt30">
 				支付剩余时间
-				<u-count-down @finish="end" format="mm:ss" :time="1800000"></u-count-down>
+				<up-count-down @finish="end" format="mm:ss" :time="1800000"></up-count-down>
 			</view>
 		</view>
 
@@ -29,13 +29,13 @@
 		<view class="ml24 mr24 mt30" style="width: 94%">
 			<view class="relative flex-row justify-center items-center height48 w100" @click="index = index == 0 ? 1 : 0">
 				<view class="absolute flex-row justify-center items-center" style="left: 0">
-					<u-icon name="https://res-oss.elist.com.cn/wxImg/user/wx.svg" size="40rpx"></u-icon>
+					<up-icon name="https://res-oss.elist.com.cn/wxImg/user/wx.svg" size="40rpx"></up-icon>
 					<text class="ml10">微信支付</text>
 				</view>
 				<view class="absolute flex-row justify-center items-center" style="right: 0; width: 0">
-					<u-radio-group>
-						<u-radio @change="checkboxChange" size="30rpx" active-color="#07C160" :disabled="index == 0" shape="circle"></u-radio>
-					</u-radio-group>
+					<up-radio-group>
+						<up-radio @change="checkboxChange" size="30rpx" active-color="#07C160" :disabled="index == 0" shape="circle"></up-radio>
+					</up-radio-group>
 				</view>
 			</view>
 		</view>
@@ -43,7 +43,7 @@
 		<view class="fixed-bar" style="background: none">
 			<view class="pl30 pr30 pb30 flex-row justify-between items-center">
 				<view class="flex-row flex-1 items-center">
-					<u-button hover-class="none" color="#01BB74" @click="ply" class="width100" type="primary" shape="circle">确认支付</u-button>
+					<up-button hover-class="none" color="#01BB74" @click="ply" class="width100" type="primary" shape="circle">确认支付</up-button>
 				</view>
 			</view>
 		</view>

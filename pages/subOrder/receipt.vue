@@ -1,7 +1,7 @@
 <template>
 	<view class="vh100 vw100 fixed-bar-height flex-col justify-center items-center">
-		<u-navbar :autoBack="true" :placeholder="true" :border-bottom="false" :titleBold="true" title-color="#000000" :title="title" title-size="34" bgColor="#ffffff"></u-navbar>
-		<u-image :src="OperatingSystem ? systemImg.ios : systemImg.az" width="600rpx" height="400rpx"></u-image>
+		<up-navbar :autoBack="true" :placeholder="true" :border-bottom="false" :titleBold="true" title-color="#000000" :title="title" title-size="34" bgColor="#ffffff"></up-navbar>
+		<up-image :src="OperatingSystem ? systemImg.ios : systemImg.az" width="600rpx" height="400rpx"></up-image>
 		<text class="mt30" style="color: #aaaaaa">正在开发中~</text>
 	</view>
 </template>

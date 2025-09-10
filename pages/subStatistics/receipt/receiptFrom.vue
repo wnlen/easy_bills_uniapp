@@ -73,7 +73,7 @@
 			<view class="FromFile">
 				<view class="FromFileTitle">添加图片</view>
 				<view class="recently-cat flex-row flex-wrap" style="width: 95%">
-					<u-upload
+					<up-upload
 						autoDelete
 						autoUploadDriver="local"
 						v-model:fileList="imgFileList"
@@ -85,9 +85,9 @@
 						:previewFullImage="true"
 						@afterRead="handleUpload"
 					>
-						<u-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></u-icon>
-					</u-upload>
-					<!-- <u-upload
+						<up-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></up-icon>
+					</up-upload>
+					<!-- <up-upload
 						:custom-btn="true"
 						:action="action"
 						:show-retry="false"
@@ -101,9 +101,9 @@
 						del-bg-color="#e9e9e9"
 					>
 						<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
-							<u-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200"></u-icon>
+							<up-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200"></up-icon>
 						</view>
-					</u-upload> -->
+					</up-upload> -->
 				</view>
 				<view class="FromFileTitle">上传附件</view>
 				<view class="FilePdfList">
@@ -112,12 +112,12 @@
 
 				<!-- #ifdef MP-WEIXIN -->
 				<view v-if="fileList.length < 3" class="uploadView" @click="uploadFile">
-					<u-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></u-icon>
+					<up-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></up-icon>
 				</view>
 				<!-- #endif -->
 				<!-- #ifdef APP -->
 				<view class="uploadView" @click="chooseFile">
-					<u-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></u-icon>
+					<up-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></up-icon>
 				</view>
 				<!-- #endif -->
 
@@ -157,21 +157,21 @@
 
 			<view class="sendBill">
 				<!-- #ifdef MP-WEIXIN -->
-				<u-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder(true)" shape="circle">
+				<up-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder(true)" shape="circle">
 					{{ pinia_userRole == 'D' ? '发送收款单' : '发送付款单' }}
-				</u-button>
+				</up-button>
 				<!-- #endif -->
 				<!-- #ifdef APP -->
-				<u-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder(false)" shape="circle">
+				<up-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder(false)" shape="circle">
 					{{ pinia_userRole == 'D' ? '发送收款单' : '发送付款单' }}
-				</u-button>
+				</up-button>
 				<!-- #endif -->
 			</view>
 		</view>
 
 		<view class="BillSuccess" v-if="!FROMBShow">
 			<view class="" style="width: 60vw; height: 21vh">
-				<u-image style="" width="100%" height="100%" :show-menu-by-longpress="false" src="https://res-oss.elist.com.cn/wxImg/order/fscg.png"></u-image>
+				<up-image style="" width="100%" height="100%" :show-menu-by-longpress="false" src="https://res-oss.elist.com.cn/wxImg/order/fscg.png"></up-image>
 			</view>
 			<view class="text-center mt20" style="color: #01bb74; font-size: 34rpx; font-weight: bold; width: 100%">发送成功!</view>
 			<view class="text-center mt10" style="color: #aaaaaa; font-size: 26rpx; font-weight: normal">

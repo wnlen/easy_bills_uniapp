@@ -3,7 +3,7 @@
 		<!-- 日历选择器 -->
 		<uv-calendars color="#01BB74" confirmColor="#01BB74" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="ChangeTimeStart" />
 		<view class="flex-row items-center justify-center" style="height: 66%">
-			<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" v-if="!identity"></u-empty>
+			<up-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" v-if="!identity"></up-empty>
 		</view>
 
 		<z-paging
@@ -21,7 +21,7 @@
 			style=""
 		>
 			<template #top>
-				<u-tabs
+				<up-tabs
 					:list="TabList"
 					:current="current"
 					:scrollable="false"
@@ -41,7 +41,7 @@
 					<text @click="openTableChoice" style="color: #666666">
 						{{ pinia_userRole === 'R' ? '供应商选择' : '客户选择' }}
 					</text>
-					<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
+					<up-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></up-line>
 					<view class="my-input flex-1">
 						<uv-input
 							border="none"
@@ -55,7 +55,7 @@
 
 					<view class="flex-col justify-center items-center" style="height: 100%">
 						<view class="ml40">
-							<u-icon name="/static/img/list/lxr.svg" size="45rpx" @click="openTableChoice"></u-icon>
+							<up-icon name="/static/img/list/lxr.svg" size="45rpx" @click="openTableChoice"></up-icon>
 						</view>
 					</view>
 				</view>
@@ -63,7 +63,7 @@
 				<view class="billCardTime cardShow">
 					<view class="billCardTimeStart">
 						<text class="mr10" style="color: #666666">开始日期</text>
-						<u-icon name="arrow-down-fill" size="10"></u-icon>
+						<up-icon name="arrow-down-fill" size="10"></up-icon>
 						<view
 							@click="
 								$refs.calendars.open();
@@ -77,7 +77,7 @@
 					</view>
 					<view class="billCardTimeEnd">
 						<text class="mr10" style="color: #666666">结束日期</text>
-						<u-icon name="arrow-down-fill" size="10"></u-icon>
+						<up-icon name="arrow-down-fill" size="10"></up-icon>
 						<view
 							@click="
 								$refs.calendars.open();
@@ -100,7 +100,7 @@
 						@click="checkboxGroupChange(item, index)"
 						style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 					>
-						<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
+						<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
 					</view>
 					<view class="OrderCard_Hand_time">
 						{{ $u.timeFormat(item.billTime, 'yyyy-mm-dd') }}
@@ -187,7 +187,7 @@
 					</view>
 				</view>
 				<view class="OrderCard_end" @tap.stop>
-					<u-button
+					<up-button
 						class="ml30 bg-white"
 						v-if="
 							pinia_user.data.work == '1'
@@ -202,21 +202,21 @@
 						@click="click(index, 0)"
 						:customStyle="SearchCustomStyleWechat"
 					>
-						<u-icon name="order" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="修改"></u-icon>
-					</u-button>
+						<up-icon name="order" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="修改"></up-icon>
+					</up-button>
 
-					<u-button class="ml30" hover-class="none" plain shape="circle" @click="viewDetails(item)" :customStyle="SearchCustomStyleWechat">
-						<u-icon name="list-dot" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="订单列表"></u-icon>
-					</u-button>
+					<up-button class="ml30" hover-class="none" plain shape="circle" @click="viewDetails(item)" :customStyle="SearchCustomStyleWechat">
+						<up-icon name="list-dot" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="订单列表"></up-icon>
+					</up-button>
 					<!-- v-if="pinia_user.data.work=='1'?pinia_user.workData.identity!=3:true&&item.billState!=1" -->
-					<u-button class="ml30" hover-class="none" plain shape="circle" @click="click(index, 1)" v-if="item.billState != 1" :customStyle="SearchCustomStyleWechat">
-						<u-icon name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></u-icon>
-					</u-button>
+					<up-button class="ml30" hover-class="none" plain shape="circle" @click="click(index, 1)" v-if="item.billState != 1" :customStyle="SearchCustomStyleWechat">
+						<up-icon name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></up-icon>
+					</up-button>
 				</view>
 			</view>
 			<template #empty>
 				<view style="padding-bottom: 200rpx">
-					<u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180"></u-icon>
+					<up-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180"></up-icon>
 				</view>
 			</template>
 			<template #bottom>
@@ -234,7 +234,7 @@
 						</view>
 					</view>
 					<view class="fixedBarRight">
-						<u-button shape="circle" @click="okUpdate" hover-class="none" :customStyle="customStyleBill">{{ billTitle }}</u-button>
+						<up-button shape="circle" @click="okUpdate" hover-class="none" :customStyle="customStyleBill">{{ billTitle }}</up-button>
 					</view>
 				</view>
 			</template>

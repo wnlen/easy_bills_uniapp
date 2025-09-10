@@ -23,8 +23,8 @@
 						{{ role == 0 ? '客户' : '供应商' }}
 					</view>
 					<view class="ml10">
-						<u-icon v-if="!showChecked" name="arrow-down-fill" color="#000000" size="15rpx"></u-icon>
-						<u-icon v-if="showChecked" name="arrow-up-fill" color="#000000" size="15rpx"></u-icon>
+						<up-icon v-if="!showChecked" name="arrow-down-fill" color="#000000" size="15rpx"></up-icon>
+						<up-icon v-if="showChecked" name="arrow-up-fill" color="#000000" size="15rpx"></up-icon>
 					</view>
 				</view>
 				<view v-if="!showChecked" class="u-border-top flex-row" style="width: 100%; height: 7vh" @tap.stop>
@@ -57,7 +57,7 @@
 					>
 						<view>客户</view>
 						<view v-if="role == 0" class="absolute" style="right: 20rpx">
-							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></u-icon>
+							<up-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></up-icon>
 						</view>
 					</view>
 					<view
@@ -75,7 +75,7 @@
 					>
 						<view>供应商</view>
 						<view v-if="role == 1" class="absolute" style="right: 20rpx">
-							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></u-icon>
+							<up-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></up-icon>
 						</view>
 					</view>
 				</view>
@@ -84,31 +84,31 @@
 
 		<view class="flex-row" style="width: 100%; display: flex">
 			<view class="ml5 mr5" style="flex: 1">
-				<u-button openType="share" color="#01BB74" :customStyle="SearchCustomStyleWechat" shape="circle" :plain="true">
-					<view class="pr10"><u-icon name="weixin-fill" color="#01BB74" size="30rpx"></u-icon></view>
+				<up-button openType="share" color="#01BB74" :customStyle="SearchCustomStyleWechat" shape="circle" :plain="true">
+					<view class="pr10"><up-icon name="weixin-fill" color="#01BB74" size="30rpx"></up-icon></view>
 					微信邀请
-				</u-button>
+				</up-button>
 			</view>
 			<!-- <view class="ml5 mr5" style="flex: 1">
-				<u-button :customStyle="SearchCustomStyle"  shape="circle"
+				<up-button :customStyle="SearchCustomStyle"  shape="circle"
 					@click="goPath('/pages/subIndex/add_friend/add_friend')">
-					<view class=></view><u-icon  "pr10" name="phone-fill" color="#ffffff" size="30rpx"></u-icon>
+					<view class=></view><up-icon  "pr10" name="phone-fill" color="#ffffff" size="30rpx"></up-icon>
 					手机号邀请
-				</u-button>
+				</up-button>
 			</view> -->
 			<view class="ml5 mr5" style="flex: 1">
-				<u-button :customStyle="SearchCustomStyle" color="#FFAF38" shape="circle" @click="establish">
+				<up-button :customStyle="SearchCustomStyle" color="#FFAF38" shape="circle" @click="establish">
 					<view class="pr10">
-						<u-icon name="plus" color="#ffffff" size="30rpx"></u-icon>
+						<up-icon name="plus" color="#ffffff" size="30rpx"></up-icon>
 					</view>
 					创建{{ pinia_userRole == 'D' ? '客户' : '供应商' }}
-				</u-button>
+				</up-button>
 			</view>
 		</view>
 		<view class="anchorText">
 			<view class="SearchTablePage">
 				<view class="SearchTablePageIcon">
-					<u-icon name="search" color="#01BB74" size="40rpx"></u-icon>
+					<up-icon name="search" color="#01BB74" size="40rpx"></up-icon>
 				</view>
 				<view class="SearchTablePageInput">
 					<uv-input placeholder="请输入关键字进行查找" border="none" @change="search"></uv-input>
@@ -116,7 +116,7 @@
 			</view>
 		</view>
 		<!-- borderBottom: item.length > 1 && index2 != item.length ? '1px solid #f4f4f4' : '' -->
-		<u-empty
+		<up-empty
 			v-if="isEmptyObject(client)"
 			icon="https://res-oss.elist.com.cn/wxImg/order/empty.svg"
 			iconSize="200rpx"
@@ -124,7 +124,7 @@
 			mode="search"
 			marginTop="200rpx"
 		>
-			<u-button
+			<up-button
 				v-if="pinia_userRole == 'D'"
 				color="#01BB74"
 				iconColor="#ECFFF9"
@@ -134,8 +134,8 @@
 				@click="establish"
 			>
 				<text>去创建</text>
-			</u-button>
-			<u-button
+			</up-button>
+			<up-button
 				v-else
 				openType="share"
 				color="#01BB74"
@@ -145,12 +145,12 @@
 				:plain="true"
 			>
 				<text>去邀请</text>
-			</u-button>
-		</u-empty>
+			</up-button>
+		</up-empty>
 		<view v-for="(item, index) in client" :key="index">
 			<view class="ml20 mr20" v-show="show == 1" style="border-bottom: 1px solid #f4f4f4">
-				<u-collapse :border="false">
-					<u-collapse-item v-if="!ifZX(index)" :border="false">
+				<up-collapse :border="false">
+					<up-collapse-item v-if="!ifZX(index)" :border="false">
 						<template #right-icon></template>
 						<template #title>
 							<view class="" style="font-weight: 500">
@@ -185,8 +185,8 @@
 								</view>
 							</view>
 						</view>
-					</u-collapse-item>
-				</u-collapse>
+					</up-collapse-item>
+				</up-collapse>
 			</view>
 			<view class="ml20" v-show="show == 0" style="width: 110vw">
 				<view @click="jumpShow(item)" style="width: 85%; padding-top: 20rpx; padding-bottom: 20rpx" class="anchor-text ml24">
@@ -197,7 +197,7 @@
 			</view>
 		</view>
 		<!-- 第一次添加成功客户提示 -->
-		<u-overlay :show="showTip" @click="showTip = false">
+		<up-overlay :show="showTip" @click="showTip = false">
 			<view class="warp">
 				<view class="rect relative" @tap.stop>
 					<view
@@ -209,10 +209,10 @@
 							showTip = false;
 						"
 					></view>
-					<u-image src="https://res-oss.elist.com.cn/wxImg/list/customerTip.svg" width="540rpx" height="584rpx"></u-image>
+					<up-image src="https://res-oss.elist.com.cn/wxImg/list/customerTip.svg" width="540rpx" height="584rpx"></up-image>
 				</view>
 			</view>
-		</u-overlay>
+		</up-overlay>
 	</view>
 </template>
 <script>

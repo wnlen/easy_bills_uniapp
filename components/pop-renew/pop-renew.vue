@@ -1,9 +1,9 @@
 <template>
 	<view @tap.stop v-show="roleShow" class="flex-col justify-center items-center pop-renew">
 		<view class="relative flex-col justify-center items-center">
-			<u-image class="" :showLoading="true" :src="src" width="360px" height="360px"></u-image>
+			<up-image class="" :showLoading="true" :src="src" width="360px" height="360px"></up-image>
 			<view class="absolute" style="top: 5%; right: 10%">
-				<u-icon @click="close" name="close-circle" color="#ffffff" size="40rpx"></u-icon>
+				<up-icon @click="close" name="close-circle" color="#ffffff" size="40rpx"></up-icon>
 			</view>
 
 			<view @click="buyRenew" class="absolute flex-row justify-center items-center buttonRenew" style="bottom: 100rpx">

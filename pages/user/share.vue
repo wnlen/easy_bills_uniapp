@@ -1,7 +1,7 @@
 <template>
 	<view class="page-container">
 		<uv-toast ref="toast"></uv-toast>
-		<u-navbar title="分享给好友" :autoBack="true" :placeholder="true"></u-navbar>
+		<up-navbar title="分享给好友" :autoBack="true" :placeholder="true"></up-navbar>
 		<view class="top-img">
 			<image class="banner" src="https://res-oss.elist.com.cn/share/bannerT.png" mode="widthFix"></image>
 		</view>

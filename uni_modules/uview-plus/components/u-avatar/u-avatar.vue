@@ -23,12 +23,12 @@
 			<!-- #ifndef MP-WEIXIN && MP-QQ && MP-BAIDU  -->
 			<template v-if="mpAvatar && allowMp"></template>
 			<!-- #endif -->
-			<u-icon
+			<up-icon
 				v-else-if="icon"
 				:name="icon"
 				:size="fontSize"
 				:color="color"
-			></u-icon>
+			></up-icon>
 			<up-text
 				v-else-if="text"
 				:text="text"
@@ -82,7 +82,7 @@
 	 * @property {Object}			customStyle		定义需要用到的外部样式
 	 *
 	 * @event    {Function}        click       点击组件时触发   index: 用户传递的标识符
-	 * @example  <u-avatar :src="src" mode="square"></u-avatar>
+	 * @example  <up-avatar :src="src" mode="square"></up-avatar>
 	 */
 	export default {
 		name: 'u-avatar',

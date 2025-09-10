@@ -1,6 +1,6 @@
 <template>
 	<view class="attestation" :style="{ backgroundImage: 'url(' + ImgUrl + '/wxImg/user/back.svg' + ')' }">
-		<u-navbar
+		<up-navbar
 			:autoBack="true"
 			:placeholder="true"
 			:border-bottom="false"
@@ -10,7 +10,7 @@
 			title="公司资料"
 			title-size="34"
 			bgColor="transparent"
-		></u-navbar>
+		></up-navbar>
 
 		<image
 			:src="ImgUrl + '/wxImg/user/back.png'"
@@ -22,14 +22,14 @@
 		<view class="card" style="">
 			<view class="" v-if="true" style="border-radius: border-radius: 12rpx;">
 				<view class="flex-row items-center pt38" style="width: 100%; padding-left: 35rpx">
-					<u-image
+					<up-image
 						shape="circle"
 						class="ml20"
 						:show-menu-by-longpress="false"
 						:src="pinia_user.data.headPortrait || '/static/img/obj/defind.svg'"
 						width="100rpx"
 						height="100rpx"
-					></u-image>
+					></up-image>
 
 					<text class="ml10" style="font-weight: bold; color: #333333; font-size: 36rpx">{{ userName(pinia_user.data.name) || '未设置' }}</text>
 					<image class="ml15" :src="pinia_user.ac ? ImgUrl + '/wxImg/order/yes-is.svg' : ImgUrl + '/wxImg/order/no-is.svg'" style="width: 80rpx; height: 50rpx"></image>
@@ -39,7 +39,7 @@
 					v-if="1 == 2"
 					style="height: 6vh; background: rgba(1, 187, 116, 0.05); border-radius: 12rpx; position: relative; padding-left: 20rpx"
 				>
-					<u-icon class="ml20" :name="ImgUrl + '/wxImg/user/sfz.svg'" size="30"></u-icon>
+					<up-icon class="ml20" :name="ImgUrl + '/wxImg/user/sfz.svg'" size="30"></up-icon>
 					<text class="ml15" style="font-weight: 500; color: #333333">身份证认证</text>
 					<button
 						class="ml48 mr20 flex-col justify-center"
@@ -62,7 +62,7 @@
 				</view>
 				<!-- 				<view class="flex-row items-center card ml24 mr24 flex-row mb18"
 					style="width: 93%;height: 6vh;background: rgba(1, 187, 116, 0.05);border-radius: 12rpx;position: relative; ">
-					<u-icon class="ml20" name="/static/img/auth/rl.svg" size="30"></u-icon>
+					<up-icon class="ml20" name="/static/img/auth/rl.svg" size="30"></up-icon>
 					<text class="ml15" style="font-weight: 500;color: #333333;">人脸认证</text>
 					<button class="ml48 mr20 flex-col justify-center" shape="circle" @click="jump(2)"
 						style="background-color: #01BB74;color: white;width: 120rpx;height: 60rpx;font-size: 20rpx;align-items: center;position: absolute;right: 0;border-radius: 434rpx;">去认证</button>
@@ -80,7 +80,7 @@
 						padding-left: 20rpx;
 					"
 				>
-					<u-icon class="ml20" :name="ImgUrl + '/wxImg/user/qyrz.png'" size="45"></u-icon>
+					<up-icon class="ml20" :name="ImgUrl + '/wxImg/user/qyrz.png'" size="45"></up-icon>
 					<text class="ml15" style="font-weight: 500; color: #333333">公司资料</text>
 					<button
 						v-if="btnqy == 0"

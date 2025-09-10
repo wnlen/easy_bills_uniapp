@@ -27,11 +27,11 @@
         :class="bemClass"
     >
         <template v-if="loading">
-            <u-loading-icon
+            <up-loading-icon
                 :mode="loadingMode"
                 :size="loadingSize * 1.15"
                 :color="loadingColor"
-            ></u-loading-icon>
+            ></up-loading-icon>
             <text
                 class="u-button__loading-text"
                 :style="[{ fontSize: textSize + 'px' }]"
@@ -39,13 +39,13 @@
             >
         </template>
         <template v-else>
-            <u-icon
+            <up-icon
                 v-if="icon"
                 :name="icon"
                 :color="iconColorCom"
                 :size="textSize * 1.35"
                 :customStyle="{ marginRight: '2px' }"
-            ></u-icon>
+            ></up-icon>
             <slot>
                 <text
                     class="u-button__text"
@@ -74,11 +74,11 @@
         :style="[baseColor, addStyle(customStyle)]"
     >
         <template v-if="loading">
-            <u-loading-icon
+            <up-loading-icon
                 :mode="loadingMode"
                 :size="loadingSize * 1.15"
                 :color="loadingColor"
-            ></u-loading-icon>
+            ></up-loading-icon>
             <text
                 class="u-button__loading-text"
                 :style="[nvueTextStyle]"
@@ -87,12 +87,12 @@
             >
         </template>
         <template v-else>
-            <u-icon
+            <up-icon
                 v-if="icon"
                 :name="icon"
                 :color="iconColorCom"
                 :size="textSize * 1.35"
-            ></u-icon>
+            ></up-icon>
             <text
                 class="u-button__text"
                 :style="[
@@ -160,7 +160,7 @@ import color from '../../libs/config/color';
  * @event {Function}	opensetting		在打开授权设置页并关闭后回调
  * @event {Function}	launchapp		打开 APP 成功的回调
  * @event {Function}	agreeprivacyauthorization	用户同意隐私协议事件回调
- * @example <u-button>月落</u-button>
+ * @example <up-button>月落</up-button>
  */
 export default {
     name: "u-button",

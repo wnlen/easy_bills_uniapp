@@ -13,18 +13,18 @@
             >￥</text
         >
         <view class="u-text__prefix-icon" v-if="prefixIcon">
-            <u-icon
+            <up-icon
                 :name="prefixIcon"
                 :customStyle="addStyle(iconStyle)"
-            ></u-icon>
+            ></up-icon>
         </view>
-        <u-link
+        <up-link
             v-if="mode === 'link'" class="u-text__value"
             :style="{fontWeight: valueStyle.fontWeight, wordWrap: valueStyle.wordWrap, fontSize: valueStyle.fontSize}"
             :class="[type && `u-text__value--${type}`,lines && `u-line-${lines}`]" :text="value"
             :href="href"
             underLine
-        ></u-link>
+        ></up-link>
         <template v-else-if="openType && isMp">
             <button
                 class="u-reset-button u-text__value"
@@ -59,10 +59,10 @@
             >{{ value }}</text
         >
         <view class="u-text__suffix-icon" v-if="suffixIcon">
-            <u-icon
+            <up-icon
                 :name="suffixIcon"
                 :customStyle="addStyle(iconStyle)"
-            ></u-icon>
+            ></up-icon>
         </view>
     </view>
 </template>

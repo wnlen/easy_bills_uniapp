@@ -39,7 +39,7 @@
      * @event {Function} click 点击图片时触发
      * @event {Function} load 图片加载成功时触发
      * @event {Function} error 图片加载失败时触发
-     * @example <u-lazy-load :image="image" :loading-img="loadingImg" :error-img="errorImg"></u-lazy-load>
+     * @example <up-lazy-load :image="image" :loading-img="loadingImg" :error-img="errorImg"></up-lazy-load>
      */
     export default {
         name: 'u-lazy-load',

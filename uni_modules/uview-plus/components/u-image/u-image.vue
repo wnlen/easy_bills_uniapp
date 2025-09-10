@@ -1,5 +1,5 @@
 <template>
-	<u-transition
+	<up-transition
 		mode="fade"
 		:show="show"
 		:style="transStyle"
@@ -36,9 +36,9 @@
 				}"
 			>
 				<slot name="loading">
-					<u-icon
+					<up-icon
 						:name="loadingIcon"
-					></u-icon>
+					></up-icon>
 				</slot>
 			</view>
 			<view
@@ -52,13 +52,13 @@
 				}"
 			>
 				<slot name="error">
-					<u-icon
+					<up-icon
 						:name="errorIcon"
-					></u-icon>
+					></up-icon>
 				</slot>
 			</view>
 		</view>
-	</u-transition>
+	</up-transition>
 </template>
 
 <script>
@@ -90,7 +90,7 @@
 	 * @event {Function}	click	点击图片时触发
 	 * @event {Function}	error	图片加载失败时触发
 	 * @event {Function} load 图片加载成功时触发
-	 * @example <u-image width="100%" height="300px" :src="src"></u-image>
+	 * @example <up-image width="100%" height="300px" :src="src"></up-image>
 	 */
 	export default {
 		name: 'u-image',

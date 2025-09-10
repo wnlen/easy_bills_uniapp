@@ -12,14 +12,14 @@
 				<text class="ft29">联系号码</text>
 				<view class="ft29 flex-row items-center" @click="qiyeAuth(infos.contactPhoneNumber)">
 					<text class="mr10">{{ infos.contactPhoneNumber }}</text>
-					<u-icon name="arrow-right" color="#ddd"></u-icon>
+					<up-icon name="arrow-right" color="#ddd"></up-icon>
 				</view>
 			</view>
 			<view class="flex-row justify-between items-center u-border-bottom pt20 pb20">
 				<text class="ft29">公司地址</text>
 				<view class="ft29 flex-row items-center flex-1 pl48">
 					<text class="flex-1 pr10 pl30">{{ infos.companyAddress }}</text>
-					<u-icon name="arrow-right" color="#ddd"></u-icon>
+					<up-icon name="arrow-right" color="#ddd"></up-icon>
 				</view>
 			</view>
 		</view>

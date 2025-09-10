@@ -1,10 +1,10 @@
 <template>
 	<view>
 		<view class="ml24 mr24 mt20 swipeBox" v-for="(item2, index2) in resApiT" :key="index2" v-show="SHOW == 1">
-			<u-swipe-action>
-				<u-swipe-action-item :show="item2.show" :name="index2" @click="delclick(item2, index2)" :options="options">
+			<up-swipe-action>
+				<up-swipe-action-item :show="item2.show" :name="index2" @click="delclick(item2, index2)" :options="options">
 					<view style="width: 96vw; height: 80px" class="flex-row items-center u-border-bottom pd15">
-						<u-image :src="item2.img || defaultImg" shape="circle" width="50px" height="50px"></u-image>
+						<up-image :src="item2.img || defaultImg" shape="circle" width="50px" height="50px"></up-image>
 						<view class="flex-col justify-center ml26" style="height: 100%; width: 40%">
 							<text class="title mb8" style="font-size: 32rpx">{{ item2.aName || item2.aUser }}</text>
 							<view class="title" style="font-size: 27rpx; color: #999999; letter-spacing: 1rpx">
@@ -37,8 +37,8 @@
 							</view>
 						</view>
 					</view>
-				</u-swipe-action-item>
-			</u-swipe-action>
+				</up-swipe-action-item>
+			</up-swipe-action>
 		</view>
 	</view>
 </template>

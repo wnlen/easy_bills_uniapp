@@ -20,7 +20,7 @@
 	 * @property {Object}	customStyle	定义需要用到的外部样式
 	 *
 	 * @event {Function()}
-	 * @example <u-status-bar></u-status-bar>
+	 * @example <up-status-bar></up-status-bar>
 	 */
 	export default {
 		name: "u-safe-bottom",

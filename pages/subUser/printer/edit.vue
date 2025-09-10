@@ -5,8 +5,8 @@
 		</view>
 
 		<view class="mt20" style="width: 90%">
-			<u-collapse :head-style="headstyle" arrow-color="#CCC">
-				<u-collapse-item :title="item.head" v-for="(item, index) in itemList" :key="index">
+			<up-collapse :head-style="headstyle" arrow-color="#CCC">
+				<up-collapse-item :title="item.head" v-for="(item, index) in itemList" :key="index">
 					<view class="mt20" style="width: 90%">
 						<uv-input border="none" v-model="wifiName" placeholder="请输入无线网名称" maxlength="30" type="text" :border="true"></uv-input>
 					</view>
@@ -14,12 +14,12 @@
 						<uv-input border="none" v-model="wifiPass" placeholder="请输入无线网密码" maxlength="20" type="password" :border="true"></uv-input>
 					</view>
 					<view class="mt20" style="width: 90%; color: red; font-size: 24rpx">修改后请联系客服进行配置修改!!!</view>
-				</u-collapse-item>
-			</u-collapse>
+				</up-collapse-item>
+			</up-collapse>
 		</view>
 
 		<view class="flex-col justify-center pl60 pr60 pb60 pt60 vw100" style="position: absolute; bottom: 0">
-			<u-button hover-class="none" color="#01BB74" shape="circle" type="primary" @click="updateInfo">确认修改</u-button>
+			<up-button hover-class="none" color="#01BB74" shape="circle" type="primary" @click="updateInfo">确认修改</up-button>
 		</view>
 	</view>
 </template>

@@ -12,10 +12,10 @@
 
 				</view>
 				<view class="u-steps-item__wrapper__icon" v-else-if="parentData.activeIcon || parentData.inactiveIcon">
-					<u-icon :name="index <= parentData.current ? parentData.activeIcon : parentData.inactiveIcon"
+					<up-icon :name="index <= parentData.current ? parentData.activeIcon : parentData.inactiveIcon"
 						:size="iconSize"
 						:color="index <= parentData.current ? parentData.activeColor : parentData.inactiveColor">
-					</u-icon>
+					</up-icon>
 				</view>
 				<view v-else :style="{
 						backgroundColor: statusClass === 'process' ? parentData.activeColor : 'transparent',
@@ -25,8 +25,8 @@
 						class="u-steps-item__wrapper__circle__text" :style="{
 							color: index == parentData.current ? '#ffffff' : parentData.inactiveColor
 						}">{{ index + 1}}</text>
-					<u-icon v-else :color="statusClass === 'error' ? 'error' : parentData.activeColor" size="12"
-						:name="statusClass === 'error' ? 'close' : 'checkmark'"></u-icon>
+					<up-icon v-else :color="statusClass === 'error' ? 'error' : parentData.activeColor" size="12"
+						:name="statusClass === 'error' ? 'close' : 'checkmark'"></up-icon>
 				</view>
 			</slot>
 		</view>
@@ -75,7 +75,7 @@
 	 * @property {String}			current			描述文本
 	 * @property {String | Number}	iconSize		图标大小  (默认 17 )
 	 * @property {Boolean}			error			当前步骤是否处于失败状态  (默认 false )
-	 * @example <u-steps current="0"><u-steps-item title="已出库" desc="10:35" ></u-steps-item></u-steps>
+	 * @example <up-steps current="0"><up-steps-item title="已出库" desc="10:35" ></up-steps-item></up-steps>
 	 */
 	export default {
 		name: 'u-steps-item',

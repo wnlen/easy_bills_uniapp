@@ -4,9 +4,9 @@
 			class="flex-col justify-center items-center pb15"
 			style="font-size: 12px; color: #666666; background: linear-gradient(303deg, #ffe6d5 0%, rgba(254, 244, 239, 0) 90%)"
 		>
-			<!-- <u-navbar :border-bottom="false" :background="{background:transparent}" title="客服咨询"></u-navbar> -->
-			<!-- <u-navbar :background="{background:transparent}" :border-bottom="false"
-				:titleBold="true" title-color="#000000" title="客服咨询" title-size="34" bgColor="#ffffff"></u-navbar> -->
+			<!-- <up-navbar :border-bottom="false" :background="{background:transparent}" title="客服咨询"></up-navbar> -->
+			<!-- <up-navbar :background="{background:transparent}" :border-bottom="false"
+				:titleBold="true" title-color="#000000" title="客服咨询" title-size="34" bgColor="#ffffff"></up-navbar> -->
 			<slot name="hander"></slot>
 		</view>
 		<scroll-view
@@ -39,7 +39,7 @@
 					{{ item.timeLabel }}
 				</view>
 				<view>
-					<u-image
+					<up-image
 						width="100rpx"
 						height="100rpx"
 						:src="item[defaultOptions['avator']] || defaultAvator"
@@ -47,7 +47,7 @@
 						radius="10rpx"
 						bgColor="transparent"
 						shape="circle"
-					></u-image>
+					></up-image>
 					<view
 						:class="[
 							'y-wrap_message_content_box_msg',
@@ -65,14 +65,14 @@
 								}
 							]"
 						>
-							<u-tag
+							<up-tag
 								v-if="tagOptions[item[defaultOptions['tagLabel']]]"
 								:bgColor="tagOptions[item[defaultOptions['tagLabel']]] ? tagOptions[item[defaultOptions['tagLabel']]].bgColor : ''"
 								:borderColor="tagOptions[item[defaultOptions['tagLabel']]] ? tagOptions[item[defaultOptions['tagLabel']]].bgColor : ''"
 								:color="tagOptions[item[defaultOptions['tagLabel']]] ? tagOptions[item[defaultOptions['tagLabel']]].color : ''"
 								:text="tagOptions[item[defaultOptions['tagLabel']]] ? tagOptions[item[defaultOptions['tagLabel']]].text : ''"
 								size="mini"
-							></u-tag>
+							></up-tag>
 							<view v-if="item.userId == '0'" class="" style="position: absolute; left: 0; font-size: 12px">
 								<text>
 									{{ item[defaultOptions['name']] }}
@@ -94,14 +94,14 @@
 							]"
 						>
 							<view v-if="item[defaultOptions['message']]">{{ item[defaultOptions['message']] }}</view>
-							<u-image
+							<up-image
 								@tap="lookImg(item[defaultOptions['img']], index)"
 								v-if="item[defaultOptions['img']]"
 								:src="item[defaultOptions['img']]"
 								width="calc(60vw - 15rpx)"
 								height="auto"
 								mode="widthFix"
-							></u-image>
+							></up-image>
 						</view>
 					</view>
 					<!-- <view class="y_message_content_box_read">
@@ -113,8 +113,8 @@
 		<view class="y-wrap_footer">
 			<view class="y-wrap_footer_show_box" id="show_box">
 				<!-- @click="textShowFlag = false" -->
-				<!-- 	<u-icon custom-style="padding: 0 10rpx" :size="iconSize" name="mic" v-if="textShowFlag"></u-icon>
-				<u-icon custom-style="padding: 0 10rpx" :size="iconSize" name="mic" v-else @click="showText"></u-icon> -->
+				<!-- 	<up-icon custom-style="padding: 0 10rpx" :size="iconSize" name="mic" v-if="textShowFlag"></up-icon>
+				<up-icon custom-style="padding: 0 10rpx" :size="iconSize" name="mic" v-else @click="showText"></up-icon> -->
 				<view class="y-wrap_footer_show_box__ipt" style="background-color: #f4f4f4">
 					<!-- <input v-if="textShowFlag" v-model="sendVal" :focus="focus" @blur="blur"></input> -->
 					<uv-input
@@ -127,20 +127,20 @@
 						:focus="focus"
 						@blur="blur"
 					></uv-input>
-					<!-- <u-button v-else @touchstart="startAudio" @touchend="endAudio">按住说话</u-button> -->
+					<!-- <up-button v-else @touchstart="startAudio" @touchend="endAudio">按住说话</up-button> -->
 					<button v-else style="font-size: 32rpx; overflow: inherit" @touchstart="startAudio" @touchmove="moveAudio" @touchend="endAudio">按住说话</button>
 				</view>
 				<view>
-					<!-- <u-icon custom-style="padding: 0 10rpx" :size="iconSize" name="star"></u-icon> -->
+					<!-- <up-icon custom-style="padding: 0 10rpx" :size="iconSize" name="star"></up-icon> -->
 					<!-- #ifndef MP-WEIXIN -->
-					<u-icon
+					<up-icon
 						:customStyle="{ padding: '0 10rpx' }"
 						:size="iconSize"
 						name="plus"
 						@click="showHideBox"
 						:class="!sendVal ? 'width_to_mini' : 'fade_show'"
 						v-if="!sendVal"
-					></u-icon>
+					></up-icon>
 					<button
 						style="width: 116rpx; padding: 0; text-align: center; margin-left: 10rpx; border-radius: 185px"
 						type="primary"
@@ -154,12 +154,12 @@
 					</button>
 					<!-- #endif -->
 					<!-- #ifdef MP-WEIXIN -->
-					<u-transition :show="!sendVal">
+					<up-transition :show="!sendVal">
 						<view style="padding: 0 10rpx"></view>
 
-						<u-icon :size="iconSize" name="plus" @click="showHideBox" v-if="!sendVal"></u-icon>
-					</u-transition>
-					<u-transition :show="sendVal">
+						<up-icon :size="iconSize" name="plus" @click="showHideBox" v-if="!sendVal"></up-icon>
+					</up-transition>
+					<up-transition :show="sendVal">
 						<button
 							style="width:116rpx; 60rpx; padding: 0; text-align: center; margin-left: 10rpx;border-radius: 185px;"
 							type="primary"
@@ -169,22 +169,22 @@
 						>
 							发送
 						</button>
-					</u-transition>
+					</up-transition>
 					<!-- #endif -->
 				</view>
 			</view>
 			<view class="y-wrap_footer_hide_box" id="hide_box">
 				<view class="y-wrap_footer_hide_box_item" v-for="(item, index) in sheet" :key="index" @click="moreFun(item)">
 					<view class="y-wrap_footer_hide_box_item__btn pb100">
-						<u-image shape="circle" v-if="item.img && footerFlag" :src="item.img" width="60rpx" height="60rpx" mode="aspectFill" />
-						<u-icon :size="iconSize" v-if="!item.img && footerFlag" :name="item.icon"></u-icon>
+						<up-image shape="circle" v-if="item.img && footerFlag" :src="item.img" width="60rpx" height="60rpx" mode="aspectFill" />
+						<up-icon :size="iconSize" v-if="!item.img && footerFlag" :name="item.icon"></up-icon>
 						<text v-if="footerFlag">{{ item.name }}</text>
 					</view>
 				</view>
 			</view>
 		</view>
 		<!-- readyCloseAudio -->
-		<u-popup :show="audioFlag" :bgColor="readyCloseAudio ? 'rgba(255, 255, 255, 0.4)' : ''" mode="center" :zoom="false" round="20">
+		<up-popup :show="audioFlag" :bgColor="readyCloseAudio ? 'rgba(255, 255, 255, 0.4)' : ''" mode="center" :zoom="false" round="20">
 			<view class="y-wrap_audio">
 				<view class="y-wrap_audio__large" :style="'border-color:' + borderColor">
 					<view class="y-wrap_audio__small" :style="'border-color:' + borderColor">
@@ -192,7 +192,7 @@
 					</view>
 				</view>
 			</view>
-		</u-popup>
+		</up-popup>
 
 		<view v-if="audioFlag" :style="'position: fixed; bottom: 200rpx; left: 50%; transform: translateX(-50%); z-index: 10080; color: #fff;'">上划取消发送</view>
 	</view>

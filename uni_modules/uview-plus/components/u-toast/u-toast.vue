@@ -1,6 +1,6 @@
 <template>
 	<view class="u-toast">
-		<u-overlay
+		<up-overlay
 			:show="isShow"
 			:zIndex="tmpConfig.overlay ? tmpConfig.zIndex : -1"
 			:custom-style="overlayStyle"
@@ -10,32 +10,32 @@
 				:style="[contentStyle]"
 				:class="['u-type-' + tmpConfig.type, (tmpConfig.type === 'loading' || tmpConfig.loading) ?  'u-toast__content--loading' : '']"
 			>
-				<u-loading-icon
+				<up-loading-icon
 					v-if="tmpConfig.type === 'loading'"
 					mode="circle"
 					color="rgb(255, 255, 255)"
 					inactiveColor="rgb(120, 120, 120)"
 					size="25"
-				></u-loading-icon>
-				<u-icon
+				></up-loading-icon>
+				<up-icon
 					v-else-if="tmpConfig.type !== 'defalut' && iconName"
 					:name="iconName"
 					size="17"
 					:color="tmpConfig.type"
 					:customStyle="iconStyle"
-				></u-icon>
-				<u-gap
+				></up-icon>
+				<up-gap
 					v-if="tmpConfig.type === 'loading' || tmpConfig.loading"
 					height="12"
 					bgColor="transparent"
-				></u-gap>
+				></up-gap>
 				<text
 					class="u-toast__content__text"
 					:class="['u-toast__content__text--' + tmpConfig.type]"
 					style="max-width: 400rpx;"
 				>{{ tmpConfig.message }}</text>
 			</view>
-		</u-overlay>
+		</up-overlay>
 	</view>
 </template>
 
@@ -65,7 +65,7 @@
 	 * @property {Boolean}			back		结束toast是否自动返回上一页 （默认 false ）
 	 * @property {Object}			customStyle	组件的样式，对象形式
 	 * @event {Function} show 显示toast，如需一进入页面就显示toast，请在onReady生命周期调用
-	 * @example <u-toast ref="uToast" />
+	 * @example <up-toast ref="uToast" />
 	 */
 	export default {
 		name: 'u-toast',

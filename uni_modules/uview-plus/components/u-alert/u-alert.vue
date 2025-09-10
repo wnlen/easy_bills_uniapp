@@ -1,5 +1,5 @@
 <template>
-	<u-transition
+	<up-transition
 	    mode="fade"
 	    :show="show"
 	>
@@ -13,11 +13,11 @@
 			    class="u-alert__icon"
 			    v-if="showIcon"
 			>
-				<u-icon
+				<up-icon
 				    :name="iconName"
 				    size="18"
 				    :color="iconColor"
-				></u-icon>
+				></up-icon>
 			</view>
 			<view
 			    class="u-alert__content"
@@ -49,14 +49,14 @@
 			    v-if="closable"
 			    @tap.stop="closeHandler"
 			>
-				<u-icon
+				<up-icon
 				    name="close"
 				    :color="iconColor"
 				    size="15"
-				></u-icon>
+				></up-icon>
 			</view>
 		</view>
-	</u-transition>
+	</up-transition>
 </template>
 
 <script>
@@ -80,7 +80,7 @@
 	 * @property {Object}			customStyle	定义需要用到的外部样式
 	 * @event    {Function}        click       点击组件时触发
 	 * @event    {Function}        close       点击关闭按钮时触发
-	 * @example  <u-alert :title="title"  type = "warning" :closable="closable" :description = "description"></u-alert>
+	 * @example  <up-alert :title="title"  type = "warning" :closable="closable" :description = "description"></up-alert>
 	 */
 	export default {
 		name: 'u-alert',

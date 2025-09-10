@@ -69,7 +69,7 @@
 				>{{ item.key || item }}</text>
 			</view>
 		</view>
-		<u-transition
+		<up-transition
 			mode="fade"
 			:show="touching"
 			:customStyle="{
@@ -89,7 +89,7 @@
 			>
 				<text class="u-index-list__indicator__text">{{ uIndexList[activeIndex]?.key || uIndexList[activeIndex] }}</text>
 			</view>
-		</u-transition>
+		</up-transition>
 	</view>
 </template>
 

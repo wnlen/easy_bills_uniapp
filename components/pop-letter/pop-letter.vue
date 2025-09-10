@@ -14,7 +14,7 @@
 					"
 				>
 					<view class="absolute" style="position: absolute; z-index: 11; right: 0; top: -30px">
-						<u-icon name="close-circle" color="#ffffff" size="50rpx" @click="show = false"></u-icon>
+						<up-icon name="close-circle" color="#ffffff" size="50rpx" @click="show = false"></up-icon>
 					</view>
 					<view
 						style="

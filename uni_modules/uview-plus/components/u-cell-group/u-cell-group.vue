@@ -6,7 +6,7 @@
 			</slot>
         </view>
         <view class="u-cell-group__wrapper">
-			<u-line v-if="border"></u-line>
+			<up-line v-if="border"></up-line>
             <slot />
         </view>
     </view>
@@ -27,7 +27,7 @@
 	 * @property {Object}	customStyle	定义需要用到的外部样式
 	 * 
 	 * @event {Function} click 	点击cell列表时触发
-	 * @example <u-cell-group title="设置喜好">
+	 * @example <up-cell-group title="设置喜好">
 	 */
 	export default {
 		name: 'u-cell-group',

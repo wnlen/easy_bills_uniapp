@@ -44,7 +44,7 @@
 	 * @property {String}			indicatorActiveColor	指示器非激活颜色
 	 * @property {String}			indicatorInactiveColor	指示器的激活颜色
 	 * @property {String}			indicatorMode			指示器模式（默认 'line' ）
-	 * @example	<u-swiper :list="list4" indicator keyName="url" :autoplay="false"></u-swiper>
+	 * @example	<up-swiper :list="list4" indicator keyName="url" :autoplay="false"></up-swiper>
 	 */
 	export default {
 		name: 'u-swiper-indicator',

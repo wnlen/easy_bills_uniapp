@@ -6,17 +6,17 @@
 		<!-- #ifdef MP-WEIXIN -->
 		<view class="absolute" style="left: 48rpx; top: 120rpx; color: #333333" @click="experience">暂不登录</view>
 		<view class="form-wrap width60 flex-col items-center" style="top: 400rpx">
-			<u-image class="login-logo" width="400rpx" src="https://res-oss.elist.com.cn/wxImg/user/logoLogin.svg" mode="widthFix"></u-image>
+			<up-image class="login-logo" width="400rpx" src="https://res-oss.elist.com.cn/wxImg/user/logoLogin.svg" mode="widthFix"></up-image>
 			<view class="width100 pt100 pb60 login_box">
 				<view class="login_btn1" v-if="this.ischeck">
-					<u-button type="primary" hover-class="none" color="#01BB74" shape="circle" size="default" open-type="getPhoneNumber" @getphonenumber="(e) => getPhoneNumber(e)">
-						<u-icon size="25" label="手机号快捷登录" labelColor="#fff" labelSize="16"></u-icon>
-					</u-button>
+					<up-button type="primary" hover-class="none" color="#01BB74" shape="circle" size="default" open-type="getPhoneNumber" @getphonenumber="(e) => getPhoneNumber(e)">
+						<up-icon size="25" label="手机号快捷登录" labelColor="#fff" labelSize="16"></up-icon>
+					</up-button>
 				</view>
 				<view class="login_btn2" v-else>
-					<u-button type="primary" hover-class="none" color="#01BB74" shape="circle" size="default" @click="wxmp_login">
-						<u-icon size="25" label="手机号快捷登录" labelColor="#fff" labelSize="16"></u-icon>
-					</u-button>
+					<up-button type="primary" hover-class="none" color="#01BB74" shape="circle" size="default" @click="wxmp_login">
+						<up-icon size="25" label="手机号快捷登录" labelColor="#fff" labelSize="16"></up-icon>
+					</up-button>
 				</view>
 				<view class="width100 justify-center items-center flex-row pt30" style="font-size: 20rpx">
 					<view
@@ -25,7 +25,7 @@
 						@click="radioGroupChange"
 						style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 					>
-						<u-icon name="checkbox-mark" color="#ffffff" size="20rpx"></u-icon>
+						<up-icon name="checkbox-mark" color="#ffffff" size="20rpx"></up-icon>
 					</view>
 					<view class="ml15">
 						<text style="color: #aaaaaa; font-size: 24rpx">同意并遵行易单据</text>
@@ -37,30 +37,30 @@
 			</view>
 		</view>
 
-		<u-popup :show="roleShow" mode="bottom" round="14" height="800rpx" :closeable="true" :mask-close-able="false">
+		<up-popup :show="roleShow" mode="bottom" round="14" height="800rpx" :closeable="true" :mask-close-able="false">
 			<view class="pd36 flex-col justify-center items-center">
 				<text class="ft30 ft-bold ft-green mb10" style="color: #01bb74; font-size: 40rpx; font-weight: bold">切换用户角色</text>
 				<text class="ft-gray pb48">随时切换您的收发货角色，快速收发单</text>
 				<view class="vw100 flex-row" style="height: 400rpx">
 					<view class=""></view>
 					<view class="" style="height: 500rpx; width: 40%; margin-left: 8%; margin-right: 2%; border: 2rpx solid #01bb74; border-radius: 24rpx" @click="roleQH(0)">
-						<!-- <u-image v-show="role==0" border-radius="20" width="100%" height="100%"
-							src="/static/images/role01.svg"></u-image> -->
-						<!-- <u-image v-show="role!=0" border-radius="20" width="100%" height="100%"
-							src="/static/images/role00.svg"></u-image> -->
+						<!-- <up-image v-show="role==0" border-radius="20" width="100%" height="100%"
+							src="/static/images/role01.svg"></up-image> -->
+						<!-- <up-image v-show="role!=0" border-radius="20" width="100%" height="100%"
+							src="/static/images/role00.svg"></up-image> -->
 					</view>
 					<view class="" style="height: 500rpx; width: 40%; border: 2rpx solid #01bb74; border-radius: 24rpx" @click="roleQH(1)">
-						<!-- <u-image v-show="role==1" border-radius="20" width="100%" height="100%"
-							src="/static/images/role03.svg"></u-image>
-						<u-image v-show="role!=1" border-radius="20" width="100%" height="100%"
-							src="/static/images/role02.svg"></u-image> -->
+						<!-- <up-image v-show="role==1" border-radius="20" width="100%" height="100%"
+							src="/static/images/role03.svg"></up-image>
+						<up-image v-show="role!=1" border-radius="20" width="100%" height="100%"
+							src="/static/images/role02.svg"></up-image> -->
 					</view>
 				</view>
 				<view class="" style="margin-top: 8vh; width: 80vw">
-					<u-button class="width100" type="primary" shape="circle" @click="submitRole">确定</u-button>
+					<up-button class="width100" type="primary" shape="circle" @click="submitRole">确定</up-button>
 				</view>
 			</view>
-		</u-popup>
+		</up-popup>
 		<!-- #endif -->
 
 		<!-- #ifndef MP-WEIXIN -->
@@ -95,8 +95,8 @@
 						@focus="passsswordFocusInput"
 						class="u-line-1 ml15 endcolor"
 					/>
-					<u-icon v-if="eyePassword" @click="eyePassword = !eyePassword" name="eye-off" color="#01BB74" size="35"></u-icon>
-					<u-icon v-if="!eyePassword" @click="eyePassword = !eyePassword" name="eye-fill" color="#01BB74" size="35"></u-icon>
+					<up-icon v-if="eyePassword" @click="eyePassword = !eyePassword" name="eye-off" color="#01BB74" size="35"></up-icon>
+					<up-icon v-if="!eyePassword" @click="eyePassword = !eyePassword" name="eye-fill" color="#01BB74" size="35"></up-icon>
 				</view>
 				<text class="err ml24" v-if="passsswordErr">请输入密码</text>
 				<view class="headlineEnd mb36" v-if="err">
@@ -112,7 +112,7 @@
 			</view>
 			<view class="yszc" style="font-size: 20rpx">
 				<view class="flex-col justify-center items-center list1" :style="{ backgroundColor: ischeck ? '#01BB74' : '#ffffff' }" @click="radioGroupChange">
-					<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
+					<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
 				</view>
 				<view class="ml15">
 					<text style="color: #aaaaaa; font-size: 24rpx">同意并遵行易单据</text>
@@ -127,7 +127,7 @@
 				<view class="mt20" style="color: #aaaaaa; font-size: 24rpx; text-align: center">第三方登录</view>
 				<view class="mt10 flex-row justify-center items-center" style="text-align: center">
 					<view class="flex-row justify-center items-center" style="background-color: #20c300; height: 120rpx; width: 120rpx; border-radius: 50%" @click="wxloginInit">
-						<u-icon name="weixin-fill" color="#ffffff" size="100"></u-icon>
+						<up-icon name="weixin-fill" color="#ffffff" size="100"></up-icon>
 					</view>
 				</view>
 			</view>
@@ -135,7 +135,7 @@
 		<!-- #endif -->
 		<!-- 微信小程序隐私弹窗 -->
 
-		<u-popup :show="yinsi_show" :safeAreaInsetBottom="false" mode="center" @close="yinsi_close" @open="yinsi_open" :customStyle="yisi_customStyle">
+		<up-popup :show="yinsi_show" :safeAreaInsetBottom="false" mode="center" @close="yinsi_close" @open="yinsi_open" :customStyle="yisi_customStyle">
 			<view class="yinsi_box">
 				<view class="yinsi_title">用户协议及隐私政策</view>
 				<view class="pl20 pr20" style="text-align: justify">
@@ -149,7 +149,7 @@
 				<view class="btn_l" @click="yinsi_close">不同意</view>
 				<view @click="yinsi_agree"><button class="btn_r" open-type="getPhoneNumber" @getphonenumber="(e) => getPhoneNumber(e)">同意并继续</button></view>
 			</view>
-		</u-popup>
+		</up-popup>
 
 		<!-- <lq-privacy-dialog ref="privacyDialog" /> -->
 	</view>

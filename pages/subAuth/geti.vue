@@ -4,36 +4,36 @@
 			<view class="" style="font-size: 20px; font-weight: bold">请拍摄您身份证正面</view>
 			<view class="" style="font-size: 14px; color: #aaaaaa">请保持身份证正面完整清晰</view>
 			<view class="mt15">
-				<u-image
+				<up-image
 					width="100%"
 					mode="widthFix"
 					:src="formData.front || 'https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/geti/fromt.svg'"
 					@click="imgUpdate(0)"
-				></u-image>
+				></up-image>
 			</view>
 		</view>
 		<view class="ml24 mt40 mr24">
 			<view class="" style="font-size: 20px; font-weight: bold">请拍摄您身份证正面</view>
 			<view class="" style="font-size: 14px; color: #aaaaaa">请保持身份证正面完整清晰</view>
 			<view class="mt15">
-				<u-image
+				<up-image
 					width="100%"
 					mode="widthFix"
 					:src="formData.rear || 'https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/geti/rear.svg'"
 					@click="imgUpdate(1)"
-				></u-image>
+				></up-image>
 			</view>
 		</view>
 		<view class="ml24 width100 justify-center items-center flex-row pt30 mr24" style="font-size: 10px">
 			<view class="ml10" @click="radioGroupChange">
-				<u-radio-group>
-					<u-radio :disabled="disabled" active-color="#01BB74" icon-size="12" class="flex-row justify-center items-center" style="text-align: center">
+				<up-radio-group>
+					<up-radio :disabled="disabled" active-color="#01BB74" icon-size="12" class="flex-row justify-center items-center" style="text-align: center">
 						<view class="">
 							<text style="color: #aaaaaa; font-size: 12px" @click="radioGroupChange">我已阅读并同意</text>
 							<text style="color: #01bb74; font-size: 12px">《身份证认证协议》</text>
 						</view>
-					</u-radio>
-				</u-radio-group>
+					</up-radio>
+				</up-radio-group>
 			</view>
 		</view>
 

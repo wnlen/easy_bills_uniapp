@@ -1,6 +1,6 @@
 <template>
 	<view class="Index ft24" :class="pinia_userRole === 'D' ? 'Indexbg1' : 'Indexbg2'">
-		<u-navbar title="" :placeholder="true" bgColor="transparent" leftIconSize="0"></u-navbar>
+		<up-navbar title="" :placeholder="true" bgColor="transparent" leftIconSize="0"></up-navbar>
 		<view class="flex-row justify-between items-end ml30 mr30">
 			<view>
 				<image v-if="pinia_token" style="width: 108rpx; height: 34rpx" :src="`${ImgUrl}/wxImg/index/ydj.png`"></image>
@@ -49,7 +49,7 @@
 					@click="goPath(item.path)"
 				>
 					<view class="ml10 mr10 mt8">
-						<u-icon size="72rpx" :name="item.icon"></u-icon>
+						<up-icon size="72rpx" :name="item.icon"></up-icon>
 					</view>
 					<view>
 						<view class="ft36 ft-bold">
@@ -66,22 +66,22 @@
 			<view class="flex-row flex-wrap">
 				<view class="flex-col width25_ items-center relative" @click="goPath(listItem.path)" v-for="(listItem, listIndex) in iconlist" :key="listIndex">
 					<view class="mt10">
-						<u-icon size="80rpx" :name="listItem.icon"></u-icon>
+						<up-icon size="80rpx" :name="listItem.icon"></up-icon>
 					</view>
 					<text>{{ listItem.title }}</text>
-					<u-badge bgColor="#FA5151" :offset="['12rpx', '50rpx']" absolute :value="listItem.count"></u-badge>
+					<up-badge bgColor="#FA5151" :offset="['12rpx', '50rpx']" absolute :value="listItem.count"></up-badge>
 				</view>
 			</view>
 			<view class="flex-row justify-center pb20">
-				<u-button hover-class="none" :active="false" :hair-line="false" class="no-shadow-button" :customStyle="buttonStyle" open-type="contact">
-					<u-icon name="kefu-ermai" size="28rpx"></u-icon>
+				<up-button hover-class="none" :active="false" :hair-line="false" class="no-shadow-button" :customStyle="buttonStyle" open-type="contact">
+					<up-icon name="kefu-ermai" size="28rpx"></up-icon>
 					<text class="ft28 ml10">客服咨询 ></text>
-				</u-button>
+				</up-button>
 			</view>
 		</view>
 
 		<view class="mt30 ml30 mr30 pb30">
-			<u-swiper
+			<up-swiper
 				@click="middleClick"
 				bg-color="#F6F7F7"
 				:list="middleBanner.length > 0 ? middleBanner : pinia_userRole == 'R' ? middleBannerlXR : middleBannerlXD"
@@ -93,7 +93,7 @@
 				:effect3d="true"
 				effect3d-previous-margin="-10"
 				border-radius="18"
-			></u-swiper>
+			></up-swiper>
 			<!-- <image src="/static/img/index/new/banner.png" style="width: 100%;" mode="widthFix"></image> -->
 		</view>
 		<!-- 权限到期提示弹窗 -->
@@ -150,7 +150,7 @@
 		<!-- 自定义tab -->
 		<pop-tab ref="popTab" :tabIndex="0"></pop-tab>
 		<!-- 未签收提醒 -->
-		<u-popup :show="showUnreceived" :safeAreaInsetBottom="false" mode="center" :customStyle="unreceivedStyle">
+		<up-popup :show="showUnreceived" :safeAreaInsetBottom="false" mode="center" :customStyle="unreceivedStyle">
 			<view class="unreceivedBox">
 				<view class="mb10 unreceivedTitle">小易提醒您:</view>
 				<view class="">
@@ -169,15 +169,15 @@
 					<text>”转发分享进行送货单签收。或者养成开单后立即分享给签收人，提示签字~</text>
 				</view>
 				<view class="flex-row justify-center">
-					<u-checkbox-group :labelSize="12" activeColor="#01bb74" shape="circle" v-model="unreceivedValue">
-						<u-checkbox label="不再提醒" :name="true" :labelSize="12"></u-checkbox>
-					</u-checkbox-group>
+					<up-checkbox-group :labelSize="12" activeColor="#01bb74" shape="circle" v-model="unreceivedValue">
+						<up-checkbox label="不再提醒" :name="true" :labelSize="12"></up-checkbox>
+					</up-checkbox-group>
 				</view>
 				<view class="">
 					<view class="unreceivedBtn" @click="closeUnreceived">我知道啦</view>
 				</view>
 			</view>
-		</u-popup>
+		</up-popup>
 	</view>
 </template>
 

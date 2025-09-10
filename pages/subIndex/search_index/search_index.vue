@@ -2,8 +2,8 @@
 	<view>
 		<view class="header">
 			<view class="header-left ml20 flex-row" style="width: 100vw">
-				<u-icon name="arrow-left" color="#000000" size="40" @click="Reba"></u-icon>
-				<u-search
+				<up-icon name="arrow-left" color="#000000" size="40" @click="Reba"></up-icon>
+				<up-search
 					search-icon-color="#dcdcdc"
 					:show-action="false"
 					placeholder="请输入货品名称/关键字搜索"
@@ -14,7 +14,7 @@
 					height="60"
 					bg-color="#F4F4F4"
 					style="width: 65vw"
-				></u-search>
+				></up-search>
 			</view>
 		</view>
 
@@ -23,11 +23,11 @@
 				历史搜索
 				<view class="" style="font-size: 14px;font-weight: normal;width: 80vw;height: 100%;background-color: bisque;">
 					<view @click="isLook = !isLook">
-						<u-icon v-if="isLook" name="eye-fill" size="35"></u-icon>
-						<u-icon v-else name="eye-off" size="35"></u-icon>
+						<up-icon v-if="isLook" name="eye-fill" size="35"></up-icon>
+						<up-icon v-else name="eye-off" size="35"></up-icon>
 					</view>
 					<view class="flex-col justify-start" style="font-size: 14px;font-weight: normal;float: right;">
-						<u-icon name="trash" color="#000000" size="28rpx"></u-icon>
+						<up-icon name="trash" color="#000000" size="28rpx"></up-icon>
 					</view>
 				</view>
 			</view> -->
@@ -35,14 +35,14 @@
 				<view class="flex-row justify-start" style="font-size: 14px; font-weight: normal">
 					历史搜索
 					<view class="flex-col justify-start ml10" style="font-size: 14px; font-weight: normal" @click="isLook = !isLook">
-						<u-icon v-if="isLook" name="eye-fill" size="35"></u-icon>
-						<u-icon v-else name="eye-off" size="35"></u-icon>
+						<up-icon v-if="isLook" name="eye-fill" size="35"></up-icon>
+						<up-icon v-else name="eye-off" size="35"></up-icon>
 					</view>
 				</view>
 
 				<view class="flex-col justify-start" style="font-size: 14px; font-weight: normal">
 					<view class="flex-row justify-between" style="font-size: 14px; font-weight: normal; float: right">
-						<u-icon name="trash" color="#000000" size="40rpx"></u-icon>
+						<up-icon name="trash" color="#000000" size="40rpx"></up-icon>
 					</view>
 				</view>
 			</view>
@@ -61,7 +61,7 @@
 
 			<view class="flex-col justify-start" style="font-size: 14px; font-weight: normal">
 				<view class="flex-row justify-between" style="font-size: 14px; font-weight: normal; float: right">
-					<u-icon name="reload" color="#000000" size="40rpx"></u-icon>
+					<up-icon name="reload" color="#000000" size="40rpx"></up-icon>
 				</view>
 			</view>
 		</view>

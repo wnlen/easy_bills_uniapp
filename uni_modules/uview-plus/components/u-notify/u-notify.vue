@@ -1,5 +1,5 @@
 <template>
-	<u-transition
+	<up-transition
 		mode="slide-down"
 		:customStyle="containerStyle"
 		:show="open"
@@ -9,16 +9,16 @@
 			:class="[`u-notify--${tmpConfig.type}`]"
 			:style="[backgroundColor, addStyle(customStyle)]"
 		>
-			<u-status-bar v-if="tmpConfig.safeAreaInsetTop"></u-status-bar>
+			<up-status-bar v-if="tmpConfig.safeAreaInsetTop"></up-status-bar>
 			<view class="u-notify__warpper">
 				<slot name="icon">
-					<u-icon
+					<up-icon
 						v-if="['success', 'warning', 'error'].includes(tmpConfig.type)"
 						:name="tmpConfig.icon"
 						:color="tmpConfig.color"
 						:size="1.3 * tmpConfig.fontSize"
 						:customStyle="{marginRight: '4px'}"
-					></u-icon>
+					></up-icon>
 				</slot>
 				<text
 					class="u-notify__warpper__text"
@@ -29,7 +29,7 @@
 				>{{ tmpConfig.message }}</text>
 			</view>
 		</view>
-	</u-transition>
+	</up-transition>
 </template>
 
 <script>
@@ -53,7 +53,7 @@
 	 * @property {Object}			customStyle			组件的样式，对象形式
 	 * @event {Function}	open	开启组件时调用的函数
 	 * @event {Function}	close	关闭组件式调用的函数
-	 * @example <u-notify message="Hi uView"></u-notify>
+	 * @example <up-notify message="Hi uView"></up-notify>
 	 */
 	export default {
 		name: 'u-notify',

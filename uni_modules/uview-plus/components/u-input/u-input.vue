@@ -6,11 +6,11 @@
                 v-if="prefixIcon || $slots.prefix"
             >
                 <slot name="prefix">
-                    <u-icon
+                    <up-icon
                         :name="prefixIcon"
                         size="18"
                         :customStyle="prefixIconStyle"
-                    ></u-icon>
+                    ></up-icon>
                 </slot>
             </view>
             <view class="u-input__content__field-wrapper" @tap="clickHandler">
@@ -54,23 +54,23 @@
                 v-if="isShowClear"
                 @click="onClear"
             >
-                <u-icon
+                <up-icon
                     name="close"
                     size="11"
                     color="#ffffff"
                     customStyle="line-height: 12px"
-                ></u-icon>
+                ></up-icon>
             </view>
             <view
                 class="u-input__content__subfix-icon"
                 v-if="suffixIcon || $slots.suffix"
             >
                 <slot name="suffix">
-                    <u-icon
+                    <up-icon
                         :name="suffixIcon"
                         size="18"
                         :customStyle="suffixIconStyle"
-                    ></u-icon>
+                    ></up-icon>
                 </slot>
             </view>
         </view>
@@ -124,7 +124,7 @@ import { addStyle, addUnit, deepMerge, formValidate, $parent, sleep, os } from '
  * @property {String}			shape					输入框形状，circle-圆形，square-方形 （ 默认 'square' ）
  * @property {Object}			customStyle				定义需要用到的外部样式
  * @property {Boolean}			ignoreCompositionEvent	是否忽略组件内对文本合成系统事件的处理。
- * @example <u-input v-model="value" :password="true" suffix-icon="lock-fill" />
+ * @example <up-input v-model="value" :password="true" suffix-icon="lock-fill" />
  */
 export default {
     name: "u-input",

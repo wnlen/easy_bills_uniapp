@@ -11,13 +11,13 @@
 			},
 		]"
 	>
-		<u-line
+		<up-line
 		    length="140rpx"
 		    :color="lineColor"
 		    :hairline="false"
 			:dashed="dashed"
 			v-if="line"
-		></u-line>
+		></up-line>
 		<!-- 加载中和没有更多的状态才显示两边的横线 -->
 		<view
 		    :class="status == 'loadmore' || status == 'nomore' ? 'u-more' : ''"
@@ -27,11 +27,11 @@
 			    class="u-loadmore__content__icon-wrap"
 			    v-if="status === 'loading' && icon"
 			>
-				<u-loading-icon
+				<up-loading-icon
 				    :color="iconColor"
 				    :size="iconSize"
 				    :mode="loadingIcon"
-				></u-loading-icon>
+				></up-loading-icon>
 			</view>
 			<!-- 如果没有更多的状态下，显示内容为dot（粗点），加载特定样式 -->
 			<text
@@ -41,13 +41,13 @@
 			    @tap="loadMore"
 			>{{ showText }}</text>
 		</view>
-		<u-line
+		<up-line
 		    length="140rpx"
 		    :color="lineColor"
 			:hairline="false"
 			:dashed="dashed"
 			v-if="line"
-		></u-line>
+		></up-line>
 	</view>
 </template>
 
@@ -79,7 +79,7 @@
 	 * @property {Boolean}			line			是否显示左边分割线  （默认 false ）
 	 * @property {Boolean}			dashed		// 是否虚线，true-虚线，false-实线  （默认 false ）
 	 * @event {Function} loadmore status为loadmore时，点击组件会发出此事件
-	 * @example <u-loadmore :status="status" icon-type="iconType" load-text="loadText" />
+	 * @example <up-loadmore :status="status" icon-type="iconType" load-text="loadText" />
 	 */
 	export default {
 		name: "u-loadmore",

@@ -8,10 +8,10 @@
 			}"
 		></view>
 		<view :class="[fixed && 'u-navbar--fixed']">
-			<u-status-bar
+			<up-status-bar
 				v-if="safeAreaInsetTop"
 				:bgColor="statusBarBgColor ? statusBarBgColor : bgColor"
-			></u-status-bar>
+			></up-status-bar>
 			<view
 				class="u-navbar__content"
 				:class="[border && 'u-border-bottom']"
@@ -27,12 +27,12 @@
 					@tap="leftClick"
 				>
 					<slot name="left">
-						<u-icon
+						<up-icon
 							v-if="leftIcon"
 							:name="leftIcon"
 							:size="leftIconSize"
 							:color="leftIconColor"
-						></u-icon>
+						></up-icon>
 						<text
 							v-if="leftText"
 							:style="{
@@ -57,11 +57,11 @@
 					@tap="rightClick"
 				>
 					<slot name="right">
-						<u-icon
+						<up-icon
 							v-if="rightIcon"
 							:name="rightIcon"
 							size="20"
-						></u-icon>
+						></up-icon>
 						<text
 							v-if="rightText"
 							class="u-navbar__content__right__text"
@@ -103,7 +103,7 @@
 	 * @property {Object | String}	titleStyle			标题的样式，对象或字符串
 	 * @event {Function} leftClick		点击左侧区域
 	 * @event {Function} rightClick		点击右侧区域
-	 * @example <u-navbar title="剑未配妥，出门已是江湖" left-text="返回" right-text="帮助" @click-left="onClickBack" @click-right="onClickRight"></u-navbar>
+	 * @example <up-navbar title="剑未配妥，出门已是江湖" left-text="返回" right-text="帮助" @click-left="onClickBack" @click-right="onClickRight"></up-navbar>
 	 */
 	export default {
 		name: 'u-navbar',

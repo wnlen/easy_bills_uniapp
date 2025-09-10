@@ -1,5 +1,5 @@
 <template>
-	<u-popup
+	<up-popup
 		mode="center"
 		:zoom="zoom"
 		:show="show"
@@ -41,7 +41,7 @@
 				<slot name="confirmButton"></slot>
 			</view>
 			<template v-else>
-				<u-line></u-line>
+				<up-line></up-line>
 				<view
 					class="u-modal__button-group"
 					:style="{
@@ -63,10 +63,10 @@
 							}"
 						>{{ cancelText }}</text>
 					</view>
-					<u-line
+					<up-line
 						direction="column"
 						v-if="showConfirmButton && showCancelButton"
-					></u-line>
+					></up-line>
 					<view
 						class="u-modal__button-group__wrapper u-modal__button-group__wrapper--confirm"
 						:hover-stay-time="150"
@@ -75,7 +75,7 @@
 						v-if="showConfirmButton"
 						@tap="confirmHandler"
 					>
-						<u-loading-icon v-if="loading"></u-loading-icon>
+						<up-loading-icon v-if="loading"></up-loading-icon>
 						<text
 							v-else
 							class="u-modal__button-group__wrapper__text"
@@ -90,7 +90,7 @@
 		<template #bottom>
 			<slot name="popupBottom"></slot>
 		</template>
-	</u-popup>
+	</up-popup>
 </template>
 
 <script>
@@ -122,7 +122,7 @@
 	 * @event {Function} confirm	点击确认按钮时触发
 	 * @event {Function} cancel		点击取消按钮时触发
 	 * @event {Function} close		点击遮罩关闭出发，closeOnClickOverlay为true有效
-	 * @example <u-modal :show="show" />
+	 * @example <up-modal :show="show" />
 	 */
 	export default {
 		name: 'u-modal',

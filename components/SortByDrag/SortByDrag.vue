@@ -16,7 +16,7 @@
 		>
 			<div class="absolute" style="right: 0; top: 0; width: 20px; height: 20px; z-index: 99999" @click.stop="minusFun(item, list, index, minusName)">
 				<view class="absolute" style="right: 0; top: 0">
-					<u-icon v-if="minus" :color="minusColor" :name="minusName" size="30rpx"></u-icon>
+					<up-icon v-if="minus" :color="minusColor" :name="minusName" size="30rpx"></up-icon>
 				</view>
 			</div>
 			<div>

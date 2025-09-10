@@ -41,7 +41,7 @@
 	 * @property {Boolean}			showText		是否在进度条内部显示百分比的值 ( 默认 true )
 	 * @property {String | Number}	height			进度条的高度，单位px ( 默认 12 )
 	 * 
-	 * @example <u-line-progress :percent="70" :show-percent="true"></u-line-progress>
+	 * @example <up-line-progress :percent="70" :show-percent="true"></up-line-progress>
 	 */
 	export default {
 		name: "u-line-progress",

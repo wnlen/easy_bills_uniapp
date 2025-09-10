@@ -31,19 +31,19 @@
 			</view>
 		</view>
 		<view v-if="show == 0" class="flex-col justify-center pl60 pr60 pb60 pt60 vw100" style="position: absolute; bottom: 0">
-			<u-button color="#01BB74" shape="circle" :disabled="buttonDisabled" type="primary" @click="updateInfo">{{ up ? '提交信息' : '更新信息' }}</u-button>
+			<up-button color="#01BB74" shape="circle" :disabled="buttonDisabled" type="primary" @click="updateInfo">{{ up ? '提交信息' : '更新信息' }}</up-button>
 		</view>
 
 		<view v-if="show != 0" class="flex-col mt20 ml48 mr48">
 			<view class="flex-row justify-between items-center pl20 pt30 pb30 radius mb10">
 				<view class="flex-row items-center">
-					<u-image width="60" height="60" shape="circle" :src="pinia_user.data.headPortrait || '/static/img/obj/defind.svg'" :show-menu-by-longpress="false"></u-image>
+					<up-image width="60" height="60" shape="circle" :src="pinia_user.data.headPortrait || '/static/img/obj/defind.svg'" :show-menu-by-longpress="false"></up-image>
 					<view class="ml30 mr20" style="max-width: 100px; font-weight: bold; font-size: 16px">
 						{{ pinia_user.data.name }}
 					</view>
-					<u-image class="ml15" width="50" height="20" src="/static/img/obj/yrz.svg" :show-menu-by-longpress="false"></u-image>
+					<up-image class="ml15" width="50" height="20" src="/static/img/obj/yrz.svg" :show-menu-by-longpress="false"></up-image>
 				</view>
-				<u-button
+				<up-button
 					v-if="pinia_user.workData.id == null"
 					color="#01BB74"
 					:customStyle="{ width: '154rpx', height: '54rpx', margin: 0, fontSize: '24rpx' }"
@@ -52,7 +52,7 @@
 					type="success"
 				>
 					更新信息
-				</u-button>
+				</up-button>
 			</view>
 			<view class="flex-row items-center pd20">
 				<text class="ft-gray mr30 width120">企业名称</text>

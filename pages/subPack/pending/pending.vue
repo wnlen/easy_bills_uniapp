@@ -97,8 +97,8 @@
 			@query="queryList"
 		>
 			<template #empty>
-				<u-empty :icon="ImgUrl + '/wxImg/list/empty.svg'" iconSize="200rpx" text="还没收到订单呢~快去邀请供应商开单吧！" marginTop="-200">
-					<u-button
+				<up-empty :icon="ImgUrl + '/wxImg/list/empty.svg'" iconSize="200rpx" text="还没收到订单呢~快去邀请供应商开单吧！" marginTop="-200">
+					<up-button
 						dataName="shareFriend"
 						openType="share"
 						color="#01BB74"
@@ -108,8 +108,8 @@
 						:plain="true"
 					>
 						<text>去邀请</text>
-					</u-button>
-				</u-empty>
+					</up-button>
+				</up-empty>
 			</template>
 			<!-- <template #top> -->
 			<view class="Card cardShow">
@@ -117,7 +117,7 @@
 					<text class="ft-gray mb18 ml10" style="color: #999999">累计金额</text>
 					<view class="">
 						<text class="ft40 ft-bold ml9">￥</text>
-						<u-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="40rpx" decimals="2" bold></u-count-to>
+						<up-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="40rpx" decimals="2" bold></up-count-to>
 					</view>
 				</view>
 
@@ -126,7 +126,7 @@
 						<text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
 							{{ pinia_userRole === 'R' ? '供应商选择' : '客户选择' }}
 						</text>
-						<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
+						<up-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></up-line>
 						<!-- <view style="width: 24rpx;height: 32rpx;border-right: 2rpx solid #666666;"></view> -->
 						<view class="my-input flex-1">
 							<uv-input
@@ -140,7 +140,7 @@
 						</view>
 
 						<view class="flex-col justify-center items-center" style="height: 5vh">
-							<view class="ml40"><u-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon></view>
+							<view class="ml40"><up-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></up-icon></view>
 						</view>
 					</view>
 
@@ -149,7 +149,7 @@
 							<!-- {{showTage==0?"联系人":(showTage==1?"联系号码":showTage==2?(pinia_userRole=='R'?'收货地址':'收货地址'):showTage==3?"产品名称":"条件筛选")}} -->
 							{{ Title }}
 						</text>
-						<view class="ml10 mr10"><u-icon name="arrow-down-fill" size="20rpx"></u-icon></view>
+						<view class="ml10 mr10"><up-icon name="arrow-down-fill" size="20rpx"></up-icon></view>
 						<view class="my-input flex-1" v-if="showTage !== '1'">
 							<uv-input border="none" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入关键字进行检索"></uv-input>
 						</view>
@@ -158,7 +158,7 @@
 						</view>
 
 						<view class="flex-col justify-center items-center" style="height: 5vh">
-							<view class="ml40"><u-icon name="/static/img/list/ss.svg" size="45rpx" @click="SearchBtn"></u-icon></view>
+							<view class="ml40"><up-icon name="/static/img/list/ss.svg" size="45rpx" @click="SearchBtn"></up-icon></view>
 						</view>
 					</view>
 				</view>
@@ -190,27 +190,27 @@
 								{{ item.orderNumber }}
 							</text>
 						</text>
-						<u-icon size="28rpx" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
-						<view class="ml15"><u-icon size="28rpx" v-if="item.lockOrder == 1 && item.paymentState != 2" :name="bat64.lock" color="#666666"></u-icon></view>
+						<up-icon size="28rpx" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></up-icon>
+						<view class="ml15"><up-icon size="28rpx" v-if="item.lockOrder == 1 && item.paymentState != 2" :name="bat64.lock" color="#666666"></up-icon></view>
 
-						<!-- 			<u-icon size="28" v-if="item.paymentState!=2" :name="bat64.bz" @click="remark(item)"></u-icon>
-						<view class=></view><u-icon  "ml15" size="28" v-if="item.lockOrder==1" :name="bat64.lock" color="#666666" @click="remark(item)"></u-icon> -->
+						<!-- 			<up-icon size="28" v-if="item.paymentState!=2" :name="bat64.bz" @click="remark(item)"></up-icon>
+						<view class=></view><up-icon  "ml15" size="28" v-if="item.lockOrder==1" :name="bat64.lock" color="#666666" @click="remark(item)"></up-icon> -->
 					</view>
 					<view class="ml20 flex-1" style="margin-right: -10px">
 						<view class="u-img" v-if="pinia_userRole == 'D' && item.paymentState == '0'">
-							<u-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.dqs"></u-image>
+							<up-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.dqs"></up-image>
 						</view>
 						<view class="u-img" v-if="pinia_userRole == 'R' && item.paymentState == '0'">
-							<u-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.dqss"></u-image>
+							<up-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.dqss"></up-image>
 						</view>
 						<view class="u-img" v-if="pinia_userRole == 'R' && item.paymentState == '2'">
-							<u-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.yfk"></u-image>
+							<up-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.yfk"></up-image>
 						</view>
 						<view class="u-img" v-if="item.paymentState == '1'">
-							<u-image width="120rpx" height="50rpx" :show-menu-by-longpress="false" :src="bat64.yqs"></u-image>
+							<up-image width="120rpx" height="50rpx" :show-menu-by-longpress="false" :src="bat64.yqs"></up-image>
 						</view>
 						<view class="u-img" v-if="pinia_userRole != 'R' && item.paymentState == '2'">
-							<u-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.ysk"></u-image>
+							<up-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.ysk"></up-image>
 						</view>
 					</view>
 				</view>
@@ -268,7 +268,7 @@
 									:data-thumb="item.picturesId"
 									:data-id="item.id"
 								>
-									<u-icon
+									<up-icon
 										top="2rpx"
 										name="share-square"
 										size="25rpx"
@@ -276,7 +276,7 @@
 										labelColor="#333333"
 										labelSize="22rpx"
 										:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '有金额转发' : '有金额转发'"
-									></u-icon>
+									></up-icon>
 								</button>
 							</view>
 							<view class="flex-row justify-center items-center u-border-left u-border-right" style="width: 40%; color: #cccccc">
@@ -289,7 +289,7 @@
 									:data-thumb="item.picturesId"
 									:data-id="item.id"
 								>
-									<u-icon
+									<up-icon
 										top="2rpx"
 										name="share-square"
 										size="25rpx"
@@ -297,7 +297,7 @@
 										labelColor="#333333"
 										labelSize="22rpx"
 										:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '无金额转发' : '无金额转发'"
-									></u-icon>
+									></up-icon>
 								</button>
 							</view>
 							<view class="flex-row justify-center items-center" style="width: 20%; color: #f76565" @click="shareNY(item, 2)">关闭</view>
@@ -317,7 +317,7 @@
 								:data-id="item.id"
 								:data-versions="'Y'"
 							>
-								<u-icon
+								<up-icon
 									v-show="OperatingSystem"
 									name="share-square"
 									size="25rpx"
@@ -326,9 +326,9 @@
 									labelColor="#333333"
 									labelSize="22rpx"
 									:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发'"
-								></u-icon>
+								></up-icon>
 
-								<!-- <u-icon
+								<!-- <up-icon
 									top="2rpx"
 									v-show="!OperatingSystem"
 									name="share-square"
@@ -338,7 +338,7 @@
 									labelColor="#333333"
 									labelSize="22rpx"
 									:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发'"
-								></u-icon> -->
+								></up-icon> -->
 							</button>
 							<button
 								v-if="pinia_userRole === 'R' && pinia_user.workData.identity !== '3' && item.paymentState === '0' && item.lockOrder != 1"
@@ -347,9 +347,9 @@
 								@click="goPath('/pages/subOrder/details?id=' + item.id)"
 							>
 								<!-- &&item.lockOrder!=1 -->
-								<u-icon name="order" v-if="OperatingSystem" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="确认签收"></u-icon>
+								<up-icon name="order" v-if="OperatingSystem" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="确认签收"></up-icon>
 
-								<u-icon
+								<up-icon
 									top="2rrpx"
 									name="order"
 									v-if="!OperatingSystem"
@@ -358,7 +358,7 @@
 									labelSize="22rpx"
 									labelColor="#333333"
 									label="确认签收"
-								></u-icon>
+								></up-icon>
 							</button>
 							<button
 								v-if="pinia_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
@@ -367,9 +367,9 @@
 								@click="VerifyAdd(item, index, 2)"
 							>
 								<!-- &&item.lockOrder!=1 -->
-								<u-icon v-if="OperatingSystem" name="rmb-circle" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" :label="labText"></u-icon>
+								<up-icon v-if="OperatingSystem" name="rmb-circle" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" :label="labText"></up-icon>
 
-								<u-icon
+								<up-icon
 									top="2rpx"
 									v-if="!OperatingSystem"
 									name="rmb-circle"
@@ -378,7 +378,7 @@
 									labelSize="22rpx"
 									labelColor="#333333"
 									:label="labText"
-								></u-icon>
+								></up-icon>
 							</button>
 							<button
 								v-if="pinia_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
@@ -387,8 +387,8 @@
 								@click="VerifyAdd(item, index, 1)"
 							>
 								<!-- &&item.lockOrder!=1 -->
-								<u-icon v-if="OperatingSystem" name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></u-icon>
-								<u-icon v-if="!OperatingSystem" top="2rrpx" name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></u-icon>
+								<up-icon v-if="OperatingSystem" name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></up-icon>
+								<up-icon v-if="!OperatingSystem" top="2rrpx" name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></up-icon>
 							</button>
 						</view>
 					</view>
@@ -398,10 +398,10 @@
 			<view class="NullView" style="height: 5vh; background-color: transparent"></view>
 		</z-paging>
 
-		<!-- 		<u-empty :show="orderList.length==0" src="https://res-oss.elist.com.cn/wxImg/list/empty.svg" text="暂无记录~"
-			mode="search" margin-top="150"></u-empty> -->
-		<!-- <u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" /> -->
-		<u-popup :show="show_start" mode="top" :safeAreaInsetBottom="false" @close="show_start = false">
+		<!-- 		<up-empty :show="orderList.length==0" src="https://res-oss.elist.com.cn/wxImg/list/empty.svg" text="暂无记录~"
+			mode="search" margin-top="150"></up-empty> -->
+		<!-- <up-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" /> -->
+		<up-popup :show="show_start" mode="top" :safeAreaInsetBottom="false" @close="show_start = false">
 			<view class="flex-col pl30 pr30 pb30 justify-between">
 				<view>
 					<view class="flex-col mt20">
@@ -422,7 +422,7 @@
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
 							<view class="flex-row items-center flex-1">
 								<text class="mr10" style="color: #999999">开始日期</text>
-								<u-icon name="arrow-down-fill" size="10"></u-icon>
+								<up-icon name="arrow-down-fill" size="10"></up-icon>
 								<view
 									@click="
 										$refs.calendars.open();
@@ -436,7 +436,7 @@
 							</view>
 							<view class="flex-row items-center flex-1">
 								<text class="mr10" style="color: #999999">结束日期</text>
-								<u-icon name="arrow-down-fill" size="10"></u-icon>
+								<up-icon name="arrow-down-fill" size="10"></up-icon>
 								<view
 									@click="
 										$refs.calendars.open();
@@ -516,7 +516,7 @@
 
 				<!-- 按钮 -->
 				<view class="flex-row justify-end mt40">
-					<u-button
+					<up-button
 						color="#F4F4F4"
 						type="info"
 						@click="filterReset"
@@ -530,13 +530,13 @@
 						}"
 					>
 						重置
-					</u-button>
-					<u-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
+					</up-button>
+					<up-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</up-button>
 				</view>
 				<!-- 日历选择器 -->
 				<uv-calendars color="#01BB74" confirmColor="#01BB74" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="date1Change" />
 			</view>
-		</u-popup>
+		</up-popup>
 
 		<up-overlay
 			:show="showMask"
@@ -545,12 +545,12 @@
 				password = '';
 			"
 		>
-			<u-popup class="flex-col justify-center items-center" round="15" mode="center" :show="showMask" :safeAreaInsetBottom="false">
+			<up-popup class="flex-col justify-center items-center" round="15" mode="center" :show="showMask" :safeAreaInsetBottom="false">
 				<view class="flex-col justify-center items-center relative" style="height: 400rpx; width: 600rpx">
 					<view class="absolute pt20" style="width: 100%; top: 0; height: 75%">
 						<view class="flex-row items-center justify-center passwordTitle">请输入签收密码</view>
 						<view class="flex-col items-center justify-center mt20" style="width: 100%; height: 35%">
-							<u-message-input
+							<up-message-input
 								active-color="#01BB74"
 								bold="false"
 								@change="changeList"
@@ -559,7 +559,7 @@
 								v-model="password"
 								mode="box"
 								maxlength="4"
-							></u-message-input>
+							></up-message-input>
 							<view class="mt20 err" v-show="err">密码错误，请重新输入</view>
 						</view>
 						<view @click="goPath('/pages/subUser/resetpassword')" class="ft12 pr30 flex-row justify-end pt15" style="color: #999; width: 100%">找回密码</view>
@@ -569,7 +569,7 @@
 						<view @click="confirm(password)" style="width: 50%; height: 100%" class="titlePasOK flex-col justify-center items-center u-border-left">确认</view>
 					</view>
 				</view>
-			</u-popup>
+			</up-popup>
 		</up-overlay>
 	</view>
 </template>

@@ -3,13 +3,13 @@
 		<view class="flex-row justify-center pt30 mb20 avatar-area">
 			<button open-type="chooseAvatar" @chooseavatar="onChooseAvatar" type="default" mode="circle">
 				<view class="relative" style="">
-					<u-avatar :level-icon="camera" size="150rpx" :src="`${userInfo.headPortrait}`"></u-avatar>
+					<up-avatar :level-icon="camera" size="150rpx" :src="`${userInfo.headPortrait}`"></up-avatar>
 					<!-- camera -->
 					<view
 						class="absolute flex-col justify-center items-center"
 						style="border-radius: 50%; width: 50rpx; height: 50rpx; background-color: #f4f4f4; z-index: 9999; right: 0; bottom: 10rpx"
 					>
-						<u-icon name="camera" color="#333333" size="30rpx"></u-icon>
+						<up-icon name="camera" color="#333333" size="30rpx"></up-icon>
 					</view>
 				</view>
 			</button>
@@ -30,7 +30,7 @@
 						placeholder="输入姓名"
 						@blur="onNickname"
 					/>
-					<u-icon name="arrow-right" color="#ccc" @click="userInfoNickNameFocus = true"></u-icon>
+					<up-icon name="arrow-right" color="#ccc" @click="userInfoNickNameFocus = true"></up-icon>
 				</view>
 			</view>
 			<view class="flex-row pt35 pb35 u-border-bottom items-center justify-between">
@@ -46,7 +46,7 @@
 						<view class="flex-row justify-end items-center flex-1">
 							<text>{{ array[gender] || '请选择' }}</text>
 							<view class="ml3">
-								<u-icon name="arrow-right" color="#ccc"></u-icon>
+								<up-icon name="arrow-right" color="#ccc"></up-icon>
 							</view>
 						</view>
 					</picker>
@@ -55,8 +55,8 @@
 			<view class="flex-row pt35 pb35 items-center u-border-bottom justify-between">
 				<text class="ft-gray">状态</text>
 				<view class="flex-row justify-end items-center flex-1" @click="jump">
-					<u-tag v-if="ac ? ac.id != undefined : false" :plain="true" text="已完善" borderColor="#01BB74" color="#01BB74" @click="jump" />
-					<u-tag v-if="ac ? ac.id == undefined : true" :plain="true" text="未完善" type="error" @click="jump" />
+					<up-tag v-if="ac ? ac.id != undefined : false" :plain="true" text="已完善" borderColor="#01BB74" color="#01BB74" @click="jump" />
+					<up-tag v-if="ac ? ac.id == undefined : true" :plain="true" text="未完善" type="error" @click="jump" />
 				</view>
 			</view>
 			<view class="flex-row pt35 pb35 u-border-bottom items-center justify-between">
@@ -67,7 +67,7 @@
 			</view>
 		</view>
 		<view class="flex-col pl60 pr60 pb60 pt60 vw100" style="position: fixed; bottom: 40rpx; text-align: center">
-			<u-button shape="circle" hover-class="none" color="#01BB74" type="primary" @click="updateInfo">保存信息</u-button>
+			<up-button shape="circle" hover-class="none" color="#01BB74" type="primary" @click="updateInfo">保存信息</up-button>
 		</view>
 	</view>
 </template>

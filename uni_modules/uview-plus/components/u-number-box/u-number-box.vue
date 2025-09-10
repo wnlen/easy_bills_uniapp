@@ -18,13 +18,13 @@
 		    :class="{ 'u-number-box__minus--disabled': isDisabled('minus') }"
 		    :style="[buttonStyle('minus')]"
 		>
-			<u-icon
+			<up-icon
 			    name="minus"
 			    :color="isDisabled('minus') ? '#c8c9cc' : '#323233'"
 			    size="15"
 			    bold
 				:customStyle="iconStyle"
-			></u-icon>
+			></up-icon>
 		</view>
 
 		<template v-if="!hideMinus">
@@ -78,13 +78,13 @@
 		    :class="{ 'u-number-box__minus--disabled': isDisabled('plus') }"
 		    :style="[buttonStyle('plus')]"
 		>
-			<u-icon
+			<up-icon
 			    name="plus"
 			    :color="isDisabled('plus') ? '#c8c9cc' : '#323233'"
 			    size="15"
 			    bold
 				:customStyle="iconStyle"
-			></u-icon>
+			></up-icon>
 		</view>
 	</view>
 </template>
@@ -124,7 +124,7 @@
 	 * @event {Function}	onBlur	输入框失去焦点
 	 * @event {Function}	onInput	输入框值发生变化
 	 * @event {Function}	onChange
-	 * @example <u-number-box v-model="value" @change="valChange"></u-number-box>
+	 * @example <up-number-box v-model="value" @change="valChange"></up-number-box>
 	 */
 	export default {
 		name: 'u-number-box',

@@ -2,7 +2,7 @@
 	<view class="">
 		<view class="FilePdf" v-for="(item, index) in fileList" :key="index">
 			<view class="typeIcon" @click="LookFile(item)">
-				<u-icon :name="ImgUrl + fileIcon[item.type]" size="65rpx"></u-icon>
+				<up-icon :name="ImgUrl + fileIcon[item.type]" size="65rpx"></up-icon>
 			</view>
 			<view class="FileDetailed" @click="LookFile(item)">
 				<view class="name ml24">
@@ -11,7 +11,7 @@
 				<view class="FileSize ml24">{{ (item.size / 1024).toFixed(1) }}kb</view>
 			</view>
 			<view class="delIcon" @click="delFile(index, item)" v-if="delShow">
-				<u-icon name="trash" color="#A8A8A8" size="30rpx"></u-icon>
+				<up-icon name="trash" color="#A8A8A8" size="30rpx"></up-icon>
 			</view>
 		</view>
 	</view>

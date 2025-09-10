@@ -52,7 +52,7 @@
 								<text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
 									{{ pinia_userRole === 'R' ? '供应商选择' : '客户选择' }}
 								</text>
-								<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
+								<up-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></up-line>
 								<view class="my-input flex-1">
 									<uv-input
 										border="none"
@@ -66,7 +66,7 @@
 								</view>
 
 								<view class="flex-col justify-center items-center" style="height: 5vh">
-									<view class="ml40"><u-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon></view>
+									<view class="ml40"><up-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></up-icon></view>
 								</view>
 							</view>
 
@@ -74,7 +74,7 @@
 								<text class="ft11 ft-gray ml20" @click="filtrateGet">
 									{{ Title }}
 								</text>
-								<view class="ml10 mr10"><u-icon name="arrow-down-fill" size="20rpx"></u-icon></view>
+								<view class="ml10 mr10"><up-icon name="arrow-down-fill" size="20rpx"></up-icon></view>
 								<view class="my-input flex-1" v-if="showTage !== '1'">
 									<uv-input border="none" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入关键字进行检索"></uv-input>
 								</view>
@@ -84,7 +84,7 @@
 
 								<view class="flex-col justify-center items-center" style="height: 5vh">
 									<view class="ml40">
-										<u-icon name="/static/img/list/ss.svg" size="45rpx" @click="SearchBtn"></u-icon>
+										<up-icon name="/static/img/list/ss.svg" size="45rpx" @click="SearchBtn"></up-icon>
 									</view>
 								</view>
 							</view>
@@ -99,7 +99,7 @@
 									:style="{ backgroundColor: checked ? '#01BB74' : '#ffffff' }"
 									style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 								>
-									<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
+									<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
 								</view>
 								<view class="ml15" style="color: #333333">全选</view>
 							</view>
@@ -108,7 +108,7 @@
 				</view>
 			</template>
 			<view slot="empty" style="padding-bottom: 200rpx">
-				<u-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180"></u-icon>
+				<up-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180"></up-icon>
 			</view>
 
 			<view
@@ -129,7 +129,7 @@
 							@click.stop="checkboxGroupChange(item, index)"
 							style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 						>
-							<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
+							<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
 						</view>
 
 						<text class="ft30 ft-lighgray pr30" style="color: #666666" @tap.stop>
@@ -139,21 +139,21 @@
 							</text>
 						</text>
 
-						<u-icon size="28rpx" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
+						<up-icon size="28rpx" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></up-icon>
 					</view>
 					<view class="ml20" style="margin-right: -20rpx">
-						<u-image v-if="pinia_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></u-image>
-						<u-image v-if="pinia_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/dqs.png"></u-image>
-						<u-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="@/static/img/obj/bq2.png" :lazy-load="true"></u-image>
-						<u-image
+						<up-image v-if="pinia_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></up-image>
+						<up-image v-if="pinia_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/dqs.png"></up-image>
+						<up-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="@/static/img/obj/bq2.png" :lazy-load="true"></up-image>
+						<up-image
 							v-if="pinia_userRole != 'R' && item.paymentState == '2'"
 							width="120rpx"
 							height="50rpx"
 							class="u-img"
 							src="@/static/img/obj/bq3.png"
 							:lazy-load="true"
-						></u-image>
-						<u-image v-if="pinia_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/yfk.png"></u-image>
+						></up-image>
+						<up-image v-if="pinia_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/yfk.png"></up-image>
 					</view>
 				</view>
 				<view class="width100 pb25 text-left">
@@ -202,8 +202,8 @@
 					<view class="flex-row items-center vw100">
 						<view class="items-center flex-row" style="width: 92%; display: flex; justify-content: space-between">
 							<view class="relative" @click="showCheckClick">
-								<u-badge :offset="[0, 0]" bgColor="#FF8F1F" :absolute="true" :value="realTimeSel.ids.length" color="#ffffff"></u-badge>
-								<u-icon size="100rpx" name="https://res-oss.elist.com.cn/wxImg/order/checkOrder.svg"></u-icon>
+								<up-badge :offset="[0, 0]" bgColor="#FF8F1F" :absolute="true" :value="realTimeSel.ids.length" color="#ffffff"></up-badge>
+								<up-icon size="100rpx" name="https://res-oss.elist.com.cn/wxImg/order/checkOrder.svg"></up-icon>
 							</view>
 							<view class="mr20 flex-row" style="text-align: left; font-size: 24rpx; width: 30%; color: #666666">
 								统计：
@@ -223,14 +223,14 @@
 			</template>
 		</z-paging>
 
-		<u-popup :show="showCheck" mode="bottom" round="15" @close="showCheck = false">
+		<up-popup :show="showCheck" mode="bottom" round="15" @close="showCheck = false">
 			<view class="warp" style="height: 70vh; width: 100vw; background-color: #ffffff; border-radius: 15rpx 15rpx 0 0">
 				<z-paging v-if="showCheck" ref="pagingCheck" :fixed="false" v-model="selectList" @query="queryListCheck">
 					<!-- 如果希望其他view跟着页面滚动，可以放在z-paging标签内 -->
 					<view solt="top" style="height: 24rpx"></view>
 					<view class="item OrderCard" v-for="(item, index) in selectList" :key="item.id">
-						<u-swipe-action>
-							<u-swipe-action-item :show="item.show" :name="index" @click="delclick" :options="options">
+						<up-swipe-action>
+							<up-swipe-action-item :show="item.show" :name="index" @click="delclick" :options="options">
 								<view
 									@click="
 										goPath('/pages/subOrder/details?id=' + item.id);
@@ -247,46 +247,46 @@
 												</text>
 											</text>
 
-											<u-icon size="28rpx" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
+											<up-icon size="28rpx" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></up-icon>
 										</view>
 										<view class="ml20 absolute" style="top: 0; right: 0">
-											<u-image
+											<up-image
 												v-if="pinia_userRole == 'D' && item.paymentState == '0'"
 												class="u-img"
 												width="120rpx"
 												height="50rpx"
 												src="@/static/img/obj/bq1.png"
-											></u-image>
-											<u-image
+											></up-image>
+											<up-image
 												v-if="pinia_userRole == 'R' && item.paymentState == '0'"
 												class="u-img"
 												width="120rpx"
 												height="50rpx"
 												src="@/static/img/obj/dqs.png"
-											></u-image>
-											<u-image
+											></up-image>
+											<up-image
 												v-if="item.paymentState == '1'"
 												width="120rpx"
 												height="50rpx"
 												class="u-img"
 												src="@/static/img/obj/bq2.png"
 												:lazy-load="true"
-											></u-image>
-											<u-image
+											></up-image>
+											<up-image
 												v-if="pinia_userRole != 'R' && item.paymentState == '2'"
 												width="120rpx"
 												height="50rpx"
 												class="u-img"
 												src="@/static/img/obj/bq3.png"
 												:lazy-load="true"
-											></u-image>
-											<u-image
+											></up-image>
+											<up-image
 												v-if="pinia_userRole == 'R' && item.paymentState == '2'"
 												class="u-img"
 												width="120rpx"
 												height="50rpx"
 												src="@/static/img/obj/yfk.png"
-											></u-image>
+											></up-image>
 										</view>
 									</view>
 									<view class="width100 pb25 text-left">
@@ -333,16 +333,16 @@
 										备注：{{ item.receiptsDescr }}
 									</text>
 								</view>
-							</u-swipe-action-item>
-						</u-swipe-action>
+							</up-swipe-action-item>
+						</up-swipe-action>
 					</view>
 					<template #bottom>
 						<view class="flex-row justify-between items-center pd30 bg-white">
 							<view class="flex-row items-center vw100">
 								<view class="items-center flex-row" style="width: 92%; display: flex; justify-content: space-between">
 									<view class="relative" @click="showCheckClick">
-										<u-badge :offset="[0, 0]" bgColor="#FF8F1F" :absolute="true" :value="realTimeSel.ids.length" color="#ffffff"></u-badge>
-										<u-icon size="100rpx" name="https://res-oss.elist.com.cn/wxImg/order/checkOrder.svg"></u-icon>
+										<up-badge :offset="[0, 0]" bgColor="#FF8F1F" :absolute="true" :value="realTimeSel.ids.length" color="#ffffff"></up-badge>
+										<up-icon size="100rpx" name="https://res-oss.elist.com.cn/wxImg/order/checkOrder.svg"></up-icon>
 									</view>
 									<view class="mr20 flex-row" style="text-align: left; font-size: 24rpx; width: 30%; color: #666666">
 										统计：
@@ -371,11 +371,11 @@
 					</template>
 				</z-paging>
 			</view>
-		</u-popup>
+		</up-popup>
 
-		<!-- <u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" /> -->
+		<!-- <up-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" /> -->
 
-		<u-popup :show="show_start" mode="top" width="550rpx" :safeAreaInsetBottom="false" @close="show_start = false">
+		<up-popup :show="show_start" mode="top" width="550rpx" :safeAreaInsetBottom="false" @close="show_start = false">
 			<view class="flex-col pl30 pr30 pb30 justify-between">
 				<view>
 					<view class="flex-col mt40">
@@ -396,7 +396,7 @@
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
 							<view class="flex-row items-center flex-1">
 								<text class="mr10" style="color: #999999">开始日期</text>
-								<u-icon name="arrow-down-fill" size="10"></u-icon>
+								<up-icon name="arrow-down-fill" size="10"></up-icon>
 								<view
 									@click="
 										$refs.calendars.open();
@@ -410,7 +410,7 @@
 							</view>
 							<view class="flex-row items-center flex-1">
 								<text class="mr10" style="color: #999999">结束日期</text>
-								<u-icon name="arrow-down-fill" size="10"></u-icon>
+								<up-icon name="arrow-down-fill" size="10"></up-icon>
 								<view
 									@click="
 										$refs.calendars.open();
@@ -490,7 +490,7 @@
 
 				<!-- 按钮 -->
 				<view class="flex-row justify-end mt40">
-					<u-button
+					<up-button
 						color="#F4F4F4"
 						type="info"
 						@click="filterReset"
@@ -504,11 +504,11 @@
 						}"
 					>
 						重置
-					</u-button>
-					<u-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
+					</up-button>
+					<up-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</up-button>
 				</view>
 			</view>
-		</u-popup>
+		</up-popup>
 
 		<!-- 日历选择器 -->
 		<uv-calendars color="#01BB74" confirmColor="#01BB74" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="date1Change" />

@@ -29,7 +29,7 @@
 	 * @event {Function} start	开始倒计时
 	 * @event {Function} pause	暂停倒计时 
 	 * @event {Function} reset	重设倒计时，若 auto-start 为 true，重设后会自动开始倒计时 
-	 * @example <u-count-down :time="time"></u-count-down>
+	 * @example <up-count-down :time="time"></up-count-down>
 	 */
 	export default {
 		name: 'u-count-down',

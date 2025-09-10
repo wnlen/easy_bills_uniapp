@@ -35,7 +35,7 @@
 	 * @property {Boolean} disabled 是否禁用此选项卡（默认false）
 	 * @property {String | Number} duration 选项卡展开和收起的过渡时间，单位ms（默认300）
 	 * @property {String | Number} height 弹窗下拉内容的高度(内容超出将会滚动)（默认auto）
-	 * @example <u-dropdown-item title="标题"></u-dropdown-item>
+	 * @example <up-dropdown-item title="标题"></up-dropdown-item>
 	 */
 	export default {
 		name: 'u-dropdown-item',

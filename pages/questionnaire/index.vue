@@ -15,8 +15,8 @@
 				</text>
 				<text class="item-title-type" v-if="q_item.type == 'single' || q_item.type == 'multi'">({{ getStatusText(q_item.type) }})</text>
 				<view class="list-item-radio" v-if="q_item.type == 'single'">
-					<u-radio-group v-model="FormData[q_item.id].o_id" active-color="#ff9900" shape="square" :wrap="true" size="17" placement="column">
-						<u-radio
+					<up-radio-group v-model="FormData[q_item.id].o_id" active-color="#ff9900" shape="square" :wrap="true" size="17" placement="column">
+						<up-radio
 							v-for="(o_item, o_index) in q_item.options"
 							:key="o_item.id"
 							:label="o_item.content"
@@ -31,8 +31,8 @@
 							"
 						>
 							{{ o_item.content }}
-						</u-radio>
-					</u-radio-group>
+						</up-radio>
+					</up-radio-group>
 
 					<view v-show="FormData[q_item.id].is_qita">
 						<up-input
@@ -74,7 +74,7 @@
 							:border-bottom="false"
 							label-width="0"
 						></up-input> -->
-						<u-textarea v-model="FormData[q_item.id].content" placeholder="填写更多答案"></u-textarea>
+						<up-textarea v-model="FormData[q_item.id].content" placeholder="填写更多答案"></up-textarea>
 					</view>
 				</view>
 				<view v-if="q_item.type == 'text'">
@@ -86,14 +86,14 @@
 						:border-bottom="false"
 						label-width="0"
 					></up-input> -->
-					<u-textarea v-model="FormData[q_item.id].content" placeholder="填写更多答案" :customStyle="{ marginTop: '20rpx' }"></u-textarea>
+					<up-textarea v-model="FormData[q_item.id].content" placeholder="填写更多答案" :customStyle="{ marginTop: '20rpx' }"></up-textarea>
 				</view>
 			</view>
 			<view class="Note">注：仅可领取一次，主体下多成员的累积领取至多四次</view>
 			<view class="btn_submit">
-				<u-button type="warning" shape="circle" size="default" @click="submit" :customStyle="btn_submitStyle">提交</u-button>
+				<up-button type="warning" shape="circle" size="default" @click="submit" :customStyle="btn_submitStyle">提交</up-button>
 			</view>
-			<u-toast ref="uToast1" />
+			<up-toast ref="uToast1" />
 		</view>
 	</view>
 </template>

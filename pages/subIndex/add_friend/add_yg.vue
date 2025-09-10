@@ -27,7 +27,7 @@
 				style="height: 10vh; width: 93vw; margin-top: 2vh; border-radius: 6px"
 			>
 				<view class="flex-col justify-center items-center ml20" style="width: 13vw">
-					<u-image width="90rpx" height="90rpx" shape="circle" :src="item.headPortrait || defaultImg"></u-image>
+					<up-image width="90rpx" height="90rpx" shape="circle" :src="item.headPortrait || defaultImg"></up-image>
 				</view>
 				<view class="ml10 flex-col justify-left items-baseline flex-1">
 					<view class="flex-row items-center">
@@ -35,7 +35,7 @@
 						<text class="ml10" style="">{{ userName(item.name) || '用户' }}</text>
 					</view>
 					<view v-show="item.map != '' && item.map.boss" class="flex-row justify-start items-center" style="width: 60vw; font-size: 12px; height: 50%">
-						<!-- <u-icon name="https://res-oss.elist.com.cn/wxImg/user/yrz-s.svg" width="200rpx" height="20rpx"></u-icon> -->
+						<!-- <up-icon name="https://res-oss.elist.com.cn/wxImg/user/yrz-s.svg" width="200rpx" height="20rpx"></up-icon> -->
 						<image src="https://res-oss.elist.com.cn/wxImg/user/yrz-s.svg" style="width: 100rpx" mode="widthFix"></image>
 						<text class="ml10" style="color: #333333">
 							{{ item.map.enterpriseName != undefined ? item.map.enterpriseName : '该用户已进入其他账户' }}

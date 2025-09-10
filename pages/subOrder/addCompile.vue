@@ -1,6 +1,6 @@
 <template>
 	<view class="vh100 pb60 flex-col justify-center" style="background-color: #ffffff" :class="showCalendar ? 'body-no-scroll' : ''">
-		<u-navbar
+		<up-navbar
 			:autoBack="true"
 			:placeholder="true"
 			:custom-back="navBack"
@@ -10,10 +10,10 @@
 			title="订单修改"
 			title-size="34"
 			bgColor="#ffffff"
-		></u-navbar>
+		></up-navbar>
 
 		<view v-if="!identity" class="flex-row justify-center items-center absolute" style="width: 100%; top: 30%">
-			<u-image src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" width="600rpx" height="400rpx"></u-image>
+			<up-image src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" width="600rpx" height="400rpx"></up-image>
 			<view class="absolute" style="bottom: -80rpx; color: #aaaaaa; font-size: 28rpx">无开单权限~</view>
 		</view>
 
@@ -48,7 +48,7 @@
 		<view class="form-wrap pt20 absolute" style="background-color: #ffffff" v-if="pinia_userRole == 'D' && shareShow == false && identity">
 			<view class="form-inner flex-col" style="font-size: 28rpx; background-color: #ffffff">
 				<view class="flex-col justify-left">
-					<u-image v-if="pinia_user.eorderLogo" :src="pinia_user.eorderLogo" width="152" height="60" mode="aspectFill" />
+					<up-image v-if="pinia_user.eorderLogo" :src="pinia_user.eorderLogo" width="152" height="60" mode="aspectFill" />
 					<view class="ft-bold handcolor">发货单信息</view>
 					<view class="flex-row items-end pt20 pb20 u-border-bottom">
 						<text class="textcolor">订单编号:</text>
@@ -101,9 +101,9 @@
 							"
 						>
 							<view class="mr20">
-								<u-line class="" color="#D8D8D8" length="50rpx" direction="col"></u-line>
+								<up-line class="" color="#D8D8D8" length="50rpx" direction="col"></up-line>
 							</view>
-							<u-icon size="45rpx" name="https://res-oss.elist.com.cn/wxImg/order/time.png"></u-icon>
+							<up-icon size="45rpx" name="https://res-oss.elist.com.cn/wxImg/order/time.png"></up-icon>
 						</view>
 						<uv-calendars
 							color="#01BB74"
@@ -176,26 +176,26 @@
 						<view style="color: #666666" class="up-line-1 flex-1">{{ item.specification }}</view>
 					</view>
 					<view class="flex-row items-center justify-center" style="width: 100%">
-						<u-line class="u-line ml24 mr24" color="#F4F4F4" length="100%"></u-line>
+						<up-line class="u-line ml24 mr24" color="#F4F4F4" length="100%"></up-line>
 					</view>
-					<u-table border-color="#ffffff">
-						<u-tr>
-							<u-td>数量</u-td>
-							<u-td>单位</u-td>
-							<u-td>单价</u-td>
-							<u-td>金额</u-td>
-						</u-tr>
-						<u-tr>
-							<u-td>{{ item.quantity }}</u-td>
-							<u-td>{{ item.unit }}</u-td>
-							<u-td>{{ item.unitPrice }}</u-td>
-							<u-td>
+					<up-table border-color="#ffffff">
+						<up-tr>
+							<up-td>数量</up-td>
+							<up-td>单位</up-td>
+							<up-td>单价</up-td>
+							<up-td>金额</up-td>
+						</up-tr>
+						<up-tr>
+							<up-td>{{ item.quantity }}</up-td>
+							<up-td>{{ item.unit }}</up-td>
+							<up-td>{{ item.unitPrice }}</up-td>
+							<up-td>
 								<text style="width: 200rpx" class="up-line-1">
 									￥{{ item.quantity != '-' && item.quantity != '' ? formatAmount(item.unitPrice * item.quantity) : 0 }}
 								</text>
-							</u-td>
-						</u-tr>
-					</u-table>
+							</up-td>
+						</up-tr>
+					</up-table>
 				</view>
 			</scroll-view>
 
@@ -209,23 +209,23 @@
 					<text class="absolute textcolor" style="right: 24rpx; color: #666666">{{ digitUppercase(orderTotal) }}</text>
 				</view>
 				<view class="pd12">
-					<u-line color="#E0E0E0"></u-line>
+					<up-line color="#E0E0E0"></up-line>
 				</view>
 				<view class="pd12 flex-row justify-center" style="width: 100%">
 					<view class="flex-row justify-center items-center" style="width: 49%">
-						<u-icon labelPos="bottom" @click="merchandiseInventory(true)" name="https://res-oss.elist.com.cn/wxImg/order/bj.svg" size="70rpx" label="修改"></u-icon>
+						<up-icon labelPos="bottom" @click="merchandiseInventory(true)" name="https://res-oss.elist.com.cn/wxImg/order/bj.svg" size="70rpx" label="修改"></up-icon>
 					</view>
 					<view class="flex-row justify-center items-center" style="width: 2%">
-						<u-line direction="col" length="50" color="#E0E0E0" />
+						<up-line direction="col" length="50" color="#E0E0E0" />
 					</view>
 					<view class="flex-row justify-center items-center" style="width: 49%">
-						<u-icon
+						<up-icon
 							labelPos="bottom"
 							@click="merchandiseInventory(false)"
 							name="https://res-oss.elist.com.cn/wxImg/order/spk.svg"
 							size="70rpx"
 							label="添加商品"
-						></u-icon>
+						></up-icon>
 					</view>
 				</view>
 			</view>
@@ -236,7 +236,7 @@
 				</view>
 
 				<view class="flex-row flex-wrap mt40" style="width: 95%">
-					<u-upload
+					<up-upload
 						autoDelete
 						autoUploadDriver="local"
 						v-model:fileList="fileList"
@@ -248,8 +248,8 @@
 						:previewFullImage="true"
 						@afterRead="handleUpload"
 					>
-						<u-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></u-icon>
-					</u-upload>
+						<up-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></up-icon>
+					</up-upload>
 				</view>
 
 				<view class="flex-col mt45" style="width: 95%">
@@ -289,11 +289,11 @@
 			</view>
 
 			<view class="mt60 pl20 pr20 pb30">
-				<u-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder" shape="circle">修改订单</u-button>
+				<up-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder" shape="circle">修改订单</up-button>
 			</view>
 		</view>
-		<!-- 		<u-select mode="single-column" label-name="productName" value-name="id" :list="selectList" v-model="selectShow"
-			@confirm="selectConfirm"></u-select> -->
+		<!-- 		<up-select mode="single-column" label-name="productName" value-name="id" :list="selectList" v-model="selectShow"
+			@confirm="selectConfirm"></up-select> -->
 
 		<pop-auth ref="popAuth"></pop-auth>
 		<!-- 认证提醒 -->

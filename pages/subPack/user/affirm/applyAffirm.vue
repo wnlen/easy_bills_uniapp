@@ -1,6 +1,6 @@
 <template>
 	<view class="applyAffirm">
-		<u-icon size="250" :name="ImgUrl + '/wxImg/user/unsubscribeApplyImg02.png'"></u-icon>
+		<up-icon size="250" :name="ImgUrl + '/wxImg/user/unsubscribeApplyImg02.png'"></up-icon>
 
 		<view class="applyAffirmTitle">注销审核中</view>
 		<text class="applyAffirmText">请注意接听来电回访，回访成功后</text>
@@ -11,7 +11,7 @@
 				{{ withdrawText }}
 			</view>
 			<view class="relation">
-				<u-button hover-class="none" :hair-line="false" open-type="contact" :customStyle="buttonStyle">联系客服</u-button>
+				<up-button hover-class="none" :hair-line="false" open-type="contact" :customStyle="buttonStyle">联系客服</up-button>
 			</view>
 		</view>
 	</view>

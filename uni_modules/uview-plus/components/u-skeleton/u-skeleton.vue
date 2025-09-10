@@ -74,7 +74,7 @@
 	 * @property {Boolean}					avatar		是否展示头像占位图 (默认 false )
 	 * @property {String | Number}			avatarSize	头像占位图大小 (默认 32 )
 	 * @property {String}					avatarShape	头像占位图的形状，circle-圆形，square-方形 (默认 'circle' )
-	 * @example <u-search placeholder="日照香炉生紫烟" v-model="keyword"></u-search>
+	 * @example <up-search placeholder="日照香炉生紫烟" v-model="keyword"></up-search>
 	 */
 	export default {
 		name: 'u-skeleton',

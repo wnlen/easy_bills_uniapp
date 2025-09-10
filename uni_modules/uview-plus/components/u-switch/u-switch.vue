@@ -21,7 +21,7 @@
 		    :style="[nodeStyle]"
 		    ref="u-switch__node"
 		>
-			<u-loading-icon
+			<up-loading-icon
 			    :show="loading"
 			    mode="circle"
 			    timingFunction='linear'
@@ -59,7 +59,7 @@
 	 * @property {Object}						customStyle		定义需要用到的外部样式
 	 *
 	 * @event {Function} change 在switch打开或关闭时触发
-	 * @example <u-switch v-model="checked" active-color="red" inactive-color="#eee"></u-switch>
+	 * @example <up-switch v-model="checked" active-color="red" inactive-color="#eee"></up-switch>
 	 */
 	export default {
 		name: "u-switch",
