@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<u-navbar
+		<up-navbar
 			:autoBack="true"
 			:placeholder="true"
 			:custom-back="rightClick"
@@ -10,10 +10,10 @@
 			title="一键开单"
 			title-size="34"
 			bgColor="#ffffff"
-		></u-navbar>
+		></up-navbar>
 		<view class="">
 			<view class="flex-col items-center absolute" style="width: 100%; top: 30%">
-				<u-image src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" width="600rpx" height="300rpx"></u-image>
+				<up-image src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" width="600rpx" height="300rpx"></up-image>
 				<view class="absolute" style="bottom: -300rpx; color: #aaaaaa; font-size: 28rpx">
 					<view class="hand">您暂无权限~</view>
 					<view class="title">一键开单权益已到期，请联系</view>

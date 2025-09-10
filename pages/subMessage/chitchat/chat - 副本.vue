@@ -17,7 +17,7 @@
 			:OperatingSystem="OperatingSystem"
 		>
 			<view slot="hander">
-				<u-navbar
+				<up-navbar
 					:custom-back="customBack"
 					:background="{ background: 'transparent' }"
 					:border-bottom="false"
@@ -26,7 +26,7 @@
 					title="客服咨询"
 					title-size="34"
 					bgColor="#ffffff"
-				></u-navbar>
+				></up-navbar>
 				<view class="">
 					<text>工作时间 09:00-18:00</text>
 					<!-- <text :style="{color:support.work?'#01BB74':'#F76565'}">{{support.work?"(在线)":"(离线)"}}</text> -->

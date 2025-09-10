@@ -7,7 +7,7 @@
 		style="background-size: cover"
 	>
 		<view v-show="show == 1">
-			<u-navbar
+			<up-navbar
 				:placeholder="true"
 				:border-bottom="false"
 				back-icon-color="#000000"
@@ -17,7 +17,7 @@
 				@leftClick="shareClick"
 				title-size="34"
 				bgColor="#ffffff"
-			></u-navbar>
+			></up-navbar>
 			<view class="content">
 				<!-- 正文内容 -->
 			</view>
@@ -26,12 +26,12 @@
 			<view class="ml20 mr20">
 				<view class="flex-row" style="margin-top: 2%">
 					<view class="" style="width: 20%">
-						<!-- <u-image src="https://res-oss.elist.com.cn/wxImg/order/orderLog.svg" width="200rpx"
-							height="58rpx"></u-image> -->
-						<u-image mode="scaleToFill" src="https://res-oss.elist.com.cn/wxImg/order/logo.svg" width="200rpx" height="80rpx"></u-image>
+						<!-- <up-image src="https://res-oss.elist.com.cn/wxImg/order/orderLog.svg" width="200rpx"
+							height="58rpx"></up-image> -->
+						<up-image mode="scaleToFill" src="https://res-oss.elist.com.cn/wxImg/order/logo.svg" width="200rpx" height="80rpx"></up-image>
 					</view>
 					<view class="flex-row justify-center items-center" style="width: 60%">
-						<u-image src="@/static/img/order/dd2x.svg" width="292rpx" height="44rpx"></u-image>
+						<up-image src="@/static/img/order/dd2x.svg" width="292rpx" height="44rpx"></up-image>
 					</view>
 					<view class="" style="width: 20%"></view>
 				</view>
@@ -46,100 +46,100 @@
 
 				<view class="bg-white pb350 flex-co mt10">
 					<view v-if="wxType == 0 || wxType == undefined" class="absolute" style="right: 20rpx">
-						<u-image
+						<up-image
 							v-if="post.paymentState == '0' && pinia_userRole != 'R'"
 							src="https://res-oss.elist.com.cn/wxImg/order/dqs.png"
 							width="240rpx"
 							height="240rpx"
-						></u-image>
-						<u-image
+						></up-image>
+						<up-image
 							v-if="post.paymentState == '0' && pinia_userRole == 'R'"
 							src="https://res-oss.elist.com.cn/wxImg/order/dqs-r.png"
 							width="240rpx"
 							height="240rpx"
-						></u-image>
-						<u-image v-if="post.paymentState == '1'" src="https://res-oss.elist.com.cn/wxImg/order/yqs.png" width="240rpx" height="240rpx"></u-image>
-						<u-image
+						></up-image>
+						<up-image v-if="post.paymentState == '1'" src="https://res-oss.elist.com.cn/wxImg/order/yqs.png" width="240rpx" height="240rpx"></up-image>
+						<up-image
 							v-if="post.paymentState == '2' && pinia_userRole != 'R'"
 							src="https://res-oss.elist.com.cn/wxImg/order/ysk.png"
 							width="240rpx"
 							height="240rpx"
-						></u-image>
-						<u-image
+						></up-image>
+						<up-image
 							v-if="post.paymentState == '2' && pinia_userRole == 'R'"
 							src="https://res-oss.elist.com.cn/wxImg/order/yfk.png"
 							width="240rpx"
 							height="240rpx"
-						></u-image>
+						></up-image>
 					</view>
 
 					<view v-if="wxType == 1 && ShowFXE" class="absolute" style="right: 20rpx">
-						<u-image v-if="post.paymentState == '0' && port == 'D'" src="https://res-oss.elist.com.cn/wxImg/order/dqs.png" width="240rpx" height="240rpx"></u-image>
-						<u-image v-if="post.paymentState == '0' && port == 'R'" src="https://res-oss.elist.com.cn/wxImg/order/dqs-r.png" width="240rpx" height="240rpx"></u-image>
-						<u-image v-if="post.paymentState == '1' && port == 'D'" src="https://res-oss.elist.com.cn/wxImg/order/yqs.png" width="240rpx" height="240rpx"></u-image>
-						<u-image v-if="post.paymentState == '1' && port == 'R'" src="https://res-oss.elist.com.cn/wxImg/order/yqs.png" width="240rpx" height="240rpx"></u-image>
-						<u-image v-if="post.paymentState == '2' && port == 'D'" src="https://res-oss.elist.com.cn/wxImg/order/ysk.png" width="240rpx" height="240rpx"></u-image>
-						<u-image v-if="post.paymentState == '2' && port == 'R'" src="https://res-oss.elist.com.cn/wxImg/order/yfk.png" width="240rpx" height="240rpx"></u-image>
+						<up-image v-if="post.paymentState == '0' && port == 'D'" src="https://res-oss.elist.com.cn/wxImg/order/dqs.png" width="240rpx" height="240rpx"></up-image>
+						<up-image v-if="post.paymentState == '0' && port == 'R'" src="https://res-oss.elist.com.cn/wxImg/order/dqs-r.png" width="240rpx" height="240rpx"></up-image>
+						<up-image v-if="post.paymentState == '1' && port == 'D'" src="https://res-oss.elist.com.cn/wxImg/order/yqs.png" width="240rpx" height="240rpx"></up-image>
+						<up-image v-if="post.paymentState == '1' && port == 'R'" src="https://res-oss.elist.com.cn/wxImg/order/yqs.png" width="240rpx" height="240rpx"></up-image>
+						<up-image v-if="post.paymentState == '2' && port == 'D'" src="https://res-oss.elist.com.cn/wxImg/order/ysk.png" width="240rpx" height="240rpx"></up-image>
+						<up-image v-if="post.paymentState == '2' && port == 'R'" src="https://res-oss.elist.com.cn/wxImg/order/yfk.png" width="240rpx" height="240rpx"></up-image>
 					</view>
 
 					<view v-if="wxType == 1 && LookShar == 'S'" class="absolute" style="right: 20rpx">
-						<u-image v-if="post.paymentState == '0'" src="https://res-oss.elist.com.cn/wxImg/order/dqs.png" width="240rpx" height="240rpx"></u-image>
-						<u-image v-if="post.paymentState == '1'" src="https://res-oss.elist.com.cn/wxImg/order/yqs.png" width="240rpx" height="240rpx"></u-image>
-						<u-image v-if="post.paymentState == '2'" src="https://res-oss.elist.com.cn/wxImg/order/yfk.png" width="240rpx" height="240rpx"></u-image>
+						<up-image v-if="post.paymentState == '0'" src="https://res-oss.elist.com.cn/wxImg/order/dqs.png" width="240rpx" height="240rpx"></up-image>
+						<up-image v-if="post.paymentState == '1'" src="https://res-oss.elist.com.cn/wxImg/order/yqs.png" width="240rpx" height="240rpx"></up-image>
+						<up-image v-if="post.paymentState == '2'" src="https://res-oss.elist.com.cn/wxImg/order/yfk.png" width="240rpx" height="240rpx"></up-image>
 					</view>
 
 					<view v-if="wxType == 1 && LookShar == 'F'" class="absolute" style="right: 20rpx">
-						<u-image v-if="post.paymentState == '0'" src="https://res-oss.elist.com.cn/wxImg/order/dqs-r.png" width="240rpx" height="240rpx"></u-image>
-						<u-image v-if="post.paymentState == '1'" src="https://res-oss.elist.com.cn/wxImg/order/yqs.png" width="240rpx" height="240rpx"></u-image>
-						<u-image v-if="post.paymentState == '2' && port == 'R'" src="https://res-oss.elist.com.cn/wxImg/order/yfk.png" width="240rpx" height="240rpx"></u-image>
+						<up-image v-if="post.paymentState == '0'" src="https://res-oss.elist.com.cn/wxImg/order/dqs-r.png" width="240rpx" height="240rpx"></up-image>
+						<up-image v-if="post.paymentState == '1'" src="https://res-oss.elist.com.cn/wxImg/order/yqs.png" width="240rpx" height="240rpx"></up-image>
+						<up-image v-if="post.paymentState == '2' && port == 'R'" src="https://res-oss.elist.com.cn/wxImg/order/yfk.png" width="240rpx" height="240rpx"></up-image>
 					</view>
 
 					<!-- <view v-if="wxType==1&&!ShowFXE" class="absolute" style="right: 20rpx;">
-						<u-image v-if="post.paymentState=='0'&&port=='D'"
+						<up-image v-if="post.paymentState=='0'&&port=='D'"
 							src="https://res-oss.elist.com.cn/wxImg/order/dqs.png" width="240rpx"
-							height="240rpx"></u-image>
-						<u-image v-if="post.paymentState=='0'&&port=='R'"
+							height="240rpx"></up-image>
+						<up-image v-if="post.paymentState=='0'&&port=='R'"
 							src="https://res-oss.elist.com.cn/wxImg/order/dqs-r.png" width="240rpx"
-							height="240rpx"></u-image>
-						<u-image v-if="post.paymentState=='1'&&port=='D'"
+							height="240rpx"></up-image>
+						<up-image v-if="post.paymentState=='1'&&port=='D'"
 							src="https://res-oss.elist.com.cn/wxImg/order/yqs.png" width="240rpx"
-							height="240rpx"></u-image>
-						<u-image v-if="post.paymentState=='1'&&port=='R'"
+							height="240rpx"></up-image>
+						<up-image v-if="post.paymentState=='1'&&port=='R'"
 							src="https://res-oss.elist.com.cn/wxImg/order/yqs.png" width="240rpx"
-							height="240rpx"></u-image>
-						<u-image v-if="post.paymentState=='2'&&port=='D'"
+							height="240rpx"></up-image>
+						<up-image v-if="post.paymentState=='2'&&port=='D'"
 							src="https://res-oss.elist.com.cn/wxImg/order/ysk.png" width="240rpx"
-							height="240rpx"></u-image>
-						<u-image v-if="post.paymentState=='2'&&port=='R'"
+							height="240rpx"></up-image>
+						<up-image v-if="post.paymentState=='2'&&port=='R'"
 							src="https://res-oss.elist.com.cn/wxImg/order/yfk.png" width="240rpx"
-							height="240rpx"></u-image>
+							height="240rpx"></up-image>
 					</view>
 					
 					
 					<view v-if="wxType==1&&ShowFXE" class="absolute" style="right: 20rpx;">
-						<u-image v-if="post.paymentState=='0'&&port=='D'"
+						<up-image v-if="post.paymentState=='0'&&port=='D'"
 							src="https://res-oss.elist.com.cn/wxImg/order/dqs-r.png" width="240rpx"
-							height="240rpx"></u-image>
-						<u-image v-if="post.paymentState=='0'&&port=='R'"
+							height="240rpx"></up-image>
+						<up-image v-if="post.paymentState=='0'&&port=='R'"
 							src="https://res-oss.elist.com.cn/wxImg/order/dqs.png" width="240rpx"
-							height="240rpx"></u-image>
-						<u-image v-if="post.paymentState=='1'&&port=='D'"
+							height="240rpx"></up-image>
+						<up-image v-if="post.paymentState=='1'&&port=='D'"
 							src="https://res-oss.elist.com.cn/wxImg/order/yqs.png" width="240rpx"
-							height="240rpx"></u-image>
-						<u-image v-if="post.paymentState=='1'&&port=='R'"
+							height="240rpx"></up-image>
+						<up-image v-if="post.paymentState=='1'&&port=='R'"
 							src="https://res-oss.elist.com.cn/wxImg/order/yqs.png" width="240rpx"
-							height="240rpx"></u-image>
-						<u-image v-if="post.paymentState=='2'&&port=='D'"
+							height="240rpx"></up-image>
+						<up-image v-if="post.paymentState=='2'&&port=='D'"
 							src="https://res-oss.elist.com.cn/wxImg/order/yfk.png" width="240rpx"
-							height="240rpx"></u-image>
-						<u-image v-if="post.paymentState=='2'&&port=='R'"
+							height="240rpx"></up-image>
+						<up-image v-if="post.paymentState=='2'&&port=='R'"
 							src="https://res-oss.elist.com.cn/wxImg/order/ysk.png" width="240rpx"
-							height="240rpx"></u-image>
+							height="240rpx"></up-image>
 					</view> -->
 
 					<view class="pd20 black-border-top black-border-left black-border-right">
 						<view class="flex-row" style="font-family: ddbh">
-							<u-icon size="50rpx" name="https://res-oss.elist.com.cn/wxImg/order/number.svg"></u-icon>
+							<up-icon size="50rpx" name="https://res-oss.elist.com.cn/wxImg/order/number.svg"></up-icon>
 							<text class="ml10 mt10" style="color: #fa5151; font-size: 30rpx">{{ post.orderNumber || '' }}</text>
 						</view>
 						<view class="flex-row mt13 xqcss">
@@ -263,9 +263,9 @@
 
 						<view class="xqcss pt35 flex-row items-center black-border-left black-border-right" style="height: 12vh" v-if="imgList.length > 0">
 							<view class="ml20" style="" v-for="(item2, index2) in imgList" :key="index2">
-								<u-image :src="item2.url" shape="square" width="150rpx" height="150rpx" @click="bigImg(item2.url)">
+								<up-image :src="item2.url" shape="square" width="150rpx" height="150rpx" @click="bigImg(item2.url)">
 									<up-loading-icon slot="loading"></up-loading-icon>
-								</u-image>
+								</up-image>
 							</view>
 						</view>
 
@@ -309,8 +309,8 @@
 						style="width: 100%;color: #aaaaaa;background-color: #F5FCF9;border-radius: 6rpx;height: 80rpx;">
 						<view class="flex-row justify-between ml10 mb4"
 							style="border-bottom: 2rpx solid #01BB74;left: 20rpx;" @click="print">
-							<u-icon name="https://res-oss.elist.com.cn/wxImg/print/print.svg" labelColor="#01BB74"
-								label="打印单据" size="40rpx"></u-icon>
+							<up-icon name="https://res-oss.elist.com.cn/wxImg/print/print.svg" labelColor="#01BB74"
+								label="打印单据" size="40rpx"></up-icon>
 						</view>
 						<view class="flex-end absolute" style="right: 20rpx;">
 							已打印{{PrintNum}}次
@@ -323,7 +323,7 @@
 							style="width: 68%; color: #aaaaaa; background-color: #f5fcf9; border-radius: 6rpx; height: 80rpx"
 						>
 							<view class="flex-row justify-between ml10 mb4" style="border-bottom: 2rpx solid #01bb74; left: 20rpx" @click="print">
-								<u-icon name="https://res-oss.elist.com.cn/wxImg/print/print.svg" labelColor="#01BB74" label="打印单据" size="40rpx"></u-icon>
+								<up-icon name="https://res-oss.elist.com.cn/wxImg/print/print.svg" labelColor="#01BB74" label="打印单据" size="40rpx"></up-icon>
 							</view>
 							<view class="flex-end absolute" style="right: 20rpx">已打印{{ PrintNum }}次</view>
 						</view>
@@ -342,16 +342,16 @@
 			</view>
 		</view>
 
-		<u-popup :show="showZG" mode="center" @close="showZG = false" :safeAreaInsetBottom="false">
+		<up-popup :show="showZG" mode="center" @close="showZG = false" :safeAreaInsetBottom="false">
 			<image style="width: 500rpx; height: 100%; display: block" :src="showZGImg" mode="widthFix"></image>
-		</u-popup>
+		</up-popup>
 
-		<u-popup class="flex-col justify-center items-center" :round="15" mode="center" :show="showMask" @close="showMask = false" :safeAreaInsetBottom="false">
+		<up-popup class="flex-col justify-center items-center" :round="15" mode="center" :show="showMask" @close="showMask = false" :safeAreaInsetBottom="false">
 			<view class="flex-col justify-center items-center relative" style="height: 400rpx; width: 600rpx">
 				<view class="absolute pt20" style="width: 100%; top: 0; height: 75%">
 					<view class="flex-row items-center justify-center passwordTitle">请输入签收密码</view>
 					<view class="flex-col items-center justify-center mt20" style="width: 100%; height: 35%">
-						<u-message-input active-color="#01BB74" @change="changePassword" @finish="finishPassword" :dot-fill="true" v-model="password" mode="box"></u-message-input>
+						<up-message-input active-color="#01BB74" @change="changePassword" @finish="finishPassword" :dot-fill="true" v-model="password" mode="box"></up-message-input>
 						<view class="mt20 err" v-show="err">密码错误，请重新输入</view>
 					</view>
 					<view @click="goPath('/pages/subUser/resetpassword')" class="ft12 pr30 flex-row justify-end pt15" style="color: #999; width: 100%">找回密码</view>
@@ -361,9 +361,9 @@
 					<view @click="confirm" style="width: 50%; height: 100%" class="titlePasOK flex-col justify-center items-center u-border-left">确认</view>
 				</view>
 			</view>
-		</u-popup>
+		</up-popup>
 
-		<u-popup
+		<up-popup
 			:show="showBrowsePrint"
 			:customStyle="customStylePrint"
 			mode="center"
@@ -376,7 +376,7 @@
 		>
 			<view class="w100 pt30 relative flex-col items-center" style="width: 650rpx" :style="`height:${showBrowsePrintHeight}`">
 				<scroll-view scroll-y="true" class="u-border pt20 pb20" style="width: 90%; overflow-y: auto" :style="{ height: ImageSoleHeight }">
-					<u-image width="100%" :src="item" mode="widthFix" v-for="(item, index) in browse" :show-menu-by-longpress="false" :key="index"></u-image>
+					<up-image width="100%" :src="item" mode="widthFix" v-for="(item, index) in browse" :show-menu-by-longpress="false" :key="index"></up-image>
 				</scroll-view>
 
 				<view
@@ -387,7 +387,7 @@
 					确认打印
 				</view>
 			</view>
-		</u-popup>
+		</up-popup>
 	</view>
 </template>
 

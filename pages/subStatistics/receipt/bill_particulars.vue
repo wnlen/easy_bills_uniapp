@@ -55,7 +55,7 @@
 				<view class="FromFileTitle" v-if="imgFileList.length > 0">图片</view>
 				<view class="recently-cat flex-row flex-wrap" style="width: 95%">
 					<view class="ImgView">
-						<u-image
+						<up-image
 							class="ml24"
 							v-for="(item, index) in imgFileList"
 							:key="index"
@@ -64,7 +64,7 @@
 							height="150rpx"
 							:src="item.file"
 							@click="LookImg(imgFileList)"
-						></u-image>
+						></up-image>
 					</view>
 				</view>
 				<view class="FromFileTitle" v-if="FileList.length > 0">附件</view>
@@ -73,7 +73,7 @@
 				</view>
 				<view class="FromFileTitle">备注说明</view>
 				<view class="FromFileTitleRemark" style="">
-					<u-textarea border="none" disabled placeholderClass="placeholder_class" v-model="billFrom.billRemark" placeholder="(无备注)" autoHeight></u-textarea>
+					<up-textarea border="none" disabled placeholderClass="placeholder_class" v-model="billFrom.billRemark" placeholder="(无备注)" autoHeight></up-textarea>
 				</view>
 			</view>
 

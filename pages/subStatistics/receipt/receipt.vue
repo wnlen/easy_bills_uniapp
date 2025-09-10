@@ -1,7 +1,7 @@
 <template>
 	<view class="root">
 		<view class="flex-row items-center justify-center" style="height: 66%">
-			<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" v-if="!identity"></u-empty>
+			<up-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" v-if="!identity"></up-empty>
 		</view>
 		<z-paging
 			ref="paging"
@@ -55,7 +55,7 @@
 							<text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
 								{{ pinia_userRole === 'R' ? '供应商选择' : '客户选择' }}
 							</text>
-							<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
+							<up-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></up-line>
 							<view class="my-input flex-1">
 								<uv-input
 									border="none"
@@ -68,7 +68,7 @@
 							</view>
 
 							<view class="flex-col justify-center items-center" style="height: 5vh">
-								<view class="ml40"><u-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon></view>
+								<view class="ml40"><up-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></up-icon></view>
 							</view>
 						</view>
 
@@ -76,7 +76,7 @@
 							<text class="ft11 ft-gray ml20" @click="filtrateGet">
 								{{ Title }}
 							</text>
-							<view class="ml10 mr10"><u-icon name="arrow-down-fill" size="20rpx"></u-icon></view>
+							<view class="ml10 mr10"><up-icon name="arrow-down-fill" size="20rpx"></up-icon></view>
 							<view class="my-input flex-1" v-if="showTage !== '1'">
 								<uv-input border="none" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入关键字进行检索"></uv-input>
 							</view>
@@ -86,7 +86,7 @@
 
 							<view class="flex-col justify-center items-center" style="height: 5vh">
 								<view class="ml40">
-									<u-icon name="/static/img/list/ss.svg" size="45rpx" @click="SearchBtn"></u-icon>
+									<up-icon name="/static/img/list/ss.svg" size="45rpx" @click="SearchBtn"></up-icon>
 								</view>
 							</view>
 						</view>
@@ -95,7 +95,7 @@
 			</template>
 			<template #empty>
 				<view style="padding-bottom: 200rpx">
-					<u-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180"></u-icon>
+					<up-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180"></up-icon>
 				</view>
 			</template>
 			<view
@@ -118,7 +118,7 @@
 							@click="checkboxGroupChange(item, index)"
 							style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 						>
-							<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
+							<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
 						</view>
 						<!-- #endif -->
 						<!-- #ifdef APP -->
@@ -128,7 +128,7 @@
 							@click="checkboxGroupChange(item, index)"
 							style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 						>
-							<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
+							<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
 						</view>
 						<!-- #endif -->
 
@@ -139,21 +139,21 @@
 							</text>
 						</text>
 
-						<u-icon size="28rpx" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
+						<up-icon size="28rpx" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></up-icon>
 					</view>
 					<view class="ml20">
-						<u-image v-if="pinia_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></u-image>
-						<u-image v-if="pinia_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/dqs.png"></u-image>
-						<u-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="@/static/img/obj/bq2.png" :lazy-load="true"></u-image>
-						<u-image
+						<up-image v-if="pinia_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></up-image>
+						<up-image v-if="pinia_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/dqs.png"></up-image>
+						<up-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="@/static/img/obj/bq2.png" :lazy-load="true"></up-image>
+						<up-image
 							v-if="pinia_userRole != 'R' && item.paymentState == '2'"
 							width="120rpx"
 							height="50rpx"
 							class="u-img"
 							src="@/static/img/obj/bq3.png"
 							:lazy-load="true"
-						></u-image>
-						<u-image v-if="pinia_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/yfk.png"></u-image>
+						></up-image>
+						<up-image v-if="pinia_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/yfk.png"></up-image>
 					</view>
 				</view>
 				<view class="width100 pb25 text-left">
@@ -212,7 +212,7 @@
 											}"
 											style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 										>
-											<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
+											<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
 										</view>
 										<view class="ml15" style="color: #333333">全选</view>
 									</view>
@@ -236,9 +236,9 @@
 			</template>
 		</z-paging>
 
-		<!-- <u-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" /> -->
+		<!-- <up-loadmore v-show="total > 5" :status="status" marginTop="88" marginBottom="88" :load-text="loadText" /> -->
 
-		<u-popup :show="show_start" @close="show_start = false" mode="top" :safeAreaInsetBottom="false">
+		<up-popup :show="show_start" @close="show_start = false" mode="top" :safeAreaInsetBottom="false">
 			<view class="flex-col pl30 pr30 pb30 justify-between">
 				<view>
 					<view class="flex-col mt40">
@@ -259,7 +259,7 @@
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
 							<view class="flex-row items-center" style="width: 50%">
 								<text class="mr10" style="color: #999999">开始日期</text>
-								<u-icon name="arrow-down-fill" size="10"></u-icon>
+								<up-icon name="arrow-down-fill" size="10"></up-icon>
 								<view
 									@click="
 										$refs.calendars.open();
@@ -273,7 +273,7 @@
 							</view>
 							<view class="flex-row items-center" style="width: 50%">
 								<text class="mr10 ml20" style="color: #999999">结束日期</text>
-								<u-icon name="arrow-down-fill" size="10"></u-icon>
+								<up-icon name="arrow-down-fill" size="10"></up-icon>
 								<view
 									@click="
 										$refs.calendars.open();
@@ -290,12 +290,12 @@
 						<view class="flex-row items-center justify-between mt10 vw100">
 							<view class="flex-row items-center">
 								<text class="mr10" style="color: #999999;">开始日期</text>
-								<u-icon name="arrow-down-fill" size="10"></u-icon>
+								<up-icon name="arrow-down-fill" size="10"></up-icon>
 								<input @click="calendar1Show=true" disabled class="ml24"
 									style="box-sizing: border-box;border: 1rpx solid #999999;width: 20%;border-radius: 6rpx;height: 60rpx;align-items: center;text-align: center;"
 									type="text" placeholder=" 开始日期" v-model="date1" />
 								<text class="mr10 ml20" style="color: #999999;">结束日期</text>
-								<u-icon name="arrow-down-fill" size="10"></u-icon>
+								<up-icon name="arrow-down-fill" size="10"></up-icon>
 								<input @click="calendar2Show=true" disabled class="ml24"
 									style="box-sizing: border-box;border: 1rpx solid #999999;width: 20%;border-radius: 6rpx;height: 60rpx;align-items: center;text-align: center;"
 									type="text" placeholder=" 结束日期" v-model="date2" />
@@ -367,7 +367,7 @@
 
 				<!-- 按钮 -->
 				<view class="flex-row justify-end mt40">
-					<u-button
+					<up-button
 						color="#F4F4F4"
 						type="info"
 						@click="filterReset"
@@ -381,13 +381,13 @@
 						}"
 					>
 						重置
-					</u-button>
-					<u-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
+					</up-button>
+					<up-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</up-button>
 				</view>
 				<!-- 日历选择器 -->
 				<uv-calendars color="#01BB74" confirmColor="#01BB74" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="date1Change" />
 			</view>
-		</u-popup>
+		</up-popup>
 	</view>
 </template>
 

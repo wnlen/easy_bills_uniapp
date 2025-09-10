@@ -2,7 +2,7 @@
 	<view class="uploadingCommodity">
 		<up-navbar :autoBack="true" :placeholder="true" :titleBold="true" title="编辑商品"></up-navbar>
 		<view class="uploadingCommodityImg">
-			<u-upload
+			<up-upload
 				v-model:fileList="imgList"
 				autoUpload
 				autoDelete
@@ -18,9 +18,9 @@
 				width="34vw"
 			>
 				<view class="">
-					<u-icon name="plus-circle-fill" space="16rpx" color="#01BB74" size="50rpx" label="添加图片" labelPos="bottom" />
+					<up-icon name="plus-circle-fill" space="16rpx" color="#01BB74" size="50rpx" label="添加图片" labelPos="bottom" />
 				</view>
-			</u-upload>
+			</up-upload>
 		</view>
 
 		<view class="uploadingCommodityFrom">
@@ -62,16 +62,16 @@
 			</view>
 			<view class="uploadingCommodityFromCard">
 				<text class="name">备注说明</text>
-				<u-textarea v-model="uploadingCommodity.explainRemark" placeholder="请您在此处填写备注说明" border="none"></u-textarea>
+				<up-textarea v-model="uploadingCommodity.explainRemark" placeholder="请您在此处填写备注说明" border="none"></up-textarea>
 			</view>
 			<view class="flex-row justify-end items-center pr24 pt48" style="width: 100%">
 				<text class="name mr24">置于商品库顶部</text>
-				<u-switch size="20" active-color="#01BB74" v-model="uploadingCommodity.top"></u-switch>
+				<up-switch size="20" active-color="#01BB74" v-model="uploadingCommodity.top"></up-switch>
 			</view>
 		</view>
 
 		<view class="" style="position: absolute; bottom: 40rpx; width: 94%; justify-content: center; left: 3%">
-			<u-button type="primary" hover-class="none" color="#01BB74" class="form-btn-big" @click="uploadingCommodityAdd" shape="circle">保存</u-button>
+			<up-button type="primary" hover-class="none" color="#01BB74" class="form-btn-big" @click="uploadingCommodityAdd" shape="circle">保存</up-button>
 		</view>
 	</view>
 </template>

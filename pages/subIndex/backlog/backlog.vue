@@ -9,7 +9,7 @@
 			@query="queryList"
 		>
 			<template #top>
-				<u-navbar
+				<up-navbar
 					:autoBack="true"
 					:placeholder="true"
 					:border-bottom="false"
@@ -18,10 +18,10 @@
 					title="待办事项"
 					title-size="34"
 					bgColor="#ffffff"
-				></u-navbar>
-				<!-- <u-notice-bar mode="horizontal" :list="uNoticeBarlist" padding="6rpx 12rpx"></u-notice-bar> -->
+				></up-navbar>
+				<!-- <up-notice-bar mode="horizontal" :list="uNoticeBarlist" padding="6rpx 12rpx"></up-notice-bar> -->
 
-				<u-tabs
+				<up-tabs
 					:list="tabList"
 					:current="tab"
 					:lineColor="'#01BB74'"
@@ -45,13 +45,13 @@
 					"
 					style="padding-bottom: 1000rpx"
 				>
-					<u-empty
+					<up-empty
 						icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg"
 						iconSize="400rpx"
 						text="暂无待办事项~"
 						mode="search"
 						marginTop="400rpx"
-					></u-empty>
+					></up-empty>
 				</view>
 			</template>
 			<template #empty>
@@ -63,26 +63,26 @@
 					"
 					style="padding-bottom: 1000rpx"
 				>
-					<u-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" mode="search" marginTop="400rpx"></u-empty>
+					<up-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" mode="search" marginTop="400rpx"></up-empty>
 				</view>
 			</template>
 			<view class="ml24 mr24 mt24 swipeBox" v-for="(item, index) in list" :key="item.id">
-				<u-swipe-action>
-					<u-swipe-action-item :show="item.show" :name="index" @click="delclick(item)" :options="options">
+				<up-swipe-action>
+					<up-swipe-action-item :show="item.show" :name="index" @click="delclick(item)" :options="options">
 						<view class="pt20 pl20 pr20">
 							<view class="item flex-col justify-left">
 								<!-- 此层wrap在此为必写的，否则可能会出现标题定位错误 -->
 								<view class="u-body-item u-flex u-row-between u-p-b-0 justify-between">
 									<view class="flex-row justify-center items-center" v-if="item.genre == 'D'">
-										<u-icon name="https://res-oss.elist.com.cn/wxImg/index/del.svg" size="40rpx"></u-icon>
+										<up-icon name="https://res-oss.elist.com.cn/wxImg/index/del.svg" size="40rpx"></up-icon>
 										<text class="ml20" style="font-size: 32rpx; font-weight: bold">删除申请</text>
 									</view>
 									<view class="flex-row justify-center items-center" v-if="item.genre == 'P'">
-										<u-icon name="https://res-oss.elist.com.cn/wxImg/index/play.svg" size="40rpx"></u-icon>
+										<up-icon name="https://res-oss.elist.com.cn/wxImg/index/play.svg" size="40rpx"></up-icon>
 										<text class="ml20" style="font-size: 32rpx; font-weight: bold">确认付款申请</text>
 									</view>
 									<div>
-										<u-button :customStyle="customStyle" color="#01BB74" shape="circle" @click="clickApply(item)">同意</u-button>
+										<up-button :customStyle="customStyle" color="#01BB74" shape="circle" @click="clickApply(item)">同意</up-button>
 									</div>
 								</view>
 								<view class="">
@@ -146,12 +146,12 @@
 								</view>
 								<view class="u-body-item u-flex u-row-between u-p-b-0 u-border-top items-center justify-between" @click="jumpDetails(item)">
 									<view class="u-body-item-title u-line-0 mt15" style="color: #01bb74">查看订单</view>
-									<view class="u-body-item-title u-line-1 mt15"><u-icon name="arrow-right" color="#666666" size="28rpx"></u-icon></view>
+									<view class="u-body-item-title u-line-1 mt15"><up-icon name="arrow-right" color="#666666" size="28rpx"></up-icon></view>
 								</view>
 							</view>
 						</view>
-					</u-swipe-action-item>
-				</u-swipe-action>
+					</up-swipe-action-item>
+				</up-swipe-action>
 			</view>
 		</z-paging>
 	</view>

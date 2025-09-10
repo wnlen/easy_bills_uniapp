@@ -11,14 +11,14 @@
 			<view class="flex-row justify-left items-center" style="width: 100%; height: 70%; background-color: transparent; text-align: center; z-index: 2">
 				<view class="mt16 ml14 mr15">
 					<!-- #ifdef MP-WEIXIN -->
-					<u-avatar size="45" @click="goPath('')" :src="pinia_user.data.headPortrait ? pinia_user.data.headPortrait : ImgUrl + '/wxImg/index/mr.svg'"></u-avatar>
+					<up-avatar size="45" @click="goPath('')" :src="pinia_user.data.headPortrait ? pinia_user.data.headPortrait : ImgUrl + '/wxImg/index/mr.svg'"></up-avatar>
 					<!-- #endif -->
 					<!-- #ifdef APP -->
-					<u-avatar
+					<up-avatar
 						size="45"
 						@click="goPath('')"
 						:src="pinia_user.data.headPortrait ? pinia_user.data.headPortrait : 'https://res-oss.elist.com.cn/wxImg/index/mr.svg'"
-					></u-avatar>
+					></up-avatar>
 					<!-- #endif -->
 				</view>
 				<view class="flex-col justify-center items-start" style="width: 50%" @click="goPath('')">
@@ -50,12 +50,12 @@
 		<view class="home-main pl0 pr0 width100 mt10" style="background-color: transparent">
 			<view class="home-box">
 				<view class="" v-if="pinia_userRole == 'R'">
-					<u-notice-bar
+					<up-notice-bar
 						mode="horizontal"
 						padding="13rpx 22rpx"
 						speed="80"
 						:list="[pinia_user.chickenBloodTip || '欢迎使用易单据切换角色选择发货模式可使用～']"
-					></u-notice-bar>
+					></up-notice-bar>
 				</view>
 				<view v-if="pinia_userRole == 'D'" class="home-data cardShowPlus" style="background-color: #ffffff">
 					<view class="">
@@ -64,8 +64,8 @@
 								<view class="flex-row" style="width: 300rpx; z-index: 999">
 									<text class="mr5 ft-bold ft32" style="letter-spacing: 2rpx">销售额(今年)</text>
 									<view @click="isLook = !isLook" class="flex-col items-center justify-center">
-										<u-icon v-if="isLook" name="eye-fill" size="18"></u-icon>
-										<u-icon v-else name="eye-off" size="18"></u-icon>
+										<up-icon v-if="isLook" name="eye-fill" size="18"></up-icon>
+										<up-icon v-else name="eye-off" size="18"></up-icon>
 									</view>
 								</view>
 							</view>
@@ -75,7 +75,7 @@
 										<text class="ft32 ft-yellow">****</text>
 									</text>
 									<text class="ft32 ft-yellow" v-if="isLook">￥</text>
-									<u-count-to v-if="isLook" :end-val="priceObj[0]" separator="," color="#FFC300" font-size="25" decimals="2" duration="1" bold></u-count-to>
+									<up-count-to v-if="isLook" :end-val="priceObj[0]" separator="," color="#FFC300" font-size="25" decimals="2" duration="1" bold></up-count-to>
 								</view>
 							</view>
 						</view>
@@ -88,7 +88,7 @@
 								<text v-if="!isLook">****</text>
 
 								<view class="" v-if="isLook">
-									<u-count-to
+									<up-count-to
 										v-if="!ifBig(priceObj[1])"
 										:end-val="priceObj[1]"
 										separator=","
@@ -97,7 +97,7 @@
 										decimals="2"
 										duration="1"
 										bold
-									></u-count-to>
+									></up-count-to>
 									<text style="font-size: 30rpx; font-weight: bold" v-if="ifBig(priceObj[1])">
 										{{ BigSub(priceObj[1]) }}
 									</text>
@@ -110,7 +110,7 @@
 								<text class="ft12 mt5" v-if="isLook">￥</text>
 								<text v-if="!isLook">****</text>
 								<view class="" v-if="isLook">
-									<u-count-to
+									<up-count-to
 										v-if="!ifBig(priceObj[2])"
 										:end-val="priceObj[2]"
 										separator=","
@@ -119,7 +119,7 @@
 										decimals="2"
 										duration="1"
 										bold
-									></u-count-to>
+									></up-count-to>
 									<text style="font-size: 29.68rpx; font-weight: bold" v-if="ifBig(priceObj[2])">
 										{{ BigSub(priceObj[2]) }}
 									</text>
@@ -132,7 +132,7 @@
 								<text class="ft12 mt5" v-if="isLook">￥</text>
 								<text v-if="!isLook">****</text>
 								<view class="" v-if="isLook">
-									<u-count-to
+									<up-count-to
 										v-if="!ifBig(priceObj[3])"
 										:end-val="priceObj[3]"
 										separator=","
@@ -141,7 +141,7 @@
 										decimals="2"
 										duration="1"
 										bold
-									></u-count-to>
+									></up-count-to>
 									<text style="font-size: 29.68rpx; font-weight: bold" v-if="ifBig(priceObj[3])">
 										{{ BigSub(priceObj[3]) }}
 									</text>
@@ -203,14 +203,14 @@
 			<view class="sudoku u-margin-top-30 ml24 mr24 pb48 cardShowPlus" v-if="pinia_userRole != 'R'" style="border-radius: 12rpx">
 				<view class="grid-container">
 					<view class="grid-item mt10 items-center justify-center" @click="goList(item.type)" v-for="(item, index) in Sudoku.notLogD[0]" :key="index">
-						<u-icon size="60" :name="item.icon"></u-icon>
+						<up-icon size="60" :name="item.icon"></up-icon>
 						<view class="grid-text">{{ item.text }}</view>
 					</view>
 				</view>
 
 				<view class="grid-container">
 					<view class="grid-item mt10 items-center justify-center" @click="goPath(item.path)" v-for="(item, index) in Sudoku.notLogD[1]" :key="index">
-						<u-icon size="60" :name="item.icon"></u-icon>
+						<up-icon size="60" :name="item.icon"></up-icon>
 						<view class="grid-text">{{ item.text }}</view>
 					</view>
 				</view>
@@ -218,17 +218,17 @@
 				<view class="grid-container pb6">
 					<view class="grid-item mt10 relation" @click="goPathIndex(item)" v-for="(item, index) in Sudoku.notLogD[2]" :key="index">
 						<view class="justify-center" v-if="!item.chat">
-							<u-icon size="60" :name="item.icon"></u-icon>
+							<up-icon size="60" :name="item.icon"></up-icon>
 							<view class="grid-text">{{ item.text }}</view>
-							<u-badge v-if="item.count" bgColor="#FA5151" :count="item.count" class="mr30" absolute :offset="['0', '0']"></u-badge>
+							<up-badge v-if="item.count" bgColor="#FA5151" :count="item.count" class="mr30" absolute :offset="['0', '0']"></up-badge>
 						</view>
 						<view v-else>
-							<u-button hover-class="none" :hair-line="false" :customStyle="buttonStyle" open-type="contact">
+							<up-button hover-class="none" :hair-line="false" :customStyle="buttonStyle" open-type="contact">
 								<view class="flex-col justify-center items-center" style="width: 100%">
-									<u-icon size="55" :name="item.icon"></u-icon>
+									<up-icon size="55" :name="item.icon"></up-icon>
 									<view class="grid-text" style="">{{ item.text }}</view>
 								</view>
-							</u-button>
+							</up-button>
 						</view>
 					</view>
 				</view>
@@ -237,15 +237,15 @@
 			<view class="sudoku u-margin-top-30 ml24 mr24 pl10 pr10 pb48 cardShowPlus" v-if="pinia_userRole == 'R'" style="border-radius: 12rpx">
 				<view class="grid-container">
 					<view class="grid-item mt10" @click="goList(item.type)" v-for="(item, index) in Sudoku.notLogR[0]" :id="index == 0 ? 'box33' : ''" :key="index">
-						<u-icon size="60" :name="item.icon"></u-icon>
+						<up-icon size="60" :name="item.icon"></up-icon>
 						<view class="grid-text">{{ item.text }}</view>
-						<u-badge v-if="item.count" bgColor="#FA5151" :count="item.count" class="mr30" style="position: absolute; top: 0rpx; right: 0rpx"></u-badge>
+						<up-badge v-if="item.count" bgColor="#FA5151" :count="item.count" class="mr30" style="position: absolute; top: 0rpx; right: 0rpx"></up-badge>
 					</view>
 				</view>
 
 				<view class="grid-container">
 					<view class="grid-item mt10" @click="goPath(item.path)" v-for="(item, index) in Sudoku.notLogR[1]" :key="index">
-						<u-icon size="60" :name="item.icon"></u-icon>
+						<up-icon size="60" :name="item.icon"></up-icon>
 						<view class="grid-text">{{ item.text }}</view>
 					</view>
 				</view>
@@ -253,23 +253,23 @@
 				<view class="grid-container pb6">
 					<view class="grid-item mt10" @click="goPathIndex(item)" v-for="(item, index) in Sudoku.notLogR[2]" :key="index">
 						<view class="" v-if="!item.chat">
-							<u-icon size="60" :name="item.icon"></u-icon>
+							<up-icon size="60" :name="item.icon"></up-icon>
 							<view class="grid-text">{{ item.text }}</view>
-							<u-badge v-if="item.count" bgColor="#FA5151" :count="item.count" class="mr30" style="position: absolute; top: 0rpx; right: 0rpx"></u-badge>
+							<up-badge v-if="item.count" bgColor="#FA5151" :count="item.count" class="mr30" style="position: absolute; top: 0rpx; right: 0rpx"></up-badge>
 						</view>
 						<view class="" v-else>
-							<u-button hover-class="none" :hair-line="false" :customStyle="buttonStyle" open-type="contact">
+							<up-button hover-class="none" :hair-line="false" :customStyle="buttonStyle" open-type="contact">
 								<view class="flex-col justify-center items-center" style="width: 100%">
-									<u-icon size="110" :name="item.icon"></u-icon>
+									<up-icon size="110" :name="item.icon"></up-icon>
 									<view class="grid-text" style="">{{ item.text }}</view>
 								</view>
-							</u-button>
+							</up-button>
 						</view>
 					</view>
 				</view>
 			</view>
 			<view class="middle-banner mt25 ml24 mr24 cardShowPlus">
-				<u-swiper
+				<up-swiper
 					@click="middleClick"
 					bg-color="#F6F7F7"
 					:list="middleBanner.length > 0 ? middleBanner : pinia_userRole == 'R' ? middleBannerlXR : middleBannerlXD"
@@ -281,13 +281,13 @@
 					:effect3d="true"
 					effect3d-previous-margin="-10"
 					border-radius="18"
-				></u-swiper>
+				></up-swiper>
 			</view>
 		</view>
 
 		<pop-role ref="popRole"></pop-role>
 
-		<u-tabbar id="box6" :height="tabHight" iconSize="40" :list="vuex_tabbar" active-color="#0FB076"></u-tabbar>
+		<up-tabbar id="box6" :height="tabHight" iconSize="40" :list="vuex_tabbar" active-color="#0FB076"></up-tabbar>
 
 		<up-overlay :show="expireShow">
 			<view class="flex-col justify-center items-center" style="width: 100%; height: 100%; background-color: transparent">

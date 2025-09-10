@@ -1,9 +1,9 @@
 <template>
 	<view @tap.stop v-show="roleShow" class="flex-col justify-center items-center pop-renew">
 		<view class="relative flex-col justify-center items-center" style="height: 100%; width: 100%">
-			<u-image class="" :lazy-load="true" :showLoading="true" :src="src" width="720rpx" height="720rpx"></u-image>
+			<up-image class="" :lazy-load="true" :showLoading="true" :src="src" width="720rpx" height="720rpx"></up-image>
 			<view class="absolute" style="top: 5%; right: 10%">
-				<u-icon @click="close" name="close-circle" color="#ffffff" size="40rpx"></u-icon>
+				<up-icon @click="close" name="close-circle" color="#ffffff" size="40rpx"></up-icon>
 			</view>
 			<view class="absolute flex-row justify-center items-center mt30" style="width: 100%; height: 240rpx">
 				<view class="mr15 tab flex-col justify-center items-center" :style="{ backgroundColor: year == 1 ? '#FDF7ED' : '#FFFFFF' }" @click="orderInit('A1')">
@@ -14,7 +14,7 @@
 				</view>
 				<view class="ml15 tab flex-col justify-center items-center" :style="{ backgroundColor: year == 2 ? '#FDF7ED' : '#FFFFFF' }" @click="orderInit('A2')">
 					<view style="position: absolute; top: -4rpx">
-						<u-icon name="https://res-oss.elist.com.cn/wxImg/order/tj.png" width="120rpx" height="30rpx"></u-icon>
+						<up-icon name="https://res-oss.elist.com.cn/wxImg/order/tj.png" width="120rpx" height="30rpx"></up-icon>
 					</view>
 
 					<text class="t1">{{ productCode[1] ? productCode[1].product : '' }}</text>

@@ -4,7 +4,7 @@
 		style="background-size: cover; background-image: url('https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/user/login.png')"
 	>
 		<view class="" style="background-color: transparent">
-			<u-navbar
+			<up-navbar
 				:placeholder="true"
 				:custom-back="customBack"
 				:border-bottom="false"
@@ -16,7 +16,7 @@
 					color: 'white',
 					fontSize: '28rpx'
 				}"
-			></u-navbar>
+			></up-navbar>
 		</view>
 		<view class="flex-col justify-center items-center" style="margin-top: 10%; width: 100%">
 			<view class="head">
@@ -60,8 +60,8 @@
 						placeholder="请输入密码"
 						class="u-line-1 ml15 endcolor"
 					/>
-					<u-icon v-if="eyePassword" @click="eyePassword = !eyePassword" name="eye-off" color="#01BB74" size="35"></u-icon>
-					<u-icon v-if="!eyePassword" @click="eyePassword = !eyePassword" name="eye-fill" color="#01BB74" size="35"></u-icon>
+					<up-icon v-if="eyePassword" @click="eyePassword = !eyePassword" name="eye-off" color="#01BB74" size="35"></up-icon>
+					<up-icon v-if="!eyePassword" @click="eyePassword = !eyePassword" name="eye-fill" color="#01BB74" size="35"></up-icon>
 				</view>
 			</view>
 			<view class="InputTab">
@@ -75,8 +75,8 @@
 						placeholder="请输入密码"
 						class="u-line-1 ml15 endcolor"
 					/>
-					<u-icon v-if="eyePassword" @click="eyePassword = !eyePassword" name="eye-off" color="#01BB74" size="35"></u-icon>
-					<u-icon v-if="!eyePassword" @click="eyePassword = !eyePassword" name="eye-fill" color="#01BB74" size="35"></u-icon>
+					<up-icon v-if="eyePassword" @click="eyePassword = !eyePassword" name="eye-off" color="#01BB74" size="35"></up-icon>
+					<up-icon v-if="!eyePassword" @click="eyePassword = !eyePassword" name="eye-fill" color="#01BB74" size="35"></up-icon>
 				</view>
 			</view>
 			<view class="buttonTab">
@@ -89,7 +89,7 @@
 					@click="radioGroupChange"
 					style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 				>
-					<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
+					<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
 				</view>
 				<view class="ml15">
 					<text style="color: #aaaaaa; font-size: 24rpx">同意并遵行易单据</text>
@@ -109,7 +109,7 @@
 			<view class="mt10 flex-row justify-center items-center" style="text-align: center;">
 				<view class="flex-row justify-center items-center"
 					style="background-color: #20C300;height: 120rpx;width: 120rpx;border-radius: 50%;">
-					<u-icon name="weixin-fill" color="#ffffff" size="100"></u-icon>
+					<up-icon name="weixin-fill" color="#ffffff" size="100"></up-icon>
 				</view>
 
 			</view>

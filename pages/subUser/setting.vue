@@ -1,8 +1,8 @@
 <template>
 	<view class="vh100 bg-gray">
 		<view class="bg-white">
-			<u-cell-group :border="false">
-				<u-cell
+			<up-cell-group :border="false">
+				<up-cell
 					:titleStyle="{ color: '#666666' }"
 					v-for="(item, index) in menus"
 					:key="index"
@@ -14,10 +14,10 @@
 					<template #value>
 						<text class="ft-lighgray">{{ item.id == '1' ? (pinia_userRole == 'D' ? '发货方' : '收货方') : '' }}</text>
 					</template>
-				</u-cell>
-				<u-cell :titleStyle="{ color: '#666666' }" title="注销账号" @click="writeOff" :isLink="true"></u-cell>
-				<u-cell :titleStyle="{ color: '#666666' }" title="退出登录" @click="loginOut" :isLink="true"></u-cell>
-			</u-cell-group>
+				</up-cell>
+				<up-cell :titleStyle="{ color: '#666666' }" title="注销账号" @click="writeOff" :isLink="true"></up-cell>
+				<up-cell :titleStyle="{ color: '#666666' }" title="退出登录" @click="loginOut" :isLink="true"></up-cell>
+			</up-cell-group>
 		</view>
 
 		<!-- 切换角色 -->

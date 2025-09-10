@@ -2,15 +2,15 @@
 	<view class="content bg-gray">
 		<view class="" style="width: 100%; height: 45%; background-color: white">
 			<view class="flex-row justify-center">
-				<u-image :src="imageUrl[2]"></u-image>
+				<up-image :src="imageUrl[2]"></up-image>
 			</view>
 			<view class="flex-row justify-left items-center relative">
 				<view class="flex-row">
 					<view class="ml30">
-						<u-icon :name="imageUrl[1]" size="100rpx"></u-icon>
+						<up-icon :name="imageUrl[1]" size="100rpx"></up-icon>
 					</view>
 					<view class="ml30">
-						<u-icon class="ml30" :name="imageUrl[1]" size="100rpx"></u-icon>
+						<up-icon class="ml30" :name="imageUrl[1]" size="100rpx"></up-icon>
 					</view>
 				</view>
 				<view class="absolute" style="right: 10px">
@@ -34,12 +34,12 @@
 
 			<view class="mt20 items-center flex-row justify-left" style="height: 30px; width: 95%; font-size: 16px; font-weight: normal">打印示例</view>
 			<view class="mt10 ml55">
-				<u-image class="" :src="imageUrl[0]"></u-image>
+				<up-image class="" :src="imageUrl[0]"></up-image>
 			</view>
 		</view>
 		<view class="pt180"></view>
 		<view class="flex-col justify-center pl60 pr60 vw100 fixed-bar" style="background-color: transparent">
-			<u-button hover-class="none" color="#47506C" shape="circle" type="primary" open-type="contact">购买咨询</u-button>
+			<up-button hover-class="none" color="#47506C" shape="circle" type="primary" open-type="contact">购买咨询</up-button>
 			<!-- @click="jump" -->
 		</view>
 	</view>

@@ -13,7 +13,7 @@
 								style="border: 2.2rpx solid #01bb74; height: 44rpx; width: 136rpx; border-radius: 8rpx; color: #01bb74; font-size: 22rpx"
 							>
 								<text class="mr6">使用方法</text>
-								<u-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></u-icon>
+								<up-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></up-icon>
 							</view>
 						</view>
 					</template>
@@ -23,7 +23,7 @@
 				<up-navbar title="查询订单" :placeholder="true" leftIconColor="#fff"></up-navbar>
 				<!-- #endif -->
 				<view style="width: 100%">
-					<u-tabs
+					<up-tabs
 						:list="tabsList"
 						lineWidth="30"
 						lineHeight="7"
@@ -41,7 +41,7 @@
 						itemStyle="padding-left: 30rpx; padding-right: 30rpx; height: 70rpx;font-size:32rpx;padding-bottom:20rpx;backgroundColor:#fff"
 						:current="current"
 						@change="changeTab"
-					></u-tabs>
+					></up-tabs>
 				</view>
 			</template>
 
@@ -50,7 +50,7 @@
 					<text class="ft-gray mb18 ml10" style="color: #999999; font-size: 30rpx">累计金额</text>
 					<view class="">
 						<text class="ft40 ft-bold ml9">￥</text>
-						<u-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="20" decimals="2" bold></u-count-to>
+						<up-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="20" decimals="2" bold></up-count-to>
 					</view>
 				</view>
 
@@ -72,7 +72,7 @@
 							</template>
 							<template #suffix>
 								<view class="flex-col justify-center items-center ml40">
-									<u-icon name="/static/img/list/lxr.svg" size="46rpx" @click="CustomerGet"></u-icon>
+									<up-icon name="/static/img/list/lxr.svg" size="46rpx" @click="CustomerGet"></up-icon>
 								</view>
 							</template>
 						</uv-input>
@@ -88,18 +88,18 @@
 							@change="searchListenner"
 						>
 							<template #prefix>
-								<u-text
+								<up-text
 									:text="Title"
 									margin="0 0 0 20rpx"
 									suffixIcon="arrow-down-fill"
 									color="#606266"
 									iconStyle="color: #606266;margin:0 10rpx;fontSize:20rpx"
 									@click="filtrateGet"
-								></u-text>
+								></up-text>
 							</template>
 							<template #suffix>
 								<view class="flex-col justify-center items-center">
-									<u-icon name="/static/img/list/ss.svg" size="46rpx" @click="searchListenner"></u-icon>
+									<up-icon name="/static/img/list/ss.svg" size="46rpx" @click="searchListenner"></up-icon>
 								</view>
 							</template>
 						</uv-input>
@@ -115,18 +115,18 @@
 							@change="searchListenner"
 						>
 							<template #prefix>
-								<u-text
+								<up-text
 									class="ft11 ft-gray"
 									margin="0 0 0 20rpx"
 									:text="Title"
 									suffixIcon="arrow-down-fill"
 									iconStyle="color: #606266;margin:0 10rpx;fontSize:20rpx"
 									@click="filtrateGet"
-								></u-text>
+								></up-text>
 							</template>
 							<template #suffix>
 								<view class="ml40 flex-col justify-center items-center">
-									<u-icon name="/static/img/list/ss.svg" size="46rpx" @click="searchListenner"></u-icon>
+									<up-icon name="/static/img/list/ss.svg" size="46rpx" @click="searchListenner"></up-icon>
 								</view>
 							</template>
 						</uv-input>
@@ -142,13 +142,13 @@
 				</text>
 			</text>
 			<template #empty>
-				<u-empty
+				<up-empty
 					:icon="ImgUrl + '/wxImg/list/empty.svg'"
 					iconSize="200rpx"
 					:text="pinia_userRole == 'D' ? '还没有送货单呢~快去开一个单试试吧！' : '还没收到订单呢~快去邀请供应商开单吧！'"
 					marginTop="-100"
 				>
-					<u-button
+					<up-button
 						v-if="pinia_userRole == 'D'"
 						color="#01BB74"
 						iconColor="#ECFFF9"
@@ -158,8 +158,8 @@
 						@click="addOrder"
 					>
 						<text>去开单</text>
-					</u-button>
-					<u-button
+					</up-button>
+					<up-button
 						v-if="pinia_userRole == 'R' && pinia_user.phone"
 						dataName="shareFriend"
 						openType="share"
@@ -170,8 +170,8 @@
 						:plain="true"
 					>
 						<text>去邀请</text>
-					</u-button>
-					<u-button
+					</up-button>
+					<up-button
 						v-if="pinia_userRole == 'R' && !pinia_user.phone"
 						color="#01BB74"
 						iconColor="#ECFFF9"
@@ -185,8 +185,8 @@
 						"
 					>
 						<text>去邀请</text>
-					</u-button>
-				</u-empty>
+					</up-button>
+				</up-empty>
 			</template>
 			<view
 				v-for="(item, index) in orderList"
@@ -207,29 +207,29 @@
 								{{ item.orderNumber }}
 							</text>
 						</text>
-						<u-icon size="28rpx" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
+						<up-icon size="28rpx" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></up-icon>
 						<view class="ml15">
-							<u-icon size="28rpx" v-if="item.lockOrder == 1 && item.paymentState != 2" :name="bat64.lock" color="#666666"></u-icon>
+							<up-icon size="28rpx" v-if="item.lockOrder == 1 && item.paymentState != 2" :name="bat64.lock" color="#666666"></up-icon>
 						</view>
 					</view>
 					<view class="ml20" style="width: 30%">
 						<view class="u-img" v-if="userStore.userRole == 'D'" :style="{ display: item.paymentState == '0' ? 'inline' : 'none' }">
-							<u-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.dqs"></u-image>
+							<up-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.dqs"></up-image>
 						</view>
 
 						<view class="u-img" v-if="userStore.userRole == 'R'" :style="{ display: item.paymentState == '0' ? 'inline' : 'none' }">
-							<u-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.dqss"></u-image>
+							<up-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.dqss"></up-image>
 						</view>
 
 						<view class="u-img" v-if="userStore.userRole == 'R'" :style="{ display: item.paymentState == '2' ? 'inline' : 'none' }">
-							<u-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.yfk"></u-image>
+							<up-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.yfk"></up-image>
 						</view>
 						<view class="u-img" :style="{ display: item.paymentState == '1' ? 'inline' : 'none' }">
-							<u-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.yqs"></u-image>
+							<up-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.yqs"></up-image>
 						</view>
 
 						<view class="u-img" v-if="userStore.userRole != 'R'" :style="{ display: item.paymentState == '2' ? 'inline' : 'none' }">
-							<u-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.ysk"></u-image>
+							<up-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.ysk"></up-image>
 						</view>
 					</view>
 				</view>
@@ -289,14 +289,14 @@
 										:data-versions="'Y'"
 									>
 										<view style="top: 2rpx">
-											<u-icon
+											<up-icon
 												name="share-square"
 												size="25rpx"
 												color="#666666"
 												labelColor="#333333"
 												labelSize="22rpx"
 												:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '有金额转发' : '有金额转发'"
-											></u-icon>
+											></up-icon>
 										</view>
 									</button>
 								</view>
@@ -312,14 +312,14 @@
 									:data-versions="'N'"
 								>
 									<view style="top: 2rpx">
-										<u-icon
+										<up-icon
 											name="share-square"
 											size="25rpx"
 											color="#666666"
 											labelColor="#333333"
 											labelSize="22rpx"
 											:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '无金额转发' : '无金额转发'"
-										></u-icon>
+										></up-icon>
 									</view>
 								</button>
 							</view>
@@ -340,7 +340,7 @@
 								:data-id="item.id"
 								:data-versions="'Y'"
 							>
-								<u-icon
+								<up-icon
 									name="share-square"
 									size="25rpx"
 									v-if="OperatingSystem"
@@ -348,9 +348,9 @@
 									labelColor="#333333"
 									labelSize="22rpx"
 									:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发'"
-								></u-icon>
+								></up-icon>
 
-								<u-icon
+								<up-icon
 									name="share-square"
 									size="25rpx"
 									v-if="!OperatingSystem"
@@ -358,7 +358,7 @@
 									labelColor="#333333"
 									labelSize="22rpx"
 									:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发'"
-								></u-icon>
+								></up-icon>
 							</button>
 							<button
 								v-if="userStore.userRole === 'R' && pinia_user.workData.identity !== '3' && item.paymentState === '0' && item.lockOrder != 1"
@@ -367,9 +367,9 @@
 								@click="goPath('/pages/subOrder/details?id=' + item.id)"
 							>
 								<!-- &&item.lockOrder!=1 v-if="OperatingSystem" -->
-								<u-icon name="order" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="确认签收"></u-icon>
+								<up-icon name="order" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="确认签收"></up-icon>
 								<!-- <view style="top: 2rpx">
-									<u-icon name="order" v-if="!OperatingSystem" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="确认签收"></u-icon>
+									<up-icon name="order" v-if="!OperatingSystem" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="确认签收"></up-icon>
 								</view> -->
 							</button>
 							<button
@@ -379,16 +379,16 @@
 								@click="VerifyAdd(item, index, 2)"
 							>
 								<!-- &&item.lockOrder!=1 -->
-								<u-icon
+								<up-icon
 									name="rmb-circle"
 									size="25rpx"
 									color="#666666"
 									labelSize="22rpx"
 									labelColor="#333333"
 									:label="userStore.userRole === 'R' ? '确认付款' : '确认收款'"
-								></u-icon>
+								></up-icon>
 								<!-- <view style="top: 2rpx">
-									<u-icon
+									<up-icon
 										v-if="!OperatingSystem"
 										name="rmb-circle"
 										size="25rpx"
@@ -396,7 +396,7 @@
 										labelSize="22rpx"
 										labelColor="#333333"
 										:label="userStore.userRole === 'R' ? '确认付款' : '确认收款'"
-									></u-icon>
+									></up-icon>
 								</view> -->
 							</button>
 							<button
@@ -406,8 +406,8 @@
 								@click="VerifyAdd(item, index, 1)"
 							>
 								<!-- &&item.lockOrder!=1 -->
-								<u-icon name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></u-icon>
-								<!-- <u-icon v-if="!OperatingSystem" name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></u-icon> -->
+								<up-icon name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></up-icon>
+								<!-- <up-icon v-if="!OperatingSystem" name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></up-icon> -->
 							</button>
 							<button
 								v-if="
@@ -422,15 +422,15 @@
 								@click="VerifyAdd(item, index, 3)"
 							>
 								<!-- &&item.lockOrder!=1 -->
-								<u-icon name="edit-pen" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="修改"></u-icon>
-								<!-- <u-icon v-if="!OperatingSystem" name="edit-pen" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="修改"></u-icon> -->
+								<up-icon name="edit-pen" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="修改"></up-icon>
+								<!-- <up-icon v-if="!OperatingSystem" name="edit-pen" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="修改"></up-icon> -->
 							</button>
 							<!-- 							<button class="hl-btn ml20 flex-row items-center justify-center" type="default"
 								@click="VerifyAdd(item, index, 4)">
-								<u-icon v-if="OperatingSystem" name="edit-pen" size="25" color="#666666" labelSize="22"
-									labelColor="#333333" label="通知"></u-icon>
-								<u-icon v-if="!OperatingSystem" top="2rpx" name="edit-pen" size="25" color="#666666"
-									labelSize="22" labelColor="#333333" label="通知"></u-icon>
+								<up-icon v-if="OperatingSystem" name="edit-pen" size="25" color="#666666" labelSize="22"
+									labelColor="#333333" label="通知"></up-icon>
+								<up-icon v-if="!OperatingSystem" top="2rpx" name="edit-pen" size="25" color="#666666"
+									labelSize="22" labelColor="#333333" label="通知"></up-icon>
 							</button> -->
 						</view>
 					</view>
@@ -444,9 +444,9 @@
 		</z-paging>
 		<pop-tab :tabIndex="1" ref="popTabCom"></pop-tab>
 		<!-- 弹出层 -->
-		<u-popup :show="show_start" @close="show_start = false" mode="top" :safeAreaInsetBottom="false" :safeAreaInsetTop="true" zIndex="999">
+		<up-popup :show="show_start" @close="show_start = false" mode="top" :safeAreaInsetBottom="false" :safeAreaInsetTop="true" zIndex="999">
 			<!-- #ifdef MP-WEIXIN -->
-			<u-navbar leftIconColor="#fff">
+			<up-navbar leftIconColor="#fff">
 				<template #center>
 					<view class="flex-row items-center justify-center">
 						<view class="" style="font-size: 34rpx; font-weight: 500">查询订单</view>
@@ -456,14 +456,14 @@
 							style="border: 2.2rpx solid #01bb74; height: 44rpx; width: 136rpx; border-radius: 8rpx; color: #01bb74; font-size: 22rpx"
 						>
 							<text class="mr6">使用方法</text>
-							<u-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></u-icon>
+							<up-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></up-icon>
 						</view>
 					</view>
 				</template>
-			</u-navbar>
+			</up-navbar>
 			<!-- #endif -->
 			<!-- #ifdef APP -->
-			<u-navbar title="查询订单" leftIconColor="#fff" :placeholder="true"></u-navbar>
+			<up-navbar title="查询订单" leftIconColor="#fff" :placeholder="true"></up-navbar>
 			<!-- #endif -->
 			<view style="height: 44px"></view>
 			<view class="pl30 pr30 pb30">
@@ -485,7 +485,7 @@
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
 							<view class="flex-row items-center flex-1">
 								<text class="mr10" style="color: #999999">开始日期</text>
-								<u-icon name="arrow-down-fill" size="10"></u-icon>
+								<up-icon name="arrow-down-fill" size="10"></up-icon>
 								<view
 									@click="
 										calendars.open();
@@ -499,7 +499,7 @@
 							</view>
 							<view class="flex-row items-center flex-1">
 								<text class="mr10" style="color: #999999">结束日期</text>
-								<u-icon name="arrow-down-fill" size="10"></u-icon>
+								<up-icon name="arrow-down-fill" size="10"></up-icon>
 								<view
 									@click="
 										calendars.open();
@@ -579,7 +579,7 @@
 
 				<!-- 按钮 -->
 				<view class="flex-row justify-end mt40">
-					<u-button
+					<up-button
 						color="#F4F4F4"
 						type="info"
 						@click="filterReset"
@@ -593,15 +593,15 @@
 						}"
 					>
 						重置
-					</u-button>
-					<u-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
+					</up-button>
+					<up-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</up-button>
 				</view>
 				<!-- 日历选择器 -->
 				<uv-calendars color="#01BB74" confirmColor="#01BB74" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="date1Change" />
 			</view>
-		</u-popup>
+		</up-popup>
 
-		<!-- <u-tabbar :list="vuex_tabbar" active-color="#0FB076"></u-tabbar> -->
+		<!-- <up-tabbar :list="vuex_tabbar" active-color="#0FB076"></up-tabbar> -->
 
 		<!-- <up-overlay
 			:show="showMask"
@@ -611,12 +611,12 @@
 			"
 		> -->
 		<view class="flex-col justify-center items-center">
-			<u-popup round="15" mode="center" :show="showMask" :customStyle="customStyle_pop_pwd">
+			<up-popup round="15" mode="center" :show="showMask" :customStyle="customStyle_pop_pwd">
 				<view class="flex-col justify-center items-center relative" style="height: 100%; width: 100%">
 					<view class="absolute pt20" style="width: 100%; top: 0; height: 75%">
 						<view class="flex-row items-center justify-center passwordTitle">请输入签收密码</view>
 						<view class="flex-col items-center justify-center mt20" style="width: 100%; height: 35%">
-							<u-message-input
+							<up-message-input
 								active-color="#01BB74"
 								:bold="false"
 								@change="(e) => changeList(e)"
@@ -624,8 +624,8 @@
 								:dot-fill="true"
 								v-model="password"
 								mode="box"
-							></u-message-input>
-							<!-- <u-code-input :bold="false" @change="(e) => changeList(e)" @finish="finishList" :dot="true" :modelValue="password" maxlength="4"></u-code-input> -->
+							></up-message-input>
+							<!-- <up-code-input :bold="false" @change="(e) => changeList(e)" @finish="finishList" :dot="true" :modelValue="password" maxlength="4"></up-code-input> -->
 							<view class="mt20 err" v-show="err">密码错误，请重新输入</view>
 						</view>
 						<view @click="goPath('/pages/subUser/resetpassword')" class="ft12 pr30 flex-row justify-end pt15" style="color: #999; width: 100%">找回密码</view>
@@ -635,7 +635,7 @@
 						<view @click="onsubmit(password)" style="width: 50%; height: 100%" class="titlePasOK flex-col justify-center items-center u-border-left">确认</view>
 					</view>
 				</view>
-			</u-popup>
+			</up-popup>
 		</view>
 
 		<!-- </up-overlay> -->

@@ -5,7 +5,7 @@
 				<text class="ft11 ft-gray ml20" style="background-color: transparent" @click="choice">
 					{{ pinia_userRole === 'R' ? InputOneName.a : InputOneName.b }}
 				</text>
-				<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
+				<up-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></up-line>
 
 				<view class="my-input">
 					<uv-input
@@ -19,7 +19,7 @@
 				</view>
 
 				<view class="flex-col justify-center items-center" style="height: 5vh">
-					<view class="ml40"><u-icon name="/static/img/list/lxr.svg" size="45rpx" @click="choice"></u-icon></view>
+					<view class="ml40"><up-icon name="/static/img/list/lxr.svg" size="45rpx" @click="choice"></up-icon></view>
 				</view>
 			</view>
 
@@ -28,7 +28,7 @@
 					{{ InputOneName.c }}
 				</text>
 				<view class="ml10 mr10" style="right: 0; top: 40rpx">
-					<u-icon name="arrow-down-fill" size="20rpx"></u-icon>
+					<up-icon name="arrow-down-fill" size="20rpx"></up-icon>
 				</view>
 
 				<view class="my-input">
@@ -47,7 +47,7 @@
 				</view>
 
 				<view class="flex-col justify-center items-center ml40" style="height: 5vh">
-					<u-icon name="/static/img/list/ss.svg" size="45rpx" @click="SearchBtn"></u-icon>
+					<up-icon name="/static/img/list/ss.svg" size="45rpx" @click="SearchBtn"></up-icon>
 				</view>
 			</view>
 		</view>

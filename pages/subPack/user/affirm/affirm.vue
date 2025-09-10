@@ -1,10 +1,10 @@
 <template>
 	<view class="relative flex-col items-center" style="width: 100vw; height: 100vh">
 		<view class="" style="background-color: transparent">
-			<!-- 		<u-navbar :custom-back="customBack" :border-bottom="false" title-color="#333333" title="注销账号"
-				title-size="28" background="{background:transparent,color:white,fontSize: 28rpx;}"></u-navbar> -->
+			<!-- 		<up-navbar :custom-back="customBack" :border-bottom="false" title-color="#333333" title="注销账号"
+				title-size="28" background="{background:transparent,color:white,fontSize: 28rpx;}"></up-navbar> -->
 
-			<u-navbar
+			<up-navbar
 				:autoBack="true"
 				:placeholder="true"
 				:custom-back="customBack"
@@ -14,32 +14,32 @@
 				title="注销账号"
 				title-size="34"
 				bgColor="#ffffff"
-			></u-navbar>
+			></up-navbar>
 		</view>
 		<view class="flex-col justify-center items-center mt30">
 			<view class="">
-				<u-icon name="https://res-oss.elist.com.cn/wxImg/user/del.svg" size="200rpx"></u-icon>
+				<up-icon name="https://res-oss.elist.com.cn/wxImg/user/del.svg" size="200rpx"></up-icon>
 			</view>
 			<view class="" style="font-size: 36rpx; font-weight: 700; text-align: center; letter-spacing: 0rpx">注销账号将永久失效且不可恢复</view>
 		</view>
 		<view class="ml24 mr24 mt30 pd30" style="background-color: #f9f9f9; width: 94%; height: 50vh; border-radius: 12rpx">
 			<view class="flex-col items-baseline pt25 pb30">
 				<view class="flex-row items-center">
-					<u-icon name="https://res-oss.elist.com.cn/wxImg/user/dian.svg" size="15"></u-icon>
+					<up-icon name="https://res-oss.elist.com.cn/wxImg/user/dian.svg" size="15"></up-icon>
 					<view class="title ml15 pb15 mt10">订单信息确认</view>
 				</view>
 				<view class="text">您在发货端和收货端内的所有订单将会被清空，请确保您已处理完收发端的所有单据。</view>
 			</view>
 			<view class="flex-col items-baseline pb30">
 				<view class="flex-row items-center">
-					<u-icon name="https://res-oss.elist.com.cn/wxImg/user/dian.svg" size="15"></u-icon>
+					<up-icon name="https://res-oss.elist.com.cn/wxImg/user/dian.svg" size="15"></up-icon>
 					<text class="title ml15 pb15 mt10">账号信息</text>
 				</view>
 				<view class="text">个人信息、公司信息、签收人信息、好友信息等将会被清空。</view>
 			</view>
 			<view class="flex-col items-baseline pb30">
 				<view class="flex-row items-center">
-					<u-icon name="https://res-oss.elist.com.cn/wxImg/user/dian.svg" size="15"></u-icon>
+					<up-icon name="https://res-oss.elist.com.cn/wxImg/user/dian.svg" size="15"></up-icon>
 					<text class="title ml15 pb15 mt10">虚拟权益</text>
 				</view>
 				<view class="text">您平台的虚拟权益如您在【我的订购】中已购买的全部内容，将视为您自动放弃无法恢复。</view>
@@ -69,20 +69,20 @@
 			</view>
 		</view>
 
-		<u-popup :show="showAddPhone" mode="center" round="14" :mask-close-able="false" :safeAreaInsetBottom="false">
+		<up-popup :show="showAddPhone" mode="center" round="14" :mask-close-able="false" :safeAreaInsetBottom="false">
 			<view class="showAddPhoneCard" style="">
 				<view class="hand">注销审核</view>
 				<view class="text">稍后易单据客服会给您来电回访，</view>
 				<view class="text">请输入回访号码</view>
 				<view class="number">
-					<u-code-input size="50rpx" space="15rpx" :v-model="addPhone" fontSize="50rpx" @change="change" @finish="finish" maxlength="11"></u-code-input>
+					<up-code-input size="50rpx" space="15rpx" :v-model="addPhone" fontSize="50rpx" @change="change" @finish="finish" maxlength="11"></up-code-input>
 				</view>
 				<view class="flex-row items-center absolute u-border-top" style="width: 100%; bottom: 0; height: 25%">
 					<view @click="cancel()" style="width: 50%; height: 100%" class="titlePas flex-col justify-center items-center">取消</view>
 					<view @click="confirm()" style="width: 50%; height: 100%" class="titlePasOK flex-col justify-center items-center u-border-left">确认</view>
 				</view>
 			</view>
-		</u-popup>
+		</up-popup>
 	</view>
 </template>
 

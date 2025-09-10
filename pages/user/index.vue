@@ -10,18 +10,18 @@
 					<view>
 						<!-- #ifdef MP-WEIXIN -->
 						<view v-if="pinia_token">
-							<u-avatar
+							<up-avatar
 								size="60"
 								:src="pinia_user.data.headPortrait == null ? ImgUrl + '/wxImg/index/mr.svg' : pinia_user.data.headPortrait"
 								@click="userClick"
-							></u-avatar>
+							></up-avatar>
 						</view>
 						<view v-else>
-							<u-avatar size="60" :src="ImgUrl + '/wxImg/index/mr.svg'" @click="userClick"></u-avatar>
+							<up-avatar size="60" :src="ImgUrl + '/wxImg/index/mr.svg'" @click="userClick"></up-avatar>
 						</view>
 						<!-- #endif -->
 						<!-- #ifdef APP -->
-						<u-avatar size="60" src="https://res-oss.elist.com.cn/wxImg/index/mr.svg" @click="userClick"></u-avatar>
+						<up-avatar size="60" src="https://res-oss.elist.com.cn/wxImg/index/mr.svg" @click="userClick"></up-avatar>
 						<!-- #endif -->
 					</view>
 					<view class="flex-col justify-left ml20" style="width: 100%">
@@ -56,14 +56,14 @@
 						<view class="flex-col justify-left mt20" style="">
 							<view class="ft-zjj-05" @click="userClick">
 								<view class="flex-row items-center">
-									<u-icon size="50rpx" :name="ImgUrl + '/wxImg/user/my-phone.png'"></u-icon>
+									<up-icon size="50rpx" :name="ImgUrl + '/wxImg/user/my-phone.png'"></up-icon>
 									<text class="pb5" style="color: #525252">{{ pinia_user.phone || '***********' }}</text>
 								</view>
 							</view>
 							<view class="">
 								<view class="ft-zjj-05" @click="userClick">
 									<view class="flex-row items-center">
-										<u-icon size="50rpx" :name="ImgUrl + '/wxImg/user/my-emp.png'"></u-icon>
+										<up-icon size="50rpx" :name="ImgUrl + '/wxImg/user/my-emp.png'"></up-icon>
 
 										<!-- 										<text class="pb5"
 											style="color: #525252;">{{(pinia_user.ac?pinia_user.ac.enterpriseName:'未完善公司信息')}}</text> -->
@@ -73,7 +73,7 @@
 									</view>
 								</view>
 								<view class="items-center absolute" @click="generateCode" style="right: 5%; top: 14%">
-									<u-icon size="70rpx" :name="ImgUrl + '/wxImg/user/QRCode.svg'"></u-icon>
+									<up-icon size="70rpx" :name="ImgUrl + '/wxImg/user/QRCode.svg'"></up-icon>
 								</view>
 							</view>
 						</view>
@@ -86,28 +86,28 @@
 			<view class="card flex-row bg-white mt25 ml24 mr24 cardShowPlus" style="border-radius: 6px; height: 12vh">
 				<view class="icon" style="" id="box">
 					<view class="" @click="menuClick(menusIcon[0])">
-						<u-icon size="100rpx" :name="ImgUrl + '/wxImg/user/wddd.png'"></u-icon>
+						<up-icon size="100rpx" :name="ImgUrl + '/wxImg/user/wddd.png'"></up-icon>
 
 						<view>我的订购</view>
 					</view>
 				</view>
 				<view class="icon" @click="menuClick(menusIcon[1])">
 					<view class="">
-						<u-icon size="100rpx" :name="ImgUrl + '/wxImg/user/grzl.png'"></u-icon>
+						<up-icon size="100rpx" :name="ImgUrl + '/wxImg/user/grzl.png'"></up-icon>
 
 						<view>个人资料</view>
 					</view>
 				</view>
 				<view class="icon" @click="menuClick(menusIcon[2])">
 					<view class="">
-						<u-icon size="100rpx" :name="ImgUrl + '/wxImg/user/rygl.png'"></u-icon>
+						<up-icon size="100rpx" :name="ImgUrl + '/wxImg/user/rygl.png'"></up-icon>
 
 						<view>人员管理</view>
 					</view>
 				</view>
 				<view class="icon" @click="menuClick(menusIcon[3])">
 					<view class="">
-						<u-icon size="100rpx" :name="ImgUrl + '/wxImg/user/qsgl.png'"></u-icon>
+						<up-icon size="100rpx" :name="ImgUrl + '/wxImg/user/qsgl.png'"></up-icon>
 
 						<view>签收管理</view>
 					</view>
@@ -118,23 +118,23 @@
 				style="border-radius: 6px; width: 94vw; height: auto; background-color: white"
 			>
 				<view class="" style="width: 94%">
-					<u-cell-group :border="false">
-						<u-cell :title="menus[0].name" :titleStyle="{ color: '#666666' }" isLink @click="menuClick(menus[0])">
+					<up-cell-group :border="false">
+						<up-cell :title="menus[0].name" :titleStyle="{ color: '#666666' }" isLink @click="menuClick(menus[0])">
 							<template #icon>
-								<u-icon slot="icon" size="40rpx" :name="ImgUrl + menus[0].icon" color="#999" :customStyle="{ marginRight: '20rpx' }"></u-icon>
+								<up-icon slot="icon" size="40rpx" :name="ImgUrl + menus[0].icon" color="#999" :customStyle="{ marginRight: '20rpx' }"></up-icon>
 							</template>
-						</u-cell>
-						<u-cell :titleStyle="{ color: '#666666' }" v-for="(item, index) in filteredMenus" :key="index" :title="item.name" isLink @click="menuClick(item)">
+						</up-cell>
+						<up-cell :titleStyle="{ color: '#666666' }" v-for="(item, index) in filteredMenus" :key="index" :title="item.name" isLink @click="menuClick(item)">
 							<template #icon>
-								<u-icon slot="icon" size="40rpx" :name="ImgUrl + item.icon" color="#999" :customStyle="{ marginRight: '20rpx' }"></u-icon>
+								<up-icon slot="icon" size="40rpx" :name="ImgUrl + item.icon" color="#999" :customStyle="{ marginRight: '20rpx' }"></up-icon>
 							</template>
-						</u-cell>
-						<u-cell :titleStyle="{ color: '#666666' }" :title="menus[menus.length - 1].name" isLink @click="menuClick(menus[menus.length - 1])" :border="false">
+						</up-cell>
+						<up-cell :titleStyle="{ color: '#666666' }" :title="menus[menus.length - 1].name" isLink @click="menuClick(menus[menus.length - 1])" :border="false">
 							<template #icon>
-								<u-icon slot="icon" size="40rpx" :name="ImgUrl + menus[menus.length - 1].icon" color="#999" :customStyle="{ marginRight: '20rpx' }"></u-icon>
+								<up-icon slot="icon" size="40rpx" :name="ImgUrl + menus[menus.length - 1].icon" color="#999" :customStyle="{ marginRight: '20rpx' }"></up-icon>
 							</template>
-						</u-cell>
-					</u-cell-group>
+						</up-cell>
+					</up-cell-group>
 				</view>
 			</view>
 		</view>

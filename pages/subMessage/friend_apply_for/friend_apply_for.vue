@@ -1,10 +1,10 @@
 <template>
 	<view>
 		<view class="ml24 mr24" style="height: 10vh; width: 93vw; border-radius: 6px; align-items: center" v-show="SHOW == 0">
-			<u-swipe-action v-for="(item, index) in resApiO" :key="index" v-show="SHOW == 0">
-				<u-swipe-action-item :show="item.show" :name="index" @click="delclick(item)" :options="options">
+			<up-swipe-action v-for="(item, index) in resApiO" :key="index" v-show="SHOW == 0">
+				<up-swipe-action-item :show="item.show" :name="index" @click="delclick(item)" :options="options">
 					<view style="width: 96vw" class="flex-row u-border-bottom mt20 pd15">
-						<u-image :src="item.aImg || defaultImg" shape="circle" width="50px" height="50px"></u-image>
+						<up-image :src="item.aImg || defaultImg" shape="circle" width="50px" height="50px"></up-image>
 						<view class="flex-col justify-center ml26" style="height: 70px; width: 40%">
 							<text class="title mb8" style="font-size: 32rpx">{{ item.aName || item.aNumber }}</text>
 							<text class="title" style="font-size: 27rpx; color: #999999; letter-spacing: 1rpx">申请成为您的{{ item.port == 'D' ? '供应商' : '客户' }}</text>
@@ -35,8 +35,8 @@
 							</view>
 						</view>
 					</view>
-				</u-swipe-action-item>
-			</u-swipe-action>
+				</up-swipe-action-item>
+			</up-swipe-action>
 		</view>
 	</view>
 </template>

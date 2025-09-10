@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<u-navbar
+		<up-navbar
 			:placeholder="true"
 			:custom-back="jump"
 			:border-bottom="false"
@@ -9,10 +9,10 @@
 			title="发票审核"
 			title-size="34"
 			bgColor="#ffffff"
-		></u-navbar>
+		></up-navbar>
 		<view class="w100 box">
 			<view class="mb36">
-				<u-icon name="https://res-oss.elist.com.cn/wxImg/user/invoic.png" size="200rpx"></u-icon>
+				<up-icon name="https://res-oss.elist.com.cn/wxImg/user/invoic.png" size="200rpx"></up-icon>
 			</view>
 			<view class="success">申请提交成功</view>
 			<view class="ts mt10 flex-col justify-center">

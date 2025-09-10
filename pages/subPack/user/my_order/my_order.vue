@@ -1,13 +1,13 @@
 <template>
 	<view class="Myorder">
-		<u-navbar :autoBack="true" :placeholder="true" title="我的订购" leftIconColor="#fff" bgColor="transparent" :titleStyle="{ color: '#fff' }"></u-navbar>
+		<up-navbar :autoBack="true" :placeholder="true" title="我的订购" leftIconColor="#fff" bgColor="transparent" :titleStyle="{ color: '#fff' }"></up-navbar>
 
 		<pop-details ref="popDetails"></pop-details>
 
 		<view class="handNavbarBackground">
 			<view class="handTab">
 				<view class="Tab">
-					<u-tabs
+					<up-tabs
 						:inactiveStyle="{ color: '#D6AE83' }"
 						:itemStyle="{ backgroundColor: 'transparent', height: '80rpx' }"
 						:activeStyle="{ color: '#D6AE83' }"
@@ -16,7 +16,7 @@
 						:scrollable="false"
 						:current="current"
 						@change="TabChange"
-					></u-tabs>
+					></up-tabs>
 				</view>
 			</view>
 		</view>
@@ -40,17 +40,17 @@
 						@click="checkboxClick(index)"
 					>
 						<view class="card_people_icon">
-							<u-icon size="90rpx" name="https://res-oss.elist.com.cn/wxImg/vip/jyn.svg"></u-icon>
+							<up-icon size="90rpx" name="https://res-oss.elist.com.cn/wxImg/vip/jyn.svg"></up-icon>
 						</view>
 						<view class="card_people_title">
 							<view class="card_people_title_one">
 								<view class="relative flex-row items-start">
 									<text class="mr10">{{ item.product || '' }}</text>
 									<!-- #ifdef MP-WEIXIN -->
-									<u-icon @tap.stop @click="popDetails(1, item)" class="mb10 ml5 absolute" size="23rpx" name="question-circle" color="#AAAAAA"></u-icon>
+									<up-icon @tap.stop @click="popDetails(1, item)" class="mb10 ml5 absolute" size="23rpx" name="question-circle" color="#AAAAAA"></up-icon>
 									<!-- #endif -->
 									<!-- #ifdef APP -->
-									<u-icon @click="popDetails(1, item)" class="mb10 ml5 absolute" size="23rpx" name="question-circle" color="#AAAAAA"></u-icon>
+									<up-icon @click="popDetails(1, item)" class="mb10 ml5 absolute" size="23rpx" name="question-circle" color="#AAAAAA"></up-icon>
 									<!-- #endif -->
 								</view>
 							</view>
@@ -71,11 +71,11 @@
 								}"
 								style="border-radius: 100rpx; height: 32rpx; width: 32rpx; border: 2rpx solid #aaaaaa"
 							>
-								<u-icon name="checkbox-mark" color="#ffffff" size="20rpx"></u-icon>
+								<up-icon name="checkbox-mark" color="#ffffff" size="20rpx"></up-icon>
 							</view>
 
 							<view class="absolute" style="right: 30rpx; top: -4rpx" v-if="index == 1">
-								<u-image width="140rpx" height="50rpx" src="https://res-oss.elist.com.cn/wxImg/order/tj.png"></u-image>
+								<up-image width="140rpx" height="50rpx" src="https://res-oss.elist.com.cn/wxImg/order/tj.png"></up-image>
 							</view>
 						</view>
 					</view>
@@ -93,10 +93,10 @@
 						</view>
 						<view class="tempCard_title flex-row justify-end">
 							<view class="bjzx">
-								<u-button hover-class="none" :hair-line="false" :customStyle="buttonStyle" open-type="contact">
+								<up-button hover-class="none" :hair-line="false" :customStyle="buttonStyle" open-type="contact">
 									报价咨询
-									<view class="ml8 mt1"><u-icon name="play-right-fill" color="#E7647F" size="16rpx"></u-icon></view>
-								</u-button>
+									<view class="ml8 mt1"><up-icon name="play-right-fill" color="#E7647F" size="16rpx"></up-icon></view>
+								</up-button>
 							</view>
 						</view>
 					</view>
@@ -114,8 +114,8 @@
 						<view class="width40 flex-col pt20" @click="dropdownIcon" style="z-index: 98; height: 100%; text-align: center">
 							<liu-data-select elementId="data-select1" :dataList="dataListAll" @change="dropdown">
 								<view id="data-select1" class="btn-info flex-row justify-left pl30 items-center">
-									<view class="mr10" v-if="selectionIcon"><u-icon name="arrow-down-fill" color="#333333" size="20rpx"></u-icon></view>
-									<view class="mr10" v-else><u-icon name="arrow-up-fill" color="#333333" size="20rpx"></u-icon></view>
+									<view class="mr10" v-if="selectionIcon"><up-icon name="arrow-down-fill" color="#333333" size="20rpx"></up-icon></view>
+									<view class="mr10" v-else><up-icon name="arrow-up-fill" color="#333333" size="20rpx"></up-icon></view>
 									<text>{{ dropdownName || '' }}</text>
 								</view>
 							</liu-data-select>
@@ -130,25 +130,25 @@
 										}"
 										style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 									>
-										<u-icon name="checkbox-mark" color="#ffffff" size="25rpx"></u-icon>
+										<up-icon name="checkbox-mark" color="#ffffff" size="25rpx"></up-icon>
 									</view>
 									<view class="ml15 relative mr48 flex-row items-start">
 										<text class="mr10">{{ c_product_old_data[0] ? c_product_old_data[0].product : 0 }}</text>
-										<u-icon
+										<up-icon
 											@tap.stop
 											@click="popDetails(1, c_product_old_data[0])"
 											class="mb10 ml5 absolute"
 											size="23rpx"
 											name="question-circle"
 											color="#AAAAAA"
-										></u-icon>
+										></up-icon>
 									</view>
 									<text class="grandsonPriceSign">￥</text>
 									<text class="grandsonPrice">{{ c_product_old_data[0] ? c_product_old_data[0].priceDiscount : 0 }}/年</text>
 									<view class="grandsonPriceOriginal ml10">￥{{ c_product_old_data[0] ? c_product_old_data[0].price : 0 }}</view>
 								</view>
 
-								<u-divider color="#fa3534" half-width="190" :use-slot="false"></u-divider>
+								<up-divider color="#fa3534" half-width="190" :use-slot="false"></up-divider>
 
 								<view class="flex-row justify-left items-center pb20" @click="checkboxClickdr(1)">
 									<view
@@ -158,19 +158,19 @@
 										}"
 										style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 									>
-										<u-icon name="checkbox-mark" color="#ffffff" size="25rpx"></u-icon>
+										<up-icon name="checkbox-mark" color="#ffffff" size="25rpx"></up-icon>
 									</view>
 
 									<view class="ml15 relative mr48 flex-row items-start">
 										<text class="mr10">{{ c_product_old_data[1] ? c_product_old_data[1].product : '' }}</text>
-										<u-icon
+										<up-icon
 											@tap.stop
 											@click="popDetails(1, c_product_old_data[1])"
 											class="mb10 ml5 absolute"
 											size="23rpx"
 											name="question-circle"
 											color="#AAAAAA"
-										></u-icon>
+										></up-icon>
 									</view>
 									<text class="grandsonPriceSign">￥</text>
 									<text class="grandsonPrice">{{ c_product_old_data[1] ? c_product_old_data[1].priceDiscount : 0 }}/年</text>
@@ -193,7 +193,7 @@
 					>
 						<!-- <view class="TabRY" :style="{backgroundImage:currentVip==0?tabUrlImg.bgUrlOne:tabUrlImg.bgUrlTow}"> -->
 						<view class="" style="width: 100%">
-							<u-tabs
+							<up-tabs
 								:inactiveStyle="{ color: '#D6AE83' }"
 								:itemStyle="{ backgroundColor: 'transparent' }"
 								:activeStyle="{ color: '#323243' }"
@@ -203,7 +203,7 @@
 								:current="currentVip"
 								@change="changeVip"
 								:lineWidth="0"
-							></u-tabs>
+							></up-tabs>
 						</view>
 					</view>
 
@@ -211,17 +211,17 @@
 						<view class="tabBodyOne_card_body">
 							<view class="tabBodyOne_card_body_hand">
 								<text class="mr10">合伙人</text>
-								<u-icon
+								<up-icon
 									@click="popDetails(4, c_product_people[2])"
 									size="20rpx"
 									name="question-circle"
 									color="#AAAAAA"
 									class="absolute ml5"
 									style="top: 0; right: 0rpx"
-								></u-icon>
+								></up-icon>
 							</view>
 							<view class="tabBodyOne_card_body_sum">
-								<u-number-box
+								<up-number-box
 									:disabledInput="true"
 									:integer="true"
 									buttonWidth="40rpx"
@@ -233,7 +233,7 @@
 									v-model="playMoneyListSend.c_product_people.c"
 									@change="valChangec"
 									:iconStyle="{ color: '#fff', fontSize: '20rpx' }"
-								></u-number-box>
+								></up-number-box>
 							</view>
 							<view class="tabBodyOne_card_body_price">
 								<text class="grandsonPriceSign">￥</text>
@@ -251,7 +251,7 @@
 									}"
 									style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 								>
-									<u-icon name="checkbox-mark" color="#ffffff" size="20rpx"></u-icon>
+									<up-icon name="checkbox-mark" color="#ffffff" size="20rpx"></up-icon>
 								</view>
 							</view>
 						</view>
@@ -259,17 +259,17 @@
 						<view class="tabBodyOne_card_body">
 							<view class="tabBodyOne_card_body_hand">
 								<text class="mr10">财务</text>
-								<u-icon
+								<up-icon
 									@click="popDetails(2, c_product_people[0])"
 									size="20rpx"
 									name="question-circle"
 									color="#AAAAAA"
 									class="absolute ml5"
 									style="top: 0; right: 20rpx"
-								></u-icon>
+								></up-icon>
 							</view>
 							<view class="tabBodyOne_card_body_sum">
-								<u-number-box
+								<up-number-box
 									:disabledInput="true"
 									:integer="true"
 									buttonWidth="40rpx"
@@ -281,7 +281,7 @@
 									v-model="playMoneyListSend.c_product_people.a"
 									@change="valChangea"
 									:iconStyle="{ color: '#fff', fontSize: '20rpx' }"
-								></u-number-box>
+								></up-number-box>
 							</view>
 							<view class="tabBodyOne_card_body_price">
 								<text class="grandsonPriceSign">￥</text>
@@ -299,7 +299,7 @@
 									}"
 									style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 								>
-									<u-icon name="checkbox-mark" color="#ffffff" size="20rpx"></u-icon>
+									<up-icon name="checkbox-mark" color="#ffffff" size="20rpx"></up-icon>
 								</view>
 							</view>
 						</view>
@@ -307,17 +307,17 @@
 						<view class="tabBodyOne_card_body">
 							<view class="tabBodyOne_card_body_hand">
 								<text class="mr10">员工</text>
-								<u-icon
+								<up-icon
 									@click="popDetails(2, c_product_people[1])"
 									size="20rpx"
 									name="question-circle"
 									color="#AAAAAA"
 									class="absolute ml5"
 									style="top: 0; right: 20rpx"
-								></u-icon>
+								></up-icon>
 							</view>
 							<view class="tabBodyOne_card_body_sum">
-								<u-number-box
+								<up-number-box
 									:disabledInput="true"
 									:integer="true"
 									buttonWidth="40rpx"
@@ -329,7 +329,7 @@
 									v-model="playMoneyListSend.c_product_people.b"
 									@change="valChangeb"
 									:iconStyle="{ color: '#fff', fontSize: '20rpx' }"
-								></u-number-box>
+								></up-number-box>
 							</view>
 							<view class="tabBodyOne_card_body_price">
 								<text class="grandsonPriceSign">￥</text>
@@ -347,7 +347,7 @@
 									}"
 									style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 								>
-									<u-icon name="checkbox-mark" color="#ffffff" size="20rpx"></u-icon>
+									<up-icon name="checkbox-mark" color="#ffffff" size="20rpx"></up-icon>
 								</view>
 							</view>
 						</view>
@@ -361,20 +361,20 @@
 						<view class="tabBodyTwoTitle" v-if="renew['C3'] != null">
 							<view class="title_hhr">
 								<text class="mr10">合伙人</text>
-								<u-icon
+								<up-icon
 									@click="popDetails(3, c_product_people[2])"
 									size="20rpx"
 									name="question-circle"
 									color="#AAAAAA"
 									class="absolute ml32"
 									style="top: 0; right: 20rpx"
-								></u-icon>
+								></up-icon>
 							</view>
 						</view>
 
 						<view class="tabBodyTwoBody" v-for="(item, index) in renew['C3']" :key="index" @click="renewCheck(index, renew['C3'])">
 							<view class="tabBodyTwoBody_hand">
-								<u-avatar :src="item.right || img" mode="circle"></u-avatar>
+								<up-avatar :src="item.right || img" mode="circle"></up-avatar>
 							</view>
 							<view class="tabBodyTwoBody_time">
 								<text class="ml15 time" :style="{ color: expireDate(item.left) ? '' : '#FA5151' }">{{ $u.timeFormat(item.left, 'yyyy-mm-dd') }}到期</text>
@@ -391,7 +391,7 @@
 									}"
 									style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 								>
-									<u-icon name="checkbox-mark" color="#ffffff" size="20rpx"></u-icon>
+									<up-icon name="checkbox-mark" color="#ffffff" size="20rpx"></up-icon>
 								</view>
 							</view>
 						</view>
@@ -400,20 +400,20 @@
 						<view class="tabBodyTwoTitle" v-if="renew['C1'] != null">
 							<view class="title_cw">
 								<text class="mr10">财务</text>
-								<u-icon
+								<up-icon
 									@click="popDetails(3, c_product_people[0])"
 									size="20rpx"
 									name="question-circle"
 									color="#AAAAAA"
 									class="absolute ml5"
 									style="top: 0; right: 20rpx"
-								></u-icon>
+								></up-icon>
 							</view>
 						</view>
 
 						<view class="tabBodyTwoBody" v-for="(item, index) in renew['C1']" :key="index" @click="renewCheck(index, renew['C1'])">
 							<view class="tabBodyTwoBody_hand">
-								<u-avatar :src="item.right || img" mode="circle"></u-avatar>
+								<up-avatar :src="item.right || img" mode="circle"></up-avatar>
 							</view>
 							<view class="tabBodyTwoBody_time">
 								<text class="ml15 time" :style="{ color: expireDate(item.left) ? '' : '#FA5151' }">{{ $u.timeFormat(item.left, 'yyyy-mm-dd') }}到期</text>
@@ -430,7 +430,7 @@
 									}"
 									style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 								>
-									<u-icon name="checkbox-mark" color="#ffffff" size="20rpx"></u-icon>
+									<up-icon name="checkbox-mark" color="#ffffff" size="20rpx"></up-icon>
 								</view>
 							</view>
 						</view>
@@ -438,20 +438,20 @@
 						<view class="tabBodyTwoTitle" v-if="renew['C2'] != null">
 							<view class="title_cw">
 								<text class="mr10">员工</text>
-								<u-icon
+								<up-icon
 									@click="popDetails(3, c_product_people[1])"
 									size="20rpx"
 									name="question-circle"
 									color="#AAAAAA"
 									class="absolute ml5"
 									style="top: 0; right: 20rpx"
-								></u-icon>
+								></up-icon>
 							</view>
 						</view>
 
 						<view class="tabBodyTwoBody" v-for="(item, index) in renew['C2']" :key="index" @click="renewCheck(index, renew['C2'])">
 							<view class="tabBodyTwoBody_hand">
-								<u-avatar :src="item.right || img" mode="circle"></u-avatar>
+								<up-avatar :src="item.right || img" mode="circle"></up-avatar>
 							</view>
 							<view class="tabBodyTwoBody_time">
 								<text class="ml15 time" :style="{ color: expireDate(item.left) ? '' : '#FA5151' }">{{ $u.timeFormat(item.left, 'yyyy-mm-dd') }}到期</text>
@@ -468,7 +468,7 @@
 									}"
 									style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 								>
-									<u-icon name="checkbox-mark" color="#ffffff" size="20rpx"></u-icon>
+									<up-icon name="checkbox-mark" color="#ffffff" size="20rpx"></up-icon>
 								</view>
 							</view>
 						</view>
@@ -480,13 +480,13 @@
 
 		<view class="BodyWDDD" v-show="current == 1">
 			<view class="vw100" style="margin-top: 50%; height: 200rpx" v-if="jurisdictionOrdder.length == 0">
-				<u-empty
+				<up-empty
 					icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg"
 					iconSize="400rpx"
 					text="暂无购买记录~"
 					mode="search"
 					marginTop="200rpx"
-				></u-empty>
+				></up-empty>
 			</view>
 
 			<scroll-view scroll-y="true" class="BodyWDDDScrollView" v-if="jurisdictionOrdder.length">
@@ -512,7 +512,7 @@
 							style="width: 100%"
 						>
 							<view class="mr15" style="width: 15%">
-								<u-avatar :src="img" mode="circle"></u-avatar>
+								<up-avatar :src="img" mode="circle"></up-avatar>
 							</view>
 							<view class="items-center">
 								<view class="flex-col justify-center ddbt" style="height: 50%">人员续费(财务) 一年</view>
@@ -529,7 +529,7 @@
 							style="width: 100%"
 						>
 							<view class="mr15" style="width: 15%">
-								<u-avatar :src="img" mode="circle"></u-avatar>
+								<up-avatar :src="img" mode="circle"></up-avatar>
 							</view>
 							<view class="items-center">
 								<view class="flex-col justify-center ddbt" style="height: 50%">人员续费(员工) 一年</view>
@@ -546,7 +546,7 @@
 							style="width: 100%"
 						>
 							<view class="mr15" style="width: 15%">
-								<u-avatar :src="img" mode="circle"></u-avatar>
+								<up-avatar :src="img" mode="circle"></up-avatar>
 							</view>
 							<view class="items-center">
 								<view class="flex-col justify-center ddbt" style="height: 50%">人员续费(合伙人) 一年</view>
@@ -556,7 +556,7 @@
 						</view>
 
 						<view class="mt30" style="width: 100%" v-if="IFJCODE(item.peopleRenew, 'C1') || IFJCODE(item.peopleRenew, 'C1')">
-							<u-divider class="mt20" border-color="#F4F4F4" half-width="290" :use-slot="false"></u-divider>
+							<up-divider class="mt20" border-color="#F4F4F4" half-width="290" :use-slot="false"></up-divider>
 						</view>
 
 						<view
@@ -574,7 +574,7 @@
 						</view>
 
 						<view class="mt30" style="width: 100%" v-if="IFKEY(item.product, 'B1')">
-							<u-divider class="mt20" border-color="#F4F4F4" half-width="290" :use-slot="false"></u-divider>
+							<up-divider class="mt20" border-color="#F4F4F4" half-width="290" :use-slot="false"></up-divider>
 						</view>
 
 						<view
@@ -592,7 +592,7 @@
 						</view>
 
 						<view class="mt30" style="width: 100%" v-if="IFKEY(item.product, 'B2')">
-							<u-divider class="mt20" border-color="#F4F4F4" half-width="290" :use-slot="false"></u-divider>
+							<up-divider class="mt20" border-color="#F4F4F4" half-width="290" :use-slot="false"></up-divider>
 						</view>
 
 						<view
@@ -609,7 +609,7 @@
 							<view class="absolute" style="right: 10rpx">￥{{ item.priceAll.A1 }}</view>
 						</view>
 						<view class="mt30" style="width: 100%" v-if="IFKEY(item.product, 'A1')">
-							<u-divider class="mt20" border-color="#F4F4F4" half-width="290" :use-slot="false"></u-divider>
+							<up-divider class="mt20" border-color="#F4F4F4" half-width="290" :use-slot="false"></up-divider>
 						</view>
 
 						<view
@@ -626,7 +626,7 @@
 							<view class="absolute" style="right: 10rpx">￥{{ item.priceAll.A2 }}</view>
 						</view>
 						<view class="mt30" style="width: 100%" v-if="IFKEY(item.product, 'A2')">
-							<u-divider class="mt20" border-color="#F4F4F4" half-width="290" :use-slot="false"></u-divider>
+							<up-divider class="mt20" border-color="#F4F4F4" half-width="290" :use-slot="false"></up-divider>
 						</view>
 
 						<view
@@ -672,7 +672,7 @@
 						</view>
 
 						<view class="mt30" style="width: 100%" v-if="IFKEY(item.product, 'C1') || IFKEY(item.product, 'C2')">
-							<u-divider class="mt20" border-color="#F4F4F4" half-width="290" :use-slot="false"></u-divider>
+							<up-divider class="mt20" border-color="#F4F4F4" half-width="290" :use-slot="false"></up-divider>
 						</view>
 
 						<view
@@ -704,7 +704,7 @@
 						</view>
 
 						<view class="mt30" style="width: 100%" v-if="IFKEY(item.product, 'O1') || IFKEY(item.product, 'O2')">
-							<u-divider class="mt20" border-color="#F4F4F4" half-width="290" :use-slot="false"></u-divider>
+							<up-divider class="mt20" border-color="#F4F4F4" half-width="290" :use-slot="false"></up-divider>
 						</view>
 
 						<view class="flex-row justify-left relative mt30" style="width: 100%; height: 70rpx">
@@ -761,13 +761,13 @@
 							<view class="items-center dqsj flex-row" v-if="!item.open" @click="open(item, index)">
 								<text>全部订单信息</text>
 								<view class="ml5">
-									<u-icon name="arrow-down" color="#999999" size="28rpx"></u-icon>
+									<up-icon name="arrow-down" color="#999999" size="28rpx"></up-icon>
 								</view>
 							</view>
 							<view class="items-center dqsj flex-row" v-if="item.open" @click="close(item, index)">
 								<text>收起</text>
 								<view class="ml5">
-									<u-icon name="arrow-up" color="#999999" size="28rpx"></u-icon>
+									<up-icon name="arrow-up" color="#999999" size="28rpx"></up-icon>
 								</view>
 							</view>
 						</view>

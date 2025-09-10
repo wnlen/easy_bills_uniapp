@@ -1,7 +1,7 @@
 <template>
 	<view class="shareFriend">
 		<view class="absolute" style="left: 24rpx; top: 120rpx">
-			<u-icon name="arrow-left" color="#333333" size="45rpx" @click="close"></u-icon>
+			<up-icon name="arrow-left" color="#333333" size="45rpx" @click="close"></up-icon>
 		</view>
 		<view
 			class="shareFriendBottom"
@@ -12,9 +12,9 @@
 			"
 		>
 			<view class="shareFriendBottomButton">
-				<u-button hover-class="none" shape="circle" :customStyle="customStyle" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">
+				<up-button hover-class="none" shape="circle" :customStyle="customStyle" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">
 					{{ invitationRole == 'D' ? '成为客户' : '成为供应商' }}
-				</u-button>
+				</up-button>
 			</view>
 		</view>
 	</view>

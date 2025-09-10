@@ -13,7 +13,7 @@
 			@query="queryList"
 		>
 			<template #top>
-				<u-navbar :autoBack="true" :placeholder="true">
+				<up-navbar :autoBack="true" :placeholder="true">
 					<template #center>
 						<view class="flex-row items-center justify-center ml50" style="width: 100%">
 							<view class="" style="font-size: 34rpx; font-weight: 510">统计对账</view>
@@ -23,12 +23,12 @@
 								style="border: 2.2rpx solid #01bb74; height: 44rpx; width: 136rpx; border-radius: 8rpx; color: #01bb74; font-size: 22rpx"
 							>
 								<text class="mr6">使用方法</text>
-								<u-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></u-icon>
+								<up-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></up-icon>
 							</view>
 						</view>
 					</template>
-				</u-navbar>
-				<u-notice-bar v-if="uNoticeBarlist.length" direction="column" :text="uNoticeBarlist" padding="6rpx 12rpx"></u-notice-bar>
+				</up-navbar>
+				<up-notice-bar v-if="uNoticeBarlist.length" direction="column" :text="uNoticeBarlist" padding="6rpx 12rpx"></up-notice-bar>
 				<view class="fliter-wrap">
 					<view class="fliter-wrap-view">
 						<view
@@ -39,7 +39,7 @@
 							class="filter-btn flex-row justify-center items-center"
 							:class="{ active: index == tagIndex }"
 						>
-							<u-icon v-if="item.key == false" size="35rpx" name="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/vip/vip.svg"></u-icon>
+							<up-icon v-if="item.key == false" size="35rpx" name="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/vip/vip.svg"></up-icon>
 							{{ item.value }}
 						</view>
 					</view>
@@ -51,7 +51,7 @@
 						<text class="ft30 ft-gray mb18" style="color: #999999">累计金额</text>
 						<view class="">
 							<text class="ft42 ft-bold">￥</text>
-							<u-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="40rpx" decimals="2" bold></u-count-to>
+							<up-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="40rpx" decimals="2" bold></up-count-to>
 						</view>
 					</view>
 
@@ -101,7 +101,7 @@
 					<div class="flex-row items-center radius pr20 mr10 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%">
 						<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
 							<text class="ft11 ft-gray ml36" @click="CustomerGet">{{ pinia_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
-							<u-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></u-line>
+							<up-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></up-line>
 							<view class="flex-1">
 								<uv-input
 									border="none"
@@ -113,7 +113,7 @@
 							</view>
 
 							<div class="flex-col justify-center items-center" style="height: 5vh">
-								<u-icon class="ml48" name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></u-icon>
+								<up-icon class="ml48" name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></up-icon>
 							</div>
 						</div>
 					</div>
@@ -123,7 +123,7 @@
 							<text class="ft11 ft-gray ml36 mr10" @click="filtrateGet">
 								{{ Title }}
 							</text>
-							<u-icon name="arrow-down-fill" size="10"></u-icon>
+							<up-icon name="arrow-down-fill" size="10"></up-icon>
 							<view class="my-input flex-1 ml10" v-if="showTage != '1'">
 								<uv-input border="none" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入关键字进行检索"></uv-input>
 							</view>
@@ -132,7 +132,7 @@
 							</view>
 
 							<div class="flex-col justify-center items-center" style="height: 5vh">
-								<u-icon class="ml48" name="/static/img/list/ss.svg" size="45rpx"></u-icon>
+								<up-icon class="ml48" name="/static/img/list/ss.svg" size="45rpx"></up-icon>
 							</div>
 						</div>
 					</div>
@@ -156,7 +156,7 @@
 									@click="checkboxGroupChange(item, index)"
 									style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 								>
-									<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
+									<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
 								</view>
 								<view class="ml15">订单编号:</view>
 								<view class="ml10" style="color: #f76565">
@@ -165,23 +165,23 @@
 							</view>
 						</view>
 						<view class="ml20" style="margin-right: -20rpx">
-							<u-image v-if="pinia_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></u-image>
-							<u-image v-if="pinia_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/dqs.png"></u-image>
-							<u-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="@/static/img/obj/bq2.png" :lazy-load="true"></u-image>
-							<u-image
+							<up-image v-if="pinia_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></up-image>
+							<up-image v-if="pinia_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/dqs.png"></up-image>
+							<up-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="@/static/img/obj/bq2.png" :lazy-load="true"></up-image>
+							<up-image
 								v-if="pinia_userRole != 'R' && item.paymentState == '2'"
 								width="120rpx"
 								height="50rpx"
 								class="u-img"
 								src="@/static/img/obj/bq3.png"
 								:lazy-load="true"
-							></u-image>
-							<u-image v-if="pinia_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/yfk.png"></u-image>
+							></up-image>
+							<up-image v-if="pinia_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/yfk.png"></up-image>
 						</view>
 					</view>
 					<view class="width100 pb25 pt10 u-skeleton-fillet">
-						<u-row gutter="16" justify="between">
-							<u-col span="20">
+						<up-row gutter="16" justify="between">
+							<up-col span="20">
 								<view class="flex-col items-center text-left">
 									<text
 										v-if="pinia_userRole != 'R'"
@@ -204,8 +204,8 @@
 										{{ item.enterpriseS || item.bossNumberS }}{{ ifZX(item.bossNumberS) ? '(已注销)' : '' }}
 									</text>
 								</view>
-							</u-col>
-						</u-row>
+							</up-col>
+						</up-row>
 					</view>
 					<view class="u-skeleton-fillet ft30 line25 ft-lighgray">
 						<text>日期：{{ $u.timeFormat(item.creationTime, 'yyyy-mm-dd') }}</text>
@@ -222,13 +222,13 @@
 				</view>
 			</view>
 			<template #empty>
-				<u-empty
+				<up-empty
 					:icon="ImgUrl + '/wxImg/list/empty.svg'"
 					iconSize="200rpx"
 					:text="pinia_userRole == 'D' ? '还没有送货单呢~快去开一个单试试吧！' : '还没收到订单呢~快去邀请供应商开单吧！'"
 					marginTop="-100rpx"
 				>
-					<u-button
+					<up-button
 						v-if="pinia_userRole == 'D'"
 						color="#01BB74"
 						iconColor="#ECFFF9"
@@ -242,8 +242,8 @@
 						"
 					>
 						<text>去开单</text>
-					</u-button>
-					<u-button
+					</up-button>
+					<up-button
 						v-else
 						openType="share"
 						color="#01BB74"
@@ -253,8 +253,8 @@
 						:plain="true"
 					>
 						<text>去邀请</text>
-					</u-button>
-				</u-empty>
+					</up-button>
+				</up-empty>
 			</template>
 			<template #bottom>
 				<view style="background-color: #ffffff; box-shadow: 0rpx 4rpx 6rpx 0rpx rgba(51, 51, 51, 0.2)">
@@ -272,7 +272,7 @@
 												}"
 												style="border-radius: 50%; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 											>
-												<u-icon name="checkbox-mark" color="#ffffff" size="28rpx"></u-icon>
+												<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
 											</view>
 											<view class="ml15" style="color: #333333; font-size: 28rpx">全选</view>
 										</view>
@@ -288,7 +288,7 @@
 									class="flex-row justify-center items-center"
 									style="width: 280rpx; height: 80rpx; border-radius: 90rpx; opacity: 1; background-color: #01bb74; color: white; float: right; font-weight: 600"
 								>
-									<u-icon name="https://res-oss.elist.com.cn/wxImg/statistics/down.svg" size="40rpx"></u-icon>
+									<up-icon name="https://res-oss.elist.com.cn/wxImg/statistics/down.svg" size="40rpx"></up-icon>
 									下载PDF
 								</view>
 							</view>
@@ -311,7 +311,7 @@
 										<view class="flex-col justify-center items-center" @click="checkedAll"
 											:style="{backgroundColor:checked?'#01BB74':'#ffffff'}"
 											style="border-radius: 100rpx;height: 40rpx;width: 40rpx;border: 2rpx solid #AAAAAA;">
-											<u-icon name="checkbox-mark" color="#ffffff" size="28"></u-icon>
+											<up-icon name="checkbox-mark" color="#ffffff" size="28"></up-icon>
 										</view>
 										<view class="ml15" style="color: #333333;">
 											全选
@@ -327,16 +327,16 @@
 								style="width: 280rpx;height: 80rpx;border-radius: 90rpx;opacity: 1;background-color: #01BB74;color: white;float: right;
 								font-weight: 600;
 								">
-								<u-icon name="https://res-oss.elist.com.cn/wxImg/statistics/down.svg"
-									size="40"></u-icon>下载PDF
+								<up-icon name="https://res-oss.elist.com.cn/wxImg/statistics/down.svg"
+									size="40"></up-icon>下载PDF
 							</view>
 						</view>
 					</view>
 				</view>
 			</view> -->
 
-			<u-popup :show="show_start" mode="top" :safeAreaInsetBottom="false" width="100%" @close="show_start = false">
-				<u-navbar :autoBack="true" :placeholder="true">
+			<up-popup :show="show_start" mode="top" :safeAreaInsetBottom="false" width="100%" @close="show_start = false">
+				<up-navbar :autoBack="true" :placeholder="true">
 					<template #center>
 						<view class="flex-row items-center justify-center ml50" style="width: 100%">
 							<view class="" style="font-size: 34rpx; font-weight: 510">统计对账</view>
@@ -346,11 +346,11 @@
 								style="border: 2.2rpx solid #01bb74; height: 44rpx; width: 136rpx; border-radius: 8rpx; color: #01bb74; font-size: 22rpx"
 							>
 								<text class="mr6">使用方法</text>
-								<u-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></u-icon>
+								<up-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></up-icon>
 							</view>
 						</view>
 					</template>
-				</u-navbar>
+				</up-navbar>
 				<view class="flex-col pl30 pr30 pb30 justify-between" style="width: 100%">
 					<view class="flex-col mt20" style="width: 100%">
 						<text
@@ -369,7 +369,7 @@
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
 							<view class="flex-row items-center flex-1">
 								<text class="mr10" style="color: #999999">开始日期</text>
-								<u-icon name="arrow-down-fill" size="10"></u-icon>
+								<up-icon name="arrow-down-fill" size="10"></up-icon>
 								<view
 									@click="
 										$refs.calendars.open();
@@ -383,7 +383,7 @@
 							</view>
 							<view class="flex-row items-center flex-1">
 								<text class="mr10" style="color: #999999">结束日期</text>
-								<u-icon name="arrow-down-fill" size="10"></u-icon>
+								<up-icon name="arrow-down-fill" size="10"></up-icon>
 								<view
 									@click="
 										$refs.calendars.open();
@@ -461,7 +461,7 @@
 					</view>
 					<!-- 按钮 -->
 					<view class="flex-row justify-end mt40">
-						<u-button
+						<up-button
 							color="#F4F4F4"
 							type="info"
 							@click="filterReset"
@@ -475,13 +475,13 @@
 							}"
 						>
 							重置
-						</u-button>
-						<u-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</u-button>
+						</up-button>
+						<up-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</up-button>
 					</view>
 					<!-- 日历选择器 -->
 					<uv-calendars color="#01BB74" confirmColor="#01BB74" :startDate="getMin()" :endDate="getMax()" ref="calendars" @confirm="date1Change" />
 				</view>
-			</u-popup>
+			</up-popup>
 		</view>
 
 		<up-overlay :show="roleShow" @click="roleShow = false">

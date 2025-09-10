@@ -5,16 +5,16 @@
 				{{ fjTime(item.time) }}
 			</view>
 			<view class="swipeBox">
-				<u-swipe-action>
-					<u-swipe-action-item bg-color="#f5f5f5" :show="item.show" :name="index" @click="delclick" :options="options">
+				<up-swipe-action>
+					<up-swipe-action-item bg-color="#f5f5f5" :show="item.show" :name="index" @click="delclick" :options="options">
 						<view class="body">
 							<view class="body_hand">
 								{{ item.type }}
 							</view>
 							<view class="body_body" v-html="item.content" @click="jump(item)"></view>
 						</view>
-					</u-swipe-action-item>
-				</u-swipe-action>
+					</up-swipe-action-item>
+				</up-swipe-action>
 			</view>
 		</view>
 	</view>

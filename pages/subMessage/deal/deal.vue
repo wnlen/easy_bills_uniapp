@@ -1,7 +1,7 @@
 <template>
 	<view class="vw100 vh100 bg-gray">
 		<view>
-			<u-navbar :autoBack="true" :placeholder="true" title="交易提醒"></u-navbar>
+			<up-navbar :autoBack="true" :placeholder="true" title="交易提醒"></up-navbar>
 			<view class="content"></view>
 		</view>
 
@@ -9,7 +9,7 @@
 			<text class="flex-col justify-center items-center" style="width: 100vw; color: #999999; font-size: 20rpx">
 				{{ item.createTime }}
 			</text>
-			<u-card
+			<up-card
 				class="ml24 mr24 bg-white justify-center mt10"
 				margin="10"
 				:border="false"
@@ -45,12 +45,12 @@
 						<view class="u-body-item-title u-line-2 mt40" style="color: #01bb74">{{ item.jump.titel }}</view>
 						<view class="" style="float: right">
 							<view class="u-line-2 mt40">
-								<u-icon name="arrow-right" color="#666666" size="28"></u-icon>
+								<up-icon name="arrow-right" color="#666666" size="28"></up-icon>
 							</view>
 						</view>
 					</view>
 				</view>
-			</u-card>
+			</up-card>
 		</view>
 	</view>
 </template>

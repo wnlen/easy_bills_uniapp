@@ -1,10 +1,10 @@
 <template>
-	<u-popup class="flex-col justify-center items-center" round="15" :safeAreaInsetBottom="false" mode="center" v-model="showMask" width="600rpx" height="400rpx">
+	<up-popup class="flex-col justify-center items-center" round="15" :safeAreaInsetBottom="false" mode="center" v-model="showMask" width="600rpx" height="400rpx">
 		<view class="flex-col justify-center items-center relative" style="height: 100%; width: 100%">
 			<view class="absolute pt20" style="width: 100%; top: 0; height: 75%">
 				<view class="flex-row items-center justify-center passwordTitle">请输入签收密码</view>
 				<view class="flex-col items-center justify-center mt20" style="width: 100%; height: 35%">
-					<u-message-input
+					<up-message-input
 						active-color="#01BB74"
 						:bold="false"
 						@change="changeList"
@@ -13,7 +13,7 @@
 						:v-model="password"
 						mode="box"
 						maxlength="4"
-					></u-message-input>
+					></up-message-input>
 					<view class="mt20 err" v-show="err">密码错误，请重新输入</view>
 				</view>
 				<view @click="goPath('/pages/subUser/resetpassword')" class="ft12 pr30 flex-row justify-end pt15" style="color: #999; width: 100%">找回密码</view>
@@ -23,7 +23,7 @@
 				<view @click="confirm(password)" style="width: 50%; height: 100%" class="titlePasOK flex-col justify-center items-center u-border-left">确认</view>
 			</view>
 		</view>
-	</u-popup>
+	</up-popup>
 </template>
 
 <script>

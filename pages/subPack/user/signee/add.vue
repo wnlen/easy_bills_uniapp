@@ -1,16 +1,16 @@
 <template>
 	<view class="pl48 pr48 pt38 pb38 vw100">
-		<u-form class="vw100" :model="formData" ref="uForm" labelPosition="left" :label-style="{ 'line-height': 1 }">
-			<u-form-item borderBottom label="签收人姓名" prop="signeeName" required label-width="170rpx">
+		<up-form class="vw100" :model="formData" ref="uForm" labelPosition="left" :label-style="{ 'line-height': 1 }">
+			<up-form-item borderBottom label="签收人姓名" prop="signeeName" required label-width="170rpx">
 				<uv-input border="none" v-model="formData.signeeName" placeholder="请输入签收人姓名" maxlength="50"></uv-input>
-			</u-form-item>
-			<!-- <u-form-item borderBottom label="签收密码" prop="password" required label-width="170rpx">
+			</up-form-item>
+			<!-- <up-form-item borderBottom label="签收密码" prop="password" required label-width="170rpx">
 				<uv-input border="none" v-model="formData.password" type="number" placeholder="请设置密码" maxlength="4"></uv-input>
-			</u-form-item> -->
-			<!-- 			<u-form-item label="其他备注" prop="remark" label-width="170">
+			</up-form-item> -->
+			<!-- 			<up-form-item label="其他备注" prop="remark" label-width="170">
 				<uv-input border="none" v-model="formData.remark" placeholder="请输入备注" ></uv-input>
-			</u-form-item> -->
-			<u-form-item label="手写签名" required prop="signeeImage" labelPosition="top" label-width="170rpx">
+			</up-form-item> -->
+			<up-form-item label="手写签名" required prop="signeeImage" labelPosition="top" label-width="170rpx">
 				<view v-if="formData.signeeImage" class="text-center width100 mt30 signeeBox">
 					<image
 						@click="goPath('/pages/subSignature/signature')"
@@ -20,12 +20,12 @@
 					></image>
 				</view>
 				<view v-else class="bg-white pd20 text-center width100 mt30 signeeBox flex-row items-center justify-center" @click="goPath('/pages/subSignature/signature')">
-					<u-icon label="点击去签名" labelColor="#eee" name="edit-pen" color="#eee"></u-icon>
+					<up-icon label="点击去签名" labelColor="#eee" name="edit-pen" color="#eee"></up-icon>
 				</view>
-			</u-form-item>
-		</u-form>
+			</up-form-item>
+		</up-form>
 		<view class="mt60">
-			<u-button @click="submit" hover-class="none" color="#01BB74" shape="circle" type="primary">{{ formData.id ? '修改' : '提交' }}</u-button>
+			<up-button @click="submit" hover-class="none" color="#01BB74" shape="circle" type="primary">{{ formData.id ? '修改' : '提交' }}</up-button>
 		</view>
 	</view>
 </template>

@@ -1,11 +1,11 @@
 <template>
 	<view class="vw100 vh100 bg-gray">
 		<view>
-			<u-navbar :autoBack="true" :placeholder="true" title="系统通知"></u-navbar>
+			<up-navbar :autoBack="true" :placeholder="true" title="系统通知"></up-navbar>
 			<view class="content"></view>
 		</view>
 
-		<u-card class="ml24 mr24 bg-white justify-center" :title="item.name" head-border-bottom="false" style="width: 94vw" v-for="(item, index) in List" :key="index">
+		<up-card class="ml24 mr24 bg-white justify-center" :title="item.name" head-border-bottom="false" style="width: 94vw" v-for="(item, index) in List" :key="index">
 			<view class="" slot="body">
 				<view class="u-body-item u-flex u-col-between u-p-t-0" style="color: #aaaaaa">
 					<view class="u-body-item-title u-line-2">
@@ -16,27 +16,27 @@
 					<view class="u-body-item-title u-line-2 mt40" style="color: #01bb74">{{ item.jump.titel }}</view>
 					<view class="" style="float: right">
 						<view class="u-body-item-title u-line-2 mt40">
-							<u-icon name="arrow-right" color="#666666" size="28rpx"></u-icon>
+							<up-icon name="arrow-right" color="#666666" size="28rpx"></up-icon>
 						</view>
 					</view>
 				</view>
 			</view>
-		</u-card>
+		</up-card>
 
-		<u-popup :show="showAlertSJ" mode="center" round="16" :safeAreaInsetBottom="false">
+		<up-popup :show="showAlertSJ" mode="center" round="16" :safeAreaInsetBottom="false">
 			<view class="flex-col justify-center items-center" style="width: 600rpx; height: 800rpx; text-align: center">
 				<view class="" style="height: 300rpx; width: 300rpx">
-					<u-image width="100%" height="100%" src="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/obj/sj.svg"></u-image>
+					<up-image width="100%" height="100%" src="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/obj/sj.svg"></up-image>
 				</view>
 				<view class="mb10" style="color: #333333; font-size: 38.4rpx; font-weight: bold">更新升级中</view>
 				<view class="mb20" style="color: #aaaaaa; font-size: 28.4rpx; font-weight: bold">易单据为您提供更加优质服务</view>
 
 				<view class="mb20" style="width: 60%">
-					<u-line-progress :striped="true" :percent="70" :striped-active="true"></u-line-progress>
+					<up-line-progress :striped="true" :percent="70" :striped-active="true"></up-line-progress>
 				</view>
 				<view class="" style="color: #aaaaaa; font-size: 24rpx; font-weight: bold">正在努力下载...</view>
 			</view>
-		</u-popup>
+		</up-popup>
 	</view>
 </template>
 

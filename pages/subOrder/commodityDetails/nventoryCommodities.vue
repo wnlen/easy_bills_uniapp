@@ -2,10 +2,10 @@
 	<view class="modification">
 		<z-paging ref="paging" use-virtual-list :force-close-inner-list="true" cell-height-mode="dynamic" @virtualListChange="virtualListChange" @query="queryList">
 			<template #top>
-				<u-navbar :autoBack="true" :placeholder="true" bgColor="transparent" :titleStyle="titleStyle" title="商品库"></u-navbar>
+				<up-navbar :autoBack="true" :placeholder="true" bgColor="transparent" :titleStyle="titleStyle" title="商品库"></up-navbar>
 				<view class="ml24 mr24 flex-row items-center justify-center pb30">
 					<view class="flex-row items-center justify-center pl20 pr10" style="background: #ffffff; border-radius: 254rpx; width: 75%; height: 60rpx">
-						<u-icon name="search" color="#01BB74" size="40rpx"></u-icon>
+						<up-icon name="search" color="#01BB74" size="40rpx"></up-icon>
 						<uv-input
 							:customStyle="{
 								backgroundColor: 'transparent',
@@ -18,17 +18,17 @@
 							@change="SearchInventoryChange"
 						></uv-input>
 					</view>
-					<u-button @click="jumpAddCommodity" :customStyle="SearchCustomStyle" color="#01BB74" type="success">添加商品</u-button>
+					<up-button @click="jumpAddCommodity" :customStyle="SearchCustomStyle" color="#01BB74" type="success">添加商品</up-button>
 				</view>
 			</template>
 			<template #empty>
-				<u-empty
+				<up-empty
 					icon="https://res-oss.elist.com.cn/wxImg/order/goodsEmpty.svg"
 					iconSize="200rpx"
 					:text="pinia_userRole == 'D' ? '商品库空空如也~尝试添加一个新商品吧！' : '还没有收到订单呢~快去邀请供应商开单吧！'"
 					marginTop="-200"
 				>
-					<u-button
+					<up-button
 						v-if="pinia_userRole == 'D'"
 						color="#01BB74"
 						iconColor="#ECFFF9"
@@ -38,19 +38,19 @@
 						@click="jumpAddCommodity"
 					>
 						<text>去添加</text>
-					</u-button>
-				</u-empty>
+					</up-button>
+				</up-empty>
 			</template>
 			<view class="box1">
 				<view class="invCard" v-for="(item, index) in orderList" :key="index">
 					<view class="" @click="jumpCommodityDetails(item)">
-						<u-image
+						<up-image
 							radius="12rpx"
 							width="200rpx"
 							height="200rpx"
 							:show-menu-by-longpress="false"
 							:src="item.img === 'definde' ? 'https://res-oss.elist.com.cn/wxImg/order/emptyView.png' : item.img"
-						></u-image>
+						></up-image>
 					</view>
 					<view class="invText" @click="jumpCommodityDetails(item)">
 						<text>{{ item.description }}</text>
@@ -59,13 +59,13 @@
 						<text>单价：{{ item.unitPrice == '0' ? '-' : '￥' + item.unitPrice }}</text>
 					</view>
 					<view class="del_product_icon">
-						<u-icon :stop="true" name="trash" color="#666666" size="40rpx" @click="delOrderBill(item)"></u-icon>
+						<up-icon :stop="true" name="trash" color="#666666" size="40rpx" @click="delOrderBill(item)"></up-icon>
 					</view>
 				</view>
 			</view>
 		</z-paging>
 		<!-- 第一次添加成功商品提示 -->
-		<u-overlay :show="showTip" @click="showTip = false">
+		<up-overlay :show="showTip" @click="showTip = false">
 			<view class="warp">
 				<view class="rect relative" @tap.stop>
 					<view
@@ -77,10 +77,10 @@
 							showTip = false;
 						"
 					></view>
-					<u-image src="https://res-oss.elist.com.cn/wxImg/list/productTip.svg" width="540rpx" height="584rpx"></u-image>
+					<up-image src="https://res-oss.elist.com.cn/wxImg/list/productTip.svg" width="540rpx" height="584rpx"></up-image>
 				</view>
 			</view>
-		</u-overlay>
+		</up-overlay>
 	</view>
 </template>
 

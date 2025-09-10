@@ -1,9 +1,9 @@
 <template>
 	<view class="noAccess">
-		<u-navbar :autoBack="true" :placeholder="true" :border-bottom="false" :titleBold="true" title-color="#000000" title-size="34" bgColor="#ffffff"></u-navbar>
+		<up-navbar :autoBack="true" :placeholder="true" :border-bottom="false" :titleBold="true" title-color="#000000" title-size="34" bgColor="#ffffff"></up-navbar>
 
 		<view class="flex-row justify-center items-center absolute" style="width: 100%; top: 30%">
-			<u-image src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" width="600rpx" height="400rpx"></u-image>
+			<up-image src="https://res-oss.elist.com.cn/wxImg/order/cw.svg" width="600rpx" height="400rpx"></up-image>
 			<view class="absolute" style="bottom: -80rpx; color: #aaaaaa; font-size: 28rpx">您暂无权限~</view>
 		</view>
 	</view>

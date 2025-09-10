@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
-		<!-- <u-navbar :background="{ background: '#ffffff' }" back-icon-size="30" title="操作手册"></u-navbar> -->
-		<u-navbar :autoBack="true" :placeholder="true" title="操作手册"></u-navbar>
+		<!-- <up-navbar :background="{ background: '#ffffff' }" back-icon-size="30" title="操作手册"></up-navbar> -->
+		<up-navbar :autoBack="true" :placeholder="true" title="操作手册"></up-navbar>
 
 		<view class="absolute flex-col items-center cardAll">
 			<view class="cardOne">
@@ -9,7 +9,7 @@
 
 				<view class="cardOneIcon flex-row justify-center items-center" v-for="(item, index) in iconList.cardOne" :key="index">
 					<view class="item" v-for="(item2, index2) in item" :key="index2">
-						<u-icon @click="jump(item2)" labelPos="bottom" :label="item2.name" :name="item2.icon" size="90rpx"></u-icon>
+						<up-icon @click="jump(item2)" labelPos="bottom" :label="item2.name" :name="item2.icon" size="90rpx"></up-icon>
 					</view>
 				</view>
 			</view>
@@ -19,7 +19,7 @@
 
 				<view class="cardOneIcon flex-row justify-center items-center" v-for="(item, index) in iconList.cardTowS" :key="index">
 					<view class="item" v-for="(item2, index2) in item" :key="index2">
-						<u-icon @click="jump(item2)" labelPos="bottom" :label="item2.name" :name="item2.icon" size="90rpx"></u-icon>
+						<up-icon @click="jump(item2)" labelPos="bottom" :label="item2.name" :name="item2.icon" size="90rpx"></up-icon>
 					</view>
 				</view>
 			</view>
@@ -29,7 +29,7 @@
 
 				<view class="cardOneIcon flex-row justify-center items-center" v-for="(item, index) in iconList.cardTowF" :key="index">
 					<view class="item" v-for="(item2, index2) in item" :key="index2">
-						<u-icon @click="jump(item2)" labelPos="bottom" :label="item2.name" :name="item2.icon" size="90rpx"></u-icon>
+						<up-icon @click="jump(item2)" labelPos="bottom" :label="item2.name" :name="item2.icon" size="90rpx"></up-icon>
 					</view>
 				</view>
 			</view>
@@ -39,7 +39,7 @@
 
 				<view class="cardOneIcon flex-row justify-center items-center" v-for="(item, index) in iconList.cardThree" :key="index">
 					<view class="item" v-for="(item2, index2) in item" :key="index2">
-						<u-icon @click="jump(item2)" labelPos="bottom" :label="item2.name" :name="item2.icon" size="90rpx"></u-icon>
+						<up-icon @click="jump(item2)" labelPos="bottom" :label="item2.name" :name="item2.icon" size="90rpx"></up-icon>
 					</view>
 				</view>
 			</view>

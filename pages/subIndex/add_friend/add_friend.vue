@@ -1,7 +1,7 @@
 <template>
 	<view class="bg-gray vh100 vw100" style="overflow: hidden">
 		<view class="ml24 mr24" style="padding-top: 20px">
-			<u-search
+			<up-search
 				search-icon-color="#01bb74"
 				:show-action="false"
 				placeholder="请输入电话号码"
@@ -14,7 +14,7 @@
 				height="90"
 				bg-color="#ffffff"
 				v-model="searchNumber"
-			></u-search>
+			></up-search>
 		</view>
 
 		<!-- <up-overlay :show="showSF" @click="showSF = false">
@@ -36,8 +36,8 @@
 						{{role==0?"客户":"供应商"}}
 					</view>
 					<view class="ml10">
-						<u-icon v-if="!showChecked" name="arrow-down-fill" color="#000000" size="15"></u-icon>
-						<u-icon v-if="showChecked" name="arrow-up-fill" color="#000000" size="15"></u-icon>
+						<up-icon v-if="!showChecked" name="arrow-down-fill" color="#000000" size="15"></up-icon>
+						<up-icon v-if="showChecked" name="arrow-up-fill" color="#000000" size="15"></up-icon>
 					</view>
 				</view>
 				<view v-if="!showChecked" class=" u-border-top flex-row absolute"
@@ -62,7 +62,7 @@
 							客户
 						</view>
 						<view v-if="role==0" class="absolute" style="right: 10px;">
-							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></u-icon>
+							<up-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></up-icon>
 						</view>
 					</view>
 					<view @click="role=1;showChecked=false;heig='20vh'"
@@ -73,7 +73,7 @@
 							供应商
 						</view>
 						<view v-if="role==1" class="absolute" style="right: 10px;">
-							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></u-icon>
+							<up-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></up-icon>
 						</view>
 					</view>
 				</view>
@@ -99,8 +99,8 @@
 						{{role==0?"客户":"供应商"}}
 					</view>
 					<view class="ml10">
-						<u-icon v-if="!showChecked" name="arrow-down-fill" color="#000000" size="15"></u-icon>
-						<u-icon v-if="showChecked" name="arrow-up-fill" color="#000000" size="15"></u-icon>
+						<up-icon v-if="!showChecked" name="arrow-down-fill" color="#000000" size="15"></up-icon>
+						<up-icon v-if="showChecked" name="arrow-up-fill" color="#000000" size="15"></up-icon>
 					</view>
 				</view>
 				<view v-if="!showChecked" class=" u-border-top flex-row absolute"
@@ -125,7 +125,7 @@
 							客户
 						</view>
 						<view v-if="role==0" class="absolute" style="right: 10px;">
-							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></u-icon>
+							<up-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></up-icon>
 						</view>
 					</view>
 					<view @click="role=1;showChecked=false;heig='20vh'"
@@ -136,7 +136,7 @@
 							供应商
 						</view>
 						<view v-if="role==1" class="absolute" style="right: 10px;">
-							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></u-icon>
+							<up-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></up-icon>
 						</view>
 					</view>
 				</view>
@@ -166,8 +166,8 @@
 						{{ role == 0 ? '客户' : '供应商' }}
 					</view>
 					<view class="ml10">
-						<u-icon v-if="!showChecked" name="arrow-down-fill" color="#000000" size="15"></u-icon>
-						<u-icon v-if="showChecked" name="arrow-up-fill" color="#000000" size="15"></u-icon>
+						<up-icon v-if="!showChecked" name="arrow-down-fill" color="#000000" size="15"></up-icon>
+						<up-icon v-if="showChecked" name="arrow-up-fill" color="#000000" size="15"></up-icon>
 					</view>
 				</view>
 				<view v-if="!showChecked" class="u-border-top flex-row" style="width: 100%; height: 7vh" @tap.stop>
@@ -200,7 +200,7 @@
 					>
 						<view>客户</view>
 						<view v-if="role == 0" class="absolute" style="right: 10px">
-							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></u-icon>
+							<up-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></up-icon>
 						</view>
 					</view>
 					<view
@@ -218,7 +218,7 @@
 					>
 						<view>供应商</view>
 						<view v-if="role == 1" class="absolute" style="right: 10px">
-							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></u-icon>
+							<up-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></up-icon>
 						</view>
 					</view>
 				</view>
@@ -232,7 +232,7 @@
 			style="height: 10vh; width: 93vw; border-radius: 6px"
 		>
 			<view class="flex-col justify-center items-center" style="width: 13vw">
-				<u-image class="ml20" width="50px" height="50px" shape="circle" :src="item.headPortrait || defaultImg"></u-image>
+				<up-image class="ml20" width="50px" height="50px" shape="circle" :src="item.headPortrait || defaultImg"></up-image>
 			</view>
 			<view class="ml10 flex-col justify-center items-baseline" style="width: 60vw; height: 100%">
 				<view

@@ -61,9 +61,9 @@
 				<view class="FromInput u-border-bottom relative flex flex-row justify-left items-center">
 					<view class="" style="font-weight: bold; padding-top: 12rpx">修改订单</view>
 					<view class="absolute" style="right: 12rpx">
-						<!-- <u-button class="form-btn-big" hover-class="none" size="mini"
+						<!-- <up-button class="form-btn-big" hover-class="none" size="mini"
 							:customStyle="{backgroundColor:'#01BB74',color:'#ffffff'}" @click="selectOrder"
-							shape="circle">选择&gt;</u-button> -->
+							shape="circle">选择&gt;</up-button> -->
 						<view
 							@click="selectOrder"
 							class="flex-row justify-center items-center"
@@ -122,7 +122,7 @@
 				<view class="FromFileTitle">图片</view>
 				<view class="recently-cat flex-row flex-wrap" style="width: 100%">
 					<view class="recently-cat flex-row flex-wrap mt24" style="width: 95%">
-						<u-upload
+						<up-upload
 							@delete="deleteimg"
 							autoUploadDriver="local"
 							v-model:fileList="imgFileList"
@@ -134,8 +134,8 @@
 							height="200rpx"
 							@afterRead="afterRead"
 						>
-							<u-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></u-icon>
-						</u-upload>
+							<up-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></up-icon>
+						</up-upload>
 					</view>
 				</view>
 
@@ -146,12 +146,12 @@
 
 				<!-- #ifdef MP-WEIXIN -->
 				<view v-if="fileList.length < 3" class="uploadView" @click="uploadFile">
-					<u-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></u-icon>
+					<up-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></up-icon>
 				</view>
 				<!-- #endif -->
 				<!-- #ifdef APP -->
 				<view class="uploadView" @click="chooseFile">
-					<u-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></u-icon>
+					<up-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></up-icon>
 				</view>
 				<!-- #endif -->
 
@@ -189,22 +189,22 @@
 			</view>
 			<view class="sendBill">
 				<!-- #ifdef MP-WEIXIN -->
-				<u-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder(true)" shape="circle">
+				<up-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder(true)" shape="circle">
 					{{ pinia_userRole == 'D' ? '修改收款单' : '修改付款单' }}
-				</u-button>
+				</up-button>
 				<!-- #endif -->
 				<!-- #ifdef APP -->
-				<u-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder(false)" shape="circle">
+				<up-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder(false)" shape="circle">
 					{{ pinia_userRole == 'D' ? '修改收款单' : '修改付款单' }}
-				</u-button>
+				</up-button>
 				<!-- #endif -->
 			</view>
 		</view>
 
 		<!-- 		<view class="BillSuccess" v-if="!FROMBShow">
 			<view class="" style="width: 60vw;height: 20vh;">
-				<u-image style="" width="100%" height="100%"
-					src="https://res-oss.elist.com.cn/wxImg/order/fscg.png"></u-image>
+				<up-image style="" width="100%" height="100%"
+					src="https://res-oss.elist.com.cn/wxImg/order/fscg.png"></up-image>
 			</view>
 			<view class="text-center mt20" style="color:#01BB74;font-size: 34rpx;font-weight: bold;width: 100%;">
 				发送成功!
