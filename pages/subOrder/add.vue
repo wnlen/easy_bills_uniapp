@@ -148,7 +148,20 @@
 							<text style="color: #fa3534">*</text>
 							客户手机号:
 						</text>
-						<uv-input
+						<input
+							placeholder-class="placeholder_class"
+							type="number"
+							v-model="khPhone"
+							:style="{ color: ifInput(khPhone) }"
+							maxlength="11"
+							placeholder="请输入客户手机号"
+							class="u-line-1 ml15 endcolor flex-1"
+							@input="searchIFNumber"
+							@blur="searchIFNumberBlur"
+							:focus="PhoneFocus"
+							@focus="searchIFNumberFocus"
+						/>
+						<!-- <uv-input
 							placeholderStyle="color: #d8d8d8;fontSize:28rpx"
 							@change="searchIFNumber"
 							@blur="searchIFNumberBlur"
@@ -160,7 +173,7 @@
 							border="none"
 							class="flex-1 endcolor"
 							fontSize="28rpx"
-						></uv-input>
+						></uv-input> -->
 						<u-button shape="circle" size="mini" color="#01BB74" :customStyle="{ width: '120rpx' }" @click="jumpTable">选择客户</u-button>
 					</view>
 					<view class="flex-row items-center width100 pt20 pb20 u-border-bottom">
@@ -551,9 +564,9 @@ export default {
 	},
 	onShow() {
 		// #ifdef MP-WEIXIN
-		this.$refs.popAuth.authShow = false;
-		this.$refs.popOrder.authShow = false;
-		this.showShare = false;
+		// this.$refs.popAuth.authShow = false;
+		// this.$refs.popOrder.authShow = false;
+		// this.showShare = false;
 		// #endif
 
 		// #ifdef MP-WEIXIN

@@ -8,6 +8,9 @@ export default {
 		};
 	},
 	onLaunch(options) {
+		uni.$on('switchTabToList', (e) => {
+			console.log('监听到isFromSwitchTab');
+		});
 		const inviterId = options?.query?.inviterId;
 		//缓存邀请码
 		if (inviterId) {
