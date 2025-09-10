@@ -134,6 +134,14 @@ export default {
 								userRole: this.pinia_userRole,
 								token: '',
 								user: { phone: undefined }
+							},
+							guide: {
+								guidanceD: null,
+								guidanceR: null,
+								guidanceGoods: null,
+								unreceivedReminder: null, //未签收提醒弹窗
+								guidance: 0,
+								draft: false
 							}
 						});
 						uni.reLaunch({

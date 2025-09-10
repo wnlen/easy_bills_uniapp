@@ -74,18 +74,16 @@
 				<view class="FromFileTitle">添加图片</view>
 				<view class="recently-cat flex-row flex-wrap" style="width: 95%">
 					<up-upload
-						autoUpload
 						autoDelete
-						:autoUploadApi="action"
 						autoUploadDriver="local"
 						v-model:fileList="imgFileList"
 						:maxSize="10485760"
 						:maxCount="3"
+						width="100"
+						height="100"
 						multiple
-						:showPreviewImage="true"
 						:previewFullImage="true"
-						:deletable="true"
-						:showRetry="false"
+						@afterRead="handleUpload"
 					>
 						<up-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></up-icon>
 					</up-upload>
@@ -114,25 +112,26 @@
 
 				<!-- #ifdef MP-WEIXIN -->
 				<view v-if="fileList.length < 3" class="uploadView" @click="uploadFile">
-					<up-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100"></up-icon>
+					<up-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></up-icon>
 				</view>
 				<!-- #endif -->
 				<!-- #ifdef APP -->
 				<view class="uploadView" @click="chooseFile">
-					<up-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100"></up-icon>
+					<up-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></up-icon>
 				</view>
 				<!-- #endif -->
 
 				<view class="FromFileTitle">备注说明</view>
 				<view class="FromFileTitleRemark" style="height: 100%">
-					<uv-input
+					<!-- <uv-input
 						type="textarea"
 						border="none"
 						placeholder="请填写备注，字数不超过50字"
 						v-model="billFrom.billRemark"
 						placeholderClass="placeholder_class"
 						maxlength="50"
-					></uv-input>
+					></uv-input> -->
+					<u-textarea border="none" v-model="billFrom.billRemark" placeholder="请填写备注，字数不超过50字" autoHeight></u-textarea>
 				</view>
 			</view>
 
@@ -140,10 +139,10 @@
 				<view class="OwnText">
 					<view class="OwnTextFromTitle">企业名称</view>
 					<text class="OwnTextFromText" v-if="pinia_user.data.work == '0'">
-						{{ pinia_user.ac.enterpriseName || pinia_user.phone }}
+						{{ pinia_user.ac?.enterpriseName || pinia_user.phone }}
 					</text>
 					<text class="OwnTextFromText" v-else>
-						{{ pinia_user.ac.enterpriseName || pinia_user.workData.bossNumber }}
+						{{ pinia_user.ac?.enterpriseName || pinia_user.workData.bossNumber }}
 					</text>
 				</view>
 				<view class="OwnText">
@@ -332,6 +331,9 @@ export default {
 
 			console.log(this.fileList);
 			console.log(this.imgFileList);
+			if (this.billFrom.billRemark > 50) {
+				return this.$u.toast('备注内容不能超过50字');
+			}
 
 			if (this.checkSend) {
 				this.checkSend = false;
@@ -361,19 +363,20 @@ export default {
 				this.billFrom.type = this.pinia_userRole == 'D' ? 1 : 0;
 
 				console.log('this.billFrom:', this.billFrom);
-
-				uni.$api.bills.addBill(this.billFrom).then((res) => {
+				let billFromData = JSON.parse(JSON.stringify(this.billFrom));
+				billFromData.billTime = billFromData.billTime + ' 00:00:00';
+				uni.$api.bills.addBill(billFromData).then((res) => {
 					this.checkSend = true;
+					this.$u.toast(res.data.message);
 					if (res.data.code == 200) {
-						this.$u.toast(res.data.message);
 						setTimeout(() => {
 							uni.navigateBack();
 						}, 1200);
 					} else {
-						var data = res.data.data;
-						var mes = res.data.message;
-						this.$u.toast(mes);
-						this.FROMBShow = false;
+						// var data = res.data.data;
+						// var mes = res.data.message;
+						// this.$u.toast(mes);
+						// this.FROMBShow = false;
 					}
 				});
 			} else {
@@ -407,8 +410,8 @@ export default {
 
 			this.billFrom.billAfterPrice = (this.billFrom.billPrice * (1 - prc / 100)).toFixed(2);
 		},
-		handleUpload(e, list) {
-			this.imgFileList = list;
+		handleUpload(res) {
+			this.imgFileList = res.file;
 		},
 		uploadFile() {
 			console.log('上传');
@@ -683,13 +686,12 @@ export default {
 	}
 
 	.FromFileTitleRemark {
-		padding-bottom: 48rpx;
-		background-color: #f4f4f4;
+		background-color: #f9f9f9;
 		border-radius: 12rpx;
 		margin-bottom: 24rpx;
-		padding-left: 24rpx;
-		padding-top: 24rpx;
-		height: 200rpx;
+		::v-deep .u-textarea {
+			background-color: transparent !important;
+		}
 	}
 }
 

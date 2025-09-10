@@ -158,9 +158,10 @@
 					<text
 						class="ft-green"
 						@click="
+							uni.$emit('switchTabToList');
 							uni.switchTab({
 								url: '/pages/list/list'
-							})
+							});
 						"
 					>
 						查单
@@ -429,7 +430,6 @@ export default {
 	},
 	onLoad() {
 		// this.fetchDashboard();
-
 		if (this.pinia_token) {
 			this.openUnreceived();
 		}
@@ -525,12 +525,11 @@ export default {
 			});
 		},
 		fetchDashboard(isqiehuan = false) {
-			const now = Date.now();
-			console.log('this.lastFetchedAt', this.lastFetchedAt);
-			if (!isqiehuan) {
-				if (now - this.lastFetchedAt < this.CACHE_TTL_MS) return; // 命中 TTL，跳过
-			}
-			this.ringOpts.color = ['#ECECEC', '#ECECEC', '#ECECEC'];
+			// const now = Date.now();
+			// console.log('this.lastFetchedAt', this.lastFetchedAt);
+			// if (!isqiehuan) {
+			// 	if (now - this.lastFetchedAt < this.CACHE_TTL_MS) return; // 命中 TTL，跳过
+			// }
 			const portType = this.pinia_userRole == 'D' ? '0' : '1'; // 0=发货端, 1=收货端
 			const phone = uni.$u.getPinia('user.user.phone');
 			uni.$api.dashboard
@@ -539,15 +538,16 @@ export default {
 					portType: portType
 				})
 				.then((res) => {
-					console.log('统计数据', res);
+					this.ringOpts.color = ['#ECECEC', '#ECECEC', '#ECECEC'];
 					const data = res.data.data || {};
 					this.chartsDataPie2.series[0].data[0].value = data.pendingAmount ?? 0;
 					this.chartsDataPie2.series[0].data[1].value = data.signedAmount ?? 0;
 					this.chartsDataPie2.series[0].data[2].value = data.receivedAmount ?? 0;
 
 					this.allprice = data.totalAmount ?? 0;
-					this.lastFetchedAt = now;
-					if (data.totalAmount) {
+					// this.lastFetchedAt = now;
+
+					if (this.allprice) {
 						this.ringOpts.color = ['#F7A944', '#1890FF', '#01BB74'];
 					} else {
 						this.ringOpts.color = ['#ECECEC', '#ECECEC', '#ECECEC'];
@@ -582,6 +582,7 @@ export default {
 					tabIndex: val
 				}
 			});
+			uni.$emit('switchTabToList');
 			uni.switchTab({
 				url: '/pages/list/list'
 			});

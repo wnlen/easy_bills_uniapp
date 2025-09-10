@@ -794,6 +794,7 @@ const startX = ref(0);
 const startY = ref(0);
 const uNoticeBarlist = ref(['请及时完成2024年订单收款，逾期将无法处理；跨年后，可前往更多功能-往年数据处查看往年订单。']);
 const bottomSafeArea = ref(0);
+const isFromSwitchTab = ref(false);
 watch(
 	() => systemStore.flush,
 	(newVal) => {
@@ -842,10 +843,12 @@ onLoad(() => {
 	}
 	console.log('OperatingSystem:', OperatingSystem.value);
 });
-
+uni.$on('switchTabToList', (e) => {
+	console.log('1监听到isFromSwitchTab');
+	isFromSwitchTab.value = true;
+});
 // 页面进入展示
 onShow(() => {
-	console.log('globalStore.tabIndex', globalStore.tabIndex);
 	if (globalStore.tabIndex > 0) {
 		current.value = globalStore.tabIndex;
 	} else {
@@ -854,10 +857,35 @@ onShow(() => {
 
 	if (userStore.user.phone) {
 		loadData();
+		// 根据标记判断来源
+		if (isFromSwitchTab.value) {
+			const date = new Date();
+			date.setDate(date.getDate() + 15);
+			date1.value = uni.$u.timeFormat(new Date(new Date().getFullYear(), 0, 1), 'yyyy-mm-dd');
+			date2.value = uni.$u.timeFormat(date, 'yyyy-mm-dd');
+			realTimeSel.value.startDate = date1.value;
+			realTimeSel.value.endDate = date2.value;
+			realTimeSel.value.phoneE = '';
+			realTimeSel.value.organizationE = '';
+			realTimeSel.value.enterpriseS = '';
+			realTimeSel.value.takeE = '';
+			realTimeSel.value.enterpriseDz = '';
+			realTimeSel.value.inventoryName = '';
+			realTimeSel.value.kTakeE = '';
+			realTimeSel.value.kPhoneE = '';
+			realTimeSel.value.kSiteE = '';
+			customer.value = '';
+			field.value = '';
+			Title.value = '条件筛选';
+			console.log('通过 uni.switchTab 进入当前 TabBar 页面');
+		}
+
 		useInitPage(realTimeSel, searchList, paging, date1, date2, tabsList.value, customer, current);
+
 		nextTick(() => {
 			popTabCom.value?.getMessNum();
 		});
+
 		// paging.value?.reload();
 	} else {
 		uni.$u.toast('登录查看更多');
@@ -935,12 +963,6 @@ function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList,
 	const global = useGlobalStore();
 	const pinia_user = store.user;
 	const pinia_userRole = store.userRole;
-	// const vuex_tabIndex = global.tabIndex || '';
-	// if (globalStore.tabIndex) {
-	// 	current.value = globalStore.tabIndex;
-	// } else {
-	// 	current.value = 0;
-	// }
 	const hide = true;
 	const password = '';
 	console.log('current.value', current.value);
@@ -953,9 +975,8 @@ function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList,
 	realTimeSel.value.getPhone = pinia_user.phone;
 
 	const ifwork = pinia_user.data?.work === '0';
-	const timeEmp = !realTimeSel.value.startDate || !realTimeSel.value.endDate;
 	const ifWorkPort = pinia_userRole === 'R';
-
+	const timeEmp = !realTimeSel.value.startDate || !realTimeSel.value.endDate;
 	// 设置 tab 名字与按钮文案
 	if (ifWorkPort) {
 		tabsList[1].name = '待确收';
@@ -999,17 +1020,18 @@ function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList,
 		}
 	}
 	console.log('realTimeSel33333333333', realTimeSel);
-
 	// 设置默认时间
-	if (timeEmp) {
-		const start = proxy.$u.timeFormat(new Date(new Date().getFullYear(), 0, 1), 'yyyy-mm-dd');
-		const endDate = new Date();
-		endDate.setDate(endDate.getDate() + 15);
-		const end = proxy.$u.timeFormat(endDate, 'yyyy-mm-dd');
-		realTimeSel.value.startDate = start;
-		realTimeSel.value.endDate = end;
-		date1.value = start;
-		date2.value = end;
+	if (!isFromSwitchTab.value) {
+		if (timeEmp) {
+			const start = proxy.$u.timeFormat(new Date(new Date().getFullYear(), 0, 1), 'yyyy-mm-dd');
+			const endDate = new Date();
+			endDate.setDate(endDate.getDate() + 15);
+			const end = proxy.$u.timeFormat(endDate, 'yyyy-mm-dd');
+			realTimeSel.value.startDate = start;
+			realTimeSel.value.endDate = end;
+			date1.value = start;
+			date2.value = end;
+		}
 	}
 
 	// 公司名缓存还原
@@ -1032,7 +1054,15 @@ function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList,
 	}
 	// console.log('globalStore.tabIndex3', globalStore.tabIndex, vuex_tabIndex, realTimeSel.value.paymentState);
 	// #ifdef MP-WEIXIN
-	pagingRef.value?.refresh();
+	if (isFromSwitchTab.value) {
+		console.log('通过 uni.switchTab 进入当前 TabBar 页面');
+		pagingRef.value?.reload(); //重新加载
+	} else {
+		console.log('从子页面返回当前 TabBar 页面');
+		pagingRef.value?.refresh(); //保留数据重新加载
+	}
+	// 每次 onShow 后重置标记（避免下次误判）
+	isFromSwitchTab.value = false;
 	// #endif
 }
 
