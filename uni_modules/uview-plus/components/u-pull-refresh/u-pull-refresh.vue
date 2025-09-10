@@ -75,7 +75,7 @@
         <slot></slot>
         
         <!-- 使用 u-loadmore 组件实现上拉加载更多 -->
-        <u-loadmore
+        <up-loadmore
           v-if="showLoadmore"
           v-bind="loadmoreProps"
         />
@@ -85,7 +85,7 @@
         <slot></slot>
         
         <!-- 使用 u-loadmore 组件实现上拉加载更多 -->
-        <u-loadmore
+        <up-loadmore
           v-if="showLoadmore"
           v-bind="loadmoreProps"
         />

@@ -13,7 +13,7 @@
 			</up-input>
 			<div class="input-cover"></div>
 		</view>
-		<u-popup
+		<up-popup
 			:show="show || (hasInput && showByClickInput)"
 			:mode="popupMode"
 			:zIndex="zIndex"
@@ -24,7 +24,7 @@
 			@close="closeHandler"
 		>
 			<view class="u-picker">
-				<u-toolbar
+				<up-toolbar
 					v-if="showToolbar"
 					:cancelColor="cancelColor"
 					:confirmColor="confirmColor"
@@ -38,7 +38,7 @@
 					<template #right>
 						<slot name="toolbar-right"></slot>
 					</template>
-				</u-toolbar>
+				</up-toolbar>
 				<slot name="toolbar-bottom"></slot>
 				<picker-view
 					class="u-picker__view"
@@ -74,10 +74,10 @@
 					v-if="loading"
 					class="u-picker--loading"
 				>
-					<u-loading-icon mode="circle"></u-loading-icon>
+					<up-loading-icon mode="circle"></up-loading-icon>
 				</view>
 			</view>
-		</u-popup>
+		</up-popup>
     </view>
 </template>
 

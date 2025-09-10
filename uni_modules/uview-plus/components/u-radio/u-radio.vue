@@ -12,7 +12,7 @@
 		    :style="[iconWrapStyle]"
 		>
 			<slot name="icon" :elIconSize="elIconSize" :elIconColor="elIconColor">
-				<u-icon
+				<up-icon
 				    class="u-radio__icon-wrap__icon"
 				    name="checkbox-mark"
 				    :size="elIconSize"
@@ -59,7 +59,7 @@
 	 * @property {Object}			customStyle		组件的样式，对象形式
 	 * 
 	 * @event {Function} change 某个radio状态发生变化时触发(选中状态)
-	 * @example <u-radio :labelDisabled="false">门掩黄昏，无计留春住</u-radio>
+	 * @example <up-radio :labelDisabled="false">门掩黄昏，无计留春住</up-radio>
 	 */
 	export default {
 		name: "u-radio",

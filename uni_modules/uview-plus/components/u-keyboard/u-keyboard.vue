@@ -1,5 +1,5 @@
 <template>
-	<u-popup
+	<up-popup
 	    :overlay="overlay"
 	    :closeOnClickOverlay="closeOnClickOverlay"
 	    mode="bottom"
@@ -47,24 +47,24 @@
 				</view>
 			</view>
 			<template v-if="mode == 'number' || mode == 'card'">
-				<u-number-keyboard
+				<up-number-keyboard
 				    :random="random"
 				    @backspace="backspace"
 				    @change="change"
 				    :mode="mode"
 				    :dotDisabled="dotDisabled"
-				></u-number-keyboard>
+				></up-number-keyboard>
 			</template>
 			<template v-else>
-				<u-car-keyboard
+				<up-car-keyboard
 				    :random="random"
 					:autoChange="autoChange"
 				    @backspace="backspace"
 				    @change="change"
-				></u-car-keyboard>
+				></up-car-keyboard>
 			</template>
 		</view>
-	</u-popup>
+	</up-popup>
 </template>
 
 <script>
@@ -96,7 +96,7 @@
 	 * @event {Function} cancel 键盘顶部工具条左边的"取消"按钮被点击
 	 * @event {Function} confirm 键盘顶部工具条右边的"完成"按钮被点击
 	 * @event {Function} backspace 键盘退格键被点击
-	 * @example <u-keyboard mode="number" v-model="show"></u-keyboard>
+	 * @example <up-keyboard mode="number" v-model="show"></up-keyboard>
 	 */
 	export default {
 		name: "u-keyboard",

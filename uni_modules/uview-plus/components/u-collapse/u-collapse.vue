@@ -1,6 +1,6 @@
 <template>
 	<view class="u-collapse">
-		<u-line v-if="border"></u-line>
+		<up-line v-if="border"></up-line>
 		<slot />
 	</view>
 </template>
@@ -17,7 +17,7 @@
 	 * @property {Boolean}					accordion	是否手风琴模式（ 默认 false ）
 	 * @property {Boolean}					border		是否显示外边框 ( 默认 true ）
 	 * @event {Function}	change 		当前激活面板展开时触发(如果是手风琴模式，参数activeNames类型为String，否则为Array)
-	 * @example <u-collapse></u-collapse>
+	 * @example <up-collapse></up-collapse>
 	 */
 	export default {
 		name: "u-collapse",

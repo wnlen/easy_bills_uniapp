@@ -127,7 +127,7 @@
 	 * @property {Boolean}			showTitle				是否显示标题，要求数组对象中有title属性（默认 false ）
 	 * @event {Function(index)}	click	点击轮播图时触发	index：点击了第几张图片，从0开始
 	 * @event {Function(index)}	change	轮播图切换时触发(自动或者手动切换)	index：切换到了第几张图片，从0开始
-	 * @example	<u-swiper :list="list4" keyName="url" :autoplay="false"></u-swiper>
+	 * @example	<up-swiper :list="list4" keyName="url" :autoplay="false"></up-swiper>
 	 */
 	export default {
 		name: 'u-swiper',

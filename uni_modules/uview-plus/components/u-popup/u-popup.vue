@@ -8,7 +8,7 @@
 			<view @click="open"
 				class="u-popup__trigger__cover"></view>
 		</view>
-		<u-overlay
+		<up-overlay
 			:show="show"
 			@click="overlayClick"
 			v-if="overlay"
@@ -16,8 +16,8 @@
 			:duration="overlayDuration"
 			:customStyle="overlayStyle"
 			:opacity="overlayOpacity"
-		></u-overlay>
-		<u-transition
+		></up-overlay>
+		<up-transition
 			:show="show"
 			:customStyle="transitionStyle"
 			:mode="position"
@@ -32,7 +32,7 @@
 				@click.stop="noop"
 				@touchmove.stop.prevent="noop"
 			>
-				<u-status-bar v-if="safeAreaInsetTop"></u-status-bar>
+				<up-status-bar v-if="safeAreaInsetTop"></up-status-bar>
 				<slot></slot>
 				<view
 					v-if="closeable"
@@ -42,17 +42,17 @@
 					hover-class="u-popup__content__close--hover"
 					hover-stay-time="150"
 				>
-					<u-icon
+					<up-icon
 						name="close"
 						color="#909399"
 						size="18"
 						bold
-					></u-icon>
+					></up-icon>
 				</view>
-				<u-safe-bottom v-if="safeAreaInsetBottom"></u-safe-bottom>
+				<up-safe-bottom v-if="safeAreaInsetBottom"></up-safe-bottom>
 			</view>
 			<slot name="bottom"></slot>
-		</u-transition>
+		</up-transition>
 	</view>
 </template>
 
@@ -84,7 +84,7 @@
 	 * @property {Object}			customStyle			组件的样式，对象形式
 	 * @event {Function} open 弹出层打开
 	 * @event {Function} close 弹出层收起
-	 * @example <u-popup v-model:show="show"><text>出淤泥而不染，濯清涟而不妖</text></u-popup>
+	 * @example <up-popup v-model:show="show"><text>出淤泥而不染，濯清涟而不妖</text></up-popup>
 	 */
 	export default {
 		name: 'u-popup',

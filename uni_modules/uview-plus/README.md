@@ -65,7 +65,7 @@ uview-plus现已推出免费可视化设计，可以方便的进行页面可视�
 
 ```html
 <template>
-	<u-button text="按钮"></u-button>
+	<up-button text="按钮"></up-button>
 </template>
 ```
 

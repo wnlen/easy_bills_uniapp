@@ -4,13 +4,13 @@
 	    :style="[emptyStyle]"
 	    v-if="show"
 	>
-		<u-icon
+		<up-icon
 		    v-if="!isSrc"
 		    :name="mode === 'message' ? 'chat' : `empty-${mode}`"
 		    :size="iconSize"
 		    :color="iconColor"
 		    margin-top="14"
-		></u-icon>
+		></up-icon>
 		<image
 		    v-else
 		    :style="{
@@ -54,7 +54,7 @@
 	 * 
 	 * @event {Function} click 点击组件时触发
 	 * @event {Function} close 点击关闭按钮时触发
-	 * @example <u-empty text="所谓伊人，在水一方" mode="list"></u-empty>
+	 * @example <up-empty text="所谓伊人，在水一方" mode="list"></up-empty>
 	 */
 	export default {
 		name: "u-empty",

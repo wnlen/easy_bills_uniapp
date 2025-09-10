@@ -13,7 +13,7 @@
 				</div>
 			</slot>
         </view>
-        <u-picker
+        <up-picker
             ref="picker"
             :show="show || (hasInput && showByClickInput)"
             :popupMode="popupMode"
@@ -42,7 +42,7 @@
                 <slot name="toolbar-bottom">
                 </slot>
             </template>
-        </u-picker>
+        </up-picker>
     </view>
 </template>
 
@@ -91,7 +91,7 @@
 	 * @event {Function} confirm 点击确定按钮，返回当前选择的值
 	 * @event {Function} change 当选择值变化时触发
 	 * @event {Function} cancel 点击取消按钮
-	 * @example  <u-datetime-picker :show="show" :value="value1"  mode="datetime" ></u-datetime-picker>
+	 * @example  <up-datetime-picker :show="show" :value="value1"  mode="datetime" ></up-datetime-picker>
 	 */
 	export default {
 		name: 'up-datetime-picker',

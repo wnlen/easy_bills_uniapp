@@ -67,7 +67,7 @@
 	 * @property {Object}			customStyle		icon的样式，对象形式
 	 * @event {Function} click 点击图标时触发
 	 * @event {Function} touchstart 事件触摸时触发
-	 * @example <u-icon name="photo" color="#2979ff" size="28"></u-icon>
+	 * @example <up-icon name="photo" color="#2979ff" size="28"></up-icon>
 	 */
 	export default {
 		name: 'u-icon',

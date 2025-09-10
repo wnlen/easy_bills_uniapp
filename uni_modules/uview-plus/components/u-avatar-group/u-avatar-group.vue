@@ -8,12 +8,12 @@
 				marginLeft: index === 0 ? 0 : addUnit(-size * gap)
 			}"
 		>
-			<u-avatar
+			<up-avatar
 			    :size="size"
 			    :shape="shape"
 			    :mode="mode"
 			    :src="testObject(item) ? keyName && item[keyName] || item.url : item"
-			></u-avatar>
+			></up-avatar>
 			<view
 			    class="u-avatar-group__item__show-more"
 			    v-if="showMore && index === showUrl.length - 1 && (urls.length > maxCount || extraValue > 0)"
@@ -52,7 +52,7 @@
 	 * @property {String | Number} gap      头像之间的遮挡比例（0.4代表遮挡40%）  （默认 0.5 ）
 	 * @property {String | Number} extraValue  需额外显示的值
 	 * @event    {Function}        showMore 头像组更多点击
-	 * @example  <u-avatar-group:urls="urls" size="35" gap="0.4" ></u-avatar-group:urls=>
+	 * @example  <up-avatar-group:urls="urls" size="35" gap="0.4" ></up-avatar-group:urls=>
 	 */
 	export default {
 		name: 'u-avatar-group',

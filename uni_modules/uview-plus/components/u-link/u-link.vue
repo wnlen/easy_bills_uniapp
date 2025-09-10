@@ -24,7 +24,7 @@
 	 * @property {String}			text		超链接的问题，不使用slot形式传入，是因为nvue下无法修改颜色 
 	 * @property {Object}			customStyle	定义需要用到的外部样式
 	 * 
-	 * @example <u-link href="http://www.uviewui.com">蜀道难，难于上青天</u-link>
+	 * @example <up-link href="http://www.uviewui.com">蜀道难，难于上青天</up-link>
 	 */
 	export default {
 		name: "u-link",

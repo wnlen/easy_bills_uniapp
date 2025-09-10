@@ -32,7 +32,7 @@
 	 * @property {Boolean}			borderBottom	placement为row时，是否显示下边框 （默认 false ）
 	 * @event {Function}	change	任一个checkbox状态发生变化时触发，回调为一个对象
 	 * @event {Function}	input	修改通过v-model绑定的值时触发，回调为一个对象
-	 * @example <u-checkbox-group></u-checkbox-group>
+	 * @example <up-checkbox-group></up-checkbox-group>
 	 */
 	export default {
 		name: 'u-checkbox-group',

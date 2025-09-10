@@ -14,7 +14,7 @@
 	 * @tutorial https://ijry.github.io/uview-plus/components/swipeAction.html
 	 * @property {Boolean}	autoClose	是否自动关闭其他swipe按钮组
 	 * @event {Function(index)}	click	点击组件时触发
-	 * @example	<u-swipe-action><u-swipe-action-item :rightOptions="options1" ></u-swipe-action-item></u-swipe-action>
+	 * @example	<up-swipe-action><up-swipe-action-item :rightOptions="options1" ></up-swipe-action-item></up-swipe-action>
 	 */
 	export default {
 		name: 'u-swipe-action',

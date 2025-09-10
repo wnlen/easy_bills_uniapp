@@ -31,7 +31,7 @@
 	 * @property {Boolean} 			inverted	是否反转背景和字体颜色（默认 false ）
 	 * @property {Boolean} 			absolute	是否绝对定位（默认 false ）
 	 * @property {Object}			customStyle	定义需要用到的外部样式
-	 * @example <u-badge :type="type" :count="count"></u-badge>
+	 * @example <up-badge :type="type" :count="count"></up-badge>
 	 */
 	export default {
 		name: 'u-badge',

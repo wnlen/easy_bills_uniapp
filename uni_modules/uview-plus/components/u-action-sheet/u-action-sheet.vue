@@ -1,6 +1,6 @@
 
 <template>
-	<u-popup
+	<up-popup
 	    :show="show"
 	    mode="bottom"
 	    @close="closeHandler"
@@ -17,12 +17,12 @@
 				    class="u-action-sheet__header__icon-wrap"
 				    @tap.stop="cancel"
 				>
-					<u-icon
+					<up-icon
 					    name="close"
 					    size="17"
 					    color="#c8c9cc"
 					    bold
-					></u-icon>
+					></up-icon>
 				</view>
 			</view>
 			<text
@@ -33,7 +33,7 @@
 			    v-if="description"
 			>{{description}}</text>
 			<slot>
-				<u-line v-if="description"></u-line>
+				<up-line v-if="description"></up-line>
 				<scroll-view scroll-y class="u-action-sheet__item-wrap" :style="{maxHeight: wrapMaxHeight}">
 					<view :key="index" v-for="(item, index) in actions">
 						<!-- #ifdef MP -->
@@ -73,7 +73,7 @@
 									    class="u-action-sheet__item-wrap__item__subname"
 									>{{ item.subname }}</text>
 								</template>
-								<u-loading-icon
+								<up-loading-icon
 								    v-else
 								    custom-class="van-action-sheet__loading"
 								    size="18"
@@ -83,15 +83,15 @@
 							<!-- #ifdef MP -->
 						</button>
 						<!-- #endif -->
-						<u-line v-if="index !== actions.length - 1"></u-line>
+						<up-line v-if="index !== actions.length - 1"></up-line>
 					</view>
 				</scroll-view>
 			</slot>
-			<u-gap
+			<up-gap
 			    bgColor="#eaeaec"
 			    height="6"
 			    v-if="cancelText"
-			></u-gap>
+			></up-gap>
 			<view class="u-action-sheet__item-wrap__item u-action-sheet__cancel"
 				hover-class="u-action-sheet--hover" @tap="cancel" v-if="cancelText">
 				<text
@@ -101,7 +101,7 @@
 				>{{cancelText}}</text>
 			</view>
 		</view>
-	</u-popup>
+	</up-popup>
 </template>
 
 <script>
@@ -142,7 +142,7 @@
 	 * @event {Function} error			当使用开放能力时，发生错误的回调，openType="error"时有效
 	 * @event {Function} launchapp		打开 APP 成功的回调，openType="launchApp"时有效
 	 * @event {Function} opensetting	在打开授权设置页后回调，openType="openSetting"时有效
-	 * @example <u-action-sheet :actions="list" :title="title" :show="show"></u-action-sheet>
+	 * @example <up-action-sheet :actions="list" :title="title" :show="show"></up-action-sheet>
 	 */
 	export default {
 		name: "u-action-sheet",

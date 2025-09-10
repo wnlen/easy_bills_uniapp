@@ -1,6 +1,6 @@
 <template>
 	<view class="u-collapse-item">
-		<u-cell
+		<up-cell
 			:title="$slots.title ? '' : title"
 			:value="value"
 			:label="label"
@@ -24,7 +24,7 @@
 			</template>
 			<template #icon>
 				<slot name="icon">
-					<u-icon v-if="!$slots.icon && icon" :size="22" :name="icon"></u-icon>
+					<up-icon v-if="!$slots.icon && icon" :size="22" :name="icon"></up-icon>
 				</slot>
 			</template>
 			<template #value>
@@ -36,12 +36,12 @@
 			</template>
 			<template #right-icon>
 				<template v-if="showRight">
-					<u-icon v-if="!$slots['right-icon']" :size="16" name="arrow-right"></u-icon>
+					<up-icon v-if="!$slots['right-icon']" :size="16" name="arrow-right"></up-icon>
 					<slot name="right-icon">
 					</slot>
 				</template>
 			</template>
-		</u-cell>
+		</up-cell>
 		<view
 			class="u-collapse-item__content"
 			:animation="animationData"
@@ -53,7 +53,7 @@
 				:ref="elId"
 			><slot /></view>
 		</view>
-		<u-line v-if="parentData.border"></u-line>
+		<up-line v-if="parentData.border"></up-line>
 	</view>
 </template>
 
@@ -83,7 +83,7 @@
 	 * @property {String | Number}	name		唯一标识符
 	 * @property {String}			icon		标题左侧图片，可为绝对路径的图片或内置图标
 	 * @event {Function}			change 			某个item被打开或者收起时触发
-	 * @example <u-collapse-item :title="item.head" v-for="(item, index) in itemList" :key="index">{{item.body}}</u-collapse-item>
+	 * @example <up-collapse-item :title="item.head" v-for="(item, index) in itemList" :key="index">{{item.body}}</up-collapse-item>
 	 */
 	export default {
 		name: "u-collapse-item",

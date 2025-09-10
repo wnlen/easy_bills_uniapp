@@ -21,12 +21,12 @@
 				</slot>
 			</template>
 			<view class="u-search__content__icon">
-				<u-icon
+				<up-icon
 					@tap="clickIcon"
 				    :size="searchIconSize"
 				    :name="searchIcon"
 				    :color="searchIconColor ? searchIconColor : color"
-				></u-icon>
+				></up-icon>
 			</view>
 			<input
 			    confirm-type="search"
@@ -58,12 +58,12 @@
 			    v-if="keyword && clearabled && focused"
 			    @click="clear"
 			>
-				<u-icon
+				<up-icon
 				    name="close"
 				    size="11"
 				    color="#ffffff"
 					customStyle="line-height: 12px"
-				></u-icon>
+				></up-icon>
 			</view>
             <slot name="inputRight"></slot>
 		</view>
@@ -117,7 +117,7 @@
 	 * @event {Function} search 用户确定搜索时触发，用户按回车键，或者手机键盘右下角的"搜索"键时触发
 	 * @event {Function} custom 用户点击右侧控件时触发
 	 * @event {Function} clear 用户点击清除按钮时触发
-	 * @example <u-search placeholder="日照香炉生紫烟" v-model="keyword"></u-search>
+	 * @example <up-search placeholder="日照香炉生紫烟" v-model="keyword"></up-search>
 	 */
 	export default {
 		name: "u-search",

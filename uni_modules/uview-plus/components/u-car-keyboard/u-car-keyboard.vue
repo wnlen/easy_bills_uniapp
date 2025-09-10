@@ -56,11 +56,11 @@
 					hover-class="u-hover-class"
 					:hover-stay-time="200"
 				>
-					<u-icon
+					<up-icon
 						size="28"
 						name="backspace"
 						color="#303133"
-					></u-icon>
+					></up-icon>
 				</view>
 			</view>
 		</view>
@@ -79,7 +79,7 @@
 	 * @property {Boolean} random 是否打乱键盘的顺序
 	 * @event {Function} change 点击键盘触发
 	 * @event {Function} backspace 点击退格键触发
-	 * @example <u-keyboard ref="uKeyboard" mode="car" v-model="show"></u-keyboard>
+	 * @example <up-keyboard ref="uKeyboard" mode="car" v-model="show"></up-keyboard>
 	 */
 	export default {
 		name: "u-car-keyboard",

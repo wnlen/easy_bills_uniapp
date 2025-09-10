@@ -12,7 +12,7 @@
 		    :style="[iconWrapStyle]"
 		>
 			<slot name="icon" :elIconSize="elIconSize" :elIconColor="elIconColor">
-				<u-icon
+				<up-icon
 				    class="u-checkbox__icon-wrap__icon"
 				    name="checkbox-mark"
 				    :size="elIconSize"
@@ -60,7 +60,7 @@
 	 * @property {Object}						customStyle		定义需要用到的外部样式
 	 * 
 	 * @event {Function}	change	任一个checkbox状态发生变化时触发，回调为一个对象
-	 * @example <u-checkbox v-model="checked" :disabled="false">天涯</u-checkbox>
+	 * @example <up-checkbox v-model="checked" :disabled="false">天涯</up-checkbox>
 	 */
 	export default {
 		name: "u-checkbox",

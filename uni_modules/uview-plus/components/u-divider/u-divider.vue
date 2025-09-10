@@ -4,12 +4,12 @@
 	    :style="[addStyle(customStyle)]"
 		@tap="click"
 	>
-		<u-line
+		<up-line
 		    :color="lineColor"
 		    :customStyle="leftLineStyle"
 		    :hairline="hairline"
 			:dashed="dashed"
-		></u-line>
+		></up-line>
 		<text
 		    v-if="dot"
 		    class="u-divider__dot"
@@ -21,12 +21,12 @@
 				:style="[textStyle]"
 			>{{text}}</text>
 		</slot>
-		<u-line
+		<up-line
 		    :color="lineColor"
 		    :customStyle="rightLineStyle"
 		    :hairline="hairline"
 			:dashed="dashed"
-		></u-line>
+		></up-line>
 	</view>
 </template>
 
@@ -50,7 +50,7 @@
 	 * @property {Object}			customStyle		定义需要用到的外部样式
 	 *
 	 * @event {Function}	click	divider组件被点击时触发
-	 * @example <u-divider :color="color">锦瑟无端五十弦</u-divider>
+	 * @example <up-divider :color="color">锦瑟无端五十弦</up-divider>
 	 */
 	export default {
 		name:'u-divider',

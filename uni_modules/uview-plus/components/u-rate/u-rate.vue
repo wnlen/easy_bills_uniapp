@@ -21,7 +21,7 @@
                     ref="u-rate__content__item__icon-wrap"
                     @tap.stop="clickHandler($event, index + 1)"
                 >
-                    <u-icon
+                    <up-icon
                         :name="
                             Math.floor(activeIndex) > index
                                 ? activeIcon
@@ -38,7 +38,7 @@
                             padding: `0 ${addUnit(gutter / 2)}`,
                         }"
                         :size="size"
-                    ></u-icon>
+                    ></up-icon>
                 </view>
                 <view
                     v-if="allowHalf"
@@ -49,7 +49,7 @@
                     }]"
                     ref="u-rate__content__item__icon-wrap"
                 >
-                    <u-icon
+                    <up-icon
                         :name="
                             Math.ceil(activeIndex) > index
                                 ? activeIcon
@@ -66,7 +66,7 @@
                             padding: `0 ${addUnit(gutter / 2)}`
                         }"
                         :size="size"
-                    ></u-icon>
+                    ></up-icon>
                 </view>
             </view>
         </view>
@@ -100,7 +100,7 @@
 	 * @property {Boolean}			touchable		是否可以通过滑动手势选择评分 （默认 'true' ）
 	 * @property {Object}			customStyle		组件的样式，对象形式
 	 * @event {Function} change 选中的星星发生变化时触发
-	 * @example <u-rate :count="count" :value="2"></u-rate>
+	 * @example <up-rate :count="count" :value="2"></up-rate>
 	 */
 	export default {
 		name: "u-rate",

@@ -19,7 +19,7 @@
 	 * @tutorial https://uview-plus.jiangruyi.com/components/statusBar.html
 	 * @property {String}			bgColor			背景色 (默认 'transparent' )
 	 * @property {String | Object}	customStyle		自定义样式 
-	 * @example <u-status-bar></u-status-bar>
+	 * @example <up-status-bar></up-status-bar>
 	 */
 	export default {
 		name: 'u-status-bar',

@@ -14,7 +14,7 @@
 					<view class="u-dropdown__menu__item__arrow" :class="{
 						'u-dropdown__menu__item__arrow--rotate': index === current
 					}">
-						<u-icon :custom-style="{display: 'flex'}" :name="menuIcon" :size="addUnit(menuIconSize)" :color="index === current || highlightIndexList.includes(index) ? activeColor : '#c0c4cc'"></u-icon>
+						<up-icon :custom-style="{display: 'flex'}" :name="menuIcon" :size="addUnit(menuIconSize)" :color="index === current || highlightIndexList.includes(index) ? activeColor : '#c0c4cc'"></up-icon>
 					</view>
 				</view>
 			</view>
@@ -53,7 +53,7 @@
 	 * @property {String | Number} title-size 标题的字体大小，单位任意，数值默认为rpx单位（默认28）
 	 * @event {Function} open 下拉菜单被打开时触发
 	 * @event {Function} close 下拉菜单被关闭时触发
-	 * @example <u-dropdown></u-dropdown>
+	 * @example <up-dropdown></up-dropdown>
 	 */
 	export default {
 		name: 'u-dropdown',

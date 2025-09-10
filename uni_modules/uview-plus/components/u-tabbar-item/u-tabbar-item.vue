@@ -5,12 +5,12 @@
 	    @tap="clickHandler"
 	>
 		<view class="u-tabbar-item__icon">
-			<u-icon
+			<up-icon
 			    v-if="icon"
 			    :name="icon"
 			    :color="isActive? parentData.activeColor : parentData.inactiveColor"
 			    :size="20"
-			></u-icon>
+			></up-icon>
 			<template v-else>
 				<slot
 				    v-if="isActive"
@@ -21,14 +21,14 @@
 				    name="inactive-icon"
 				/>
 			</template>
-			<u-badge
+			<up-badge
 				absolute
 				:offset="[0, dot ? '34rpx' : badge > 9 ? '14rpx' : '20rpx']"
 			    :customStyle="badgeStyle"
 			    :isDot="dot"
 			    :value="badge || (dot ? 1 : null)"
 			    :show="dot || badge > 0"
-			></u-badge>
+			></up-badge>
 		</view>
 		
 		<slot name="text">
@@ -59,7 +59,7 @@
 	 * @property {Object | String}	badgeStyle	控制徽标的位置，对象或者字符串形式，可以设置top和right属性（默认 'top: 6px;right:2px;' ）
 	 * @property {Object}			customStyle	定义需要用到的外部样式
 	 * 
-	 * @example <u-tabbar :value="value2" :placeholder="false" @change="name => value2 = name" :fixed="false" :safeAreaInsetBottom="false"><u-tabbar-item text="首页" icon="home" dot ></u-tabbar-item></u-tabbar>
+	 * @example <up-tabbar :value="value2" :placeholder="false" @change="name => value2 = name" :fixed="false" :safeAreaInsetBottom="false"><up-tabbar-item text="首页" icon="home" dot ></up-tabbar-item></up-tabbar>
 	 */
 	export default {
 		name: 'u-tabbar-item',

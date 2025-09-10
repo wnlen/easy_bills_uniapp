@@ -1,5 +1,5 @@
 <template>
-	<u-popup
+	<up-popup
 		:show="show"
 		mode="bottom"
 		closeable
@@ -51,7 +51,7 @@
 			</scroll-view>
 			<slot name="footer" v-if="showConfirm">
 				<view class="u-calendar__confirm">
-					<u-button
+					<up-button
 						shape="circle"
 						:text="
                             buttonDisabled ? confirmDisabledText : confirmText
@@ -59,11 +59,11 @@
 						:color="color"
 						@click="confirm"
 						:disabled="buttonDisabled"
-					></u-button>
+					></up-button>
 				</view>
 			</slot>
 		</view>
-	</u-popup>
+	</up-popup>
 </template>
 
 <script>
@@ -113,8 +113,8 @@ import test from '../../libs/function/test';
  *
  * @event {Function()} confirm 		点击确定按钮时触发		选择日期相关的返回参数
  * @event {Function()} close 		日历关闭时触发			可定义页面关闭时的回调事件
- * @example <u-calendar  :defaultDate="defaultDateMultiple" :show="show" mode="multiple" @confirm="confirm">
-	</u-calendar>
+ * @example <up-calendar  :defaultDate="defaultDateMultiple" :show="show" mode="multiple" @confirm="confirm">
+	</up-calendar>
  * */
 export default {
 	name: 'u-calendar',

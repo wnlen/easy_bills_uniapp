@@ -11,10 +11,10 @@
 					</text>
 				</slot>
 				<slot name="icon">
-					<u-icon name="arrow-down" :size="iconSize" :color="iconColor"></u-icon>
+					<up-icon name="arrow-down" :size="iconSize" :color="iconColor"></up-icon>
 				</slot>
 			</view>
-			<u-overlay
+			<up-overlay
 				:show="isOpen"
 				@click="overlayClick"
 				v-if="overlay"
@@ -23,7 +23,7 @@
 				:customStyle="overlayStyle"
 				:opacity="overlayOpacity"
 				@touchmove.stop.prevent="noop"
-			></u-overlay>
+			></up-overlay>
 			<view class="u-select__options__wrap"
 				:style="{ overflowY: 'auto', zIndex: zIndex + 1, left: optionsWrapLeft, right: optionsWrapRight, maxHeight: maxHeight}">
 				<view class="u-select__options" v-if="isOpen">

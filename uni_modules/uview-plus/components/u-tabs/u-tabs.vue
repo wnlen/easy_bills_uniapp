@@ -44,7 +44,7 @@
 								class="u-tabs__wrapper__nav__item__text"
 								:style="[textStyle(index)]"
 							>{{ item[keyName] }}</text>
-							<u-badge
+							<up-badge
 								:show="!!(item.badge && (item.badge.show || item.badge.isDot || item.badge.value))"
 								:isDot="item.badge && item.badge.isDot || propsBadge.isDot"
 								:value="item.badge && item.badge.value || propsBadge.value"
@@ -57,7 +57,7 @@
 								:numberType="item.badge && item.badge.numberType || propsBadge.numberType"
 								:inverted="item.badge && item.badge.inverted || propsBadge.inverted"
 								customStyle="margin-left: 4px;"
-							></u-badge>
+							></up-badge>
 						</view>
 						<!-- #ifdef APP-NVUE -->
 						<view
@@ -115,7 +115,7 @@
 	 * @event {Function(index)} change 标签改变时触发 index: 点击了第几个tab，索引从0开始
 	 * @event {Function(index)} click 点击标签时触发 index: 点击了第几个tab，索引从0开始
 	 * @event {Function(index)} longPress 长按标签时触发 index: 点击了第几个tab，索引从0开始
-	 * @example <u-tabs :list="list" :is-scroll="false" :current="current" @change="change" @longPress="longPress"></u-tabs>
+	 * @example <up-tabs :list="list" :is-scroll="false" :current="current" @change="change" @longPress="longPress"></up-tabs>
 	 */
 	export default {
 		name: 'u-tabs',

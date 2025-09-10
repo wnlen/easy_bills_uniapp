@@ -14,12 +14,12 @@
 							borderRadius: item.style && item.style.borderRadius ? item.style.borderRadius : '0',
 							padding: item.style && item.style.borderRadius ? '0' : '0 15px',
 						}, item.style]">
-						<u-icon v-if="item.icon" :name="item.icon"
+						<up-icon v-if="item.icon" :name="item.icon"
 							:color="item.style && item.style.color ? item.style.color : '#ffffff'"
 							:size="item.iconSize ? addUnit(item.iconSize) : item.style && item.style.fontSize ? getPx(item.style.fontSize) * 1.2 : 17"
 							:customStyle="{
 								marginRight: item.text ? '2px' : 0
-							}"></u-icon>
+							}"></up-icon>
 						<text v-if="item.text" class="u-swipe-action-item__right__button__wrapper__text u-line-1"
 							:style="[{
 								color: item.style && item.style.color ? item.style.color : '#ffffff',
@@ -86,7 +86,7 @@
 	 * @property {String | Number}	duration		动画过渡时间，单位ms（默认 350 ）
 	 * @event {Function(index)}	open	组件打开时触发
 	 * @event {Function(index)}	close	组件关闭时触发
-	 * @example	<u-swipe-action><u-swipe-action-item :options="options1" ></u-swipe-action-item></u-swipe-action>
+	 * @example	<up-swipe-action><up-swipe-action-item :options="options1" ></up-swipe-action-item></up-swipe-action>
 	 */
 	export default {
 		name: 'u-swipe-action-item',

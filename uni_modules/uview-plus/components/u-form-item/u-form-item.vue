@@ -29,10 +29,10 @@
 							class="u-form-item__body__left__content__icon"
 							v-if="leftIcon"
 						>
-							<u-icon
+							<up-icon
 								:name="leftIcon"
 								:custom-style="leftIconStyle"
-							></u-icon>
+							></up-icon>
 						</view>
 						<text
 							class="u-form-item__body__left__content__label"
@@ -66,11 +66,11 @@
 				}"
 			>{{ message }}</text>
 		</slot>
-		<u-line
+		<up-line
 			v-if="borderBottom"
 			:color="message && parentData.errorType === 'border-bottom' ? color.error : propsLine.color"
 			:customStyle="`margin-top: ${message && parentData.errorType === 'message' ? '5px' : 0}`"
-		></u-line>
+		></up-line>
 	</view>
 </template>
 
@@ -95,7 +95,7 @@
 	 * @property {String | Object} leftIconStyle    左侧图标的样式
 	 * @property {Boolean}			required		是否显示左边的必填星号，只作显示用，具体校验必填的逻辑，请在rules中配置 (默认 false )
 	 *
-	 * @example <u-form-item label="姓名" prop="userInfo.name" borderBottom ref="item1"></u-form-item>
+	 * @example <up-form-item label="姓名" prop="userInfo.name" borderBottom ref="item1"></up-form-item>
 	 */
 	export default {
 		name: 'u-form-item',

@@ -33,11 +33,11 @@
 					    margin="0 5px 0 0"
 					></up-text>
 					<view class="u-read-more__toggle__icon">
-						<u-icon
+						<up-icon
 						    :color="color"
 						    :size="fontSize + 2"
 						    :name="status === 'close' ? 'arrow-down' : 'arrow-up'"
-						></u-icon>
+						></up-icon>
 					</view>
 				</view>
 			</slot>
@@ -68,7 +68,7 @@
 	 * @property {String | Number}	name		用于在 open 和 close 事件中当作回调参数返回
 	 * @event {Function} open 内容被展开时触发
 	 * @event {Function} close 内容被收起时触发
-	 * @example <u-read-more><rich-text :nodes="content"></rich-text></u-read-more>
+	 * @example <up-read-more><rich-text :nodes="content"></rich-text></up-read-more>
 	 */
 	export default {
 		name: 'u-read-more',

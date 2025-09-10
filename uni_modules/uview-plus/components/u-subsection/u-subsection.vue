@@ -77,7 +77,7 @@ import { addStyle, addUnit, sleep } from '../../libs/function/index';
  * @property {Boolean}	        disabled                是否禁用分段器 （默认 false ）
  *
  * @event {Function} change		分段器选项发生改变时触发  回调 index：选项的index索引值，从0开始
- * @example <u-subsection :list="list" :current="curNow" @change="sectionChange"></u-subsection>
+ * @example <up-subsection :list="list" :current="curNow" @change="sectionChange"></up-subsection>
  */
 export default {
     name: "u-subsection",

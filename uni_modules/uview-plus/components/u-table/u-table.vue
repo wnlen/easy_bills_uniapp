@@ -23,7 +23,7 @@
 	 * @property {Object} th-style th单元格的样式，对象形式(将th所需参数放在table组件，是为了避免每一个th组件要写一遍）
 	 * @event {Function} click 点击组件时触发
 	 * @event {Function} close 点击关闭按钮时触发
-	 * @example <u-table><u-tr><u-th>学校</u-th </u-tr> <u-tr><u-td>浙江大学</u-td> </u-tr> <u-tr><u-td>清华大学</u-td> </u-tr></u-table>
+	 * @example <up-table><up-tr><up-th>学校</up-th </up-tr> <up-tr><up-td>浙江大学</up-td> </up-tr> <up-tr><up-td>清华大学</up-td> </up-tr></up-table>
 	 */
 	export default {
 		name: 'u-table',

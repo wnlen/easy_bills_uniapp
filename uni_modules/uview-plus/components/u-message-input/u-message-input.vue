@@ -52,7 +52,7 @@
 	 * @property {Boolean} disabled-keyboard 禁止点击输入框唤起系统键盘（默认false）
 	 * @event {Function} change 输入内容发生改变时触发，具体见官网说明
 	 * @event {Function} finish 输入字符个数达maxlength值时触发，见官网说明
-	 * @example <u-message-input mode="bottomLine"></u-message-input>
+	 * @example <up-message-input mode="bottomLine"></up-message-input>
 	 */
 	export default {
 		name: "u-message-input",

@@ -27,7 +27,7 @@
 	 * @property {Object}			customStyle	定义需要用到的外部样式
 	 * 
 	 * @event {Function} click row被点击
-	 * @example <u-row justify="space-between" customStyle="margin-bottom: 10px"></u-row>
+	 * @example <up-row justify="space-between" customStyle="margin-bottom: 10px"></up-row>
 	 */
 	export default {
 		name: "u-row",

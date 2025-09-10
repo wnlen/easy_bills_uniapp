@@ -1,5 +1,5 @@
 <template>
-	<u-transition
+	<up-transition
 	    :show="show"
 	    custom-class="u-overlay"
 	    :duration="duration"
@@ -8,7 +8,7 @@
 		@touchmove.stop.prevent="noop"
 	>
 		<slot />
-	</u-transition>
+	</up-transition>
 </template>
 
 <script>
@@ -26,7 +26,7 @@
 	 * @property {String | Number}	opacity		不透明度值，当做rgba的第四个参数 （默认 0.5 ）
 	 * @property {Object}			customStyle	定义需要用到的外部样式
 	 * @event {Function} click 点击遮罩发送事件
-	 * @example <u-overlay :show="show" @click="show = false"></u-overlay>
+	 * @example <up-overlay :show="show" @click="show = false"></up-overlay>
 	 */
 	export default {
 		name: "u-overlay",

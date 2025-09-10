@@ -76,7 +76,7 @@
 	 * 
 	 * @event {Function}	change	输入内容发生改变时触发，具体见上方说明			value：当前输入的值
 	 * @event {Function}	finish	输入字符个数达maxlength值时触发，见上方说明	value：当前输入的值
-	 * @example	<u-code-input v-model="value4" :focus="true"></u-code-input>
+	 * @example	<up-code-input v-model="value4" :focus="true"></up-code-input>
 	 */
 	export default {
 		name: 'u-code-input',

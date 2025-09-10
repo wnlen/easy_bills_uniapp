@@ -38,7 +38,7 @@
 	 * @property {String}			bgColor		宫格的背景颜色 （默认 'transparent' ）
 	 * @property {Object}			customStyle	自定义样式，对象形式
 	 * @event {Function} click 点击宫格触发
-	 * @example <u-grid-item></u-grid-item>
+	 * @example <up-grid-item></up-grid-item>
 	 */
 	export default {
 		name: "u-grid-item",

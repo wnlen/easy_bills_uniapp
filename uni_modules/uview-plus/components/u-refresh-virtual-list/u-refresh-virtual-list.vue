@@ -1,10 +1,10 @@
 <template>
-  <u-pull-refresh
+  <up-pull-refresh
     :refreshing="refreshing"
     :threshold="50"
     @refresh="handleRefresh"
   >
-    <u-virtual-list
+    <up-virtual-list
       ref="virtualList"
       :list-data="listData"
       :item-height="itemHeight"
@@ -17,8 +17,8 @@
       <template #default="{ item, index }">
         <slot :item="item" :index="index"></slot>
       </template>
-    </u-virtual-list>
-  </u-pull-refresh>
+    </up-virtual-list>
+  </up-pull-refresh>
 </template>
 
 <script>

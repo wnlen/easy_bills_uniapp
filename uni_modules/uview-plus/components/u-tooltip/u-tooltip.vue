@@ -3,11 +3,11 @@
 		class="u-tooltip"
 		:style="[addStyle(customStyle)]"
 	>
-		<u-overlay
+		<up-overlay
 			:show="showTooltip && tooltipTop !== -10000 && overlay"
 			customStyle="backgroundColor: rgba(0, 0, 0, 0)"
 			@click="overlayClickHandler"
-		></u-overlay>
+		></up-overlay>
 		<view class="u-tooltip__wrapper">
 			<text
 				class="u-tooltip__wrapper__text"
@@ -21,7 +21,7 @@
 					backgroundColor: bgColor && showTooltip && tooltipTop !== -10000 ? bgColor : 'transparent'
 				}"
 			>{{ text }}</text>
-			<u-transition
+			<up-transition
 				mode="fade"
 				:show="showTooltip"
 				duration="300"
@@ -59,12 +59,12 @@
 								class="u-tooltip__wrapper__popup__list__btn__text"
 							>复制</text>
 						</view>
-						<u-line
+						<up-line
 							direction="column"
 							color="#8d8e90"
 							v-if="showCopy && buttons.length > 0"
 							length="18"
-						></u-line>
+						></up-line>
 						<block v-for="(item , index) in buttons" :key="index">
 							<view
 								class="u-tooltip__wrapper__popup__list__btn"
@@ -75,16 +75,16 @@
 									@tap="btnClickHandler(index)"
 								>{{ item }}</text>
 							</view>
-							<u-line
+							<up-line
 								direction="column"
 								color="#8d8e90"
 								v-if="index < buttons.length - 1"
 								length="18"
-							></u-line>
+							></up-line>
 						</block>
 					</view>
 				</view>
-			</u-transition>
+			</up-transition>
 		</view>
 	</view>
 </template>

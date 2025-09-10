@@ -1,9 +1,9 @@
 <template>
 	<view class="u-navbar-mini" :class="[customClass]">
 		<view class="u-navbar-mini__inner" :class="[fixed && 'u-navbar-mini--fixed']">
-			<u-status-bar
+			<up-status-bar
 				v-if="safeAreaInsetTop"
-			></u-status-bar>
+			></up-status-bar>
 			<view
 				class="u-navbar-mini__content"
 				:style="{
@@ -61,7 +61,7 @@
 	 * @property {Object | String}	titleStyle			标题的样式，对象或字符串
 	 * @event {Function} leftClick		点击左侧区域
 	 * @event {Function} rightClick		点击右侧区域
-	 * @example <u-navbar-mini @click-left="onClickBack"></u-navbar-mini>
+	 * @example <up-navbar-mini @click-left="onClickBack"></up-navbar-mini>
 	 */
 	export default {
 		name: 'u-navbar-mini',

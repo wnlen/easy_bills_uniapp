@@ -37,7 +37,7 @@
 	 * @property {Object}						gap				item 之间的间距
    * @property {Object}						customStyle		组件的样式，对象形式
 	 * @event {Function} change 任一个radio状态发生变化时触发
-	 * @example <u-radio-group v-model="value"></u-radio-group>
+	 * @example <up-radio-group v-model="value"></up-radio-group>
 	 */
 	export default {
 		name: 'u-radio-group',

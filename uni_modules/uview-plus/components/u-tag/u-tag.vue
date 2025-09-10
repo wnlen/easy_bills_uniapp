@@ -1,5 +1,5 @@
 <template>
-	<u-transition
+	<up-transition
 		mode="fade"
 		:show="show"
 		style="display: inline-flex;"
@@ -24,12 +24,12 @@
 							:src="icon"
 							:style="[imgStyle]"
 						></image>
-						<u-icon
+						<up-icon
 							v-else
 							:color="elIconColor"
 							:name="icon"
 							:size="iconSize"
-						></u-icon>
+						></up-icon>
 					</view>
 				</slot>
 				<view class="u-tag__content">
@@ -63,14 +63,14 @@
 				@tap.stop="closeHandler"
 				:style="{backgroundColor: closeColor}"
 			>
-				<u-icon
+				<up-icon
 					name="close"
 					:size="closeSize"
 					color="#ffffff"
-				></u-icon>
+				></up-icon>
 			</view>
 		</view>
-	</u-transition>
+	</up-transition>
 </template>
 
 <script>
@@ -100,7 +100,7 @@
 	 * @property {String}			icon		内置图标，或绝对路径的图片
 	 * @event {Function(index)} click 点击标签时触发 index: 传递的index参数值
 	 * @event {Function(index)} close closable为true时，点击标签关闭按钮触发 index: 传递的index参数值	
-	 * @example <u-tag text="标签" type="error" plain plainFill></u-tag>
+	 * @example <up-tag text="标签" type="error" plain plainFill></up-tag>
 	 */
 	export default {
 		name: 'u-tag',

@@ -1,5 +1,5 @@
 <template>
-    <u-transition
+    <up-transition
         :show="loading"
         :custom-style="{
             position: 'fixed',
@@ -26,12 +26,12 @@
 						    height: addUnit(iconSize)
 						}"
                     ></image>
-                    <u-loading-icon
+                    <up-loading-icon
                         v-else
                         :mode="loadingMode"
                         :size="addUnit(iconSize)"
                         :color="loadingColor"
-                    ></u-loading-icon>
+                    ></up-loading-icon>
                 </view>
                 <slot>
                     <text
@@ -45,7 +45,7 @@
                 </slot>
             </view>
         </view>
-    </u-transition>
+    </up-transition>
 </template>
 
 <script>
@@ -68,7 +68,7 @@ import { addUnit } from '../../libs/function/index';
  * @property {String}			loadingColor	加载中图标的颜色，只能rgb或者十六进制颜色值 （默认 '#C8C8C8' ）
  * @property {Number}			zIndex	        z-index层级 （默认10 ）
  * @property {Object}			customStyle		自定义样式
- * @example <u-loading mode="circle"></u-loading>
+ * @example <up-loading mode="circle"></up-loading>
  */
 export default {
     name: "u-loading-page",
