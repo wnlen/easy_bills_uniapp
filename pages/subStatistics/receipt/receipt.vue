@@ -141,7 +141,7 @@
 
 						<u-icon size="28rpx" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></u-icon>
 					</view>
-					<view class="ml20" style="width: 30%">
+					<view class="ml20">
 						<u-image v-if="pinia_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></u-image>
 						<u-image v-if="pinia_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/dqs.png"></u-image>
 						<u-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="@/static/img/obj/bq2.png" :lazy-load="true"></u-image>
@@ -554,7 +554,6 @@ export default {
 		this.identity = identity;
 	},
 	onShow() {
-		console.log('identity', identity);
 		if (this.identity) {
 			this.checked = false;
 			this.SOCKETfLUSH();
