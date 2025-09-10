@@ -328,13 +328,13 @@
 					<text class="line34 handcolor">相关图片/票据</text>
 				</view>
 
-				<view class="recently-cat flex-row flex-wrap mt40" style="width: 95%">
+				<view class="mt40" style="width: 95%">
 					<u-upload
 						autoUpload
 						autoDelete
 						:autoUploadApi="action"
 						autoUploadDriver="local"
-						v-model:fileList="fileList"
+						v-model:fileList="imgList"
 						:maxCount="3"
 						multiple
 						:showPreviewImage="true"
@@ -346,23 +346,6 @@
 					>
 						<u-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></u-icon>
 					</u-upload>
-					<!-- <u-upload
-						:custom-btn="true"
-						:action="action"
-						:show-retry="false"
-						:file-list="fileList"
-						:show-tips="false"
-						@on-remove="onRemoveImg"
-						:before-upload="handleUpload"
-						max-size="5242880"
-						max-count="3"
-						multiple
-						del-bg-color="#e9e9e9"
-					>
-						<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
-							<u-icon name="https://res-oss.elist.com.cn/wxImg/order/down.png" size="200"></u-icon>
-						</view>
-					</u-upload> -->
 				</view>
 
 				<view class="flex-col mt45" style="width: 95%">
