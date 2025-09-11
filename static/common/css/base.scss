@@ -30,6 +30,7 @@ view,
 image,
 text {
 	box-sizing: border-box;
+	flex-shrink: 0;
 }
 
 /* 应用根尺寸铺满视口 */
@@ -1473,4 +1474,41 @@ text {
 
 .gap-60 {
 	gap: 60rpx;
+}
+
+/* 局部开关：这个容器里，子元素恢复“可缩” */
+.can-shrink {
+	display: flex; /* 一般你本来也会写 */
+	min-width: 0; /* 关键：允许文本真正收缩/省略 */
+}
+
+/* 直系子元素覆盖全局 shrink:0 */
+.can-shrink > view,
+.can-shrink > text,
+.can-shrink > image {
+	flex-shrink: 1;
+	min-width: 0; /* 防止文字被 min-content 顶住 */
+}
+
+/* 常用工具类 */
+.shrink-0 {
+	flex-shrink: 0 !important;
+}
+/* 个别元素必须不缩 */
+.shrink-1 {
+	flex-shrink: 1 !important;
+	min-width: 0 !important;
+}
+/* 个别元素必须可缩 */
+.text-ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	min-width: 0;
+}
+.nowrap {
+	white-space: nowrap;
+}
+.minw0 {
+	min-width: 0;
 }
