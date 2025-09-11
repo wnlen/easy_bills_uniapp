@@ -71,7 +71,12 @@ export default {
 			this.getNotifications();
 		},
 		getPendingTasks() {
-			uni.$api.order.getOrderDraftList({ bUser: this.pinia_user.phone, port: this.pinia_userRole }).then((res) => {
+			const param = {
+				bUser: this.pinia_user.phone,
+				port: this.pinia_userRole
+			};
+			console.log('打印的', param);
+			uni.$api.order.getOrderDraftList(param).then((res) => {
 				console.log('resresresresr热水', res);
 				const isDirector = this.pinia_userRole === 'D';
 				const tasks = res.data.data.filter((item) => (isDirector ? item.port === '1' || item.port === 'f' : item.port === '0'));
