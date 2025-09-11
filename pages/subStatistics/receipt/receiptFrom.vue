@@ -329,8 +329,8 @@ export default {
 			// 	this.UploadFilePdf(res.url, this.billFrom.billNumber, false)
 			// })
 
-			console.log(this.fileList);
-			console.log(this.imgFileList);
+			// console.log(this.fileList);
+			// console.log(this.imgFileList);
 			if (this.billFrom.billRemark > 50) {
 				return this.$u.toast('备注内容不能超过50字');
 			}
@@ -347,7 +347,7 @@ export default {
 
 				// 图片文件上传
 				for (const res of this.imgFileList) {
-					const url = await this.UploadFilePdf(res.url, this.billFrom.billNumber, false, res.file.size, app);
+					const url = await this.UploadFilePdf(res.url, this.billFrom.billNumber, false, res.size, app);
 					this.billFrom.imgUploading.push({
 						file: url.file,
 						size: url.size
@@ -411,6 +411,7 @@ export default {
 			this.billFrom.billAfterPrice = (this.billFrom.billPrice * (1 - prc / 100)).toFixed(2);
 		},
 		handleUpload(res) {
+			console.log('this.imgFileList', res);
 			this.imgFileList = res.file;
 		},
 		uploadFile() {

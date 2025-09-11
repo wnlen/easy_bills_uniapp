@@ -1151,7 +1151,7 @@ function TitleFun(showTage) {
 			: '条件筛选';
 }
 
-function refreshDataNew() {
+const refreshDataNew = async () => {
 	uloading.value = true;
 	if (refresh.value) {
 		refresh.value = false;
@@ -1162,35 +1162,51 @@ function refreshDataNew() {
 			realTimeSel.value.paymentState = Number(globalStore.tabIndex) - 1;
 		}
 		console.log('111', realTimeSel);
-		proxy.$api.order
-			.getFilteredOrders(realTimeSel.value)
-			.then((res) => {
-				const orderListData = res.data.data.map((obj) => ({
-					...obj,
-					share: false
-				}));
-				paging.value?.complete(orderListData);
-				totalMoney.value = orderListData.reduce((total, obj) => total + obj.price, 0);
-				refresh.value = true;
-				onReachBottom.value = true;
-				uloading.value = false;
-			})
-			.catch(() => {
-				// paging.value?.complete(false);
-				refresh.value = true;
-			});
-		console.log('222');
-		proxy.$api.order
-			.getFilteredOrderCount(realTimeSel.value)
-			.then((res) => {
-				OrderQuantity.value = res.data.data[1];
-				OrderQuantitySum.value = res.data.data[0];
-			})
-			.catch(() => {
-				refresh.value = true;
-			});
+		const res = await proxy.$api.order.getFilteredOrders(realTimeSel.value);
+		if (res.data.code == 200) {
+			const orderListData = res.data.data.map((obj) => ({
+				...obj,
+				share: false
+			}));
+			paging.value?.complete(orderListData);
+			totalMoney.value = orderListData.reduce((total, obj) => total + obj.price, 0);
+			refresh.value = true;
+			onReachBottom.value = true;
+			uloading.value = false;
+		} else {
+			refresh.value = true;
+		}
+		// .then((res) => {
+		// 	const orderListData = res.data.data.map((obj) => ({
+		// 		...obj,
+		// 		share: false
+		// 	}));
+		// 	paging.value?.complete(orderListData);
+		// 	totalMoney.value = orderListData.reduce((total, obj) => total + obj.price, 0);
+		// 	refresh.value = true;
+		// 	onReachBottom.value = true;
+		// 	uloading.value = false;
+		// })
+		// .catch(() => {
+		// 	// paging.value?.complete(false);
+		// 	refresh.value = true;
+		// });
+		const res1 = await proxy.$api.order.getFilteredOrderCount(realTimeSel.value);
+		// .then((res) => {
+		// 	OrderQuantity.value = res.data.data[1];
+		// 	OrderQuantitySum.value = res.data.data[0];
+		// })
+		// .catch(() => {
+		// 	refresh.value = true;
+		// });
+		if (res1.data.code == 200) {
+			OrderQuantity.value = res1.data.data[1];
+			OrderQuantitySum.value = res1.data.data[0];
+		} else {
+			refresh.value = true;
+		}
 	}
-}
+};
 
 function changeTab(item) {
 	paging.value?.reload();
@@ -1278,16 +1294,16 @@ function getCurrentYearFirstDay() {
 	return `${year}-01-01`;
 }
 
-function queryList(pageNo, pageSize) {
+const queryList = async (pageNo, pageSize) => {
 	if (userStore.user.phone) {
 		realTimeSel.value.page = pageNo;
 		realTimeSel.value.pageSize = pageSize;
-		refreshDataNew();
+		await refreshDataNew();
 	} else {
 		console.log('请登录');
 		paging.value?.complete([]);
 	}
-}
+};
 
 function clear() {
 	setPinia({

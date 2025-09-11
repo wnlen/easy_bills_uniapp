@@ -152,28 +152,14 @@
 							placeholder-class="placeholder_class"
 							type="number"
 							v-model="khPhone"
-							:style="{ color: ifInput(khPhone) }"
-							maxlength="11"
+							:style="{ color: ifInput(khPhone), width: '360rpx' }"
 							placeholder="请输入客户手机号"
-							class="u-line-1 ml15 endcolor flex-1"
+							class="u-line-1 ml15 endcolor"
 							@input="searchIFNumber"
 							@blur="searchIFNumberBlur"
 							:focus="PhoneFocus"
 							@focus="searchIFNumberFocus"
 						/>
-						<!-- <uv-input
-							placeholderStyle="color: #d8d8d8;fontSize:28rpx"
-							@change="searchIFNumber"
-							@blur="searchIFNumberBlur"
-							:focus="PhoneFocus"
-							@focus="searchIFNumberFocus"
-							type="number"
-							v-model="khPhone"
-							placeholder="请输入客户手机号"
-							border="none"
-							class="flex-1 endcolor"
-							fontSize="28rpx"
-						></uv-input> -->
 						<view class="flex-1 flex-row justify-end">
 							<up-button shape="circle" size="mini" color="#01BB74" :customStyle="{ width: '120rpx', margin: '0' }" @click="jumpTable">选择客户</up-button>
 						</view>
@@ -251,7 +237,6 @@
 							type="number"
 							v-model="receipts.kPhoneE"
 							:style="{ color: ifInput(receipts.kPhoneE) ? '#333333' : '#D8D8D8' }"
-							maxlength="11"
 							placeholder="请输入联系电话"
 							class="ml15 flex-1 u-line-1 endcolor"
 						/>
