@@ -207,10 +207,10 @@
 							</up-col>
 						</up-row>
 					</view>
-					<view class="u-skeleton-fillet ft30 line25 ft-lighgray">
+					<view class="u-skeleton-fillet ft30 line25 ft-lightgray">
 						<text>日期：{{ $u.timeFormat(item.creationTime, 'yyyy-mm-dd') }}</text>
 					</view>
-					<view class="ft-lighgray mt10 line25 flex-row items-center justify-end">
+					<view class="ft-lightgray mt10 line25 flex-row items-center justify-end">
 						<text>
 							<text>订单金额：</text>
 							<text class="ft-bold ft35" style="color: black">￥{{ item.price.toFixed(2) }}</text>

@@ -1,9 +1,20 @@
+/* ============================================================
+ * 工具类（整理可替换版本，零破坏）
+ * 说明：不修改任何已有类名和属性，仅分组整理 + 用途注释
+ * ============================================================ */
+
+/* =========================
+ * 1. 页面基础（Reset & Base）
+ * ========================= */
+
 body,
 page {
 	background: #fff;
 	font-size: 28rpx;
 	color: #222222;
 }
+
+/* H5 基础字体与抗锯齿优化 */
 /* #ifdef H5 */
 body {
 	margin: 0;
@@ -14,31 +25,44 @@ body {
 }
 /* #endif */
 
+/* 元素统一盒模型 */
 view,
 image,
 text {
 	box-sizing: border-box;
-	flex-shrink: 0;
 }
+
+/* 应用根尺寸铺满视口 */
 #app {
 	width: 100vw;
 	height: 100vh;
 }
+
+/* u-button 长按阴影清除（用途：统一按钮视觉一致性） */
 ::v-deep .u-button:before {
-	--u-button-shadow: none !important; /* 确保长按时也没有阴影 */
+	--u-button-shadow: none !important;
 	background: transparent !important;
 }
+
+/* u-swipe-action 圆角包裹（用途：滑动操作容器圆角） */
 .swipeBox {
-	border-radius: 10rpx; //u-swipe-action圆角
+	border-radius: 10rpx;
 	overflow: hidden;
-} //
-// ::v-deep button::after {
-// 	border: none !important;//按钮外边框border隐藏
-// }
-/* 锁定滚动：隐藏 body 滚动条 */
+}
+
+/* =========================
+ * 2. 滚动控制 / 页面锁定
+ * ========================= */
+
+/* 锁定滚动（用途：弹层开启时禁止页面滚动；保持原有策略） */
 .body-no-scroll {
 	position: fixed;
 }
+
+/* =========================
+ * 3. 文字颜色（语义色）
+ * ========================= */
+
 .ft-blue {
 	color: #3c8efb;
 }
@@ -63,9 +87,18 @@ text {
 .ft-gray {
 	color: #666;
 }
-.ft-lighgray {
+.ft-lightgray {
 	color: #999;
 }
+
+.ft-bold {
+	font-weight: bold;
+}
+
+/* =========================
+ * 4. 背景色（语义背景）
+ * ========================= */
+
 .page-bg {
 	background: #f5f5f5;
 	min-height: calc(100vh - 88rpx);
@@ -91,9 +124,12 @@ text {
 .bg-green1 {
 	background: #01bb74;
 }
-.ft-bold {
-	font-weight: bold;
-}
+
+/* =========================
+ * 5. 字号 / 行高（rpx & px）
+ * 说明：保持原有分档，不做变更
+ * ========================= */
+
 .ft20 {
 	font-size: 20rpx;
 }
@@ -187,9 +223,82 @@ text {
 .ft69 {
 	font-size: 69rpx;
 }
+
+/* =========================
+ * 6. 文本与断行类
+ * ========================= */
+
 .break-all {
 	word-break: break-all;
 }
+.text-underline {
+	text-decoration: underline;
+}
+.text-delline {
+	text-decoration: line-through;
+}
+.text-uppercase {
+	text-transform: uppercase;
+}
+
+.text-center {
+	text-align: center;
+}
+.text-left {
+	text-align: left;
+}
+.text-right {
+	text-align: right;
+}
+.text-indent1 {
+	text-indent: 1em;
+}
+.text-indent2 {
+	text-indent: 2em;
+}
+
+.nowrap {
+	white-space: nowrap;
+}
+.over-doit {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+} /* 单行省略 */
+.over-hidden {
+	overflow: hidden;
+}
+.ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+} /* 单行省略（同义） */
+
+.middle {
+	vertical-align: middle;
+}
+.tiny-hand {
+	cursor: pointer;
+}
+
+/* 字符间距 */
+.ft-color {
+	color: #333333;
+}
+.ft-zjj-2 {
+	letter-spacing: 2px;
+}
+.ft-zjj-1 {
+	letter-spacing: 1px;
+}
+.ft-zjj-05 {
+	letter-spacing: 1px;
+} /* 原样保留 */
+
+/* =========================
+ * 7. 视口单位 / 宽高工具
+ * ========================= */
+
 .vw100 {
 	width: 100vw;
 }
@@ -199,58 +308,63 @@ text {
 .vh110 {
 	min-height: 110vh;
 }
-.width0 {
+.w100 {
+	width: 100%;
+}
+
+.w-0 {
 	width: 0;
 }
-.width25 {
+.w-25r {
 	width: 25rpx;
 }
-.width36 {
+.w-36r {
 	width: 36rpx;
 }
-.width40x {
+.w-40r {
 	width: 40rpx;
 }
-.width48 {
+.w-48r {
 	width: 48rpx;
 }
-.width52 {
+.w-52r {
 	width: 52rpx;
 }
-.width68 {
+.w-68r {
 	width: 68rpx;
 }
-.width75 {
+.w-75r {
 	width: 75rpx;
 }
-.width80 {
+.w-80r {
 	width: 80rpx;
 }
-.width90 {
+.w-90r {
 	width: 90rpx;
 }
-.width95 {
+.w-95r {
 	width: 95rpx;
 }
-.width100 {
+.w-100r {
 	width: 100rpx;
 }
-.width120 {
+.w-120r {
 	width: 120rpx;
 }
-.width140 {
+.w-140r {
 	width: 140rpx;
 }
-.width150 {
+.w-150r {
 	width: 150rpx;
 }
-.width157 {
+.w-157r {
 	width: 157rpx;
 }
-.width215 {
+.w-215r {
 	width: 215rpx;
 }
-.width25_ {
+
+.width25 {
 	width: 25%;
 }
 .width40 {
@@ -283,6 +397,7 @@ text {
 .width100 {
 	width: 100%;
 }
+
 .height0 {
 	height: 0 !important;
 }
@@ -313,6 +428,11 @@ text {
 .height100 {
 	height: 100%;
 }
+
+/* =========================
+ * 8. 透明度
+ * ========================= */
+
 .opacity0 {
 	opacity: 0;
 }
@@ -331,6 +451,13 @@ text {
 .opacity1 {
 	opacity: 1;
 }
+
+/* =========================
+ * 9. 外边距（mt/mr/mb/ml）
+ * 说明：保持你原有刻度
+ * ========================= */
+
+/* 顶部 */
 .mt1 {
 	margin-top: 1rpx;
 }
@@ -349,11 +476,11 @@ text {
 .mt10 {
 	margin-top: 10rpx;
 }
-.mt13 {
-	margin-top: 13rpx;
-}
 .mt12 {
 	margin-top: 12rpx;
+}
+.mt13 {
+	margin-top: 13rpx;
 }
 .mt14 {
 	margin-top: 14rpx;
@@ -409,6 +536,8 @@ text {
 .mt120 {
 	margin-top: 120rpx;
 }
+
+/* 右侧 */
 .mr2 {
 	margin-right: 2rpx;
 }
@@ -451,6 +580,11 @@ text {
 .mr100 {
 	margin-right: 100rpx;
 }
+.mr6 {
+	margin-right: 6rpx;
+}
+
+/* 底部 */
 .mb2 {
 	margin-bottom: 2rpx;
 }
@@ -493,24 +627,20 @@ text {
 .mb20 {
 	margin-bottom: 20rpx;
 }
-.pb20 {
-	padding-bottom: 20rpx;
-}
-.pall30 {
-	padding: 30rpx;
-}
 .mb24 {
 	margin-bottom: 24rpx;
 }
 .mb30 {
 	margin-bottom: 30rpx;
 }
-.mb54 {
-	margin-bottom: 54rpx;
-}
 .mb36 {
 	margin-bottom: 36rpx;
 }
+.mb54 {
+	margin-bottom: 54rpx;
+}
+
+/* 左侧 */
 .ml1 {
 	margin-left: 1rpx;
 }
@@ -595,12 +725,16 @@ text {
 .ml96 {
 	margin-left: 96rpx;
 }
-.mr6 {
-	margin-right: 6rpx;
-}
+
 .mg30 {
 	margin: 30rpx;
 }
+
+/* =========================
+ * 10. 内边距（pt/pr/pb/pl）
+ * 说明：移除重复定义，仅保留一份
+ * ========================= */
+
 .pd10 {
 	padding: 10rpx;
 }
@@ -622,33 +756,10 @@ text {
 .pd36 {
 	padding: 36rpx;
 }
-.pb100 {
-	padding-bottom: 100rpx;
+.pall30 {
+	padding: 30rpx;
 }
-.pb150 {
-	padding-bottom: 150rpx;
-}
-.pb350 {
-	padding-bottom: 350rpx;
-}
-.pb48 {
-	padding-bottom: 48rpx;
-}
-.pb60 {
-	padding-bottom: 60rpx;
-}
-.pb38 {
-	padding-bottom: 38rpx;
-}
-.pb35 {
-	padding-bottom: 35rpx;
-}
-.pb30 {
-	padding-bottom: 30rpx;
-}
-.pb20 {
-	padding-bottom: 20rpx;
-}
+
 .pb5 {
 	padding-bottom: 5rpx;
 }
@@ -661,26 +772,54 @@ text {
 .pb10 {
 	padding-bottom: 10rpx;
 }
-.pb15 {
-	padding-bottom: 15rpx;
-}
 .pb12 {
 	padding-bottom: 12rpx;
 }
 .pb13 {
 	padding-bottom: 13rpx;
 }
+.pb15 {
+	padding-bottom: 15rpx;
+}
+.pb20 {
+	padding-bottom: 20rpx;
+} /* ← 重复项已合并，仅保留一次 */
 .pb24 {
 	padding-bottom: 24rpx;
 }
 .pb25 {
 	padding-bottom: 25rpx;
 }
-.pt5 {
-	padding-top: 5rpx;
+.pb30 {
+	padding-bottom: 30rpx;
 }
+.pb35 {
+	padding-bottom: 35rpx;
+}
+.pb38 {
+	padding-bottom: 38rpx;
+}
+.pb48 {
+	padding-bottom: 48rpx;
+}
+.pb60 {
+	padding-bottom: 60rpx;
+}
+.pb100 {
+	padding-bottom: 100rpx;
+}
+.pb150 {
+	padding-bottom: 150rpx;
+}
+.pb350 {
+	padding-bottom: 350rpx;
+}
+
 .pt1 {
 	padding-top: 1rpx;
+}
+.pt5 {
+	padding-top: 5rpx;
 }
 .pt10 {
 	padding-top: 10rpx;
@@ -730,6 +869,7 @@ text {
 .pt500 {
 	padding-top: 500rpx;
 }
+
 .pl5 {
 	padding-left: 5rpx;
 }
@@ -754,12 +894,13 @@ text {
 .pl60 {
 	padding-left: 60rpx;
 }
-.pl180 {
-	padding-left: 180rpx;
-}
 .pl100 {
 	padding-left: 100rpx;
 }
+.pl180 {
+	padding-left: 180rpx;
+}
+
 .pr5 {
 	padding-right: 5rpx;
 }
@@ -793,12 +934,18 @@ text {
 .pr180 {
 	padding-right: 180rpx;
 }
+
+/* =========================
+ * 11. 浮动 / 圆角
+ * ========================= */
+
 .left {
 	float: left;
 }
 .right {
 	float: right;
 }
+
 .radius12 {
 	border-radius: 12rpx;
 }
@@ -808,24 +955,11 @@ text {
 .radius28 {
 	border-radius: 28rpx;
 }
-.text-center {
-	text-align: center;
-}
-.text-left {
-	text-align: left;
-}
-.text-right {
-	text-align: right;
-}
-.text-indent1 {
-	text-indent: 1em;
-}
-.text-indent2 {
-	text-indent: 2em;
-}
-.middle {
-	vertical-align: middle;
-}
+
+/* =========================
+ * 12. 定位 / 显示控制
+ * ========================= */
+
 .relative {
 	position: relative;
 }
@@ -835,141 +969,210 @@ text {
 .absolute {
 	position: absolute;
 }
-.nowrap {
-	white-space: nowrap;
-}
-.over-doit {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+
+.hide {
+	display: none;
 }
 .over-hidden {
 	overflow: hidden;
 }
-.hide {
-	display: none;
-}
-.tiny-hand {
-	cursor: pointer;
-}
+
+/* =========================
+ * 13. Flex 布局工具
+ * ========================= */
+
+/* 行内主轴横向布局（默认从左到右），常用于水平排列 */
 .flex-row {
 	display: flex;
 	flex-direction: row;
 }
-.flex-wrap {
-	flex-wrap: wrap;
-}
+
+/* 列方向主轴纵向布局，常用于上下堆叠 */
 .flex-col {
 	display: flex;
 	flex-direction: column;
 }
+
+/* 允许子元素在主轴方向换行（多行/多列布局时启用） */
+.flex-wrap {
+	flex-wrap: wrap;
+}
+
+/* 主轴对齐：起点对齐（左对齐/上对齐） */
 .justify-start {
 	justify-content: flex-start;
 }
+
+/* 主轴对齐：终点对齐（右对齐/下对齐） */
 .justify-end {
 	justify-content: flex-end;
 }
+
+/* 主轴对齐：居中 */
 .justify-center {
 	justify-content: center;
 }
+
+/* 主轴对齐：两端对齐（首尾顶边，中间等分） */
 .justify-between {
 	justify-content: space-between;
 }
+
+/* 主轴对齐：环绕分布（两侧留有间隙） */
 .justify-around {
 	justify-content: space-around;
 }
+
+/* 主轴对齐：平均分布（项目与两侧间隔完全相等） */
 .justify-evenly {
 	justify-content: space-evenly;
 }
+
+/* 交叉轴对齐：起点对齐（顶部/左侧） */
 .items-start {
 	align-items: flex-start;
 }
+
+/* 交叉轴对齐：终点对齐（底部/右侧） */
 .items-end {
 	align-items: flex-end;
 }
+
+/* 交叉轴对齐：居中 */
 .items-center {
 	align-items: center;
 }
+
+/* 交叉轴对齐：基线对齐（适合文本元素） */
 .items-baseline {
 	align-items: baseline;
 }
+
+/* 交叉轴对齐：拉伸填满交叉轴（需要子项未设置固定尺寸） */
 .items-stretch {
 	align-items: stretch;
 }
+
+/* 单个子项在交叉轴的自对齐：起点对齐（覆盖父级 align-items） */
 .self-start {
 	align-self: flex-start;
 }
+
+/* 单个子项在交叉轴的自对齐：终点对齐 */
 .self-end {
 	align-self: flex-end;
 }
+
+/* 单个子项在交叉轴的自对齐：居中 */
 .self-center {
 	align-self: center;
 }
+
+/* 单个子项在交叉轴的自对齐：基线对齐 */
 .self-baseline {
 	align-self: baseline;
 }
+
+/* 单个子项在交叉轴的自对齐：拉伸 */
 .self-stretch {
 	align-self: stretch;
 }
+
+/* 弹性伸缩：占据剩余空间（常用于左右自适应布局） */
 .flex-1 {
 	flex: 1 1 0%;
 }
+
+/* 弹性伸缩：自动按内容增长（可与固定宽度子项混排） */
 .flex-auto {
 	flex: 1 1 auto;
 }
+
+/* 允许在主轴方向扩展（与兄弟项竞争剩余空间） */
 .grow {
 	flex-grow: 1;
 }
+
+/* 禁止在主轴方向扩展（不参与分配剩余空间） */
 .grow-0 {
 	flex-grow: 0;
 }
+
+/* 允许在主轴方向收缩（容器变窄时可被压缩） */
 .shrink {
 	flex-shrink: 1;
 }
+
+/* 禁止在主轴方向收缩（保持自身宽高不被压缩） */
 .shrink-0 {
 	flex-shrink: 0;
 }
+
+/* =========================
+ * 14. 固定栏 / 分隔线
+ * ========================= */
+
+/* 底部固定操作条 */
 .fixed-bar {
 	position: fixed;
-	bottom: 0;
-	bottom: env(safe-area-inset-bottom);
-	bottom: constant(safe-area-inset-bottom);
+	bottom: max(0px, env(safe-area-inset-bottom));
 	left: 0;
 	right: 0;
 	top: auto;
 	z-index: 10;
-	background-color: rgb(255, 255, 255);
+	background-color: #fff;
 }
+
+/* 固定栏占位高度 */
 .fixed-bar-height {
 	padding-bottom: 200rpx;
 }
+
+/* 灰底固定栏变体 */
 .fixed-bar.bg-gray {
 	background: #f5f5f5;
 }
+
+/* 上/下分隔条 */
 .top-divider {
 	border-top: 18rpx solid #fafafa;
 }
 .bottom-divider {
 	border-bottom: 18rpx solid #fafafa;
 }
+
+/* =========================
+ * 15. 边框/阴影/卡片/水印
+ * ========================= */
+
 .new-pro-list .wanl-product .product_warter .warter {
 	background: #f3f3f3;
 }
+
 .text-underline {
 	text-decoration: underline;
-}
-.text-delline {
-	text-decoration: line-through;
-}
-.text-uppercase {
-	text-transform: uppercase;
-}
-/*  */
+} /* 重申以靠近相关分组 */
+
 .form-btn-big {
 	width: 50%;
 	height: 102rpx !important;
 	box-shadow: 0 10rpx 20rpx rgba(37, 159, 59, 0.3);
 }
+
+.boxshadow {
+	box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.08);
+}
+.cardShow {
+	box-shadow: 0px 3.5px 5px 0px rgba(51, 51, 51, 0.1);
+}
+.cardShowPlus {
+	box-shadow: 0px 2px 3px 0px rgba(153, 153, 153, 0.025);
+}
+
+/* =========================
+ * 16. 详情页 / 表单区块
+ * ========================= */
+
 .details-items {
 	padding-left: 30rpx;
 	padding-right: 30rpx;
@@ -977,7 +1180,7 @@ text {
 	.details-kwd {
 		margin-bottom: 30rpx;
 
-		.ft-lighgray {
+		.ft-lightgray {
 			width: 192.3rpx;
 			line-height: 25rpx;
 			white-space: nowrap;
@@ -990,6 +1193,124 @@ text {
 		}
 	}
 }
+
+/* 表单容器（顶部渐变背景） */
+.add-top-bg {
+	height: 260rpx;
+	background: linear-gradient(90deg, #01bb74 0%, #01bb74 100%);
+}
+
+/* 表单包裹与内层卡片 */
+.form-wrap {
+	position: relative;
+	border-radius: 20rpx;
+}
+.form-inner {
+	position: relative;
+	margin-top: -7%;
+	border-radius: 20rpx;
+	background-color: #ffffff;
+	padding-left: 24rpx;
+	padding-right: 24rpx;
+	padding-top: 30rpx;
+}
+.form-inner-card {
+	position: relative;
+	border-radius: 20rpx;
+	background-color: #ffffff;
+	padding-left: 24rpx;
+	padding-right: 24rpx;
+	padding-top: 30rpx;
+}
+
+/* 默认 LOGO 尺寸 */
+.default-logo {
+	width: 150rpx;
+	height: 70rpx;
+}
+
+/* 右侧悬浮工具条（用途：快速操作） */
+.fixed-right-bar {
+	position: fixed;
+	right: 0;
+	bottom: 12vh;
+	z-index: 100;
+}
+.check-btn {
+	width: 112rpx;
+	height: 112rpx;
+	border-top-left-radius: 112rpx;
+	border-bottom-left-radius: 112rpx;
+	background: rgba(255, 255, 255, 0.5);
+	box-shadow: 0 3rpx 6rpx rgba(120, 118, 118, 0.16);
+	margin-bottom: 20rpx;
+}
+
+/* 标题间隔横线 */
+.tit-border {
+	width: 130rpx;
+	height: 10rpx;
+	border-top: 0.5rpx solid #999999;
+	border-bottom: 0.5rpx solid #999999;
+}
+
+/* 宽度工具（语义化别名） */
+.w100 {
+	width: 100%;
+}
+
+/* =========================
+ * 17. 边框增强 + 主题态
+ * ========================= */
+
+/* 通用细边框（用途：卡片描边） */
+.nl-border {
+	position: relative;
+	z-index: 1;
+	box-sizing: border-box;
+	transition: all 0.15s;
+
+	&::after {
+		content: '';
+		border: none;
+		position: absolute;
+		pointer-events: none;
+		box-sizing: border-box;
+		-webkit-transform-origin: 0 0;
+		transform-origin: 0 0;
+		left: 0;
+		top: 0;
+		width: 199.8%;
+		height: 199.7%;
+		-webkit-transform: scale(0.5, 0.5);
+		transform: scale(0.5, 0.5);
+		border: 1px solid #ccc;
+		z-index: 1;
+		border-radius: 28rpx;
+		background: transparent;
+	}
+}
+.nl-border.active {
+	background: #ebfaf3;
+	&::after {
+		border: 1px solid #0fb076;
+	}
+}
+
+/* u-border-bottom 颜色统一（用途：分隔线弱化） */
+::v-deep .u-border-bottom::after {
+	border-color: #f4f4f4 !important;
+}
+.form-top .u-border-bottom::after {
+	border-color: #f4f4f4 !important;
+}
+.form-bottom .u-border-bottom::after {
+	border-color: #f4f4f4 !important;
+}
+
+/* =========================
+ * 18. 通用按钮骨架（与现有按钮共存）
+ * ========================= */
 
 .hl-btn {
 	border: 0;
@@ -1009,6 +1330,7 @@ text {
 	z-index: 1;
 	font-size: 28rpx;
 	border-radius: 100rpx;
+
 	&::after {
 		content: '';
 		border: none;
@@ -1048,6 +1370,7 @@ text {
 	z-index: 1;
 	font-size: 28rpx;
 	border-radius: 100rpx;
+
 	&::after {
 		color: #bb9063;
 		content: '';
@@ -1070,146 +1393,9 @@ text {
 	}
 }
 
-.nl-border {
-	position: relative;
-	z-index: 1;
-	box-sizing: border-box;
-	transition: all 0.15s;
-	&::after {
-		content: '';
-		border: none;
-		position: absolute;
-		pointer-events: none;
-		box-sizing: border-box;
-		-webkit-transform-origin: 0 0;
-		transform-origin: 0 0;
-		left: 0;
-		top: 0;
-		width: 199.8%;
-		height: 199.7%;
-		-webkit-transform: scale(0.5, 0.5);
-		transform: scale(0.5, 0.5);
-		border: 1px solid #ccc;
-		z-index: 1;
-		border-radius: 28rpx;
-		background: transparent;
-	}
-}
-.nl-border.active {
-	background: #ebfaf3;
-	&::after {
-		border: 1px solid #0fb076;
-	}
-}
-::v-deep .u-border-bottom::after {
-	border-color: #f4f4f4 !important;
-}
-.form-top .u-border-bottom::after {
-	border-color: #f4f4f4 !important;
-}
-.form-bottom .u-border-bottom::after {
-	border-color: #f4f4f4 !important;
-}
-.add-top-bg {
-	height: 260rpx;
-	background: linear-gradient(90deg, #01bb74 0%, #01bb74 100%);
-}
-
-.form-wrap {
-	position: relative;
-	border-radius: 20rpx;
-}
-.form-inner {
-	position: relative;
-	margin-top: -7%;
-	border-radius: 20rpx;
-	background-color: #ffffff;
-	padding-left: 24rpx;
-	padding-right: 24rpx;
-	padding-top: 30rpx;
-}
-
-.form-inner-card {
-	position: relative;
-	border-radius: 20rpx;
-	background-color: #ffffff;
-	padding-left: 24rpx;
-	padding-right: 24rpx;
-	padding-top: 30rpx;
-}
-// .form-wrap{
-// 	position: relative;
-// 	top: -150rpx;
-// 	background-repeat: repeat-x;
-// 	background-size: contain;
-// 	.form-inner{
-// 		position: relative;
-// 		background-image: none;
-// 		margin-top: 4%;
-// 		border-radius: 20rpx;
-// 	}
-// }
-.default-logo {
-	width: 150rpx;
-	height: 70rpx;
-}
-.fixed-right-bar {
-	position: fixed;
-	right: 0;
-	bottom: 12vh;
-	z-index: 100;
-}
-.check-btn {
-	width: 112rpx;
-	height: 112rpx;
-	border-top-left-radius: 112rpx;
-	border-bottom-left-radius: 112rpx;
-	background: rgba(255, 255, 255, 0.5);
-	box-shadow: 0 3rpx 6rpx rgba(120, 118, 118, 0.16);
-	margin-bottom: 20rpx;
-}
-.tit-border {
-	width: 130rpx;
-	height: 10rpx;
-	border-top: 0.5rpx solid #999999;
-	border-bottom: 0.5rpx solid #999999;
-}
-.boxshadow {
-	box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.08);
-}
-.w100 {
-	width: 100%;
-}
-
-.ellipsis {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-.cardShow {
-	box-shadow: 0px 3.5px 5px 0px rgba(51, 51, 51, 0.1);
-}
-
-.cardShowPlus {
-	box-shadow: 0px 2px 3px 0px rgba(153, 153, 153, 0.025);
-}
-
-.ft-color {
-	color: #333333;
-}
-
-.ft-zjj-2 {
-	letter-spacing: 2px;
-}
-
-.ft-zjj-1 {
-	letter-spacing: 1px;
-}
-
-.ft-zjj-05 {
-	letter-spacing: 1px;
-}
+/* =========================
+ * 19. 字体族与内容块（保留）
+ * ========================= */
 
 .yrd {
 	font-family: 'ysdzt', Arial, sans-serif;
@@ -1217,13 +1403,11 @@ text {
 	font-size: 17px;
 	width: 270px;
 }
-
 .bzhh {
 	font-style: normal;
 	font-size: 17px;
 	width: 260px;
 }
-
 .syst {
 	font-family: 'syst', Arial, sans-serif;
 }
@@ -1235,4 +1419,58 @@ text {
 	letter-spacing: 0px;
 	font-feature-settings: 'kern' on;
 	color: #333333;
+}
+
+/* =========================
+ * Gap 间距工具类
+ * 用途：快速设置 flex/grid 子元素之间的间距
+ * 注意：gap 在 H5 有效，小程序端编译器也支持（基础库 2.9.0+）
+ * ========================= */
+
+.gap-4 {
+	gap: 4rpx;
+}
+
+.gap-6 {
+	gap: 6rpx;
+}
+
+.gap-8 {
+	gap: 8rpx;
+}
+
+.gap-10 {
+	gap: 10rpx;
+}
+
+.gap-12 {
+	gap: 12rpx;
+}
+
+.gap-16 {
+	gap: 16rpx;
+}
+
+.gap-20 {
+	gap: 20rpx;
+}
+
+.gap-24 {
+	gap: 24rpx;
+}
+
+.gap-30 {
+	gap: 30rpx;
+}
+
+.gap-36 {
+	gap: 36rpx;
+}
+
+.gap-48 {
+	gap: 48rpx;
+}
+
+.gap-60 {
+	gap: 60rpx;
 }

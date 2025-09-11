@@ -15,7 +15,7 @@
 			<view v-for="(item, index) in orderList" :key="index" :index="index" @click="goPath('/pages/subOrder/details?id=' + item.id)" class="OrderCard">
 				<view class="OrderCardHand" @tap.stop>
 					<view class="title ml1 flex-1" style="" @tap.stop>
-						<text class="ft30 ft-lighgray pr30" style="color: #666666" @tap.stop>
+						<text class="ft30 ft-lightgray pr30" style="color: #666666" @tap.stop>
 							订单编号:
 							<text class="ml15" style="color: #f76565">
 								{{ item.orderNumber }}
@@ -57,11 +57,11 @@
 						</text>
 					</text>
 				</view>
-				<text class="ft30 line25 ft-lighgray">
+				<text class="ft30 line25 ft-lightgray">
 					<text>日期：{{ $u.timeFormat(item.creationTime, 'yyyy-mm-dd') }}</text>
 				</text>
 
-				<text class="ft-lighgray mt10 line25 flex-row items-center justify-end">
+				<text class="ft-lightgray mt10 line25 flex-row items-center justify-end">
 					<text>订单金额：</text>
 					<text style="color: black; font-size: 12px">￥</text>
 					<text class="ft35" style="color: black; font-weight: 500">{{ item.price.toFixed(2) }}</text>

@@ -3,7 +3,7 @@
 		<view class="flex-col items-center pt100">
 			<image class="logo" src="@/static/icon/appMain.png" mode="widthFix"></image>
 			<view class="ml48 mr48 mt60">
-				<text class="ft29 ft-lighgray">{{ infos.aboutIntroduction }}</text>
+				<text class="ft29 ft-lightgray">{{ infos.aboutIntroduction }}</text>
 			</view>
 		</view>
 
@@ -27,10 +27,10 @@
 		<view class="fixed-bar flex-col justify-center items-center pb20">
 			<view class="mb20 ft25">
 				<text @tap="goPath('/pages/user/agreement')">《用户协议》</text>
-				<text class="ft-lighgray">和</text>
+				<text class="ft-lightgray">和</text>
 				<text @tap="goPath('/pages/user/privacy')">《隐私权保护声明》</text>
 			</view>
-			<view class="ft22 flex-col justify-center items-center ft-lighgray">
+			<view class="ft22 flex-col justify-center items-center ft-lightgray">
 				<text>Copyright@2023 易单据</text>
 				<text>All Rights Reserved.</text>
 			</view>

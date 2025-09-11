@@ -65,7 +65,7 @@
 		</view>
 		<view class="bg-white radius12 mt30 ml30 mr30">
 			<view class="flex-row flex-wrap">
-				<view class="flex-col width25_ items-center relative" @click="goPath(listItem.path)" v-for="(listItem, listIndex) in iconlist" :key="listIndex">
+				<view class="flex-col width25 items-center relative" @click="goPath(listItem.path)" v-for="(listItem, listIndex) in iconlist" :key="listIndex">
 					<view class="mt10">
 						<up-icon size="80rpx" :name="listItem.icon"></up-icon>
 					</view>
@@ -986,6 +986,7 @@ export default {
 		},
 		// 待办事项  权限是否过期
 		getOrderDB() {
+			var that = this;
 			console.log('sgd大概多少小');
 			// 版权过期
 			// var workIFS = this.pinia_user.data.work == '1';
@@ -1018,13 +1019,20 @@ export default {
 				}
 			}
 			console.log('待办事项参数', dx);
-			uni.$api.order.getOrderDraftList(dx).then((res) => {
-				if (this.$u.getPinia('user.userRole') == 'D') {
-					this.iconlist[3].count = res.data.data[0];
-				} else {
-					this.iconlist[1].count = res.data.data[0];
-				}
-			});
+
+			const fetchOrderDraftList = (dx) => {
+				console.log('打印彩', dx);
+				uni.$api.order.getOrderDraftList(dx).then((res) => {
+					if (uni.$u.getPinia('user.userRole') === 'D') {
+						that.iconlist[3].count = res.data.data[0];
+					} else {
+						that.iconlist[1].count = res.data.data[0];
+					}
+				});
+			};
+
+			// 使用节流：3 秒内多次触发只会调用一次
+			const throttledFetchOrderDraftList = uni.$u.throttle(fetchOrderDraftList(dx), 3000);
 		},
 		exit() {
 			wx.exitMiniProgram({

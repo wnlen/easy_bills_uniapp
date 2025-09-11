@@ -82,7 +82,7 @@
 					</view>
 					<view class="father mt45" style="width: 100%">
 						<view class="view" @click="goList(1)">
-							<text class="ft-lighgray ft25">待签收</text>
+							<text class="ft-lightgray ft25">待签收</text>
 							<view class="flex-row items-center justify-center mt8">
 								<text class="ft12 flex-row mt5" style="" v-if="isLook">￥</text>
 								<text v-if="!isLook">****</text>
@@ -105,7 +105,7 @@
 							</view>
 						</view>
 						<view class="view" @click="goList(2)">
-							<text class="ft-lighgray ft25">已签收</text>
+							<text class="ft-lightgray ft25">已签收</text>
 							<view class="flex-row items-center justify-center mt8">
 								<text class="ft12 mt5" v-if="isLook">￥</text>
 								<text v-if="!isLook">****</text>
@@ -127,7 +127,7 @@
 							</view>
 						</view>
 						<view class="view" @click="goList(3)">
-							<text class="ft-lighgray ft25">已收款</text>
+							<text class="ft-lightgray ft25">已收款</text>
 							<view class="flex-row items-center justify-center mt8">
 								<text class="ft12 mt5" v-if="isLook">￥</text>
 								<text v-if="!isLook">****</text>
@@ -166,7 +166,7 @@
 					>
 						<view class="flex-col">
 							<text class="ft36" style="color: #e19306">待确认单据</text>
-							<text class="ft24 ft-lighgray mt5" style="color: #e19306">快速查询单据</text>
+							<text class="ft24 ft-lightgray mt5" style="color: #e19306">快速查询单据</text>
 						</view>
 					</view>
 					<view
@@ -181,7 +181,7 @@
 					>
 						<view class="flex-col">
 							<text class="ft36 ml10" style="color: #d46d45">一键开单</text>
-							<text class="ft24 ft-lighgray mt5 ml10" style="color: #d46d45">便捷高效创建</text>
+							<text class="ft24 ft-lightgray mt5 ml10" style="color: #d46d45">便捷高效创建</text>
 						</view>
 					</view>
 					<view
@@ -194,7 +194,7 @@
 					>
 						<view class="flex-col">
 							<text class="ft36 ml10" style="color: #1d5594">统计对账</text>
-							<text class="ft24 ft-lighgray mt5 ml10" style="color: #1d5594">下载统计PDF</text>
+							<text class="ft24 ft-lightgray mt5 ml10" style="color: #1d5594">下载统计PDF</text>
 						</view>
 					</view>
 				</view>
