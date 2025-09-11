@@ -37,7 +37,7 @@
 						></up-image>
 					</view>
 					<view class="flex-row justify-center items-center" style="width: 60%">
-						<up-image src="@/static/img/order/dd2x.svg" width="292rpx" height="44rpx" :show-menu-by-longpress="false"></up-image>
+						<up-image src="/static/img/order/dd2x.svg" width="292rpx" height="44rpx" :show-menu-by-longpress="false"></up-image>
 					</view>
 					<view class="" style="width: 20%"></view>
 				</view>

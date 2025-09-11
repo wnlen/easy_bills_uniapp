@@ -1,6 +1,15 @@
 <template>
 	<view class="vh100 pb60 flex-col justify-center" :class="showCalendar ? 'body-no-scroll' : ''" style="background-color: #ffffff; overflow-x: hidden">
-		<up-navbar :autoBack="true" :placeholder="true" title="开送货单" :border-bottom="false" :titleBold="true" title-color="#000000" title-size="34" bgColor="#ffffff"></up-navbar>
+		<up-navbar
+			:autoBack="true"
+			:placeholder="true"
+			title="开送货单"
+			:border-bottom="false"
+			:titleBold="true"
+			title-color="#000000"
+			title-size="34"
+			bgColor="#ffffff"
+		></up-navbar>
 
 		<view class="width100" style="height: 80vh; text-align: center; margin-left: 10vw" v-show="pinia_userRole == 'D' && shareShow == true">
 			<up-popup :show="showShare" mode="center" round="15" :safeAreaInsetBottom="false" @close="showShare = false">
@@ -155,8 +164,9 @@
 							class="flex-1 endcolor"
 							fontSize="28rpx"
 						></uv-input> -->
-						<up-button shape="circle" size="mini" color="#01BB74" :customStyle="{ width: '120rpx' }" @click="jumpTable">选择客户</up-button>
-
+						<view class="flex-1 flex-row justify-end">
+							<up-button shape="circle" size="mini" color="#01BB74" :customStyle="{ width: '120rpx', margin: '0' }" @click="jumpTable">选择客户</up-button>
+						</view>
 					</view>
 					<view class="flex-row items-center width100 pt20 pb20 u-border-bottom">
 						<text class="textcolor">收货方:</text>

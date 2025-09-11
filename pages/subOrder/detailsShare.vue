@@ -22,10 +22,16 @@
 			<view class="ml20 mr20">
 				<view class="flex-row" style="margin-top: 2%">
 					<view class="" style="width: 20%">
-						<up-image mode="scaleToFill" src="https://res-oss.elist.com.cn/wxImg/order/logo.svg" width="200rpx" height="80rpx" :show-menu-by-longpress="false"></up-image>
+						<up-image
+							mode="scaleToFill"
+							src="https://res-oss.elist.com.cn/wxImg/order/logo.svg"
+							width="200rpx"
+							height="80rpx"
+							:show-menu-by-longpress="false"
+						></up-image>
 					</view>
 					<view class="flex-row justify-center items-center" style="width: 60%">
-						<up-image :show-menu-by-longpress="false" src="@/static/img/order/dd2x.svg" width="292rpx" height="44rpx"></up-image>
+						<up-image :show-menu-by-longpress="false" src="/static/img/order/dd2x.svg" width="292rpx" height="44rpx"></up-image>
 					</view>
 					<view class="" style="width: 20%"></view>
 				</view>
@@ -270,7 +276,14 @@
 				<view class="absolute pt20" style="width: 100%; top: 0; height: 75%">
 					<view class="flex-row items-center justify-center passwordTitle">请输入签收密码</view>
 					<view class="flex-col items-center justify-center mt20" style="width: 100%; height: 35%">
-						<up-message-input active-color="#01BB74" @change="changePassword" @finish="finishPassword" :dot-fill="true" v-model="password" mode="box"></up-message-input>
+						<up-message-input
+							active-color="#01BB74"
+							@change="changePassword"
+							@finish="finishPassword"
+							:dot-fill="true"
+							v-model="password"
+							mode="box"
+						></up-message-input>
 						<view class="mt20 err" v-show="err">密码错误，请重新输入</view>
 					</view>
 					<view @click="goPath('/pages/subUser/resetpassword')" class="ft12 pr30 flex-row justify-end pt15" style="color: #999; width: 100%">找回密码</view>
