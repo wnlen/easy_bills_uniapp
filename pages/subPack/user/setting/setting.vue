@@ -2,7 +2,7 @@
 	<view class="card flex-row bg-white mt25 ml30 mr30" style="border-radius: 12px; width: 92vw; height: auto">
 		<up-cell-group :border="false" style="width: 100%">
 			<up-cell title="检查更新" :arrow="false" arrow-direction="right" @click="menuClick(1)" border-bottom>
-				<text slot="right-icon" class="ft-lighgray">已经是最新版本</text>
+				<text slot="right-icon" class="ft-lightgray">已经是最新版本</text>
 			</up-cell>
 			<up-cell title="接受消息提醒" :arrow="false" arrow-direction="right" @click="menuClick(2)" border-bottom>
 				<up-switch v-model="checked1" active-color="#01BB74"></up-switch>

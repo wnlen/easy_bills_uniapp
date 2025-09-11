@@ -3,7 +3,7 @@
 		<view class="bg-white">
 			<up-cell-group :border="false">
 				<up-cell :titleStyle="{ color: '#666666' }" :title="item.name" v-for="(item, index) in num" :isLink="true" :key="index" @click="jump(item)">
-					<text slot="right-icon" class="ft-lighgray"></text>
+					<text slot="right-icon" class="ft-lightgray"></text>
 				</up-cell>
 			</up-cell-group>
 		</view>

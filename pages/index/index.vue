@@ -64,7 +64,7 @@
 		</view>
 		<view class="bg-white radius12 mt30 ml30 mr30">
 			<view class="flex-row flex-wrap">
-				<view class="flex-col width25_ items-center relative" @click="goPath(listItem.path)" v-for="(listItem, listIndex) in iconlist" :key="listIndex">
+				<view class="flex-col width25 items-center relative" @click="goPath(listItem.path)" v-for="(listItem, listIndex) in iconlist" :key="listIndex">
 					<view class="mt10">
 						<up-icon size="80rpx" :name="listItem.icon"></up-icon>
 					</view>

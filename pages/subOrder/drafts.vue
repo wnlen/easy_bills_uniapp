@@ -101,17 +101,17 @@
 					</view>
 				</view>
 				<view class="" style="" @click="jumpDraftsOrder(item.id)">
-					<text class="ft30 line25 ft-lighgray">
+					<text class="ft30 line25 ft-lightgray">
 						<text>日期：{{ $u.timeFormat(item.creationTime, 'yyyy-mm-dd') }}</text>
 					</text>
 
-					<text class="ft-lighgray mt10 line25 flex-row items-center justify-end">
+					<text class="ft-lightgray mt10 line25 flex-row items-center justify-end">
 						<text>订单金额：</text>
 						<text style="color: black; font-size: 24rpx">￥</text>
 						<text class="ft35" style="color: black; font-weight: 500">{{ item.price.toFixed(2) }}</text>
 					</text>
 
-					<text style="width: 100%" class="mt17 ft-lighgray ft25 bg-gray radius pd10" v-if="item.receiptsDescr && item.paymentState != 2" @click.stop="noteMyOrder(item)">
+					<text style="width: 100%" class="mt17 ft-lightgray ft25 bg-gray radius pd10" v-if="item.receiptsDescr && item.paymentState != 2" @click.stop="noteMyOrder(item)">
 						备注：{{ item.receiptsDescr }}
 					</text>
 				</view>
