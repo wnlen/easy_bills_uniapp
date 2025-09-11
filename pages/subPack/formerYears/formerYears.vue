@@ -266,18 +266,18 @@
 							</view>
 						</view>
 						<view class="ml20" style="margin-right: -20rpx">
-							<up-image v-if="pinia_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></up-image>
-							<up-image v-if="pinia_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/dqs.png"></up-image>
-							<up-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="@/static/img/obj/bq2.png" :lazy-load="true"></up-image>
+							<up-image v-if="pinia_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="/static/img/obj/bq1.png"></up-image>
+							<up-image v-if="pinia_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="/static/img/obj/dqs.png"></up-image>
+							<up-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="/static/img/obj/bq2.png" :lazy-load="true"></up-image>
 							<up-image
 								v-if="pinia_userRole != 'R' && item.paymentState == '2'"
 								width="120rpx"
 								height="50rpx"
 								class="u-img"
-								src="@/static/img/obj/bq3.png"
+								src="/static/img/obj/bq3.png"
 								:lazy-load="true"
 							></up-image>
-							<up-image v-if="pinia_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/yfk.png"></up-image>
+							<up-image v-if="pinia_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="/static/img/obj/yfk.png"></up-image>
 						</view>
 					</view>
 					<view class="width100 pb25 pt10 u-skeleton-fillet">
@@ -598,8 +598,8 @@ export default {
 						activeRadius: 10,
 						offsetAngle: 0,
 						labelWidth: 15,
-						border: false,
-						borderWidth: 3,
+						border: true,
+						borderWidth: 1,
 						borderColor: '#FFFFFF'
 					}
 				}
@@ -748,7 +748,7 @@ export default {
 					series: [
 						{
 							data: [
-								{ name: '待签收', value: 50, bgColor: '#F7A944' },
+								{ name: '待签收', value: 500000, bgColor: '#F7A944' },
 								{ name: '已签收', value: 30, bgColor: '#418AFF' },
 								{ name: '已付款', value: 20, bgColor: '#01BB74' }
 							]

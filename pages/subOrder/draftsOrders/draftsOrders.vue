@@ -163,8 +163,9 @@
 							class="flex-1 endcolor"
 							fontSize="28rpx"
 						></uv-input> -->
-						<up-button shape="circle" size="mini" color="#01BB74" :customStyle="{ width: '120rpx' }" @click="jumpTable">选择客户</up-button>
-
+						<view class="flex-1 flex-row justify-end">
+							<up-button shape="circle" size="mini" color="#01BB74" :customStyle="{ width: '120rpx', margin: '0' }" @click="jumpTable">选择客户</up-button>
+						</view>
 					</view>
 					<view class="flex-row items-center width100 pt20 pb20 u-border-bottom">
 						<text class="textcolor">收货方:</text>

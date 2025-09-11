@@ -165,18 +165,18 @@
 							</view>
 						</view>
 						<view class="ml20" style="margin-right: -20rpx">
-							<up-image v-if="pinia_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/bq1.png"></up-image>
-							<up-image v-if="pinia_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/dqs.png"></up-image>
-							<up-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="@/static/img/obj/bq2.png" :lazy-load="true"></up-image>
+							<up-image v-if="pinia_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="/static/img/obj/bq1.png"></up-image>
+							<up-image v-if="pinia_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="/static/img/obj/dqs.png"></up-image>
+							<up-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="/static/img/obj/bq2.png" :lazy-load="true"></up-image>
 							<up-image
 								v-if="pinia_userRole != 'R' && item.paymentState == '2'"
 								width="120rpx"
 								height="50rpx"
 								class="u-img"
-								src="@/static/img/obj/bq3.png"
+								src="/static/img/obj/bq3.png"
 								:lazy-load="true"
 							></up-image>
-							<up-image v-if="pinia_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="@/static/img/obj/yfk.png"></up-image>
+							<up-image v-if="pinia_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="/static/img/obj/yfk.png"></up-image>
 						</view>
 					</view>
 					<view class="width100 pb25 pt10 u-skeleton-fillet">
@@ -476,7 +476,9 @@
 						>
 							重置
 						</up-button>
-						<up-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</up-button>
+						<up-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">
+							确定
+						</up-button>
 					</view>
 					<!-- 日历选择器 -->
 					<uv-calendars color="#01BB74" confirmColor="#01BB74" :startDate="getMin()" :endDate="getMax()" ref="calendars" @confirm="date1Change" />

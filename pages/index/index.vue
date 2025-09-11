@@ -16,8 +16,9 @@
 		</view>
 		<view class="bg-white radius12 mt60 ml30 mr30">
 			<view class="mb54 flex-row justify-between">
-				<view class="charts-box" @touchmove.stop.prevent>
-					<qiun-data-charts type="ring" :canvas2d="true" canvasId="myChartCanvas" :opts="ringOpts" :chartData="chartsDataPie2" />
+				<view class="charts-box relative" @touchmove.stop.prevent>
+					<view class="absolute" style="width: 100%; height: 100%; z-index: 1000000"></view>
+					<qiun-data-charts type="ring" :canvas2d="true" canvasId="mQeRxIXWgXIzJwrjsSJdlsgpudfZgkIY" :opts="ringOpts" :chartData="chartsDataPie2" />
 					<view class="text-center ft-bold">
 						<text class="ft24">￥</text>
 						<text v-for="(item, index) in allprice.toFixed(2).toString().split('.')" :class="index == 0 ? 'ft32' : 'ft24'" :key="index">
@@ -27,7 +28,7 @@
 					</view>
 				</view>
 				<view class="flex-col justify-around mr32 items-end pt30">
-					<view class="flex-row items-center" @click="goList(ite.type)" v-for="(ite, ind) in chartsDataPie2.series[0].data" :key="ind">
+					<view class="flex-row items-center" @click="goList(ite.type)" v-for="(ite, ind) in rawData" :key="ind">
 						<view class="text-center ft-bold" :class="ind == 0 ? 'ft-orange' : ind == 1 ? 'ft-blue' : 'ft-green'">
 							<text class="ft20">￥</text>
 							<text v-for="(item, index) in ite.value.toFixed(2).toString().split('.')" :class="index == 0 ? 'ft28' : 'ft20'" :key="index">
@@ -245,7 +246,7 @@ export default {
 					show: false
 				},
 				title: {
-					name: '总销售',
+					name: '总供应',
 					fontSize: 14,
 					color: '#333',
 					offsetY: -5, // 设置与副标题的间距
@@ -264,23 +265,33 @@ export default {
 						offsetAngle: 0,
 						labelWidth: 15,
 						border: true,
-						borderWidth: 3,
+						borderWidth: 1,
 						borderColor: '#FFFFFF'
 					},
 					silent: true // 强制禁用该系列所有交互
 				}
 			},
-			chartsDataPie2: {
-				tooltip: {
-					trigger: 'none' // 禁用提示框
+			rawData: [
+				// 原始数据（差距过大）
+				{
+					name: '待签收',
+					value: 0,
+					type: 1
 				},
+				{
+					name: '已签收',
+					value: 0,
+					type: 2
+				},
+				{
+					name: '已收款',
+					value: 0,
+					type: 3
+				}
+			],
+			chartsDataPie2: {
 				series: [
 					{
-						legendShape: 'none',
-						emphasis: {
-							disabled: true // 禁用高亮效果
-						},
-						silent: true,
 						data: [
 							{
 								name: '待签收',
@@ -540,19 +551,28 @@ export default {
 				.then((res) => {
 					this.ringOpts.color = ['#ECECEC', '#ECECEC', '#ECECEC'];
 					const data = res.data.data || {};
-					this.chartsDataPie2.series[0].data[0].value = data.pendingAmount ?? 0;
-					this.chartsDataPie2.series[0].data[1].value = data.signedAmount ?? 0;
-					this.chartsDataPie2.series[0].data[2].value = data.receivedAmount ?? 0;
+					this.rawData[0].value = data.pendingAmount ?? 0;
+					this.rawData[1].value = data.signedAmount ?? 0;
+					this.rawData[2].value = data.receivedAmount ?? 0;
 
 					this.allprice = data.totalAmount ?? 0;
 					// this.lastFetchedAt = now;
 
 					if (this.allprice) {
 						this.ringOpts.color = ['#F7A944', '#1890FF', '#01BB74'];
+						this.chartsDataPie2.series[0].data = this.scaleData(this.rawData);
 					} else {
 						this.ringOpts.color = ['#ECECEC', '#ECECEC', '#ECECEC'];
 					}
 				});
+		},
+		scaleData(rawData) {
+			const maxVal = Math.max(...rawData.map((item) => item.value));
+			return rawData.map((item) => {
+				// 若数据过小，强制设为最大值的1/20
+				const scaledValue = item.value < maxVal / 90 ? maxVal / 90 + item.value : item.value;
+				return { ...item, value: scaledValue };
+			});
 		},
 		// 监听数据
 		SOCKETfLUSH() {
@@ -815,9 +835,9 @@ export default {
 		},
 		setDR(value) {
 			if (value === 'D') {
-				this.chartsDataPie2.series[0].data[0].name = '待签收';
-				this.chartsDataPie2.series[0].data[1].name = '已签收';
-				this.chartsDataPie2.series[0].data[2].name = '已收款';
+				this.rawData[0].name = '待签收';
+				this.rawData[1].name = '已签收';
+				this.rawData[2].name = '已收款';
 				this.ringOpts = {
 					highlight: false, // 禁用点击高亮
 					disableClick: true, // 关闭点击效果
@@ -852,7 +872,7 @@ export default {
 							offsetAngle: 0,
 							labelWidth: 15,
 							border: true,
-							borderWidth: 3,
+							borderWidth: 1,
 							borderColor: '#FFFFFF'
 						},
 						silent: true // 强制禁用该系列所有交互
@@ -889,9 +909,9 @@ export default {
 					}
 				];
 			} else {
-				this.chartsDataPie2.series[0].data[0].name = '待确收';
-				this.chartsDataPie2.series[0].data[1].name = '已签收';
-				this.chartsDataPie2.series[0].data[2].name = '已付款';
+				this.rawData[0].name = '待确收';
+				this.rawData[1].name = '已签收';
+				this.rawData[2].name = '已付款';
 				this.ringOpts = {
 					disableClick: true, // 关闭点击效果
 					highlight: false, // 禁用点击高亮
@@ -926,7 +946,7 @@ export default {
 							offsetAngle: 0,
 							labelWidth: 15,
 							border: true,
-							borderWidth: 3,
+							borderWidth: 1,
 							borderColor: '#FFFFFF'
 						},
 						silent: true // 强制禁用该系列所有交互

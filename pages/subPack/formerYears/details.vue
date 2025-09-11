@@ -31,7 +31,7 @@
 						<up-image mode="scaleToFill" src="https://res-oss.elist.com.cn/wxImg/order/logo.svg" width="200rpx" height="80rpx"></up-image>
 					</view>
 					<view class="flex-row justify-center items-center" style="width: 60%">
-						<up-image src="@/static/img/order/dd2x.svg" width="292rpx" height="44rpx"></up-image>
+						<up-image src="/static/img/order/dd2x.svg" width="292rpx" height="44rpx"></up-image>
 					</view>
 					<view class="" style="width: 20%"></view>
 				</view>
