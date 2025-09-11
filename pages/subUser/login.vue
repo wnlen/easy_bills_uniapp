@@ -7,9 +7,17 @@
 		<view class="absolute" style="left: 48rpx; top: 120rpx; color: #333333" @click="experience">暂不登录</view>
 		<view class="form-wrap width60 flex-col items-center" style="top: 400rpx">
 			<up-image class="login-logo" width="400rpx" src="https://res-oss.elist.com.cn/wxImg/user/logoLogin.svg" mode="widthFix"></up-image>
-			<view class="width100 pt100 pb60 login_box">
+			<view class="width100 pb60 login_box">
 				<view class="login_btn1" v-if="this.ischeck">
-					<up-button type="primary" hover-class="none" color="#01BB74" shape="circle" size="default" open-type="getPhoneNumber" @getphonenumber="(e) => getPhoneNumber(e)">
+					<up-button
+						type="primary"
+						hover-class="none"
+						color="#01BB74"
+						shape="circle"
+						size="default"
+						open-type="getPhoneNumber"
+						@getphonenumber="(e) => getPhoneNumber(e)"
+					>
 						<up-icon size="25" label="手机号快捷登录" labelColor="#fff" labelSize="16"></up-icon>
 					</up-button>
 				</view>
@@ -912,16 +920,17 @@ input {
 	}
 }
 .login_box {
+	padding-top: 200rpx;
 	position: relative;
 	.login_btn1 {
 		position: absolute;
-		top: 0;
+		top: 100rpx;
 		width: 100%;
 		z-index: 1;
 	}
 	.login_btn2 {
 		position: absolute;
-		top: 0;
+		top: 100rpx;
 		width: 100%;
 		z-index: 2;
 	}

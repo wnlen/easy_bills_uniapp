@@ -598,8 +598,8 @@ export default {
 						activeRadius: 10,
 						offsetAngle: 0,
 						labelWidth: 15,
-						border: false,
-						borderWidth: 3,
+						border: true,
+						borderWidth: 1,
 						borderColor: '#FFFFFF'
 					}
 				}
@@ -748,7 +748,7 @@ export default {
 					series: [
 						{
 							data: [
-								{ name: '待签收', value: 50, bgColor: '#F7A944' },
+								{ name: '待签收', value: 500000, bgColor: '#F7A944' },
 								{ name: '已签收', value: 30, bgColor: '#418AFF' },
 								{ name: '已付款', value: 20, bgColor: '#01BB74' }
 							]
