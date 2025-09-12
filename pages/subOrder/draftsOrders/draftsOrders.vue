@@ -344,7 +344,7 @@
 				<view class="mt40" style="width: 95%">
 					<up-upload
 						autoUpload
-						autoDelete
+						@delete="onRemoveImg"
 						:autoUploadApi="action"
 						autoUploadDriver="local"
 						v-model:fileList="imgList"
@@ -609,9 +609,11 @@ export default {
 			this.orderTotal = 0;
 			uni.removeStorageSync('inventoryStockpile');
 		},
-		onRemoveImg(index, list) {
-			if (this.fileList[index]) {
-				this.newImg.push(this.fileList[index]);
+		onRemoveImg(e) {
+			console.log(e);
+			const removeList = this.imgList.splice(e.index, 1);
+			if (removeList.state) {
+				this.newImg.push(removeList[0]);
 			}
 		},
 		getOrderParticular(id) {
@@ -627,7 +629,11 @@ export default {
 					this.receipts.inventoryList = order.orderItemList;
 					this.orderItemList = order.orderItemList;
 					this.imgList = order.imgList;
-
+					if (this.imgList.length) {
+						this.imgList.forEach((el) => {
+							el.status = 'success';
+						});
+					}
 					// this.getOrderNumber();
 					this.orderItemList.forEach((res) => {
 						this.orderTotal = this.orderTotal + res.quantity * res.unitPrice;
@@ -1292,9 +1298,6 @@ export default {
 			const seconds = ('0' + date.getSeconds()).slice(-2);
 			return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 		},
-		handleUpload(e, list) {
-			this.imgList = list;
-		},
 		ContinueBilling() {
 			let receipts = this.receipts;
 			uni.removeStorageSync('inventoryStockpile');
@@ -1627,7 +1630,7 @@ export default {
 				var bossNumber = this.pinia_work == 'Y' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone || this.pinia_user.data.phoneNumber;
 				var jobNumber = this.pinia_work == 'Y' ? that.pinia_user.workData.jobNumber : that.pinia_user.phone;
 
-				var imgList = this.imgList.filter((res) => res.file);
+				var imgList = this.imgList.filter((res) => res.size);
 
 				for (let key in imgList) {
 					uni.uploadFile({

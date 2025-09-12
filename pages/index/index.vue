@@ -469,13 +469,15 @@ export default {
 			this.goToLogin();
 			//#endif
 		} else {
-			this.fetchDashboard(); //加载统计数据
-			// this.getdaiban(true); //获取待办数量
-			// this.getdaiban(); //获取待办数量
-			this.$refs.popTab.getMessNum();
-			this.$loadUser(this);
-			this.guideCourse();
-			this.SOCKETfLUSH();
+			this.$nextTick(() => {
+				this.fetchDashboard(); //加载统计数据
+				// this.getdaiban(true); //获取待办数量
+				// this.getdaiban(); //获取待办数量
+				this.$refs.popTab.getMessNum();
+				this.$loadUser(this);
+				this.guideCourse();
+				this.SOCKETfLUSH();
+			});
 		}
 	},
 	methods: {
@@ -608,9 +610,11 @@ export default {
 				}
 			});
 			uni.$emit('switchTabToList');
-			uni.switchTab({
-				url: '/pages/list/list'
-			});
+			setTimeout(() => {
+				uni.switchTab({
+					url: '/pages/list/list'
+				});
+			}, 1000);
 		},
 		// 新手指引
 		guideCourse() {

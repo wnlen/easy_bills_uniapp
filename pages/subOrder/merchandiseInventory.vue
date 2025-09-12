@@ -466,7 +466,9 @@ export default {
 			// 新手指引
 			console.log('this.orderList.length', this.orderList.length, this.$u.getPinia('guide.guidanceGoods'));
 			if (this.orderList.length && this.$u.getPinia('guide.guidanceGoods') != 1) {
-				this.$refs.FunctionGuide.init();
+				this.$nextTick(() => {
+					this.$refs.FunctionGuide.init();
+				});
 			}
 		},
 		queryList(pageNo, pageSize) {

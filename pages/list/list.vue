@@ -1,6 +1,6 @@
 <template>
 	<view class="root">
-		<z-paging ref="paging" use-virtual-list :force-close-inner-list="true" cell-height-mode="dynamic" @virtualListChange="virtualListChange" @query="queryList">
+		<z-paging ref="paging" :auto="false" use-virtual-list :force-close-inner-list="true" cell-height-mode="dynamic" @virtualListChange="virtualListChange" @query="queryList">
 			<template #top>
 				<!-- #ifdef MP-WEIXIN -->
 				<up-navbar :placeholder="true" leftIconColor="#fff">
@@ -849,46 +849,47 @@ uni.$on('switchTabToList', (e) => {
 });
 // 页面进入展示
 onShow(() => {
-	if (globalStore.tabIndex > 0) {
-		current.value = globalStore.tabIndex;
-	} else {
-		current.value = 0;
-	}
-	console.log(userStore.user.phone);
-	if (userStore.user.phone) {
-		// 根据标记判断来源
-		if (isFromSwitchTab.value) {
-			const date = new Date();
-			date.setDate(date.getDate() + 15);
-			date1.value = uni.$u.timeFormat(new Date(new Date().getFullYear(), 0, 1), 'yyyy-mm-dd');
-			date2.value = uni.$u.timeFormat(date, 'yyyy-mm-dd');
-			realTimeSel.value.startDate = date1.value;
-			realTimeSel.value.endDate = date2.value;
-			realTimeSel.value.phoneE = '';
-			realTimeSel.value.organizationE = '';
-			realTimeSel.value.enterpriseS = '';
-			realTimeSel.value.takeE = '';
-			realTimeSel.value.enterpriseDz = '';
-			realTimeSel.value.inventoryName = '';
-			realTimeSel.value.kTakeE = '';
-			realTimeSel.value.kPhoneE = '';
-			realTimeSel.value.kSiteE = '';
-			customer.value = '';
-			field.value = '';
-			Title.value = '条件筛选';
-			console.log('通过 uni.switchTab 进入当前 TabBar 页面');
+	nextTick(() => {
+		if (globalStore.tabIndex > 0) {
+			current.value = globalStore.tabIndex;
+		} else {
+			current.value = 0;
 		}
+		console.log(userStore.user.phone);
+		if (userStore.user.phone) {
+			// 根据标记判断来源
+			if (isFromSwitchTab.value) {
+				const date = new Date();
+				date.setDate(date.getDate() + 15);
+				date1.value = uni.$u.timeFormat(new Date(new Date().getFullYear(), 0, 1), 'yyyy-mm-dd');
+				date2.value = uni.$u.timeFormat(date, 'yyyy-mm-dd');
+				realTimeSel.value.startDate = date1.value;
+				realTimeSel.value.endDate = date2.value;
+				realTimeSel.value.phoneE = '';
+				realTimeSel.value.organizationE = '';
+				realTimeSel.value.enterpriseS = '';
+				realTimeSel.value.takeE = '';
+				realTimeSel.value.enterpriseDz = '';
+				realTimeSel.value.inventoryName = '';
+				realTimeSel.value.kTakeE = '';
+				realTimeSel.value.kPhoneE = '';
+				realTimeSel.value.kSiteE = '';
+				customer.value = '';
+				field.value = '';
+				Title.value = '条件筛选';
+				console.log('通过 uni.switchTab 进入当前 TabBar 页面');
+			}
 
-		useInitPage(realTimeSel, searchList, paging, date1, date2, tabsList.value, customer, current);
+			useInitPage(realTimeSel, searchList, paging, date1, date2, tabsList.value, customer, current);
 
-		nextTick(() => {
 			popTabCom.value?.getMessNum();
-		});
-		loadData();
-		// paging.value?.reload();
-	} else {
-		uni.$u.toast('登录查看更多');
-	}
+
+			loadData();
+			// paging.value?.reload();
+		} else {
+			uni.$u.toast('登录查看更多');
+		}
+	});
 });
 
 onReady(async () => {
@@ -1160,6 +1161,12 @@ const refreshDataNew = async () => {
 		// if (globalStore.tabIndex != '') {
 		// 	realTimeSel.value.paymentState = Number(globalStore.tabIndex) - 1;
 		// }
+		console.log('realTimeSel.value.paymentState', current.value);
+		if (current.value != '') {
+			realTimeSel.value.paymentState = Number(current.value) - 1;
+		} else {
+			realTimeSel.value.paymentState = '';
+		}
 		console.log('111', realTimeSel);
 		const res = await proxy.$api.order.getFilteredOrders(realTimeSel.value);
 		if (res.data.code == 200) {
@@ -1296,12 +1303,6 @@ function getCurrentYearFirstDay() {
 
 const queryList = async (pageNo, pageSize) => {
 	if (userStore.user.phone) {
-		console.log('realTimeSel.value.paymentState', current.value);
-		if (Number(current.value) > 0) {
-			realTimeSel.value.paymentState = Number(current.value) - 1;
-		} else {
-			realTimeSel.value.paymentState = '';
-		}
 		realTimeSel.value.page = pageNo;
 		realTimeSel.value.pageSize = pageSize;
 		await refreshDataNew();
