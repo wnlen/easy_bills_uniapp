@@ -430,6 +430,7 @@ export default {
 			order: {},
 			showOrderPly: false,
 			scrollTop: 0,
+			removeList: [],
 			transmitList: [
 				{
 					id: null
@@ -569,6 +570,22 @@ export default {
 		uni.removeStorageSync('inventoryStockpile');
 	},
 	methods: {
+		deleteimg(res) {
+			this.removeList.push(res.file);
+			this.imgList.splice(res.index, 1);
+		},
+		afterRead(res) {
+			// this.loadList.push(res.file[0]);
+			console.log('2222222222222222', res);
+			const res1 = res.file[0];
+			const dx = {
+				url: res1.url,
+				id: res1.id,
+				size: res1.size,
+				billId: res1.billId
+			};
+			this.imgList.push(dx);
+		},
 		authenticationSynchronization(receipts) {
 			var receiptsVer = {
 				bossNumberS: receipts.bossNumberS,
@@ -609,8 +626,9 @@ export default {
 			this.orderTotal = 0;
 			uni.removeStorageSync('inventoryStockpile');
 		},
-		onRemoveImg(e) {
-			const removeList = this.imgList.splice(e.index, 1);
+		onRemoveImg(res) {
+			this.removeList.push(res.file);
+			const removeList = this.imgList.splice(res.index, 1);
 			if (removeList[0].id) {
 				this.newImg.push(removeList[0]);
 			}
@@ -1562,6 +1580,17 @@ export default {
 					this.limitingCondition = false;
 					let receiptsData = JSON.parse(JSON.stringify(this.receipts));
 					receiptsData.creationTime = receiptsData.creationTime + ' 00:00:00';
+					//要删除的
+					const uniqueIds = [
+						...new Set(
+							this.removeList
+								.filter((item) => item.id) // 只要有 id 的
+								.map((item) => item.id)
+						)
+					];
+					receiptsData.delImgFolderIdList = uniqueIds;
+					console.log('要删除的', receiptsData.delImgFolderIdList);
+
 					uni.$api.order
 						.addOrder(receiptsData)
 						.then((res) => {
