@@ -610,9 +610,8 @@ export default {
 			uni.removeStorageSync('inventoryStockpile');
 		},
 		onRemoveImg(e) {
-			console.log(e);
 			const removeList = this.imgList.splice(e.index, 1);
-			if (removeList.state) {
+			if (removeList[0].id) {
 				this.newImg.push(removeList[0]);
 			}
 		},
