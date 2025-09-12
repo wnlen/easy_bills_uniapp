@@ -298,7 +298,7 @@ export default {
 		};
 		uni.$api.bills.getBillById(dx).then((res) => {
 			this.billFrom = res.data.data;
-			this.billFrom.billPrice = this.formatAmount(this.billFrom.billPrice);
+			// this.billFrom.billPrice = this.formatAmount(this.billFrom.billPrice);
 			this.billFrom.billTime = this.$u.timeFormat(this.billFrom.billTime, 'yyyy-mm-dd');
 
 			var port = this.pinia_userRole == 'R';
