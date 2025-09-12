@@ -66,8 +66,9 @@ export default {
 			});
 		},
 		addFriend(phone) {
-			this.deliveryOrder.sBossNumber = this.requestPhone;
-			this.deliveryOrder.eBossNumber = phone;
+			this.deliveryOrder.sBossNumber = this.invitationRole == 'R' ? phone : this.requestPhone;
+			this.deliveryOrder.eBossNumber = this.invitationRole == 'R' ? this.requestPhone : phone;
+			this.deliveryOrder.port = this.invitationRole;
 
 			if (this.deliveryOrder.sBossNumber === this.deliveryOrder.eBossNumber) {
 				this.$u.toast('请勿添加自己哦~');
