@@ -577,7 +577,12 @@ export default {
 			const maxVal = Math.max(...rawData.map((item) => item.value));
 			return rawData.map((item) => {
 				// 若数据过小，强制设为最大值的1/20
-				const scaledValue = item.value < maxVal / 90 ? maxVal / 90 + item.value : item.value;
+				let scaledValue = 0;
+				if (item.value > 0 && item.value < maxVal / 90) {
+					scaledValue = maxVal / 90 + item.value;
+				} else {
+					scaledValue = item.value;
+				}
 				return { ...item, value: scaledValue };
 			});
 		},
@@ -610,11 +615,12 @@ export default {
 				}
 			});
 			uni.$emit('switchTabToList');
+			// 为了下个页面能获取到数据做延迟处理
 			setTimeout(() => {
 				uni.switchTab({
 					url: '/pages/list/list'
 				});
-			}, 1000);
+			}, 500);
 		},
 		// 新手指引
 		guideCourse() {

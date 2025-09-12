@@ -12,7 +12,7 @@
 			use-virtual-list
 			:force-close-inner-list="true"
 			v-if="identity"
-			:auto="true"
+			:auto="false"
 			:refresher-enabled="true"
 			:cell-height-mode="0 != 0 ? 'fixed' : 'dynamic'"
 			@virtualListChange="virtualListChange"
@@ -389,8 +389,9 @@ export default {
 		if (identity) {
 			this.checkFalse();
 			this.current = 0;
-			this.Init();
-			this.$refs.paging.reload();
+			this.$nextTick(() => {
+				this.Init();
+			});
 		}
 	},
 	onShow() {},
@@ -462,7 +463,7 @@ export default {
 					this.defaultValues.aName = this.pinia_user.ac == null ? this.pinia_user.phone : this.pinia_user.ac.enterpriseName;
 				}
 
-				this.defaultValues.createTime = new Date();
+				this.defaultValues.createTime = new Date().getTime();
 				this.defaultValues.state = '1';
 				this.defaultValues.orderState = this.addingBill(bill.orders);
 				uni.$api.bills.revokeBillApplication(this.defaultValues).then((res) => {
@@ -700,7 +701,7 @@ export default {
 						}
 					}
 
-					this.defaultValues.createTime = new Date();
+					this.defaultValues.createTime = new Date().getTime();
 					this.defaultValues.state = '1';
 					this.defaultValues.orderState = this.addingBill(res.orders);
 					this.defaultValues.genre = 'P';
@@ -796,10 +797,8 @@ export default {
 					this.billFrom.billEnterpriseE = json.company;
 				}
 				uni.removeStorageSync('companyNameJSON');
-
-				this.$refs.paging.reload();
 			}
-
+			this.$refs.paging.reload();
 			if (ifWorkPort) {
 				if (work) {
 					this.billFrom.receptionPhone = this.pinia_user.phone;
