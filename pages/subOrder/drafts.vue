@@ -26,54 +26,54 @@
 					</up-button>
 				</up-empty>
 			</template>
-			<!-- <template #top> -->
-			<view class="Card cardShow">
-				<view class="InputCard">
-					<view class="InputOne">
-						<text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
-							{{ pinia_userRole === 'R' ? '供应商选择' : '客户选择' }}
-						</text>
-						<up-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></up-line>
-						<view class="my-input flex-1">
-							<uv-input
-								border="none"
-								@change="CustomerGetChange"
-								v-model="customer"
-								:customStyle="{ backgroundColor: 'transparent' }"
-								:placeholder="pinia_userRole === 'R' ? '请选择供应商' : '请选择客户'"
-								:clearable="true"
-							></uv-input>
+			<template #top>
+				<view class="Card cardShow" @touchmove.stop.prevent>
+					<view class="InputCard">
+						<view class="InputOne">
+							<text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
+								{{ pinia_userRole === 'R' ? '供应商选择' : '客户选择' }}
+							</text>
+							<up-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></up-line>
+							<view class="my-input flex-1">
+								<uv-input
+									border="none"
+									@change="CustomerGetChange"
+									v-model="customer"
+									:customStyle="{ backgroundColor: 'transparent' }"
+									:placeholder="pinia_userRole === 'R' ? '请选择供应商' : '请选择客户'"
+									:clearable="true"
+								></uv-input>
+							</view>
+
+							<view class="flex-col justify-center items-center" style="height: 5vh">
+								<view class="ml40"><up-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></up-icon></view>
+							</view>
 						</view>
 
-						<view class="flex-col justify-center items-center" style="height: 5vh">
-							<view class="ml40"><up-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></up-icon></view>
-						</view>
-					</view>
+						<view class="InputOne">
+							<text class="ft11 ft-gray ml20" @click="filtrateGet">
+								{{ Title }}
+							</text>
+							<view class="ml10 mr10"><up-icon name="arrow-down-fill" size="20rpx"></up-icon></view>
+							<view class="my-input flex-1" v-if="showTage !== '1'">
+								<uv-input border="none" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入关键字进行检索"></uv-input>
+							</view>
+							<view class="ml24 my-input flex-1" v-if="showTage === '1'">
+								<uv-input border="none" maxlength="11" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入号码进行检索"></uv-input>
+							</view>
 
-					<view class="InputOne">
-						<text class="ft11 ft-gray ml20" @click="filtrateGet">
-							{{ Title }}
-						</text>
-						<view class="ml10 mr10"><up-icon name="arrow-down-fill" size="20rpx"></up-icon></view>
-						<view class="my-input flex-1" v-if="showTage !== '1'">
-							<uv-input border="none" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入关键字进行检索"></uv-input>
-						</view>
-						<view class="ml24 my-input flex-1" v-if="showTage === '1'">
-							<uv-input border="none" maxlength="11" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入号码进行检索"></uv-input>
-						</view>
-
-						<view class="flex-col justify-center items-center" style="height: 5vh">
-							<view class="ml40">
-								<up-icon name="/static/img/list/ss.svg" size="45rpx"></up-icon>
+							<view class="flex-col justify-center items-center" style="height: 5vh">
+								<view class="ml40">
+									<up-icon name="/static/img/list/ss.svg" size="45rpx"></up-icon>
+								</view>
 							</view>
 						</view>
 					</view>
 				</view>
-			</view>
-			<!-- </template> -->
-			<text class="NumOrder ml10">
-				<!-- <text>共<text style="color: #01BB74;">{{OrderQuantity}}</text>个订单</text> -->
-			</text>
+			</template>
+			<!-- <text class="NumOrder ml10"> -->
+			<!-- <text>共<text style="color: #01BB74;">{{OrderQuantity}}</text>个订单</text> -->
+			<!-- </text> -->
 
 			<view v-for="(item, index) in orderList" :key="item.id" :index="index" :id="`zp-id-${item.id}`" class="OrderCard">
 				<view class="width100 pb25 text-left flex-row items-center justify-left">
@@ -111,7 +111,12 @@
 						<text class="ft35" style="color: black; font-weight: 500">{{ item.price.toFixed(2) }}</text>
 					</text>
 
-					<text style="width: 100%" class="mt17 ft-lightgray ft25 bg-gray radius pd10" v-if="item.receiptsDescr && item.paymentState != 2" @click.stop="noteMyOrder(item)">
+					<text
+						style="width: 100%"
+						class="mt17 ft-lightgray ft25 bg-gray radius pd10"
+						v-if="item.receiptsDescr && item.paymentState != 2"
+						@click.stop="noteMyOrder(item)"
+					>
 						备注：{{ item.receiptsDescr }}
 					</text>
 				</view>
@@ -901,7 +906,7 @@ export default {
 		padding: 20rpx;
 		margin-left: 3%;
 		margin-top: 25rpx;
-
+		margin-bottom: 24rpx;
 		.priceCard {
 			display: flex;
 			flex-direction: column;

@@ -442,7 +442,12 @@ export default {
 	onLoad() {
 		// this.fetchDashboard();
 		if (this.pinia_token) {
-			this.openUnreceived();
+			if (
+				(this.$u.getPinia('user.userRole') == 'D' && this.$u.getPinia('guide.guidanceD') == 1) ||
+				(this.$u.getPinia('user.userRole') == 'R' && this.$u.getPinia('guide.guidanceR') == 1)
+			) {
+				this.openUnreceived();
+			}
 		}
 	},
 	onShow() {

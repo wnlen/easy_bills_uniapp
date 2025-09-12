@@ -13,7 +13,7 @@
 			@query="queryList"
 		>
 			<template #top>
-				<view class="Card cardShow">
+				<view class="Card cardShow" @touchmove.stop.prevent>
 					<view class="HnadCard">
 						<view
 							class="HnadCardBtn"

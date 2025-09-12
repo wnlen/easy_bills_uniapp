@@ -51,16 +51,16 @@ export default {
 	methods: {
 		init() {
 			if (this.show) return;
-			setTimeout(() => {
-				// const show = uni.getStorageSync('showGuide')
-				const show = false;
-				if (!show) {
-					this.show = true;
-					this.$parent.setFunctionGuideData({
-						step: 1
-					});
-				}
-			}, 1000);
+			// setTimeout(() => {
+			// const show = uni.getStorageSync('showGuide')
+			const show = false;
+			if (!show) {
+				this.show = true;
+				this.$parent.setFunctionGuideData({
+					step: 1
+				});
+			}
+			// }, 1000);
 		},
 		jump() {
 			this.$parent.setFunctionGuideData({
@@ -131,6 +131,7 @@ export default {
 				});
 			}
 			this.show = false;
+			this.$parent.openUnreceived();
 			this.$loadUser(this);
 			var dx = {
 				phoneNumber: this.pinia_user.phone,
@@ -138,6 +139,7 @@ export default {
 				guidanceR: port ? 1 : 0,
 				port: this.pinia_userRole
 			};
+
 			uni.$api.user.userGuidance(dx).then((res) => {});
 		},
 		setFunctionGuideState() {
