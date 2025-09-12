@@ -343,10 +343,10 @@
 				<view class="mt40" style="width: 95%">
 					<up-upload
 						autoUpload
-						autoDelete
+						@delete="onRemoveImg"
 						:autoUploadApi="action"
 						autoUploadDriver="local"
-						v-model:fileList="fileList"
+						v-model:fileList="imgList"
 						:maxCount="3"
 						multiple
 						:showPreviewImage="true"
@@ -358,23 +358,6 @@
 					>
 						<up-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></up-icon>
 					</up-upload>
-					<!-- <up-upload
-						:custom-btn="true"
-						:action="action"
-						:show-retry="false"
-						:file-list="fileList"
-						:show-tips="false"
-						@on-remove="onRemoveImg"
-						:before-upload="handleUpload"
-						max-size="5242880"
-						max-count="3"
-						multiple
-						del-bg-color="#e9e9e9"
-					>
-						<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
-							<up-icon name="https://res-oss.elist.com.cn/wxImg/order/down.png" size="200"></up-icon>
-						</view>
-					</up-upload> -->
 				</view>
 
 				<view class="flex-col mt45" style="width: 95%">
@@ -586,8 +569,12 @@ export default {
 			this.orderTotal = this.orderTotal + res.quantity * res.unitPrice;
 		});
 		this.staffNumberEName = this.receipts.takeE;
-		this.fileList = order.imgList;
-
+		this.imgList = order.imgList;
+		if (this.imgList.length) {
+			this.imgList.forEach((el) => {
+				el.status = 'success';
+			});
+		}
 		var dx = {
 			user: {
 				phoneNumber: this.receipts.staffNumberE,
@@ -648,8 +635,11 @@ export default {
 					console.error('请求出错:', error);
 				});
 		},
-		onRemoveImg(index, list) {
-			this.newImg.push(this.fileList[index]);
+		onRemoveImg(e) {
+			const removeList = this.imgList.splice(e.index, 1);
+			if (removeList[0].id) {
+				this.newImg.push(removeList[0]);
+			}
 		},
 		jumDrafts() {
 			console.log('跳转');
@@ -1266,9 +1256,6 @@ export default {
 			const seconds = ('0' + date.getSeconds()).slice(-2);
 			return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 		},
-		handleUpload(e, list) {
-			this.imgList = list;
-		},
 		ContinueBilling() {
 			let receipts = this.receipts;
 			uni.removeStorageSync('inventoryStockpile');
@@ -1443,6 +1430,7 @@ export default {
 				if (this.limitingCondition) {
 					this.limitingCondition = false;
 					this.receipts.id = null;
+					this.receipts.imgList = this.newImg;
 					console.log('===this.receipts===>', this.receipts);
 					let receiptsData = JSON.parse(JSON.stringify(this.receipts));
 					receiptsData.creationTime = receiptsData.creationTime + ' 00:00:00';
@@ -1509,68 +1497,6 @@ export default {
 				}
 			});
 		},
-		downloadImages(list) {
-			return new Promise((resolve, reject) => {
-				const results = [];
-				let downloadedCount = 0;
-
-				if (list.length <= 0) {
-					resolve([]);
-				}
-				// 遍历图片地址列表
-				list.forEach((url, index) => {
-					// 下载图片
-					uni.downloadFile({
-						url: url,
-						success: (res) => {
-							if (res.statusCode === 200) {
-								const result = {
-									error: false,
-									file: {
-										path: res.tempFilePath,
-										size: res.tempFilePath.length, // 这里只是简单示例，实际大小应该从响应头获取
-										__proto__: Object
-									},
-									progress: 100,
-									response: '1',
-									url: res.tempFilePath
-								};
-								results[index] = result;
-							} else {
-								const errorResult = {
-									error: true,
-									file: null,
-									progress: 100,
-									response: `状态码: ${res.statusCode}`,
-									url: url
-								};
-								results[index] = errorResult;
-								console.error(`图片 ${url} 下载失败，状态码: ${res.statusCode}`);
-							}
-						},
-						fail: (err) => {
-							const errorResult = {
-								error: true,
-								file: null,
-								progress: 100,
-								response: `下载失败: ${err}`,
-								url: url
-							};
-							results[index] = errorResult;
-							console.error(`图片 ${url} 下载失败:`, err);
-						},
-						complete: () => {
-							// 无论成功还是失败，下载完成后计数器加 1
-							downloadedCount++;
-							// 当所有图片都下载完成后，返回结果数组
-							if (downloadedCount === list.length) {
-								resolve(results);
-							}
-						}
-					});
-				});
-			});
-		},
 		sendOrderImg() {
 			return new Promise((resolve) => {
 				var that = this;
@@ -1578,47 +1504,28 @@ export default {
 				var bossNumber = this.pinia_work == 'Y' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone || this.pinia_user.data.phoneNumber;
 				var jobNumber = this.pinia_work == 'Y' ? that.pinia_user.workData.jobNumber : that.pinia_user.phone;
 
-				console.log('this.fileList======>', this.fileList);
-				console.log('this.imgList======>', this.imgList);
-				console.log('this.newImg======>', this.newImg);
+				var imgList = this.imgList.filter((res) => res.size);
 
-				//原有图片
-				var imgRemove = this.newImg.map((res) => res.id);
-				var imgListO = this.fileList.filter((res) => res.id && !imgRemove.includes(res.id)).map((res) => res.url);
-				var imgListN = this.imgList.filter((res) => res.file);
-
-				console.log('this.fileList======>', imgListO);
-				console.log('this.imgList======>', imgListN);
-
-				this.downloadImages(imgListO)
-					.then((tempUrls) => {
-						console.log('下载后的临时地址列表:', tempUrls);
-						var litPuh = tempUrls.push(...imgListN);
-						console.log('合并:', tempUrls);
-						for (let key in tempUrls) {
-							console.log('key======>', tempUrls[key].url);
-							uni.uploadFile({
-								url: uni.$http.config.baseURL + 'order/img',
-								header: {
-									phone: bossNumber,
-									orderNumber: that.receipts.orderNumber,
-									jobNumber: that.receipts.jobNumberS || jobNumber,
-									token: that.pinia_user.loginToken
-								},
-								filePath: tempUrls[key].url,
-								name: 'file',
-								formData: {
-									imageType: '1'
-								},
-								success: (uploadFileRes) => {
-									console.log(uploadFileRes);
-								}
-							});
+				for (let key in imgList) {
+					uni.uploadFile({
+						url: uni.$http.config.baseURL + 'order/img',
+						header: {
+							phone: bossNumber,
+							orderNumber: that.receipts.orderNumber,
+							jobNumber: that.receipts.jobNumberS || jobNumber,
+							token: that.pinia_user.loginToken
+						},
+						filePath: imgList[key].url,
+						name: 'file',
+						formData: {
+							imageType: '1'
+						},
+						success: (uploadFileRes) => {
+							console.log(uploadFileRes);
 						}
-					})
-					.catch((err) => {
-						console.error('下载图片时出错:', err);
 					});
+				}
+
 				resolve(true);
 			});
 		},
@@ -1638,25 +1545,7 @@ export default {
 				}
 			}
 		},
-		async draftOrder() {
-			const result = await this.sendInit();
-			console.log('验证结果======>', result);
-			if (!result) {
-				return;
-			} else {
-				const resultOrder = await this.sendOrderResDraft();
-				console.log('添加结果======>', resultOrder);
-				if (resultOrder) {
-					const img = await this.sendOrderImg();
-					if (img) {
-						this.backHomepageClick = true;
-						setTimeout(function () {
-							uni.navigateBack();
-						}, 500);
-					}
-				}
-			}
-		},
+
 		flushDBSX(val) {
 			var list = [val.bossNumberS, val.staffNumberS, val.bossNumberE, val.staffNumberE];
 			uni.$api.task
