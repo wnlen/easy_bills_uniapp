@@ -854,9 +854,8 @@ onShow(() => {
 	} else {
 		current.value = 0;
 	}
-
+	console.log(userStore.user.phone);
 	if (userStore.user.phone) {
-		loadData();
 		// 根据标记判断来源
 		if (isFromSwitchTab.value) {
 			const date = new Date();
@@ -885,7 +884,7 @@ onShow(() => {
 		nextTick(() => {
 			popTabCom.value?.getMessNum();
 		});
-
+		loadData();
 		// paging.value?.reload();
 	} else {
 		uni.$u.toast('登录查看更多');
@@ -965,12 +964,12 @@ function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList,
 	const pinia_userRole = store.userRole;
 	const hide = true;
 	const password = '';
-	console.log('current.value', current.value);
-	if (Number(current.value) > 0) {
-		realTimeSel.value.paymentState = Number(current.value) - 1;
-	} else {
-		realTimeSel.value.paymentState = '';
-	}
+	// console.log('current.value', current.value);
+	// if (Number(current.value) > 0) {
+	// 	realTimeSel.value.paymentState = Number(current.value) - 1;
+	// } else {
+	// 	realTimeSel.value.paymentState = '';
+	// }
 
 	realTimeSel.value.getPhone = pinia_user.phone;
 
@@ -1047,23 +1046,23 @@ function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList,
 		}
 		pagingRef.value?.reload();
 		uni.removeStorageSync('companyNameJSON');
+		return;
 	}
 
 	if (pinia_userRole === 'R') {
 		tabsList[tabsList.length - 1].name = '已付款';
 	}
 	// console.log('globalStore.tabIndex3', globalStore.tabIndex, vuex_tabIndex, realTimeSel.value.paymentState);
-	// #ifdef MP-WEIXIN
+
 	if (isFromSwitchTab.value) {
-		console.log('通过 uni.switchTab 进入当前 TabBar 页面');
 		pagingRef.value?.reload(); //重新加载
+		console.log('通过 uni.switchTab 进入当前 TabBar 页面');
 	} else {
-		console.log('从子页面返回当前 TabBar 页面');
 		pagingRef.value?.refresh(); //保留数据重新加载
+		console.log('从子页面返回当前 TabBar 页面');
 	}
 	// 每次 onShow 后重置标记（避免下次误判）
 	isFromSwitchTab.value = false;
-	// #endif
 }
 
 function loadData() {
@@ -1119,7 +1118,7 @@ function xyTabar(x) {
 			tabIndex: num
 		}
 	});
-	realTimeSel.value.paymentState = current.value === 0 ? '' : current.value - 1;
+	// realTimeSel.value.paymentState = current.value === 0 ? '' : current.value - 1;
 	realTimeSel.value.limitS = '0,10';
 	refresh.value = true;
 	refreshDataNew();
@@ -1158,9 +1157,9 @@ const refreshDataNew = async () => {
 		onReachBottom.value = false;
 		realTimeSel.value.role = userStore.userRole === 'R' ? '1' : '0';
 		console.log('globalStore.tabIndex', globalStore.tabIndex);
-		if (globalStore.tabIndex > 0) {
-			realTimeSel.value.paymentState = Number(globalStore.tabIndex) - 1;
-		}
+		// if (globalStore.tabIndex != '') {
+		// 	realTimeSel.value.paymentState = Number(globalStore.tabIndex) - 1;
+		// }
 		console.log('111', realTimeSel);
 		const res = await proxy.$api.order.getFilteredOrders(realTimeSel.value);
 		if (res.data.code == 200) {
@@ -1209,6 +1208,7 @@ const refreshDataNew = async () => {
 };
 
 function changeTab(item) {
+	console.log('item', item);
 	paging.value?.reload();
 	current.value = item.index;
 	setPinia({
@@ -1216,7 +1216,7 @@ function changeTab(item) {
 			tabIndex: item.index === 0 ? '' : item.index
 		}
 	});
-	realTimeSel.value.paymentState = item.index === 0 ? '' : item.index;
+	// realTimeSel.value.paymentState = item.index === 0 ? '' : item.index;
 	realTimeSel.value.limitS = '0,10';
 	refresh.value = true;
 	paging.value?.reload();
@@ -1296,6 +1296,12 @@ function getCurrentYearFirstDay() {
 
 const queryList = async (pageNo, pageSize) => {
 	if (userStore.user.phone) {
+		console.log('realTimeSel.value.paymentState', current.value);
+		if (Number(current.value) > 0) {
+			realTimeSel.value.paymentState = Number(current.value) - 1;
+		} else {
+			realTimeSel.value.paymentState = '';
+		}
 		realTimeSel.value.page = pageNo;
 		realTimeSel.value.pageSize = pageSize;
 		await refreshDataNew();

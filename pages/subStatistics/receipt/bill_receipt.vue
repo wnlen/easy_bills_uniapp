@@ -21,72 +21,74 @@
 			style=""
 		>
 			<template #top>
-				<up-tabs
-					:list="TabList"
-					:current="current"
-					:scrollable="false"
-					:showBar="true"
-					lineColor="#01BB74"
-					:activeStyle="{ backgroundColor: 'transparent', color: '#01BB74' }"
-					:inactiveStyle="{ color: '#333333' }"
-					:itemStyle="{
-						width: '50%',
-						height: '90rpx',
-						backgroundColor: '#fff'
-					}"
-					@change="TabChange"
-				/>
+				<view class="" @touchmove.stop.prevent>
+					<up-tabs
+						:list="TabList"
+						:current="current"
+						:scrollable="false"
+						:showBar="true"
+						lineColor="#01BB74"
+						:activeStyle="{ backgroundColor: 'transparent', color: '#01BB74' }"
+						:inactiveStyle="{ color: '#333333' }"
+						:itemStyle="{
+							width: '50%',
+							height: '90rpx',
+							backgroundColor: '#fff'
+						}"
+						@change="TabChange"
+					/>
 
-				<view class="billCard cardShow">
-					<text @click="openTableChoice" style="color: #666666">
-						{{ pinia_userRole === 'R' ? '供应商选择' : '客户选择' }}
-					</text>
-					<up-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></up-line>
-					<view class="my-input flex-1">
-						<uv-input
-							border="none"
-							@change="InputTextOne"
-							v-model="InputOneText"
-							:customStyle="{ backgroundColor: 'transparent' }"
-							:placeholder="pinia_userRole === 'R' ? '请选择供应商' : '请选择客户'"
-							:clearable="true"
-						></uv-input>
-					</view>
+					<view class="billCard cardShow">
+						<text @click="openTableChoice" style="color: #666666">
+							{{ pinia_userRole === 'R' ? '供应商选择' : '客户选择' }}
+						</text>
+						<up-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></up-line>
+						<view class="my-input flex-1">
+							<uv-input
+								border="none"
+								@change="InputTextOne"
+								v-model="InputOneText"
+								:customStyle="{ backgroundColor: 'transparent' }"
+								:placeholder="pinia_userRole === 'R' ? '请选择供应商' : '请选择客户'"
+								:clearable="true"
+							></uv-input>
+						</view>
 
-					<view class="flex-col justify-center items-center" style="height: 100%">
-						<view class="ml40">
-							<up-icon name="/static/img/list/lxr.svg" size="45rpx" @click="openTableChoice"></up-icon>
+						<view class="flex-col justify-center items-center" style="height: 100%">
+							<view class="ml40">
+								<up-icon name="/static/img/list/lxr.svg" size="45rpx" @click="openTableChoice"></up-icon>
+							</view>
 						</view>
 					</view>
-				</view>
 
-				<view class="billCardTime cardShow">
-					<view class="billCardTimeStart">
-						<text class="mr10" style="color: #666666">开始日期</text>
-						<up-icon name="arrow-down-fill" size="10"></up-icon>
-						<view
-							@click="
-								$refs.calendars.open();
-								timeType = 1;
-							"
-							class="ml10"
-							style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx"
-						>
-							{{ time.start }}
+					<view class="billCardTime cardShow">
+						<view class="billCardTimeStart">
+							<text class="mr10" style="color: #666666">开始日期</text>
+							<up-icon name="arrow-down-fill" size="10"></up-icon>
+							<view
+								@click="
+									$refs.calendars.open();
+									timeType = 1;
+								"
+								class="ml10"
+								style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx"
+							>
+								{{ time.start }}
+							</view>
 						</view>
-					</view>
-					<view class="billCardTimeEnd">
-						<text class="mr10" style="color: #666666">结束日期</text>
-						<up-icon name="arrow-down-fill" size="10"></up-icon>
-						<view
-							@click="
-								$refs.calendars.open();
-								timeType = 2;
-							"
-							class="ml10"
-							style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx"
-						>
-							{{ time.end }}
+						<view class="billCardTimeEnd">
+							<text class="mr10" style="color: #666666">结束日期</text>
+							<up-icon name="arrow-down-fill" size="10"></up-icon>
+							<view
+								@click="
+									$refs.calendars.open();
+									timeType = 2;
+								"
+								class="ml10"
+								style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx"
+							>
+								{{ time.end }}
+							</view>
 						</view>
 					</view>
 				</view>

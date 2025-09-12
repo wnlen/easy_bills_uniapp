@@ -43,14 +43,13 @@
 						pinia_user.data.work == '0' ||
 						pinia_user.workData.identity == '1'
 					"
-					style="padding-bottom: 1000rpx"
 				>
 					<up-empty
 						icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg"
 						iconSize="400rpx"
 						text="暂无待办事项~"
 						mode="search"
-						marginTop="400rpx"
+						marginTop="-200rpx"
 					></up-empty>
 				</view>
 			</template>
@@ -61,9 +60,8 @@
 						(pinia_user.workData.identity == '4' && tab == 1) ||
 						(pinia_user.data.work == '1' && pinia_user.workData.identity != '1')
 					"
-					style="padding-bottom: 1000rpx"
 				>
-					<up-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" mode="search" marginTop="400rpx"></up-empty>
+					<up-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" mode="search" marginTop="-200rpx"></up-empty>
 				</view>
 			</template>
 			<view class="ml24 mr24 mt24 swipeBox" v-for="(item, index) in list" :key="item.id">
