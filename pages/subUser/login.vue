@@ -303,6 +303,10 @@ export default {
 		},
 		//微信小程序登录和获取手机号
 		getPhoneNumber(e) {
+			if (e.detail.errMsg != 'getPhoneNumber:ok') {
+				this.$u.toast('您已拒绝授权 请重新点击并授权');
+				return;
+			}
 			var that = this;
 			uni.login({
 				provider: 'weixin',
@@ -318,7 +322,7 @@ export default {
 						.then((res) => {
 							console.log('看公共关系', res);
 							var resDate = res.data.data;
-							that.message = resDate.loginState;
+							that.message = res.data.message;
 							console.log('看公共关系', resDate);
 							if (resDate.data == null || resDate.data.work == null) {
 								that.$u.toast(that.message);

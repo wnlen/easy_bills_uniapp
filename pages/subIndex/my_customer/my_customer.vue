@@ -62,6 +62,7 @@
 			</view>
 			<view class="pd10 flex-1">
 				<uv-input
+					clearable
 					border="none"
 					v-model="searchValue"
 					@change="search"
@@ -604,6 +605,7 @@ export default {
 			}
 		},
 		loadData() {
+			this.searchValue = '';
 			var that = this;
 			var phone = this.pinia_work == 'Y' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone;
 			var port = this.pinia_userRole == 'R' ? '1' : '0';

@@ -36,14 +36,10 @@
 				/>
 			</template>
 			<template #empty>
-				<view
-					v-show="
-						(pinia_user.workData.identity == '3' && tab == 1) ||
-						(pinia_user.workData.identity == '4' && tab == 0) ||
-						pinia_user.data.work == '0' ||
-						pinia_user.workData.identity == '1'
-					"
-				>
+				<view v-if="(pinia_user.workData.identity == '3' && tab == 0) || (pinia_user.workData.identity == '4' && tab == 1)">
+					<up-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" mode="search" marginTop="-200rpx"></up-empty>
+				</view>
+				<view v-else>
 					<up-empty
 						icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg"
 						iconSize="400rpx"
@@ -51,17 +47,6 @@
 						mode="search"
 						marginTop="-200rpx"
 					></up-empty>
-				</view>
-			</template>
-			<template #empty>
-				<view
-					v-show="
-						(pinia_user.workData.identity == '3' && tab == 0) ||
-						(pinia_user.workData.identity == '4' && tab == 1) ||
-						(pinia_user.data.work == '1' && pinia_user.workData.identity != '1')
-					"
-				>
-					<up-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" mode="search" marginTop="-200rpx"></up-empty>
 				</view>
 			</template>
 			<view class="ml24 mr24 mt24 swipeBox" v-for="(item, index) in list" :key="item.id">
