@@ -63,7 +63,7 @@
 							width="150rpx"
 							height="150rpx"
 							:src="item.file"
-							@click="LookImg(imgFileList)"
+							@click="LookImg(imgFileList, index)"
 						></up-image>
 					</view>
 				</view>
@@ -191,11 +191,11 @@ export default {
 				url: `upd_receipt?searchJson=${this.billFrom.searchJson}&ids=${this.billFrom.orders}`
 			});
 		},
-		LookImg(list) {
+		LookImg(list, index) {
 			var look = list.filter((res) => res.type == '0');
 			const fileList = look.map((res) => res.file);
 			uni.previewImage({
-				current: 0,
+				current: index,
 				urls: fileList
 			});
 		},

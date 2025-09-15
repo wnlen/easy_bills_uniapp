@@ -648,7 +648,8 @@ export default {
 					this.imgList = order.imgList;
 					if (this.imgList.length) {
 						this.imgList.forEach((el) => {
-							el.status = 'success';
+							el.status = 'success'; //上传成功图标
+							el.type = 'image'; //预览必须要保留type为image才能预览
 						});
 					}
 					// this.getOrderNumber();

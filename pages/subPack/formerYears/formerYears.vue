@@ -552,6 +552,7 @@ export default {
 				legend: {
 					show: false
 				},
+				dataLabel: false,
 				xAxis: {
 					disableGrid: true
 				},
@@ -593,7 +594,7 @@ export default {
 				},
 				extra: {
 					ring: {
-						ringWidth: 20,
+						ringWidth: 15,
 						activeOpacity: 0.5,
 						activeRadius: 10,
 						offsetAngle: 0,
