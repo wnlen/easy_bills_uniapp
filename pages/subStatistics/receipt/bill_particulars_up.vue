@@ -370,17 +370,20 @@ export default {
 		},
 		afterRead(res) {
 			console.log('res.file[0]', res);
-			this.loadList.push(res.file[0]);
-			const res1 = res.file[0];
-			const dx = {
-				url: res1.url,
-				id: res1.id,
-				size: res1.size,
-				billId: res1.billId,
-				status: 'success',
-				type: 'image'
-			};
-			this.imgFileList.push(dx);
+			res.file.forEach((el) => {
+				this.loadList.push(el);
+				const res1 = el;
+				const dx = {
+					url: el.url,
+					id: el.id,
+					size: el.size,
+					billId: el.billId,
+					status: 'success',
+					type: 'image'
+				};
+				this.imgFileList.push(dx);
+			});
+
 			console.log('this.imgFileList', this.imgFileList);
 		},
 		async sendOrder(app) {

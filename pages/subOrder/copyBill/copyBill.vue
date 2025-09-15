@@ -572,7 +572,8 @@ export default {
 		this.imgList = order.imgList;
 		if (this.imgList.length) {
 			this.imgList.forEach((el) => {
-				el.status = 'success';
+				el.status = 'success'; //上传成功图标
+				el.type = 'image'; //预览必须要保留type为image才能预览
 			});
 		}
 		var dx = {
@@ -1430,10 +1431,11 @@ export default {
 				if (this.limitingCondition) {
 					this.limitingCondition = false;
 					this.receipts.id = null;
-					this.receipts.imgList = this.newImg;
 					console.log('===this.receipts===>', this.receipts);
 					let receiptsData = JSON.parse(JSON.stringify(this.receipts));
 					receiptsData.creationTime = receiptsData.creationTime + ' 00:00:00';
+					//要删除的
+					receiptsData.delImgFolderIdList = this.newImg;
 					uni.$api.order
 						.addOrder(receiptsData)
 						.then((res) => {

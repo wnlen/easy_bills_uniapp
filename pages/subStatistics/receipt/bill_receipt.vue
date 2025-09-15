@@ -798,7 +798,7 @@ export default {
 				}
 				uni.removeStorageSync('companyNameJSON');
 			}
-			this.$refs.paging.reload();
+
 			if (ifWorkPort) {
 				if (work) {
 					this.billFrom.receptionPhone = this.pinia_user.phone;
@@ -827,8 +827,8 @@ export default {
 			this.billFrom.billState = '0';
 
 			this.billFrom.port = this.pinia_userRole;
-
-			this.SOCKETfLUSH();
+			this.$refs.paging.reload();
+			// this.SOCKETfLUSH();
 		},
 		TabChange(item) {
 			this.billFrom.billState = item.index;

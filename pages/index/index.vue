@@ -620,7 +620,7 @@ export default {
 				uni.switchTab({
 					url: '/pages/list/list'
 				});
-			}, 500);
+			}, 300);
 		},
 		// 新手指引
 		guideCourse() {

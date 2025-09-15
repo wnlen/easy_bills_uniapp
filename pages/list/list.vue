@@ -849,6 +849,8 @@ uni.$on('switchTabToList', (e) => {
 });
 // 页面进入展示
 onShow(() => {
+	refresh.value = true;
+
 	nextTick(() => {
 		if (globalStore.tabIndex > 0) {
 			current.value = globalStore.tabIndex;
@@ -1176,11 +1178,10 @@ const refreshDataNew = async () => {
 			}));
 			paging.value?.complete(orderListData);
 			totalMoney.value = orderListData.reduce((total, obj) => total + obj.price, 0);
-			refresh.value = true;
+			// refresh.value = true;
 			onReachBottom.value = true;
 			uloading.value = false;
 		} else {
-			refresh.value = true;
 		}
 		// .then((res) => {
 		// 	const orderListData = res.data.data.map((obj) => ({
@@ -1206,11 +1207,20 @@ const refreshDataNew = async () => {
 		// 	refresh.value = true;
 		// });
 		if (res1.data.code == 200) {
-			OrderQuantity.value = res1.data.data[1];
-			OrderQuantitySum.value = res1.data.data[0];
+			if (OrderQuantity.value != res1.data.data[1]) {
+				OrderQuantity.value = res1.data.data[1];
+			}
+			if (OrderQuantitySum.value != res1.data.data[0]) {
+				OrderQuantitySum.value = res1.data.data[0];
+			}
+			// OrderQuantity.value = res1.data.data[1];
+			// OrderQuantitySum.value = res1.data.data[0];
 		} else {
-			refresh.value = true;
+			// refresh.value = true;
 		}
+		setTimeout(() => {
+			refresh.value = true;
+		}, 3000);
 	}
 };
 

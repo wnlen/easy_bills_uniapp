@@ -440,6 +440,12 @@ export default {
 
 				// uni.setStorageSync("updInventoryStockpile", this.orderItemList)
 				this.fileList = res.data.data.imgList;
+				if (this.fileList.length) {
+					this.fileList.forEach((el) => {
+						el.status = 'success'; //上传成功图标
+						el.type = 'image'; //预览必须要保留type为image才能预览
+					});
+				}
 				this.add();
 			})
 			.catch((res) => {});
