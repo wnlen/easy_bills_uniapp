@@ -237,7 +237,7 @@
 
 				<view class="flex-row flex-wrap mt40" style="width: 95%">
 					<up-upload
-						autoDelete
+						@delete="deleteimg"
 						autoUploadDriver="local"
 						v-model:fileList="fileList"
 						:maxSize="10485760"
@@ -312,6 +312,7 @@ export default {
 			showOrderPly: false,
 			scrollTop: 0,
 			transmitList: [],
+			removeList: [],
 			transmit: 'https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/edo/order/ED2402292259345200/ED2402292259345200.jpg',
 			receipts: {
 				bossNumberS: '',
@@ -444,6 +445,10 @@ export default {
 			.catch((res) => {});
 	},
 	methods: {
+		deleteimg(res) {
+			this.removeList.push(res.file);
+			this.fileList.splice(res.index, 1);
+		},
 		add() {
 			this.orderTotal = 0;
 			this.orderItemList.forEach((res) => {
@@ -584,6 +589,16 @@ export default {
 				this.limitingCondition = false;
 				let receiptsData = JSON.parse(JSON.stringify(this.receipts));
 				receiptsData.creationTime = receiptsData.creationTime + ' 00:00:00';
+				//要删除的
+				const uniqueIds = [
+					...new Set(
+						this.removeList
+							.filter((item) => item.id) // 只要有 id 的
+							.map((item) => item.id)
+					)
+				];
+				receiptsData.delImgFolderIdList = uniqueIds;
+
 				uni.$api.order
 					.editOrder(receiptsData)
 					.then((res) => {

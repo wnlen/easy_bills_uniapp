@@ -123,7 +123,6 @@
 				<view class="recently-cat flex-row flex-wrap" style="width: 100%">
 					<view class="recently-cat flex-row flex-wrap mt24" style="width: 95%">
 						<up-upload
-							@delete="deleteimg"
 							autoUploadDriver="local"
 							v-model:fileList="imgFileList"
 							:maxSize="10485760"
@@ -132,6 +131,7 @@
 							:previewFullImage="true"
 							width="200rpx"
 							height="200rpx"
+							@delete="deleteimg"
 							@afterRead="afterRead"
 						>
 							<up-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></up-icon>
