@@ -172,10 +172,10 @@
 				<view class="OwnText">
 					<view class="OwnTextFromTitle">企业名称</view>
 					<text :style="{ color: '#333333' }" class="ml15 endcolor OwnTextFromText" v-if="pinia_user.data.work == '0'">
-						{{ pinia_user.ac.enterpriseName || pinia_user.phone }}
+						{{ pinia_user.ac?.enterpriseName || pinia_user.phone }}
 					</text>
 					<text :style="{ color: '#333333' }" class="ml15 endcolor OwnTextFromText" v-else>
-						{{ pinia_user.ac.enterpriseName || pinia_user.workData.bossNumber }}
+						{{ pinia_user.ac?.enterpriseName || pinia_user.workData.bossNumber }}
 					</text>
 				</view>
 				<view class="OwnText">
@@ -322,7 +322,9 @@ export default {
 					url: res.file,
 					id: res.id,
 					size: res.size,
-					billId: res.billId
+					billId: res.billId,
+					status: 'success', //上传成功图标
+					type: 'image' //预览必须要保留type为image才能预览
 				};
 				this.imgFileList.push(dx);
 			});
@@ -367,15 +369,19 @@ export default {
 			this.imgFileList.splice(res.index, 1);
 		},
 		afterRead(res) {
+			console.log('res.file[0]', res);
 			this.loadList.push(res.file[0]);
 			const res1 = res.file[0];
 			const dx = {
 				url: res1.url,
 				id: res1.id,
 				size: res1.size,
-				billId: res1.billId
+				billId: res1.billId,
+				status: 'success',
+				type: 'image'
 			};
 			this.imgFileList.push(dx);
+			console.log('this.imgFileList', this.imgFileList);
 		},
 		async sendOrder(app) {
 			if (this.checkSend) {
