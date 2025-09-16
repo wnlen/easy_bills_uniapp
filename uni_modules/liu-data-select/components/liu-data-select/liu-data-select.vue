@@ -35,7 +35,7 @@
                 "
             >
                 <view
-                    class="card-list"
+                    class="card-list text-center"
                     v-for="(item, index) in dataList"
                     :key="index"
                     @click="clickItem(item)"
