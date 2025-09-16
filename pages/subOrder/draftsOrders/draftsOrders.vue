@@ -1660,6 +1660,7 @@ export default {
 				var jobNumber = this.pinia_work == 'Y' ? that.pinia_user.workData.jobNumber : that.pinia_user.phone;
 
 				var imgList = this.imgList.filter((res) => res.size);
+				console.log('imgList22222222', imgList);
 
 				for (let key in imgList) {
 					uni.uploadFile({
