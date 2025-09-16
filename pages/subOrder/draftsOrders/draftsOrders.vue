@@ -1691,11 +1691,13 @@ export default {
 			if (!result) {
 				return;
 			} else {
-				const resultOrder = await this.sendOrderRes();
-				console.log('添加结果======>', resultOrder);
-				if (resultOrder) {
-					const img = await this.sendOrderImg();
-					this.flushDBSX(this.receipts);
+				const img = await this.sendOrderImg();
+				console.log('添加img结果======>', img);
+				if (img) {
+					const resultOrder = await this.sendOrderRes();
+					if (resultOrder) {
+						this.flushDBSX(this.receipts);
+					}
 				}
 			}
 		},
