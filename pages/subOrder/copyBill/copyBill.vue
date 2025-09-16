@@ -342,6 +342,8 @@
 
 				<view class="mt40" style="width: 95%">
 					<up-upload
+						:autoUploadApi="action"
+						autoUpload
 						@delete="onRemoveImg"
 						autoUploadDriver="local"
 						v-model:fileList="imgList"
@@ -351,7 +353,6 @@
 						:previewFullImage="true"
 						width="200rpx"
 						height="200rpx"
-						@afterRead="handleUpload"
 					>
 						<up-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></up-icon>
 					</up-upload>
@@ -605,18 +606,6 @@ export default {
 		uni.removeStorageSync('inventoryStockpile');
 	},
 	methods: {
-		handleUpload(res) {
-			const res1 = res.file[0];
-			const dx = {
-				url: res1.url,
-				id: res1.id,
-				size: res1.size,
-				billId: res1.billId,
-				status: 'success',
-				type: 'image'
-			};
-			this.imgList.push(dx);
-		},
 		authenticationSynchronization() {
 			console.log('===authenticationSynchronization===>');
 			uni.$api.order
@@ -1278,40 +1267,7 @@ export default {
 			this.addEmp();
 			this.receipts.signatureDescr = '';
 		},
-		addDrafts(type) {
-			//判断是否要保存
 
-			if (this.backHomepageClick) {
-				uni.navigateBack();
-				return;
-			}
-
-			if (uni.getStorageSync('inventoryStockpile') || this.receipts.bossNumberE != '') {
-				console.log('uni.getStorageSync("inventoryStockpile")=>', 1);
-			} else {
-				console.log('uni.getStorageSync("inventoryStockpile")=>', 0);
-				uni.navigateBack();
-				return;
-			}
-
-			uni.showModal({
-				title: '温馨提醒',
-				content: '是否保存到草稿箱?',
-				showCancel: true,
-				cancelText: type ? '返回' : '关闭',
-				confirmText: '保存',
-				success: (res) => {
-					var okif = res.confirm;
-					if (okif) {
-						this.$u.toast('已保存到草稿箱~');
-					} else {
-						this.$u.toast('已保存到草稿箱~');
-					}
-					this.backHomepageClick = true;
-					uni.navigateBack();
-				}
-			});
-		},
 		loadData() {
 			this.loadOrderNo();
 		},
@@ -1522,9 +1478,9 @@ export default {
 				var bossNumber = this.pinia_work == 'Y' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone || this.pinia_user.data.phoneNumber;
 				var jobNumber = this.pinia_work == 'Y' ? that.pinia_user.workData.jobNumber : that.pinia_user.phone;
 
-				// var imgList = this.imgList.filter((res) => res.size);
+				var imgList = this.imgList.filter((res) => res.size);
 				console.log('zzzzzzzzzzzzzzzzzzzzzzzz', this.imgList);
-				for (let key in that.imgList) {
+				for (let key in imgList) {
 					uni.uploadFile({
 						url: uni.$http.config.baseURL + 'order/img',
 						header: {
@@ -1533,7 +1489,7 @@ export default {
 							jobNumber: that.receipts.jobNumberS || jobNumber,
 							token: that.pinia_user.loginToken
 						},
-						filePath: that.imgList[key].url,
+						filePath: imgList[key].url,
 						name: 'file',
 						formData: {
 							imageType: '1'
@@ -1555,11 +1511,13 @@ export default {
 			if (!result) {
 				return;
 			} else {
-				const resultOrder = await this.sendOrderRes();
-				console.log('添加结果======>', resultOrder);
-				if (resultOrder) {
-					const img = await this.sendOrderImg();
-					this.flushDBSX(this.receipts);
+				const img = await this.sendOrderImg();
+				console.log('添加img结果======>', img);
+				if (img) {
+					const resultOrder = await this.sendOrderRes();
+					if (resultOrder) {
+						this.flushDBSX(this.receipts);
+					}
 				}
 			}
 		},
