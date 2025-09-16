@@ -805,18 +805,17 @@ export default {
 						port: port
 					})
 					.then((res) => {
-						console.log('===edo/user/searchAddOrder==>', res);
+						if (!res.data.data) {
+							this.$u.toast(res.data.message);
+							this.clear();
+							return;
+						}
 						var data = res.data.data;
 						var cRelation = data.cRelation;
 						var remark = data.remark;
 						var user = data.user;
 						var verification = data.verification;
 
-						console.log('===data==>', data);
-						console.log('===cRelation==>', cRelation);
-						console.log('===remark==>', remark);
-						console.log('===user==>', user);
-						console.log('===verification==>', verification);
 						var userIfOk = user.id;
 						this.searchDomain = data;
 						if (userIfOk) {
