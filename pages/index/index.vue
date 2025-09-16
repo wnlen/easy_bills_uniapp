@@ -17,7 +17,6 @@
 		<view class="bg-white radius12 mt60 ml30 mr30">
 			<view class="mb54 flex-row justify-between">
 				<view class="charts-box relative" @touchmove.stop.prevent>
-					<view class="absolute" style="width: 100%; height: 100%; z-index: 1000000"></view>
 					<qiun-data-charts type="ring" :canvas2d="true" canvasId="mQeRxIXWgXIzJwrjsSJdlsgpudfZgkIY" :opts="ringOpts" :chartData="chartsDataPie2" />
 					<view class="text-center ft-bold">
 						<text class="ft24">￥</text>
@@ -232,8 +231,7 @@ export default {
 			],
 			allprice: 0,
 			ringOpts: {
-				disableClick: true, // 关闭点击效果
-				highlight: false, // 禁用点击高亮
+				tooltipShow: false, //是否显示tooltip提示窗
 				rotate: false,
 				rotateLock: false,
 				padding: [0, 0, 0, 0],
@@ -267,8 +265,7 @@ export default {
 						border: true,
 						borderWidth: 1,
 						borderColor: '#FFFFFF'
-					},
-					silent: true // 强制禁用该系列所有交互
+					}
 				}
 			},
 			rawData: [
@@ -854,8 +851,7 @@ export default {
 				this.rawData[1].name = '已签收';
 				this.rawData[2].name = '已收款';
 				this.ringOpts = {
-					highlight: false, // 禁用点击高亮
-					disableClick: true, // 关闭点击效果
+					tooltipShow: false, //是否显示tooltip提示窗
 					rotate: false,
 					rotateLock: false,
 					padding: [0, 0, 0, 0],
@@ -889,8 +885,7 @@ export default {
 							border: true,
 							borderWidth: 1,
 							borderColor: '#FFFFFF'
-						},
-						silent: true // 强制禁用该系列所有交互
+						}
 					}
 				};
 
@@ -928,8 +923,7 @@ export default {
 				this.rawData[1].name = '已签收';
 				this.rawData[2].name = '已付款';
 				this.ringOpts = {
-					disableClick: true, // 关闭点击效果
-					highlight: false, // 禁用点击高亮
+					tooltipShow: false, //是否显示tooltip提示窗
 					rotate: false,
 					rotateLock: false,
 					padding: [0, 0, 0, 0],
@@ -963,8 +957,7 @@ export default {
 							border: true,
 							borderWidth: 1,
 							borderColor: '#FFFFFF'
-						},
-						silent: true // 强制禁用该系列所有交互
+						}
 					}
 				};
 

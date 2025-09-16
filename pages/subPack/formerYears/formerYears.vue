@@ -184,10 +184,10 @@
 					<view class="flex-row items-center justify-between u-border-bottom pt15 pb15">
 						<view class="flex-row items-center">
 							<text>总金额</text>
-							<view class="flex-row items-center ml20">
+							<!-- <view class="flex-row items-center ml20">
 								<up-icon name="arrow-downward" size="20rpx" color="#F53F3F"></up-icon>
 								<text class="ft12" style="color: #f53f3f">0.8%</text>
-							</view>
+							</view> -->
 						</view>
 						<view class="ft-green">
 							<text>￥</text>
@@ -207,19 +207,19 @@
 				</view>
 				<view class="bg-white">
 					<view class="earchTitle">待签收统计图</view>
-					<view class="charts-box relative">
+					<view class="charts-box">
 						<qiun-data-charts type="column" :opts="opts1" :chartData="chartData1" :canvas2d="true" canvasId="NrrFqdcSkawnWFhtAazcccaSZppHblXx" />
 					</view>
 				</view>
 				<view class="bg-white">
 					<view class="earchTitle">已签收统计图</view>
-					<view class="charts-box relative">
+					<view class="charts-box">
 						<qiun-data-charts type="column" :opts="opts2" :chartData="chartData2" :canvas2d="true" canvasId="NrrFqdcSkawnWFhtAazcccaSZppHblXT" />
 					</view>
 				</view>
 				<view class="bg-white relative">
 					<view class="earchTitle">已收款统计图</view>
-					<view class="charts-box relative">
+					<view class="charts-box">
 						<qiun-data-charts type="column" :opts="opts3" :chartData="chartData3" :canvas2d="true" canvasId="NrrFqdcSkawnWFhtAazcccaSZppHblXQ" />
 					</view>
 				</view>
@@ -545,7 +545,9 @@ export default {
 					}
 				]
 			},
+			// 柱状图
 			opts1: {
+				tooltipShow: true,
 				color: ['#F7A944'],
 				padding: [15, 15, 0, 5],
 				enableScroll: false,
@@ -576,12 +578,15 @@ export default {
 			},
 			opts2: {},
 			opts3: {},
+			// 圆环图
 			opts4: {
 				rotate: false,
 				rotateLock: false,
 				color: ['#F7A944', '#418AFF', '#01BB74'],
 				padding: [5, 5, 5, 5],
-				dataLabel: true,
+				fontColor: (params) => {
+					return this.opts4.color[params.index];
+				},
 				enableScroll: false,
 				legend: {
 					show: false
@@ -1775,7 +1780,7 @@ export default {
 .earchTitle {
 	font-size: 30rpx;
 	font-weight: 600;
-	padding: 24rpx 0 0 20rpx;
+	padding: 24rpx 0 14rpx 20rpx;
 	color: #333333;
 }
 

@@ -87,6 +87,10 @@ export default {
 			});
 		},
 		getPhoneNumber(e) {
+			if (e.detail.errMsg != 'getPhoneNumber:ok') {
+				this.$u.toast('您已拒绝授权 请重新点击并授权');
+				return;
+			}
 			var loginPhone = this.pinia_user.phone;
 
 			console.log(loginPhone);
