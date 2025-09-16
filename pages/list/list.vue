@@ -865,6 +865,7 @@ onShow(() => {
 				date.setDate(date.getDate() + 15);
 				date1.value = uni.$u.timeFormat(new Date(new Date().getFullYear(), 0, 1), 'yyyy-mm-dd');
 				date2.value = uni.$u.timeFormat(date, 'yyyy-mm-dd');
+				showTage.value = '0';
 				realTimeSel.value.startDate = date1.value;
 				realTimeSel.value.endDate = date2.value;
 				realTimeSel.value.phoneE = '';
@@ -1220,7 +1221,7 @@ const refreshDataNew = async () => {
 		}
 		setTimeout(() => {
 			refresh.value = true;
-		}, 3000);
+		}, 1000);
 	}
 };
 
@@ -1276,14 +1277,16 @@ function filtrateGet() {
 	show_start.value = true;
 }
 function Filtrate(type) {
-	field.value = '';
-	realTimeSel.value.kTakeE = '';
-	realTimeSel.value.kPhoneE = '';
-	realTimeSel.value.kSiteE = '';
-	realTimeSel.value.inventoryName = '';
 	showTage.value = type;
 	TitleFun(type);
-	paging.value?.reload();
+	if (field.value) {
+		field.value = '';
+		realTimeSel.value.kTakeE = '';
+		realTimeSel.value.kPhoneE = '';
+		realTimeSel.value.kSiteE = '';
+		realTimeSel.value.inventoryName = '';
+		paging.value?.reload();
+	}
 }
 
 function virtualListChange(vList) {

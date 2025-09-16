@@ -388,7 +388,16 @@
 							>
 								<!-- &&item.lockOrder!=1 -->
 								<up-icon v-if="OperatingSystem" name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></up-icon>
-								<up-icon v-if="!OperatingSystem" top="2rrpx" name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></up-icon>
+								<up-icon
+									v-if="!OperatingSystem"
+									top="2rrpx"
+									name="trash"
+									size="25rpx"
+									color="#666666"
+									labelSize="22rpx"
+									labelColor="#333333"
+									label="删除"
+								></up-icon>
 							</button>
 						</view>
 					</view>
@@ -1423,21 +1432,16 @@ export default {
 			// this.refreshDataNew()
 		},
 		Filtrate(i) {
-			//console.log(i);
-			this.field = '';
-
-			var filterIndex = this.showTage;
-			var ifWorkPort = this.pinia_userRole == 'R';
-
-			this.realTimeSel.kTakeE = '';
-			this.realTimeSel.kSiteE = '';
-			this.realTimeSel.kPhoneE = '';
-			this.realTimeSel.inventoryName = '';
-
 			this.showTage = i;
-
 			this.TitleFun(i);
-			this.$refs.paging.reload();
+			if (this.field) {
+				this.field = '';
+				this.realTimeSel.kTakeE = '';
+				this.realTimeSel.kSiteE = '';
+				this.realTimeSel.kPhoneE = '';
+				this.realTimeSel.inventoryName = '';
+				this.$refs.paging.reload();
+			}
 		},
 		filtrateGet() {
 			this.show_start = true;

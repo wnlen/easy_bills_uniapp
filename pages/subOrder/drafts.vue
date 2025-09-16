@@ -760,21 +760,16 @@ export default {
 			// this.refreshDataNew()
 		},
 		Filtrate(i) {
-			//console.log(i);
-			this.field = '';
-
-			var filterIndex = this.showTage;
-			var ifWorkPort = this.pinia_userRole == 'R';
-
-			this.realTimeSel.kTakeE = '';
-			this.realTimeSel.kSiteE = '';
-			this.realTimeSel.kPhoneE = '';
-			this.realTimeSel.inventoryName = '';
-
 			this.showTage = i;
-
 			this.TitleFun(i);
-			this.$refs.paging.reload();
+			if (this.field) {
+				this.field = '';
+				this.realTimeSel.kTakeE = '';
+				this.realTimeSel.kSiteE = '';
+				this.realTimeSel.kPhoneE = '';
+				this.realTimeSel.inventoryName = '';
+				this.$refs.paging.reload();
+			}
 		},
 		filtrateGet() {
 			this.show_start = true;

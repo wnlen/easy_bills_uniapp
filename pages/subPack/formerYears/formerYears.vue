@@ -1349,14 +1349,15 @@ export default {
 			console.log(i);
 			this.showTage = i;
 			this.searchList.scope = i;
-			this.field = '';
-			this.realTimeSel.kTakeE = '';
-			this.realTimeSel.kSiteE = '';
-			this.realTimeSel.kPhoneE = '';
-			this.realTimeSel.inventoryName = '';
-
 			this.TitleFun(i);
-			this.$refs.paging.reload();
+			if (this.field) {
+				this.field = '';
+				this.realTimeSel.kTakeE = '';
+				this.realTimeSel.kSiteE = '';
+				this.realTimeSel.kPhoneE = '';
+				this.realTimeSel.inventoryName = '';
+				this.$refs.paging.reload();
+			}
 		},
 		date1Change(e) {
 			var len = this.dataList.length > 0;
