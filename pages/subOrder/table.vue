@@ -148,7 +148,7 @@
 			</up-button>
 		</up-empty>
 		<view v-for="(item, index) in client" :key="index">
-			<view class="ml20 mr20" v-show="show == 1" style="border-bottom: 1px solid #f4f4f4">
+			<view class="ml20 mr20" style="border-bottom: 1px solid #f4f4f4" v-show="show == 1">
 				<up-collapse :border="false">
 					<up-collapse-item v-if="!ifZX(index)" :border="false">
 						<template #right-icon></template>
@@ -188,11 +188,9 @@
 					</up-collapse-item>
 				</up-collapse>
 			</view>
-			<view class="ml20" v-show="show == 0" style="width: 110vw">
-				<view @click="jumpShow(item)" style="width: 85%; padding-top: 20rpx; padding-bottom: 20rpx" class="anchor-text ml24">
-					<view class="" style="display: flex; flex-direction: row; padding-top: 10rpx; color: black">
-						{{ ifZX(index) ? index.replace("zx-'", '') : getCompanyName(item) }}
-					</view>
+			<view class="ml20 mr20" v-show="show == 0">
+				<view @click="jumpShow(item)" style="padding: 26rpx; border-bottom: 1px solid #f4f4f4" class="anchor-text">
+					<view class="" style="display: flex; flex-direction: row; color: black">{{ ifZX(index) ? index.replace("zx-'", '') : getCompanyName(item) }}</view>
 				</view>
 			</view>
 		</view>

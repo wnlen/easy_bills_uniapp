@@ -1338,26 +1338,29 @@ export default {
 			console.log(i);
 			this.showTage = i;
 			this.searchList.scope = i;
-			this.field = '';
-			if (i == '0') {
-				this.realTimeSel.kPhoneE = '';
-				this.realTimeSel.kSiteE = '';
-				this.realTimeSel.inventoryName = '';
-			} else if (i == '1') {
-				this.realTimeSel.kTakeE = '';
-				this.realTimeSel.kSiteE = '';
-				this.realTimeSel.inventoryName = '';
-			} else if (i == '2') {
-				this.realTimeSel.kPhoneE = '';
-				this.realTimeSel.kTakeE = '';
-				this.realTimeSel.inventoryName = '';
-			} else if (i == '3') {
-				this.realTimeSel.kPhoneE = '';
-				this.realTimeSel.kTakeE = '';
-				this.realTimeSel.kSiteE = '';
-			}
 			this.TitleFun(i);
-			this.$refs.paging.reload();
+			if (this.field) {
+				this.field = '';
+				if (i == '0') {
+					this.realTimeSel.kPhoneE = '';
+					this.realTimeSel.kSiteE = '';
+					this.realTimeSel.inventoryName = '';
+				} else if (i == '1') {
+					this.realTimeSel.kTakeE = '';
+					this.realTimeSel.kSiteE = '';
+					this.realTimeSel.inventoryName = '';
+				} else if (i == '2') {
+					this.realTimeSel.kPhoneE = '';
+					this.realTimeSel.kTakeE = '';
+					this.realTimeSel.inventoryName = '';
+				} else if (i == '3') {
+					this.realTimeSel.kPhoneE = '';
+					this.realTimeSel.kTakeE = '';
+					this.realTimeSel.kSiteE = '';
+				}
+
+				this.$refs.paging.reload();
+			}
 		},
 		date1Change(e) {
 			if (this.timeType == 1) {
@@ -1590,9 +1593,9 @@ export default {
 		},
 		filtrateGet() {
 			this.show_start = true;
-			this.realTimeSel.startDate = this.date1 != '' ? this.date1 : this.$u.timeFormat(new Date(new Date().getFullYear(), 0, 1), 'yyyy-mm-dd');
-			this.realTimeSel.endDate = this.date2 != '' ? this.date2 : this.$u.timeFormat(new Date(), 'yyyy-mm-dd');
-			this.$refs.paging.reload();
+			// this.realTimeSel.startDate = this.date1 != '' ? this.date1 : this.$u.timeFormat(new Date(new Date().getFullYear(), 0, 1), 'yyyy-mm-dd');
+			// this.realTimeSel.endDate = this.date2 != '' ? this.date2 : this.$u.timeFormat(new Date(), 'yyyy-mm-dd');
+			// this.$refs.paging.reload();
 		},
 		CustomerGet() {
 			uni.navigateTo({

@@ -447,6 +447,16 @@ export default {
 			}
 		}
 	},
+	onShareAppMessage() {
+		if (res.from === 'button') {
+			// 来自页面内分享按钮
+			// console.log(res.target)
+		}
+		return {
+			title: '易单据，快捷开单',
+			path: '/pages/index/index'
+		};
+	},
 	onShow() {
 		// 手动刷新accessToken
 		// uni.$api.user.accessTokenRefresh({}).then((res) => {

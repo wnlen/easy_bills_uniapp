@@ -266,17 +266,21 @@
 					<text>去邀请</text>
 				</up-button>
 			</up-empty>
+
 			<view class="" :style="{ display: show != 0 ? 'none' : 'block' }">
-				<view v-for="(item, index) in client" :key="index" @click="particulars(item, true)" style="border-bottom: 1px solid #f4f4f4">
-					<view class="ml20 mt15" style="width: 110vw">
+				<view v-for="(item, index) in client" :key="index" @click="particulars(item, true)">
+					<view class="ml20 mr20">
+						<view style="padding: 26rpx; border-bottom: 1px solid #f4f4f4" class="anchor-text">
+							<view class="" style="display: flex; flex-direction: row; color: black">{{ getCompanyName(item) }}</view>
+						</view>
+					</view>
+					<!-- <view class="ml20 mt15" style="width: 110vw">
 						<up-collapse :border="false">
 							<view class="flex-col justify-center items-baseline" style="height: 80rpx" :style="{ color: ifZX(index) ? 'red' : 'black' }">
 								{{ getCompanyName(item) }}
-								<!-- {{ifCm(index)}} -->
-								<!-- {{ifZX(index)?index.replace("zx-'",''):ifCm(index)?ifCmStr(index):index}} -->
 							</view>
 						</up-collapse>
-					</view>
+					</view> -->
 				</view>
 			</view>
 		</view>
