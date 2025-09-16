@@ -76,43 +76,44 @@
 			<view class="head">
 				<view class="headline">欢迎登录</view>
 			</view>
-			<view class="InputTab">
-				<view class="headlineInput">手机号</view>
-				<view class="Input">
-					<input
-						placeholder-class="placeholder_class"
-						v-model="fromLogin.phoneNumber"
-						type="number"
-						maxlength="11"
-						placeholder="请输入手机号"
-						class="u-line-1 ml15 endcolor"
-						@focus="phoneNumberFocusInput"
-					/>
+			<view class="pt48">
+				<view class="InputTab">
+					<view class="headlineInput">手机号</view>
+					<view class="Input">
+						<input
+							placeholder-class="placeholder_class"
+							v-model="fromLogin.phoneNumber"
+							type="number"
+							maxlength="11"
+							placeholder="请输入手机号"
+							class="u-line-1 ml15 endcolor"
+							@focus="phoneNumberFocusInput"
+						/>
+					</view>
+					<text class="err ml24" v-if="phoneNumberErr">请输入手机号码</text>
 				</view>
-				<text class="err ml24" v-if="phoneNumberErr">请输入手机号码</text>
-			</view>
-			<view class="InputTab">
-				<view class="headlineInput">密码</view>
-				<view class="Input">
-					<input
-						placeholder-class="placeholder_class"
-						v-model="fromLogin.password"
-						:type="eyePassword ? 'password' : 'text'"
-						maxlength="10"
-						placeholder="请输入密码"
-						@focus="passsswordFocusInput"
-						class="u-line-1 ml15 endcolor"
-					/>
-					<up-icon v-if="eyePassword" @click="eyePassword = !eyePassword" name="eye-off" color="#01BB74" size="35"></up-icon>
-					<up-icon v-if="!eyePassword" @click="eyePassword = !eyePassword" name="eye-fill" color="#01BB74" size="35"></up-icon>
-				</view>
-				<text class="err ml24" v-if="passsswordErr">请输入密码</text>
-				<view class="headlineEnd mb36" v-if="err">
-					<text class="ts" @click="ZC">手机号或密码错误，请重新输入!!!</text>
-				</view>
-				<view class="headlineEnd">
-					<text class="left" @click="ZC">立即注册</text>
-					<text class="right" @click="wjPassword">忘记密码?</text>
+				<view class="InputTab">
+					<view class="headlineInput">验证码</view>
+					<view class="Input">
+						<input
+							placeholder-class="placeholder_class"
+							v-model="fromLogin.password"
+							maxlength="10"
+							placeholder="请输入验证码"
+							@focus="passsswordFocusInput"
+							class="u-line-1 ml15 endcolor"
+						/>
+						<wd-count-down ref="countDown" style="display: none" :time="60 * 1000" :auto-start="false" @finish="codeFinish" @change="codeChange" />
+						<text class="ft-green mr48" @click="getCode">{{ tips }}</text>
+					</view>
+					<text class="err ml24" v-if="passsswordErr">请输入验证码</text>
+					<view class="headlineEnd mb36" v-if="err">
+						<text class="ts" @click="ZC">手机号或验证码错误，请重新输入!!!</text>
+					</view>
+					<!-- <view class="headlineEnd">
+						<text class="left" @click="ZC">立即注册</text>
+						<text class="right" @click="wjPassword">忘记密码?</text>
+					</view> -->
 				</view>
 			</view>
 			<view class="buttonTab">
@@ -120,7 +121,7 @@
 			</view>
 			<view class="yszc" style="font-size: 20rpx">
 				<view class="flex-col justify-center items-center list1" :style="{ backgroundColor: ischeck ? '#01BB74' : '#ffffff' }" @click="radioGroupChange">
-					<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
+					<up-icon name="checkbox-mark" color="#ffffff" size="20rpx"></up-icon>
 				</view>
 				<view class="ml15">
 					<text style="color: #aaaaaa; font-size: 24rpx">同意并遵行易单据</text>
@@ -134,9 +135,10 @@
 				<view class="yjdl" @click="oneKeyLogin">本机号码一键登录</view>
 				<view class="mt20" style="color: #aaaaaa; font-size: 24rpx; text-align: center">第三方登录</view>
 				<view class="mt10 flex-row justify-center items-center" style="text-align: center">
-					<view class="flex-row justify-center items-center" style="background-color: #20c300; height: 120rpx; width: 120rpx; border-radius: 50%" @click="wxloginInit">
-						<up-icon name="weixin-fill" color="#ffffff" size="100"></up-icon>
+					<view class="flex-row justify-center items-center mr30" style="background-color: #01bb74; height: 96rpx; width: 96rpx; border-radius: 50%" @click="wxloginInit">
+						<up-icon name="weixin-fill" color="#fff" size="80rpx" @click="wxloginInit"></up-icon>
 					</view>
+					<wd-icon name="apple-filled" size="96rpx"></wd-icon>
 				</view>
 			</view>
 		</view>
@@ -167,6 +169,7 @@
 export default {
 	data() {
 		return {
+			tips: '获取验证码',
 			xy: ['https://res-oss.elist.com.cn/notice/ServiceAgreement-v1.htm', 'https://res-oss.elist.com.cn/notice/ApplicationPrivacyAgreement-v1.htm'],
 			role: 0,
 			yisi_customStyle: {
@@ -254,6 +257,19 @@ export default {
 		};
 	},
 	methods: {
+		codeFinish() {
+			this.$refs.countDown.reset();
+			this.tips = '重新获取';
+		},
+		codeChange(e) {
+			this.tips = `${e.seconds}s后重新获取`;
+		},
+		getCode() {
+			if (this.tips != '获取验证码' || this.tips != '重新获取') {
+				this.$refs.countDown.start();
+				// 获取验证码逻辑
+			}
+		},
 		yinsi_open() {
 			this.yinsi_show = true;
 		},
@@ -703,8 +719,7 @@ export default {
 <style scoped lang="scss">
 .module {
 	position: fixed;
-	bottom: 0;
-	height: 20vh;
+	bottom: 40rpx;
 }
 
 .yjdl {
@@ -771,7 +786,7 @@ export default {
 	font-feature-settings: 'kern' on;
 	color: #333333;
 	position: absolute;
-
+	top: 100rpx;
 	left: 40rpx;
 }
 
