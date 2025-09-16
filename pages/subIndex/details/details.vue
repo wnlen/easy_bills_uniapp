@@ -181,7 +181,6 @@ export default {
 		// }
 	},
 	onLoad(option) {
-		console.log('option111111111111111111111111111111', option);
 		this.phone = option.phone;
 		this.state = option.select;
 		this.type = option.type;
@@ -287,10 +286,18 @@ export default {
 		isRole(role) {
 			return this.pinia_userRole === role;
 		},
-		getUnregisteredUser(eBossNumber) {
+		getUnregisteredUser(phone) {
 			var ifWorkPort = this.pinia_userRole == 'D';
-			var work = this.pinia_user.data.work == '0';
-			var sBossNumber = work ? this.pinia_user.phone : this.pinia_user.workData.bossNumber;
+			var sBossNumber = '';
+			var eBossNumber = '';
+			if (ifWorkPort) {
+				sBossNumber = this.getBossNumber();
+				eBossNumber = phone;
+			} else {
+				sBossNumber = phone;
+				eBossNumber = this.getBossNumber();
+			}
+
 			var dx = {
 				sBossNumber: sBossNumber,
 				eBossNumber: eBossNumber
@@ -302,7 +309,8 @@ export default {
 				var dx = {
 					phoneNumber: ''
 				};
-				dx.phoneNumber = wzcUser.eBossNumber;
+				dx.phoneNumber = ifWorkPort ? wzcUser.eBossNumber : wzcUser.sBossNumber;
+
 				this.userData = dx;
 				if (this.port) {
 					this.up.remarkR = this.remark;
