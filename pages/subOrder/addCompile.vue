@@ -239,7 +239,7 @@
 					<up-upload
 						@delete="deleteimg"
 						autoUploadDriver="local"
-						v-model:fileList="fileList"
+						v-model:fileList="imgList"
 						:maxSize="10485760"
 						:maxCount="3"
 						width="100"
@@ -439,9 +439,9 @@ export default {
 				];
 
 				// uni.setStorageSync("updInventoryStockpile", this.orderItemList)
-				this.fileList = res.data.data.imgList;
-				if (this.fileList.length) {
-					this.fileList.forEach((el) => {
+				this.imgList = res.data.data.imgList;
+				if (this.imgList.length) {
+					this.imgList.forEach((el) => {
 						el.status = 'success'; //上传成功图标
 						el.type = 'image'; //预览必须要保留type为image才能预览
 					});
@@ -453,7 +453,7 @@ export default {
 	methods: {
 		deleteimg(res) {
 			this.removeList.push(res.file);
-			this.fileList.splice(res.index, 1);
+			this.imgList.splice(res.index, 1);
 		},
 		add() {
 			this.orderTotal = 0;
@@ -476,17 +476,18 @@ export default {
 			this.action = uni.$http.config.baseURL + 'order/imgA';
 		},
 		handleUpload(res) {
-			const res1 = res.file[0];
-			const dx = {
-				url: res1.url,
-				id: res1.id,
-				size: res1.size,
-				billId: res1.billId,
-				status: 'success',
-				type: 'image'
-			};
-			this.fileList.push(dx);
-			this.imgList = res.file;
+			console.log('222222222', res);
+			res.file.forEach((resItem) => {
+				const dx = {
+					url: resItem.url,
+					id: resItem.id,
+					size: resItem.size,
+					billId: resItem.billId,
+					status: 'success',
+					type: 'image'
+				};
+				this.imgList.push(dx);
+			});
 		},
 		getCurrentDate() {
 			const date = new Date();
@@ -519,6 +520,7 @@ export default {
 			uni.navigateBack();
 		},
 		sendOrder() {
+			console.log('xiugaisssssssssssssssssssssss');
 			this.receipts.inventoryList = this.orderItemList;
 
 			//验证
@@ -558,7 +560,7 @@ export default {
 					});
 				});
 			}
-
+			console.log('xiugaisssssssssssssssssssssss11');
 			this.orderItemList = this.orderItemList.map((item) => {
 				item.orderId = this.receipts.orderNumber;
 				const { id, ...rest } = item;
@@ -568,14 +570,15 @@ export default {
 			this.receipts.inventoryList = this.orderItemList;
 			if (this.imgList.length <= 0) {
 			} else {
+				console.log('xiugaisssssssssssssssssssssss1122');
 				//上传图片
 				var listImg = [];
 				var bossNumber = this.pinia_work == 'Y' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone || this.pinia_user.data.phoneNumber;
 				var jobNumber = this.pinia_work == 'Y' ? that.pinia_user.workData.jobNumber : that.pinia_user.phone;
-				console.log('上传本地图片', this.imgList[key].url);
+				console.log('上传本地图片', this.imgList);
 				for (let key in this.imgList) {
 					if (this.imgList[key].url) {
-						console.log('上传本地图片', this.imgList[key].url);
+						console.log('上传本地图片', this.imgList);
 						uni.uploadFile({
 							url: uni.$http.config.baseURL + 'order/img',
 							header: {
