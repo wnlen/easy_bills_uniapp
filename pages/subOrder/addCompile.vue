@@ -476,9 +476,17 @@ export default {
 			this.action = uni.$http.config.baseURL + 'order/imgA';
 		},
 		handleUpload(res) {
-			console.log('图片', res);
+			const res1 = res.file[0];
+			const dx = {
+				url: res1.url,
+				id: res1.id,
+				size: res1.size,
+				billId: res1.billId,
+				status: 'success',
+				type: 'image'
+			};
+			this.fileList.push(dx);
 			this.imgList = res.file;
-			this.fileList = res.file;
 		},
 		getCurrentDate() {
 			const date = new Date();
@@ -564,6 +572,7 @@ export default {
 				var listImg = [];
 				var bossNumber = this.pinia_work == 'Y' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone || this.pinia_user.data.phoneNumber;
 				var jobNumber = this.pinia_work == 'Y' ? that.pinia_user.workData.jobNumber : that.pinia_user.phone;
+				console.log('上传本地图片', this.imgList[key].url);
 				for (let key in this.imgList) {
 					if (this.imgList[key].url) {
 						console.log('上传本地图片', this.imgList[key].url);

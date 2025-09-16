@@ -342,19 +342,16 @@
 
 				<view class="mt40" style="width: 95%">
 					<up-upload
-						autoUpload
 						@delete="onRemoveImg"
-						:autoUploadApi="action"
 						autoUploadDriver="local"
 						v-model:fileList="imgList"
 						:maxCount="3"
 						multiple
 						:showPreviewImage="true"
 						:previewFullImage="true"
-						:deletable="true"
-						:showRetry="false"
 						width="200rpx"
 						height="200rpx"
+						@afterRead="handleUpload"
 					>
 						<up-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></up-icon>
 					</up-upload>
@@ -424,6 +421,7 @@ export default {
 			order: {},
 			showOrderPly: false,
 			scrollTop: 0,
+			removeList: [],
 			transmitList: [
 				{
 					id: null
@@ -523,7 +521,6 @@ export default {
 				fontSize: '24rpx',
 				color: '#01BB74'
 			},
-			newImg: [],
 			khPhone: '',
 			showCalendar: false
 		};
@@ -570,6 +567,7 @@ export default {
 		});
 		this.staffNumberEName = this.receipts.takeE;
 		this.imgList = order.imgList;
+		console.log('222222222222222', this.imgList);
 		if (this.imgList.length) {
 			this.imgList.forEach((el) => {
 				el.status = 'success'; //上传成功图标
@@ -607,6 +605,18 @@ export default {
 		uni.removeStorageSync('inventoryStockpile');
 	},
 	methods: {
+		handleUpload(res) {
+			const res1 = res.file[0];
+			const dx = {
+				url: res1.url,
+				id: res1.id,
+				size: res1.size,
+				billId: res1.billId,
+				status: 'success',
+				type: 'image'
+			};
+			this.imgList.push(dx);
+		},
 		authenticationSynchronization() {
 			console.log('===authenticationSynchronization===>');
 			uni.$api.order
@@ -636,11 +646,9 @@ export default {
 					console.error('请求出错:', error);
 				});
 		},
-		onRemoveImg(e) {
-			const removeList = this.imgList.splice(e.index, 1);
-			if (removeList[0].id) {
-				this.newImg.push(removeList[0]);
-			}
+		onRemoveImg(res) {
+			this.removeList.push(res.file);
+			this.imgList.splice(res.index, 1);
 		},
 		jumDrafts() {
 			console.log('跳转');
@@ -1434,8 +1442,16 @@ export default {
 					console.log('===this.receipts===>', this.receipts);
 					let receiptsData = JSON.parse(JSON.stringify(this.receipts));
 					receiptsData.creationTime = receiptsData.creationTime + ' 00:00:00';
+
 					//要删除的
-					receiptsData.delImgFolderIdList = this.newImg;
+					const uniqueIds = [
+						...new Set(
+							this.removeList
+								.filter((item) => item.id) // 只要有 id 的
+								.map((item) => item.id)
+						)
+					];
+					receiptsData.delImgFolderIdList = uniqueIds;
 					uni.$api.order
 						.addOrder(receiptsData)
 						.then((res) => {
@@ -1506,9 +1522,9 @@ export default {
 				var bossNumber = this.pinia_work == 'Y' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone || this.pinia_user.data.phoneNumber;
 				var jobNumber = this.pinia_work == 'Y' ? that.pinia_user.workData.jobNumber : that.pinia_user.phone;
 
-				var imgList = this.imgList.filter((res) => res.size);
-
-				for (let key in imgList) {
+				// var imgList = this.imgList.filter((res) => res.size);
+				console.log('zzzzzzzzzzzzzzzzzzzzzzzz', this.imgList);
+				for (let key in that.imgList) {
 					uni.uploadFile({
 						url: uni.$http.config.baseURL + 'order/img',
 						header: {
@@ -1517,7 +1533,7 @@ export default {
 							jobNumber: that.receipts.jobNumberS || jobNumber,
 							token: that.pinia_user.loginToken
 						},
-						filePath: imgList[key].url,
+						filePath: that.imgList[key].url,
 						name: 'file',
 						formData: {
 							imageType: '1'
