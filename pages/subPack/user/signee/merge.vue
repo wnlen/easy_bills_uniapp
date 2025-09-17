@@ -127,13 +127,15 @@ export default {
 				phone: this.pinia_user.phone
 			})
 			.then((res) => {
-				var json = res.data.data[0];
-				this.formData.id = json.id;
-				this.formData.phoneNumer = json.phone;
-				this.formData.signeeName = json.name;
-				this.formData.signeeImage = json.signatureImg;
-				// this.formData.password = json.password;
-				this.switchVal = this.formData.ifDefault == 'Y' ? true : false;
+				if (res.data.data.length) {
+					var json = res.data.data[0];
+					this.formData.id = json.id;
+					this.formData.phoneNumer = json.phone;
+					this.formData.signeeName = json.name;
+					this.formData.signeeImage = json.signatureImg;
+					// this.formData.password = json.password;
+					this.switchVal = this.formData.ifDefault == 'Y' ? true : false;
+				}
 			});
 
 		uni.$api.order
@@ -141,16 +143,18 @@ export default {
 				user: this.pinia_user.phone
 			})
 			.then((res) => {
-				var json = res.data.data;
-				this.formDataFirm.id = json.id;
-				this.formDataFirm.enterpriseName = json.enterpriseName;
-				this.formDataFirm.abbreviation = json.abbreviation;
-				this.formDataFirm.userName = json.userName;
-				this.formDataFirm.phone = json.phone;
-				this.formDataFirm.state = json.state;
-				this.formDataFirm.user = json.user;
-				this.formDataFirm.businessSite = json.businessSite;
-				this.formDataFirm.businessLicenseFront = json.businessLicenseFront;
+				if (res.data.data) {
+					var json = res.data.data;
+					this.formDataFirm.id = json.id;
+					this.formDataFirm.enterpriseName = json.enterpriseName;
+					this.formDataFirm.abbreviation = json.abbreviation;
+					this.formDataFirm.userName = json.userName;
+					this.formDataFirm.phone = json.phone;
+					this.formDataFirm.state = json.state;
+					this.formDataFirm.user = json.user;
+					this.formDataFirm.businessSite = json.businessSite;
+					this.formDataFirm.businessLicenseFront = json.businessLicenseFront;
+				}
 			});
 	},
 	onShow() {
@@ -250,7 +254,7 @@ export default {
 
 			uni.$api.sign.mergeSignature(dx).then((res) => {
 				this.$u.toast(res.data.message);
-				if (rea.data.code == 200) {
+				if (res.data.code == 200) {
 					this.$u.setPinia({
 						user: {
 							user: {
