@@ -696,19 +696,6 @@ export default {
 				console.log('存在变量值为 null、空字符串或者 undefined');
 			}
 		},
-		loginWX(code) {
-			console.log('微信登录');
-			var dx = {
-				code: code
-			};
-			// uni.$api.user.loginWithWX(dx).then((res) => {
-			// 	var code = res.data.data;
-			// 	console.log(res);
-			// 	uni.navigateTo({
-			// 		url: '/pages/subUser/bindingPhone/bindingPhone?openid=123'
-			// 	});
-			// });
-		},
 		isValid(value) {
 			return value !== null && value !== '' && value !== undefined;
 		}

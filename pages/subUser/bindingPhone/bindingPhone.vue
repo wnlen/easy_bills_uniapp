@@ -4,21 +4,12 @@
 		style="background-size: cover; background-image: url('https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/user/login.png')"
 	>
 		<view class="" style="background-color: transparent">
-			<up-navbar
-				:placeholder="true"
-				:custom-back="customBack"
-				:border-bottom="false"
-				title-color="#333333"
-				title=""
-				title-size="28"
-				:background="{
-					background: 'transparent',
-					color: 'white',
-					fontSize: '28rpx'
-				}"
-			></up-navbar>
+			<up-navbar :placeholder="true" autoBack :border-bottom="false" title="" bgColor="transparent"></up-navbar>
 		</view>
-		<view v-if="hint" class="flex-col justify-center items-center" style="margin-top: 10%; width: 100%">
+		<view class="relative width100">
+			<view class="headline">绑定手机号</view>
+		</view>
+		<view v-if="hint" class="flex-col justify-center items-center" style="margin-top: 20%; width: 100%">
 			<view class="InputTab">
 				<view class="headlineInput">手机号</view>
 				<view class="Input">
@@ -68,7 +59,7 @@ export default {
 	},
 	onLoad(option) {
 		// this.openid = option.openid
-		this.fromCode = JSON.parse(option.data);
+		// this.fromCode = JSON.parse(option.data);
 	},
 	onReady(option) {
 		console.log('onReady');
@@ -145,9 +136,6 @@ export default {
 			// 		this.$u.toast(data.message);
 			// 	}
 			// });
-		},
-		customBack() {
-			uni.navigateBack();
 		}
 	}
 };
@@ -159,7 +147,19 @@ export default {
 	bottom: 0;
 	height: 20vh;
 }
-
+.headline {
+	font-family: Source Han Sans;
+	font-size: 52rpx;
+	font-weight: 500;
+	line-height: 42.24rpx;
+	letter-spacing: 0rpx;
+	font-feature-settings: 'kern' on;
+	color: #333333;
+	position: absolute;
+	top: 50rpx;
+	left: 40rpx;
+	display: block;
+}
 .yjdl {
 	width: 380rpx;
 	height: 100rpx;
