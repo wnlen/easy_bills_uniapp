@@ -60,10 +60,8 @@
 							v-model="customer"
 							:customStyle="{ backgroundColor: 'transparent' }"
 							:placeholder="userStore.userRole === 'R' ? '请选择供应商' : '请选择客户'"
-							:clearable="true"
 							border="none"
 							@blur="inputblur"
-							@change="(e) => CustomerGetChange(e)"
 						>
 							<template #prefix>
 								<view>
@@ -1072,11 +1070,13 @@ function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList,
 }
 
 function inputblur(e) {
+	console.log('视角', e);
 	const ifWorkPort = userStore.userRole === 'R';
 	const changeText = e;
 
 	if (!ifWorkPort) {
 		realTimeSel.value.organizationE = changeText;
+		console.log('realTimeSel.value.organizationE', realTimeSel.value.organizationE);
 	} else {
 		realTimeSel.value.enterpriseS = changeText;
 	}
@@ -1231,21 +1231,22 @@ function changeTab(item) {
 	paging.value?.reload();
 }
 
-function CustomerGetChange(e) {
-	if (e) {
-		return; // 如果不是完整手机号，直接结束
-	}
+// function CustomerGetChange(e) {
+// 	console.log('1111111111111111111', e);
+// 	if (e) {
+// 		return;
+// 	}
 
-	const ifWorkPort = userStore.userRole === 'R';
-	const changeText = e;
+// 	const ifWorkPort = userStore.userRole === 'R';
+// 	const changeText = e;
 
-	if (!ifWorkPort) {
-		realTimeSel.value.organizationE = changeText;
-	} else {
-		realTimeSel.value.enterpriseS = changeText;
-	}
-	paging.value?.reload();
-}
+// 	if (!ifWorkPort) {
+// 		realTimeSel.value.organizationE = changeText;
+// 	} else {
+// 		realTimeSel.value.enterpriseS = changeText;
+// 	}
+// 	paging.value?.reload();
+// }
 
 function CustomerGet() {
 	if (pinia_user.value.phone != undefined) {
