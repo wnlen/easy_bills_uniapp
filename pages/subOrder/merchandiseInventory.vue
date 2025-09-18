@@ -210,7 +210,7 @@
 			</view>
 		</up-popup>
 		<!-- 新手指引 -->
-		<pop-guide :max-step="2" :guideType="'goods'" :guideData="functionGuideData" ref="FunctionGuide"></pop-guide>
+		<pop-guide :max-step="2" :guideType="'goods'" :guideData="functionGuideData" ref="FunctionGuide" @step-change="onGuideStepChange" @finished="onGuideFinished"></pop-guide>
 	</view>
 </template>
 
@@ -352,6 +352,11 @@ export default {
 		// });
 	},
 	methods: {
+		//监听引导页每一步位置
+		onGuideStepChange({ step }) {
+			console.log('监听', step);
+			this.setFunctionGuideData({ step });
+		},
 		setFunctionGuideData(data) {
 			this.functionGuideData = {
 				...this.functionGuideData,
