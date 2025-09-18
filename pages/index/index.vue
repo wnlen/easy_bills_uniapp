@@ -672,7 +672,7 @@ export default {
 						tips: '确认收货一键签单',
 						btnGroupPosition: '',
 						tipsPosition: {
-							top: '140rpx',
+							top: '138rpx',
 							left: '24rpx',
 							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc5.png)'
 						},
@@ -696,7 +696,7 @@ export default {
 						tips: '查询订单一览无余',
 						btnGroupPosition: '550rpx',
 						tipsPosition: {
-							top: '-260rpx',
+							top: '-256rpx',
 							left: '-70rpx',
 							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc4.png)'
 						},
@@ -720,7 +720,7 @@ export default {
 						tips: '快速切换收发端口',
 						btnGroupPosition: '10rpx',
 						tipsPosition: {
-							top: '54rpx',
+							top: '50rpx',
 							right: '26rpx',
 							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc1.png)'
 						},
@@ -744,7 +744,7 @@ export default {
 						tips: '简单快捷一键开单',
 						btnGroupPosition: '',
 						tipsPosition: {
-							top: '140rpx',
+							top: '138rpx',
 							left: '24rpx',
 							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc2.png)'
 						},
@@ -763,7 +763,7 @@ export default {
 						tips: '简单快捷一键开单',
 						btnGroupPosition: '',
 						tipsPosition: {
-							top: '140rpx',
+							top: '138rpx',
 							right: '26rpx',
 							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc3.png)'
 						},
@@ -787,7 +787,7 @@ export default {
 						tips: '查询订单一览无余',
 						btnGroupPosition: '550rpx',
 						tipsPosition: {
-							top: '-260rpx',
+							top: '-256rpx',
 							left: '-70rpx',
 							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc4.png)'
 						},
