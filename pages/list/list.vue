@@ -60,8 +60,10 @@
 							v-model="customer"
 							:customStyle="{ backgroundColor: 'transparent' }"
 							:placeholder="userStore.userRole === 'R' ? '请选择供应商' : '请选择客户'"
+							:clearable="true"
 							border="none"
 							@blur="inputblur"
+							@clear="onClear"
 						>
 							<template #prefix>
 								<view>
@@ -82,10 +84,10 @@
 							v-model="field"
 							:customStyle="{ backgroundColor: 'transparent' }"
 							placeholder="输入关键字进行检索"
-							:clearable="true"
 							border="none"
-							@change="searchListenner"
-							@confirm="searchListennerConfirm"
+							:clearable="true"
+							@blur="searchListennerConfirm"
+							@clear="onClear"
 						>
 							<template #prefix>
 								<up-text
@@ -110,10 +112,10 @@
 							maxlength="11"
 							:customStyle="{ backgroundColor: 'transparent' }"
 							placeholder="输入号码进行检索"
-							:clearable="true"
 							border="none"
-							@confirm="searchListennerConfirm"
-							@change="searchListenner"
+							:clearable="true"
+							@blur="searchListennerConfirm"
+							@clear="onClear"
 						>
 							<template #prefix>
 								<up-text
@@ -1069,6 +1071,12 @@ function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList,
 	isFromSwitchTab.value = false;
 }
 
+function onClear() {
+	setTimeout(() => {
+		inputblur('');
+	}, 1000); // 或者 100ms，根据需要调整
+}
+
 function inputblur(e) {
 	console.log('视角', e);
 	const ifWorkPort = userStore.userRole === 'R';
@@ -1642,7 +1650,7 @@ function searchListenner(e) {
 	}
 	if (!field.value) {
 		type.value = 1;
-		paging.value?.reload(); // 相当于 this.$refs.paging.reload()
+		paging.value?.reload();
 	}
 }
 function searchListennerConfirm(e) {
@@ -1676,7 +1684,7 @@ function searchListennerConfirm(e) {
 		// 产品名称
 	}
 	type.value = 1;
-	paging.value?.reload(); // 相当于 this.$refs.paging.reload()
+	paging.value?.reload();
 }
 function finallyAlertDel(resData, order) {
 	uni.$u.toast(resData.message);
