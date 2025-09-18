@@ -3,9 +3,7 @@
 		<up-navbar :autoBack="true" :placeholder="true" bgColor="#ffffff">
 			<template #center>
 				<view class="flex-row items-center justify-center ml48" style="width: 100%">
-					<view class="" style="font-size: 34rpx; font-weight: 510">
-						{{ title }}
-					</view>
+					<view class="" style="font-size: 34rpx; font-weight: 510">{{ title }}</view>
 					<view
 						@click="jumpVideo"
 						class="flex-row justify-center items-center ml12"
@@ -20,7 +18,7 @@
 			</template>
 		</up-navbar>
 
-		<up-tabs
+		<!-- <up-tabs
 			name="cate_name"
 			lineColor="#01BB74"
 			:activeStyle="{ color: '#01BB74' }"
@@ -29,7 +27,7 @@
 			:scrollable="false"
 			:current="currents"
 			@change="change"
-		></up-tabs>
+		></up-tabs> -->
 
 		<view class="flex-row ml24 mr24 mt24" style="display: flex">
 			<view class="ml5 mr5" style="flex: 1">
@@ -322,9 +320,6 @@ export default {
 			showAl: false,
 			list: [
 				{
-					name: '客户列表'
-				},
-				{
 					name: '销售列表'
 				}
 			],
@@ -368,19 +363,20 @@ export default {
 	onLoad() {
 		var ifWorkPort = this.pinia_userRole == 'R';
 		if (ifWorkPort) {
-			this.list[0].name = '供应商列表';
-			this.list[1].name = '供应列表';
-			uni.setNavigationBarTitle({
-				title: '供应商'
-			});
+			// this.list[0].name = '供应商列表';
+			// this.list[1].name = '供应列表';
+			// uni.setNavigationBarTitle({
+			// 	title: '供应商'
+			// });
 			this.title = '供应商';
 		} else {
-			uni.setNavigationBarTitle({
-				title: '客户'
-			});
-			this.list[0].name = '客户列表';
-			this.list[1].name = '销售列表';
+			// uni.setNavigationBarTitle({
+			// 	title: '客户'
+			// });
+			// this.list[0].name = '客户列表';
+			// this.list[1].name = '销售列表';
 			this.title = '客户';
+			console.log('hehhhhhhhhhhhhh', this.title);
 		}
 
 		var identity = this.pinia_user.data.work == '1' ? this.pinia_user.workData.identity != 4 : true;

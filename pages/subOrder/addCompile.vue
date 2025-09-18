@@ -653,6 +653,11 @@ export default {
 					state: 1
 				})
 				.then((res) => {
+					if (!res.data.data) {
+						this.$u.toast(res.data.message);
+						this.clear();
+						return;
+					}
 					this.staffNumberEName = res.data.data.user.name;
 				});
 		},
