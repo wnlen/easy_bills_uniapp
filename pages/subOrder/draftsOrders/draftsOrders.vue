@@ -936,6 +936,11 @@ export default {
 						port: port
 					})
 					.then((res) => {
+						if (!res.data.data) {
+							this.$u.toast(res.data.message);
+							this.clear();
+							return;
+						}
 						console.log('===edo/user/searchAddOrder==>', res);
 						var data = res.data.data;
 						var cRelation = data.cRelation;
@@ -1071,6 +1076,11 @@ export default {
 						port: port
 					})
 					.then((res) => {
+						if (!res.data.data) {
+							this.$u.toast(res.data.message);
+							this.clear();
+							return;
+						}
 						console.log('===edo/user/searchAddOrder==>', res);
 						var data = res.data.data;
 						var cRelation = data.cRelation;
