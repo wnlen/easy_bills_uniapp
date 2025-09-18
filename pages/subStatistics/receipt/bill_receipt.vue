@@ -383,7 +383,8 @@ export default {
 			this.TabList[0].name = '未付款';
 			this.TabList[1].name = '已付款';
 		}
-
+	},
+	onShow() {
 		var identity = this.pinia_user.data.work == '1' ? this.pinia_user.workData.identity != 4 : true;
 		this.identity = identity;
 		if (identity) {
@@ -394,7 +395,6 @@ export default {
 			});
 		}
 	},
-	onShow() {},
 	methods: {
 		SOCKETfLUSH() {
 			this.unwatchFlush = this.$watch(
@@ -827,7 +827,7 @@ export default {
 			this.billFrom.billState = '0';
 
 			this.billFrom.port = this.pinia_userRole;
-			this.$refs.paging.reload();
+			this.$refs.paging.refresh();
 			// this.SOCKETfLUSH();
 		},
 		TabChange(item) {
