@@ -91,6 +91,7 @@
 						<view>我的订购</view>
 					</view>
 				</view>
+				<!-- #ifdef MP-WEIXIN -->
 				<view class="icon" @click="menuClick(menusIcon[1])">
 					<view class="">
 						<up-icon size="100rpx" :name="ImgUrl + '/wxImg/user/grzl.png'"></up-icon>
@@ -98,6 +99,15 @@
 						<view>个人资料</view>
 					</view>
 				</view>
+				<!-- #endif -->
+				<!-- #ifndef MP-WEIXIN -->
+				<view class="icon" @click="menuClick('/pages/subAuth/dataAuthentication/dataAuthentication')">
+					<view class="">
+						<up-icon size="100rpx" :name="ImgUrl + '/wxImg/user/grzl.png'"></up-icon>
+						<view>资料认证</view>
+					</view>
+				</view>
+				<!-- #endif -->
 				<view class="icon" @click="menuClick(menusIcon[2])">
 					<view class="">
 						<up-icon size="100rpx" :name="ImgUrl + '/wxImg/user/rygl.png'"></up-icon>
@@ -105,6 +115,7 @@
 						<view>人员管理</view>
 					</view>
 				</view>
+				<!-- #ifdef MP-WEIXIN -->
 				<view class="icon" @click="menuClick(menusIcon[3])">
 					<view class="">
 						<up-icon size="100rpx" :name="ImgUrl + '/wxImg/user/qsgl.png'"></up-icon>
@@ -112,6 +123,16 @@
 						<view>签收管理</view>
 					</view>
 				</view>
+				<!-- #endif -->
+				<!-- #ifndef MP-WEIXIN -->
+				<view class="icon" @click="menuClick('/pages/subAuth/mySignature')">
+					<view class="">
+						<up-icon size="100rpx" :name="ImgUrl + '/wxImg/user/qsgl.png'"></up-icon>
+
+						<view>我的签名</view>
+					</view>
+				</view>
+				<!-- #endif -->
 			</view>
 			<view
 				class="card flex-row mt25 ml24 ml24 cardShowPlus justify-center items-center pb5 pt5"
@@ -191,6 +212,7 @@ export default {
 				}
 			],
 			menus: [
+				// #ifdef MP-WEIXIN
 				{
 					name: '公司资料',
 					icon: '/wxImg/user/rz.svg',
@@ -198,6 +220,16 @@ export default {
 					verify: false,
 					verifyLogin: true
 				},
+				// #endif
+				// #ifndef MP-WEIXIN
+				{
+					name: '法律签署设置',
+					icon: '/wxImg/user/rz.svg',
+					url: '/pages/subAuth/legalSignature',
+					verify: false,
+					verifyLogin: true
+				},
+				// #endif
 				{
 					name: '操作手册',
 					icon: '/wxImg/user/czsc-g.svg',
