@@ -441,9 +441,8 @@ export default {
 		if (this.pinia_token) {
 			const role = this.$u.getPinia('user.userRole');
 			const guidanceD = this.$u.getPinia('guide.guidanceD');
-			const guidanceR = this.$u.getPinia('guide.guidanceR');
-
-			if ((role === 'D' && guidanceD === 1) || (role === 'R' && guidanceR === 1)) {
+			// 只有发货端弹出提醒
+			if (role === 'D' && guidanceD === 1) {
 				this.openUnreceived();
 			}
 		}
@@ -509,7 +508,11 @@ export default {
 		},
 		//监听引导页结束
 		onGuideFinished() {
-			this.openUnreceived();
+			const role = this.$u.getPinia('user.userRole');
+			// 只有发货端弹出提醒
+			if (role === 'D') {
+				this.openUnreceived();
+			}
 		},
 		// 关闭未签收提醒弹窗
 		closeUnreceived() {
@@ -669,8 +672,8 @@ export default {
 						tips: '确认收货一键签单',
 						btnGroupPosition: '',
 						tipsPosition: {
-							top: '200rpx',
-							left: '0',
+							top: '140rpx',
+							left: '24rpx',
 							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc5.png)'
 						},
 						position: {
@@ -693,7 +696,7 @@ export default {
 						tips: '查询订单一览无余',
 						btnGroupPosition: '550rpx',
 						tipsPosition: {
-							top: '-270rpx',
+							top: '-260rpx',
 							left: '-70rpx',
 							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc4.png)'
 						},
@@ -717,8 +720,8 @@ export default {
 						tips: '快速切换收发端口',
 						btnGroupPosition: '10rpx',
 						tipsPosition: {
-							top: '100rpx',
-							right: '0',
+							top: '54rpx',
+							right: '26rpx',
 							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc1.png)'
 						},
 						img: {
@@ -741,8 +744,8 @@ export default {
 						tips: '简单快捷一键开单',
 						btnGroupPosition: '',
 						tipsPosition: {
-							top: '200rpx',
-							left: '0',
+							top: '140rpx',
+							left: '24rpx',
 							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc2.png)'
 						},
 						position: {
@@ -760,8 +763,8 @@ export default {
 						tips: '简单快捷一键开单',
 						btnGroupPosition: '',
 						tipsPosition: {
-							top: '200rpx',
-							right: '0',
+							top: '140rpx',
+							right: '26rpx',
 							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc3.png)'
 						},
 						position: {
@@ -784,7 +787,7 @@ export default {
 						tips: '查询订单一览无余',
 						btnGroupPosition: '550rpx',
 						tipsPosition: {
-							top: '-270rpx',
+							top: '-260rpx',
 							left: '-70rpx',
 							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc4.png)'
 						},
