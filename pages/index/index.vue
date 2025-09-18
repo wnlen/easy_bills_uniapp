@@ -146,7 +146,7 @@
 		<!-- 切换角色 -->
 		<pop-role ref="popRole"></pop-role>
 		<!-- 新手指引 -->
-		<pop-guide :max-step="4" :guideData="functionGuideData" ref="FunctionGuide"></pop-guide>
+		<pop-guide :max-step="4" :guideData="functionGuideData" ref="FunctionGuide" @step-change="onGuideStepChange" @finished="onGuideFinished"></pop-guide>
 		<!-- 自定义tab -->
 		<pop-tab ref="popTab" :tabIndex="0"></pop-tab>
 		<!-- 未签收提醒 -->
@@ -439,10 +439,11 @@ export default {
 	onLoad() {
 		// this.fetchDashboard();
 		if (this.pinia_token) {
-			if (
-				(this.$u.getPinia('user.userRole') == 'D' && this.$u.getPinia('guide.guidanceD') == 1) ||
-				(this.$u.getPinia('user.userRole') == 'R' && this.$u.getPinia('guide.guidanceR') == 1)
-			) {
+			const role = this.$u.getPinia('user.userRole');
+			const guidanceD = this.$u.getPinia('guide.guidanceD');
+			const guidanceR = this.$u.getPinia('guide.guidanceR');
+
+			if ((role === 'D' && guidanceD === 1) || (role === 'R' && guidanceR === 1)) {
 				this.openUnreceived();
 			}
 		}
@@ -488,25 +489,48 @@ export default {
 		}
 	},
 	methods: {
+		//监听引导页每一步位置
+		onGuideStepChange({ step }) {
+			console.log('监听', step);
+			this.setFunctionGuideData({ step });
+		},
+		//设置引导步骤
+		setFunctionGuideData(data) {
+			this.functionGuideData = {
+				...this.functionGuideData,
+				...data
+			};
+
+			if (this.pinia_userRole == 'D') {
+				this.showFunctionGuideD();
+			} else {
+				this.showFunctionGuideR();
+			}
+		},
+		//监听引导页结束
+		onGuideFinished() {
+			this.openUnreceived();
+		},
 		// 关闭未签收提醒弹窗
 		closeUnreceived() {
 			// 不再提醒操作
 			if (this.unreceivedValue.length) {
 				uni.$u.setPinia({
 					guide: {
-						unreceivedReminder: 1
+						unreceivedReminder: true
 					}
 				});
 			}
 			this.showUnreceived = false;
 		},
-		// 开启提醒弹窗
+		// 开启未签收提醒弹窗
 		openUnreceived() {
-			if (uni.$u.getPinia('guide.unreceivedReminder')) {
-				this.showUnreceived = false;
-			} else {
-				// 经过接口调用判断
-				this.showUnreceived = true;
+			if (!uni.$u.getPinia('guide.unreceivedReminder')) {
+				uni.$api.inform.getOrderNoticeReminder({}).then((res) => {
+					if (res.data.code == 200) {
+						this.showUnreceived = res.data.data;
+					}
+				});
 			}
 		},
 		getdaiban(type) {
@@ -595,8 +619,6 @@ export default {
 		},
 		// 监听数据
 		SOCKETfLUSH() {
-			console.log('univvvvvvvvvvvvvvvvv', uni);
-
 			const system = useSystemStore();
 			var that = this;
 			this.unwatchFlush = this.$watch(
@@ -637,18 +659,7 @@ export default {
 				this.$refs.FunctionGuide.init();
 			}
 		},
-		setFunctionGuideData(data) {
-			this.functionGuideData = {
-				...this.functionGuideData,
-				...data
-			};
 
-			if (this.pinia_userRole == 'D') {
-				this.showFunctionGuideD();
-			} else {
-				this.showFunctionGuideR();
-			}
-		},
 		showFunctionGuideR() {
 			if (this._step == this.functionGuideData.step) return;
 			this._step = this.functionGuideData.step;

@@ -9,29 +9,22 @@
 <script>
 let timer = null;
 let flag = false;
+
 export default {
 	name: 'pop-guide',
 	props: {
-		maxStep: {
-			type: Number,
-			default: 3
-		},
+		maxStep: { type: Number, default: 3 },
 		guideData: {
 			type: Object,
-			default: () => {
-				return {
-					step: 0,
-					tips: '', // 介绍
-					tipsPosition: '', // 介绍 显示位置
-					btnGroupPosition: '', // 按钮组显示位置
-					position: {}
-				};
-			}
+			default: () => ({
+				step: 0,
+				tips: '',
+				tipsPosition: '',
+				btnGroupPosition: '',
+				position: {}
+			})
 		},
-		guideType: {
-			type: String,
-			default: 'index' //goods为商品库引导页
-		}
+		guideType: { type: String, default: 'index' } // goods为商品库引导页
 	},
 	data() {
 		return {
@@ -42,120 +35,114 @@ export default {
 	watch: {
 		guideData: {
 			deep: true,
-			immediate: false,
 			handler(data) {
 				this.functionGuideData = data;
 			}
 		}
 	},
 	methods: {
+		// 供父组件调用：开始引导
 		init() {
 			if (this.show) return;
-			// setTimeout(() => {
-			// const show = uni.getStorageSync('showGuide')
-			const show = false;
+			const show = false; // 你原本逻辑
 			if (!show) {
 				this.show = true;
-				this.$parent.setFunctionGuideData({
-					step: 1
-				});
+				// ⬇️ 不再直接 $parent 调用，改为派发事件，请父组件去设定 step/定位
+				this.$emit('step-change', { step: 1 });
 			}
-			// }, 1000);
 		},
+
+		// 用户主动跳过
 		jump() {
-			this.$parent.setFunctionGuideData({
-				step: 'jump'
-			});
+			this.$emit('step-change', { step: 'jump' });
 			this.setFunctionGuideState();
+			// ⬇️ 可选：告诉父组件“引导完成/关闭”
+			this.$emit('finished');
 		},
 		next() {
 			this.throttle(() => {
 				if (this.functionGuideData.step == this.maxStep) {
-					this.jump();
+					this.completeFlow(); // 走统一完成逻辑
 					return;
 				}
-				let step = this.functionGuideData.step;
-				this.$parent.setFunctionGuideData({
-					step: step + 1
-				});
+				const step = this.functionGuideData.step;
+				// ⬇️ 不再直接 $parent 调用，改为事件让父组件改 step & 位置
+				this.$emit('step-change', { step: step + 1 });
 			}, 500);
 
-			console.log(this.functionGuideData.step);
-			if (this.guideType == 'goods') {
+			// goods 分支按你原逻辑
+			if (this.guideType === 'goods') {
 				if (this.functionGuideData.step == 2) {
-					this.$u.setPinia({
-						guide: {
-							guidanceGoods: 1
-						}
-					});
+					this.$u.setPinia({ guide: { guidanceGoods: 1 } });
 					this.show = false;
+					this.$emit('finished'); // 通知父组件：引导结束
 				}
 				return;
 			}
-			var port = this.pinia_userRole == 'D';
-			if (port) {
-				// if (this.$parent.guidancePage == 4) {
+
+			// 这里保留你的 D/R 分支判断，但不直接找父组件
+			const isD = this.pinia_userRole == 'D';
+			if (isD) {
 				if (this.functionGuideData.step == 4) {
-					//修改数据库
-					console.log('数据修改');
-					this.GuidanceDR(port);
-				} else {
-					// if (this.functionGuideData.step == 3) {
-					// 	uni.setStorageSync('guidance', 1);
-					// 	if (uni.getStorageSync('guidance') != '') {
-					// 		uni.switchTab({
-					// 			url: '/pages/user/index'
-					// 		});
-					// 	}
-					// }
+					this.GuidanceDR(true);
 				}
 			} else {
-				//收货端
 				if (this.functionGuideData.step == 2) {
-					this.GuidanceDR(port);
+					this.GuidanceDR(false);
 				}
 			}
 		},
-		GuidanceDR(port) {
-			if (this.$u.getPinia('user.userRole') == 'D') {
-				this.$u.setPinia({
-					guide: {
-						guidanceD: 1
-					}
-				});
+
+		// 统一引导完成流程（写 pinia、关引导、通知父组件）
+		completeFlow() {
+			this.GuidanceDR(this.pinia_userRole == 'D');
+		},
+
+		GuidanceDR(isDeliver) {
+			// ✅ 本地标记完成
+			if (this.$u.getPinia('user.userRole') === 'D') {
+				this.$u.setPinia({ guide: { guidanceD: 1 } });
 			} else {
-				this.$u.setPinia({
-					guide: {
-						guidanceR: 1
-					}
-				});
+				this.$u.setPinia({ guide: { guidanceR: 1 } });
 			}
+
 			this.show = false;
-			this.$parent.openUnreceived();
+
+			// ❗ 不再 this.$parent.openUnreceived()，改事件让父组件决定何时弹窗
+			// （父组件收到 finished 后，按需调用 openUnreceived）
+			this.$emit('finished');
+
+			// 保留你原来的用户刷新
 			this.$loadUser(this);
-			var dx = {
+
+			// ⚠️ 这里你原代码里 dx 的 guidanceD/guidanceR 似乎和 isDeliver 反着写了
+			// 如果 isDeliver===true 表示发货端，应该 guidanceD=1, guidanceR=0 更直观
+			const dx = {
 				phoneNumber: this.pinia_user.phone,
-				guidanceD: port ? 0 : 1,
-				guidanceR: port ? 1 : 0,
+				guidanceD: isDeliver ? 1 : 0,
+				guidanceR: isDeliver ? 0 : 1,
 				port: this.pinia_userRole
 			};
-
-			uni.$api.user.userGuidance(dx).then((res) => {});
+			uni.$api.user.userGuidance(dx).then(() => {});
 		},
+
 		setFunctionGuideState() {
 			this.show = false;
 		},
 
 		/* 节流 */
-		throttle(fn) {
+		throttle(fn, delay = 500) {
 			if (!flag) {
 				flag = true;
 				typeof fn === 'function' && fn();
 				timer = setTimeout(() => {
 					flag = false;
-				}, 500);
+				}, delay);
 			}
 		}
+	},
+	beforeDestroy() {
+		if (timer) clearTimeout(timer);
 	}
 };
 </script>

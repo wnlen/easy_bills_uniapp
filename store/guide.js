@@ -9,7 +9,7 @@ export const useGuideStore = defineStore('guide', {
 		guidanceD: null,
 		guidanceR: null,
 		guidanceGoods: null,
-		unreceivedReminder: null, //未签收提醒弹窗
+		unreceivedReminder: false, //不再弹出未签收提醒弹窗开关(默认false关闭)
 		guidance: 0,
 		draft: false
 	}),

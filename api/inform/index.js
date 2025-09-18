@@ -36,6 +36,13 @@ export default (http) => ({
 		return http.post('CNotice/get', params);
 	},
 	/**
+	 * 获取订单未签收提醒
+	 * 原始接口：/edo/CNotice/getOrderReminder
+	 */
+	getOrderNoticeReminder(params) {
+		return http.get('CNotice/getOrderReminder', params);
+	},
+	/**
 	 * 获取系统通知列表（可筛选、分页）
 	 * 原始接口：/edo/SystemInform/get
 	 */
