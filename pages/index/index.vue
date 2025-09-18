@@ -441,8 +441,9 @@ export default {
 		if (this.pinia_token) {
 			const role = this.$u.getPinia('user.userRole');
 			const guidanceD = this.$u.getPinia('guide.guidanceD');
-			// 只有发货端弹出提醒
-			if (role === 'D' && guidanceD === 1) {
+			const identity = pinia_user.workData.identity;
+			// 只有发货端弹出提醒 财务不谈
+			if (role === 'D' && guidanceD === 1 && identity != 3) {
 				this.openUnreceived();
 			}
 		}
@@ -509,8 +510,9 @@ export default {
 		//监听引导页结束
 		onGuideFinished() {
 			const role = this.$u.getPinia('user.userRole');
-			// 只有发货端弹出提醒
-			if (role === 'D') {
+			const identity = pinia_user.workData.identity;
+			// 只有发货端弹出提醒 财务不弹
+			if (role === 'D' && identity != 3) {
 				this.openUnreceived();
 			}
 		},
