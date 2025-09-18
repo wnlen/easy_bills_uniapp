@@ -797,6 +797,9 @@ text {
 .pb35 {
 	padding-bottom: 35rpx;
 }
+.pb36 {
+	padding-bottom: 36rpx;
+}
 .pb38 {
 	padding-bottom: 38rpx;
 }
@@ -845,6 +848,9 @@ text {
 }
 .pt35 {
 	padding-top: 35rpx;
+}
+.pt36 {
+	padding-top: 36rpx;
 }
 .pt38 {
 	padding-top: 38rpx;
@@ -1141,7 +1147,9 @@ text {
 .bottom-divider {
 	border-bottom: 18rpx solid #fafafa;
 }
-
+.border-bottom {
+	border-bottom: 1px solid #d8d8d8;
+}
 /* =========================
  * 15. 边框/阴影/卡片/水印
  * ========================= */

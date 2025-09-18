@@ -607,6 +607,27 @@
 						"enablePullDownRefresh": false,
 						"navigationBarBackgroundColor": "#fff"
 					}
+				},
+				{
+					"path": "legalSignature",
+					"style": {
+						"navigationBarTitleText": "法律签署设置",
+						"navigationBarBackgroundColor": "#fff"
+					}
+				},
+				{
+					"path": "mySignature",
+					"style": {
+						"navigationBarTitleText": "我的签名",
+						"navigationBarBackgroundColor": "#fff"
+					}
+				},
+				{
+					"path": "dataAuthentication/dataAuthentication",
+					"style": {
+						"navigationBarTitleText": "资料认证",
+						"navigationStyle": "custom"
+					}
 				}
 			]
 		},
