@@ -32,7 +32,8 @@
 							</view>
 						</liu-data-select>
 					</view>
-					<view class="" v-if="!moneyCALL" style="height: 100%; width: 63%">
+					<!-- 数据分析对接后展示tab -->
+					<!-- <view class="" v-if="!moneyCALL" style="height: 100%; width: 63%">
 						<up-tabs
 							:scrollable="false"
 							:list="tabslist"
@@ -42,8 +43,7 @@
 							:inactiveStyle="{ color: '#333', fontSize: '32rpx' }"
 							lineColor="#965510"
 						></up-tabs>
-						<!-- <text @click="jumpnView">数据分析></text> -->
-					</view>
+					</view> -->
 				</view>
 			</template>
 			<template #empty>
