@@ -1232,8 +1232,7 @@ function changeTab(item) {
 }
 
 function CustomerGetChange(e) {
-	const isPhone = /^\d{11}$/.test(e);
-	if (!isPhone) {
+	if (e) {
 		return; // 如果不是完整手机号，直接结束
 	}
 
