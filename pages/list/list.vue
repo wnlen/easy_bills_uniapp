@@ -62,6 +62,7 @@
 							:placeholder="userStore.userRole === 'R' ? '请选择供应商' : '请选择客户'"
 							:clearable="true"
 							border="none"
+							@blur="inputblur"
 							@change="(e) => CustomerGetChange(e)"
 						>
 							<template #prefix>
@@ -1070,6 +1071,18 @@ function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList,
 	isFromSwitchTab.value = false;
 }
 
+function inputblur(e) {
+	const ifWorkPort = userStore.userRole === 'R';
+	const changeText = e;
+
+	if (!ifWorkPort) {
+		realTimeSel.value.organizationE = changeText;
+	} else {
+		realTimeSel.value.enterpriseS = changeText;
+	}
+	paging.value?.reload();
+}
+
 function loadData() {
 	proxy.$loadUser(this);
 }
@@ -1154,6 +1167,7 @@ function refreshDataNew() {
 			// 	// uloading.value = false;
 			// } else {
 			// }
+
 			proxy.$api.order
 				.getFilteredOrders(realTimeSel.value)
 				.then((res) => {
@@ -1218,6 +1232,11 @@ function changeTab(item) {
 }
 
 function CustomerGetChange(e) {
+	const isPhone = /^\d{11}$/.test(e);
+	if (!isPhone) {
+		return; // 如果不是完整手机号，直接结束
+	}
+
 	const ifWorkPort = userStore.userRole === 'R';
 	const changeText = e;
 
