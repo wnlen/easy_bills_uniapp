@@ -696,7 +696,7 @@ export default {
 						tips: '查询订单一览无余',
 						btnGroupPosition: '550rpx',
 						tipsPosition: {
-							top: '-256rpx',
+							top: '-240rpx',
 							left: '-70rpx',
 							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc4.png)'
 						},
@@ -787,7 +787,7 @@ export default {
 						tips: '查询订单一览无余',
 						btnGroupPosition: '550rpx',
 						tipsPosition: {
-							top: '-256rpx',
+							top: '-240rpx',
 							left: '-70rpx',
 							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc4.png)'
 						},
