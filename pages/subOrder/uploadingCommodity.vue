@@ -196,6 +196,24 @@ export default {
 
 			this.addMerchandiseInventory(this.type);
 		},
+		// 设置上个页面首次添加提示弹窗
+		setTip() {
+			// 获取上一个页面的值
+			// 在当前页面中获取并修改上一页数据
+			let pages = getCurrentPages(); // 获取当前页面栈
+			console.log('pages', pages);
+			if (pages.length > 1) {
+				// 获取上一个页面实例
+				let prevPage = pages[pages.length - 2];
+				console.log('prevPage', prevPage);
+				if (!prevPage.$vm.orderList.length) {
+					// 修改上一页的数据
+					prevPage.$vm.$set(prevPage.$vm, 'showTip', true);
+					// 如果需要强制更新视图（某些特殊情况）
+					prevPage.$vm.$forceUpdate();
+				}
+			}
+		},
 		addMerchandiseInventory(type) {
 			if (!type) {
 				//修改
@@ -222,19 +240,7 @@ export default {
 							if (res.data.data > 0) {
 								this.uploadingCommodity.id = res.data.data;
 								this.$u.toast('添加成功');
-								// 获取上一个页面的值
-								// 在当前页面中获取并修改上一页数据
-								let pages = getCurrentPages(); // 获取当前页面栈
-								if (pages.length > 1) {
-									// 获取上一个页面实例
-									let prevPage = pages[pages.length - 2];
-									if (!prevPage.$vm.orderList.length) {
-										// 修改上一页的数据
-										prevPage.$vm.$set(prevPage.$vm, 'showTip', true);
-										// 如果需要强制更新视图（某些特殊情况）
-										prevPage.$vm.$forceUpdate();
-									}
-								}
+								this.setTip();
 								setTimeout(() => {
 									uni.navigateBack();
 								}, 1500);
@@ -280,9 +286,10 @@ export default {
 							if (res.data.data > 0) {
 								that.uploadingCommodity.id = res.data.data;
 								that.$u.toast('添加成功');
+								that.setTip();
 								setTimeout(function () {
 									uni.navigateBack();
-								}, 500);
+								}, 1500);
 							} else {
 								that.$u.toast(res.data.message);
 								this.check = true;
