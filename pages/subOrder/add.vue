@@ -551,12 +551,9 @@ export default {
 	},
 	onShow() {
 		// #ifdef MP-WEIXIN
-		// this.$refs.popAuth.authShow = false;
-		// this.$refs.popOrder.authShow = false;
-		// this.showShare = false;
-		// #endif
-
-		// #ifdef MP-WEIXIN
+		this.$refs.popAuth.authShow = false;
+		this.$refs.popOrder.authShow = false;
+		this.showShare = false;
 		this.addOrderIfOk();
 		// #endif
 		if (uni.getStorageSync('inventoryStockpile') != undefined && uni.getStorageSync('inventoryStockpile') != null && uni.getStorageSync('inventoryStockpile') != '') {
