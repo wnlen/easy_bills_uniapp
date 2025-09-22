@@ -175,6 +175,7 @@ export default {
 			price: 0,
 			pricb: 0,
 			menusIcon: [
+				// #ifdef MP-WEIXIN
 				{
 					id: 1,
 					verify: true,
@@ -182,7 +183,19 @@ export default {
 					name: '我的订单',
 					icon: 'level',
 					url: '/pages/subPack/user/my_order/my_order'
+					// url: '/pages/subPack/user/app_order/app_order'
 				},
+				// #endif
+				// #ifndef MP-WEIXIN
+				{
+					id: 1,
+					verify: false,
+					verifyLogin: false,
+					name: '我的订单',
+					icon: 'level',
+					url: '/pages/subPack/user/app_order/app_order'
+				},
+				// #endif
 				{
 					id: 2,
 					verify: false,

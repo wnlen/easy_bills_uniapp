@@ -281,6 +281,13 @@
 					"style": {
 						"navigationBarTitleText": "教程"
 					}
+				},
+				{
+					"path": "user/app_order/app_order",
+					"style": {
+						"navigationBarTitleText": "我的订购",
+						"navigationStyle": "custom"
+					}
 				}
 			]
 		},
