@@ -271,7 +271,7 @@ export default {
 			state: 0,
 			searchNumber: '',
 			searchUser: [],
-			defaultImg: '/static/img/obj/defind.svg',
+			defaultImg: 'https://res-oss.elist.com.cn/wxImg/obj/defind.svg',
 			phone: '',
 			addstaff: uni.getStorageSync('addstaff'),
 			showSF: false,

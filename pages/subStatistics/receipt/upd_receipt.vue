@@ -142,18 +142,18 @@
 						<up-icon size="28rpx" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></up-icon>
 					</view>
 					<view class="ml20" style="margin-right: -20rpx">
-						<up-image v-if="pinia_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="/static/img/obj/bq1.png"></up-image>
-						<up-image v-if="pinia_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="/static/img/obj/dqs.png"></up-image>
-						<up-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="/static/img/obj/bq2.png" :lazy-load="true"></up-image>
+						<up-image v-if="pinia_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="https://res-oss.elist.com.cn/wxImg/obj/bq1.png"></up-image>
+						<up-image v-if="pinia_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="https://res-oss.elist.com.cn/wxImg/obj/dqs.png"></up-image>
+						<up-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="https://res-oss.elist.com.cn/wxImg/obj/bq2.png" :lazy-load="true"></up-image>
 						<up-image
 							v-if="pinia_userRole != 'R' && item.paymentState == '2'"
 							width="120rpx"
 							height="50rpx"
 							class="u-img"
-							src="/static/img/obj/bq3.png"
+							src="https://res-oss.elist.com.cn/wxImg/obj/bq3.png"
 							:lazy-load="true"
 						></up-image>
-						<up-image v-if="pinia_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="/static/img/obj/yfk.png"></up-image>
+						<up-image v-if="pinia_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="https://res-oss.elist.com.cn/wxImg/obj/yfk.png"></up-image>
 					</view>
 				</view>
 				<view class="width100 pb25 text-left">
@@ -255,21 +255,21 @@
 												class="u-img"
 												width="120rpx"
 												height="50rpx"
-												src="/static/img/obj/bq1.png"
+												src="https://res-oss.elist.com.cn/wxImg/obj/bq1.png"
 											></up-image>
 											<up-image
 												v-if="pinia_userRole == 'R' && item.paymentState == '0'"
 												class="u-img"
 												width="120rpx"
 												height="50rpx"
-												src="/static/img/obj/dqs.png"
+												src="https://res-oss.elist.com.cn/wxImg/obj/dqs.png"
 											></up-image>
 											<up-image
 												v-if="item.paymentState == '1'"
 												width="120rpx"
 												height="50rpx"
 												class="u-img"
-												src="/static/img/obj/bq2.png"
+												src="https://res-oss.elist.com.cn/wxImg/obj/bq2.png"
 												:lazy-load="true"
 											></up-image>
 											<up-image
@@ -277,7 +277,7 @@
 												width="120rpx"
 												height="50rpx"
 												class="u-img"
-												src="/static/img/obj/bq3.png"
+												src="https://res-oss.elist.com.cn/wxImg/obj/bq3.png"
 												:lazy-load="true"
 											></up-image>
 											<up-image
@@ -285,7 +285,7 @@
 												class="u-img"
 												width="120rpx"
 												height="50rpx"
-												src="/static/img/obj/yfk.png"
+												src="https://res-oss.elist.com.cn/wxImg/obj/yfk.png"
 											></up-image>
 										</view>
 									</view>

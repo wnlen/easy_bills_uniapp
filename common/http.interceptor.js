@@ -75,8 +75,8 @@ export const initRequest = () => {
 	}
 
 	http.setConfig((config) => {
-		// config.baseURL = 'https://wxapi.elist.com.cn/edo/'
-		config.baseURL = 'https://wxapi.elist.com.cn/test/edo/';
+		config.baseURL = 'https://wxapi.elist.com.cn/edo/'
+		// config.baseURL = 'https://wxapi.elist.com.cn/test/edo/';
 		// config.baseURL = 'http://192.168.124.2:8081/test/edo/';
 		config.showLoading = true;
 		config.loadingText = '加载中~';

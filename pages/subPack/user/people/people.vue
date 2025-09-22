@@ -411,7 +411,7 @@ export default {
 					// }
 				]
 			},
-			img: '/static/img/obj/defind.svg',
+			img: 'https://res-oss.elist.com.cn/wxImg/obj/defind.svg',
 			subjectRole: 0,
 			scanResult: '',
 			gs: '',
