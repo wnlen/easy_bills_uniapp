@@ -201,7 +201,7 @@
 					<view class="" style="width: 10%">
 						<up-image
 							:show-menu-by-longpress="false"
-							:src="item2.img == 'zx' ? '/static/img/obj/zx.svg' : item2.img == undefined ? headimg() : item2.img == 'wsz' ? '/static/img/obj/defind.svg' : item2.img"
+							:src="item2.img == 'zx' ? 'https://res-oss.elist.com.cn/wxImg/obj/zx.svg' : item2.img == undefined ? headimg() : item2.img == 'wsz' ? 'https://res-oss.elist.com.cn/wxImg/obj/defind.svg' : item2.img"
 							width="90rpx"
 							height="90rpx"
 							shape="circle"

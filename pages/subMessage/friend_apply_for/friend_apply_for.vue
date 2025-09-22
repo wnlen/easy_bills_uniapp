@@ -49,7 +49,7 @@ export default {
 			applyFriendList: [],
 			resApiO: [],
 			resApiT: [],
-			defaultImg: '/static/img/obj/defind.svg',
+			defaultImg: 'https://res-oss.elist.com.cn/wxImg/obj/defind.svg',
 			SHOW: 0,
 			customStyle: {
 				width: '40px',

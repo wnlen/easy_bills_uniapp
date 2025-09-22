@@ -571,7 +571,7 @@ export default {
 			jurisdiction: {},
 			jurisdictionOrdder: [],
 			renew: {},
-			img: '/static/img/obj/defind.svg',
+			img: 'https://res-oss.elist.com.cn/wxImg/obj/defind.svg',
 			line: [],
 			showIdently: false,
 			srdz: {

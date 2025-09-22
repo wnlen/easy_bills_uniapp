@@ -94,7 +94,7 @@
 				effect3d-previous-margin="-10"
 				border-radius="18"
 			></up-swiper>
-			<!-- <image src="/static/img/index/new/banner.png" style="width: 100%;" mode="widthFix"></image> -->
+			<!-- <image src="https://res-oss.elist.com.cn/wxImg/index/new/banner.png" style="width: 100%;" mode="widthFix"></image> -->
 		</view>
 		<!-- 权限到期提示弹窗 -->
 		<up-overlay :show="expireShow">
@@ -322,31 +322,31 @@ export default {
 			iconlistD: [
 				{
 					title: '客户',
-					icon: '/static/img/index/new/icon1.png',
+					icon: 'https://res-oss.elist.com.cn/wxImg/index/new/icon1.png',
 					path: '/pages/subIndex/my_customer/my_customer',
 					count: 0
 				},
 				{
 					title: '商品库',
-					icon: '/static/img/index/new/icon2.png',
+					icon: 'https://res-oss.elist.com.cn/wxImg/index/new/icon2.png',
 					path: '/pages/subOrder/commodityDetails/nventoryCommodities',
 					count: 0
 				},
 				{
 					title: '草稿箱',
-					icon: '/static/img/index/new/icon3.png',
+					icon: 'https://res-oss.elist.com.cn/wxImg/index/new/icon3.png',
 					path: '/pages/subOrder/drafts',
 					count: 0
 				},
 				{
 					title: '待办事项',
-					icon: '/static/img/index/new/icon4.png',
+					icon: 'https://res-oss.elist.com.cn/wxImg/index/new/icon4.png',
 					path: '/pages/subIndex/backlog/backlog',
 					count: 0
 				},
 				{
 					title: '更多功能',
-					icon: '/static/img/index/new/icon5.png',
+					icon: 'https://res-oss.elist.com.cn/wxImg/index/new/icon5.png',
 					path: '/pages/subPack/more/more?tid=更多功能',
 					count: 0
 				}
@@ -354,31 +354,31 @@ export default {
 			iconlistR: [
 				{
 					title: '供应商',
-					icon: '/static/img/index/new/icon1.png',
+					icon: 'https://res-oss.elist.com.cn/wxImg/index/new/icon1.png',
 					path: '/pages/subIndex/my_customer/my_customer',
 					count: 0
 				},
 				{
 					title: '待办事项',
-					icon: '/static/img/index/new/icon4.png',
+					icon: 'https://res-oss.elist.com.cn/wxImg/index/new/icon4.png',
 					path: '/pages/subIndex/backlog/backlog',
 					count: 0
 				},
 				{
 					title: '付款单列表',
-					icon: '/static/img/index/new/icon6.png',
+					icon: 'https://res-oss.elist.com.cn/wxImg/index/new/icon6.png',
 					path: '/pages/subStatistics/receipt/bill_receipt?tid=付款单列表',
 					count: 0
 				},
 				{
 					title: '开付款单',
-					icon: '/static/img/index/new/icon7.png',
+					icon: 'https://res-oss.elist.com.cn/wxImg/index/new/icon7.png',
 					path: '/pages/subStatistics/receipt/receipt?tid=开付款单',
 					count: 0
 				},
 				{
 					title: '更多功能',
-					icon: '/static/img/index/new/icon5.png',
+					icon: 'https://res-oss.elist.com.cn/wxImg/index/new/icon5.png',
 					path: '/pages/subPack/more/more?tid=更多功能',
 					count: 0
 				}
@@ -387,31 +387,31 @@ export default {
 			iconlistC: [
 				{
 					title: '客户',
-					icon: '/static/img/index/new/icon1.png',
+					icon: 'https://res-oss.elist.com.cn/wxImg/index/new/icon1.png',
 					path: '/pages/subIndex/my_customer/my_customer',
 					count: 0
 				},
 				{
-					icon: '/static/img/index/new/icon6.png',
+					icon: 'https://res-oss.elist.com.cn/wxImg/index/new/icon6.png',
 					title: '收款单列表',
 					path: '/pages/subStatistics/receipt/bill_receipt',
 					count: 0
 				},
 				{
-					icon: '/static/img/index/new/icon7.png',
+					icon: 'https://res-oss.elist.com.cn/wxImg/index/new/icon7.png',
 					title: '开收款单',
 					path: '/pages/subStatistics/receipt/receipt?tid=开收款单',
 					count: 0
 				},
 				{
 					title: '待办事项',
-					icon: '/static/img/index/new/icon4.png',
+					icon: 'https://res-oss.elist.com.cn/wxImg/index/new/icon4.png',
 					path: '/pages/subIndex/backlog/backlog',
 					count: 0
 				},
 				{
 					title: '更多功能',
-					icon: '/static/img/index/new/icon5.png',
+					icon: 'https://res-oss.elist.com.cn/wxImg/index/new/icon5.png',
 					path: '/pages/subPack/more/more?tid=更多功能',
 					count: 0
 				}
@@ -421,13 +421,13 @@ export default {
 				{
 					name: '开送货单',
 					sub: '三步完成开单',
-					icon: '/static/img/index/new/index1.png',
+					icon: 'https://res-oss.elist.com.cn/wxImg/index/new/index1.png',
 					path: '/pages/subOrder/add'
 				},
 				{
 					name: '统计对账',
 					sub: '下载统计表',
-					icon: '/static/img/index/new/index2.png',
+					icon: 'https://res-oss.elist.com.cn/wxImg/index/new/index2.png',
 					path: '/pages/subStatistics/statistics'
 				}
 			],
@@ -934,13 +934,13 @@ export default {
 					{
 						name: '开送货单',
 						sub: '三步完成开单',
-						icon: '/static/img/index/new/index1.png',
+						icon: 'https://res-oss.elist.com.cn/wxImg/index/new/index1.png',
 						path: '/pages/subOrder/add'
 					},
 					{
 						name: '统计对账',
 						sub: '下载统计表',
-						icon: '/static/img/index/new/index2.png',
+						icon: 'https://res-oss.elist.com.cn/wxImg/index/new/index2.png',
 						path: '/pages/subStatistics/statistics'
 					}
 				];
@@ -992,13 +992,13 @@ export default {
 					{
 						name: '送货单签收',
 						sub: '在线电子签署',
-						icon: '/static/img/index/new/index3.png',
+						icon: 'https://res-oss.elist.com.cn/wxImg/index/new/index3.png',
 						path: '/pages/subPack/pending/pending'
 					},
 					{
 						name: '统计对账',
 						sub: '下载统计表',
-						icon: '/static/img/index/new/index2.png',
+						icon: 'https://res-oss.elist.com.cn/wxImg/index/new/index2.png',
 						path: '/pages/subStatistics/statistics'
 					}
 				];

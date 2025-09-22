@@ -37,11 +37,11 @@
 		<view v-if="show != 0" class="flex-col mt20 ml48 mr48">
 			<view class="flex-row justify-between items-center pl20 pt30 pb30 radius mb10">
 				<view class="flex-row items-center">
-					<up-image width="60" height="60" shape="circle" :src="pinia_user.data.headPortrait || '/static/img/obj/defind.svg'" :show-menu-by-longpress="false"></up-image>
+					<up-image width="60" height="60" shape="circle" :src="pinia_user.data.headPortrait || 'https://res-oss.elist.com.cn/wxImg/obj/defind.svg'" :show-menu-by-longpress="false"></up-image>
 					<view class="ml30 mr20" style="max-width: 100px; font-weight: bold; font-size: 16px">
 						{{ pinia_user.data.name }}
 					</view>
-					<up-image class="ml15" width="50" height="20" src="/static/img/obj/yrz.svg" :show-menu-by-longpress="false"></up-image>
+					<up-image class="ml15" width="50" height="20" src="https://res-oss.elist.com.cn/wxImg/obj/yrz.svg" :show-menu-by-longpress="false"></up-image>
 				</view>
 				<up-button
 					v-if="pinia_user.workData.id == null"

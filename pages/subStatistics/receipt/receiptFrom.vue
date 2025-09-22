@@ -185,7 +185,7 @@
 </template>
 
 <script>
-import chooseFile from '@/common/file.js';
+import chooseFile from './../file.js';
 export default {
 	data() {
 		return {
