@@ -6,7 +6,7 @@
 				<text :class="actBtn == 0 ? 'actBtn' : ''" @click="actBtn = 0">企业</text>
 				<text :class="actBtn == 1 ? 'actBtn' : ''" @click="actBtn = 1">个体工商户</text>
 			</view>
-			<view class="title">认证方式</view>
+			<view class="title title1">认证方式</view>
 			<view class="titleBox flex-row items-center">
 				<text class="actBtn">法定代表人</text>
 			</view>
@@ -133,11 +133,10 @@ export default {
 .title {
 	padding: 36rpx 0 32rpx;
 	font-size: 30rpx;
-	&:nth-child(2 of .title) {
-		padding-top: 46rpx;
-	}
 }
-
+.title1 {
+	padding-top: 46rpx !important;
+}
 .titleBox > text {
 	min-width: 93px;
 	border-radius: 5px;

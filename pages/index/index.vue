@@ -441,7 +441,7 @@ export default {
 		if (this.pinia_token) {
 			const role = this.$u.getPinia('user.userRole');
 			const guidanceD = this.$u.getPinia('guide.guidanceD');
-			const identity = pinia_user.workData.identity;
+			const identity = this.pinia_user.workData.identity;
 			// 只有发货端弹出提醒 财务不谈
 			if (role === 'D' && guidanceD === 1 && identity != 3) {
 				this.openUnreceived();
