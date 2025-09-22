@@ -101,7 +101,7 @@
 				</view>
 				<!-- #endif -->
 				<!-- #ifndef MP-WEIXIN -->
-				<view class="icon" @click="menuClick('/pages/subAuth/dataAuthentication/dataAuthentication')">
+				<view class="icon" @click="menuClick({ url: '/pages/subAuth/dataAuthentication/dataAuthentication', verifyLogin: true })">
 					<view class="">
 						<up-icon size="100rpx" :name="ImgUrl + '/wxImg/user/grzl.png'"></up-icon>
 						<view>资料认证</view>
@@ -119,16 +119,14 @@
 				<view class="icon" @click="menuClick(menusIcon[3])">
 					<view class="">
 						<up-icon size="100rpx" :name="ImgUrl + '/wxImg/user/qsgl.png'"></up-icon>
-
 						<view>签收管理</view>
 					</view>
 				</view>
 				<!-- #endif -->
 				<!-- #ifndef MP-WEIXIN -->
-				<view class="icon" @click="menuClick('/pages/subAuth/mySignature')">
+				<view class="icon" @click="menuClick({ url: '/pages/subAuth/mySignature', verifyLogin: true })">
 					<view class="">
 						<up-icon size="100rpx" :name="ImgUrl + '/wxImg/user/qsgl.png'"></up-icon>
-
 						<view>我的签名</view>
 					</view>
 				</view>

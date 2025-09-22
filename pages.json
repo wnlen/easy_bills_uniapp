@@ -628,6 +628,20 @@
 						"navigationBarTitleText": "资料认证",
 						"navigationStyle": "custom"
 					}
+				},
+				{
+					"path": "dataAuthentication/personalAuth",
+					"style": {
+						"navigationBarTitleText": "个人实名认证",
+						"navigationBarBackgroundColor": "#fff"
+					}
+				},
+				{
+					"path": "dataAuthentication/enterpriseAuth",
+					"style": {
+						"navigationBarTitleText": "企业实名认证",
+						"navigationBarBackgroundColor": "#fff"
+					}
 				}
 			]
 		},

@@ -2,11 +2,11 @@
 	<view class="content">
 		<up-navbar
 			:placeholder="true"
-			:custom-back="jump"
+			@leftClick="jump"
 			:border-bottom="false"
 			:titleBold="true"
 			title-color="#000000"
-			title="发票审核"
+			:title="type == 1 ? '发票审核' : type == 2 ? '实名认证审核' : '企业认证审核'"
 			title-size="34"
 			bgColor="#ffffff"
 		></up-navbar>
@@ -16,8 +16,10 @@
 			</view>
 			<view class="success">申请提交成功</view>
 			<view class="ts mt10 flex-col justify-center">
-				<text>发票正在审核中，工作人员将会在</text>
-				<text>三个工作日内审核您的提交</text>
+				<text v-if="type == 1">发票正在审核中，工作人员将</text>
+				<text v-else-if="type == 2">实名认证正在审核中，工作人员将</text>
+				<text v-else>企业认证正在审核中，工作人员将</text>
+				<text>会在三个工作日内审核您的提交</text>
 			</view>
 		</view>
 	</view>
@@ -26,12 +28,17 @@
 <script>
 export default {
 	data() {
-		return {};
+		return {
+			type: 1 //1.发票审核 2.个人认证，3.企业认证
+		};
+	},
+	onLoad(e) {
+		this.type = e.type;
 	},
 	methods: {
 		jump() {
-			uni.redirectTo({
-				url: '/pages/subPack/user/my_order/my_order?tab=1'
+			uni.navigateBack({
+				delta: 2 // 返回的页面数，默认为1（上一级）
 			});
 		}
 	}
