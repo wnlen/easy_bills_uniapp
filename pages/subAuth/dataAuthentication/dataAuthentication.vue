@@ -15,7 +15,14 @@
 			<view class="">
 				<view class="title">个人资料</view>
 				<view class="content1">
-					<view class="flex-row justify-between items-center pt36 pb36 border-bottom">
+					<view
+						class="flex-row justify-between items-center pt36 pb36 border-bottom"
+						@click="
+							uni.navigateTo({
+								url: '/pages/subUser/userinfo'
+							})
+						"
+					>
 						<view class="flex-row items-start">
 							<image src="https://res-oss.elist.com.cn/app/img/grxx.svg" class="smallImg"></image>
 							<view class="flex-col">
@@ -27,13 +34,20 @@
 					</view>
 					<view class="flex-row justify-between items-center pt36 pb36">
 						<view class="flex-row items-start">
-							<image src="https://res-oss.elist.com.cn/app/img/grsm.svg" class="smallImg"></image>
+							<image src="https://res-oss.elist.com.cn/app/img/grsmrz.svg" class="smallImg"></image>
 							<view class="flex-col">
 								<text class="ft30">个人实名</text>
 								<text class="ft-lightgray mt10 tisp ft24">配合法律签署包使用</text>
 							</view>
 						</view>
-						<view class="flex-row items-center justify-center toBtn">
+						<view
+							class="flex-row items-center justify-center toBtn"
+							@click="
+								uni.navigateTo({
+									url: '/pages/subAuth/dataAuthentication/personalAuth'
+								})
+							"
+						>
 							<text>去实名</text>
 							<wd-icon name="arrow-right" size="20rpx" color="#fff"></wd-icon>
 						</view>
@@ -44,7 +58,7 @@
 			<view class="">
 				<view class="title">公司资料</view>
 				<view class="content1">
-					<view class="flex-row justify-between items-center pt36 pb36 border-bottom">
+					<view class="flex-row justify-between items-center pt36 pb36 border-bottom" @click="jump">
 						<view class="flex-row items-start">
 							<image src="https://res-oss.elist.com.cn/app/img/gsxx.svg" class="smallImg"></image>
 							<view class="flex-col">
@@ -62,11 +76,18 @@
 								<text class="ft-lightgray mt10 tisp ft24">配合法律签署包使用</text>
 							</view>
 						</view>
-						<!-- <view class="flex-row items-center justify-center toBtn">
+						<view
+							class="flex-row items-center justify-center toBtn"
+							@click="
+								uni.navigateTo({
+									url: '/pages/subAuth/dataAuthentication/enterpriseAuth'
+								})
+							"
+						>
 							<text>去认证</text>
 							<wd-icon name="arrow-right" size="20rpx" color="#fff"></wd-icon>
-						</view> -->
-						<view class="ft-green">已认证✓</view>
+						</view>
+						<!-- <view class="ft-green">已认证✓</view> -->
 					</view>
 				</view>
 			</view>
@@ -79,7 +100,9 @@ export default {
 	data() {
 		return {};
 	},
-	methods: {}
+	methods: {
+		jump() {}
+	}
 };
 </script>
 

@@ -161,7 +161,7 @@ export default {
 
 			this.invoice.phone = this.pinia_user.phone;
 			this.invoice.type = this.type ? 1 : 0;
-			this.invoice.createTime = new Date();
+			this.invoice.createTime = new Date().getTime();
 
 			console.log(this.invoice);
 
@@ -170,8 +170,8 @@ export default {
 				.then((res) => {
 					if (res.data.data == '1') {
 						this.$u.toast('申请成功 ');
-						uni.reLaunch({
-							url: '/pages/subUser/invoice/invoiceSucess'
+						uni.navigateTo({
+							url: '/pages/subUser/invoice/invoiceSucess?type=1'
 						});
 					} else {
 						this.$u.toast('重复申请 ');

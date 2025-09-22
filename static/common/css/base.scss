@@ -71,7 +71,7 @@ text {
 	color: #d80d18;
 }
 .ft-green {
-	color: #01bb74;
+	color: #01bb74 !important;
 }
 .ft-orange {
 	color: #ff9417;
@@ -95,7 +95,9 @@ text {
 .ft-bold {
 	font-weight: bold;
 }
-
+.ft-500 {
+	font-weight: 500;
+}
 /* =========================
  * 4. 背景色（语义背景）
  * ========================= */
@@ -208,6 +210,9 @@ text {
 }
 .line39 {
 	line-height: 39rpx;
+}
+.line60 {
+	line-height: 60rpx;
 }
 .ft40 {
 	font-size: 40rpx;
