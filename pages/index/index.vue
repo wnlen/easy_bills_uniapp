@@ -510,7 +510,7 @@ export default {
 		//监听引导页结束
 		onGuideFinished() {
 			const role = this.$u.getPinia('user.userRole');
-			const identity = pinia_user.workData.identity;
+			const identity = this.pinia_user.workData.identity;
 			// 只有发货端弹出提醒 财务不弹
 			if (role === 'D' && identity != 3) {
 				this.openUnreceived();
