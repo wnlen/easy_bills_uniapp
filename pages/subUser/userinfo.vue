@@ -56,7 +56,9 @@
 				<text class="ft-gray">状态</text>
 				<view class="flex-row justify-end items-center flex-1" @click="jump">
 					<up-tag v-if="ac ? ac.id != undefined : false" :plain="true" text="已完善" borderColor="#01BB74" color="#01BB74" @click="jump" />
-					<up-tag v-if="ac ? ac.id == undefined : true" :plain="true" text="未完善" type="error" @click="jump" />
+					<wd-badge :is-dot="ac ? ac.id == undefined : true" bg-color="#FA5151" :top="2" :right="0">
+						<up-tag v-if="ac ? ac.id == undefined : true" :plain="true" text="未完善" type="error" @click="jump" />
+					</wd-badge>
 				</view>
 			</view>
 			<view class="flex-row pt35 pb35 u-border-bottom items-center justify-between">

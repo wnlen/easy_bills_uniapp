@@ -61,15 +61,14 @@
 								</view>
 							</view>
 							<view class="">
-								<view class="ft-zjj-05" @click="userClick">
+								<view class="ft-zjj-05" @click="acClick">
 									<view class="flex-row items-center">
 										<up-icon size="50rpx" :name="ImgUrl + '/wxImg/user/my-emp.png'"></up-icon>
-
-										<!-- 										<text class="pb5"
-											style="color: #525252;">{{(pinia_user.ac?pinia_user.ac.enterpriseName:'未完善公司信息')}}</text> -->
-										<text class="pb5" style="color: #525252">
-											{{ pinia_user.ac ? (pinia_user.ac.enterpriseName ? pinia_user.ac.enterpriseName : '***********') : '未完善公司信息' }}
-										</text>
+										<wd-badge :is-dot="!pinia_user.ac" bg-color="#FA5151" :top="2" :right="0">
+											<text class="pb5" style="color: #525252">
+												{{ pinia_user.ac ? (pinia_user.ac.enterpriseName ? pinia_user.ac.enterpriseName : '***********') : '未完善公司信息' }}
+											</text>
+										</wd-badge>
 									</view>
 								</view>
 								<view class="items-center absolute" @click="generateCode" style="right: 5%; top: 14%">
@@ -84,53 +83,14 @@
 
 		<view class="user-menu" style="position: relative; z-index: 10">
 			<view class="card flex-row bg-white mt25 ml24 mr24 cardShowPlus" style="border-radius: 6px; height: 12vh">
-				<view class="icon" style="" id="box">
-					<view class="" @click="menuClick(menusIcon[0])">
-						<up-icon size="100rpx" :name="ImgUrl + '/wxImg/user/wddd.png'"></up-icon>
-
-						<view>我的订购</view>
+				<view class="icon" style="" v-for="(item, index) in menusIcon" :key="index">
+					<view class="" @click="menuClick(item)">
+						<wd-badge :is-dot="!pinia_user.password && item.showDot" bg-color="#FA5151" :top="5" :right="7">
+							<up-icon size="100rpx" :name="ImgUrl + item.icon"></up-icon>
+						</wd-badge>
+						<view>{{ item.name }}</view>
 					</view>
 				</view>
-				<!-- #ifdef MP-WEIXIN -->
-				<view class="icon" @click="menuClick(menusIcon[1])">
-					<view class="">
-						<up-icon size="100rpx" :name="ImgUrl + '/wxImg/user/grzl.png'"></up-icon>
-
-						<view>个人资料</view>
-					</view>
-				</view>
-				<!-- #endif -->
-				<!-- #ifndef MP-WEIXIN -->
-				<view class="icon" @click="menuClick({ url: '/pages/subAuth/dataAuthentication/dataAuthentication', verifyLogin: true })">
-					<view class="">
-						<up-icon size="100rpx" :name="ImgUrl + '/wxImg/user/grzl.png'"></up-icon>
-						<view>资料认证</view>
-					</view>
-				</view>
-				<!-- #endif -->
-				<view class="icon" @click="menuClick(menusIcon[2])">
-					<view class="">
-						<up-icon size="100rpx" :name="ImgUrl + '/wxImg/user/rygl.png'"></up-icon>
-
-						<view>人员管理</view>
-					</view>
-				</view>
-				<!-- #ifdef MP-WEIXIN -->
-				<view class="icon" @click="menuClick(menusIcon[3])">
-					<view class="">
-						<up-icon size="100rpx" :name="ImgUrl + '/wxImg/user/qsgl.png'"></up-icon>
-						<view>签收管理</view>
-					</view>
-				</view>
-				<!-- #endif -->
-				<!-- #ifndef MP-WEIXIN -->
-				<view class="icon" @click="menuClick({ url: '/pages/subAuth/mySignature', verifyLogin: true })">
-					<view class="">
-						<up-icon size="100rpx" :name="ImgUrl + '/wxImg/user/qsgl.png'"></up-icon>
-						<view>我的签名</view>
-					</view>
-				</view>
-				<!-- #endif -->
 			</view>
 			<view
 				class="card flex-row mt25 ml24 ml24 cardShowPlus justify-center items-center pb5 pt5"
@@ -181,46 +141,70 @@ export default {
 					verify: true,
 					verifyLogin: true,
 					name: '我的订单',
-					icon: 'level',
+					icon: '/wxImg/user/wddd.png',
 					url: '/pages/subPack/user/my_order/my_order'
-					// url: '/pages/subPack/user/app_order/app_order'
 				},
 				// #endif
 				// #ifndef MP-WEIXIN
 				{
 					id: 1,
-					verify: false,
-					verifyLogin: false,
+					verify: true,
+					verifyLogin: true,
 					name: '我的订单',
-					icon: 'level',
+					icon: '/wxImg/user/wddd.png',
 					url: '/pages/subPack/user/app_order/app_order'
 				},
 				// #endif
+				// #ifdef MP-WEIXIN
 				{
 					id: 2,
 					verify: false,
 					verifyLogin: true,
 					name: '个人资料',
-					icon: 'error-circle',
+					icon: '/wxImg/user/grzl.png',
 					url: '/pages/subUser/userinfo'
 				},
+				// #endif
+				// #ifndef MP-WEIXIN
+				{
+					id: 2,
+					verify: false,
+					verifyLogin: true,
+					name: '资料认证',
+					icon: '/wxImg/user/grzl.png',
+					url: '/pages/subAuth/dataAuthentication/dataAuthentication'
+				},
+				// #endif
 				{
 					id: 3,
 					verify: false,
 					verifyLogin: true,
 					name: '人员管理',
-					icon: 'integral',
+					icon: '/wxImg/user/rygl.png',
 					info: '',
 					url: '/pages/subPack/user/people/people'
 				},
+				// #ifdef MP-WEIXIN
 				{
 					id: 4,
 					verify: false,
 					verifyLogin: true,
-					name: '签收人管理',
-					icon: 'man-add',
-					url: '/pages/subPack/user/signee/signee'
+					name: '签收管理',
+					icon: '/wxImg/user/qsgl.png',
+					url: '/pages/subPack/user/signee/signee',
+					showDot:true,
 				}
+				// #endif
+				// #ifndef MP-WEIXIN
+				{
+					id: 4,
+					verify: false,
+					verifyLogin: true,
+					name: '我的签名',
+					icon: '/wxImg/user/qsgl.png',
+					url: '/pages/subAuth/mySignature'
+				}
+				// #endif
 			],
 			menus: [
 				// #ifdef MP-WEIXIN
@@ -417,6 +401,19 @@ export default {
 			} else {
 				uni.navigateTo({
 					url: '/pages/subUser/userinfo'
+				});
+			}
+		},
+		acClick(){
+			if (!this.pinia_token) {
+				uni.navigateTo({
+					url: '/pages/subUser/login'
+				});
+				return;
+			} else {
+				let url = !this.pinia_user.ac? '/pages/subAuth/qiye?btn=0' : '/pages/subAuth/qiye?btn=3';
+				uni.navigateTo({
+					url: url
 				});
 			}
 		},

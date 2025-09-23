@@ -56,7 +56,7 @@
 								:shape="item.badge && item.badge.shape || propsBadge.shape"
 								:numberType="item.badge && item.badge.numberType || propsBadge.numberType"
 								:inverted="item.badge && item.badge.inverted || propsBadge.inverted"
-								customStyle="margin-left: 4px;"
+								customStyle="margin-left: 4px;background-color: #fa5151 !important;transform: translate(-3rpx,-14rpx) !important;"
 							></up-badge>
 						</view>
 						<!-- #ifdef APP-NVUE -->

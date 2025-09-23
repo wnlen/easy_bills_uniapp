@@ -168,10 +168,12 @@ export default {
 			},
 			tabList: [
 				{
-					name: '送货单'
+					name: '送货单',
+					badge: { isDot: false }
 				},
 				{
-					name: '收款单'
+					name: '收款单',
+					badge: { isDot: false }
 				}
 			],
 			tab: 0,

@@ -324,13 +324,15 @@
 						<up-line direction="col" length="50" color="#E0E0E0" />
 					</view>
 					<view class="flex-row justify-center items-center" style="width: 49%">
-						<up-icon
-							labelPos="bottom"
-							@click="merchandiseInventory(false)"
-							name="https://res-oss.elist.com.cn/wxImg/order/spk.svg"
-							size="70rpx"
-							label="添加商品"
-						></up-icon>
+						<wd-badge :is-dot="!orderTotal" bg-color="#FA5151" :top="5" :right="10">
+							<up-icon
+								labelPos="bottom"
+								@click="merchandiseInventory(false)"
+								name="https://res-oss.elist.com.cn/wxImg/order/spk.svg"
+								size="70rpx"
+								label="添加商品"
+							></up-icon>
+						</wd-badge>
 					</view>
 				</view>
 			</view>
