@@ -17,25 +17,30 @@
 		<view class="bg-white radius12 mt60 ml30 mr30">
 			<view class="mb54 flex-row justify-between">
 				<view class="charts-box relative" @touchmove.stop.prevent>
-					<qiun-data-charts type="ring" :canvas2d="true" canvasId="mQeRxIXWgXIzJwrjsSJdlsgpudfZgkIY" :opts="ringOpts" :chartData="chartsDataPie2" />
+					<qiun-data-charts type="ring" :animation="false" :canvas2d="true" canvasId="mQeRxIXWgXIzJwrjsSJdlsgpudfZgkIY" :opts="ringOpts" :chartData="chartsDataPie2" />
 					<view class="text-center ft-bold">
 						<text class="ft24">￥</text>
-						<text v-for="(item, index) in allprice.toFixed(2).toString().split('.')" :class="index == 0 ? 'ft32' : 'ft24'" :key="index">
+						<text v-for="(item, index) in formatAmount(allprice).split('.')" :class="index == 0 ? 'ft32' : 'ft24'" :key="index">
 							<text>{{ item }}</text>
-							<text v-if="index === 0 && allprice.toFixed(2).toString().split('.').length > 1">.</text>
+							<text v-if="index === 0 && formatAmount(allprice).split('.').length > 1">.</text>
 						</text>
 					</view>
 				</view>
-				<view class="flex-col justify-around mr32 items-end pt30">
+				<view class="flex-col justify-around mr15 items-end pt30">
 					<view class="flex-row items-center" @click="goList(ite.type)" v-for="(ite, ind) in rawData" :key="ind">
 						<view class="text-center ft-bold" :class="ind == 0 ? 'ft-orange' : ind == 1 ? 'ft-blue' : 'ft-green'">
 							<text class="ft20">￥</text>
-							<text v-for="(item, index) in ite.value.toFixed(2).toString().split('.')" :class="index == 0 ? 'ft28' : 'ft20'" :key="index">
+							<text v-for="(item, index) in formatAmount(ite.value).split('.')" :class="index == 0 ? 'ft28' : 'ft20'" :key="index">
 								<text>{{ item }}</text>
-								<text v-if="index === 0 && ite.value.toFixed(2).toString().split('.').length > 1">.</text>
+								<text v-if="index === 0 && formatAmount(ite.value).split('.').length > 1">.</text>
 							</text>
 						</view>
-						<view class="ft-gray ft28 ml11">{{ ite.name }} ></view>
+						<wd-badge :is-dot="ite.value && $u.getPinia('user.userRole') == 'R' && ind == 0" bg-color="#FA5151" :top="1" :right="13">
+							<view class="ft28 ml16 flex-row items-center">
+								<text class="mr10">{{ ite.name }}</text>
+								<up-icon name="play-right-fill" size="20rpx" color="#666"></up-icon>
+							</view>
+						</wd-badge>
 					</view>
 				</view>
 			</view>
@@ -251,7 +256,7 @@ export default {
 					fontWeight: 'bold' // 设置加粗
 				},
 				subtitle: {
-					name: '（今年）',
+					name: '（2025年）',
 					fontSize: 10,
 					color: '#333'
 				},
@@ -606,6 +611,7 @@ export default {
 						this.chartsDataPie2.series[0].data = this.scaleData(this.rawData);
 					} else {
 						this.ringOpts.color = ['#ECECEC', '#ECECEC', '#ECECEC'];
+						this.chartsDataPie2.series[0].data = this.scaleData(this.rawData);
 					}
 				});
 		},
@@ -872,48 +878,12 @@ export default {
 			}
 		},
 		setDR(value) {
+			this.$set(this.ringOpts.subtitle, 'name', `（${new Date().getFullYear()}年）`);
 			if (value === 'D') {
 				this.rawData[0].name = '待签收';
 				this.rawData[1].name = '已签收';
 				this.rawData[2].name = '已收款';
-				this.ringOpts = {
-					tooltipShow: false, //是否显示tooltip提示窗
-					rotate: false,
-					rotateLock: false,
-					padding: [0, 0, 0, 0],
-					color: ['#ECECEC', '#ECECEC', '#ECECEC'],
-					width: 130,
-					height: 130,
-					dataLabel: false,
-					enableScroll: false,
-					legend: {
-						show: false
-					},
-					title: {
-						name: '总销售',
-						fontSize: 14,
-						color: '#333',
-						offsetY: -5, // 设置与副标题的间距
-						fontWeight: 'bold' // 设置加粗
-					},
-					subtitle: {
-						name: '（今年）',
-						fontSize: 10,
-						color: '#333'
-					},
-					extra: {
-						ring: {
-							ringWidth: 15,
-							activeOpacity: 0.5,
-							activeRadius: 10,
-							offsetAngle: 0,
-							labelWidth: 15,
-							border: true,
-							borderWidth: 1,
-							borderColor: '#FFFFFF'
-						}
-					}
-				};
+				this.$set(this.ringOpts.title, 'name', '总销售');
 
 				// 设置菜单
 				if (this.pinia_token) {
@@ -948,44 +918,7 @@ export default {
 				this.rawData[0].name = '待确收';
 				this.rawData[1].name = '已签收';
 				this.rawData[2].name = '已付款';
-				this.ringOpts = {
-					tooltipShow: false, //是否显示tooltip提示窗
-					rotate: false,
-					rotateLock: false,
-					padding: [0, 0, 0, 0],
-					color: ['#ECECEC', '#ECECEC', '#ECECEC'],
-					width: 130,
-					height: 130,
-					dataLabel: false,
-					enableScroll: false,
-					legend: {
-						show: false
-					},
-					title: {
-						name: '总供应',
-						fontSize: 14,
-						color: '#333',
-						offsetY: -5, // 设置与副标题的间距
-						fontWeight: 'bold' // 设置加粗
-					},
-					subtitle: {
-						name: '（今年）',
-						fontSize: 10,
-						color: '#333'
-					},
-					extra: {
-						ring: {
-							ringWidth: 15,
-							activeOpacity: 0.5,
-							activeRadius: 10,
-							offsetAngle: 0,
-							labelWidth: 15,
-							border: true,
-							borderWidth: 1,
-							borderColor: '#FFFFFF'
-						}
-					}
-				};
+				this.$set(this.ringOpts.title, 'name', '总供应');
 
 				this.iconlist = this.iconlistR;
 				this.orderList2 = [

@@ -892,6 +892,7 @@ onShow(() => {
 			loadData();
 			// paging.value?.reload();
 		} else {
+			paging.value?.complete([]);
 			uni.$u.toast('登录查看更多');
 		}
 	});

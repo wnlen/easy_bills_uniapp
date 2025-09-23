@@ -3,7 +3,16 @@
 		<!-- 		<up-navbar :border-bottom="false" title-color="#333333" title="更多功能" title-size="28"
 			background="{background:transparent,color:white,fontSize: 28rpx;}"></up-navbar> -->
 
-		<up-navbar :autoBack="true" :placeholder="true" :border-bottom="false" :titleBold="true" title-color="#000000" title="更多功能" title-size="34" bgColor="#ffffff"></up-navbar>
+		<up-navbar
+			:autoBack="true"
+			:placeholder="true"
+			:border-bottom="false"
+			:titleBold="true"
+			title-color="#000000"
+			title="更多功能"
+			title-size="34"
+			bgColor="#ffffff"
+		></up-navbar>
 
 		<view class="ml24 mr24">
 			<!-- <view class="titleMore">
@@ -40,7 +49,7 @@
 						<view class="ml5 mr5 flex-col justify-center items-center relative" style="background-color: transparent">
 							<up-icon
 								:label="item.name"
-								size="100rpx"
+								size="80rpx"
 								:name="item.icon"
 								labelPos="bottom"
 								labelSize="25rpx"

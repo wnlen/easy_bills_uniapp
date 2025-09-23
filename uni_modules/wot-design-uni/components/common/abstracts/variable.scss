@@ -127,8 +127,8 @@ $-badge-success: var(--wot-badge-success, $-color-success) !default;
 $-badge-warning: var(--wot-badge-warning, $-color-warning) !default;
 $-badge-danger: var(--wot-badge-danger, $-color-danger) !default;
 $-badge-info: var(--wot-badge-info, $-color-info) !default;
-$-badge-dot-size: var(--wot-badge-dot-size, 6px) !default; // dot 类型大小
-$-badge-border: var(--wot-badge-border, 2px solid $-badge-color) !default; // 边框样式
+$-badge-dot-size: var(--wot-badge-dot-size, 7px) !default; // dot 类型大小
+$-badge-border: var(--wot-badge-border, 0px solid $-badge-color) !default; // 边框样式
 
 /* button */
 $-button-disabled-opacity: var(--wot-button-disabled-opacity, 0.6) !default; // button禁用透明度

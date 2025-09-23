@@ -82,13 +82,13 @@
 			<view class="BodyQBQY" v-show="current != 2">
 				<view class="BodyQBQYScrollView">
 					<view class="" v-show="current == 0">
-						<view class="BodyQBQYScrollViewHand">
+						<view class="BodyQBQYScrollViewHand" style="padding-bottom: 20rpx">
 							<text class="Hand_title mr10">套餐选择</text>
 							<up-icon @click="popDetails(1, item)" size="23rpx" name="question-circle" color="#AAAAAA"></up-icon>
 						</view>
 						<view class="pl24 pr24">
 							<scroll-view :show-scrollbar="false" scroll-x="true" style="width: 100%">
-								<view class="flex-row">
+								<view class="flex-row pt30">
 									<view v-for="(item, index) in 3" :key="index" class="tcxzBox flex-col items-center justify-center">
 										<view class="">基础版{{ index }}</view>
 										<view class="">
@@ -100,14 +100,47 @@
 											<text class="mr10">限时3天优惠</text>
 											<text>￥199</text>
 										</view>
-										<view class="">添加1个子账号</view>
+										<view class="">添加{{ index }}个子账号</view>
+										<view class="tags">适合个人商户{{ index }}</view>
 									</view>
 								</view>
 							</scroll-view>
 						</view>
-						<view class="BodyQBQYScrollViewHand">
+						<view class="BodyQBQYScrollViewHand" style="padding-bottom: 20rpx">
 							<text class="Hand_title mr10">法律签署能力</text>
 							<up-icon @click="popDetails(1, item)" size="23rpx" name="question-circle" color="#AAAAAA"></up-icon>
+						</view>
+						<view class="pt30 pl24 pr24">
+							<view class="flqsnlBox relative">
+								<view class="ft28 ft-500 mb20">法律签署包</view>
+								<view class="flex-row items-center justify-between ft24 mb36">
+									<view class="">
+										<text>已购：</text>
+										<text>100份</text>
+										<text>剩余：</text>
+										<text>32份</text>
+									</view>
+									<view class="">
+										<text class="ft-gray">追加份数：</text>
+									</view>
+								</view>
+								<view class="text-right">
+									<text class="ft24 ft-gray">当前费用：</text>
+									<text class="ft-500">￥300.00</text>
+								</view>
+								<view class="tags">CA 认证 + PDF留档</view>
+								<view
+									class="covers flex-col items-center justify-center"
+									@click="
+										uni.navigateTo({
+											url: '/pages/subAuth/dataAuthentication/dataAuthentication'
+										})
+									"
+								>
+									<text class="qrzBtn ft-white flex-row justify-center items-center mb20">去认证</text>
+									<text class="ft24">购买法律签署包请先前往认证</text>
+								</view>
+							</view>
 						</view>
 					</view>
 					<view v-show="current == 1">
@@ -1312,6 +1345,7 @@ export default {
 		}
 	}
 	.tcxzBox {
+		position: relative;
 		margin-right: 50rpx;
 		width: 284rpx;
 		height: 270rpx;
@@ -1350,6 +1384,62 @@ export default {
 			align-items: center;
 			justify-content: center;
 			margin-top: 14rpx;
+		}
+		.tags {
+			padding-bottom: 8rpx;
+			width: 180rpx;
+			height: 51rpx;
+			font-size: 24rpx;
+			color: #fff;
+			background: url('https://res-oss.elist.com.cn/app/img/order/tagbg1.svg') no-repeat left top;
+			background-size: 100% 100%;
+			position: absolute;
+			top: -24rpx;
+			right: -20rpx;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			z-index: 10;
+		}
+	}
+	.flqsnlBox {
+		height: 239rpx;
+		background: url('https://res-oss.elist.com.cn/app/img/order/flqsbg.svg') no-repeat left top;
+		background-size: 100% 100%;
+		padding: 24rpx 36rpx 0 32rpx;
+		.tags {
+			padding-bottom: 8rpx;
+			width: 274rpx;
+			height: 51rpx;
+			font-size: 24rpx;
+			color: #fff;
+			background: url('https://res-oss.elist.com.cn/app/img/order/tagbg.svg') no-repeat left top;
+			background-size: 100% 100%;
+			position: absolute;
+			top: -24rpx;
+			right: 30rpx;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			z-index: 10;
+		}
+		.covers {
+			border-radius: 16rpx;
+			width: 98%;
+			height: 98%;
+			background: linear-gradient(0deg, #ffffff 52%, rgba(255, 255, 255, 0) 112%);
+			z-index: 20;
+			position: absolute;
+			top: 3rpx;
+			left: 10rpx;
+			.qrzBtn {
+				font-size: 26rpx;
+				font-weight: 500;
+				width: 122rpx;
+				height: 47rpx;
+				border-radius: 114px;
+				background: linear-gradient(90deg, #ffcc98 0%, #fd4a62 50%, #ff97b9 100%);
+			}
 		}
 	}
 	.BodyQBQY {
