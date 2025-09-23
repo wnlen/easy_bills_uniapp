@@ -11,7 +11,7 @@
 			></up-empty>
 			<view class="mt25 vw100 text-center" style="font-size: 28rpx">
 				<up-button
-					@click="goPath('/pages/subPack/user/signee/add')"
+					@click="$goPath('/pages/subPack/user/signee/add')"
 					hover-class="none"
 					:customStyle="{ backgroundColor: '#01BB74', width: '260rpx' }"
 					:disabled="orderList.length >= 1"
@@ -93,7 +93,7 @@
 									></up-message-input>
 									<view class="mt20 err" v-show="err">密码错误，请重新输入</view>
 								</view>
-								<view @click="goPath('/pages/subUser/resetpassword')" class="ft12 pr30 flex-row justify-end pt15" style="color: #999; width: 100%">找回密码</view>
+								<view @click="$goPath('/pages/subUser/resetpassword')" class="ft12 pr30 flex-row justify-end pt15" style="color: #999; width: 100%">找回密码</view>
 							</view>
 							<view class="flex-row items-center absolute u-border-top" style="width: 100%; bottom: 0; height: 25%">
 								<view @click="cancel" style="width: 50%; height: 100%" class="titlePas flex-col justify-center items-center">取消</view>

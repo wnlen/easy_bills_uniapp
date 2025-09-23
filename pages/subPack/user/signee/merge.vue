@@ -27,24 +27,24 @@
 			<up-form-item label="手写签名" required prop="signeeImage" labelPosition="top" label-width="170rpx">
 				<view v-if="formData.signeeImage" class="text-center width100 mt30 signeeBox">
 					<image
-						@click="goPath('/pages/subSignature/signature')"
+						@click="$goPath('/pages/subSignature/signature')"
 						style="transform: rotate(-90deg); height: 50vw; width: 100%"
 						:src="formData.signeeImage"
 						mode="heightFix"
 					></image>
 				</view>
-				<view v-else class="bg-white pd20 text-center width100 mt30 signeeBox flex-row items-center justify-center" @click="goPath('/pages/subSignature/signature')">
+				<view v-else class="bg-white pd20 text-center width100 mt30 signeeBox flex-row items-center justify-center" @click="$goPath('/pages/subSignature/signature')">
 					<up-icon label="点击去签名" labelColor="#eee" name="edit-pen" color="#eee"></up-icon>
 				</view>
 				<!-- <view v-if="formData.signeeImage" class="text-center width100" style="height: 50vw; border: 4rpx dashed #eee">
 					<image
-						@click="goPath('/pages/subSignature/signature')"
+						@click="$goPath('/pages/subSignature/signature')"
 						style="transform: rotate(-90deg); height: 50vw; width: 100%"
 						:src="formData.signeeImage"
 						mode="heightFix"
 					></image>
 				</view>
-				<view v-else class="bg-white pd20 text-center width100" @click="goPath('/pages/subSignature/signature')">
+				<view v-else class="bg-white pd20 text-center width100" @click="$goPath('/pages/subSignature/signature')">
 					<up-icon label="点击去签名" name="edit-pen"></up-icon>
 				</view> -->
 			</up-form-item>

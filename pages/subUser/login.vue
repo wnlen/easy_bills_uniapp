@@ -217,32 +217,6 @@ export default {
 		if (option && option.sharePath) {
 			this.sharePath = option.sharePath;
 		}
-
-		// var that = this;
-		// uni.login({
-		// 	provider: 'weixin',
-		// 	success: function (loginRes) {
-		// 		that.wxLoginCode = loginRes.code;
-		// 		console.log(loginRes.code, '------CQL');
-		// 	}
-		// });
-
-		// if (option.url) {
-		// 	that.pageroute = option.url;
-		// 	console.log('使用指定 URL：', option.url);
-		// } else {
-		// 	const prevPage = that.prePage?.();
-		// 	const page = prevPage?.$mp?.page;
-
-		// 	if (page && page.route && page.options) {
-		// 		const queryString = that.queryParams(page.options);
-		// 		that.pageroute = encodeURIComponent(`/${page.route}?${queryString}`);
-		// 		console.log('使用上一页生成的 URL：', that.pageroute);
-		// 	} else {
-		// 		console.warn('无法获取上一页信息，pageroute 设置失败');
-		// 		that.pageroute = '';
-		// 	}
-		// }
 	},
 	onShow() {
 		// #ifdef MP-WEIXIN

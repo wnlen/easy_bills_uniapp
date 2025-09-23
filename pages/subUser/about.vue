@@ -26,9 +26,9 @@
 
 		<view class="fixed-bar flex-col justify-center items-center pb20">
 			<view class="mb20 ft25">
-				<text @tap="goPath('/pages/user/agreement')">《用户协议》</text>
+				<text @tap="$goPath('/pages/user/agreement')">《用户协议》</text>
 				<text class="ft-lightgray">和</text>
-				<text @tap="goPath('/pages/user/privacy')">《隐私权保护声明》</text>
+				<text @tap="$goPath('/pages/user/privacy')">《隐私权保护声明》</text>
 			</view>
 			<view class="ft22 flex-col justify-center items-center ft-lightgray">
 				<text>Copyright@2023 易单据</text>

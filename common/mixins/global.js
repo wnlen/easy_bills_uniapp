@@ -7,7 +7,7 @@ import {
 } from '@/store/global';
 import {
 	formatAmount
-} from '@/common/format.js';
+} from '@/utils/format.js';
 
 export default {
 	methods: {

@@ -12,7 +12,7 @@
 			@query="queryList"
 			style=""
 		>
-			<view v-for="(item, index) in orderList" :key="index" :index="index" @click="goPath('/pages/subOrder/details?id=' + item.id)" class="OrderCard">
+			<view v-for="(item, index) in orderList" :key="index" :index="index" @click="$goPath('/pages/subOrder/details?id=' + item.id)" class="OrderCard">
 				<view class="OrderCardHand" @tap.stop>
 					<view class="title ml1 flex-1" style="" @tap.stop>
 						<text class="ft30 ft-lightgray pr30" style="color: #666666" @tap.stop>

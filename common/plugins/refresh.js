@@ -1,3 +1,4 @@
+// common/plugins/push.js
 import {
 	useUserStore
 } from '@/store/user';
@@ -123,9 +124,7 @@ export default (http) => ({
 				console.warn('[getRecord] user.phone 不存在，跳过请求');
 				return;
 			}
-			http.post('behavior/get', {
-					phone
-				})
+			uni.$api.user.behaviorGet(phone)
 				.then((res) => {
 					console.log('记录结果：', refs.$refs.popLetter);
 					if (res.data.data) {

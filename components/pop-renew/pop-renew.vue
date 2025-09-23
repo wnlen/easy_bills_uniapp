@@ -15,7 +15,7 @@
 			<view
 				class="absolute flex-row justify-center items-center"
 				style="bottom: -5px; color: #ffffff; opacity: 1; font-size: 14.3px"
-				@click="goPath('/pages/subPack/user/my_order/my_order')"
+				@click="$goPath('/pages/subPack/user/my_order/my_order')"
 			>
 				进入我的订购 >
 			</view>

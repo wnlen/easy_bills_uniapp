@@ -1,13 +1,5 @@
 // common/format.js
 export function formatAmount(num) {
-	// if (isNaN(value)) return '0.00';
-	// return (
-	// 	'' +
-	// 	Number(value).toLocaleString('en-US', {
-	// 		minimumFractionDigits: 2,
-	// 		maximumFractionDigits: 2
-	// 	})
-	// );
 	// 处理非数字情况
 	if (isNaN(Number(num))) {
 		return "0.00";

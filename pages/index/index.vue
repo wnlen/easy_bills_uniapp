@@ -4,7 +4,7 @@
 		<view class="flex-row justify-between items-end ml30 mr30">
 			<view>
 				<image v-if="pinia_token" style="width: 108rpx; height: 34rpx" :src="`${ImgUrl}/wxImg/index/ydj.png`"></image>
-				<image v-else style="width: 128rpx; height: 34rpx" :src="`${ImgUrl}/wxImg/index/qdl.png`" @click="goToLogin()"></image>
+				<image v-else style="width: 128rpx; height: 34rpx" :src="`${ImgUrl}/wxImg/index/qdl.png`" @click="$univerify()"></image>
 
 				<view class="ft28">送货单轻松签收</view>
 			</view>
@@ -46,7 +46,7 @@
 					:class="pinia_userRole === 'D' && index === 0 ? 'indexbox1 indexbox' : pinia_userRole === 'R' && index === 0 ? 'indexbox2 indexbox' : 'indexbox3 indexbox'"
 					v-for="(item, index) in orderList2"
 					:key="index"
-					@click="goPath(item.path)"
+					@click="$goPath(item.path)"
 				>
 					<view class="ml10 mr10 mt8">
 						<up-icon size="72rpx" :name="item.icon"></up-icon>
@@ -64,7 +64,7 @@
 		</view>
 		<view class="bg-white radius12 mt30 ml30 mr30">
 			<view class="flex-row flex-wrap">
-				<view class="flex-col width25 items-center relative" @click="goPath(listItem.path)" v-for="(listItem, listIndex) in iconlist" :key="listIndex">
+				<view class="flex-col width25 items-center relative" @click="$goPath(listItem.path)" v-for="(listItem, listIndex) in iconlist" :key="listIndex">
 					<view class="mt10">
 						<up-icon size="80rpx" :name="listItem.icon"></up-icon>
 					</view>
@@ -448,22 +448,7 @@ export default {
 			}
 		}
 	},
-	onShareAppMessage() {
-		if (res.from === 'button') {
-			// 来自页面内分享按钮
-			// console.log(res.target)
-		}
-		return {
-			title: '易单据，快捷开单',
-			path: '/pages/index/index'
-		};
-	},
 	onShow() {
-		// 手动刷新accessToken
-		// uni.$api.user.accessTokenRefresh({}).then((res) => {
-		// 	console.log('手动刷新accessToken=====>', res);
-		// });
-
 		this.getmiddleBanner(); //加载广告
 		this.setDR(this.pinia_userRole); //从收货端点击登录要在onShow的时候设置角色
 		if (!this.pinia_token) {
@@ -474,7 +459,7 @@ export default {
 			}
 			this.ringOpts.color = ['#ECECEC', '#ECECEC', '#ECECEC'];
 			//#ifdef APP
-			this.goToLogin();
+			// this.$univerify();
 			//#endif
 		} else {
 			this.$nextTick(() => {
@@ -487,6 +472,16 @@ export default {
 				this.SOCKETfLUSH();
 			});
 		}
+	},
+	onShareAppMessage() {
+		if (res.from === 'button') {
+			// 来自页面内分享按钮
+			// console.log(res.target)
+		}
+		return {
+			title: '易单据，快捷开单',
+			path: '/pages/index/index'
+		};
 	},
 	methods: {
 		//监听引导页每一步位置
@@ -826,11 +821,6 @@ export default {
 						cb(res[0]);
 					}
 				});
-		},
-		goToLogin() {
-			uni.navigateTo({
-				url: '/pages/subUser/login'
-			});
 		},
 		// 加载广告
 		getmiddleBanner() {
