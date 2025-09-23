@@ -28,7 +28,7 @@ export default {
 		// uni.removeStorage({ key: 'details' });
 		uni.setStorageSync('auth', '0');
 		if (!uni.getStorageSync('wzc_img')) {
-			uni.setStorageSync('wzc_img', '/static/img/obj/wzc' + (Math.floor(Math.random() * 3) + 1) + '.svg');
+			uni.setStorageSync('wzc_img', 'https://res-oss.elist.com.cn/wxImg/obj/wzc' + (Math.floor(Math.random() * 3) + 1) + '.svg');
 		}
 	},
 	onShow(options) {

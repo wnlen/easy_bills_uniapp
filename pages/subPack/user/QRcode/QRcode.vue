@@ -163,7 +163,7 @@
 </template>
 
 <script>
-import UQRCode from '@/components/uqrcode.js';
+import UQRCode from './uqrcode.js';
 import html2canvas from 'html2canvas';
 export default {
 	data() {

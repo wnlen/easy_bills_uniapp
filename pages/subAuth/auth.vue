@@ -26,7 +26,7 @@
 						shape="circle"
 						class="ml20"
 						:show-menu-by-longpress="false"
-						:src="pinia_user.data.headPortrait || '/static/img/obj/defind.svg'"
+						:src="pinia_user.data.headPortrait || 'https://res-oss.elist.com.cn/wxImg/obj/defind.svg'"
 						width="100rpx"
 						height="100rpx"
 					></up-image>

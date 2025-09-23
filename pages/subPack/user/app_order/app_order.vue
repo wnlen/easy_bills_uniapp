@@ -89,7 +89,7 @@
 						<view class="pl24 pr24">
 							<scroll-view :show-scrollbar="false" scroll-x="true" style="width: 100%">
 								<view class="flex-row">
-									<view v-for="(item, index) in 3" :key="index" class="tcxzBox">
+									<view v-for="(item, index) in 3" :key="index" class="tcxzBox flex-col items-center justify-center">
 										<view class="">基础版{{ index }}</view>
 										<view class="">
 											<text>￥</text>
@@ -97,9 +97,10 @@
 											<text>/年</text>
 										</view>
 										<view class="">
-											<text>限时3天优</text>
-											<text>惠 ￥199</text>
+											<text class="mr10">限时3天优惠</text>
+											<text>￥199</text>
 										</view>
+										<view class="">添加1个子账号</view>
 									</view>
 								</view>
 							</scroll-view>
@@ -570,7 +571,7 @@ export default {
 			jurisdiction: {},
 			jurisdictionOrdder: [],
 			renew: {},
-			img: '/static/img/obj/defind.svg',
+			img: 'https://res-oss.elist.com.cn/wxImg/obj/defind.svg',
 			line: [],
 			showIdently: false,
 			srdz: {
@@ -1318,6 +1319,38 @@ export default {
 		border: 1px solid transparent;
 		/* 用渐变作为边框背景 */
 		background: linear-gradient(#fff, #fff) padding-box, /* 内容区白色背景 */ linear-gradient(143deg, #d6ae83 17%, #ffe6bb 50%, #fd5b75 95%) border-box; /* 边框渐变 */
+		> view:nth-of-type(1) {
+			font-size: 28rpx;
+			font-weight: bold;
+		}
+		> view:nth-of-type(2) {
+			margin-top: 20rpx;
+			color: #fd5b75;
+			font-size: 24rpx;
+			font-weight: 700;
+			> text:nth-of-type(2) {
+				font-size: 32rpx;
+			}
+		}
+		> view:nth-of-type(3) {
+			margin-top: 12rpx;
+			font-size: 24rpx;
+			color: #696969;
+			> text:nth-of-type(2) {
+				text-decoration: line-through;
+			}
+		}
+		> view:nth-of-type(4) {
+			width: 184rpx;
+			height: 38rpx;
+			background: #fff8c6;
+			font-size: 24rpx;
+			color: #804d1e;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-top: 14rpx;
+		}
 	}
 	.BodyQBQY {
 		background-color: white;
