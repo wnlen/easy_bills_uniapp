@@ -14,7 +14,7 @@
 			></up-navbar>
 		</view>
 
-		<up-empty icon="https://res-oss.elist.com.cn/wxImg/order/orderEmpty.svg" iconSize="400rpx" v-if="shareShow" text="订单已删除~" mode="search" marginTop="300rpx"></up-empty>
+		<up-empty icon="https://res-oss.elist.com.cn/wxImg/order/orderEmpty.svg" textColor="#666" width="414rpx" v-if="shareShow" text="订单已删除~" marginTop="400rpx"></up-empty>
 		<up-popup :show="showZG" mode="center" @close="showZG = false" :safeAreaInsetBottom="false">
 			<image style="width: 500rpx; height: 100%; display: block" :src="showZGImg" mode="widthFix"></image>
 		</up-popup>

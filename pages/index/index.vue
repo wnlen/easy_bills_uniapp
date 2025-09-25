@@ -26,7 +26,7 @@
 						</text>
 					</view>
 				</view>
-				<view class="flex-col justify-around mr15 items-end pt30">
+				<view class="flex-col justify-around mr24 items-end pt30">
 					<view class="flex-row items-center" @click="goList(ite.type)" v-for="(ite, ind) in rawData" :key="ind">
 						<view class="text-center ft-bold" :class="ind == 0 ? 'ft-orange' : ind == 1 ? 'ft-blue' : 'ft-green'">
 							<text class="ft20">￥</text>
@@ -35,18 +35,16 @@
 								<text v-if="index === 0 && formatAmount(ite.value).split('.').length > 1">.</text>
 							</text>
 						</view>
-						<wd-badge :is-dot="ite.value && $u.getPinia('user.userRole') == 'R' && ind == 0" bg-color="#FA5151" :top="1" :right="13">
-							<view class="ft28 ml16 flex-row items-center">
-								<text class="mr10">{{ ite.name }}</text>
-								<up-icon name="play-right-fill" size="20rpx" color="#666"></up-icon>
-							</view>
-						</wd-badge>
+						<view class="ft28 ml16 flex-row items-center">
+							<text class="mr6">{{ ite.name }}</text>
+							<up-icon name="play-right-fill" size="20rpx" color="#999"></up-icon>
+						</view>
 					</view>
 				</view>
 			</view>
 			<view class="flex-row justify-between pall30">
 				<view
-					class="flex-row items-center"
+					class="flex-row items-center relative"
 					:id="index == 0 ? 'box2' : 'box3'"
 					:class="pinia_userRole === 'D' && index === 0 ? 'indexbox1 indexbox' : pinia_userRole === 'R' && index === 0 ? 'indexbox2 indexbox' : 'indexbox3 indexbox'"
 					v-for="(item, index) in orderList2"
@@ -64,6 +62,7 @@
 							{{ item.sub }}
 						</view>
 					</view>
+					<view class="tags flex-row items-center justify-center ft-white" v-show="pinia_userRole === 'R' && rawData[0].value && index === 0">去签收</view>
 				</view>
 			</view>
 		</view>
@@ -257,7 +256,7 @@ export default {
 				},
 				subtitle: {
 					name: '（2025年）',
-					fontSize: 10,
+					fontSize: 11,
 					color: '#333'
 				},
 				extra: {
@@ -1026,6 +1025,16 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+.tags {
+	font-size: 18rpx;
+	width: 83rpx;
+	height: 33rpx;
+	border-radius: 30rpx 40rpx 40rpx 0rpx;
+	background: #fa5151;
+	position: absolute;
+	top: -24rpx;
+	right: 14rpx;
+}
 .unreceivedBox {
 	width: 530rpx;
 	padding: 140rpx 50rpx 26rpx;

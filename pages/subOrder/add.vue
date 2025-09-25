@@ -56,7 +56,7 @@
 				</view>
 			</up-popup>
 
-			<view class="mt45 flex-col justify-center" style="width: 80vw; text-align: center; align-items: center; height: 50vh">
+			<view class="mt80 flex-col justify-center" style="width: 80vw; text-align: center; align-items: center; height: 50vh">
 				<view>
 					<up-image style="" width="414rpx" height="280rpx" src="https://res-oss.elist.com.cn/wxImg/order/fscg.png"></up-image>
 				</view>
@@ -226,7 +226,7 @@
 							:style="{ color: ifInput(receipts.kTakeE) }"
 							maxlength="10"
 							placeholder="请输入收货人姓名"
-							class="u-line-1 ml15 endcolor"
+							class="u-line-1 flex-1 ml15 endcolor"
 						/>
 					</view>
 
@@ -1420,7 +1420,7 @@ export default {
 			uni.$api.task
 				.startRWFlow({ list: list })
 				.then((res) => {
-					console.log('请求结果：' + res);
+					// console.log('请求结果：' + res);
 				})
 				.catch((res) => {});
 		},
