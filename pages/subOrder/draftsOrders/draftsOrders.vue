@@ -47,7 +47,7 @@
 				</view>
 			</up-popup>
 
-			<view class="mt45 flex-col justify-center" style="width: 80vw; text-align: center; align-items: center; height: 50vh">
+			<view class="mt80 flex-col justify-center" style="width: 80vw; text-align: center; align-items: center; height: 50vh">
 				<view>
 					<up-image style="" width="414rpx" height="280rpx" src="https://res-oss.elist.com.cn/wxImg/order/fscg.png"></up-image>
 				</view>
@@ -228,7 +228,7 @@
 							:style="{ color: ifInput(receipts.kTakeE) }"
 							maxlength="10"
 							placeholder="请输入收货人姓名"
-							class="u-line-1 ml15 endcolor"
+							class="u-line-1 ml15 flex-1 endcolor"
 						/>
 					</view>
 
@@ -571,6 +571,25 @@ export default {
 	onUnload() {
 		uni.removeStorageSync('inventoryStockpile');
 	},
+	onShareAppMessage(ops) {
+		if (ops.from === 'button') {
+			console.log('分享：', ops);
+			var pid = ops.target.dataset.id;
+			var phone = this.pinia_user.phone;
+			var port = this.pinia_userRole;
+			return {
+				title: `您有一张订单待确认~`,
+				path: '/pages/subOrder/detailsShare?share_id=' + pid + '&&type=1' + '&&phone=' + phone + '&&port=' + port + '&&versions=' + ops.target.dataset.versions,
+				imageUrl: this.transmitList[0].picturesId || '/static/share.png'
+			};
+		} else {
+			return {
+				title: '打开易单据小程序，极速管理您的货单~',
+				path: '/pages/index/index',
+				imageUrl: '/static/share.png'
+			};
+		}
+	},
 	methods: {
 		deleteimg(res) {
 			this.removeList.push(res.file);
@@ -835,29 +854,7 @@ export default {
 			this.receipts.phoneE = '';
 			this.goPath('/pages/subOrder/table');
 		},
-		onShareAppMessage(ops) {
-			if (ops.from === 'button') {
-				console.log('分享：', ops);
-				var pid = ops.target.dataset.id;
-				var pThumb = ops.target.dataset.thumb;
-				var phone = this.pinia_user.phone;
-				var port = this.pinia_userRole;
-				var versions = ops.target.dataset.versions;
-				console.log(pThumb);
-				return {
-					// title: `这是您的${versions=="Y"?"有金额":"无金额"}货单，请打开易单据查看详情~`,
-					title: `您有一张订单待确认~`,
-					path: '/pages/subOrder/detailsShare?share_id=' + pid + '&&type=1' + '&&phone=' + phone + '&&port=' + port + '&&versions=' + versions,
-					imageUrl: pThumb
-				};
-			} else {
-				return {
-					title: '打开易单据小程序，极速管理您的货单~',
-					path: '/pages/index/index',
-					imageUrl: '/static/share.png'
-				};
-			}
-		},
+
 		addEmp() {
 			var ifwork = this.pinia_user.data.work == '0';
 			var dx = {
@@ -1618,8 +1615,9 @@ export default {
 										orderNumber: this.receipts.orderNumber
 									})
 									.then((res) => {
-										console.log('请求结果：' + res.data.data.post);
+										console.log('请求结果11：', res.data.data);
 										this.transmitList = res.data.data;
+										this.shareReady = true;
 										uni.removeStorageSync('inventoryStockpile');
 										resolve(true);
 									})

@@ -124,7 +124,7 @@
 							:style="{ color: ifInput(receipts.kTakeE) }"
 							maxlength="10"
 							placeholder="请输入收货人姓名"
-							class="u-line-1 ml15 endcolor"
+							class="u-line-1 flex-1 ml15 endcolor"
 						/>
 					</view>
 
