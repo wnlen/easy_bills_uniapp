@@ -1523,7 +1523,7 @@ export default {
 					bUser: '',
 					orderNumber: val.orderNumber,
 					orderId: val.id,
-					createTime: new Date().getTime(),
+					createTime: '',
 					updateTime: '',
 					state: 1,
 					aBoss: '',
