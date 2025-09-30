@@ -37,7 +37,7 @@
 				</up-button>
 			</view>
 			<!-- <view class="ml5 mr5" style="flex: 1">
-				<up-button :customStyle="SearchCustomStyle"  shape="circle" @click="goPath('/pages/subIndex/add_friend/add_friend')">
+				<up-button :customStyle="SearchCustomStyle"  shape="circle" @click="$goPath('/pages/subIndex/add_friend/add_friend')">
 					<up-icon name="phone-fill" color="#ffffff" size="30rpx"></up-icon>
 					<text class="pl10">手机号邀请</text>
 				</up-button>

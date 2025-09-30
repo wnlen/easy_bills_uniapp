@@ -132,7 +132,7 @@
 			</view>
 
 			<view class="module">
-				<view class="yjdl" @click="oneKeyLogin">本机号码一键登录</view>
+				<view class="yjdl" @click="$univerify()">本机号码一键登录</view>
 				<view class="mt20" style="color: #aaaaaa; font-size: 24rpx; text-align: center">第三方登录</view>
 				<view class="mt10 flex-row justify-center items-center" style="text-align: center">
 					<view class="flex-row justify-center items-center mr30" style="background-color: #01bb74; height: 96rpx; width: 96rpx; border-radius: 50%" @click="wxloginInit">
@@ -217,32 +217,6 @@ export default {
 		if (option && option.sharePath) {
 			this.sharePath = option.sharePath;
 		}
-
-		// var that = this;
-		// uni.login({
-		// 	provider: 'weixin',
-		// 	success: function (loginRes) {
-		// 		that.wxLoginCode = loginRes.code;
-		// 		console.log(loginRes.code, '------CQL');
-		// 	}
-		// });
-
-		// if (option.url) {
-		// 	that.pageroute = option.url;
-		// 	console.log('使用指定 URL：', option.url);
-		// } else {
-		// 	const prevPage = that.prePage?.();
-		// 	const page = prevPage?.$mp?.page;
-
-		// 	if (page && page.route && page.options) {
-		// 		const queryString = that.queryParams(page.options);
-		// 		that.pageroute = encodeURIComponent(`/${page.route}?${queryString}`);
-		// 		console.log('使用上一页生成的 URL：', that.pageroute);
-		// 	} else {
-		// 		console.warn('无法获取上一页信息，pageroute 设置失败');
-		// 		that.pageroute = '';
-		// 	}
-		// }
 	},
 	onShow() {
 		// #ifdef MP-WEIXIN
@@ -267,7 +241,14 @@ export default {
 		getCode() {
 			if (this.tips != '获取验证码' || this.tips != '重新获取') {
 				this.$refs.countDown.start();
-				// 获取验证码逻辑
+				// uni.$api.sms
+				// 	.getSmsCode({
+				// 		phone: this.pinia_user.phone,
+				// 		scene: 'Logout'
+				// 	})
+				// 	.then(res => {
+
+				// 	});
 			}
 		},
 		yinsi_open() {
@@ -329,41 +310,26 @@ export default {
 				onlyAuthorize: true,
 				success: function (res) {
 					const inviterId = uni.getStorageSync('inviterId') || null; // 登录前保存过
-					that.$api.user
+					uni.$api.user
 						.loginMpWX({
 							loginCode: res.code, //登录code
 							phoneCode: e.detail.code, //手机号code
 							inviterId: inviterId || null //邀请id
 						})
 						.then((res) => {
-							console.log('看公共关系', res);
 							var resDate = res.data.data;
 							that.message = res.data.message;
-							console.log('看公共关系', resDate);
 							if (resDate.data == null || resDate.data.work == null) {
 								that.$u.toast(that.message);
 								return;
 							}
 
-							if (resDate.data.work == '' || resDate.data.work != '1') {
-								that.$u.setPinia({
-									user: {
-										work: 'N'
-									}
-								});
-							} else {
-								that.$u.setPinia({
-									user: {
-										work: 'Y'
-									}
-								});
-							}
-
-							that.$u.setPinia({
+							uni.$u.setPinia({
 								user: {
 									userRole: 'D',
 									token: resDate.loginToken,
-									user: resDate
+									user: resDate,
+									work: resDate.data.work != '1' ? 'N' : 'Y'
 								}
 							});
 							console.log('亘古不变', that.$u.getPinia('user.user'));
@@ -466,116 +432,6 @@ export default {
 			var fromLogin = this.fromLogin;
 			uni.navigateTo({
 				url: '/pages/subUser/login/verificationCodeLogin/verificationCodeLogin?fromLogin=' + JSON.stringify(fromLogin)
-			});
-		},
-		oneKeyLogin() {
-			console.log('设备');
-			var that = this;
-
-			// uni.preLogin({
-			// 	provider: 'univerify',
-			// 	success: function(res) {
-			// 		console.log('预登录成功', res);
-			// 	},
-			// 	fail: function(err) {
-			// 		console.error('预登录失败', err);
-			// 	},
-			// 	complete: function() {
-			// 		console.log('预登录操作结束');
-			// 	}
-			// });
-			var _this = this;
-			uni.preLogin({
-				provider: 'univerify',
-				univerifyStyle: {
-					fullScreen: true, // 是否全屏显示，默认值： false
-					title: '快速登录',
-					backgroundColor: '#ffffff', // 授权页面背景颜色，默认值：#ffffff
-					icon: {
-						path: '/static/img/logo/logo-r.png', // 自定义显示在授权框中的logo，仅支持本地图片 默认显示App logo
-						width: '120rpx', //图标宽度 默认值：120rpx
-						height: '120rpx' //图标高度 默认值：120rpx
-					}
-				},
-				success() {
-					//预登录成功
-					// 显示一键登录选项
-					uni.login({
-						provider: 'univerify',
-						univerifyStyle: {
-							// 自定义登录框样式
-							//参考`univerifyStyle 数据结构`
-							//具体样式设计请去uni-app文档查看
-							//不填写任何自定义登录框样式的话就会采取默认样式
-							fullScreen: true, // 是否全屏显示，默认值： false
-							title: '快速登录',
-							backgroundColor: '#ffffff', // 授权页面背景颜色，默认值：#ffffff
-							icon: {
-								path: '/static/img/logo/logo-r.png', // 自定义显示在授权框中的logo，仅支持本地图片 默认显示App logo
-								width: '120rpx', //图标宽度 默认值：120rpx
-								height: '120rpx' //图标高度 默认值：120rpx
-							}
-						},
-						success(res) {
-							// 登录成功
-							console.log(res.authResult.access_token);
-							console.log(res.authResult.openid);
-							// 此处获取了openid和access_token
-							// {openid:'登录授权唯一标识',access_token:'接口返回的 token'}
-							// 通过uniCloud.callFunction函数实现前端获取手机号
-							uniCloud
-								.callFunction({
-									name: 'cloudServe', // 填写你自己的云函数名称
-									//传入上面获取的openid和access_token获取手机号
-									data: {
-										access_token: res.authResult.access_token, // 客户端一键登录接口返回的access_token
-										openid: res.authResult.openid // 客户端一键登录接口返回的openid
-									}
-								})
-								.then((dataRes) => {
-									//此处已经成功获取手机号等信息
-									console.log('云函数返回的参数', dataRes);
-									let phone = dataRes.result.data.phoneNumber;
-									// 获取手机号后根据自己的需求做后面的登录操作即可
-									that.LoginPhone(phone);
-								})
-								.catch((err) => {
-									console.log(err);
-									console.log('云函数报错', err);
-									uni.showToast({
-										title: err.errMsg,
-										icon: 'none'
-									});
-									this_ = this;
-									setTimeout(() => {
-										uni.closeAuthView(); //关闭一键登录弹出窗口
-										this_.onClickMsgLogin();
-									}, 500);
-								});
-						},
-						fail(res) {
-							// 登录失败
-							console.log(res.errCode);
-							console.log(res.errMsg);
-						}
-					});
-				},
-				fail(res) {
-					// 预登录失败
-					// 不显示一键登录选项（或置灰）
-					// 根据错误信息判断失败原因，如有需要可将错误提交给统计服务器
-					console.log(res);
-					console.log(res.errCode);
-					console.log(res.errMsg);
-					var code = res.errCode;
-					switch (code) {
-						case 30005:
-							_this.$u.toast('请检查数据网络是否开启~');
-							break;
-						default:
-							_this.$u.toast('获取失败~');
-					}
-				}
 			});
 		},
 		LoginPhone(phone) {

@@ -1,3 +1,4 @@
+// common/plugins/push.js
 import {
 	useUserStore
 } from '@/store/user';
@@ -22,16 +23,16 @@ const videoList = [
 	// "export/UzFfAgtgekIEAQAAAAAAoZsGIyJRPgAAAAstQy6ubaLX4KHWvLEZgBPEyaFURgl0MYyJzNPgMJq_A5F-Nc1R82d-ll1XsXQ_" /**收货端添加好友**/
 ];
 
-export default (http) => ({
+export default {
 	install(app) {
-		app.config.globalProperties.$loadUser = (options = {}) => {
+		app.config.globalProperties.$loadUser = async (options = {}) => {
 			console.log('--------->全局刷新个人信息START<-------------');
 
 			const store = useUserStore();
 			const User = store.user;
 
 			const role = User.data?.work === '1' ? 1 : 2;
-			uni.$api.user.refreshUser({
+			await uni.$api.user.refreshUser({
 					phone: User.phone,
 					role: role
 				}).then(res => {
@@ -123,9 +124,7 @@ export default (http) => ({
 				console.warn('[getRecord] user.phone 不存在，跳过请求');
 				return;
 			}
-			http.post('behavior/get', {
-					phone
-				})
+			uni.$api.user.behaviorGet(phone)
 				.then((res) => {
 					console.log('记录结果：', refs.$refs.popLetter);
 					if (res.data.data) {
@@ -188,4 +187,4 @@ export default (http) => ({
 			['iPhone 12 Mini', '50px']
 		]);
 	}
-});
+};

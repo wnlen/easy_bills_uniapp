@@ -197,7 +197,7 @@
 				:index="index"
 				:id="`zp-id-${item.id}`"
 				@click="
-					goPath('/pages/subOrder/details?id=' + item.id);
+					$goPath('/pages/subOrder/details?id=' + item.id);
 					hide = false;
 				"
 				class="OrderCard"
@@ -367,7 +367,7 @@
 								v-if="userStore.userRole === 'R' && pinia_user.workData.identity !== '3' && item.paymentState === '0' && item.lockOrder != 1"
 								class="hl-btn ml20 flex-row items-center justify-center"
 								type="default"
-								@click="goPath('/pages/subOrder/details?id=' + item.id)"
+								@click="$goPath('/pages/subOrder/details?id=' + item.id)"
 							>
 								<!-- &&item.lockOrder!=1 v-if="OperatingSystem" -->
 								<up-icon name="order" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="确认签收"></up-icon>
@@ -631,7 +631,7 @@
 							<!-- <up-code-input :bold="false" @change="(e) => changeList(e)" @finish="finishList" :dot="true" :modelValue="password" maxlength="4"></up-code-input> -->
 							<view class="mt20 err" v-show="err">密码错误，请重新输入</view>
 						</view>
-						<view @click="goPath('/pages/subUser/resetpassword')" class="ft12 pr30 flex-row justify-end pt15" style="color: #999; width: 100%">找回密码</view>
+						<view @click="$goPath('/pages/subUser/resetpassword')" class="ft12 pr30 flex-row justify-end pt15" style="color: #999; width: 100%">找回密码</view>
 					</view>
 					<view class="flex-row items-center absolute u-border-top" style="width: 100%; bottom: 0; height: 25%">
 						<view @click="close_mask" style="width: 50%; height: 100%" class="titlePas flex-col justify-center items-center">取消</view>
@@ -852,6 +852,7 @@ uni.$on('switchTabToList', (e) => {
 });
 // 页面进入展示
 onShow(() => {
+	uni.hideTabBar();
 	refresh.value = true;
 	nextTick(() => {
 		if (globalStore.tabIndex > 0) {
@@ -1721,7 +1722,7 @@ function compile(item) {
 }
 
 function remark(item) {
-	goPath(`/pages/subList/remark?item=${JSON.stringify(item)}`);
+	$goPath(`/pages/subList/remark?item=${JSON.stringify(item)}`);
 	hide.value = false;
 }
 

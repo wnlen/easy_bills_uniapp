@@ -23,11 +23,9 @@ import {
 } from '@/common/http.interceptor.js';
 
 // ========== 自定义插件 ==========
-import push from '@/common/push.js';
-import createRefresh from '@/common/refresh.js';
-import globalMethods from '@/common/globalMethods.js';
-import globalMixin from '@/common/globalMixin.js';
-import createApi from '@/api';
+import plugins from '@/common/plugins'; //全局插件
+import globalMixin from '@/common/mixins/global.js'; //全局混入
+import createApi from '@/api'; //api接口
 
 // import uExtend from '@/plugins/uExtend'
 
@@ -65,9 +63,7 @@ export function createApp() {
 	uni.$http = http;
 
 	// 全局插件 & Mixin
-	app.use(push);
-	app.use(globalMethods);
-	app.use(createRefresh(http));
+	app.use(plugins);
 	app.mixin(globalMixin); //混入全局变量\全局方法
 
 	// 挂载 Vue 应用

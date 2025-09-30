@@ -32,7 +32,7 @@
 			<view
 				class="absolute flex-row justify-center items-center"
 				style="bottom: -10rpx; color: #ffffff; opacity: 1; font-size: 28.6rpx"
-				@click="goPath('/pages/subPack/user/my_order/my_order')"
+				@click="$goPath('/pages/subPack/user/my_order/my_order')"
 			>
 				进入我的订购 >
 			</view>

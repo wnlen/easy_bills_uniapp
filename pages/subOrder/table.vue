@@ -91,7 +91,7 @@
 			</view>
 			<!-- <view class="ml5 mr5" style="flex: 1">
 				<up-button :customStyle="SearchCustomStyle"  shape="circle"
-					@click="goPath('/pages/subIndex/add_friend/add_friend')">
+					@click="$goPath('/pages/subIndex/add_friend/add_friend')">
 					<view class=></view><up-icon  "pr10" name="phone-fill" color="#ffffff" size="30rpx"></up-icon>
 					手机号邀请
 				</up-button>

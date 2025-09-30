@@ -167,7 +167,7 @@
 					></up-empty>
 				</view>
 				<view
-					@click="goPath('/pages/subPack/user/my_order/my_order')"
+					@click="$goPath('/pages/subPack/user/my_order/my_order')"
 					v-if="pinia_user.workData.identity != 3 && pinia_user.workData.identity != 4 && pinia_user.workData.identity != 1"
 					class="buyOrder flex-col justify-center items-center"
 					style=""
@@ -229,7 +229,7 @@
 				<view
 					v-for="(item, index) in orderList"
 					:key="index"
-					@click="goPath('/pages/subPack/formerYears/details?id=' + item.id)"
+					@click="$goPath('/pages/subPack/formerYears/details?id=' + item.id)"
 					class="flex-col pl20 pr20 pd36 pt38 bg-white mb18 order-item u-skeleton relative cardShow"
 				>
 					<view class="u-skeleton-fillet mb10 flex-row" @tap.stop style="width: 100%">
@@ -329,7 +329,7 @@
 					<up-empty src="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/empty.svg"
 						icon-size="400" text="暂无消息~" mode="search" margin-top="-200"></up-empty>
 				</view>
-				<view @click="goPath('/pages/subPack/user/my_order/my_order')"
+				<view @click="$goPath('/pages/subPack/user/my_order/my_order')"
 					class="buyOrder flex-col justify-center items-center" style="">
 					前往订购
 				</view>

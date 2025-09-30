@@ -47,8 +47,6 @@
 </template>
 
 <script>
-import { useGlobalStore } from '@/store/global';
-const globalStore = useGlobalStore();
 export default {
 	name: 'pop-role',
 	data() {

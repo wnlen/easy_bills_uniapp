@@ -103,8 +103,8 @@ export default {
 		comparisonCode() {
 			var code = this.form.code;
 			if (code != '') {
-				uni.$api.user
-					.verifyUnsubscribeCode({
+				uni.$api.sms
+					.verifyCode({
 						phone: this.pinia_user.phone,
 						code: code,
 						scene: 'Logout'
@@ -127,8 +127,8 @@ export default {
 		getCode() {
 			if (this.codeClick) {
 				this.codeClick = false;
-				uni.$api.user
-					.getUnsubscribeCode({
+				uni.$api.sms
+					.getSmsCode({
 						phone: this.pinia_user.phone,
 						scene: 'Logout'
 					})

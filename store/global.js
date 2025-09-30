@@ -1,6 +1,8 @@
 // store/global.js
-import { defineStore } from 'pinia';
-import apiConfig from '@/common/http.api.js';
+import {
+	defineStore
+} from 'pinia';
+import apiConfig from '@/common/config.js';
 
 let ImgUrl = 'https://res-oss.elist.com.cn';
 
@@ -24,8 +26,7 @@ export const useGlobalStore = defineStore('global', {
 		version: '1.0.0',
 		taber: 0,
 		ImgUrl,
-		tabbar: [
-			{
+		tabbar: [{
 				iconPath: '/static/images/tab/tab-home.png',
 				selectedIconPath: '/static/images/tab/tab-home-active.png',
 				text: '首页',

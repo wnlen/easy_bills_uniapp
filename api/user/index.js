@@ -59,20 +59,7 @@ export default (http) => ({
 	revokeUnsubscribe(params) {
 		return http.post('user/revocation', params);
 	},
-	/**
-	 * 校验验证码是否正确（手机号 + 验证码）
-	 * 原始接口：/edo/user/comparisonCode
-	 */
-	verifyUnsubscribeCode(params) {
-		return http.post('user/comparisonCode', params);
-	},
-	/**
-	 * 获取注销验证码（手机号 + 类型）
-	 * 原始接口：/edo/user/getUnsubscribeCode
-	 */
-	getUnsubscribeCode(params) {
-		return http.post('user/getUnsubscribeCode', params);
-	},
+
 	/**
 	 * 查找可收货的用户列表
 	 * 原始接口：/edo/delivery/searchUser
@@ -148,10 +135,17 @@ export default (http) => ({
 		return http.post('relationApply/del', params);
 	},
 	/**
-	 * 删除员工的关联申请记录
-	 * 原始接口：/edo/relationApply/del
+	 * 添加记录提醒
+	 * 原始接口：/edo/behavior/add
 	 */
 	behaviorAdd(params) {
 		return http.post('behavior/add', params);
+	},
+	/**
+	 * 获取记录提醒
+	 * 原始接口：/edo/behavior/get
+	 */
+	behaviorGel(params) {
+		return http.post('behavior/get', params);
 	}
 });
