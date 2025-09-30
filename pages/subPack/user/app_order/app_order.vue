@@ -120,8 +120,22 @@
 										<text>剩余：</text>
 										<text>32份</text>
 									</view>
-									<view class="">
+									<view class="flex-row items-center">
 										<text class="ft-gray">追加份数：</text>
+										<up-number-box
+											color="#FD5B75"
+											:disabledInput="true"
+											:integer="true"
+											buttonWidth="30rpx"
+											buttonRadius="2rpx"
+											buttonSize="30rpx"
+											inputBgColor="transparent"
+											:min="0"
+											bgColor="#EA7183"
+											v-model="playMoneyListSend.c_product_people.c"
+											@change="valChangec"
+											:iconStyle="{ color: '#fff', fontSize: '18rpx' }"
+										></up-number-box>
 									</view>
 								</view>
 								<view class="text-right">
@@ -130,6 +144,7 @@
 								</view>
 								<view class="tags">CA 认证 + PDF留档</view>
 								<view
+									v-if="showAuth"
 									class="covers flex-col items-center justify-center"
 									@click="
 										uni.navigateTo({
@@ -517,6 +532,7 @@
 export default {
 	data() {
 		return {
+			showAuth: true,
 			popupShow: false,
 			popupShowText: 0,
 			popupShow2: false,
@@ -1229,6 +1245,11 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+::v-deep .u-number-box__input {
+	border: 1rpx solid #696969 !important;
+	border-radius: 4rpx !important;
+	margin: 0 16rpx !important;
+}
 .colorFD {
 	color: #fd5b75;
 }

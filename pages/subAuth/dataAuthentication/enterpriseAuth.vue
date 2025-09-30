@@ -44,7 +44,6 @@
 							label-width="230rpx"
 							prop="value2"
 							clearable
-							type="idcard"
 							v-model="model.value2"
 							placeholder="请输入经营者"
 							:rules="[{ required: true, message: '请输入经营者' }]"
@@ -55,7 +54,6 @@
 							label-width="230rpx"
 							prop="value2"
 							clearable
-							type="idcard"
 							v-model="model.value2"
 							placeholder="请输入法定代表人"
 							:rules="[{ required: true, message: '请输入法定代表人' }]"
