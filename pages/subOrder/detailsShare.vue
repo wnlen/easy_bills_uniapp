@@ -397,15 +397,15 @@ export default {
 		};
 	},
 	onUnload() {
-		uni.removeStorage({
-			key: '1003'
-		});
+		// uni.removeStorage({
+		// 	key: '1003'
+		// });
 	},
 	onHide() {
 		console.log('===隐藏===>');
-		uni.removeStorage({
-			key: '1003'
-		});
+		// uni.removeStorage({
+		// 	key: '1003'
+		// });
 	},
 	methods: {
 		getQs() {

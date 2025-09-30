@@ -197,7 +197,7 @@
 				:index="index"
 				:id="`zp-id-${item.id}`"
 				@click="
-					goPath('/pages/subOrder/details?id=' + item.id);
+					$goPath('/pages/subOrder/details?id=' + item.id);
 					hide = false;
 				"
 				class="OrderCard"
@@ -852,6 +852,7 @@ uni.$on('switchTabToList', (e) => {
 });
 // 页面进入展示
 onShow(() => {
+	uni.hideTabBar();
 	refresh.value = true;
 	nextTick(() => {
 		if (globalStore.tabIndex > 0) {
@@ -1720,7 +1721,7 @@ function compile(item) {
 }
 
 function remark(item) {
-	goPath(`/pages/subList/remark?item=${JSON.stringify(item)}`);
+	$goPath(`/pages/subList/remark?item=${JSON.stringify(item)}`);
 	hide.value = false;
 }
 

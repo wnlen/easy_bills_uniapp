@@ -672,14 +672,14 @@ export default {
 		};
 	},
 	onUnload() {
-		uni.removeStorage({
-			key: '1003'
-		});
+		// uni.removeStorage({
+		// 	key: '1003'
+		// });
 	},
 	onHide() {
-		uni.removeStorage({
-			key: '1003'
-		});
+		// uni.removeStorage({
+		// 	key: '1003'
+		// });
 		if (this.wxType == 1) {
 			// wx.exitMiniProgram({
 			//        success: function() {

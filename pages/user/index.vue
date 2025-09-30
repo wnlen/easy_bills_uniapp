@@ -28,7 +28,7 @@
 						<view class="flex-row justify-left items-center" style="" @click="userClick">
 							<view class="ml15">
 								<view class="ft-color ft42 ft-zjj-1" style="font-weight: 500">
-									{{ pinia_user.phone == undefined ? '请登录~' : userName(pinia_user.data.name) || '设置用户名~' }}
+									{{ pinia_token ? userName(pinia_user.data.name) || '设置用户名~' : '请登录~' }}
 								</view>
 							</view>
 							<view class="flex-row justify-between ml20" style="width: 120rpx; height: 60rpx" v-if="pinia_user.data">
@@ -311,6 +311,7 @@ export default {
 		});
 	},
 	onShow() {
+		uni.hideTabBar();
 		if (this.pinia_user.phone != undefined) {
 			this.$loadUser(this);
 			// this.guideCourse();
@@ -409,14 +410,13 @@ export default {
 			}
 		},
 		userClick() {
-			if (!this.pinia_token) {
-				uni.navigateTo({
-					url: '/pages/subUser/login'
-				});
-				return;
-			} else {
+			if (this.pinia_token) {
 				uni.navigateTo({
 					url: '/pages/subUser/userinfo'
+				});
+			} else {
+				uni.navigateTo({
+					url: '/pages/subUser/login'
 				});
 			}
 		},

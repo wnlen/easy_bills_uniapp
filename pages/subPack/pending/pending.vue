@@ -177,7 +177,7 @@
 				:key="index"
 				:index="index"
 				@click="
-					goPath('/pages/subOrder/details?id=' + item.id);
+					$goPath('/pages/subOrder/details?id=' + item.id);
 					hide = false;
 				"
 				class="OrderCard"
@@ -1229,7 +1229,7 @@ export default {
 			);
 		},
 		remark(item) {
-			this.goPath('/pages/subList/remark?item=' + JSON.stringify(item));
+			this.$goPath('/pages/subList/remark?item=' + JSON.stringify(item));
 			this.hide = false;
 		},
 		ClearIF() {

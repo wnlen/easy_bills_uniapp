@@ -831,7 +831,7 @@ export default {
 		},
 		jumpTable() {
 			this.receipts.phoneE = '';
-			this.goPath('/pages/subOrder/table');
+			this.$goPath('/pages/subOrder/table');
 		},
 		onShareAppMessage(ops) {
 			if (ops.from === 'button') {

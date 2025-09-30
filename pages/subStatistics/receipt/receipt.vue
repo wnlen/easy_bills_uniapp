@@ -103,7 +103,7 @@
 				:key="index"
 				:index="index"
 				@click="
-					goPath('/pages/subOrder/details?id=' + item.id);
+					$goPath('/pages/subOrder/details?id=' + item.id);
 					hide = false;
 				"
 				class="OrderCard"
@@ -140,9 +140,28 @@
 						<up-icon size="28rpx" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></up-icon>
 					</view>
 					<view class="ml20">
-						<up-image v-if="pinia_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="https://res-oss.elist.com.cn/wxImg/obj/bq1.png"></up-image>
-						<up-image v-if="pinia_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="https://res-oss.elist.com.cn/wxImg/obj/dqs.png"></up-image>
-						<up-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="https://res-oss.elist.com.cn/wxImg/obj/bq2.png" :lazy-load="true"></up-image>
+						<up-image
+							v-if="pinia_userRole == 'D' && item.paymentState == '0'"
+							class="u-img"
+							width="120rpx"
+							height="50rpx"
+							src="https://res-oss.elist.com.cn/wxImg/obj/bq1.png"
+						></up-image>
+						<up-image
+							v-if="pinia_userRole == 'R' && item.paymentState == '0'"
+							class="u-img"
+							width="120rpx"
+							height="50rpx"
+							src="https://res-oss.elist.com.cn/wxImg/obj/dqs.png"
+						></up-image>
+						<up-image
+							v-if="item.paymentState == '1'"
+							width="120rpx"
+							height="50rpx"
+							class="u-img"
+							src="https://res-oss.elist.com.cn/wxImg/obj/bq2.png"
+							:lazy-load="true"
+						></up-image>
 						<up-image
 							v-if="pinia_userRole != 'R' && item.paymentState == '2'"
 							width="120rpx"
@@ -151,7 +170,13 @@
 							src="https://res-oss.elist.com.cn/wxImg/obj/bq3.png"
 							:lazy-load="true"
 						></up-image>
-						<up-image v-if="pinia_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="https://res-oss.elist.com.cn/wxImg/obj/yfk.png"></up-image>
+						<up-image
+							v-if="pinia_userRole == 'R' && item.paymentState == '2'"
+							class="u-img"
+							width="120rpx"
+							height="50rpx"
+							src="https://res-oss.elist.com.cn/wxImg/obj/yfk.png"
+						></up-image>
 					</view>
 				</view>
 				<view class="width100 pb25 text-left">
@@ -1124,7 +1149,7 @@ export default {
 			);
 		},
 		remark(item) {
-			this.goPath('/pages/subList/remark?item=' + JSON.stringify(item));
+			this.$goPath('/pages/subList/remark?item=' + JSON.stringify(item));
 			this.hide = false;
 		},
 		ClearIF() {

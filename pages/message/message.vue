@@ -145,6 +145,7 @@ export default {
 		// });
 	},
 	onShow() {
+		uni.hideTabBar();
 		if (this.pinia_user.phone != undefined) {
 			this.getAllNum();
 			this.$refs.popTab.getMessNum();

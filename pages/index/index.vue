@@ -4,7 +4,7 @@
 		<view class="flex-row justify-between items-end ml30 mr30">
 			<view>
 				<image v-if="pinia_token" style="width: 108rpx; height: 34rpx" :src="`${ImgUrl}/wxImg/index/ydj.png`"></image>
-				<image v-else style="width: 128rpx; height: 34rpx" :src="`${ImgUrl}/wxImg/index/qdl.png`" @click="$univerify()"></image>
+				<image v-else style="width: 128rpx; height: 34rpx" :src="`${ImgUrl}/wxImg/index/qdl.png`" @click="clicklogin"></image>
 
 				<view class="ft28">送货单轻松签收</view>
 			</view>
@@ -437,7 +437,8 @@ export default {
 		};
 	},
 	onLoad() {
-		// this.fetchDashboard();
+		console.log('uni', uni);
+		console.log('this', this);
 		if (this.pinia_token) {
 			const role = this.$u.getPinia('user.userRole');
 			const guidanceD = this.$u.getPinia('guide.guidanceD');
@@ -449,6 +450,8 @@ export default {
 		}
 	},
 	onShow() {
+		uni.hideTabBar();
+		var that = this;
 		this.getmiddleBanner(); //加载广告
 		this.setDR(this.pinia_userRole); //从收货端点击登录要在onShow的时候设置角色
 		if (!this.pinia_token) {
@@ -467,7 +470,7 @@ export default {
 				// this.getdaiban(true); //获取待办数量
 				// this.getdaiban(); //获取待办数量
 				this.$refs.popTab.getMessNum();
-				this.$loadUser(this);
+				that.$loadUser(this);
 				this.guideCourse();
 				this.SOCKETfLUSH();
 			});
@@ -484,6 +487,16 @@ export default {
 		};
 	},
 	methods: {
+		clicklogin() {
+			// #ifdef APP
+			this.$univerify();
+			// #endif
+			// #ifdef MP
+			uni.navigateTo({
+				url: '/pages/subUser/login'
+			});
+			// #endif
+		},
 		//监听引导页每一步位置
 		onGuideStepChange({ step }) {
 			console.log('监听', step);

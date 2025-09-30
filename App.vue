@@ -8,22 +8,24 @@ export default {
 		};
 	},
 	onLaunch(options) {
+		uni.hideTabBar();
 		uni.$on('switchTabToList', (e) => {
 			console.log('监听到isFromSwitchTab');
 		});
-		const inviterId = options?.query?.inviterId;
 		//缓存邀请码
+		const inviterId = options?.query?.inviterId;
 		if (inviterId) {
 			uni.setStorageSync('inviterId', inviterId);
 		} else {
 			uni.removeStorageSync('inviterId');
 		}
 
+		//程序更新
 		this.initUpdateManager();
 
-		if (uni.getStorageSync('1003') === '0') {
-			uni.removeStorage({ key: '1003' });
-		}
+		// if (uni.getStorageSync('1003') === '0') {
+		// 	uni.removeStorage({ key: '1003' });
+		// }
 
 		// uni.removeStorage({ key: 'details' });
 		uni.setStorageSync('auth', '0');
@@ -124,6 +126,7 @@ export default {
 			}
 		},
 		initUpdateManager() {
+			// #ifdef MP
 			const updateManager = uni.getUpdateManager();
 			updateManager.onCheckForUpdate((res) => {
 				if (res.hasUpdate) {
@@ -146,6 +149,7 @@ export default {
 					});
 				}
 			});
+			// #endif
 		}
 	}
 };
