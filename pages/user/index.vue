@@ -143,6 +143,7 @@ export default {
 					name: '我的订单',
 					icon: '/wxImg/user/wddd.png',
 					url: '/pages/subPack/user/my_order/my_order'
+					// url: '/pages/subPack/user/app_order/app_order'
 				},
 				// #endif
 				// #ifndef MP-WEIXIN
@@ -170,7 +171,7 @@ export default {
 					id: 2,
 					verify: false,
 					verifyLogin: true,
-					name: '资料认证',
+					name: '资料认证',//增加角标
 					icon: '/wxImg/user/grzl.png',
 					url: '/pages/subAuth/dataAuthentication/dataAuthentication'
 				},
@@ -200,7 +201,7 @@ export default {
 					id: 4,
 					verify: false,
 					verifyLogin: true,
-					name: '我的签名',
+					name: '我的签名',//增加角标
 					icon: '/wxImg/user/qsgl.png',
 					url: '/pages/subAuth/mySignature'
 				}
@@ -450,8 +451,7 @@ export default {
 			}
 		},
 		userName(str) {
-			if (!str) return '';
-			if (str.length > 7) {
+			if (!str) return ''; if (str.length > 7) {
 				return str.slice(0, 7) + '...';
 			} else {
 				return str;

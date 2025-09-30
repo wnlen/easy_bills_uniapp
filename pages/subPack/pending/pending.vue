@@ -1120,7 +1120,9 @@ export default {
 					success: (res) => {
 						var okif = res.confirm;
 						if (okif) {
-							this.showMask = true;
+							// this.showMask = true;
+							// this.onsubmit();
+							type == 1 ? this.deleteOrder(item, index) : type == 2 ? this.payment(item) : this.payment(item);
 						}
 					}
 				});
@@ -1144,7 +1146,8 @@ export default {
 					success: (res) => {
 						var okif = res.confirm;
 						if (okif) {
-							this.showMask = true;
+							// this.showMask = true;
+							type == 1 ? this.deleteOrder(item, index) : type == 2 ? this.payment(item) : this.payment(item);
 						}
 					}
 				});
@@ -1288,7 +1291,7 @@ export default {
 				bUser: val.bossNumberS,
 				orderNumber: val.orderNumber,
 				orderId: val.id,
-				createTime: new Date(),
+				createTime: new Date().getTime(),
 				updateTime: '',
 				state: 1,
 				aBoss: '',
@@ -1520,7 +1523,7 @@ export default {
 					bUser: '',
 					orderNumber: val.orderNumber,
 					orderId: val.id,
-					createTime: '',
+					createTime: new Date().getTime(),
 					updateTime: '',
 					state: 1,
 					aBoss: '',
@@ -1554,18 +1557,20 @@ export default {
 					//发货端
 					if (stateOrder) {
 						//直接删除
-						url = 'order/del';
+						url = uni.$api.order.delOrder;
+						// url = 'order/del';
 						//console.log("直接删除");
 						dx = val;
 						delmess = 0;
 					} else {
 						//申请删除
-						url = 'orderDel/add';
+						// url = 'orderDel/add';
+						url = uni.$api.order.addTemporaryOrder;
 						delmess = 1;
 					}
 				} else {
 					//收货端
-					url = 'orderDel/add';
+					url = uni.$api.order.addTemporaryOrder;
 					dx.bBoss = val.bossNumberS;
 					dx.bUser = val.staffNumberS;
 				}
@@ -1573,12 +1578,12 @@ export default {
 				if (delmess == '1') {
 					//申请删除
 					var okOrNo = 0;
-					this.$u.post(url, dx).then((res) => {
+					url(dx).then((res) => {
 						this.finallyAlertDel(res.data);
 					});
 				} else {
 					var okOrNo = 0;
-					this.$u.post(url, dx).then((res) => {
+					url(dx).then((res) => {
 						this.finallyAlertDel(res.data);
 					});
 				}
