@@ -22,34 +22,34 @@
 			</view>
 			<view class="" style="font-size: 36rpx; font-weight: 700; text-align: center; letter-spacing: 0rpx">注销账号将永久失效且不可恢复</view>
 		</view>
-		<view class="ml24 mr24 mt30 pd30" style="background-color: #f9f9f9; width: 94%; height: 50vh; border-radius: 12rpx">
+		<view class="ml24 mr24 mt30 pd30" style="background-color: #f9f9f9; width: 94%; border-radius: 12rpx">
 			<view class="flex-col items-baseline pt25 pb30">
 				<view class="flex-row items-center">
-					<up-icon name="https://res-oss.elist.com.cn/wxImg/user/dian.svg" size="15"></up-icon>
+					<up-icon name="https://res-oss.elist.com.cn/wxImg/user/dian.svg" size="15rpx"></up-icon>
 					<view class="title ml15 pb15 mt10">订单信息确认</view>
 				</view>
-				<view class="text">您在发货端和收货端内的所有订单将会被清空，请确保您已处理完收发端的所有单据。</view>
+				<view class="text">您在发货端和收货端内的所有订单将会被全部清空，请确保所有交易已完结且无纠纷。</view>
 			</view>
 			<view class="flex-col items-baseline pb30">
 				<view class="flex-row items-center">
-					<up-icon name="https://res-oss.elist.com.cn/wxImg/user/dian.svg" size="15"></up-icon>
+					<up-icon name="https://res-oss.elist.com.cn/wxImg/user/dian.svg" size="15rpx"></up-icon>
 					<text class="title ml15 pb15 mt10">账号信息</text>
 				</view>
-				<view class="text">个人信息、公司信息、签收人信息、好友信息等将会被清空。</view>
+				<view class="text">个人信息、主体认证信息、签收人信息、好友信息等将会被清空。</view>
 			</view>
 			<view class="flex-col items-baseline pb30">
 				<view class="flex-row items-center">
-					<up-icon name="https://res-oss.elist.com.cn/wxImg/user/dian.svg" size="15"></up-icon>
+					<up-icon name="https://res-oss.elist.com.cn/wxImg/user/dian.svg" size="15rpx"></up-icon>
 					<text class="title ml15 pb15 mt10">虚拟权益</text>
 				</view>
-				<view class="text">您平台的虚拟权益如您在【我的订购】中已购买的全部内容，将视为您自动放弃无法恢复。</view>
+				<view class="text">您平台的虚拟权益如VIP会员将视为您自动放弃无法恢复。</view>
 			</view>
 		</view>
 
 		<view class="absolute flex-col justify-center items-center" style="bottom: 140rpx">
 			<view class="flex-row justify-center items-center mr24 ml24 mb20">
 				<uv-checkbox-group>
-					<uv-checkbox @change="radiochange" shape="circle" active-color="#01BB74" icon-size="12" class="flex-row justify-center" style="text-align: center">
+					<uv-checkbox @change="radiochange" shape="circle" active-color="#01BB74" icon-size="10" class="flex-row justify-center" style="text-align: center">
 						<view class="">
 							<text style="color: #aaaaaa; font-size: 24rpx">同意并遵行易单据</text>
 							<text style="color: #01bb74; font-size: 24rpx" @tap.stop="jumpWord()">《账号注销须知》</text>
@@ -183,8 +183,8 @@ export default {
 				this.$u.toast('请勾选账号注销须知协议');
 				return;
 			}
-
-			this.showAddPhone = true;
+			this.okPhone(this.pinia_user.phone);
+			// this.showAddPhone = true;
 		},
 		radiochange(e) {
 			this.disabled = e;
@@ -194,16 +194,21 @@ export default {
 </script>
 
 <style scoped lang="scss">
+::v-deep .uv-checkbox__icon-wrap {
+	width: 28rpx !important;
+	height: 28rpx !important;
+}
 .title {
 	font-size: 32rpx;
-	font-weight: 600;
+	font-weight: 500;
 }
 
 .text {
-	font-size: 36rpx;
+	font-size: 30rpx;
 	font-weight: normal;
 	line-height: 46rpx;
 	letter-spacing: 1rpx;
+	padding-left: 30rpx;
 }
 
 .showAddPhoneCard {

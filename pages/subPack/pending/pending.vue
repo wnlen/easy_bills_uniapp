@@ -1298,7 +1298,8 @@ export default {
 				bBoss: '',
 				port: 'f',
 				orderState: val.paymentState,
-				aName: this.pinia_user.data.name || this.pinia_user.phone || ''
+				aName: this.pinia_user.data.name || this.pinia_user.phone || '',
+				genre: 'P'
 			};
 
 			if (workif) {
@@ -1528,7 +1529,9 @@ export default {
 					state: 1,
 					aBoss: '',
 					bBoss: '',
-					port: this.pinia_userRole == 'D' ? '0' : '1',
+					genre: 'D',
+					port: this.pinia_userRole,
+					// port: this.pinia_userRole == 'D' ? '0' : '1',
 					orderState: val.paymentState,
 					aName: this.pinia_user.data.name || this.pinia_user.phone || ''
 				};
