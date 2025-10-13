@@ -334,6 +334,7 @@
 					<view v-if="!item.share" class="flex-row items-center justify-center">
 						<view class="flex-row items-center justify-center">
 							<!-- @click="shareNY(item, 1)" -->
+							<!-- #ifdef MP-WEIXIN -->
 							<button
 								class="hl-btn flex-row items-center justify-center"
 								type="default"
@@ -363,6 +364,26 @@
 									:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发'"
 								></up-icon>
 							</button>
+							<!-- #endif -->
+							<!-- #ifndef MP-WEIXIN -->
+							<button
+								class="hl-btn flex-row items-center justify-center"
+								type="default"
+								@click="
+									showShare = true;
+									shareImg = item.picturesId;
+								"
+							>
+								<up-icon
+									name="share-square"
+									size="25rpx"
+									color="#666666"
+									labelColor="#333333"
+									labelSize="22rpx"
+									:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发'"
+								></up-icon>
+							</button>
+							<!-- #endif -->
 							<button
 								v-if="userStore.userRole === 'R' && pinia_user.workData.identity !== '3' && item.paymentState === '0' && item.lockOrder != 1"
 								class="hl-btn ml20 flex-row items-center justify-center"
@@ -446,6 +467,7 @@
 			</template>
 		</z-paging>
 		<pop-tab :tabIndex="1" ref="popTabCom"></pop-tab>
+		<pop-share :show="showShare" :imageUrl="shareImg" @closeShare="showShare = false"></pop-share>
 		<!-- 弹出层 -->
 		<up-popup :show="show_start" @close="show_start = false" mode="top" :safeAreaInsetBottom="false" :safeAreaInsetTop="true" zIndex="999">
 			<!-- #ifdef MP-WEIXIN -->
@@ -692,6 +714,7 @@ const labText = ref('确认收款');
 const current = ref(0);
 const dataList = ref([]);
 const reload = ref(false);
+const showShare = ref(false);
 const total = ref(0);
 const current_page = ref(0);
 const last_page = ref(1);
@@ -798,6 +821,7 @@ const startY = ref(0);
 const uNoticeBarlist = ref(['请及时完成2024年订单收款，逾期将无法处理；跨年后，可前往更多功能-往年数据处查看往年订单。']);
 const bottomSafeArea = ref(0);
 const isFromSwitchTab = ref(false);
+const shareImg = ref('');
 watch(
 	() => systemStore.flush,
 	(newVal) => {

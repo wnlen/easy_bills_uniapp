@@ -32,6 +32,10 @@ export default {
 		if (!uni.getStorageSync('wzc_img')) {
 			uni.setStorageSync('wzc_img', 'https://res-oss.elist.com.cn/wxImg/obj/wzc' + (Math.floor(Math.random() * 3) + 1) + '.svg');
 		}
+		// 如果存在且不是线上图片重新替换
+		else if (uni.getStorageSync('wzc_img').indexOf('https://res-oss.elist.com.cn/wxImg/obj/wzc') == -1) {
+			uni.setStorageSync('wzc_img', 'https://res-oss.elist.com.cn/wxImg/obj/wzc' + (Math.floor(Math.random() * 3) + 1) + '.svg');
+		}
 	},
 	onShow(options) {
 		this.$getCid?.();

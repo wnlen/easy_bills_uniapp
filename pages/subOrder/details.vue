@@ -1218,13 +1218,17 @@ export default {
 			console.log(imgList);
 		},
 		DownPdf(order) {
+			uni.showLoading({
+				title: '加载中...', // 提示文字
+				mask: true // 是否显示透明蒙层，防止触摸穿透
+			});
 			if (!this.downPdf) {
-				this.$u.toast('请勿频繁点击~');
-				var that = this;
-				setTimeout(function () {
-					that.downPdf = true;
-				}, 1000);
-				return;
+				// this.$u.toast('请勿频繁点击~');
+				// var that = this;
+				// setTimeout(function () {
+				// 	that.downPdf = true;
+				// }, 1000);
+				// return;
 			} else {
 				this.downPdf = false;
 			}
@@ -1276,9 +1280,11 @@ export default {
 						},
 						fail: console.error
 					});
+					uni.hideLoading();
 				})
 				.catch((res) => {
 					console.log(res);
+					uni.hideLoading();
 				});
 			// #endif
 			// #ifdef APP
@@ -1298,9 +1304,11 @@ export default {
 						},
 						fail: console.error
 					});
+					uni.hideLoading();
 				})
 				.catch((res) => {
 					console.log(res);
+					uni.hideLoading();
 				});
 			// #endif
 		},

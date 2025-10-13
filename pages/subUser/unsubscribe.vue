@@ -63,7 +63,7 @@ export default {
 				background: 'transparent'
 			},
 			timer: null, // 用于存储计时器
-			interval: 70, // 验证码倒计时，单位秒
+			interval: 60, // 验证码倒计时，单位秒
 			codeText: 0,
 			codeClick: true,
 			buttonStyle: {

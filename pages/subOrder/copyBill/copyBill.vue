@@ -56,6 +56,7 @@
 					客户登录易单据即可线上签署送货单
 				</view>
 				<view class="flex-row justify-center items-center mt90">
+					<!-- #ifdef MP-WEIXIN -->
 					<button
 						style="
 							background-color: #ffffff;
@@ -77,7 +78,29 @@
 					>
 						<view class="pr10"><up-icon labelColor="#01BB74" label="微信分享签单" labelPos="right" name="weixin-fill" color="#01BB74" size="30rpx"></up-icon></view>
 					</button>
-
+					<!-- #endif -->
+					<!-- #ifndef MP-WEIXIN -->
+					<button
+						@click="showPopShare = true"
+						style="
+							background-color: #ffffff;
+							width: 271.24rpx;
+							height: 79.98rpx;
+							line-height: 79.98rpx;
+							border-radius: 338.4rpx;
+							color: #262626;
+							border: 2rpx solid #01bb74;
+							font-size: 30rpx;
+						"
+						class="mr15 flex-row items-center justify-center"
+						size="medium"
+					>
+						<view class="pr10 flex-row items-center">
+							<image src="/static/app/img/share/zfqd.svg" mode="" style="width: 34rpx; height: 34rpx"></image>
+							<text class="ft-green ft28 ml10">转发签单</text>
+						</view>
+					</button>
+					<!-- #endif -->
 					<button
 						style="background-color: #01bb74; width: 271.24rpx; height: 79.98rpx; border-radius: 338.4rpx; color: #ffffff; font-size: 30rpx"
 						class="ml15 flex-row items-center justify-center"
@@ -407,7 +430,7 @@
 				<up-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder" shape="circle">发送订单</up-button>
 			</view>
 		</view>
-
+		<pop-share :show="showPopShare" :imageUrl="transmitList[0].picturesId" @closeShare="showPopShare = false"></pop-share>
 		<pop-auth ref="popAuth"></pop-auth>
 		<!-- 认证提醒 -->
 
@@ -421,6 +444,7 @@
 export default {
 	data() {
 		return {
+			showPopShare: false,
 			order: {},
 			showOrderPly: false,
 			scrollTop: 0,

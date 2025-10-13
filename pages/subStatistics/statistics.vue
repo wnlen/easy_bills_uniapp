@@ -165,9 +165,28 @@
 							</view>
 						</view>
 						<view class="ml20" style="margin-right: -20rpx">
-							<up-image v-if="pinia_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="https://res-oss.elist.com.cn/wxImg/obj/bq1.png"></up-image>
-							<up-image v-if="pinia_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="https://res-oss.elist.com.cn/wxImg/obj/dqs.png"></up-image>
-							<up-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="https://res-oss.elist.com.cn/wxImg/obj/bq2.png" :lazy-load="true"></up-image>
+							<up-image
+								v-if="pinia_userRole == 'D' && item.paymentState == '0'"
+								class="u-img"
+								width="120rpx"
+								height="50rpx"
+								src="https://res-oss.elist.com.cn/wxImg/obj/bq1.png"
+							></up-image>
+							<up-image
+								v-if="pinia_userRole == 'R' && item.paymentState == '0'"
+								class="u-img"
+								width="120rpx"
+								height="50rpx"
+								src="https://res-oss.elist.com.cn/wxImg/obj/dqs.png"
+							></up-image>
+							<up-image
+								v-if="item.paymentState == '1'"
+								width="120rpx"
+								height="50rpx"
+								class="u-img"
+								src="https://res-oss.elist.com.cn/wxImg/obj/bq2.png"
+								:lazy-load="true"
+							></up-image>
 							<up-image
 								v-if="pinia_userRole != 'R' && item.paymentState == '2'"
 								width="120rpx"
@@ -176,7 +195,13 @@
 								src="https://res-oss.elist.com.cn/wxImg/obj/bq3.png"
 								:lazy-load="true"
 							></up-image>
-							<up-image v-if="pinia_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="https://res-oss.elist.com.cn/wxImg/obj/yfk.png"></up-image>
+							<up-image
+								v-if="pinia_userRole == 'R' && item.paymentState == '2'"
+								class="u-img"
+								width="120rpx"
+								height="50rpx"
+								src="https://res-oss.elist.com.cn/wxImg/obj/yfk.png"
+							></up-image>
 						</view>
 					</view>
 					<view class="width100 pb25 pt10 u-skeleton-fillet">
@@ -1001,6 +1026,10 @@ export default {
 		},
 		dlPdf() {
 			if (this.dpdf) {
+				uni.showLoading({
+					title: '加载中...', // 提示文字
+					mask: true // 是否显示透明蒙层，防止触摸穿透
+				});
 				this.dpdf = false;
 				if (this.checked) {
 					var dx = Object.assign({}, this.realTimeSel);
@@ -1013,6 +1042,7 @@ export default {
 							this.downPdf(res.data.data);
 						})
 						.catch((res) => {
+							uni.hideLoading();
 							this.$u.toast('服务器响应失败');
 						});
 				} else {
@@ -1247,9 +1277,11 @@ export default {
 					setTimeout(function () {
 						that.dpdf = true;
 					}, 1000);
+					uni.hideLoading();
 				})
 				.catch((res) => {
 					this.dpdf = true;
+					uni.hideLoading();
 					this.$u.toast(res.message);
 				});
 		},
