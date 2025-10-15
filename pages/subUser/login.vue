@@ -1,6 +1,6 @@
 <template>
 	<view
-		class="vh100 vw100 flex-col items-center justify-center"
+		class="vh100 vw100 flex-col items-center justify-center no-scroll"
 		style="background-size: cover; background-image: url('https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/user/login.png')"
 	>
 		<!-- #ifdef MP-WEIXIN -->
@@ -8,7 +8,7 @@
 		<view class="form-wrap width60 flex-col items-center" style="top: 400rpx">
 			<up-image class="login-logo" width="400rpx" src="https://res-oss.elist.com.cn/wxImg/user/logoLogin.svg" mode="widthFix"></up-image>
 			<view class="width100 pb60 login_box">
-				<view class="login_btn1" v-if="this.ischeck">
+				<view class="login_btn1" v-if="ischeck">
 					<up-button
 						type="primary"
 						hover-class="none"
@@ -37,9 +37,9 @@
 					</view>
 					<view class="ml15">
 						<text style="color: #aaaaaa; font-size: 24rpx">同意并遵行易单据</text>
-						<text style="color: #01bb74; font-size: 24rpx" @top.stop @click="jump(0)">《用户服务协议》</text>
+						<text style="color: #01bb74; font-size: 24rpx" @tap.stop="jump(0)">《用户服务协议》</text>
 						<text style="color: #aaaaaa; font-size: 24rpx">和</text>
-						<text style="color: #01bb74; font-size: 24rpx" @top.stop @click="jump(1)">《隐私政策》</text>
+						<text style="color: #01bb74; font-size: 24rpx" @tap.stop="jump(1)">《隐私政策》</text>
 					</view>
 				</view>
 			</view>
@@ -97,16 +97,17 @@
 					<view class="Input">
 						<input
 							placeholder-class="placeholder_class"
-							v-model="fromLogin.password"
+							v-model="fromLogin.smsCode"
 							maxlength="10"
 							placeholder="请输入验证码"
-							@focus="passsswordFocusInput"
+							@focus="smsCodeFocusInput"
 							class="u-line-1 ml15 endcolor"
 						/>
 						<wd-count-down ref="countDown" style="display: none" :time="60 * 1000" :auto-start="false" @finish="codeFinish" @change="codeChange" />
-						<text class="ft-green mr48" @click="getCode">{{ tips }}</text>
+						<text v-if="!isValidPhone" class="ft-lightgray mr48">{{ tips }}</text>
+						<text v-else class="ft-green mr48" @click="getCode">{{ tips }}</text>
 					</view>
-					<text class="err ml24" v-if="passsswordErr">请输入验证码</text>
+					<text class="err ml24" v-if="smsCodeErr">请输入验证码</text>
 					<view class="headlineEnd mb36" v-if="err">
 						<text class="ts" @click="ZC">手机号或验证码错误，请重新输入!!!</text>
 					</view>
@@ -138,7 +139,9 @@
 					<view class="flex-row justify-center items-center mr30" style="background-color: #01bb74; height: 96rpx; width: 96rpx; border-radius: 50%" @click="wxloginInit">
 						<up-icon name="weixin-fill" color="#fff" size="80rpx" @click="wxloginInit"></up-icon>
 					</view>
+					<!-- #ifdef APP-IOS -->
 					<wd-icon name="apple-filled" size="96rpx"></wd-icon>
+					<!-- #endif -->
 				</view>
 			</view>
 		</view>
@@ -200,14 +203,21 @@ export default {
 			eyePassword: true,
 			fromLogin: {
 				phoneNumber: '',
-				password: '',
+				smsCode: '',
 				type: 0
 			},
 			err: false,
 			phoneNumberErr: false,
-			passsswordErr: false,
+			smsCodeErr: false,
 			sharePath: null
 		};
+	},
+	computed: {
+		// 计算属性判断是否手机号
+		isValidPhone() {
+			const value = String(this.fromLogin.phoneNumber).trim();
+			return /^1[3-9]\d{9}$/.test(value);
+		}
 	},
 	onLoad(option) {
 		//使用微信登录获取登录code
@@ -219,6 +229,7 @@ export default {
 		}
 	},
 	onShow() {
+		// this.fromLogin.phoneNumber = '15143483363';
 		// #ifdef MP-WEIXIN
 		// this.refreshCode();
 		// #endif
@@ -230,6 +241,9 @@ export default {
 			imageUrl: '/static/share.png'
 		};
 	},
+	onBackPress(options) {
+		// console.log('from:' + options.from);
+	},
 	methods: {
 		codeFinish() {
 			this.$refs.countDown.reset();
@@ -240,15 +254,17 @@ export default {
 		},
 		getCode() {
 			if (this.tips != '获取验证码' || this.tips != '重新获取') {
-				this.$refs.countDown.start();
-				// uni.$api.sms
-				// 	.getSmsCode({
-				// 		phone: this.pinia_user.phone,
-				// 		scene: 'Logout'
-				// 	})
-				// 	.then(res => {
-
-				// 	});
+				uni.$api.sms
+					.getSmsCode({
+						phone: this.fromLogin.phoneNumber,
+						scene: 'login'
+					})
+					.then((res) => {
+						this.$refs.countDown.start();
+					})
+					.catch((err) => {
+						console.error('短信接口失败', err);
+					});
 			}
 		},
 		yinsi_open() {
@@ -419,9 +435,9 @@ export default {
 			console.log('对焦');
 			this.phoneNumberErr = false;
 		},
-		passsswordFocusInput() {
+		smsCodeFocusInput() {
 			console.log('对焦');
-			this.passsswordErr = false;
+			this.smsCodeErr = false;
 		},
 		ZC() {
 			uni.navigateTo({
@@ -471,31 +487,37 @@ export default {
 				return;
 			}
 
-			if (this.fromLogin.passssword == '') {
-				this.$u.toast('请输入密码～');
-				this.passsswordErr = true;
+			if (this.fromLogin.smsCode == '') {
+				this.$u.toast('请输入验证码～');
+				this.smsCodeErr = true;
 				return;
 			}
 
-			// uni.$api.user.loginWithAppAccount(this.fromLogin).then((res) => {
-			// 	var code = res.data.data;
-			// 	console.log(code);
-			// 	if (code.type == 1) {
-			// 		this.$u.setPinia({
-			// 			user: {
-			// 				user: code,
-			// 				token: code.loginToken
-			// 			}
-			// 		});
+			uni.$api.user
+				.loginAppPhone({
+					phoneNumber: String(this.fromLogin.phoneNumber || ''),
+					smsCode: String(this.fromLogin.smsCode || '')
+				})
+				.then((res) => {
+					var resDate = res.data.data;
+					uni.$u.setPinia({
+						user: {
+							userRole: 'D',
+							token: resDate.loginToken,
+							user: resDate,
+							work: resDate.data.work != '1' ? 'N' : 'Y'
+						}
+					});
 
-			// 		this.$loadUser(this);
-			// 		uni.switchTab({
-			// 			url: '/pages/index/index'
-			// 		});
-			// 	} else {
-			// 		this.$u.toast('密码错误~');
-			// 	}
-			// });
+					this.$loadUser(this);
+					uni.switchTab({
+						url: '/pages/index/index'
+					});
+				})
+				.catch((res) => {
+					console.log('报错', res);
+					this.$u.toast(res.data.data);
+				});
 		},
 		wxloginInit() {
 			var _this = this;
@@ -563,6 +585,11 @@ export default {
 .module {
 	position: fixed;
 	bottom: 40rpx;
+}
+
+.no-scroll {
+	touch-action: none;
+	overscroll-behavior: contain;
 }
 
 .yjdl {

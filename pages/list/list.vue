@@ -876,7 +876,9 @@ uni.$on('switchTabToList', (e) => {
 });
 // 页面进入展示
 onShow(() => {
+	// #ifdef APP
 	uni.hideTabBar();
+	// #endif
 	refresh.value = true;
 	nextTick(() => {
 		if (globalStore.tabIndex > 0) {

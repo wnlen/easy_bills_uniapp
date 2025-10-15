@@ -441,8 +441,8 @@ export default {
 		};
 	},
 	onLoad() {
-		console.log('uni', uni);
-		console.log('this', this);
+		// console.log('uni', uni);
+		// console.log('this', this);
 		if (this.pinia_token) {
 			const role = this.$u.getPinia('user.userRole');
 			const guidanceD = this.$u.getPinia('guide.guidanceD');
@@ -454,7 +454,9 @@ export default {
 		}
 	},
 	onShow() {
+		// #ifdef APP
 		uni.hideTabBar();
+		// #endif
 		var that = this;
 		this.getmiddleBanner(); //加载广告
 		this.setDR(this.pinia_userRole); //从收货端点击登录要在onShow的时候设置角色
@@ -473,6 +475,7 @@ export default {
 				this.fetchDashboard(); //加载统计数据
 				// this.getdaiban(true); //获取待办数量
 				// this.getdaiban(); //获取待办数量
+
 				this.$refs.popTab.getMessNum();
 				that.$loadUser(this);
 				this.guideCourse();
@@ -642,7 +645,7 @@ export default {
 			this.unwatchFlush = this.$watch(
 				() => system.flush, // 监听状态
 				(newVal, oldVal) => {
-					console.log('tokenaaaaaaaaaaaaaaa', that.pinia_token);
+					console.log('SOCKET监听数据', newVal);
 					if (that.pinia_token) {
 						that.getOrderDB();
 					} else {
@@ -956,7 +959,6 @@ export default {
 		// 待办事项  权限是否过期
 		getOrderDB() {
 			var that = this;
-			console.log('sgd大概多少小');
 			// 版权过期
 			// var workIFS = this.pinia_user.data.work == '1';
 			// if (workIFS) {
@@ -987,10 +989,8 @@ export default {
 					dx.bUser = this.pinia_user.phone;
 				}
 			}
-			console.log('待办事项参数', dx);
 
 			const fetchOrderDraftList = (dx) => {
-				console.log('打印彩', dx);
 				uni.$api.order.getOrderDraftList(dx).then((res) => {
 					if (uni.$u.getPinia('user.userRole') === 'D') {
 						that.iconlist[3].count = res.data.data[0];

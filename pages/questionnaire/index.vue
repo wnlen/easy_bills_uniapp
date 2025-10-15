@@ -216,11 +216,11 @@ export default {
 			console.log('发起提交', data);
 
 			// 发起提交
-			uni.$api.survey.submitSurvey(data).then((res) => {
-				console.log('提交响应:', res);
-				const { code, message } = res.data;
+			uni.$api.survey
+				.submitSurvey(data)
+				.then((res) => {
+					console.log('提交响应:', res);
 
-				if (code === 200) {
 					this.$refs.uToast1.show({
 						message: '提交成功，奖励已发放！',
 						type: 'success'
@@ -230,7 +230,9 @@ export default {
 							url: '/pages/index/index'
 						});
 					}, 1500);
-				} else {
+				})
+				.catch((res) => {
+					const { code, message } = res.data;
 					this.$refs.uToast1.show({
 						message: message || '提交失败',
 						type: 'warning'
@@ -240,8 +242,7 @@ export default {
 							url: '/pages/index/index'
 						});
 					}, 1500);
-				}
-			});
+				});
 		},
 		//类型映射
 		getStatusText(status) {

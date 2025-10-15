@@ -8,7 +8,6 @@ export default {
 		};
 	},
 	onLaunch(options) {
-		uni.hideTabBar();
 		uni.$on('switchTabToList', (e) => {
 			console.log('监听到isFromSwitchTab');
 		});
@@ -46,7 +45,6 @@ export default {
 			SocketManager.connect(this.pinia_user.phone, (data) => {
 				if (this.pinia_user?.phone) {
 					this.updateMessageCounts();
-					console.log('数据三十岁', data);
 					uni.$u.setPinia({
 						system: {
 							flush: data
@@ -81,9 +79,7 @@ export default {
 				bUser: this.pinia_user.phone,
 				port: this.pinia_userRole
 			};
-			console.log('打印的', param);
 			uni.$api.order.getOrderDraftList(param).then((res) => {
-				console.log('resresresresr热水', res);
 				const isDirector = this.pinia_userRole === 'D';
 				const tasks = res.data.data.filter((item) => (isDirector ? item.port === '1' || item.port === 'f' : item.port === '0'));
 				this.todoCount = tasks.length;
