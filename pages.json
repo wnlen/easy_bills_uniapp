@@ -288,6 +288,34 @@
 						"navigationBarTitleText": "我的订购",
 						"navigationStyle": "custom"
 					}
+				},
+				{
+					"path": "report/report",
+					"style": {
+						"navigationBarTitleText": "报表",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "dataManagement/dataManagement",
+					"style": {
+						"navigationBarTitleText": "数据管理",
+						"navigationBarBackgroundColor": "#ffffff"
+					}
+				},
+				{
+					"path": "dataManagement/manageAnalysis",
+					"style": {
+						"navigationBarTitleText": "数据分析",
+						"navigationBarBackgroundColor": "#ffffff"
+					}
+				},
+				{
+					"path": "dataManagement/manageSales",
+					"style": {
+						"navigationBarTitleText": "销售排行榜",
+						"navigationBarBackgroundColor": "#ffffff"
+					}
 				}
 			]
 		},
