@@ -176,53 +176,8 @@
 				</view>
 			</view>
 			<!-- 数据分析模块开始 -->
-			<view class="pl24 pr24 contentView mt12 pb38" v-show="current == 1">
-				<view class="bg-white pl24 pr24 pb38">
-					<view class="charts-box1">
-						<qiun-data-charts type="ring" :opts="opts4" :chartData="chartData4" :canvas2d="true" canvasId="mQeRxIXWgXIzJwrjsSJdlsgpudfZgkIE" />
-					</view>
-					<view class="flex-row items-center justify-between u-border-bottom pt15 pb15">
-						<view class="flex-row items-center">
-							<text>总金额</text>
-							<!-- <view class="flex-row items-center ml20">
-								<up-icon name="arrow-downward" size="20rpx" color="#F53F3F"></up-icon>
-								<text class="ft12" style="color: #f53f3f">0.8%</text>
-							</view> -->
-						</view>
-						<view class="ft-green">
-							<text>￥</text>
-							<text>{{ formatAmount(468552) }}</text>
-						</view>
-					</view>
-					<view class="flex-row items-center justify-between u-border-bottom pt15 pb15" v-for="(item, index) in chartData4.series[0].data" :key="index">
-						<view class="flex-row items-center">
-							<text class="bgColorBox" :style="`background:${item.bgColor}`"></text>
-							<text>{{ item.name }}</text>
-						</view>
-						<view class="">
-							<text>￥</text>
-							<text>{{ formatAmount(item.value) }}</text>
-						</view>
-					</view>
-				</view>
-				<view class="bg-white">
-					<view class="earchTitle">待签收统计图</view>
-					<view class="charts-box">
-						<qiun-data-charts type="column" :opts="opts1" :chartData="chartData1" :canvas2d="true" canvasId="NrrFqdcSkawnWFhtAazcccaSZppHblXx" />
-					</view>
-				</view>
-				<view class="bg-white">
-					<view class="earchTitle">已签收统计图</view>
-					<view class="charts-box">
-						<qiun-data-charts type="column" :opts="opts2" :chartData="chartData2" :canvas2d="true" canvasId="NrrFqdcSkawnWFhtAazcccaSZppHblXT" />
-					</view>
-				</view>
-				<view class="bg-white relative">
-					<view class="earchTitle">已收款统计图</view>
-					<view class="charts-box">
-						<qiun-data-charts type="column" :opts="opts3" :chartData="chartData3" :canvas2d="true" canvasId="NrrFqdcSkawnWFhtAazcccaSZppHblXQ" />
-					</view>
-				</view>
+			<view class="pl24 pr24 mt12 pb38" v-show="current == 1">
+				<data-analysis ref="dataAnalysis"></data-analysis>
 			</view>
 			<!-- 数据分析模块结束 -->
 			<view class="order-list ml24 mr24 pt10 mt24" v-show="current == 0 && !moneyCALL">
@@ -266,9 +221,28 @@
 							</view>
 						</view>
 						<view class="ml20" style="margin-right: -20rpx">
-							<up-image v-if="pinia_userRole == 'D' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="https://res-oss.elist.com.cn/wxImg/obj/bq1.png"></up-image>
-							<up-image v-if="pinia_userRole == 'R' && item.paymentState == '0'" class="u-img" width="120rpx" height="50rpx" src="https://res-oss.elist.com.cn/wxImg/obj/dqs.png"></up-image>
-							<up-image v-if="item.paymentState == '1'" width="120rpx" height="50rpx" class="u-img" src="https://res-oss.elist.com.cn/wxImg/obj/bq2.png" :lazy-load="true"></up-image>
+							<up-image
+								v-if="pinia_userRole == 'D' && item.paymentState == '0'"
+								class="u-img"
+								width="120rpx"
+								height="50rpx"
+								src="https://res-oss.elist.com.cn/wxImg/obj/bq1.png"
+							></up-image>
+							<up-image
+								v-if="pinia_userRole == 'R' && item.paymentState == '0'"
+								class="u-img"
+								width="120rpx"
+								height="50rpx"
+								src="https://res-oss.elist.com.cn/wxImg/obj/dqs.png"
+							></up-image>
+							<up-image
+								v-if="item.paymentState == '1'"
+								width="120rpx"
+								height="50rpx"
+								class="u-img"
+								src="https://res-oss.elist.com.cn/wxImg/obj/bq2.png"
+								:lazy-load="true"
+							></up-image>
 							<up-image
 								v-if="pinia_userRole != 'R' && item.paymentState == '2'"
 								width="120rpx"
@@ -277,7 +251,13 @@
 								src="https://res-oss.elist.com.cn/wxImg/obj/bq3.png"
 								:lazy-load="true"
 							></up-image>
-							<up-image v-if="pinia_userRole == 'R' && item.paymentState == '2'" class="u-img" width="120rpx" height="50rpx" src="https://res-oss.elist.com.cn/wxImg/obj/yfk.png"></up-image>
+							<up-image
+								v-if="pinia_userRole == 'R' && item.paymentState == '2'"
+								class="u-img"
+								width="120rpx"
+								height="50rpx"
+								src="https://res-oss.elist.com.cn/wxImg/obj/yfk.png"
+							></up-image>
 						</view>
 					</view>
 					<view class="width100 pb25 pt10 u-skeleton-fillet">
@@ -535,81 +515,6 @@
 export default {
 	data() {
 		return {
-			chartData1: {},
-			chartData2: {},
-			chartData3: {},
-			chartData4: {
-				series: [
-					{
-						data: []
-					}
-				]
-			},
-			// 柱状图
-			opts1: {
-				tooltipShow: true,
-				color: ['#F7A944'],
-				padding: [15, 15, 0, 5],
-				enableScroll: false,
-				legend: {
-					show: false
-				},
-				dataLabel: false,
-				xAxis: {
-					disableGrid: true
-				},
-				yAxis: {
-					data: [
-						{
-							min: 0
-						}
-					]
-				},
-				extra: {
-					column: {
-						type: 'group',
-						width: 10,
-						activeBgColor: '#000000',
-						activeBgOpacity: 0.08,
-						seriesGap: 5,
-						barBorderCircle: true
-					}
-				}
-			},
-			opts2: {},
-			opts3: {},
-			// 圆环图
-			opts4: {
-				rotate: false,
-				rotateLock: false,
-				color: ['#F7A944', '#418AFF', '#01BB74'],
-				padding: [5, 5, 5, 5],
-				fontColor: (params) => {
-					return this.opts4.color[params.index];
-				},
-				enableScroll: false,
-				legend: {
-					show: false
-				},
-				title: {
-					name: ''
-				},
-				subtitle: {
-					name: ''
-				},
-				extra: {
-					ring: {
-						ringWidth: 15,
-						activeOpacity: 0.5,
-						activeRadius: 10,
-						offsetAngle: 0,
-						labelWidth: 15,
-						border: true,
-						borderWidth: 1,
-						borderColor: '#FFFFFF'
-					}
-				}
-			},
 			tabslist: [
 				{
 					name: '订单统计'
@@ -737,45 +642,11 @@ export default {
 		this.setGD();
 	},
 	methods: {
-		getServerData() {
-			//模拟从服务器获取数据时的延时
-			setTimeout(() => {
-				//模拟服务器返回数据，如果数据格式和标准格式不同，需自行按下面的格式拼接
-				let res = {
-					categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
-					series: [
-						{
-							name: '',
-							data: [18, 27, 21, 24, 6, 28, 18, 27, 21, 24, 6, 28]
-						}
-					]
-				};
-				let res1 = {
-					series: [
-						{
-							data: [
-								{ name: '待签收', value: 500000, bgColor: '#F7A944' },
-								{ name: '已签收', value: 30, bgColor: '#418AFF' },
-								{ name: '已付款', value: 20, bgColor: '#01BB74' }
-							]
-						}
-					]
-				};
-				this.opts2 = JSON.parse(JSON.stringify(this.opts1));
-				this.opts2.color = ['#418AFF'];
-				this.opts3 = JSON.parse(JSON.stringify(this.opts1));
-				this.opts3.color = ['#01BB74'];
-				this.chartData1 = JSON.parse(JSON.stringify(res));
-				this.chartData2 = JSON.parse(JSON.stringify(res));
-				this.chartData3 = JSON.parse(JSON.stringify(res));
-				this.chartData4 = JSON.parse(JSON.stringify(res1));
-			}, 500);
-		},
 		changeTabs(tabItem) {
 			console.log(tabItem, this.current);
 			this.current = tabItem.index;
 			if (this.current == 1) {
-				this.getServerData();
+				this.$refs.dataAnalysis.getServerData();
 			}
 		},
 		virtualListChange(vList) {
@@ -1368,6 +1239,7 @@ export default {
 			} else {
 				if (this.timeType == 1) {
 					this.date1 = e.fulldate;
+					this.date2 = '';
 				} else {
 					if (!this.date1) {
 						return uni.$u.toast('请先选择开始时间');
@@ -1619,31 +1491,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.bgColorBox {
-	width: 24rpx;
-	height: 24rpx;
-	border-radius: 4rpx;
-	margin-right: 20rpx;
-}
-.contentView {
-	> view {
-		border-radius: 10rpx;
-		margin-top: 24rpx;
-	}
-	.charts-box {
-		width: 100%;
-		height: 430rpx;
-		box-sizing: border-box;
-		padding-bottom: 20rpx;
-	}
-	.charts-box1 {
-		width: 100%;
-		height: 400rpx;
-	}
-}
-.card-list {
-	text-align: center !important;
-}
 .fliter-wrap {
 	.fliter-scroll {
 		width: 520rpx;
@@ -1762,27 +1609,6 @@ export default {
 
 .u-img {
 	float: right;
-}
-
-.cardEacher {
-	border-radius: 12.62rpx;
-	opacity: 1;
-	background: #ffffff;
-}
-
-.color-block {
-	width: 20rpx;
-	/* 设置方块宽度 */
-	height: 20rpx;
-	/* 设置方块高度 */
-	/* 设置方块颜色为红色 */
-}
-
-.earchTitle {
-	font-size: 30rpx;
-	font-weight: 600;
-	padding: 24rpx 0 14rpx 20rpx;
-	color: #333333;
 }
 
 .buyOrder {

@@ -153,7 +153,7 @@
 					<up-collapse-item v-if="!ifZX(index)" :border="false">
 						<template #right-icon></template>
 						<template #title>
-							<view class="" style="font-weight: 500">
+							<view class="ft-500">
 								{{ getCompanyName(item) }}
 							</view>
 						</template>

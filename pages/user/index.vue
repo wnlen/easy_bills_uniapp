@@ -140,7 +140,7 @@ export default {
 					id: 1,
 					verify: true,
 					verifyLogin: true,
-					name: '我的订单',
+					name: '我的订购',
 					icon: '/wxImg/user/wddd.png',
 					url: '/pages/subPack/user/my_order/my_order'
 					// url: '/pages/subPack/user/app_order/app_order'
@@ -151,7 +151,7 @@ export default {
 					id: 1,
 					verify: true,
 					verifyLogin: true,
-					name: '我的订单',
+					name: '我的订购',
 					icon: '/wxImg/user/wddd.png',
 					url: '/pages/subPack/user/app_order/app_order'
 				},
