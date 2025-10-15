@@ -117,7 +117,7 @@ export default {
 
 					// 关闭socket...（略）
 					setTimeout(() => {
-						uni.reLaunch({ url: '/pages/subUser/login' });
+						uni.reLaunch({ url: '/pages/user/index' });
 					}, 500);
 					SocketManager.close();
 				}

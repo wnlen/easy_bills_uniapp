@@ -296,11 +296,14 @@ export default {
 		});
 	},
 	onShow() {
+		// #ifdef APP
 		uni.hideTabBar();
+		// #endif
 		if (this.pinia_user.phone != undefined) {
 			this.$loadUser(this);
-			// this.guideCourse();
-			this.$refs.popTab.getMessNum();
+			this.$nextTick(() => {
+				this.$refs.popTab.getMessNum();
+			});
 		} else {
 			console.log('未登录');
 		}
@@ -400,9 +403,7 @@ export default {
 					url: '/pages/subUser/userinfo'
 				});
 			} else {
-				uni.navigateTo({
-					url: '/pages/subUser/login'
-				});
+				this.$univerify();//app一键登录
 			}
 		},
 		acClick(){

@@ -27,7 +27,9 @@
 						placeholder="请输入验证码"
 						class="u-line-1 ml15 endcolor codeInput"
 					/>
-					<text @click="getCode" style="font-size: 24rpx; color: #01bb74">{{ interval == 70 ? '获取验证码' : '倒计时 ' + interval }}</text>
+					<wd-count-down ref="countDown" style="display: none" :time="60 * 1000" :auto-start="false" @finish="codeFinish" @change="codeChange" />
+					<text v-if="!isValidPhone" class="ft-lightgray mr48">{{ interval }}</text>
+					<text v-else class="ft-green mr48" @click="getCode">{{ interval }}</text>
 				</view>
 			</view>
 
@@ -49,15 +51,26 @@ export default {
 				phone: '',
 				code: '',
 				unionId: '',
-				openIdApp: ''
+				openIdApp: '',
+				bindTicket: ''
 			},
 			timer: null,
-			interval: 70,
+			interval: '获取验证码',
 			hint: true,
 			hintMe: ''
 		};
 	},
+	computed: {
+		// 计算属性判断是否手机号
+		isValidPhone() {
+			const value = String(this.fromCode.phone).trim();
+			return /^1[3-9]\d{9}$/.test(value);
+		}
+	},
 	onLoad(option) {
+		console.log('节后', option);
+		this.fromCode.bindTicket = option.bindTicket;
+		// this.fromCode.phone = '17364080435';
 		// this.openid = option.openid
 		// this.fromCode = JSON.parse(option.data);
 	},
@@ -66,45 +79,28 @@ export default {
 	},
 	onShow(option) {},
 	methods: {
+		codeFinish() {
+			this.$refs.countDown.reset();
+			this.interval = '重新获取';
+		},
+		codeChange(e) {
+			this.interval = `${e.seconds}s后重新获取`;
+		},
 		getCode() {
-			console.log('获取验证码');
-			var phone = this.fromCode.phone;
-			if (phone == '' || phone == undefined) {
-				this.$u.toast('请填写手机号码～');
-				return;
+			if (this.interval != '获取验证码' || this.interval != '重新获取') {
+				console.log('重新获取');
+				uni.$api.sms
+					.getSmsCode({
+						phone: this.fromCode.phone,
+						scene: 'bind'
+					})
+					.then((res) => {
+						this.$refs.countDown.start();
+					})
+					.catch((err) => {
+						console.error('短信接口失败', err);
+					});
 			}
-
-			if (this.timer) {
-				// 如果已经有倒计时，则不重复发送验证码
-				uni.showToast({
-					title: '请勿重复获取',
-					icon: 'none'
-				});
-				return;
-			}
-			var dx = {
-				phoneNumber: this.fromCode.phone,
-				type: 0
-			};
-
-			uni.$api.user.getPasswordResetCode(dx).then((res) => {
-				var data = res.data;
-				var rescode = data.data == '1';
-				if (rescode) {
-					this.$u.toast(data.message);
-					var that = this;
-					this.timer = setInterval(() => {
-						this.interval = this.interval - 1;
-						if (that.interval <= 0) {
-							clearInterval(that.timer);
-							that.interval = 70;
-							console.log('停止');
-						}
-					}, 1000);
-				} else {
-					this.$u.toast(data.message);
-				}
-			});
 		},
 		verification() {
 			if (this.fromCode.phone == '') {
@@ -116,26 +112,35 @@ export default {
 				this.$u.toast('请输入验证码');
 				return false;
 			}
-
-			return true;
 		},
 		OKUSER_APP() {
-			var verif = this.verification();
-			if (!verif) {
-				return;
-			}
-			// uni.$api.user.loginWithWX(this.fromCode).then((res) => {
-			// 	console.log('===登陆结果===>', res);
-			// 	var data = res.data;
-			// 	if (data.data == '6') {
-			// 		console.log('666');
-			// 		this.$u.toast(data.message);
-			// 		this.hint = false;
-			// 		this.hintMe = data.message;
-			// 	} else if (data.data == '0') {
-			// 		this.$u.toast(data.message);
-			// 	}
-			// });
+			this.verification();
+			console.log('this.fromCode.bindTicket', this.fromCode.bindTicket);
+			uni.$api.user
+				.loginAppWXBindPhone({
+					bindTicket: this.fromCode.bindTicket,
+					phone: this.fromCode.phone,
+					smsCode: this.fromCode.code
+				})
+				.then((res) => {
+					var resDate = res.data.data;
+					uni.$u.setPinia({
+						user: {
+							userRole: 'D',
+							token: resDate.loginToken,
+							user: resDate,
+							work: resDate.data.work != '1' ? 'N' : 'Y'
+						}
+					});
+
+					this.$loadUser(this);
+					uni.switchTab({
+						url: '/pages/index/index'
+					});
+				})
+				.catch((res) => {
+					console.log('登录失败', res);
+				});
 		}
 	}
 };

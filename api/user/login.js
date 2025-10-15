@@ -16,6 +16,14 @@ export default (http) => ({
 	},
 
 	/**
+	 * APP 微信登录绑定手机号
+	 * @param {Object} params
+	 */
+	loginAppWXBindPhone(params) {
+		return http.post('rest/v1/auth/app-weixin/bind-with-phone', params);
+	},
+
+	/**
 	 * APP 一键登录
 	 * @param {Object} params
 	 */

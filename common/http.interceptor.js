@@ -14,12 +14,16 @@ function isWhiteListedPath(url = '') {
 		'rest/v1/phone',
 		'rest/v1/auth/mp-weixin/login',
 		'rest/v1/auth/app-weixin/login',
+		'rest/v1/auth/app-weixin/bind-with-phone',
 		'rest/v1/auth/app-yijian/login',
 		'rest/v1/auth/app-phone/login',
 		'rest/v1/auth/app-pwd/login',
 		'rest/v1/auth/app-apple/login',
 		'rest/v1/auth/refresh',
-		'rest/v1/auth/logout'
+		'rest/v1/auth/logout',
+		'user/getSmsCode', //发送短信
+		'user/comparisonCode', //验证短信
+
 	];
 	const whitePrefixList = ['public/']; // 统一为不带前导斜杠
 
@@ -75,8 +79,8 @@ export const initRequest = () => {
 	}
 
 	http.setConfig((config) => {
-		config.baseURL = 'https://wxapi.elist.com.cn/edo/'
-		// config.baseURL = 'https://wxapi.elist.com.cn/test/edo/';
+		// config.baseURL = 'https://wxapi.elist.com.cn/edo/'
+		config.baseURL = 'https://wxapi.elist.com.cn/test/edo/';
 		// config.baseURL = 'http://192.168.124.2:8081/test/edo/';
 		config.showLoading = true;
 		config.loadingText = '加载中~';
@@ -108,7 +112,7 @@ export const initRequest = () => {
 				...config.header
 			}
 			hdr.Authorization = `Bearer ${token}`
-			hdr.token = token // 兼容老后端
+			// hdr.token = token // 兼容老后端
 			hdr.phone = userStore.user?.phone || ''
 			hdr.boss = userStore.user?.workData?.bossNumber || '0'
 			config.header = hdr
