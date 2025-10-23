@@ -533,6 +533,7 @@ export default {
 				showCancel: true,
 				cancelText: '取消',
 				confirmText: '确认',
+				confirmColor: '#01bb74',
 				success: (res) => {
 					if (res.confirm) {
 						if (operator) {
@@ -607,6 +608,7 @@ export default {
 				showCancel: true,
 				cancelText: '取消',
 				confirmText: '确认',
+				confirmColor: '#01bb74',
 				success: (res) => {
 					if (res.confirm) {
 						this.chargeBut();

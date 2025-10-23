@@ -149,7 +149,8 @@ export default {
 						uni.uploadFile({
 							url: uni.$http.config.baseURL + 'user/modifyImage',
 							header: {
-								phone: that.pinia_user.phone
+								phone: that.pinia_user.phone,
+								Authorization: `Bearer ${that.pinia_token}`
 							},
 							filePath: fileAvatar,
 							name: 'imageFile',

@@ -28,21 +28,36 @@
 					<up-icon name="https://res-oss.elist.com.cn/wxImg/user/dian.svg" size="15rpx"></up-icon>
 					<view class="title ml15 pb15 mt10">订单信息确认</view>
 				</view>
+				<!-- #ifdef MP-WEIXIN -->
+				<view class="text">您在发货端和收货端内的所有订单将会被清空，请确保您已处理完收发端的所有单据。</view>
+				<!-- #endif -->
+				<!-- #ifndef MP-WEIXIN -->
 				<view class="text">您在发货端和收货端内的所有订单将会被全部清空，请确保所有交易已完结且无纠纷。</view>
+				<!-- #endif -->
 			</view>
 			<view class="flex-col items-baseline pb30">
 				<view class="flex-row items-center">
 					<up-icon name="https://res-oss.elist.com.cn/wxImg/user/dian.svg" size="15rpx"></up-icon>
 					<text class="title ml15 pb15 mt10">账号信息</text>
 				</view>
+				<!-- #ifdef MP-WEIXIN -->
+				<view class="text">个人信息、公司信息、签收人信息、好友信息等将会被清空。</view>
+				<!-- #endif -->
+				<!-- #ifndef MP-WEIXIN -->
 				<view class="text">个人信息、主体认证信息、签收人信息、好友信息等将会被清空。</view>
+				<!-- #endif -->
 			</view>
 			<view class="flex-col items-baseline pb30">
 				<view class="flex-row items-center">
 					<up-icon name="https://res-oss.elist.com.cn/wxImg/user/dian.svg" size="15rpx"></up-icon>
 					<text class="title ml15 pb15 mt10">虚拟权益</text>
 				</view>
+				<!-- #ifdef MP-WEIXIN -->
+				<view class="text">您平台的虚拟权益如您在【我的订购】中已购买的全部内容，将视为您自动放弃无法恢复。</view>
+				<!-- #endif -->
+				<!-- #ifndef MP-WEIXIN -->
 				<view class="text">您平台的虚拟权益如VIP会员将视为您自动放弃无法恢复。</view>
+				<!-- #endif -->
 			</view>
 		</view>
 

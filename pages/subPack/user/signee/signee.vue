@@ -205,6 +205,7 @@ export default {
 				showCancel: true,
 				cancelText: '取消',
 				confirmText: '确定',
+				confirmColor: '#01bb74',
 				success: (res) => {
 					if (res.confirm) {
 						this.del(id);

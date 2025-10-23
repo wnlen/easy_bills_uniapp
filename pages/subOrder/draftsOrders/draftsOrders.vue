@@ -616,10 +616,6 @@ export default {
 		}
 	},
 	methods: {
-		deleteimg(res) {
-			this.removeList.push(res.file);
-			this.imgList.splice(res.index, 1);
-		},
 		afterRead(res) {
 			// this.loadList.push(res.file[0]);
 			console.log('2222222222222222', res);
@@ -1396,6 +1392,7 @@ export default {
 				showCancel: true,
 				cancelText: type ? '不保存' : '不保存',
 				confirmText: '保存',
+				confirmColor: '#01bb74',
 				success: (res) => {
 					var okif = res.confirm;
 					if (okif) {
@@ -1704,7 +1701,7 @@ export default {
 							phone: bossNumber,
 							orderNumber: that.receipts.orderNumber,
 							jobNumber: that.receipts.jobNumberS || jobNumber,
-							token: that.pinia_user.loginToken
+							Authorization: `Bearer ${that.pinia_token}`
 						},
 						filePath: imgList[key].url,
 						name: 'file',

@@ -1,10 +1,10 @@
 <template>
-	<view>
+	<view class="pb150">
 		<up-navbar :autoBack="true" :placeholder="true" title="商品详情"></up-navbar>
 		<view class="" v-if="details.img != null && details.img != 'definde'">
 			<up-image width="100%" height="600rpx" :src="details.img" :show-menu-by-longpress="false"></up-image>
 		</view>
-		<view class="flex-col pt24" style="width: 100%; height: 200rpx">
+		<view class="flex-col pt24" style="width: 100%">
 			<view class="relative flex-row justify-center items-center pd24 mt24" style="width: 100%">
 				<view class="absolute commodityDetailsHeadline" style="left: 24rpx">品名</view>
 				<view class="absolute commodityDetailsValue" style="right: 24rpx">
@@ -35,6 +35,27 @@
 					{{ details.unitPrice ? '￥' + details.unitPrice : '---' }}
 				</view>
 			</view>
+			<view class="" v-if="uni.$u.getPinia('user.customized')">
+				<view class="relative flex-row justify-center items-center pd24 mt24" style="width: 100%">
+					<view class="absolute commodityDetailsHeadline" style="left: 24rpx">型号</view>
+					<view class="absolute commodityDetailsValue" style="right: 24rpx">
+						{{ details.modelNo ? details.modelNo : '---' }}
+					</view>
+				</view>
+				<view class="relative flex-row justify-center items-center pd24 mt24" style="width: 100%">
+					<view class="absolute commodityDetailsHeadline" style="left: 24rpx">长度(毫米)</view>
+					<view class="absolute commodityDetailsValue" style="right: 24rpx">
+						{{ details.lengthMm ? details.lengthMm : '---' }}
+					</view>
+				</view>
+				<view class="relative flex-row justify-center items-center pd24 mt24" style="width: 100%">
+					<view class="absolute commodityDetailsHeadline" style="left: 24rpx">单重(kg/件)</view>
+					<view class="absolute commodityDetailsValue" style="right: 24rpx">
+						{{ details.unitWeightKg ? details.unitWeightKg : '---' }}
+					</view>
+				</view>
+			</view>
+
 			<view class="relative flex-row justify-center items-center pd24 mt24" style="width: 100%">
 				<view class="absolute commodityDetailsHeadline" style="left: 24rpx">备注说明</view>
 				<view class="absolute commodityDetailsValue" style="right: 24rpx">
@@ -47,7 +68,7 @@
 			</view>
 		</view>
 
-		<view class="" style="position: absolute; bottom: 40rpx; width: 94%; justify-content: center; left: 3%">
+		<view class="" style="position: fixed; bottom: 40rpx; width: 94%; justify-content: center; left: 3%">
 			<up-button hover-class="none" :customStyle="{ backgroundColor: '#01BB74', color: '#ffffff' }" class="form-btn-big" @click="commodityDetailsUpdate" shape="circle">
 				编辑商品
 			</up-button>

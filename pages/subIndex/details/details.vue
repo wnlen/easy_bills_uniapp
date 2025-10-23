@@ -11,7 +11,7 @@
 			bgColor="#ffffff"
 		></up-navbar>
 
-		<uv-popup ref="popup" mode="center" round="50" :overlay="false" :customStyle="popup_style" zIndex="999999">
+		<uv-popup ref="popup" mode="center" round="50" :customStyle="popup_style" zIndex="999999">
 			<view v-if="pinia_userRole == 'D'">
 				<uv-textarea v-model="up.remarkD" border="none" placeholder="请输入备注" height="100" :customStyle="textareaStyle"></uv-textarea>
 			</view>
@@ -112,6 +112,9 @@
 				/>
 			</view>
 		</view>
+		<!-- <view class="delBox page-list" @click="toDel">
+			{{ pinia_userRole == 'D' ? '删除客户' : '删除供应商' }}
+		</view> -->
 	</view>
 </template>
 
@@ -145,8 +148,8 @@ export default {
 				margin: '0 auto',
 				position: 'fixed',
 				borderRadius: '25rpx',
-				top: '550rpx',
-				boxShadow: '0rpx 0rpx 20rpx 20rpx #ececec'
+				top: '550rpx'
+				// boxShadow: '0rpx 0rpx 20rpx 20rpx #ececec'
 			},
 			textareaStyle: {
 				marginTop: '10rpx',
@@ -203,6 +206,21 @@ export default {
 		}
 	},
 	methods: {
+		toDel() {
+			uni.showModal({
+				title: '温馨提醒',
+				content: '您是否确认删除?',
+				showCancel: true,
+				cancelText: '取消',
+				confirmText: '确定',
+				confirmColor: '#01bb74',
+				success: (res) => {
+					if (res.confirm) {
+						// showMask.value = true;
+					}
+				}
+			});
+		},
 		headimg() {
 			return uni.getStorageSync('wzc_img');
 		},
@@ -419,7 +437,14 @@ export default {
 	height: 100vh;
 	background-color: #f4f4f4;
 }
-
+.delBox {
+	height: 90rpx;
+	font-size: 28rpx;
+	color: #fa5151;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 .page-list {
 	position: relative;
 	margin: 30rpx 24rpx;

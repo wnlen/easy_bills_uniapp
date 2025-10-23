@@ -60,6 +60,7 @@ export default {
 				showCancel: true,
 				cancelText: '取消注销',
 				confirmText: '确认注销',
+				confirmColor: '#01bb74',
 				success: (res) => {
 					if (res.confirm) {
 						uni.navigateTo({
@@ -101,6 +102,7 @@ export default {
 				showCancel: true,
 				cancelText: '取消退出',
 				confirmText: '确认退出',
+				confirmColor: '#01bb74',
 				success: async (res) => {
 					if (!res.confirm) return;
 

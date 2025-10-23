@@ -1517,7 +1517,7 @@ export default {
 							phone: bossNumber,
 							orderNumber: that.receipts.orderNumber,
 							jobNumber: that.receipts.jobNumberS || jobNumber,
-							token: that.pinia_user.loginToken
+							Authorization: `Bearer ${this.pinia_token}`
 						},
 						filePath: imgList[key].url,
 						name: 'file',

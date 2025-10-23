@@ -1,6 +1,6 @@
 <template>
 	<view class="uploadingCommodity">
-		<up-navbar :autoBack="true" :placeholder="true" :titleBold="true" title="编辑商品"></up-navbar>
+		<up-navbar :autoBack="true" :placeholder="true" :titleBold="true" :title="navbarTitle"></up-navbar>
 		<view class="uploadingCommodityImg">
 			<up-upload
 				v-model:fileList="imgList"
@@ -60,6 +60,35 @@
 					<uv-input type="digit" v-model="uploadingCommodity.unitPrice" border="none" maxlength="10" placeholder="请输入" inputAlign="right"></uv-input>
 				</view>
 			</view>
+			<view class="" v-if="uni.$u.getPinia('user.customized')">
+				<view class="uploadingCommodityFromCardRow">
+					<text class="sign">
+						<text>*</text>
+						<text class="name">型号</text>
+					</text>
+					<view class="uploadingCommodityFromCardRowInput">
+						<uv-input type="text" v-model="uploadingCommodity.modelNo" border="none" placeholder="请输入" inputAlign="right"></uv-input>
+					</view>
+				</view>
+				<view class="uploadingCommodityFromCardRow">
+					<text class="sign">
+						<text>*</text>
+						<text class="name">长度(毫米)</text>
+					</text>
+					<view class="uploadingCommodityFromCardRowInput">
+						<uv-input type="text" v-model="uploadingCommodity.lengthMm" border="none" placeholder="请输入" inputAlign="right"></uv-input>
+					</view>
+				</view>
+				<view class="uploadingCommodityFromCardRow">
+					<text class="sign">
+						<text>*</text>
+						<text class="name">单重(kg/件)</text>
+					</text>
+					<view class="uploadingCommodityFromCardRowInput">
+						<uv-input type="text" v-model="uploadingCommodity.unitWeightKg" border="none" maxlength="10" placeholder="请输入" inputAlign="right"></uv-input>
+					</view>
+				</view>
+			</view>
 			<view class="uploadingCommodityFromCard">
 				<text class="name">备注说明</text>
 				<up-textarea v-model="uploadingCommodity.explainRemark" placeholder="请您在此处填写备注说明" border="none"></up-textarea>
@@ -70,7 +99,7 @@
 			</view>
 		</view>
 
-		<view class="" style="position: absolute; bottom: 40rpx; width: 94%; justify-content: center; left: 3%">
+		<view class="" style="position: fixed; bottom: 40rpx; width: 94%; justify-content: center; left: 3%; z-index: 10">
 			<up-button type="primary" hover-class="none" color="#01BB74" class="form-btn-big" @click="uploadingCommodityAdd" shape="circle">保存</up-button>
 		</view>
 	</view>
@@ -89,24 +118,31 @@ export default {
 				specification: '',
 				unit: '',
 				quantity: 0,
-				unitPrice: 0,
+				unitPrice: '',
 				top: false,
 				phone: '',
 				staffNumber: '',
 				imgId: '',
-				img: 'definde'
+				img: 'definde',
+				modelNo: '', //型号
+				lengthMm: '', //长度(毫米)
+				unitWeightKg: '' //单重(kg/件)
 			},
 			getByID: {
 				id: null,
 				phone: '',
 				staffNumber: ''
 			},
-			fileList: []
+			fileList: [],
+			navbarTitle: '添加商品'
 		};
 	},
 	onLoad(option) {
-		this.getByID.id = option.id;
-		this.getCommodityDetails();
+		if (option.id) {
+			this.getByID.id = option.id;
+			this.getCommodityDetails();
+			this.navbarTitle = '修改商品';
+		}
 	},
 	onShow() {
 		this.action = uni.$http.config.baseURL + 'order/imgA';
@@ -190,6 +226,21 @@ export default {
 				return;
 			}
 
+			// 定制化
+			if (uni.$u.getPinia('user.customized')) {
+				if (!this.uploadingCommodity.modelNo) {
+					this.$u.toast('请填写型号');
+					return;
+				}
+				if (!this.uploadingCommodity.lengthMm) {
+					this.$u.toast('请填写长度');
+					return;
+				}
+				if (!this.uploadingCommodity.unitWeightKg) {
+					this.$u.toast('请填写单重');
+					return;
+				}
+			}
 			var work = this.pinia_user.data.work == '0';
 			if (work) {
 				//没工作
@@ -214,13 +265,21 @@ export default {
 			} else {
 				this.uploadingCommodity.img = 'definde';
 			}
-			uni.$api.library
-				.updateCommodity(that.uploadingCommodity)
+			let subUrl = '';
+			if (that.uploadingCommodity.id) {
+				subUrl = uni.$api.library.updateCommodity;
+			} else {
+				subUrl = uni.$api.library.addCommodity;
+			}
+			subUrl(that.uploadingCommodity)
 				.then((res) => {
 					console.log('res', res);
 					that.$u.toast(res.data.message);
+					if (!that.uploadingCommodity.id) {
+						that.setTip();
+					}
 					setTimeout(() => {
-						if (res.data.data == '1') {
+						if (res.data.code == 200) {
 							uni.navigateBack();
 						}
 					}, 1500);
@@ -228,6 +287,24 @@ export default {
 				.catch((res) => {
 					that.$u.toast('获取失败');
 				});
+		},
+		// 设置上个页面首次添加提示弹窗
+		setTip() {
+			// 获取上一个页面的值
+			// 在当前页面中获取并修改上一页数据
+			let pages = getCurrentPages(); // 获取当前页面栈
+			console.log('pages', pages);
+			if (pages.length > 1) {
+				// 获取上一个页面实例
+				let prevPage = pages[pages.length - 2];
+				console.log('prevPage', prevPage);
+				if (!prevPage.$vm.orderList.length) {
+					// 修改上一页的数据
+					prevPage.$vm.$set(prevPage.$vm, 'showTip', true);
+					// 如果需要强制更新视图（某些特殊情况）
+					prevPage.$vm.$forceUpdate();
+				}
+			}
 		},
 		updMerchandiseInventoryYes(that) {
 			this.uploadingCommodity.imgId = 'QD' + new Date().getTime();
@@ -238,7 +315,7 @@ export default {
 					phone: this.uploadingCommodity.staffNumber,
 					orderNumber: this.uploadingCommodity.imgId,
 					jobNumber: this.uploadingCommodity.staffNumber,
-					token: this.pinia_token
+					Authorization: `Bearer ${this.pinia_token}`
 				},
 				filePath: this.imgList[0].url,
 				name: 'file',
@@ -248,14 +325,23 @@ export default {
 				success: (uploadFileRes) => {
 					console.log('uploadFileRes.data', uploadFileRes.data);
 					that.uploadingCommodity.img = uploadFileRes.data;
-					that.$api.library
-						.updateCommodity(that.uploadingCommodity)
+					let subUrl = '';
+					if (that.uploadingCommodity.id) {
+						subUrl = uni.$api.library.updateCommodity;
+					} else {
+						subUrl = uni.$api.library.addCommodity;
+					}
+					subUrl(that.uploadingCommodity)
 						.then((res) => {
-							console.log(res);
 							that.$u.toast(res.data.message);
-							if (res.data.data == '1') {
-								uni.navigateBack();
+							if (!that.uploadingCommodity.id) {
+								that.setTip();
 							}
+							setTimeout(() => {
+								if (res.data.code == 200) {
+									uni.navigateBack();
+								}
+							}, 1500);
 						})
 						.catch((res) => {
 							that.$u.toast('获取失败');
@@ -277,8 +363,8 @@ export default {
 }
 .uploadingCommodity {
 	width: 100vw;
-	height: 100vh;
-
+	min-height: 100vh;
+	padding-bottom: 150rpx;
 	.uploadingCommodityImg {
 		background: rgba(244, 244, 244, 0.5);
 		margin-left: 24rpx;

@@ -86,7 +86,7 @@
 			<sales-ranking-list></sales-ranking-list>
 		</view>
 		<!-- 空 -->
-		<!-- <view class="">
+		<!-- <view class="" v-else>
 			<up-empty icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg" iconSize="400rpx" :text="`暂无数据~`" marginTop="240rpx"></up-empty>
 			<view
 				class="openBtn"

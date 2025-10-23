@@ -94,7 +94,13 @@
 						:src="item.img === 'definde' ? 'https://res-oss.elist.com.cn/wxImg/order/emptyView.png' : item.img"
 					></up-image>
 				</view>
-				<view class="invText flex-1" @click="jumpCommodityDetails(item)">
+				<view class="invText flex-1" @click="jumpCommodityDetails(item)" v-if="uni.$u.getPinia('user.customized')">
+					<text>{{ item.description }}</text>
+					<text class="up-line-1">型号：{{ item.modelNo }}</text>
+					<text>长度(毫米)：{{ item.lengthMm }}</text>
+					<text>单重(kg/件)：{{ item.unitWeightKg }}</text>
+				</view>
+				<view class="invText flex-1" @click="jumpCommodityDetails(item)" v-else>
 					<text>{{ item.description }}</text>
 					<text class="up-line-1" style="width: 418rpx">规格：{{ item.specification }}</text>
 					<text>单位：{{ item.unit }}</text>
@@ -114,7 +120,8 @@
 
 					<text class="">
 						合计:
-						<text style="color: #01bb74">￥{{ formatAmount(totalPrices) }}</text>
+						<text style="color: #01bb74" v-if="uni.$u.getPinia('user.customized')">{{ totalPrices }}</text>
+						<text style="color: #01bb74" v-else>￥{{ formatAmount(totalPrices) }}</text>
 					</text>
 					<up-button shape="circle" :customStyle="bottomCustomStyle" color="#01bb74" @click="save">保存</up-button>
 				</view>
@@ -132,7 +139,7 @@
 					<view class="OrderCard" style="width: 94vw" v-for="(item, index) in orderItemList" :key="index">
 						<!-- <up-swipe-action-item :show="item.show" :options="options" :name="index" @click="delclick" @open="open"> -->
 						<view class="absolute" style="right: 24rpx">
-							<up-icon name="minus-circle-fill" color="#FA5151" size="34rpx" @click="delclick(index)"></up-icon>
+							<up-icon name="minus-circle-fill" color="#FA5151" size="40rpx" @click="delclick(index)"></up-icon>
 						</view>
 						<view class="flex-row pb24" style="width: 93%">
 							<view class="">品名:</view>
@@ -147,8 +154,8 @@
 							<up-tr>
 								<up-td>数量</up-td>
 								<up-td>单位</up-td>
-								<up-td>单价</up-td>
-								<up-td width="200rpx">金额</up-td>
+								<up-td>{{ uni.$u.getPinia('user.customized') ? '单重' : '单价' }}</up-td>
+								<up-td>{{ uni.$u.getPinia('user.customized') ? '总重' : '金额' }}</up-td>
 							</up-tr>
 							<up-tr>
 								<up-td>
@@ -158,6 +165,7 @@
 										</view>
 										<up-icon
 											color="#999"
+											size="36rpx"
 											name="close-circle"
 											@click="
 												item.quantity = '';
@@ -170,12 +178,22 @@
 								<up-td>
 									<view class="flex-row items-center">
 										<view class="u-border-bottom flex-1">
-											<input type="digit" v-model="item.unitPrice" maxlength="10" @input="calculate" placeholder="请输入" />
+											<input
+												type="digit"
+												v-if="uni.$u.getPinia('user.customized')"
+												v-model="item.unitWeightKg"
+												maxlength="10"
+												@input="calculate"
+												placeholder="请输入"
+											/>
+											<input type="digit" v-else v-model="item.unitPrice" maxlength="10" @input="calculate" placeholder="请输入" />
 										</view>
 										<up-icon
 											color="#999"
+											size="36rpx"
 											name="close-circle"
 											@click="
+												item.unitWeightKg = '';
 												item.unitPrice = '';
 												calculate();
 											"
@@ -183,7 +201,8 @@
 									</view>
 								</up-td>
 								<up-td width="200rpx">
-									<text style="width: 200rpx" class="up-line-1">{{ `￥${formatAmount(item.unitPrice * item.quantity)}` }}</text>
+									<text style="width: 200rpx" class="up-line-1" v-if="uni.$u.getPinia('user.customized')">{{ `${item.unitWeightKg * item.quantity}` }}</text>
+									<text style="width: 200rpx" class="up-line-1" v-else>{{ `￥${formatAmount(item.unitPrice * item.quantity)}` }}</text>
 
 									<!-- <input type="text" :value="`￥${formatAmount(item.unitPrice * item.quantity)}`" disabled maxlength="10" placeholder="请输入" /> -->
 								</up-td>
@@ -201,7 +220,8 @@
 							</view>
 							<text class="ml12">
 								合计:
-								<text style="color: #01bb74">￥{{ formatAmount(totalPrices) }}</text>
+								<text style="color: #01bb74" v-if="uni.$u.getPinia('user.customized')">{{ totalPrices }}</text>
+								<text style="color: #01bb74" v-else>￥{{ formatAmount(totalPrices) }}</text>
 							</text>
 							<up-button shape="circle" :customStyle="bottomCustomStyle" color="#01BB74" @click="closeOpen">保存</up-button>
 						</view>
@@ -282,39 +302,18 @@ export default {
 			}, 1000);
 		}
 
-		if (option.update == 1) {
-			// updInventoryStockpile
-			if (
-				uni.getStorageSync('updInventoryStockpile') != null &&
-				uni.getStorageSync('updInventoryStockpile') != undefined &&
-				uni.getStorageSync('updInventoryStockpile') != ''
-			) {
-				this.orderItemList = uni.getStorageSync('updInventoryStockpile');
-				this.orderItemList = this.orderItemList.map((item) => {
-					return {
-						...item,
-						show: false
-					};
-				});
-				console.log('===updInventoryStockpile===>', this.orderItemList);
-				this.update = true;
-			} else {
-				uni.navigateBack();
-			}
+		console.log('inventoryStockpile', uni.getStorageSync('inventoryStockpile'));
+		if (uni.getStorageSync('inventoryStockpile') != null && uni.getStorageSync('inventoryStockpile') != undefined && uni.getStorageSync('inventoryStockpile') != '') {
+			this.orderItemList = uni.getStorageSync('inventoryStockpile');
+			this.orderItemList = this.orderItemList.map((item) => {
+				return {
+					...item,
+					show: false
+				};
+			});
+			console.log('===inventoryStockpile===>', this.orderItemList);
 		} else {
-			console.log('inventoryStockpile', uni.getStorageSync('inventoryStockpile'));
-			if (uni.getStorageSync('inventoryStockpile') != null && uni.getStorageSync('inventoryStockpile') != undefined && uni.getStorageSync('inventoryStockpile') != '') {
-				this.orderItemList = uni.getStorageSync('inventoryStockpile');
-				this.orderItemList = this.orderItemList.map((item) => {
-					return {
-						...item,
-						show: false
-					};
-				});
-				console.log('===inventoryStockpile===>', this.orderItemList);
-			} else {
-				this.orderItemList = [];
-			}
+			this.orderItemList = [];
 		}
 
 		this.add();
@@ -434,6 +433,7 @@ export default {
 					showCancel: true,
 					cancelText: '返回',
 					confirmText: '保存',
+					confirmColor: '#01bb74',
 					success: (res) => {
 						var okif = res.confirm;
 						if (okif) {
@@ -527,16 +527,30 @@ export default {
 					// 	return;
 					// }
 				} else {
-					this.$u.toast('单价不能为空');
+					if (uni.$u.getPinia('user.customized')) {
+						this.$u.toast('单重不能为空');
+					} else {
+						this.$u.toast('单价不能为空');
+					}
+
 					this.shoppingTrolley = true;
 					return;
 				}
 			} else {
 				if (this.orderItemList.length > 0) {
-					this.$u.toast('开单总金额要大于0');
+					if (uni.$u.getPinia('user.customized')) {
+						this.$u.toast('总重要大于0');
+					} else {
+						this.$u.toast('开单总金额要大于0');
+					}
+
 					this.shoppingTrolley = true;
 				} else {
-					this.$u.toast('开单总金额要大于0');
+					if (uni.$u.getPinia('user.customized')) {
+						this.$u.toast('总重要大于0');
+					} else {
+						this.$u.toast('开单总金额要大于0');
+					}
 				}
 				return;
 			}
@@ -607,14 +621,19 @@ export default {
 		},
 		add() {
 			this.totalPrices = 0;
-			this.orderItemList.forEach((res) => {
-				this.totalPrices = this.totalPrices + res.quantity * (res.unitPrice ? res.unitPrice : 0);
-			});
-			this.totalPrices = this.totalPrices.toFixed(2);
+			if (uni.$u.getPinia('user.customized')) {
+				this.orderItemList.forEach((res) => {
+					this.totalPrices = this.totalPrices + res.quantity * (res.unitWeightKg ? res.unitWeightKg : 0);
+				});
+			} else {
+				this.orderItemList.forEach((res) => {
+					this.totalPrices = this.totalPrices + res.quantity * (res.unitPrice ? res.unitPrice : 0);
+				});
+			}
 		},
 		jumpAddCommodity() {
 			uni.navigateTo({
-				url: 'uploadingCommodity'
+				url: '/pages/subOrder/commodityDetails/updateCommodity'
 			});
 		},
 		jumpCommodityDetails(item) {

@@ -134,6 +134,7 @@ export default {
 						content: '新版本已准备好，点击确定更新',
 						showCancel: false,
 						confirmText: '确定',
+						confirmColor: '#01bb74',
 						success: (res) => {
 							if (res.confirm) {
 								updateManager.onUpdateReady(() => updateManager.applyUpdate());
@@ -141,7 +142,8 @@ export default {
 									uni.showModal({
 										content: '下载失败，请删除当前小程序后重装',
 										showCancel: false,
-										confirmText: '我知道了'
+										confirmText: '我知道了',
+										confirmColor: '#01bb74',
 									});
 								});
 							}

@@ -451,6 +451,7 @@ export default {
 			if (role === 'D' && guidanceD === 1 && identity != 3) {
 				this.openUnreceived();
 			}
+			//
 		}
 	},
 	onShow() {
@@ -480,6 +481,7 @@ export default {
 				that.$loadUser(this);
 				this.guideCourse();
 				this.SOCKETfLUSH();
+				this.getCustomization();
 			});
 		}
 	},
@@ -494,6 +496,17 @@ export default {
 		};
 	},
 	methods: {
+		getCustomization() {
+			uni.$api.customization.customizationUpdated().then((res) => {
+				console.log('定制化信息', res);
+				uni.$u.setPinia({
+					user: {
+						customized: res.data.data.customized
+					}
+				});
+				console.log('定制化信息1', uni.$u.getPinia('user.customized'));
+			});
+		},
 		clicklogin() {
 			// #ifdef APP
 			this.$univerify();

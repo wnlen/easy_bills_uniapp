@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<!-- #ifndef MP-WEIXIN -->
 		<up-popup :show="show" mode="bottom" @close="handleClose">
 			<view class="top1 flex-row items-center">
 				<up-icon :name="iconName" size="40rpx" bold></up-icon>
@@ -12,6 +13,7 @@
 				</view>
 			</view>
 		</up-popup>
+		<!-- #endif -->
 	</view>
 </template>
 

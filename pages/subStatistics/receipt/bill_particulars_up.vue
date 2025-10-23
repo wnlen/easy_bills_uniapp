@@ -608,7 +608,7 @@ export default {
 				uni.uploadFile({
 					url: uni.$http.config.baseURL + 'bills/file',
 					header: {
-						token: that.pinia_token,
+						Authorization: `Bearer ${that.pinia_token}`,
 						phone: app ? that.pinia_user.phone : that.pinia_user.phone + '-app',
 						number: billNumber
 					},

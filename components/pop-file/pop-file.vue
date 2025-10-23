@@ -115,6 +115,7 @@ export default {
 			uni.showModal({
 				title: '提示',
 				content: '是否确认删除该附件？',
+				confirmColor: '#01bb74',
 				success: function (res) {
 					if (res.confirm) {
 						that.$parent.fileList.splice(index, 1);
