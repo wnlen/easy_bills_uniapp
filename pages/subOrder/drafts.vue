@@ -419,7 +419,8 @@ export default {
 		},
 		jumpDraftsOrder(id) {
 			uni.navigateTo({
-				url: '/pages/subOrder/draftsOrders/draftsOrders?id=' + id
+				// url: '/pages/subOrder/draftsOrders/draftsOrders?id=' + id
+				url: `/pages/subOrder/add?orderId=${id}&pageType=3`
 			});
 		},
 		draftsDel() {
@@ -439,6 +440,7 @@ export default {
 				showCancel: true,
 				cancelText: '取消',
 				confirmText: '确认',
+				confirmColor: '#01bb74',
 				success: (res) => {
 					if (res.confirm) {
 						uni.$api.draft.deleteDraftById(this.realTimeSel).then((res) => {

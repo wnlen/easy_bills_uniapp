@@ -642,7 +642,7 @@ export default {
 }
 
 .head {
-	margin-bottom: 160rpx;
+	margin-bottom: 210rpx;
 	width: 100%;
 	position: relative;
 }
@@ -656,7 +656,7 @@ export default {
 	font-feature-settings: 'kern' on;
 	color: #333333;
 	position: absolute;
-	top: 100rpx;
+	top: 150rpx;
 	left: 40rpx;
 }
 

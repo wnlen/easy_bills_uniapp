@@ -796,6 +796,7 @@ export default {
 							showCancel: true,
 							cancelText: '取消',
 							confirmText: '去添加',
+							confirmColor: '#01bb74',
 							success: (res) => {
 								if (res.confirm) {
 									uni.navigateTo({
@@ -814,6 +815,7 @@ export default {
 							showCancel: true,
 							cancelText: '取消',
 							confirmText: '去添加',
+							confirmColor: '#01bb74',
 							success: (res) => {
 								if (res.confirm) {
 									uni.navigateTo({
@@ -831,6 +833,7 @@ export default {
 						showCancel: true,
 						cancelText: '取消',
 						confirmText: '去添加',
+						confirmColor: '#01bb74',
 						success: (res) => {
 							if (res.confirm) {
 								uni.navigateTo({
@@ -847,6 +850,7 @@ export default {
 						showCancel: true,
 						cancelText: '取消',
 						confirmText: '去添加',
+						confirmColor: '#01bb74',
 						success: (res) => {
 							if (res.confirm) {
 								uni.navigateTo({
@@ -866,6 +870,7 @@ export default {
 					showCancel: true,
 					cancelText: '取消',
 					confirmText: '确认',
+					confirmColor: '#01bb74',
 					success: (res) => {
 						if (res.confirm) {
 							this.qs();
@@ -976,6 +981,7 @@ export default {
 				showCancel: true,
 				cancelText: '取消',
 				confirmText: '确认',
+				confirmColor: '#01bb74',
 				success: (res) => {}
 			});
 		},

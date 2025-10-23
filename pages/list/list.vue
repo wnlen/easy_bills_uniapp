@@ -1451,6 +1451,7 @@ function VerifyAdd(item, index, type) {
 			showCancel: true,
 			cancelText: '取消',
 			confirmText: '确定',
+			confirmColor: '#01bb74',
 			success: (res) => {
 				if (res.confirm) {
 					// showMask.value = true;
@@ -1470,6 +1471,7 @@ function VerifyAdd(item, index, type) {
 			showCancel: true,
 			cancelText: '取消',
 			confirmText: '确定',
+			confirmColor: '#01bb74',
 			success: (res) => {
 				if (res.confirm) {
 					// showMask.value = true;
@@ -1743,7 +1745,8 @@ function shareNY(item, i) {
 
 function compile(item) {
 	uni.navigateTo({
-		url: `/pages/subOrder/addCompile?orderId=${item.id}`
+		// url: `/pages/subOrder/addCompile?orderId=${item.id}`
+		url: `/pages/subOrder/add?orderId=${item.id}&pageType=1`
 	});
 }
 

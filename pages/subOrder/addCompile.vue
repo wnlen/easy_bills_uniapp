@@ -584,6 +584,7 @@ export default {
 						uni.uploadFile({
 							url: uni.$http.config.baseURL + 'order/img',
 							header: {
+								Authorization: `Bearer ${that.pinia_token}`,
 								phone: bossNumber,
 								orderNumber: that.receipts.orderNumber,
 								jobNumber: that.receipts.jobNumberS || jobNumber

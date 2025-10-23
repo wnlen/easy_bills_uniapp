@@ -16,7 +16,8 @@ export const useUserStore = defineStore('user', {
 		token: '',
 		userRole: 'D',
 		work: '',
-		announcement: ''
+		announcement: '',
+		customized: false,
 	}),
 	actions: {
 		setToken(token) {

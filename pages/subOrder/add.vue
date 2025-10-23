@@ -4,8 +4,9 @@
 		<up-navbar :placeholder="true" bgColor="#ffffff" @leftClick="navBack">
 			<template #center>
 				<view class="flex-row items-center justify-center ml48" style="width: 100%">
-					<view class="" style="font-size: 34rpx; font-weight: 510">开送货单</view>
+					<view class="" style="font-size: 34rpx; font-weight: 510">{{ pageType == 1 ? '订单修改' : '开送货单' }}</view>
 					<view
+						v-if="pageType == 0"
 						@click="jumpVideo"
 						class="flex-row justify-center items-center ml12"
 						style="border: 2.2rpx solid #01bb74; height: 44rpx; width: 136rpx; border-radius: 8rpx; color: #01bb74; font-size: 22rpx"
@@ -118,7 +119,7 @@
 						class="ml15 flex-row items-center justify-center"
 						@click="ContinueBilling"
 					>
-						继续开单
+						{{ pageType == 3 ? '返回草稿箱' : '继续开单' }}
 					</button>
 				</view>
 			</view>
@@ -174,6 +175,16 @@
 							客户手机号:
 						</text>
 						<input
+							v-if="pageType == 1"
+							disabled
+							placeholder-class="placeholder_class"
+							type="text"
+							v-model="receipts.organizationE"
+							placeholder="请输入手机号"
+							class="flex-1 endcolor"
+						/>
+						<input
+							v-else
 							placeholder-class="placeholder_class"
 							type="number"
 							v-model="khPhone"
@@ -185,7 +196,7 @@
 							:focus="PhoneFocus"
 							@focus="searchIFNumberFocus"
 						/>
-						<view class="flex-1 flex-row justify-end">
+						<view class="flex-1 flex-row justify-end" v-if="pageType != 1">
 							<up-button shape="circle" size="mini" color="#01BB74" :customStyle="{ width: '120rpx', margin: '0' }" @click="jumpTable">选择客户</up-button>
 						</view>
 					</view>
@@ -281,6 +292,107 @@
 							/>
 						</view>
 					</view>
+					<!-- 定制 -->
+					<view class="" v-if="uni.$u.getPinia('user.customized')">
+						<view class="flex-row items-center justify-between pt20 pb20 u-border-bottom">
+							<view class="flex-row items-center width100">
+								<text class="textcolor">项目名称:</text>
+								<input
+									placeholder-class="placeholder_class"
+									type="text"
+									maxlength="100"
+									:style="{ color: ifInput(receipts.projectName) ? '#333333' : '#D8D8D8' }"
+									v-model="receipts.projectName"
+									placeholder="请输入项目名称"
+									class="ml15 flex-1 u-line-1 endcolor"
+								/>
+							</view>
+						</view>
+						<view class="flex-row items-center justify-between pt20 pb20 u-border-bottom">
+							<view class="flex-row items-center width100">
+								<text class="textcolor">物流公司:</text>
+								<input
+									placeholder-class="placeholder_class"
+									type="text"
+									maxlength="100"
+									:style="{ color: ifInput(receipts.logisticsCompany) ? '#333333' : '#D8D8D8' }"
+									v-model="receipts.logisticsCompany"
+									placeholder="请输入物流公司"
+									class="ml15 flex-1 u-line-1 endcolor"
+								/>
+							</view>
+						</view>
+						<view class="flex-row items-center justify-between pt20 pb20 u-border-bottom">
+							<view class="flex-row items-center width100">
+								<text class="textcolor">运单批次号:</text>
+								<input
+									placeholder-class="placeholder_class"
+									type="text"
+									maxlength="100"
+									:style="{ color: ifInput(receipts.transportBatchNo) ? '#333333' : '#D8D8D8' }"
+									v-model="receipts.transportBatchNo"
+									placeholder="请输入运单批次号"
+									class="ml15 flex-1 u-line-1 endcolor"
+								/>
+							</view>
+						</view>
+						<view class="flex-row items-center justify-between pt20 pb20 u-border-bottom">
+							<view class="flex-row items-center width100">
+								<text class="textcolor">承运人:</text>
+								<input
+									placeholder-class="placeholder_class"
+									type="text"
+									maxlength="100"
+									:style="{ color: ifInput(receipts.carrierName) ? '#333333' : '#D8D8D8' }"
+									v-model="receipts.carrierName"
+									placeholder="请输入承运人"
+									class="ml15 flex-1 u-line-1 endcolor"
+								/>
+							</view>
+						</view>
+						<view class="flex-row items-center justify-between pt20 pb20 u-border-bottom">
+							<view class="flex-row items-center width100">
+								<text class="textcolor">车牌号:</text>
+								<input
+									placeholder-class="placeholder_class"
+									type="text"
+									maxlength="100"
+									:style="{ color: ifInput(receipts.plateNo) ? '#333333' : '#D8D8D8' }"
+									v-model="receipts.plateNo"
+									placeholder="请输入车牌号"
+									class="ml15 flex-1 u-line-1 endcolor"
+								/>
+							</view>
+						</view>
+						<view class="flex-row items-center justify-between pt20 pb20 u-border-bottom">
+							<view class="flex-row items-center width100">
+								<text class="textcolor">车型:</text>
+								<input
+									placeholder-class="placeholder_class"
+									type="text"
+									maxlength="100"
+									:style="{ color: ifInput(receipts.vehicleType) ? '#333333' : '#D8D8D8' }"
+									v-model="receipts.vehicleType"
+									placeholder="请输入车型"
+									class="ml15 flex-1 u-line-1 endcolor"
+								/>
+							</view>
+						</view>
+						<view class="flex-row items-center justify-between pt20 pb20 u-border-bottom">
+							<view class="flex-row items-center width100">
+								<text class="textcolor">司机电话:</text>
+								<input
+									placeholder-class="placeholder_class"
+									type="text"
+									maxlength="100"
+									:style="{ color: ifInput(receipts.driverPhone) ? '#333333' : '#D8D8D8' }"
+									v-model="receipts.driverPhone"
+									placeholder="请输入司机电话"
+									class="ml15 flex-1 u-line-1 endcolor"
+								/>
+							</view>
+						</view>
+					</view>
 					<view class="flex-row justify-between items-center mt20">
 						<text class="line34 ft-bold handcolor pt24">发货清单</text>
 					</view>
@@ -308,15 +420,18 @@
 						<up-tr>
 							<up-td>数量</up-td>
 							<up-td>单位</up-td>
-							<up-td>单价</up-td>
-							<up-td>金额</up-td>
+							<up-td>{{ uni.$u.getPinia('user.customized') ? '单重' : '单价' }}</up-td>
+							<up-td>{{ uni.$u.getPinia('user.customized') ? '总重' : '金额' }}</up-td>
 						</up-tr>
 						<up-tr>
 							<up-td>{{ item.quantity }}</up-td>
 							<up-td>{{ item.unit }}</up-td>
-							<up-td>{{ item.unitPrice }}</up-td>
+							<up-td>{{ uni.$u.getPinia('user.customized') ? item.unitWeightKg : item.unitPrice }}</up-td>
 							<up-td>
-								<text style="width: 200rpx" class="up-line-1">
+								<text style="width: 200rpx" class="up-line-1" v-if="uni.$u.getPinia('user.customized')">
+									{{ item.quantity != '-' && item.quantity != '' ? item.unitWeightKg * item.quantity : 0 }}
+								</text>
+								<text style="width: 200rpx" class="up-line-1" v-else>
 									￥{{ item.quantity != '-' && item.quantity != '' ? formatAmount(item.unitPrice * item.quantity) : 0 }}
 								</text>
 							</up-td>
@@ -328,9 +443,10 @@
 			<view class="pt12 mt12" style="background-color: #ffffff">
 				<view class="relative pt12 pb12">
 					<text class="pl20 textcolor">合计</text>
-					<text class="absolute" style="right: 24rpx; color: #01bb74">￥{{ formatAmount(orderTotal) }}</text>
+					<text class="absolute" v-if="uni.$u.getPinia('user.customized')" style="right: 24rpx; color: #01bb74">{{ orderTotal }}</text>
+					<text class="absolute" v-else style="right: 24rpx; color: #01bb74">￥{{ formatAmount(orderTotal) }}</text>
 				</view>
-				<view class="relative pt12 pb12">
+				<view class="relative pt12 pb12" v-if="!uni.$u.getPinia('user.customized')">
 					<text class="pl20 textcolor">金额大写</text>
 					<text class="absolute" style="right: 24rpx; color: #666666">{{ digitUppercase(orderTotal) }}</text>
 				</view>
@@ -366,7 +482,7 @@
 				<view class="mt40" style="width: 95%">
 					<up-upload
 						autoUpload
-						autoDelete
+						@delete="onRemoveImg"
 						:autoUploadApi="action"
 						autoUploadDriver="local"
 						v-model:fileList="imgList"
@@ -427,10 +543,12 @@
 			</view>
 
 			<view class="mt60 pl20 pr20 pb30 flex-row">
-				<view class="" style="width: 60%; padding: 12rpx">
-					<up-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder" shape="circle">发送订单</up-button>
+				<view class="" style="padding: 12rpx" :style="pageType == 0 || pageType == 3 ? 'width: 60%; ' : 'width: 100%; '">
+					<up-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder" shape="circle">
+						{{ pageType == 1 ? '修改订单' : '发送订单' }}
+					</up-button>
 				</view>
-				<view class="" style="width: 40%; padding: 12rpx">
+				<view class="" style="width: 40%; padding: 12rpx" v-if="pageType == 0 || pageType == 3">
 					<up-button plain hover-class="none" :customStyle="{ border: '2rpx solid #01BB74', color: '#01BB74' }" @click="draftOrder" shape="circle">存草稿</up-button>
 				</view>
 			</view>
@@ -449,6 +567,8 @@
 export default {
 	data() {
 		return {
+			newImg: [],
+			removeList: [],
 			showPopShare: false,
 			order: {},
 			showOrderPly: false,
@@ -499,7 +619,15 @@ export default {
 				enterpriseDz: '',
 				signatureDescr: '',
 				organizationEJc: '',
-				preview1: 0
+				preview1: 0,
+				// 定制字段
+				projectName: '', //项目名称
+				logisticsCompany: '', //物流公司
+				transportBatchNo: '', //车次/运单批次号
+				carrierName: '', //承运人
+				plateNo: '', //车牌号
+				vehicleType: '', //车型
+				driverPhone: '' //司机电话
 			},
 			imgList: [],
 			show: false,
@@ -532,13 +660,6 @@ export default {
 			companyName: '请选择',
 			searchCopy: '',
 			searchDomain: '',
-			verify: {
-				1: '品名',
-				2: '规格',
-				3: '单位',
-				4: '数量',
-				5: '单价'
-			},
 			identity: true,
 			openOrder: false,
 			staffNumberEName: '',
@@ -555,7 +676,8 @@ export default {
 			backHomepageClick: false,
 			khPhone: '',
 			shareReady: false,
-			showCalendar: false
+			showCalendar: false,
+			pageType: 0 //0添加，1修改，2复制开单,3草稿箱
 		};
 	},
 	onShareAppMessage(ops) {
@@ -587,10 +709,7 @@ export default {
 		if (uni.getStorageSync('inventoryStockpile') != undefined && uni.getStorageSync('inventoryStockpile') != null && uni.getStorageSync('inventoryStockpile') != '') {
 			this.orderItemList = uni.getStorageSync('inventoryStockpile');
 			console.log('inventoryStockpile', uni.getStorageSync('inventoryStockpile'));
-			this.orderTotal = 0;
-			this.orderItemList.forEach((res) => {
-				this.orderTotal = this.orderTotal + res.quantity * res.unitPrice;
-			});
+			this.setOrderTotal();
 		}
 		this.$loadUser(this);
 		this.loadData();
@@ -598,9 +717,21 @@ export default {
 		this.defImg();
 	},
 	onLoad(options) {
-		this.addEmp();
+		if (options.orderId) {
+			if (options.pageType != 3) {
+				this.getDetail(options.orderId, options.pageType);
+			} else {
+				this.getOrderParticular(options.orderId);
+			}
+			this.pageType = options.pageType;
+		} else {
+			this.addEmp();
+		}
 	},
 	onUnload() {
+		if (this.pageType != 0) {
+			return;
+		}
 		if (!this.backHomepageClick) {
 			if (this.receipts.bossNumberE != '' || (this.orderItemList.length > 0 && this.orderTotal > 0)) {
 				this.draftOrderConceal(false);
@@ -615,6 +746,180 @@ export default {
 		// this.searchDomain = ""
 	},
 	methods: {
+		setOrderTotal() {
+			this.orderTotal = 0;
+			if (uni.$u.getPinia('user.customized')) {
+				this.orderItemList.forEach((res) => {
+					this.orderTotal = this.orderTotal + res.quantity * res.unitWeightKg;
+				});
+			} else {
+				this.orderItemList.forEach((res) => {
+					this.orderTotal = this.orderTotal + res.quantity * res.unitPrice;
+				});
+			}
+		},
+		// 手动删除图片
+		onRemoveImg(res) {
+			this.removeList.push(res.file);
+			const removeList = this.imgList.splice(res.index, 1);
+			if (removeList[0].id) {
+				this.newImg.push(removeList[0]);
+			}
+		},
+		// 编辑复开单获取详情
+		getDetail(orderId, pageType) {
+			uni.$api.order
+				.getOrderById({
+					orderId: orderId
+				})
+				.then((res) => {
+					var data = res.data.data.post;
+					data.creationTime = this.$u.timeFormat(data.creationTime, 'yyyy-mm-dd');
+					this.receipts = data;
+
+					this.staffNumberEName = this.receipts.takeE;
+					// this.searchIFNumber(this.staffNumberEName)
+					if (res.data.data.orderItemList.length) {
+						this.orderItemList = [
+							...this.orderItemList,
+							...res.data.data.orderItemList.map((item) => ({
+								...item,
+								color: {
+									description: 'transparent',
+									specification: 'transparent',
+									unit: 'transparent',
+									quantity: 'transparent',
+									unitPrice: 'transparent'
+								}
+							}))
+						];
+						this.setOrderTotal();
+					} else {
+						this.addEmp();
+					}
+
+					this.imgList = res.data.data.imgList;
+					if (this.imgList.length) {
+						this.imgList.forEach((el) => {
+							el.status = 'success'; //上传成功图标
+							el.type = 'image'; //预览必须要保留type为image才能预览
+						});
+					}
+					if (!this.receipts.imgList) {
+						this.receipts.imgList = [];
+					}
+					// 复制开单
+					if (pageType == 2) {
+						var dx = {
+							user: {
+								phoneNumber: this.receipts.staffNumberE,
+								name: this.receipts.takeE ? this.receipts.takeE : null
+							},
+							verification: {
+								enterpriseName: this.receipts.organizationE
+							}
+							// remarkInbox: res.data.remarkInbox
+						};
+						console.log('companyNameJSON', dx);
+						this.searchDomain = dx;
+						this.khPhone = this.receipts.organizationE != '' ? this.receipts.organizationE : this.receipts.bossNumberE;
+						this.staffNumberEName = this.receipts.takeE ? this.receipts.takeE : this.receipts.bossNumberE;
+
+						this.receipts.organizationE = this.khPhone;
+
+						console.log('===this.receipts.bossNumberE===>', this.receipts.bossNumberE);
+						this.authenticationSynchronization();
+						if (this.khPhone) {
+							this.searchIFNumberBlur();
+						}
+					}
+				})
+				.catch((res) => {});
+		},
+		// 草稿箱详情
+		getOrderParticular(id) {
+			console.log('草稿箱ID====>', id);
+			uni.$api.draft
+				.getDraftById({
+					id: id
+				})
+				.then((res) => {
+					var order = res.data.data;
+					this.receipts = order.post;
+					this.receipts.creationTime = this.$u.timeFormat(this.receipts.creationTime, 'yyyy-mm-dd');
+					this.receipts.inventoryList = order.orderItemList;
+					this.orderItemList = order.orderItemList;
+					this.imgList = order.imgList;
+					if (this.imgList.length) {
+						this.imgList.forEach((el) => {
+							el.status = 'success'; //上传成功图标
+							el.type = 'image'; //预览必须要保留type为image才能预览
+						});
+					}
+
+					this.setOrderTotal();
+
+					this.staffNumberEName = this.receipts.bossNumberE;
+					this.fileList = order.imgList;
+
+					var dx = {
+						user: {
+							phoneNumber: this.receipts.bossNumberE,
+							name: this.receipts.takeE ? this.receipts.takeE : null
+						},
+						verification: {
+							enterpriseName: this.receipts.organizationE
+						}
+					};
+
+					console.log('companyNameJSON', dx);
+
+					this.searchDomain = dx;
+					this.khPhone = this.receipts.organizationE != '' ? this.receipts.organizationE : this.receipts.bossNumberE;
+					this.staffNumberEName = this.receipts.takeE ? this.receipts.takeE : this.receipts.bossNumberE;
+
+					console.log('===草稿箱===>', this.receipts);
+					uni.setStorageSync('inventoryStockpile', this.orderItemList);
+
+					if (this.receipts.inventoryList.length <= 0) {
+						this.addEmp();
+					}
+					this.authenticationSynchronization(this.receipts);
+					if (this.khPhone) {
+						this.searchIFNumberBlur();
+					}
+				});
+		},
+		authenticationSynchronization() {
+			console.log('===authenticationSynchronization===>');
+			uni.$api.order
+				.authenticateOrder(this.receipts)
+				.then((res) => {
+					const reIf = res.data.data;
+					delete this.receipts.id;
+					if (reIf === 1) {
+						console.log('===authenticationSynchronization===>', '验证成功~');
+						this.searchIFNumber({
+							target: {
+								value: this.receipts.staffNumberE
+							}
+						});
+					} else {
+						if (reIf === 2) {
+							// this.$u.toast("开单方人员信息发送变更~");
+							this.receipts.staffNumberS = this.pinia_user.phone;
+
+							// this.clear()
+						} else {
+							this.clear();
+							this.$u.toast('收单方人员信息发生变更~');
+						}
+					}
+				})
+				.catch((error) => {
+					console.error('请求出错:', error);
+				});
+		},
 		jumDrafts() {
 			console.log('跳转');
 			uni.navigateTo({
@@ -633,7 +938,11 @@ export default {
 		merchandiseInventory(type) {
 			console.log('merchandiseInventory', type);
 			console.log('价格', this.orderTotal);
-
+			if (this.orderItemList.length) {
+				if (this.orderItemList[0].id) {
+					uni.setStorageSync('inventoryStockpile', this.orderItemList);
+				}
+			}
 			if (type) {
 				if (this.orderTotal > 0) {
 					uni.navigateTo({
@@ -770,12 +1079,14 @@ export default {
 				unit: '-',
 				quantity: '-',
 				unitPrice: '-',
+				unitWeightKg: '-',
 				color: {
 					description: 'transparent',
 					specification: 'transparent',
 					unit: 'transparent',
 					quantity: 'transparent',
-					unitPrice: 'transparent'
+					unitPrice: 'transparent',
+					unitWeightKg: 'transparent'
 				}
 			};
 
@@ -1014,8 +1325,16 @@ export default {
 			this.getOrderNumber();
 			this.addEmp();
 			this.receipts.signatureDescr = '';
+			if (this.pageType == 3) {
+				uni.navigateBack();
+			}
 		},
 		navBack() {
+			uni.removeStorageSync('inventoryStockpile');
+			if (this.pageType != 0) {
+				uni.navigateBack();
+				return false;
+			}
 			var drafts = this.transmitList[0].id != null;
 			if (drafts) {
 				uni.switchTab({
@@ -1048,6 +1367,7 @@ export default {
 				cancelText: type ? '不保存' : '关闭',
 				confirmText: '保存',
 				mask: false,
+				confirmColor: '#01bb74',
 				success: (res) => {
 					var okif = res.confirm;
 					if (okif) {
@@ -1115,7 +1435,12 @@ export default {
 
 				this.receipts.staffNumberS = this.pinia_user.phone;
 
-				this.receipts.price = this.orderTotal;
+				if (uni.$u.getPinia('user.customized')) {
+					this.receipts.price = 0;
+					this.receipts.totalWeightKg = this.orderTotal;
+				} else {
+					this.receipts.price = this.orderTotal;
+				}
 
 				this.receipts.contactsS = this.pinia_user.data.name || this.pinia_user.phone;
 
@@ -1188,8 +1513,12 @@ export default {
 				this.receipts.bossNumberS = this.pinia_user.data.work != '0' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone;
 
 				this.receipts.staffNumberS = this.pinia_user.phone;
-
-				this.receipts.price = this.orderTotal;
+				if (uni.$u.getPinia('user.customized')) {
+					this.receipts.price = 0;
+					this.receipts.totalWeightKg = this.orderTotal;
+				} else {
+					this.receipts.price = this.orderTotal;
+				}
 
 				this.receipts.contactsS = this.pinia_user.data.name || this.pinia_user.phone;
 
@@ -1263,15 +1592,41 @@ export default {
 					this.limitingCondition = false;
 					let receiptsData = JSON.parse(JSON.stringify(this.receipts));
 					receiptsData.creationTime = receiptsData.creationTime + ' 00:00:00';
-					uni.$api.order
-						.addOrder(receiptsData)
+					let reqUrl = '';
+					if (this.pageType == 1) {
+						//要删除的
+						const uniqueIds = [
+							...new Set(
+								this.removeList
+									.filter((item) => item.id) // 只要有 id 的
+									.map((item) => item.id)
+							)
+						];
+						receiptsData.delImgFolderIdList = uniqueIds;
+						reqUrl = uni.$api.order.editOrder;
+					} else {
+						if (this.pageType == 2) {
+							delete receiptsData.id;
+							delete receiptsData.orderNumber;
+						}
+						reqUrl = uni.$api.order.addOrder;
+					}
+					reqUrl(receiptsData)
 						.then((res) => {
 							console.log(res);
 							var code = res.data.data;
+							uni.removeStorageSync('inventoryStockpile');
 							if (code == 1) {
+								if (this.pageType == 1) {
+									setTimeout(function () {
+										uni.navigateBack();
+									}, 200);
+									return;
+								}
 								this.shareShow = true;
 								this.limitingCondition = true;
 								this.backHomepageClick = true;
+
 								uni.$api.order
 									.getOrderByNumber({
 										orderNumber: this.receipts.orderNumber
@@ -1280,7 +1635,7 @@ export default {
 										console.log('请求结果11：', res.data.data);
 										this.transmitList = res.data.data;
 										this.shareReady = true;
-										uni.removeStorageSync('inventoryStockpile');
+
 										resolve(true);
 									})
 									.catch((res) => {
@@ -1308,19 +1663,32 @@ export default {
 					this.limitingCondition = false;
 					let receiptsData = JSON.parse(JSON.stringify(this.receipts));
 					receiptsData.creationTime = receiptsData.creationTime + ' 00:00:00';
-					uni.$api.draft
-						.addDraft(receiptsData)
-						.then((res) => {
-							console.log(res);
-							var code = res.data.data;
-							if (code == 1) {
-								this.$u.toast('已存入草稿箱~');
+					if (this.pageType == 0) {
+						uni.$api.draft
+							.addDraft(receiptsData)
+							.then((res) => {
+								console.log(res);
+								var code = res.data.data;
+								if (code == 1) {
+									this.$u.toast('已存入草稿箱~');
+									resolve(true);
+								} else {
+									resolve(false);
+								}
+							})
+							.catch((res) => {});
+					} else {
+						uni.$api.draft
+							.editDraft(receiptsData)
+							.then((res) => {
+								console.log(res);
+								this.$u.toast(res.data.message);
 								resolve(true);
-							} else {
+							})
+							.catch((res) => {
 								resolve(false);
-							}
-						})
-						.catch((res) => {});
+							});
+					}
 				} else {
 					this.$u.toast('请勿重复点击~');
 					resolve(false);
@@ -1366,7 +1734,7 @@ export default {
 							phone: bossNumber,
 							orderNumber: that.receipts.orderNumber,
 							jobNumber: that.receipts.jobNumberS || jobNumber,
-							token: that.pinia_user.loginToken
+							Authorization: `Bearer ${that.pinia_token}`
 						},
 						filePath: this.imgList[key].url,
 						name: 'file',
@@ -1404,6 +1772,7 @@ export default {
 			if (!result) {
 				return;
 			} else {
+				this.receipts.imgList = this.newImg;
 				const resultOrder = await this.sendOrderResDraft();
 				console.log('添加结果======>', resultOrder);
 				if (resultOrder) {

@@ -52,7 +52,13 @@
 							:src="item.img === 'definde' ? 'https://res-oss.elist.com.cn/wxImg/order/emptyView.png' : item.img"
 						></up-image>
 					</view>
-					<view class="invText" @click="jumpCommodityDetails(item)">
+					<view class="invText" @click="jumpCommodityDetails(item)" v-if="uni.$u.getPinia('user.customized')">
+						<text>{{ item.description }}</text>
+						<text class="up-line-1">型号：{{ item.modelNo }}</text>
+						<text>长度(毫米)：{{ item.lengthMm }}</text>
+						<text>单重(kg/件)：{{ item.unitWeightKg }}</text>
+					</view>
+					<view class="invText" @click="jumpCommodityDetails(item)" v-else>
 						<text>{{ item.description }}</text>
 						<text class="up-line-1">规格：{{ item.specification }}</text>
 						<text>单位：{{ item.unit }}</text>
@@ -184,6 +190,7 @@ export default {
 				showCancel: true,
 				cancelText: '取消',
 				confirmText: '确定',
+				confirmColor: '#01bb74',
 				success: (res) => {
 					var okif = res.confirm;
 					if (okif) {
@@ -202,7 +209,7 @@ export default {
 		},
 		jumpAddCommodity() {
 			uni.navigateTo({
-				url: '../uploadingCommodity'
+				url: '/pages/subOrder/commodityDetails/updateCommodity'
 			});
 		},
 		jumpCommodityDetails(item) {

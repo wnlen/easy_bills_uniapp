@@ -461,7 +461,9 @@ export default {
 		};
 	},
 	onLoad(options) {
+		// #ifdef MP-WEIXIN
 		uni.hideShareMenu();
+		// #endif
 		console.log('显示', options);
 		if (!this.pinia_token) {
 			uni.reLaunch({
@@ -1013,6 +1015,7 @@ export default {
 							showCancel: true,
 							cancelText: '取消',
 							confirmText: '去添加',
+							confirmColor: '#01bb74',
 							success: (res) => {
 								if (res.confirm) {
 									uni.navigateTo({
@@ -1031,6 +1034,7 @@ export default {
 							showCancel: true,
 							cancelText: '取消',
 							confirmText: '去添加',
+							confirmColor: '#01bb74',
 							success: (res) => {
 								if (res.confirm) {
 									uni.navigateTo({
@@ -1048,6 +1052,7 @@ export default {
 						showCancel: true,
 						cancelText: '取消',
 						confirmText: '去添加',
+						confirmColor: '#01bb74',
 						success: (res) => {
 							if (res.confirm) {
 								uni.navigateTo({
@@ -1064,6 +1069,7 @@ export default {
 						showCancel: true,
 						cancelText: '取消',
 						confirmText: '去添加',
+						confirmColor: '#01bb74',
 						success: (res) => {
 							if (res.confirm) {
 								uni.navigateTo({
@@ -1083,6 +1089,7 @@ export default {
 					showCancel: true,
 					cancelText: '取消',
 					confirmText: '确认',
+					confirmColor: '#01bb74',
 					success: (res) => {
 						if (res.confirm) {
 							this.showMask = true;
@@ -1217,6 +1224,7 @@ export default {
 				showCancel: true,
 				cancelText: '取消',
 				confirmText: '确认',
+				confirmColor: '#01bb74',
 				success: (res) => {}
 			});
 		},

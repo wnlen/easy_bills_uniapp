@@ -127,9 +127,9 @@
             "splashscreen" : {
                 "androidStyle" : "default",
                 "android" : {
-                    "hdpi" : "C:/Users/Administrator/Pictures/易单据项目图片/480.png",
-                    "xxhdpi" : "C:/Users/Administrator/Pictures/易单据项目图片/1080.png",
-                    "xhdpi" : "C:/Users/Administrator/Pictures/易单据项目图片/720.png"
+                    "hdpi" : "F:/冠鹿信息/易单据/易单据项目图片/480.png",
+                    "xxhdpi" : "F:/冠鹿信息/易单据/易单据项目图片/1080.png",
+                    "xhdpi" : "F:/冠鹿信息/易单据/易单据项目图片/720.png"
                 },
                 "useOriginalMsgbox" : true
             }

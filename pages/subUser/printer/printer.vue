@@ -105,6 +105,7 @@ export default {
 				showCancel: true,
 				cancelText: '取消',
 				confirmText: '确认',
+				confirmColor: '#01bb74',
 				success: (res) => {
 					console.log(res.confirm);
 					if (res.confirm) {

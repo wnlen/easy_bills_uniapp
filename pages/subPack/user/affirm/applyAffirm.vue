@@ -51,6 +51,7 @@ export default {
 				showCancel: true,
 				cancelText: '取消',
 				confirmText: '确定',
+				confirmColor: '#01bb74',
 				success: (res) => {
 					var okif = res.confirm;
 					if (okif) {

@@ -1542,6 +1542,7 @@ export default {
 				showCancel: true,
 				cancelText: '取消',
 				confirmText: '现款签收',
+				confirmColor: '#01bb74',
 				success: (res) => {}
 			});
 		},

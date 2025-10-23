@@ -574,13 +574,6 @@
 					}
 				},
 				{
-					"path": "uploadingCommodity",
-					"style": {
-						"navigationBarTitleText": "",
-						"navigationStyle": "custom"
-					}
-				},
-				{
 					"path": "commodityDetails/commodityDetails",
 					"style": {
 						"navigationBarTitleText": "",

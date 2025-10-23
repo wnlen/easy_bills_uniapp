@@ -72,7 +72,8 @@ export default {
 						console.error('启动wifi 失败', err);
 						uni.showModal({
 							content: err.errMsg,
-							showCancel: false
+							showCancel: false,
+							confirmColor: '#01bb74',
 						});
 						reject(new Error(err));
 					}
@@ -92,7 +93,8 @@ export default {
 					console.error('获取wifi列表 失败', err);
 					uni.showModal({
 						content: err.errMsg,
-						showCancel: false
+						showCancel: false,
+						confirmColor: '#01bb74',
 					});
 				}
 			});
@@ -136,7 +138,8 @@ export default {
 					console.error('wifi连接 失败:', err);
 					uni.showModal({
 						content: err.errMsg,
-						showCancel: false
+						showCancel: false,
+						confirmColor: '#01bb74',
 					});
 				}
 			});
@@ -167,7 +170,8 @@ export default {
 					console.error('获取当前连接的wifi 失败:', err);
 					uni.showModal({
 						content: err.errMsg,
-						showCancel: false
+						showCancel: false,
+						confirmColor: '#01bb74',
 					});
 				}
 			});

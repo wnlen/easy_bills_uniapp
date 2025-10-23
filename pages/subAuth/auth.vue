@@ -170,6 +170,7 @@ export default {
 				content: '是否移除当前用户的合伙人身份？',
 				cancelText: '再考虑下',
 				confirmText: '确定移除',
+				confirmColor: '#01bb74',
 				success: (res) => {
 					if (res.confirm) {
 					}
@@ -185,6 +186,7 @@ export default {
 				confirmText: '确定',
 				editable: true,
 				placeholderText: '请输入新账号手机号~',
+				confirmColor: '#01bb74',
 				success: (res) => {
 					if (res.confirm) {
 					}

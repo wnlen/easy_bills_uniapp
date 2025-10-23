@@ -209,6 +209,36 @@
 							<view class="">收货地址：</view>
 							<text class="yrd mt5">{{ post.kSiteE || '' }}</text>
 						</view>
+						<view class="" v-if="uni.$u.getPinia('user.customized')">
+							<view class="flex-row mt13 xqcss">
+								<view class="">项目名称：</view>
+								<text class="yrd mt5">{{ post.projectName || '' }}</text>
+							</view>
+							<view class="flex-row mt13 xqcss">
+								<view class="">物流公司：</view>
+								<text class="yrd mt5">{{ post.logisticsCompany || '' }}</text>
+							</view>
+							<view class="flex-row mt13 xqcss">
+								<view class="">运单批次号：</view>
+								<text class="yrd mt5">{{ post.transportBatchNo || '' }}</text>
+							</view>
+							<view class="flex-row mt13 xqcss">
+								<view class="">承运人：</view>
+								<text class="yrd mt5">{{ post.carrierName || '' }}</text>
+							</view>
+							<view class="flex-row mt13 xqcss">
+								<view class="">车牌号：</view>
+								<text class="yrd mt5">{{ post.plateNo || '' }}</text>
+							</view>
+							<view class="flex-row mt13 xqcss">
+								<view class="">车型：</view>
+								<text class="yrd mt5">{{ post.vehicleType || '' }}</text>
+							</view>
+							<view class="flex-row mt13 xqcss">
+								<view class="">司机电话：</view>
+								<text class="yrd mt5">{{ post.driverPhone || '' }}</text>
+							</view>
+						</view>
 					</view>
 
 					<view class="form-middle" style="overflow-x: auto">
@@ -219,8 +249,8 @@
 									<view class="table-cell">规格</view>
 									<view class="table-cell">单位</view>
 									<view class="table-cell">数量</view>
-									<view class="table-cell">单价</view>
-									<view class="table-cell">金额</view>
+									<view class="table-cell">{{ uni.$u.getPinia('user.customized') ? '单重' : '单价' }}</view>
+									<view class="table-cell">{{ uni.$u.getPinia('user.customized') ? '总重' : '金额' }}</view>
 								</view>
 								<view class="table-row" v-for="(item, index) in orderItemList" :key="index">
 									<view class="table-cell flex-col justify-center items-center">
@@ -236,10 +266,13 @@
 										<text class="ft24">{{ item.quantity }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24">{{ item.unitPrice }}</text>
+										<text class="ft24">{{ uni.$u.getPinia('user.customized') ? item.unitWeightKg : item.unitPrice }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24">{{ towDig(item.quantity, item.unitPrice) }}</text>
+										<text class="ft24" v-if="uni.$u.getPinia('user.customized')">
+											{{ item.quantity != '-' && item.quantity != '' ? item.unitWeightKg * item.quantity : 0 }}
+										</text>
+										<text class="ft24" v-else>{{ towDig(item.quantity, item.unitPrice) }}</text>
 									</view>
 								</view>
 							</view>
@@ -252,8 +285,8 @@
 									<view class="table-cell">规格</view>
 									<view class="table-cell">单位</view>
 									<view class="table-cell">数量</view>
-									<view class="table-cell">单价</view>
-									<view class="table-cell">金额</view>
+									<view class="table-cell">{{ uni.$u.getPinia('user.customized') ? '单重' : '单价' }}</view>
+									<view class="table-cell">{{ uni.$u.getPinia('user.customized') ? '总重' : '金额' }}</view>
 								</view>
 								<view class="table-row" v-for="(item, index) in orderItemList" :key="index">
 									<view class="table-cell flex-col justify-center items-center">
@@ -269,10 +302,12 @@
 										<text class="ft24">{{ item.quantity }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24">{{ versions == 'Y' ? item.unitPrice : '****' }}</text>
+										<text class="ft24" v-if="uni.$u.getPinia('user.customized')">{{ versions == 'Y' ? item.unitWeightKg : '****' }}</text>
+										<text class="ft24" v-else>{{ versions == 'Y' ? item.unitPrice : '****' }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24">{{ versions == 'Y' ? towDig(item.quantity, item.unitPrice) : '****' }}</text>
+										<text class="ft24" v-if="uni.$u.getPinia('user.customized')">{{ versions == 'Y' ? item.unitWeightKg * item.quantity : '****' }}</text>
+										<text class="ft24" v-else>{{ versions == 'Y' ? towDig(item.quantity, item.unitPrice) : '****' }}</text>
 									</view>
 								</view>
 							</view>
@@ -280,9 +315,10 @@
 
 						<view class="xqcss pd10 pt10 pb10 black-border-left black-border-right">
 							<text class="ml10 xqcss">合计：</text>
-							<text class="xqcss">¥ {{ versions == 'Y' ? DigPrice(post.price) || '' : '****' }}</text>
+							<text class="xqcss" v-if="uni.$u.getPinia('user.customized')">{{ post.totalWeightKg }}</text>
+							<text class="xqcss" v-else>¥ {{ versions == 'Y' ? DigPrice(post.price) || '' : '****' }}</text>
 						</view>
-						<view class="xqcss pd10 pt10 pb10 black-border-top black-border-bottom black-border-left black-border-right">
+						<view class="xqcss pd10 pt10 pb10 black-border-top black-border-bottom black-border-left black-border-right" v-if="!uni.$u.getPinia('user.customized')">
 							<text class="ft-bold ml10 xqcss">金额大写：</text>
 							<text class="yrd">{{ versions == 'Y' ? digitUppercase(post.price) : '****' }}</text>
 						</view>
@@ -566,7 +602,9 @@ export default {
 		};
 	},
 	onLoad(options) {
+		// #ifdef MP-WEIXIN
 		uni.hideShareMenu();
+		// #endif
 		console.log('显示', options);
 
 		if (!this.pinia_token) {
@@ -1102,6 +1140,7 @@ export default {
 							showCancel: true,
 							cancelText: '取消',
 							confirmText: '去添加',
+							confirmColor: '#01bb74',
 							success: (res) => {
 								if (res.confirm) {
 									uni.navigateTo({
@@ -1120,6 +1159,7 @@ export default {
 							showCancel: true,
 							cancelText: '取消',
 							confirmText: '去添加',
+							confirmColor: '#01bb74',
 							success: (res) => {
 								if (res.confirm) {
 									uni.navigateTo({
@@ -1137,6 +1177,7 @@ export default {
 						showCancel: true,
 						cancelText: '取消',
 						confirmText: '去添加',
+						confirmColor: '#01bb74',
 						success: (res) => {
 							if (res.confirm) {
 								uni.navigateTo({
@@ -1153,6 +1194,7 @@ export default {
 						showCancel: true,
 						cancelText: '取消',
 						confirmText: '去添加',
+						confirmColor: '#01bb74',
 						success: (res) => {
 							if (res.confirm) {
 								uni.navigateTo({
@@ -1172,6 +1214,7 @@ export default {
 					showCancel: true,
 					cancelText: '取消',
 					confirmText: '确认',
+					confirmColor: '#01bb74',
 					success: (res) => {
 						if (res.confirm) {
 							this.qs();
@@ -1194,6 +1237,10 @@ export default {
 			// });
 		},
 		copyBill(order) {
+			uni.navigateTo({
+				url: `/pages/subOrder/add?orderId=${order.id}&pageType=2`
+			});
+			return;
 			var bill = order;
 			var inventory = this.orderItemList;
 			var imgList = this.imgList;
@@ -1427,6 +1474,7 @@ export default {
 				showCancel: true,
 				cancelText: '取消',
 				confirmText: '确认',
+				confirmColor: '#01bb74',
 				success: (res) => {}
 			});
 		},
