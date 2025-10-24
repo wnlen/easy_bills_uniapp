@@ -403,14 +403,26 @@ export default {
 					url: '/pages/subUser/userinfo'
 				});
 			} else {
+				// #ifdef APP
 				this.$univerify();//app一键登录
+				// #endif
+				// #ifdef MP-WEIXIN
+				uni.navigateTo({
+					url: '/pages/subUser/login'
+				});
+				// #endif
 			}
 		},
 		acClick(){
 			if (!this.pinia_token) {
+				// #ifdef APP
+				this.$univerify();//app一键登录
+				// #endif
+				// #ifdef MP-WEIXIN
 				uni.navigateTo({
 					url: '/pages/subUser/login'
 				});
+				// #endif
 				return;
 			} else {
 				let url = !this.pinia_user.ac? '/pages/subAuth/qiye?btn=0' : '/pages/subAuth/qiye?btn=3';

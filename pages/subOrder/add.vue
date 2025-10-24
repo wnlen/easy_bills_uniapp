@@ -713,7 +713,6 @@ export default {
 		}
 		this.$loadUser(this);
 		this.loadData();
-		this.getOrderNumber();
 		this.defImg();
 	},
 	onLoad(options) {
@@ -725,6 +724,7 @@ export default {
 			}
 			this.pageType = options.pageType;
 		} else {
+			this.getOrderNumber();
 			this.addEmp();
 		}
 	},
@@ -810,6 +810,9 @@ export default {
 					}
 					// 复制开单
 					if (pageType == 2) {
+						this.getOrderNumber();
+						this.receipts.creationTime = this.$u.timeFormat(this.receipts.creationTime, 'yyyy-mm-dd');
+						this.receipts.signatureImg = '';
 						var dx = {
 							user: {
 								phoneNumber: this.receipts.staffNumberE,
@@ -828,6 +831,7 @@ export default {
 						this.receipts.organizationE = this.khPhone;
 
 						console.log('===this.receipts.bossNumberE===>', this.receipts.bossNumberE);
+
 						this.authenticationSynchronization();
 						if (this.khPhone) {
 							this.searchIFNumberBlur();
@@ -856,7 +860,6 @@ export default {
 							el.type = 'image'; //预览必须要保留type为image才能预览
 						});
 					}
-
 					this.setOrderTotal();
 
 					this.staffNumberEName = this.receipts.bossNumberE;
@@ -884,21 +887,23 @@ export default {
 					if (this.receipts.inventoryList.length <= 0) {
 						this.addEmp();
 					}
-					this.authenticationSynchronization(this.receipts);
+
+					this.authenticationSynchronization();
 					if (this.khPhone) {
 						this.searchIFNumberBlur();
 					}
 				});
 		},
 		authenticationSynchronization() {
-			console.log('===authenticationSynchronization===>');
+			let receiptsData = JSON.parse(JSON.stringify(this.receipts));
+			receiptsData.creationTime = receiptsData.creationTime + ' 00:00:00';
+			receiptsData.createTime = null;
 			uni.$api.order
-				.authenticateOrder(this.receipts)
+				.authenticateOrder(receiptsData)
 				.then((res) => {
 					const reIf = res.data.data;
-					delete this.receipts.id;
+					// delete this.receipts.id;
 					if (reIf === 1) {
-						console.log('===authenticationSynchronization===>', '验证成功~');
 						this.searchIFNumber({
 							target: {
 								value: this.receipts.staffNumberE
@@ -1605,9 +1610,9 @@ export default {
 						receiptsData.delImgFolderIdList = uniqueIds;
 						reqUrl = uni.$api.order.editOrder;
 					} else {
-						if (this.pageType == 2) {
-							delete receiptsData.id;
-							delete receiptsData.orderNumber;
+						if (this.pageType != 1) {
+							receiptsData.id = null;
+							receiptsData.createTime = null;
 						}
 						reqUrl = uni.$api.order.addOrder;
 					}
@@ -1657,6 +1662,7 @@ export default {
 				}
 			});
 		},
+		// 草稿箱订单相关操作
 		sendOrderResDraft() {
 			return new Promise((resolve) => {
 				if (this.limitingCondition) {
@@ -1829,7 +1835,7 @@ export default {
 			}
 
 			// 使用toFixed()方法保留两位小数，并返回字符串
-			return num.toFixed(3);
+			return num.toFixed(2);
 		},
 		callPhone(phone) {
 			uni.makePhoneCall({

@@ -315,7 +315,7 @@
 
 						<view class="xqcss pd10 pt10 pb10 black-border-left black-border-right">
 							<text class="ml10 xqcss">合计：</text>
-							<text class="xqcss" v-if="uni.$u.getPinia('user.customized')">{{ post.totalWeightKg }}</text>
+							<text class="xqcss" v-if="uni.$u.getPinia('user.customized')">{{ post.totalWeightKg || 0 }}</text>
 							<text class="xqcss" v-else>¥ {{ versions == 'Y' ? DigPrice(post.price) || '' : '****' }}</text>
 						</view>
 						<view class="xqcss pd10 pt10 pb10 black-border-top black-border-bottom black-border-left black-border-right" v-if="!uni.$u.getPinia('user.customized')">
@@ -770,8 +770,13 @@ export default {
 				title: '加载中...', // 提示文字
 				mask: true // 是否显示透明蒙层，防止触摸穿透
 			});
-			uni.$api.printer
-				.previewPrintImage(print)
+			let reqUrl = '';
+			if (uni.$u.getPinia('user.customized')) {
+				reqUrl = uni.$api.customization.customizationLookDzImg;
+			} else {
+				reqUrl = uni.$api.printer.previewPrintImage;
+			}
+			reqUrl(print)
 				.then((rest) => {
 					uni.hideLoading();
 					this.browse = rest.data;
@@ -1288,15 +1293,20 @@ export default {
 			var _this = this;
 
 			// #ifdef MP-WEIXIN
-			uni.$api.order
-				.generateOrderPDFWithId(dx)
+			let reqUrl = '';
+			if (uni.$u.getPinia('user.customized')) {
+				reqUrl = uni.$api.customization.customizationCreatePdf;
+			} else {
+				reqUrl = uni.$api.order.generateOrderPDFWithId;
+			}
+			reqUrl(dx)
 				.then((rest) => {
 					var url = rest.data.data;
 					uni.downloadFile({
 						url: url, // 下载url
 						success(res) {
 							const tempFilePath = res.tempFilePath;
-							console.log(res);
+							console.log(1111, res);
 							uni.getFileSystemManager().saveFile({
 								tempFilePath: tempFilePath,
 								filePath: wx.env.USER_DATA_PATH + '/' + 'YDJ-' + order.orderNumber + '.pdf',
@@ -1325,7 +1335,9 @@ export default {
 								}
 							});
 						},
-						fail: console.error
+						fail: (err) => {
+							console.error('下载失败详情：', err); // 重点查看 err.errMsg 和 err.code
+						}
 					});
 					uni.hideLoading();
 				})
@@ -1335,8 +1347,13 @@ export default {
 				});
 			// #endif
 			// #ifdef APP
-			uni.$api.order
-				.generateOrderPDFWithId(dx)
+			let reqUrl = '';
+			if (uni.$u.getPinia('user.customized')) {
+				reqUrl = uni.$api.customization.customizationCreatePdf;
+			} else {
+				reqUrl = uni.$api.order.generateOrderPDFWithId;
+			}
+			reqUrl(dx)
 				.then((rest) => {
 					var url = rest.data.data;
 					uni.downloadFile({
