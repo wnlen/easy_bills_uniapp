@@ -556,7 +556,8 @@
 				{
 					"path": "drafts",
 					"style": {
-						"navigationBarTitleText": "草稿箱"
+						"navigationBarTitleText": "草稿箱",
+						"navigationBarBackgroundColor": "#fff"
 					}
 				},
 				{

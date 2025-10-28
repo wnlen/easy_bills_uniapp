@@ -62,7 +62,13 @@
 							{{ item.sub }}
 						</view>
 					</view>
-					<view class="tags flex-row items-center justify-center ft-white" v-show="pinia_userRole === 'R' && rawData[0].value && index === 0">去签收</view>
+					<view
+						class="tags flex-row items-center justify-center ft-white"
+						:style="`z-index: ${tagsIndex};`"
+						v-show="pinia_userRole === 'R' && rawData[0].value && index === 0"
+					>
+						去签收
+					</view>
 				</view>
 			</view>
 		</view>
@@ -437,7 +443,8 @@ export default {
 			],
 			expireShow: false,
 			unwatchFlush: null,
-			daibannum: 0
+			daibannum: 0,
+			tagsIndex: 1
 		};
 	},
 	onLoad() {
@@ -698,6 +705,7 @@ export default {
 			if (this._step == this.functionGuideData.step) return;
 			this._step = this.functionGuideData.step;
 			if (this.functionGuideData.step == 1) {
+				this.tagsIndex = 20230829;
 				this.getElementData('#box2', (res) => {
 					this.setFunctionGuideData({
 						tips: '确认收货一键签单',
@@ -717,10 +725,12 @@ export default {
 					});
 				});
 			} else if (this.functionGuideData.step == 2) {
+				this.tagsIndex = 1;
 				let systemInfo = uni.getSystemInfoSync();
 				let platform = systemInfo.platform;
 				let osName = systemInfo.osName;
 				const bottomSafeArea = systemInfo.safeAreaInsets ? systemInfo.safeAreaInsets.bottom : 0;
+
 				var setting = platform === 'android';
 				this.getElementData('#box4', (res) => {
 					this.setFunctionGuideData({
