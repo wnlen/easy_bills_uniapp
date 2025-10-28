@@ -76,7 +76,7 @@
 						<text class="name">长度(毫米)</text>
 					</text>
 					<view class="uploadingCommodityFromCardRowInput">
-						<uv-input type="text" v-model="uploadingCommodity.lengthMm" border="none" placeholder="请输入" inputAlign="right"></uv-input>
+						<uv-input type="digit" v-model="uploadingCommodity.lengthMm" border="none" placeholder="请输入" inputAlign="right"></uv-input>
 					</view>
 				</view>
 				<view class="uploadingCommodityFromCardRow">
@@ -85,7 +85,7 @@
 						<text class="name">单重(kg/件)</text>
 					</text>
 					<view class="uploadingCommodityFromCardRowInput">
-						<uv-input type="text" v-model="uploadingCommodity.unitWeightKg" border="none" maxlength="10" placeholder="请输入" inputAlign="right"></uv-input>
+						<uv-input type="digit" v-model="uploadingCommodity.unitWeightKg" border="none" maxlength="10" placeholder="请输入" inputAlign="right"></uv-input>
 					</view>
 				</view>
 			</view>
@@ -199,8 +199,8 @@ export default {
 				this.$u.toast('请填写规格');
 				return;
 			}
-			if (this.uploadingCommodity.specification.length > 12) {
-				this.$u.toast('规格不能超过12位');
+			if (this.uploadingCommodity.specification.length > 16) {
+				this.$u.toast('规格不能超过16位');
 				return;
 			}
 			if (this.uploadingCommodity.unit == '') {
@@ -241,6 +241,10 @@ export default {
 					return;
 				}
 			}
+			uni.showLoading({
+				mask: true,
+				title: '加载中'
+			});
 			var work = this.pinia_user.data.work == '0';
 			if (work) {
 				//没工作
@@ -256,7 +260,7 @@ export default {
 		updMerchandiseInventory() {
 			var that = this;
 			if (this.imgList.length) {
-				if (this.imgList[0].url.includes('http://tmp/')) {
+				if (this.imgList[0].size) {
 					this.updMerchandiseInventoryYes(that);
 					return;
 				} else {
@@ -267,12 +271,13 @@ export default {
 			}
 			let subUrl = '';
 			if (that.uploadingCommodity.id) {
-				subUrl = uni.$api.library.updateCommodity;
+				subUrl = uni.$api.library.updateCommodity; //编辑商品
 			} else {
-				subUrl = uni.$api.library.addCommodity;
+				subUrl = uni.$api.library.addCommodity; //添加商品
 			}
 			subUrl(that.uploadingCommodity)
 				.then((res) => {
+					uni.hideLoading();
 					console.log('res', res);
 					that.$u.toast(res.data.message);
 					if (!that.uploadingCommodity.id) {
@@ -285,6 +290,7 @@ export default {
 					}, 1500);
 				})
 				.catch((res) => {
+					uni.hideLoading();
 					that.$u.toast('获取失败');
 				});
 		},
@@ -310,29 +316,32 @@ export default {
 			this.uploadingCommodity.imgId = 'QD' + new Date().getTime();
 
 			uni.uploadFile({
-				url: uni.$http.config.baseURL + 'uploading/img',
+				// url: uni.$http.config.baseURL + 'uploading/img',
+				url: uni.$http.config.baseURL + 'uploading/uploadImage', //新上传接口
 				header: {
-					phone: this.uploadingCommodity.staffNumber,
-					orderNumber: this.uploadingCommodity.imgId,
-					jobNumber: this.uploadingCommodity.staffNumber,
+					// phone: this.uploadingCommodity.staffNumber,
+					// orderNumber: this.uploadingCommodity.imgId,
+					// jobNumber: this.uploadingCommodity.staffNumber,
 					Authorization: `Bearer ${this.pinia_token}`
 				},
 				filePath: this.imgList[0].url,
 				name: 'file',
 				formData: {
-					imageType: '1'
+					imageType: 'goods',
+					orderNumber: this.uploadingCommodity.imgId
 				},
 				success: (uploadFileRes) => {
 					console.log('uploadFileRes.data', uploadFileRes.data);
 					that.uploadingCommodity.img = uploadFileRes.data;
 					let subUrl = '';
 					if (that.uploadingCommodity.id) {
-						subUrl = uni.$api.library.updateCommodity;
+						subUrl = uni.$api.library.updateCommodity; //编辑商品
 					} else {
-						subUrl = uni.$api.library.addCommodity;
+						subUrl = uni.$api.library.addCommodity; //添加商品
 					}
 					subUrl(that.uploadingCommodity)
 						.then((res) => {
+							uni.hideLoading();
 							that.$u.toast(res.data.message);
 							if (!that.uploadingCommodity.id) {
 								that.setTip();
@@ -344,6 +353,7 @@ export default {
 							}, 1500);
 						})
 						.catch((res) => {
+							uni.hideLoading();
 							that.$u.toast('获取失败');
 						});
 				}

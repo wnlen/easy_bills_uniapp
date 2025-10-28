@@ -310,28 +310,28 @@
 						</view>
 						<view class="flex-row items-center justify-between pt20 pb20 u-border-bottom">
 							<view class="flex-row items-center width100">
-								<text class="textcolor">物流公司:</text>
+								<text class="textcolor">物流单位:</text>
 								<input
 									placeholder-class="placeholder_class"
 									type="text"
 									maxlength="100"
 									:style="{ color: ifInput(receipts.logisticsCompany) ? '#333333' : '#D8D8D8' }"
 									v-model="receipts.logisticsCompany"
-									placeholder="请输入物流公司"
+									placeholder="请输入物流单位"
 									class="ml15 flex-1 u-line-1 endcolor"
 								/>
 							</view>
 						</view>
 						<view class="flex-row items-center justify-between pt20 pb20 u-border-bottom">
 							<view class="flex-row items-center width100">
-								<text class="textcolor">运单批次号:</text>
+								<text class="textcolor">车次:</text>
 								<input
 									placeholder-class="placeholder_class"
 									type="text"
 									maxlength="100"
 									:style="{ color: ifInput(receipts.transportBatchNo) ? '#333333' : '#D8D8D8' }"
 									v-model="receipts.transportBatchNo"
-									placeholder="请输入运单批次号"
+									placeholder="请输入车次"
 									class="ml15 flex-1 u-line-1 endcolor"
 								/>
 							</view>
@@ -622,8 +622,8 @@ export default {
 				preview1: 0,
 				// 定制字段
 				projectName: '', //项目名称
-				logisticsCompany: '', //物流公司
-				transportBatchNo: '', //车次/运单批次号
+				logisticsCompany: '', //物流单位
+				transportBatchNo: '', //车次/车次
 				carrierName: '', //承运人
 				plateNo: '', //车牌号
 				vehicleType: '', //车型
@@ -1608,6 +1608,11 @@ export default {
 							)
 						];
 						receiptsData.delImgFolderIdList = uniqueIds;
+						receiptsData.inventoryList = receiptsData.inventoryList.map((item) => {
+							item.orderId = this.receipts.orderNumber;
+							const { id, ...rest } = item;
+							return rest;
+						});
 						reqUrl = uni.$api.order.editOrder;
 					} else {
 						if (this.pageType != 1) {
@@ -1757,9 +1762,14 @@ export default {
 			});
 		},
 		async sendOrder() {
+			uni.showLoading({
+				mask: true,
+				title: '加载中'
+			});
 			const result = await this.sendInit();
 			console.log('验证结果======>', result);
 			if (!result) {
+				uni.hideLoading();
 				return;
 			} else {
 				const img = await this.sendOrderImg();
@@ -1773,18 +1783,28 @@ export default {
 			}
 		},
 		async draftOrder() {
+			uni.showLoading({
+				mask: true,
+				title: '加载中'
+			});
 			const result = await this.draftInit();
 			console.log('验证结果======>', result);
 			if (!result) {
+				uni.hideLoading();
 				return;
 			} else {
 				this.receipts.imgList = this.newImg;
+				var orderNumber = this.receipts.orderNumber;
+				this.receipts.inventoryList.forEach((res) => {
+					res.orderId = orderNumber;
+				});
 				const resultOrder = await this.sendOrderResDraft();
 				console.log('添加结果======>', resultOrder);
 				if (resultOrder) {
 					const img = await this.sendOrderImg();
 					if (img) {
 						this.backHomepageClick = true;
+						uni.hideLoading();
 						setTimeout(function () {
 							uni.navigateBack();
 						}, 500);
@@ -1818,12 +1838,14 @@ export default {
 		},
 		flushDBSX(val) {
 			var list = [val.bossNumberS, val.staffNumberS, val.bossNumberE, val.staffNumberE];
+
 			uni.$api.task
 				.startRWFlow({ list: list })
 				.then((res) => {
 					// console.log('请求结果：' + res);
 				})
 				.catch((res) => {});
+			uni.hideLoading();
 		},
 		formatDecimal(value) {
 			// 将数字转换为浮点数，以确保我们可以进行数学运算

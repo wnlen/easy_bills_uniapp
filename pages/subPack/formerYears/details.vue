@@ -164,6 +164,36 @@
 							<view class="">收货地址：</view>
 							<text class="yrd mt5">{{ post.kSiteE || '' }}</text>
 						</view>
+						<view class="" v-if="uni.$u.getPinia('user.customized') || orderisCustomized">
+							<view class="flex-row mt13 xqcss">
+								<view class="">项目名称：</view>
+								<text class="yrd mt5">{{ post.projectName || '' }}</text>
+							</view>
+							<view class="flex-row mt13 xqcss">
+								<view class="">物流单位：</view>
+								<text class="yrd mt5">{{ post.logisticsCompany || '' }}</text>
+							</view>
+							<view class="flex-row mt13 xqcss">
+								<view class="">车次：</view>
+								<text class="yrd mt5">{{ post.transportBatchNo || '' }}</text>
+							</view>
+							<view class="flex-row mt13 xqcss">
+								<view class="">承运人：</view>
+								<text class="yrd mt5">{{ post.carrierName || '' }}</text>
+							</view>
+							<view class="flex-row mt13 xqcss">
+								<view class="">车牌号：</view>
+								<text class="yrd mt5">{{ post.plateNo || '' }}</text>
+							</view>
+							<view class="flex-row mt13 xqcss">
+								<view class="">车型：</view>
+								<text class="yrd mt5">{{ post.vehicleType || '' }}</text>
+							</view>
+							<view class="flex-row mt13 xqcss">
+								<view class="">司机电话：</view>
+								<text class="yrd mt5">{{ post.driverPhone || '' }}</text>
+							</view>
+						</view>
 					</view>
 
 					<view class="form-middle" style="overflow-x: auto">
@@ -174,8 +204,8 @@
 									<view class="table-cell">规格</view>
 									<view class="table-cell">单位</view>
 									<view class="table-cell">数量</view>
-									<view class="table-cell">{{ uni.$u.getPinia('user.customized') ? '单重' : '单价' }}</view>
-									<view class="table-cell">{{ uni.$u.getPinia('user.customized') ? '总重' : '金额' }}</view>
+									<view class="table-cell">{{ uni.$u.getPinia('user.customized') || orderisCustomized ? '单重' : '单价' }}</view>
+									<view class="table-cell">{{ uni.$u.getPinia('user.customized') || orderisCustomized ? '总重' : '金额' }}</view>
 								</view>
 								<view class="table-row" v-for="(item, index) in orderItemList" :key="index">
 									<view class="table-cell flex-col justify-center items-center">
@@ -191,10 +221,10 @@
 										<text class="ft24">{{ item.quantity }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24">{{ uni.$u.getPinia('user.customized') ? item.unitWeightKg : item.unitPrice }}</text>
+										<text class="ft24">{{ uni.$u.getPinia('user.customized') || orderisCustomized ? item.unitWeightKg : item.unitPrice }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24" v-if="uni.$u.getPinia('user.customized')">
+										<text class="ft24" v-if="uni.$u.getPinia('user.customized') || orderisCustomized">
 											{{ item.quantity != '-' && item.quantity != '' ? item.unitWeightKg * item.quantity : 0 }}
 										</text>
 										<text class="ft24" v-else>{{ towDig(item.quantity, item.unitPrice) }}</text>
@@ -210,8 +240,8 @@
 									<view class="table-cell">规格</view>
 									<view class="table-cell">单位</view>
 									<view class="table-cell">数量</view>
-									<view class="table-cell">{{ uni.$u.getPinia('user.customized') ? '单重' : '单价' }}</view>
-									<view class="table-cell">{{ uni.$u.getPinia('user.customized') ? '总重' : '金额' }}</view>
+									<view class="table-cell">{{ uni.$u.getPinia('user.customized') || orderisCustomized ? '单重' : '单价' }}</view>
+									<view class="table-cell">{{ uni.$u.getPinia('user.customized') || orderisCustomized ? '总重' : '金额' }}</view>
 								</view>
 								<view class="table-row" v-for="(item, index) in orderItemList" :key="index">
 									<view class="table-cell flex-col justify-center items-center">
@@ -227,23 +257,28 @@
 										<text class="ft24">{{ item.quantity }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24" v-if="uni.$u.getPinia('user.customized')">{{ versions == 'Y' ? item.unitWeightKg : '****' }}</text>
+										<text class="ft24" v-if="uni.$u.getPinia('user.customized') || orderisCustomized">{{ versions == 'Y' ? item.unitWeightKg : '****' }}</text>
 										<text class="ft24" v-else>{{ versions == 'Y' ? item.unitPrice : '****' }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24" v-if="uni.$u.getPinia('user.customized')">{{ versions == 'Y' ? item.unitWeightKg * item.quantity : '****' }}</text>
+										<text class="ft24" v-if="uni.$u.getPinia('user.customized') || orderisCustomized">
+											{{ versions == 'Y' ? item.unitWeightKg * item.quantity : '****' }}
+										</text>
 										<text class="ft24" v-else>{{ versions == 'Y' ? towDig(item.quantity, item.unitPrice) : '****' }}</text>
 									</view>
 								</view>
 							</view>
 						</view>
 
-						<view class="xqcss pd10 pt10 pb10 black-border-left black-border-right">
+						<view class="xqcss pd10 pt10 pb10 black-border-left black-border-right black-border-bottom">
 							<text class="ml10 xqcss">合计：</text>
-							<text class="xqcss" v-if="uni.$u.getPinia('user.customized')">{{ post.totalWeightKg || 0 }}</text>
+							<text class="xqcss" v-if="uni.$u.getPinia('user.customized') || orderisCustomized">{{ post.totalWeightKg || 0 }}</text>
 							<text class="xqcss" v-else>¥ {{ versions == 'Y' ? DigPrice(post.price) || '' : '****' }}</text>
 						</view>
-						<view class="xqcss pd10 pt10 pb10 black-border-top black-border-bottom black-border-left black-border-right" v-if="!uni.$u.getPinia('user.customized')">
+						<view
+							class="xqcss pd10 pt10 pb10 black-border-bottom black-border-left black-border-right"
+							v-if="!(uni.$u.getPinia('user.customized') || orderisCustomized)"
+						>
 							<text class="ft-bold ml10 xqcss">金额大写：</text>
 							<text class="yrd">{{ versions == 'Y' ? digitUppercase(post.price) : '****' }}</text>
 						</view>
@@ -463,7 +498,8 @@ export default {
 			LookShar: '',
 			workState: true,
 			downPdf: true,
-			isPrinterOK: false
+			isPrinterOK: false,
+			orderisCustomized: false
 		};
 	},
 	onLoad(options) {
@@ -613,7 +649,7 @@ export default {
 				mask: true // 是否显示透明蒙层，防止触摸穿透
 			});
 			let reqUrl = '';
-			if (uni.$u.getPinia('user.customized')) {
+			if (uni.$u.getPinia('user.customized') || this.orderisCustomized) {
 				reqUrl = uni.$api.customization.customizationLookDzImg;
 			} else {
 				reqUrl = uni.$api.printer.previewPrintImage;
@@ -810,7 +846,7 @@ export default {
 			};
 			var _this = this;
 			let reqUrl = '';
-			if (uni.$u.getPinia('user.customized')) {
+			if (uni.$u.getPinia('user.customized') || this.orderisCustomized) {
 				reqUrl = uni.$api.customization.customizationCreatePdf;
 			} else {
 				reqUrl = uni.$api.order.generateOrderPDFWithId;
@@ -1139,6 +1175,7 @@ export default {
 					that.post = res.data.data.post;
 					that.orderItemList = res.data.data.orderItemList;
 					that.imgList = res.data.data.imgList;
+					that.orderisCustomized = res.data.data.isCustomized;
 					this.updateOrder();
 				})
 				.catch((res) => {});
