@@ -119,17 +119,17 @@
 							<view class="">收货地址：</view>
 							<text class="yrd mt5">{{ post.kSiteE || '' }}</text>
 						</view>
-						<view class="" v-if="uni.$u.getPinia('user.customized')">
+						<view class="" v-if="uni.$u.getPinia('user.customized') || orderisCustomized">
 							<view class="flex-row mt13 xqcss">
 								<view class="">项目名称：</view>
 								<text class="yrd mt5">{{ post.projectName || '' }}</text>
 							</view>
 							<view class="flex-row mt13 xqcss">
-								<view class="">物流公司：</view>
+								<view class="">物流单位：</view>
 								<text class="yrd mt5">{{ post.logisticsCompany || '' }}</text>
 							</view>
 							<view class="flex-row mt13 xqcss">
-								<view class="">运单批次号：</view>
+								<view class="">车次：</view>
 								<text class="yrd mt5">{{ post.transportBatchNo || '' }}</text>
 							</view>
 							<view class="flex-row mt13 xqcss">
@@ -159,8 +159,8 @@
 									<view class="table-cell">规格</view>
 									<view class="table-cell">单位</view>
 									<view class="table-cell">数量</view>
-									<view class="table-cell">{{ uni.$u.getPinia('user.customized') ? '单重' : '单价' }}</view>
-									<view class="table-cell">{{ uni.$u.getPinia('user.customized') ? '总重' : '金额' }}</view>
+									<view class="table-cell">{{ uni.$u.getPinia('user.customized') || orderisCustomized ? '单重' : '单价' }}</view>
+									<view class="table-cell">{{ uni.$u.getPinia('user.customized') || orderisCustomized ? '总重' : '金额' }}</view>
 								</view>
 								<view class="table-row" v-for="(item, index) in orderItemList" :key="index">
 									<view class="table-cell flex-col justify-center items-center">
@@ -176,10 +176,10 @@
 										<text class="ft24">{{ item.quantity }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24">{{ uni.$u.getPinia('user.customized') ? item.unitWeightKg : item.unitPrice }}</text>
+										<text class="ft24">{{ uni.$u.getPinia('user.customized') || orderisCustomized ? item.unitWeightKg : item.unitPrice }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24" v-if="uni.$u.getPinia('user.customized')">
+										<text class="ft24" v-if="uni.$u.getPinia('user.customized') || orderisCustomized">
 											{{ item.quantity != '-' && item.quantity != '' ? item.unitWeightKg * item.quantity : 0 }}
 										</text>
 										<text class="ft24" v-else>{{ towDig(item.quantity, item.unitPrice) }}</text>
@@ -195,8 +195,8 @@
 									<view class="table-cell">规格</view>
 									<view class="table-cell">单位</view>
 									<view class="table-cell">数量</view>
-									<view class="table-cell">{{ uni.$u.getPinia('user.customized') ? '单重' : '单价' }}</view>
-									<view class="table-cell">{{ uni.$u.getPinia('user.customized') ? '总重' : '金额' }}</view>
+									<view class="table-cell">{{ uni.$u.getPinia('user.customized') || orderisCustomized ? '单重' : '单价' }}</view>
+									<view class="table-cell">{{ uni.$u.getPinia('user.customized') || orderisCustomized ? '总重' : '金额' }}</view>
 								</view>
 								<view class="table-row" v-for="(item, index) in orderItemList" :key="index">
 									<view class="table-cell flex-col justify-center items-center">
@@ -212,23 +212,28 @@
 										<text class="ft24">{{ item.quantity }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24" v-if="uni.$u.getPinia('user.customized')">{{ versions == 'Y' ? item.unitWeightKg : '****' }}</text>
+										<text class="ft24" v-if="uni.$u.getPinia('user.customized') || orderisCustomized">{{ versions == 'Y' ? item.unitWeightKg : '****' }}</text>
 										<text class="ft24" v-else>{{ versions == 'Y' ? item.unitPrice : '****' }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24" v-if="uni.$u.getPinia('user.customized')">{{ versions == 'Y' ? item.unitWeightKg * item.quantity : '****' }}</text>
+										<text class="ft24" v-if="uni.$u.getPinia('user.customized') || orderisCustomized">
+											{{ versions == 'Y' ? item.unitWeightKg * item.quantity : '****' }}
+										</text>
 										<text class="ft24" v-else>{{ versions == 'Y' ? towDig(item.quantity, item.unitPrice) : '****' }}</text>
 									</view>
 								</view>
 							</view>
 						</view>
 
-						<view class="xqcss pd10 pt10 pb10 black-border-left black-border-right">
+						<view class="xqcss pd10 pt10 pb10 black-border-left black-border-right black-border-bottom">
 							<text class="ml10 xqcss">合计：</text>
-							<text class="xqcss" v-if="uni.$u.getPinia('user.customized')">{{ post.totalWeightKg || 0 }}</text>
+							<text class="xqcss" v-if="uni.$u.getPinia('user.customized') || orderisCustomized">{{ post.totalWeightKg || 0 }}</text>
 							<text class="xqcss" v-else>¥ {{ versions == 'Y' ? DigPrice(post.price) || '' : '****' }}</text>
 						</view>
-						<view class="xqcss pd10 pt10 pb10 black-border-top black-border-bottom black-border-left black-border-right" v-if="!uni.$u.getPinia('user.customized')">
+						<view
+							class="xqcss pd10 pt10 pb10 black-border-bottom black-border-left black-border-right"
+							v-if="!(uni.$u.getPinia('user.customized') || orderisCustomized)"
+						>
 							<text class="ft-bold ml10 xqcss">金额大写：</text>
 							<text class="yrd">{{ versions == 'Y' ? digitUppercase(post.price) : '****' }}</text>
 						</view>
@@ -392,7 +397,8 @@ export default {
 			currentTextLines: [],
 			originalText:
 				'这是您和易单据的\n第一次相遇，\n接下来，\n您将感受到易单据\n是多么的强大！\n当您使用易单据后，\n您的供应商的\n每一张\n送货单\n都将在这里体现，\n您可以通过\n易单据\n给供应商\n签收送货单\n如果您\n是一家\n更强大的公司，\n您的员工签单，\n财务和您都能\n实时的看到单据；\n您也可以通过\n易单据的统计功能\n随意的查询\n您每一家\n供应商的送货单据，\n每一张单据，\n查询他们的\n价格和数量；\n最关键的\n通过易单据，\n面对供应商\n半年付款的，\n季度付款的，\n年度付款的，\n你可以轻松\n统计出\n详细送货清单。\n当然，\n易单据还有更多，\n更强大的功能\n在您后期使用中\n会发现更多！\n未来，\n易单据\n将和您携手同行，\n用真诚与专业\n陪伴您\n骏业日新！',
-			timer: null
+			timer: null,
+			orderisCustomized: false
 		};
 	},
 	computed: {
@@ -470,6 +476,7 @@ export default {
 					this.shareShow = true;
 					return;
 				}
+				this.orderisCustomized = order.data.data.isCustomized;
 				this.post = order.data.data.post;
 				this.orderItemList = order.data.data.orderItemList;
 				this.imgList = order.data.data.imgList;
@@ -482,6 +489,7 @@ export default {
 					this.shareShow = true;
 					return;
 				}
+				this.orderisCustomized = order.data.data.isCustomized;
 				this.post = order.data.data.post;
 				this.orderItemList = order.data.data.orderItemList;
 				this.imgList = order.data.data.imgList;
