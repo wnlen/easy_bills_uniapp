@@ -820,14 +820,14 @@ export default {
 				dx.phone = boss;
 			}
 			uni.$api.printer.getPrinterList(dx).then((res) => {
-				console.log('打印及获取：', res.data);
+				console.log('打印机获取：', res.data);
 				if (Object.keys(res.data).length == 0) {
 					this.$u.toast('您还没有打印机~');
 					this.showBrowsePrint = false;
 					this.isPrinterOK = false;
 					return;
 				}
-				console.log('默认机器：', res.data.def[0].deviceopenid);
+				console.log('默认机器：', res.data);
 				var print = {
 					orderId: '',
 					port: '',
@@ -840,7 +840,13 @@ export default {
 				print.orderId = this.orderId;
 				print.port = this.pinia_userRole;
 				print.phone = this.pinia_user.phone;
-				print.deviceOpenid = res.data.def[0].deviceopenid;
+				//判断是否是子账号
+				if (this.pinia_user.data.work == '0') {
+					print.deviceOpenid = res.data.def[0].deviceopenid;
+				} else {
+					print.deviceOpenid = res.data.all[0].deviceopenid;
+				}
+
 				if (ifwork) {
 					print.boss = phone;
 					print.staff = phone;
