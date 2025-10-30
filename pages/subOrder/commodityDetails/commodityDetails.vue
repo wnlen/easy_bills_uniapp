@@ -23,16 +23,18 @@
 					{{ details.specification ? details.specification : '---' }}
 				</view>
 			</view>
-			<view class="relative flex-row justify-center items-center pd24 mt24" style="width: 100%">
-				<view class="absolute commodityDetailsHeadline" style="left: 24rpx">单位</view>
-				<view class="absolute commodityDetailsValue" style="right: 24rpx">
-					{{ details.unit ? details.unit : '---' }}
+			<view class="" v-if="!uni.$u.getPinia('user.customized')">
+				<view class="relative flex-row justify-center items-center pd24 mt24" style="width: 100%">
+					<view class="absolute commodityDetailsHeadline" style="left: 24rpx">单位</view>
+					<view class="absolute commodityDetailsValue" style="right: 24rpx">
+						{{ details.unit ? details.unit : '---' }}
+					</view>
 				</view>
-			</view>
-			<view class="relative flex-row justify-center items-center pd24 mt24" style="width: 100%">
-				<view class="absolute commodityDetailsHeadline" style="left: 24rpx">单价</view>
-				<view class="absolute commodityDetailsValue" style="right: 24rpx">
-					{{ details.unitPrice ? '￥' + details.unitPrice : '---' }}
+				<view class="relative flex-row justify-center items-center pd24 mt24" style="width: 100%">
+					<view class="absolute commodityDetailsHeadline" style="left: 24rpx">单价</view>
+					<view class="absolute commodityDetailsValue" style="right: 24rpx">
+						{{ details.unitPrice ? '￥' + details.unitPrice : '---' }}
+					</view>
 				</view>
 			</view>
 			<view class="" v-if="uni.$u.getPinia('user.customized')">

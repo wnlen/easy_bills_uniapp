@@ -42,22 +42,24 @@
 					<uv-input type="text" v-model="uploadingCommodity.specification" border="none" placeholder="请输入" inputAlign="right"></uv-input>
 				</view>
 			</view>
-			<view class="uploadingCommodityFromCardRow">
-				<text class="sign">
-					<text>*</text>
-					<text class="name">单位</text>
-				</text>
-				<view class="uploadingCommodityFromCardRowInput">
-					<uv-input type="text" v-model="uploadingCommodity.unit" border="none" maxlength="10" placeholder="请输入" inputAlign="right"></uv-input>
+			<view class="" v-if="!uni.$u.getPinia('user.customized')">
+				<view class="uploadingCommodityFromCardRow">
+					<text class="sign">
+						<text>*</text>
+						<text class="name">单位</text>
+					</text>
+					<view class="uploadingCommodityFromCardRowInput">
+						<uv-input type="text" v-model="uploadingCommodity.unit" border="none" maxlength="10" placeholder="请输入" inputAlign="right"></uv-input>
+					</view>
 				</view>
-			</view>
-			<view class="uploadingCommodityFromCardRow">
-				<text class="sign">
-					<text>*</text>
-					<text class="name">单价</text>
-				</text>
-				<view class="uploadingCommodityFromCardRowInput">
-					<uv-input type="digit" v-model="uploadingCommodity.unitPrice" border="none" maxlength="10" placeholder="请输入" inputAlign="right"></uv-input>
+				<view class="uploadingCommodityFromCardRow">
+					<text class="sign">
+						<text>*</text>
+						<text class="name">单价</text>
+					</text>
+					<view class="uploadingCommodityFromCardRowInput">
+						<uv-input type="digit" v-model="uploadingCommodity.unitPrice" border="none" maxlength="10" placeholder="请输入" inputAlign="right"></uv-input>
+					</view>
 				</view>
 			</view>
 			<view class="" v-if="uni.$u.getPinia('user.customized')">
@@ -143,6 +145,10 @@ export default {
 			this.getCommodityDetails();
 			this.navbarTitle = '修改商品';
 		}
+		if (uni.$u.getPinia('user.customized')) {
+			this.uploadingCommodity.unit = '无';
+			this.uploadingCommodity.unitPrice = 0;
+		}
 	},
 	onShow() {
 		this.action = uni.$http.config.baseURL + 'order/imgA';
@@ -203,27 +209,29 @@ export default {
 				this.$u.toast('规格不能超过16位');
 				return;
 			}
-			if (this.uploadingCommodity.unit == '') {
-				this.$u.toast('请填写单位');
-				return;
-			}
 
-			if (this.uploadingCommodity.unitPrice == '') {
-				this.$u.toast('请填写单价');
-				return;
-			}
+			if (!uni.$u.getPinia('user.customized')) {
+				if (this.uploadingCommodity.unit == '') {
+					this.$u.toast('请填写单位');
+					return;
+				}
+				if (this.uploadingCommodity.unitPrice == '') {
+					this.$u.toast('请填写单价');
+					return;
+				}
 
-			if (this.uploadingCommodity.unitPrice <= 0) {
-				this.$u.toast('单价要大于0');
-				return;
-			}
+				if (this.uploadingCommodity.unitPrice <= 0) {
+					this.$u.toast('单价要大于0');
+					return;
+				}
 
-			const strValue = String(this.uploadingCommodity.unitPrice);
-			const regex = /^\d+(\.\d+)?$/;
-			var num = regex.test(strValue);
-			if (!num) {
-				this.$u.toast('请填写正确单价');
-				return;
+				const strValue = String(this.uploadingCommodity.unitPrice);
+				const regex = /^\d+(\.\d+)?$/;
+				var num = regex.test(strValue);
+				if (!num) {
+					this.$u.toast('请填写正确单价');
+					return;
+				}
 			}
 
 			// 定制化
@@ -287,7 +295,7 @@ export default {
 						if (res.data.code == 200) {
 							uni.navigateBack();
 						}
-					}, 1500);
+					}, 1000);
 				})
 				.catch((res) => {
 					uni.hideLoading();
@@ -350,7 +358,7 @@ export default {
 								if (res.data.code == 200) {
 									uni.navigateBack();
 								}
-							}, 1500);
+							}, 1000);
 						})
 						.catch((res) => {
 							uni.hideLoading();
