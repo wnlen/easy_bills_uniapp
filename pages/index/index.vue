@@ -37,7 +37,8 @@
 						</view>
 						<view class="ft28 ml16 flex-row items-center">
 							<text class="mr6">{{ ite.name }}</text>
-							<up-icon name="play-right-fill" size="20rpx" color="#999"></up-icon>
+							<wd-icon name="caret-right-small" size="40rpx" color="#999"></wd-icon>
+							<!-- <wd-icon name="caret-right-small" size="22px"></wd-icon> -->
 						</view>
 					</view>
 				</view>
@@ -84,7 +85,8 @@
 			</view>
 			<view class="flex-row justify-center pb20">
 				<up-button hover-class="none" :active="false" :hair-line="false" class="no-shadow-button" :customStyle="buttonStyle" open-type="contact">
-					<up-icon name="kefu-ermai" size="28rpx"></up-icon>
+					<!-- <up-icon name="kefu-ermai" size="28rpx"></up-icon> -->
+					<wd-icon name="service" size="28rpx"></wd-icon>
 					<text class="ft28 ml10">客服咨询 ></text>
 				</up-button>
 			</view>
