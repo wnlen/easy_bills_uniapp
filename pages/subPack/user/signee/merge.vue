@@ -50,7 +50,7 @@
 			</up-form-item>
 		</up-form>
 		<view class="mt60">
-			<up-button @click="submit" hover-class="none" color="#01BB74" shape="circle" type="primary">{{ formData.id ? '修改' : '提交' }}</up-button>
+			<wd-button @click="submit" :customStyle="{ width: '100%' }">{{ formData.id ? '修改' : '提交' }}</wd-button>
 		</view>
 	</view>
 </template>

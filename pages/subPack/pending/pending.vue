@@ -98,17 +98,15 @@
 		>
 			<template #empty>
 				<up-empty :icon="ImgUrl + '/wxImg/list/empty.svg'" iconSize="200rpx" text="还没收到订单呢~快去邀请供应商开单吧！" marginTop="-200">
-					<up-button
+					<wd-button
 						dataName="shareFriend"
 						openType="share"
-						color="#01BB74"
 						iconColor="#ECFFF9"
-						:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent' }"
-						shape="circle"
+						:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent', color: '#01BB74' }"
 						:plain="true"
 					>
 						<text>去邀请</text>
-					</up-button>
+					</wd-button>
 				</up-empty>
 			</template>
 			<!-- <template #top> -->
@@ -525,12 +523,10 @@
 
 				<!-- 按钮 -->
 				<view class="flex-row justify-end mt40">
-					<up-button
-						color="#F4F4F4"
+					<wd-button
+						size="small"
 						type="info"
 						@click="filterReset"
-						shape="circle"
-						size="medium"
 						:customStyle="{
 							width: '154rpx',
 							color: '#999999',
@@ -539,8 +535,8 @@
 						}"
 					>
 						重置
-					</up-button>
-					<up-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</up-button>
+					</wd-button>
+					<wd-button size="small" @click="filterSubmit" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</wd-button>
 				</view>
 				<!-- 日历选择器 -->
 				<uv-calendars color="#01BB74" confirmColor="#01BB74" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="date1Change" />

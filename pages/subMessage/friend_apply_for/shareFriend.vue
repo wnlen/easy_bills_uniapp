@@ -12,9 +12,9 @@
 			"
 		>
 			<view class="shareFriendBottomButton">
-				<up-button hover-class="none" shape="circle" :customStyle="customStyle" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">
+				<wd-button hover-class="none" shape="circle" :customStyle="customStyle" open-type="getPhoneNumber" @getphonenumber="getPhoneNumber">
 					{{ invitationRole == 'D' ? '成为客户' : '成为供应商' }}
-				</up-button>
+				</wd-button>
 			</view>
 		</view>
 	</view>
@@ -87,7 +87,7 @@ export default {
 			});
 		},
 		getPhoneNumber(e) {
-			if (e.detail.errMsg != 'getPhoneNumber:ok') {
+			if (e.errMsg != 'getPhoneNumber:ok') {
 				this.$u.toast('您已拒绝授权 请重新点击并授权');
 				return;
 			}
@@ -127,7 +127,7 @@ export default {
 				uni.$api.user
 					.bindPhoneNumber({
 						loginCode: that.wxLoginRes,
-						phoneCode: e.detail.code
+						phoneCode: e.code
 					})
 					.then((res) => {
 						var getPhone = res.data.data.phone;

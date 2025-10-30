@@ -143,7 +143,7 @@ export default {
 										content: '下载失败，请删除当前小程序后重装',
 										showCancel: false,
 										confirmText: '我知道了',
-										confirmColor: '#01bb74',
+										confirmColor: '#01bb74'
 									});
 								});
 							}
@@ -175,4 +175,9 @@ export default {
 	font-family: 'syst';
 	src: url('https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/font/syst.ttf') format('truetype');
 }
+/* #ifdef APP */
+::v-deep a {
+	color: #01bb74 !important;
+}
+/* #endif */
 </style>

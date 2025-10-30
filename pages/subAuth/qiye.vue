@@ -31,7 +31,7 @@
 			</view>
 		</view>
 		<view v-if="show == 0" class="flex-col justify-center pl60 pr60 pb60 pt60 vw100" style="position: absolute; bottom: 0">
-			<up-button color="#01BB74" shape="circle" :disabled="buttonDisabled" type="primary" @click="updateInfo">{{ up ? '提交信息' : '更新信息' }}</up-button>
+			<wd-button :customStyle="{ width: '100%' }" @click="updateInfo">{{ up ? '提交信息' : '更新信息' }}</wd-button>
 		</view>
 
 		<view v-if="show != 0" class="flex-col mt20 ml48 mr48">
@@ -49,16 +49,14 @@
 					</view>
 					<up-image class="ml15" width="50" height="20" src="https://res-oss.elist.com.cn/wxImg/obj/yrz.svg" :show-menu-by-longpress="false"></up-image>
 				</view>
-				<up-button
+				<wd-button
 					v-if="pinia_user.workData.id == null"
-					color="#01BB74"
+					size='small'
 					:customStyle="{ width: '154rpx', height: '54rpx', margin: 0, fontSize: '24rpx' }"
 					@click="authRefresh"
-					shape="circle"
-					type="success"
 				>
 					更新信息
-				</up-button>
+				</wd-button>
 			</view>
 			<view class="flex-row items-center pd20">
 				<text class="ft-gray mr30 width120">企业名称</text>

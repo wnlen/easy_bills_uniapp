@@ -305,7 +305,7 @@
 				<view class="fixed-bar">
 					<view class="pl30 pr30 pb30 flex-row justify-between items-center">
 						<view v-if="LookBtn == 'Y' && post.paymentState == '0' && post.lockOrder != 1" class="flex-row flex-1 items-center">
-							<up-button hover-class="none" color="#01BB74" class="width100" type="primary" shape="circle" @click="onConfirm">确认签收</up-button>
+							<wd-button :customStyle="{ width: '100%' }"  @click="onConfirm">确认签收</wd-button>
 						</view>
 					</view>
 				</view>

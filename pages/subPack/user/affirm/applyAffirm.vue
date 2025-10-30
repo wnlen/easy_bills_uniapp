@@ -11,7 +11,7 @@
 				{{ withdrawText }}
 			</view>
 			<view class="relation">
-				<up-button hover-class="none" :hair-line="false" open-type="contact" :customStyle="buttonStyle">联系客服</up-button>
+				<wd-button open-type="contact" :customStyle="buttonStyle">联系客服</wd-button>
 			</view>
 		</view>
 	</view>

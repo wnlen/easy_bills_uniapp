@@ -69,7 +69,7 @@
 			</view>
 		</view>
 		<view class="flex-col pl60 pr60 pb60 pt60 vw100" style="position: fixed; bottom: 40rpx; text-align: center">
-			<up-button shape="circle" hover-class="none" color="#01BB74" type="primary" @click="updateInfo">保存信息</up-button>
+			<wd-button :customStyle="{ width: '100%' }" @click="updateInfo">保存信息</wd-button>
 		</view>
 	</view>
 </template>

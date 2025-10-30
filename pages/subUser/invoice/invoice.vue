@@ -86,7 +86,7 @@
 
 		<view class="flex-col justify-center pl60 pr60 pb60 pt60 vw100" style="position: absolute; bottom: 0">
 			<text class="kpxz" @click="jump()">《开票须知》</text>
-			<up-button hover-class="none" color="#47506C" shape="circle" type="primary" @click="installInvoice">提交申请</up-button>
+			<wd-button  :customStyle="{ background:'#47506C' }" @click="installInvoice">提交申请</wd-button>
 		</view>
 	</view>
 </template>

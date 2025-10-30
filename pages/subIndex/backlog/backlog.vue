@@ -65,7 +65,7 @@
 										<text class="ml20" style="font-size: 32rpx; font-weight: bold">确认付款申请</text>
 									</view>
 									<div>
-										<up-button :customStyle="customStyle" color="#01BB74" shape="circle" @click="clickApply(item)">同意</up-button>
+										<wd-button size="small" :customStyle="customStyle"  @click="clickApply(item)">同意</wd-button>
 									</div>
 								</view>
 								<view class="">

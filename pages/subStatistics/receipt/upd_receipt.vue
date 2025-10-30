@@ -32,7 +32,7 @@
 								}"
 								style="width: 20%; height: 54rpx"
 							>
-								待签收
+								待确收
 							</view>
 							<view
 								class="HnadCardBtn"
@@ -515,12 +515,10 @@
 
 				<!-- 按钮 -->
 				<view class="flex-row justify-end mt40">
-					<up-button
-						color="#F4F4F4"
+					<wd-button
+						size="small"
 						type="info"
 						@click="filterReset"
-						shape="circle"
-						size="medium"
 						:customStyle="{
 							width: '154rpx',
 							color: '#999999',
@@ -529,8 +527,8 @@
 						}"
 					>
 						重置
-					</up-button>
-					<up-button color="#01BB74" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</up-button>
+					</wd-button>
+					<wd-button size="small" @click="filterSubmit" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</wd-button>
 				</view>
 			</view>
 		</up-popup>
@@ -550,24 +548,6 @@ export default {
 			OrderQuantitySum: 0,
 			searchText: '',
 			companyIndex: 0,
-			tabsList: [
-				{
-					name: '全部',
-					orderState: '0'
-				},
-				{
-					name: '待签收',
-					orderState: '1'
-				},
-				{
-					name: '已签收',
-					orderState: '2'
-				},
-				{
-					name: '已收款',
-					orderState: '3'
-				}
-			],
 			labText: '确认收款',
 			current: 0,
 			dataList: [],

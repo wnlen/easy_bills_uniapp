@@ -39,7 +39,7 @@
 		</view>
 		<view class="pt180"></view>
 		<view class="flex-col justify-center pl60 pr60 vw100 fixed-bar" style="background-color: transparent">
-			<up-button hover-class="none" color="#47506C" shape="circle" type="primary" open-type="contact">购买咨询</up-button>
+			<wd-button :customStyle="{ background:'#47506C' }" open-type="contact">购买咨询</wd-button>
 			<!-- @click="jump" -->
 		</view>
 	</view>

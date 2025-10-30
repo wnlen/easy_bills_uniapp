@@ -45,7 +45,7 @@
 					下一步
 				</view>
 				<view class="relative" style="width: 100%">
-					<up-button hover-class="none" :hair-line="false" :customStyle="buttonStyle" open-type="contact">人工找回密码</up-button>
+					<wd-button :customStyle="buttonStyle" open-type="contact">人工找回密码</wd-button>
 				</view>
 			</view>
 		</view>

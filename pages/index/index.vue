@@ -90,7 +90,7 @@
 			</view>
 		</view>
 
-		<view class="mt30 ml30 mr30 pb30">
+		<view class="mt30 ml30 mr30 pb150">
 			<up-swiper
 				@click="middleClick"
 				bg-color="#F6F7F7"
@@ -462,7 +462,7 @@ export default {
 		}
 	},
 	onShow() {
-		// #ifdef APP
+		// #ifndef MP-WEIXIN
 		uni.hideTabBar();
 		// #endif
 		var that = this;
@@ -1087,8 +1087,8 @@ export default {
 	height: 24rpx !important;
 }
 .Index {
-	height: 100vh;
-	overflow: hidden;
+	min-height: 100vh;
+	// overflow: hidden;
 }
 
 .Indexbg1 {

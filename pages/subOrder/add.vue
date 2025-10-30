@@ -197,7 +197,7 @@
 							@focus="searchIFNumberFocus"
 						/>
 						<view class="flex-1 flex-row justify-end" v-if="pageType != 1">
-							<up-button shape="circle" size="mini" color="#01BB74" :customStyle="{ width: '120rpx', margin: '0' }" @click="jumpTable">选择客户</up-button>
+							<wd-button size="small" color="#01BB74" :customStyle="{ width: '120rpx', margin: '0' }" @click="jumpTable">选择客户</wd-button>
 						</view>
 					</view>
 					<view class="flex-row items-center width100 pt20 pb20 u-border-bottom">
@@ -544,12 +544,12 @@
 
 			<view class="mt60 pl20 pr20 pb30 flex-row">
 				<view class="" style="padding: 12rpx" :style="pageType == 0 || pageType == 3 ? 'width: 60%; ' : 'width: 100%; '">
-					<up-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder" shape="circle">
+					<wd-button type="primary" :customStyle="{ width: '100%' }" @click="sendOrder">
 						{{ pageType == 1 ? '修改订单' : '发送订单' }}
-					</up-button>
+					</wd-button>
 				</view>
 				<view class="" style="width: 40%; padding: 12rpx" v-if="pageType == 0 || pageType == 3">
-					<up-button plain hover-class="none" :customStyle="{ border: '2rpx solid #01BB74', color: '#01BB74' }" @click="draftOrder" shape="circle">存草稿</up-button>
+					<wd-button plain :customStyle="{ border: '2rpx solid #01BB74', color: '#01BB74' }" @click="draftOrder">存草稿</wd-button>
 				</view>
 			</view>
 		</view>
@@ -1761,16 +1761,15 @@ export default {
 			});
 		},
 		async sendOrder() {
-			uni.showLoading({
-				mask: true,
-				title: '加载中'
-			});
 			const result = await this.sendInit();
 			console.log('验证结果======>', result);
 			if (!result) {
-				uni.hideLoading();
 				return;
 			} else {
+				uni.showLoading({
+					mask: true,
+					title: '加载中'
+				});
 				const img = await this.sendOrderImg();
 				console.log('添加img结果======>', img);
 				if (img) {

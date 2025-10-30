@@ -159,14 +159,14 @@
 
 			<view class="sendBill">
 				<!-- #ifdef MP-WEIXIN -->
-				<up-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder(true)" shape="circle">
+				<wd-button @click="sendOrder(true)" :customStyle="{ width: '100%' }">
 					{{ pinia_userRole == 'D' ? '发送收款单' : '发送付款单' }}
-				</up-button>
+				</wd-button>
 				<!-- #endif -->
-				<!-- #ifdef APP -->
-				<up-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder(false)" shape="circle">
+				<!-- #ifndef MP-WEIXIN -->
+				<wd-button @click="sendOrder(false)" :customStyle="{ width: '100%' }">
 					{{ pinia_userRole == 'D' ? '发送收款单' : '发送付款单' }}
-				</up-button>
+				</wd-button>
 				<!-- #endif -->
 			</view>
 		</view>
@@ -414,7 +414,16 @@ export default {
 		},
 		handleUpload(res) {
 			console.log('this.imgFileList', res);
-			this.imgFileList = res.file;
+			// this.imgFileList = res.file;
+			res.file.forEach((resItem) => {
+				const dx = {
+					url: resItem.url,
+					size: resItem.size,
+					status: 'success',
+					type: 'image'
+				};
+				this.imgFileList.push(dx);
+			});
 		},
 		uploadFile() {
 			console.log('上传');

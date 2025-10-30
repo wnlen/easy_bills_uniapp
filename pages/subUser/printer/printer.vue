@@ -3,9 +3,9 @@
 		<view class="vw100 relative flex-col justify-center items-center" style="height: 30vh; margin-top: 60%" v-if="!allShow && !defShow">
 			<up-empty icon="https://res-oss.elist.com.cn/wxImg/vip/print.svg" iconSize="400rpx" text="暂无打印机~" mode="search" margin-top="-200"></up-empty>
 
-			<up-button color="#47506C" shape="circle" type="primary" @click="buy" :customStyle="{ width: '300rpx', height: '70rpx', fontSize: '30rpx', marginTop: '100rpx' }">
+			<wd-button @click="buy" :customStyle="{ width: '300rpx', height: '70rpx', fontSize: '30rpx', marginTop: '100rpx',background:'#47506C' }">
 				去购买
-			</up-button>
+			</wd-button>
 		</view>
 
 		<view v-if="defShow" class="cardPrint flex-col justify-center items-start relative mt40" v-for="(item, index) in def" :key="index">

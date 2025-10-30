@@ -296,7 +296,7 @@ export default {
 		});
 	},
 	onShow() {
-		// #ifdef APP
+		// #ifndef MP-WEIXIN
 		uni.hideTabBar();
 		// #endif
 		if (this.pinia_user.phone != undefined) {

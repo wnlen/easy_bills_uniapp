@@ -45,10 +45,10 @@
 		</view>
 
 		<view class="mt60 pl20 pr20 pb30 absolute" style="bottom: 24rpx; width: 100%" v-if="user.port == 'D'">
-			<up-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="establishFriend" shape="circle">创建客户</up-button>
+			<wd-button :customStyle="{ width: '100%' }" @click="establishFriend" >创建客户</wd-button>
 		</view>
 		<view class="mt60 pl20 pr20 pb30 absolute" style="bottom: 24rpx; width: 100%" v-if="user.port == 'R'">
-			<up-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="establishFriend" shape="circle">创建供应商</up-button>
+			<wd-button :customStyle="{ width: '100%' }" @click="establishFriend" >创建供应商</wd-button>
 		</view>
 	</view>
 </template>

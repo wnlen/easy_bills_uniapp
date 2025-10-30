@@ -43,7 +43,7 @@
 		<view class="fixed-bar" style="background: none">
 			<view class="pl30 pr30 pb30 flex-row justify-between items-center">
 				<view class="flex-row flex-1 items-center">
-					<up-button hover-class="none" color="#01BB74" @click="ply" class="width100" type="primary" shape="circle">确认支付</up-button>
+					<wd-button @click="ply" :customStyle="{ width: '100%' }">确认支付</wd-button>
 				</view>
 			</view>
 		</view>

@@ -83,26 +83,30 @@
 		</up-overlay>
 
 		<view class="flex-row" style="width: 100%; display: flex">
-			<view class="ml5 mr5" style="flex: 1">
-				<up-button openType="share" color="#01BB74" :customStyle="SearchCustomStyleWechat" shape="circle" :plain="true">
-					<view class="pr10"><up-icon name="weixin-fill" color="#01BB74" size="30rpx"></up-icon></view>
-					微信邀请
-				</up-button>
+			<view class="ml5 mr5 flex-row justify-center" style="flex: 1">
+				<wd-button openType="share" color="#01BB74" :customStyle="SearchCustomStyleWechat" :plain="true">
+					<view class="flex-row items-center justify-center">
+						<view><up-icon name="weixin-fill" color="#01BB74" size="30rpx"></up-icon></view>
+						<text class="pl10">微信邀请</text>
+					</view>
+				</wd-button>
 			</view>
 			<!-- <view class="ml5 mr5" style="flex: 1">
-				<up-button :customStyle="SearchCustomStyle"  shape="circle"
+				<wd-button :customStyle="SearchCustomStyle"  shape="circle"
 					@click="$goPath('/pages/subIndex/add_friend/add_friend')">
 					<view class=></view><up-icon  "pr10" name="phone-fill" color="#ffffff" size="30rpx"></up-icon>
 					手机号邀请
-				</up-button>
+				</wd-button>
 			</view> -->
 			<view class="ml5 mr5" style="flex: 1">
-				<up-button :customStyle="SearchCustomStyle" color="#FFAF38" shape="circle" @click="establish">
-					<view class="pr10">
-						<up-icon name="plus" color="#ffffff" size="30rpx"></up-icon>
+				<wd-button :customStyle="SearchCustomStyle" color="#FFAF38" shape="circle" @click="establish">
+					<view class="flex-row items-center justify-center">
+						<view class="pr10">
+							<up-icon name="plus" color="#ffffff" size="30rpx"></up-icon>
+						</view>
+						<text class="">创建{{ pinia_userRole == 'D' ? '客户' : '供应商' }}</text>
 					</view>
-					创建{{ pinia_userRole == 'D' ? '客户' : '供应商' }}
-				</up-button>
+				</wd-button>
 			</view>
 		</view>
 		<view class="anchorText">
@@ -124,28 +128,24 @@
 			mode="search"
 			marginTop="200rpx"
 		>
-			<up-button
+			<wd-button
 				v-if="pinia_userRole == 'D'"
-				color="#01BB74"
 				iconColor="#ECFFF9"
-				:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: '#ECFFF9' }"
-				shape="circle"
+				:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent', color: '#01BB74' }"
 				:plain="true"
 				@click="establish"
 			>
 				<text>去创建</text>
-			</up-button>
-			<up-button
+			</wd-button>
+			<wd-button
 				v-else
 				openType="share"
-				color="#01BB74"
 				iconColor="#ECFFF9"
-				:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: '#ECFFF9' }"
-				shape="circle"
+				:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent', color: '#01BB74' }"
 				:plain="true"
 			>
 				<text>去邀请</text>
-			</up-button>
+			</wd-button>
 		</up-empty>
 		<view v-for="(item, index) in client" :key="index">
 			<view class="ml20 mr20" style="border-bottom: 1px solid #f4f4f4" v-show="show == 1">
@@ -247,7 +247,8 @@ export default {
 				height: '60rpx',
 				padding: '12rpx',
 				fontSize: '24rpx',
-				color: '#ffffff'
+				color: '#ffffff',
+				background: '#FFAF38',
 			},
 			SearchCustomStyleWechat: {
 				width: '80%',
