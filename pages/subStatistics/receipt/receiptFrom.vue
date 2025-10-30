@@ -1,159 +1,161 @@
 <template>
 	<view class="receiptFrom">
 		<view class="FROMBill" v-if="FROMBShow">
-			<view class="HandFrom">
-				<view class="FromTitle">开具信息</view>
-				<view class="FromInput u-border-bottom">
-					<text class="textcolor">订单编号:</text>
-					<view class="ml15 flex-1 u-line-1 endcolor" :style="{ color: '#F76565' }">
-						{{ billFrom.billNumber }}
-					</view>
-				</view>
-				<view class="FromInput u-border-bottom">
-					<text class="textcolor" v-if="pinia_userRole == 'D'">客户名称:</text>
-					<text class="textcolor" v-if="pinia_userRole == 'R'">供应商名称:</text>
-					<view class="ml15 flex-1 u-line-1 endcolor" :style="{ color: '#333333' }">
-						{{ billEnterprise }}
-					</view>
-				</view>
-				<view class="FromInput">
-					<text class="textcolor">开具日期:</text>
-					<view class="ml15 flex-1 u-line-1 endcolor" :style="{ color: '#333333' }">
-						{{ billFrom.billTime }}
-					</view>
-				</view>
-			</view>
-			<view class="FromPrice">
-				<view class="FromTitle">开具金额</view>
-				<view class="FromInput u-border-bottom">
-					<text class="textcolor">总金额:</text>
-					<input
-						:value="parseFloat(billFrom.billPrice).toFixed(2)"
-						disabled
-						placeholder-class="placeholder_class"
-						type="text"
-						:style="{ color: '#333333' }"
-						maxlength="11"
-						placeholder="请获取总金额"
-						class="ml15 flex-1 u-line-1 endcolor"
-					/>
-					<text>元</text>
-				</view>
-				<view class="FromInput u-border-bottom" v-if="pinia_userRole == 'D'">
-					<text class="textcolor">折扣率:</text>
-					<input
-						placeholder-class="placeholder_class"
-						@input="billAfterPriceCount"
-						type="number"
-						v-model="billFrom.billDiscountPrice"
-						:style="{ color: '#333333' }"
-						maxlength="3"
-						placeholder="请输入折扣率"
-						class="ml15 flex-1 u-line-1 endcolor"
-					/>
-					<text>%</text>
-				</view>
-				<view class="FromInput">
-					<text class="textcolor" v-if="pinia_userRole == 'D'">应收金额:</text>
-					<text class="textcolor" v-if="pinia_userRole == 'R'">应付金额:</text>
-					<input
-						placeholder-class="placeholder_class"
-						type="number"
-						disabled
-						v-model="billFrom.billAfterPrice"
-						:style="{ color: '#333333' }"
-						maxlength="11"
-						placeholder="请输入折扣计算金额"
-						class="ml15 flex-1 u-line-1 endcolor"
-					/>
-					<text>元</text>
-				</view>
-			</view>
-
-			<view class="FromFile">
-				<view class="FromFileTitle">添加图片</view>
-				<view class="recently-cat flex-row flex-wrap" style="width: 95%">
-					<up-upload
-						autoDelete
-						autoUploadDriver="local"
-						v-model:fileList="imgFileList"
-						:maxSize="10485760"
-						:maxCount="3"
-						width="100"
-						height="100"
-						multiple
-						:previewFullImage="true"
-						@afterRead="handleUpload"
-					>
-						<up-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></up-icon>
-					</up-upload>
-					<!-- <up-upload
-						:custom-btn="true"
-						:action="action"
-						:show-retry="false"
-						:file-list="imgFileList"
-						:show-tips="false"
-						:before-upload="handleUpload"
-						max-size="10485760"
-						max-count="3"
-						multiple
-						@on-remove="moveImgFileList"
-						del-bg-color="#e9e9e9"
-					>
-						<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
-							<up-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200"></up-icon>
+			<scroll-view scroll-y="true" class="scroll-content">
+				<view class="HandFrom">
+					<view class="FromTitle">开具信息</view>
+					<view class="FromInput u-border-bottom">
+						<text class="textcolor">订单编号:</text>
+						<view class="ml15 flex-1 u-line-1 endcolor" :style="{ color: '#F76565' }">
+							{{ billFrom.billNumber }}
 						</view>
-					</up-upload> -->
+					</view>
+					<view class="FromInput u-border-bottom">
+						<text class="textcolor" v-if="pinia_userRole == 'D'">客户名称:</text>
+						<text class="textcolor" v-if="pinia_userRole == 'R'">供应商名称:</text>
+						<view class="ml15 flex-1 u-line-1 endcolor" :style="{ color: '#333333' }">
+							{{ billEnterprise }}
+						</view>
+					</view>
+					<view class="FromInput">
+						<text class="textcolor">开具日期:</text>
+						<view class="ml15 flex-1 u-line-1 endcolor" :style="{ color: '#333333' }">
+							{{ billFrom.billTime }}
+						</view>
+					</view>
 				</view>
-				<view class="FromFileTitle">上传附件</view>
-				<view class="FilePdfList">
-					<pop-file :fileList="fileList"></pop-file>
+				<view class="FromPrice">
+					<view class="FromTitle">开具金额</view>
+					<view class="FromInput u-border-bottom">
+						<text class="textcolor">总金额:</text>
+						<input
+							:value="parseFloat(billFrom.billPrice).toFixed(2)"
+							disabled
+							placeholder-class="placeholder_class"
+							type="text"
+							:style="{ color: '#333333' }"
+							maxlength="11"
+							placeholder="请获取总金额"
+							class="ml15 flex-1 u-line-1 endcolor"
+						/>
+						<text>元</text>
+					</view>
+					<view class="FromInput u-border-bottom" v-if="pinia_userRole == 'D'">
+						<text class="textcolor">折扣率:</text>
+						<input
+							placeholder-class="placeholder_class"
+							@input="billAfterPriceCount"
+							type="number"
+							v-model="billFrom.billDiscountPrice"
+							:style="{ color: '#333333' }"
+							maxlength="3"
+							placeholder="请输入折扣率"
+							class="ml15 flex-1 u-line-1 endcolor"
+						/>
+						<text>%</text>
+					</view>
+					<view class="FromInput">
+						<text class="textcolor" v-if="pinia_userRole == 'D'">应收金额:</text>
+						<text class="textcolor" v-if="pinia_userRole == 'R'">应付金额:</text>
+						<input
+							placeholder-class="placeholder_class"
+							type="number"
+							disabled
+							v-model="billFrom.billAfterPrice"
+							:style="{ color: '#333333' }"
+							maxlength="11"
+							placeholder="请输入折扣计算金额"
+							class="ml15 flex-1 u-line-1 endcolor"
+						/>
+						<text>元</text>
+					</view>
 				</view>
 
-				<!-- #ifdef MP-WEIXIN -->
-				<view v-if="fileList.length < 3" class="uploadView" @click="uploadFile">
-					<up-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></up-icon>
-				</view>
-				<!-- #endif -->
-				<!-- #ifdef APP -->
-				<view class="uploadView" @click="chooseFile">
-					<up-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></up-icon>
-				</view>
-				<!-- #endif -->
+				<view class="FromFile">
+					<view class="FromFileTitle">添加图片</view>
+					<view class="recently-cat flex-row flex-wrap" style="width: 95%">
+						<up-upload
+							autoDelete
+							autoUploadDriver="local"
+							v-model:fileList="imgFileList"
+							:maxSize="10485760"
+							:maxCount="3"
+							width="100"
+							height="100"
+							multiple
+							:previewFullImage="true"
+							@afterRead="handleUpload"
+						>
+							<up-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></up-icon>
+						</up-upload>
+						<!-- <up-upload
+							:custom-btn="true"
+							:action="action"
+							:show-retry="false"
+							:file-list="imgFileList"
+							:show-tips="false"
+							:before-upload="handleUpload"
+							max-size="10485760"
+							max-count="3"
+							multiple
+							@on-remove="moveImgFileList"
+							del-bg-color="#e9e9e9"
+						>
+							<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
+								<up-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200"></up-icon>
+							</view>
+						</up-upload> -->
+					</view>
+					<view class="FromFileTitle">上传附件</view>
+					<view class="FilePdfList">
+						<pop-file :fileList="fileList"></pop-file>
+					</view>
 
-				<view class="FromFileTitle">备注说明</view>
-				<view class="FromFileTitleRemark" style="height: 100%">
-					<!-- <uv-input
-						type="textarea"
-						border="none"
-						placeholder="请填写备注，字数不超过50字"
-						v-model="billFrom.billRemark"
-						placeholderClass="placeholder_class"
-						maxlength="50"
-					></uv-input> -->
-					<u-textarea border="none" v-model="billFrom.billRemark" placeholder="请填写备注，字数不超过50字" autoHeight></u-textarea>
-				</view>
-			</view>
+					<!-- #ifdef MP-WEIXIN -->
+					<view v-if="fileList.length < 3" class="uploadView" @click="uploadFile">
+						<up-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></up-icon>
+					</view>
+					<!-- #endif -->
+					<!-- #ifdef APP -->
+					<view class="uploadView" @click="chooseFile">
+						<up-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></up-icon>
+					</view>
+					<!-- #endif -->
 
-			<view class="FromOwn">
-				<view class="OwnText">
-					<view class="OwnTextFromTitle">企业名称</view>
-					<text class="OwnTextFromText" v-if="pinia_user.data.work == '0'">
-						{{ pinia_user.ac?.enterpriseName || pinia_user.phone }}
-					</text>
-					<text class="OwnTextFromText" v-else>
-						{{ pinia_user.ac?.enterpriseName || pinia_user.workData.bossNumber }}
-					</text>
+					<view class="FromFileTitle">备注说明</view>
+					<view class="FromFileTitleRemark" style="height: 100%">
+						<!-- <uv-input
+							type="textarea"
+							border="none"
+							placeholder="请填写备注，字数不超过50字"
+							v-model="billFrom.billRemark"
+							placeholderClass="placeholder_class"
+							maxlength="50"
+						></uv-input> -->
+						<u-textarea border="none" v-model="billFrom.billRemark" placeholder="请填写备注，字数不超过50字" autoHeight></u-textarea>
+					</view>
 				</view>
-				<view class="OwnText">
-					<view class="OwnTextFromTitle">联系人</view>
-					<text class="OwnTextFromText">{{ pinia_user.data.name || pinia_user.phone || pinia_user.data.phone }}</text>
+
+				<view class="FromOwn">
+					<view class="OwnText">
+						<view class="OwnTextFromTitle">企业名称</view>
+						<text class="OwnTextFromText" v-if="pinia_user.data.work == '0'">
+							{{ pinia_user.ac?.enterpriseName || pinia_user.phone }}
+						</text>
+						<text class="OwnTextFromText" v-else>
+							{{ pinia_user.ac?.enterpriseName || pinia_user.workData.bossNumber }}
+						</text>
+					</view>
+					<view class="OwnText">
+						<view class="OwnTextFromTitle">联系人</view>
+						<text class="OwnTextFromText">{{ pinia_user.data.name || pinia_user.phone || pinia_user.data.phone }}</text>
+					</view>
+					<view class="OwnText">
+						<view class="OwnTextFromTitle">联系电话</view>
+						<text class="OwnTextFromText">{{ pinia_user.phone || pinia_user.data.phone }}</text>
+					</view>
 				</view>
-				<view class="OwnText">
-					<view class="OwnTextFromTitle">联系电话</view>
-					<text class="OwnTextFromText">{{ pinia_user.phone || pinia_user.data.phone }}</text>
-				</view>
-			</view>
+			</scroll-view>
 
 			<view class="sendBill">
 				<!-- #ifdef MP-WEIXIN -->
@@ -541,14 +543,15 @@ export default {
 .receiptFrom {
 	width: 100vw;
 	height: 100vh;
-	background-color: #f4f4f4;
+	// background-color: #f4f4f4;
 
 	.FROMBill {
 		width: 100%;
-		height: auto;
-		background-color: #f4f4f4;
 	}
-
+	.scroll-content {
+		background-color: #f4f4f4;
+		height: calc(100vh - 128rpx);
+	}
 	.BillSuccess {
 		width: 100%;
 		height: 100%;
@@ -573,13 +576,13 @@ export default {
 	.HandFrom {
 		background-color: white;
 		width: 100%;
-		height: 20%;
+		// height: 20%;
 		padding: 24rpx;
 	}
 
 	.FromPrice {
 		width: 100%;
-		height: 20%;
+		// height: 20%;
 		padding: 24rpx;
 		background-color: white;
 		margin-top: 24rpx;
@@ -637,7 +640,7 @@ export default {
 	justify-content: left;
 	margin-top: 24rpx;
 
-	height: 600rpx;
+	height: 400rpx;
 
 	background-color: white;
 
@@ -697,9 +700,8 @@ export default {
 }
 
 .sendBill {
-	position: fixed;
-	z-index: 55;
-	bottom: 0;
+	background: #fff;
+	height: 128rpx;
 	width: 100%;
 	padding: 24rpx;
 }
