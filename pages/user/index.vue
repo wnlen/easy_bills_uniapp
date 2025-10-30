@@ -56,14 +56,14 @@
 						<view class="flex-col justify-left mt20" style="">
 							<view class="ft-zjj-05" @click="userClick">
 								<view class="flex-row items-center">
-									<up-icon size="50rpx" :name="ImgUrl + '/wxImg/user/my-phone.png'"></up-icon>
+									<wd-icon size="50rpx" :name="ImgUrl + '/wxImg/user/my-phone.png'"></wd-icon>
 									<text class="pb5" style="color: #525252">{{ pinia_user.phone || '***********' }}</text>
 								</view>
 							</view>
 							<view class="">
 								<view class="ft-zjj-05" @click="acClick">
 									<view class="flex-row items-center">
-										<up-icon size="50rpx" :name="ImgUrl + '/wxImg/user/my-emp.png'"></up-icon>
+										<wd-icon size="50rpx" :name="ImgUrl + '/wxImg/user/my-emp.png'"></wd-icon>
 										<wd-badge :is-dot="!pinia_user.ac" bg-color="#FA5151" :top="2" :right="0">
 											<text class="pb5" style="color: #525252">
 												{{ pinia_user.ac ? (pinia_user.ac.enterpriseName ? pinia_user.ac.enterpriseName : '***********') : '未完善公司信息' }}
@@ -72,7 +72,7 @@
 									</view>
 								</view>
 								<view class="items-center absolute" @click="generateCode" style="right: 5%; top: 14%">
-									<up-icon size="70rpx" :name="ImgUrl + '/wxImg/user/QRCode.svg'"></up-icon>
+									<wd-icon size="70rpx" :name="ImgUrl + '/wxImg/user/QRCode.svg'"></wd-icon>
 								</view>
 							</view>
 						</view>
@@ -86,7 +86,7 @@
 				<view class="icon" style="" v-for="(item, index) in menusIcon" :key="index">
 					<view class="" @click="menuClick(item)">
 						<wd-badge :is-dot="!pinia_user.password && item.showDot" bg-color="#FA5151" :top="5" :right="7">
-							<up-icon size="100rpx" :name="ImgUrl + item.icon"></up-icon>
+							<wd-icon size="100rpx" :name="ImgUrl + item.icon"></wd-icon>
 						</wd-badge>
 						<view>{{ item.name }}</view>
 					</view>
@@ -97,23 +97,23 @@
 				style="border-radius: 6px; width: 94vw; height: auto; background-color: white"
 			>
 				<view class="" style="width: 94%">
-					<up-cell-group :border="false">
-						<up-cell :title="menus[0].name" :titleStyle="{ color: '#666666' }" isLink @click="menuClick(menus[0])">
+					<wd-cell-group :border="true">
+						<wd-cell size="large" :title="menus[0].name" :titleStyle="{ color: '#666666' }" isLink @click="menuClick(menus[0])">
 							<template #icon>
-								<up-icon slot="icon" size="40rpx" :name="ImgUrl + menus[0].icon" color="#999" :customStyle="{ marginRight: '20rpx' }"></up-icon>
+								<wd-icon slot="icon" size="40rpx" :name="ImgUrl + menus[0].icon" color="#999" :customStyle="{ marginRight: '20rpx' }"></wd-icon>
 							</template>
-						</up-cell>
-						<up-cell :titleStyle="{ color: '#666666' }" v-for="(item, index) in filteredMenus" :key="index" :title="item.name" isLink @click="menuClick(item)">
+						</wd-cell>
+						<wd-cell :titleStyle="{ color: '#666666' }" v-for="(item, index) in filteredMenus" :key="index" :title="item.name" isLink @click="menuClick(item)">
 							<template #icon>
-								<up-icon slot="icon" size="40rpx" :name="ImgUrl + item.icon" color="#999" :customStyle="{ marginRight: '20rpx' }"></up-icon>
+								<wd-icon slot="icon" size="40rpx" :name="ImgUrl + item.icon" color="#999" :customStyle="{ marginRight: '20rpx' }"></wd-icon>
 							</template>
-						</up-cell>
-						<up-cell :titleStyle="{ color: '#666666' }" :title="menus[menus.length - 1].name" isLink @click="menuClick(menus[menus.length - 1])" :border="false">
+						</wd-cell>
+						<wd-cell :titleStyle="{ color: '#666666' }" :title="menus[menus.length - 1].name" isLink @click="menuClick(menus[menus.length - 1])" :border="false">
 							<template #icon>
-								<up-icon slot="icon" size="40rpx" :name="ImgUrl + menus[menus.length - 1].icon" color="#999" :customStyle="{ marginRight: '20rpx' }"></up-icon>
+								<wd-icon slot="icon" size="40rpx" :name="ImgUrl + menus[menus.length - 1].icon" color="#999" :customStyle="{ marginRight: '20rpx' }"></wd-icon>
 							</template>
-						</up-cell>
-					</up-cell-group>
+						</wd-cell>
+					</wd-cell-group>
 				</view>
 			</view>
 		</view>
