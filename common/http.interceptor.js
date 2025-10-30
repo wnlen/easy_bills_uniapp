@@ -79,8 +79,8 @@ export const initRequest = () => {
 	}
 
 	http.setConfig((config) => {
-		// config.baseURL = 'https://wxapi.elist.com.cn/edo/'
-		config.baseURL = 'https://wxapi.elist.com.cn/test/edo/';
+		config.baseURL = 'https://wxapi.elist.com.cn/edo/'
+		// config.baseURL = 'https://wxapi.elist.com.cn/test/edo/';
 		// config.baseURL = 'http://192.168.124.2:8081/test/edo/';
 		config.showLoading = true;
 		config.loadingText = '加载中~';
@@ -134,13 +134,13 @@ export const initRequest = () => {
 			const bizCode = String(data?.code || hdrCode || '')
 
 			// --- 网络层异常（如断网、超时、DNS），既没有 httpCode 也没有 bizCode ---
-			if (!httpCode && !bizCode) {
-				uni.showToast({
-					title: '网络异常，请检查连接',
-					icon: 'none'
-				})
-				return Promise.reject(error)
-			}
+			// if (!httpCode && !bizCode) {
+			// 	uni.showToast({
+			// 		title: '网络异常，请检查连接',
+			// 		icon: 'none'
+			// 	})
+			// 	return Promise.reject(error)
+			// }
 
 			// --- 会话/Redis 等服务端异常：HTTP 503 + 业务码 50001 -> 不清 token，只提示 ---
 			if (httpCode === 503 || bizCode == '50001') {

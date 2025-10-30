@@ -260,7 +260,7 @@
 							type="text"
 							v-model="receipts.kTakeE"
 							:style="{ color: ifInput(receipts.kTakeE) }"
-							maxlength="10"
+							maxlength="20"
 							placeholder="请输入收货人姓名"
 							class="u-line-1 flex-1 ml15 endcolor"
 						/>
@@ -831,11 +831,10 @@ export default {
 						this.receipts.organizationE = this.khPhone;
 
 						console.log('===this.receipts.bossNumberE===>', this.receipts.bossNumberE);
-
-						this.authenticationSynchronization();
 						if (this.khPhone) {
 							this.searchIFNumberBlur();
 						}
+						this.authenticationSynchronization();
 					}
 				})
 				.catch((res) => {});
@@ -888,10 +887,10 @@ export default {
 						this.addEmp();
 					}
 
-					this.authenticationSynchronization();
 					if (this.khPhone) {
 						this.searchIFNumberBlur();
 					}
+					this.authenticationSynchronization();
 				});
 		},
 		authenticationSynchronization() {
