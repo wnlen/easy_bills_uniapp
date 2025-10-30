@@ -40,7 +40,7 @@
 				</view>
 			</view>
 			<view class="" style="margin: 10vh 0 0 30rpx; width: 85vw">
-				<up-button hover-class="none" color="#01BB74" type="primary" shape="circle" @click="submitRole">确定</up-button>
+				<wd-button :customStyle="{ width: '100%' }"  @click="submitRole">确定</wd-button>
 			</view>
 		</view>
 	</up-popup>

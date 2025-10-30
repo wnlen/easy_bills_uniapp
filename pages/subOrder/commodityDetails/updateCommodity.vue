@@ -102,7 +102,7 @@
 		</view>
 
 		<view class="" style="position: fixed; bottom: 40rpx; width: 94%; justify-content: center; left: 3%; z-index: 10">
-			<up-button type="primary" hover-class="none" color="#01BB74" class="form-btn-big" @click="uploadingCommodityAdd" shape="circle">保存</up-button>
+			<wd-button :customStyle="{ width: '100%' }" @click="uploadingCommodityAdd">保存</wd-button>
 		</view>
 	</view>
 </template>

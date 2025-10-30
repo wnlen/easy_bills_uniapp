@@ -61,9 +61,6 @@
 				<view class="FromInput u-border-bottom relative flex flex-row justify-left items-center">
 					<view class="" style="font-weight: bold; padding-top: 12rpx">修改订单</view>
 					<view class="absolute" style="right: 12rpx">
-						<!-- <up-button class="form-btn-big" hover-class="none" size="mini"
-							:customStyle="{backgroundColor:'#01BB74',color:'#ffffff'}" @click="selectOrder"
-							shape="circle">选择&gt;</up-button> -->
 						<view
 							@click="selectOrder"
 							class="flex-row justify-center items-center"
@@ -189,14 +186,14 @@
 			</view>
 			<view class="sendBill">
 				<!-- #ifdef MP-WEIXIN -->
-				<up-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder(true)" shape="circle">
+				<wd-button  @click="sendOrder(true)" :customStyle="{ width: '100%' }">
 					{{ pinia_userRole == 'D' ? '修改收款单' : '修改付款单' }}
-				</up-button>
+				</wd-button>
 				<!-- #endif -->
-				<!-- #ifdef APP -->
-				<up-button type="primary" class="form-btn-big" hover-class="none" color="#01BB74" @click="sendOrder(false)" shape="circle">
+				<!-- #ifndef MP-WEIXIN -->
+				<wd-button  @click="sendOrder(false)" :customStyle="{ width: '100%' }">
 					{{ pinia_userRole == 'D' ? '修改收款单' : '修改付款单' }}
-				</up-button>
+				</wd-button>
 				<!-- #endif -->
 			</view>
 		</view>

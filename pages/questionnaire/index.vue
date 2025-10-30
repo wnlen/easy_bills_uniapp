@@ -91,7 +91,7 @@
 			</view>
 			<view class="Note">注：仅可领取一次，主体下多成员的累积领取至多四次</view>
 			<view class="btn_submit">
-				<up-button type="warning" shape="circle" size="default" @click="submit" :customStyle="btn_submitStyle">提交</up-button>
+				<wd-button type="warning"  @click="submit" :customStyle="btn_submitStyle">提交</wd-button>
 			</view>
 			<up-toast ref="uToast1" />
 		</view>

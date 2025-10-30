@@ -189,8 +189,8 @@
 					</view>
 				</view>
 				<view class="OrderCard_end" @tap.stop>
-					<up-button
-						class="ml30 bg-white"
+					<wd-button
+						class="ml30"
 						v-if="
 							pinia_user.data.work == '1'
 								? pinia_user.workData.identity == 3 || pinia_user.workData.identity == 1
@@ -198,22 +198,21 @@
 									: false
 								: item.sourcePhone == pinia_user.phone && item.billState != 1
 						"
-						hover-class="none"
-						plain
-						shape="circle"
+						size="small"
+						:plain="true"
 						@click="click(index, 0)"
 						:customStyle="SearchCustomStyleWechat"
 					>
 						<up-icon name="order" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="修改"></up-icon>
-					</up-button>
+					</wd-button>
 
-					<up-button class="ml30" hover-class="none" plain shape="circle" @click="viewDetails(item)" :customStyle="SearchCustomStyleWechat">
+					<wd-button class="ml30"  plain size="small" @click="viewDetails(item)" :customStyle="SearchCustomStyleWechat">
 						<up-icon name="list-dot" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="订单列表"></up-icon>
-					</up-button>
+					</wd-button>
 					<!-- v-if="pinia_user.data.work=='1'?pinia_user.workData.identity!=3:true&&item.billState!=1" -->
-					<up-button class="ml30" hover-class="none" plain shape="circle" @click="click(index, 1)" v-if="item.billState != 1" :customStyle="SearchCustomStyleWechat">
+					<wd-button class="ml30" plain size="small" @click="click(index, 1)" v-if="item.billState != 1" :customStyle="SearchCustomStyleWechat">
 						<up-icon name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></up-icon>
-					</up-button>
+					</wd-button>
 				</view>
 			</view>
 			<template #empty>
@@ -236,7 +235,7 @@
 						</view>
 					</view>
 					<view class="fixedBarRight">
-						<up-button shape="circle" @click="okUpdate" hover-class="none" :customStyle="customStyleBill">{{ billTitle }}</up-button>
+						<wd-button @click="okUpdate" :customStyle="customStyleBill">{{ billTitle }}</wd-button>
 					</view>
 				</view>
 			</template>
@@ -360,7 +359,8 @@ export default {
 				padding: '12rpx 24rpx',
 				fontSize: '24rpx',
 				color: '#666666',
-				margin: '0'
+				margin: '0',
+				borderColor:'#ebedf0'
 			},
 			identity: false,
 			billTitle: '收款',

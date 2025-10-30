@@ -93,10 +93,12 @@
 						</view>
 						<view class="tempCard_title flex-row justify-end">
 							<view class="bjzx">
-								<up-button hover-class="none" :hair-line="false" :customStyle="buttonStyle" open-type="contact">
-									报价咨询
-									<view class="ml8 mt1"><up-icon name="play-right-fill" color="#E7647F" size="16rpx"></up-icon></view>
-								</up-button>
+								<wd-button :customStyle="buttonStyle" open-type="contact">
+									<view class="flex-row items-center">
+										<text>报价咨询</text>
+										<view class="ml8 mt1"><up-icon name="play-right-fill" color="#E7647F" size="16rpx"></up-icon></view>
+									</view>
+								</wd-button>
 							</view>
 						</view>
 					</view>

@@ -112,7 +112,8 @@
   @include when(loading) {}
 
   @include when(primary) {
-    background: $-button-primary-bg-color;
+    // background: $-button-primary-bg-color;
+    background: #01BB74;
     color: $-button-primary-color;
   }
 

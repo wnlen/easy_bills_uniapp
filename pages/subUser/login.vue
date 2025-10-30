@@ -9,22 +9,14 @@
 			<up-image class="login-logo" width="400rpx" src="https://res-oss.elist.com.cn/wxImg/user/logoLogin.svg" mode="widthFix"></up-image>
 			<view class="width100 pb60 login_box">
 				<view class="login_btn1" v-if="ischeck">
-					<up-button
-						type="primary"
-						hover-class="none"
-						color="#01BB74"
-						shape="circle"
-						size="default"
-						open-type="getPhoneNumber"
-						@getphonenumber="(e) => getPhoneNumber(e)"
-					>
+					<wd-button :customStyle="{ width: '100%' }" open-type="getPhoneNumber" @getphonenumber="(e) => getPhoneNumber(e)">
 						<up-icon size="25" label="手机号快捷登录" labelColor="#fff" labelSize="16"></up-icon>
-					</up-button>
+					</wd-button>
 				</view>
 				<view class="login_btn2" v-else>
-					<up-button type="primary" hover-class="none" color="#01BB74" shape="circle" size="default" @click="wxmp_login">
+					<wd-button :customStyle="{ width: '100%' }" @click="wxmp_login">
 						<up-icon size="25" label="手机号快捷登录" labelColor="#fff" labelSize="16"></up-icon>
-					</up-button>
+					</wd-button>
 				</view>
 				<view class="width100 justify-center items-center flex-row pt30" style="font-size: 20rpx">
 					<view
@@ -65,7 +57,7 @@
 					</view>
 				</view>
 				<view class="" style="margin-top: 8vh; width: 80vw">
-					<up-button class="width100" type="primary" shape="circle" @click="submitRole">确定</up-button>
+					<wd-button :customStyle="{ width: '100%' }" @click="submitRole">确定</wd-button>
 				</view>
 			</view>
 		</up-popup>
@@ -316,7 +308,8 @@ export default {
 		},
 		//微信小程序登录和获取手机号
 		getPhoneNumber(e) {
-			if (e.detail.errMsg != 'getPhoneNumber:ok') {
+			console.log('微信小程序登录和获取手机号', e);
+			if (e.errMsg != 'getPhoneNumber:ok') {
 				this.$u.toast('您已拒绝授权 请重新点击并授权');
 				return;
 			}
@@ -329,7 +322,7 @@ export default {
 					uni.$api.user
 						.loginMpWX({
 							loginCode: res.code, //登录code
-							phoneCode: e.detail.code, //手机号code
+							phoneCode: e.code, //手机号code
 							inviterId: inviterId || null //邀请id
 						})
 						.then((res) => {

@@ -71,9 +71,9 @@
 		</view>
 
 		<view class="" style="position: fixed; bottom: 40rpx; width: 94%; justify-content: center; left: 3%">
-			<up-button hover-class="none" :customStyle="{ backgroundColor: '#01BB74', color: '#ffffff' }" class="form-btn-big" @click="commodityDetailsUpdate" shape="circle">
+			<wd-button :customStyle="{ backgroundColor: '#01BB74', color: '#ffffff',width: '100%' }"  @click="commodityDetailsUpdate">
 				编辑商品
-			</up-button>
+			</wd-button>
 		</view>
 	</view>
 </template>

@@ -19,7 +19,7 @@
 		</view>
 
 		<view class="flex-col justify-center pl60 pr60 pb60 pt60 vw100" style="position: absolute; bottom: 0">
-			<up-button hover-class="none" color="#01BB74" shape="circle" type="primary" @click="updateInfo">确认修改</up-button>
+			<wd-button @click="updateInfo">确认修改</wd-button>
 		</view>
 	</view>
 </template>

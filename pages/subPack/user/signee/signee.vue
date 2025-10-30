@@ -10,19 +10,14 @@
 				marginTop="200rpx"
 			></up-empty>
 			<view class="mt25 vw100 text-center" style="font-size: 28rpx">
-				<up-button
+				<wd-button
 					@click="$goPath('/pages/subPack/user/signee/add')"
-					hover-class="none"
 					:customStyle="{ backgroundColor: '#01BB74', width: '260rpx' }"
 					:disabled="orderList.length >= 1"
-					type="primary"
-					class=""
-					shape="circle"
 					size="medium"
-					color="#01BB74"
 				>
 					新增签收人
-				</up-button>
+				</wd-button>
 			</view>
 		</view>
 
@@ -54,7 +49,7 @@
 						<view class="ml30 mr20"><up-icon name="trash" color="#aaa" size="34rpx" @click="goDetails(item.id, 2)"></up-icon></view>
 					</view>
 					<!-- #endif -->
-					<!-- #ifdef APP -->
+					<!-- #ifndef MP-WEIXIN -->
 					<view style="margin-right: 15rpx">
 						<view class="mr20">
 							<up-icon name="edit-pen" color="#aaa" size="34rpx" @click="goDetails(item, 1)"></up-icon>

@@ -1,7 +1,7 @@
 <template>
   <button
     :id="buttonId"
-    :hover-class="`${disabled || loading ? '' : 'wd-button--active'}`"
+    :hover-class="`${disabled || loading ? '' : ''}`"
     :style="customStyle"
     :class="[
       'wd-button',
@@ -15,8 +15,7 @@
       loading ? 'is-loading' : '',
       customClass
     ]"
-    :hover-start-time="hoverStartTime"
-    :hover-stay-time="hoverStayTime"
+
     :open-type="disabled || loading ? undefined : openType"
     :send-message-title="sendMessageTitle"
     :send-message-path="sendMessagePath"
@@ -66,7 +65,7 @@ import { ref } from 'vue'
 import base64 from '../common/base64'
 import { buttonProps } from './types'
 
-const loadingIcon = (color = '#4D80F0', reverse = true) => {
+const loadingIcon = (color = '#01BB74', reverse = true) => {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42 42"><defs><linearGradient x1="100%" y1="0%" x2="0%" y2="0%" id="a"><stop stop-color="${
     reverse ? color : '#fff'
   }" offset="0%" stop-opacity="0"/><stop stop-color="${
@@ -159,7 +158,7 @@ function buildLoadingSvg() {
   if (!color) {
     switch (type) {
       case 'primary':
-        color = '#4D80F0'
+        color = '#01BB74'
         break
       case 'success':
         color = '#34d19d'

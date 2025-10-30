@@ -36,7 +36,7 @@
 							@change="SearchInventoryChange"
 						></uv-input>
 					</view>
-					<up-button @click="jumpAddCommodity" :customStyle="SearchCustomStyle" color="#01BB74" type="success">添加商品</up-button>
+					<wd-button @click="jumpAddCommodity" :customStyle="SearchCustomStyle" size="small" :round="false">添加商品</wd-button>
 				</view>
 			</template>
 
@@ -47,16 +47,14 @@
 				text="商品库空空如也~尝试添加一个新商品吧！"
 				marginTop="200rpx"
 			>
-				<up-button
-					color="#01BB74"
+				<wd-button
 					iconColor="#ECFFF9"
-					:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: '#ECFFF9' }"
-					shape="circle"
-					:plain="true"
+						:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent', color: '#01BB74' }"
+						:plain="true"
 					@click="jumpAddCommodity"
 				>
 					<text>去添加</text>
-				</up-button>
+				</wd-button>
 			</up-empty>
 
 			<!-- <view class="items-center" v-if="invCardEmpty && hideEmptyView">
@@ -123,7 +121,7 @@
 						<text style="color: #01bb74" v-if="uni.$u.getPinia('user.customized')">{{ totalPrices }}</text>
 						<text style="color: #01bb74" v-else>￥{{ formatAmount(totalPrices) }}</text>
 					</text>
-					<up-button shape="circle" :customStyle="bottomCustomStyle" color="#01bb74" @click="save">保存</up-button>
+					<wd-button :customStyle="bottomCustomStyle" @click="save">保存</wd-button>
 				</view>
 			</template>
 		</z-paging>
@@ -223,7 +221,7 @@
 								<text style="color: #01bb74" v-if="uni.$u.getPinia('user.customized')">{{ totalPrices }}</text>
 								<text style="color: #01bb74" v-else>￥{{ formatAmount(totalPrices) }}</text>
 							</text>
-							<up-button shape="circle" :customStyle="bottomCustomStyle" color="#01BB74" @click="closeOpen">保存</up-button>
+							<wd-button :customStyle="bottomCustomStyle"  @click="closeOpen">保存</wd-button>
 						</view>
 					</template>
 				</z-paging>

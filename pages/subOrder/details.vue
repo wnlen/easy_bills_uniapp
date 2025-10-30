@@ -429,18 +429,9 @@
 				<view class="fixed-bar" style="background: none">
 					<view class="pl30 pr30 pb30 flex-row justify-between items-center">
 						<view v-if="pinia_user.workData.identity != '3' && post.lockOrder != 1" class="flex-row flex-1 items-center">
-							<up-button
-								hover-class="none"
-								color="#01BB74"
-								class="width100"
-								v-if="LookShar == 'F' && post.paymentState == '0' && workState"
-								type="primary"
-								shape="circle"
-								@click="onConfirm"
-								:disabled="post.paymentState != '0'"
-							>
+							<wd-button :customStyle="{ width: '100%' }" v-if="LookShar == 'F' && post.paymentState == '0' && workState" @click="onConfirm" :disabled="post.paymentState != '0'">
 								确认签收
-							</up-button>
+							</wd-button>
 						</view>
 					</view>
 				</view>
@@ -465,7 +456,7 @@
 			<view class="width100 flex-col justify-center items-center" style="padding-top: 40%" v-if="text">
 				<up-image class="login-logo" width="400rpx" src="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/user/logo.svg" mode="widthFix"></up-image>
 
-				<up-button
+				<wd-button
 					v-if="text"
 					class="mt20"
 					hover-class="none"
@@ -476,15 +467,15 @@
 					@click=""
 				>
 					打开单据
-				</up-button>
+				</wd-button>
 
 				<view class="mt20 flex-row" style="color: #aaaaaa" @click="exit">
 					关闭单据
 					<up-icon name="arrow-right" color="#aaaaaa" size="28rpx"></up-icon>
 				</view>
 
-				<!-- <up-button v-if="text" class="mt20" shape="circle" :customStyle="customStyle"
-					@click="exit">关闭单据</up-button> -->
+				<!-- <wd-button v-if="text" class="mt20" shape="circle" :customStyle="customStyle"
+					@click="exit">关闭单据</wd-button> -->
 			</view>
 		</view>
 
@@ -982,7 +973,7 @@ export default {
 			uni.$api.user
 				.loginWithWXOld({
 					loginCode: that.wxLoginRes,
-					phoneCode: e.detail.code
+					phoneCode: e.code
 				})
 				.then((res) => {
 					var resDate = res.data.data;

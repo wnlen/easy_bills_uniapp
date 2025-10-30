@@ -487,12 +487,10 @@
 				</view>
 				<!-- 按钮 -->
 				<view class="flex-row justify-end mt40">
-					<up-button
-						color="#F4F4F4"
+					<wd-button
+						size="small"
 						type="info"
 						@click="filterReset"
-						shape="circle"
-						size="medium"
 						:customStyle="{
 							width: '154rpx',
 							color: '#999999',
@@ -501,8 +499,8 @@
 						}"
 					>
 						重置
-					</up-button>
-					<up-button color="#4E5777" @click="filterSubmit" shape="circle" size="medium" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</up-button>
+					</wd-button>
+					<wd-button size="small" @click="filterSubmit" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</wd-button>
 				</view>
 				<!-- 日历选择器 -->
 				<uv-calendars color="#01BB74" confirmColor="#01BB74" :startDate="limitingTimeO" :endDate="limitingTimeT" ref="calendars" @confirm="date1Change" />

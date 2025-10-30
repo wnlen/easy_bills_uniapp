@@ -18,7 +18,7 @@
 							@change="SearchInventoryChange"
 						></uv-input>
 					</view>
-					<up-button @click="jumpAddCommodity" :customStyle="SearchCustomStyle" color="#01BB74" type="success">添加商品</up-button>
+					<wd-button size="small" :round="false" @click="jumpAddCommodity" :customStyle="SearchCustomStyle">添加商品</wd-button>
 				</view>
 			</template>
 			<template #empty>
@@ -28,17 +28,15 @@
 					:text="pinia_userRole == 'D' ? '商品库空空如也~尝试添加一个新商品吧！' : '还没有收到订单呢~快去邀请供应商开单吧！'"
 					marginTop="-200"
 				>
-					<up-button
+					<wd-button
 						v-if="pinia_userRole == 'D'"
-						color="#01BB74"
 						iconColor="#ECFFF9"
-						:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: '#ECFFF9' }"
-						shape="circle"
+						:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent', color: '#01BB74' }"
 						:plain="true"
 						@click="jumpAddCommodity"
 					>
 						<text>去添加</text>
-					</up-button>
+					</wd-button>
 				</up-empty>
 			</template>
 			<view class="box1">

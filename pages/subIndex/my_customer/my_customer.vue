@@ -30,27 +30,31 @@
 		></up-tabs> -->
 
 		<view class="flex-row ml24 mr24 mt24" style="display: flex">
-			<view class="ml5 mr5" style="flex: 1">
-				<up-button openType="share" color="#01BB74" :customStyle="SearchCustomStyleWechat" shape="circle" :plain="true">
-					<view><up-icon name="weixin-fill" color="#01BB74" size="30rpx"></up-icon></view>
-					<text class="pl10">微信邀请</text>
-				</up-button>
+			<view class="ml5 mr5 flex-row justify-center" style="flex: 1">
+				<wd-button openType="share" color="#01BB74" :customStyle="SearchCustomStyleWechat" :plain="true">
+					<view class="flex-row items-center justify-center">
+						<view><up-icon name="weixin-fill" color="#01BB74" size="30rpx"></up-icon></view>
+						<text class="pl10">微信邀请</text>
+					</view>
+				</wd-button>
 			</view>
 			<!-- <view class="ml5 mr5" style="flex: 1">
-				<up-button :customStyle="SearchCustomStyle"  shape="circle" @click="$goPath('/pages/subIndex/add_friend/add_friend')">
+				<wd-button :customStyle="SearchCustomStyle"  shape="circle" @click="$goPath('/pages/subIndex/add_friend/add_friend')">
 					<up-icon name="phone-fill" color="#ffffff" size="30rpx"></up-icon>
 					<text class="pl10">手机号邀请</text>
-				</up-button>
+				</wd-button>
 			</view> -->
-			<view class="ml5 mr5" style="flex: 1">
-				<!-- 	<up-button :customStyle="SearchCustomStyle"  shape="circle" @click="scanQRcodes">
+			<view class="ml5 mr5 flex-row justify-center" style="flex: 1">
+				<!-- 	<wd-button :customStyle="SearchCustomStyle"  shape="circle" @click="scanQRcodes">
 					<view class=></view><up-icon  "pr10" name="scan" color="#ffffff" size="30rpx"></up-icon>
 					扫一扫邀请
-				</up-button> -->
-				<up-button :customStyle="SearchCustomStyle" color="#FFAF38" shape="circle" @click="establish">
-					<up-icon name="plus" color="#ffffff" size="30rpx"></up-icon>
-					<text class="pl10">创建{{ title }}</text>
-				</up-button>
+				</wd-button> -->
+				<wd-button :customStyle="SearchCustomStyle" @click="establish">
+					<view class="flex-row items-center justify-center">
+						<up-icon name="plus" color="#ffffff" size="30rpx"></up-icon>
+						<text class="pl10">创建{{ title }}</text>
+					</view>
+				</wd-button>
 			</view>
 		</view>
 
@@ -167,16 +171,14 @@
 				text="客户空空如也~快尝试创建一个新客户吧！"
 				marginTop="100rpx"
 			>
-				<up-button
-					color="#01BB74"
+				<wd-button
 					iconColor="#ECFFF9"
-					:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: '#ECFFF9' }"
-					shape="circle"
+					:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent', color: '#01BB74' }"
 					:plain="true"
 					@click="establish"
 				>
 					<text>去创建</text>
-				</up-button>
+				</wd-button>
 			</up-empty>
 			<up-empty
 				v-if="isEmptyObject(listO) && show == 1 && pinia_userRole == 'R'"
@@ -185,23 +187,29 @@
 				text="供应商空空如也~邀请供应商一起开单吧！"
 				marginTop="100rpx"
 			>
-				<up-button
+				<wd-button
 					openType="share"
-					color="#01BB74"
 					iconColor="#ECFFF9"
-					:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: '#ECFFF9' }"
-					shape="circle"
+					:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent', color: '#01BB74' }"
 					:plain="true"
 				>
 					<text>去邀请</text>
-				</up-button>
+				</wd-button>
 			</up-empty>
 			<view class="mt20 pb150" :style="{ display: show != 1 ? 'none' : 'block' }" @click="showAl = showAl == true ? false : false">
 				<view class="ml20 flex-row items-center vw100" v-for="(item2, index2) in listO" :key="index2" style="height: 9vh" @click="particulars(item2, false)">
 					<view class="" style="width: 10%">
 						<up-image
 							:show-menu-by-longpress="false"
-							:src="item2.img == 'zx' ? 'https://res-oss.elist.com.cn/wxImg/obj/zx.svg' : item2.img == undefined ? headimg() : item2.img == 'wsz' ? 'https://res-oss.elist.com.cn/wxImg/obj/defind.svg' : item2.img"
+							:src="
+								item2.img == 'zx'
+									? 'https://res-oss.elist.com.cn/wxImg/obj/zx.svg'
+									: item2.img == undefined
+									? headimg()
+									: item2.img == 'wsz'
+									? 'https://res-oss.elist.com.cn/wxImg/obj/defind.svg'
+									: item2.img
+							"
 							width="90rpx"
 							height="90rpx"
 							shape="circle"
@@ -217,9 +225,9 @@
 						</view>
 					</view>
 					<view class="" style="width: 20%; display: flex; flex-direction: row; justify-content: right" @click.stop="collection(item2)" v-if="identity">
-						<up-button v-if="item2.total > 0" color="#01BB74" :customStyle="{ width: '110rpx', height: '50rpx' }" shape="circle" size="mini">
+						<wd-button v-if="item2.total > 0" color="#01BB74" :customStyle="{ width: '110rpx', height: '50rpx' }" shape="circle" size="small">
 							{{ pinia_userRole != 'R' ? '去收款' : '去付款' }}
-						</up-button>
+						</wd-button>
 					</view>
 				</view>
 			</view>
@@ -241,28 +249,24 @@
 				:text="pinia_userRole == 'D' ? '客户空空如也~快尝试创建一个新客户吧！' : '供应商空空如也~邀请供应商一起开单吧！'"
 				marginTop="100rpx"
 			>
-				<up-button
+				<wd-button
 					v-if="pinia_userRole == 'D'"
-					color="#01BB74"
 					iconColor="#ECFFF9"
-					:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: '#ECFFF9' }"
-					shape="circle"
+					:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent', color: '#01BB74' }"
 					:plain="true"
 					@click="establish"
 				>
 					<text>去创建</text>
-				</up-button>
-				<up-button
+				</wd-button>
+				<wd-button
 					v-else
 					openType="share"
-					color="#01BB74"
 					iconColor="#ECFFF9"
-					:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: '#ECFFF9' }"
-					shape="circle"
+					:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent', color: '#01BB74' }"
 					:plain="true"
 				>
 					<text>去邀请</text>
-				</up-button>
+				</wd-button>
 			</up-empty>
 
 			<view class="" :style="{ display: show != 0 ? 'none' : 'block' }">
@@ -344,7 +348,8 @@ export default {
 				height: '60rpx',
 				padding: '12rpx',
 				fontSize: '24rpx',
-				color: '#ffffff'
+				color: '#ffffff',
+				background: '#FFAF38'
 			},
 			SearchCustomStyleWechat: {
 				width: '80%',
