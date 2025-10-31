@@ -281,7 +281,7 @@
 				<view style="background-color: #ffffff; box-shadow: 0rpx 4rpx 6rpx 0rpx rgba(51, 51, 51, 0.2)">
 					<view class="flex-row justify-between items-center" style="height: 10vh">
 						<view class="flex-row items-center vw100">
-							<view class="items-center flex-row" style="width: 92%; display: flex; justify-content: space-between">
+							<view class="items-center flex-row" style="width: 95%; display: flex; justify-content: space-between">
 								<view class="" style="text-align: left; font-size: 24rpx; color: #01bb74" :disabled="false">
 									<view class="ml24" style="">
 										<view class="flex-row justify-center items-center">
@@ -299,8 +299,8 @@
 										</view>
 									</view>
 								</view>
-								<view class="mr20 flex-row" style="text-align: left; font-size: 28rpx; width: 30%; color: #666666">
-									统计：
+								<view class="flex-row" style="text-align: left; font-size: 28rpx; width: 30%; color: #666666">
+									<text class="shrink-0">统计：</text>
 									<view style="color: #01bb74">{{ OrderQuantity }}个订单</view>
 								</view>
 								<view

@@ -39,8 +39,8 @@ export default {
 		'up-light-color': '#c0c4cc'
 	},
 	// 字体图标地址 面包定位
-	// iconUrl: 'https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/font/font_2225171_8kdcwk4po24_1_.woff',
-	iconUrl: '',
+	iconUrl: 'https://at.alicdn.com/t/font_2225171_8kdcwk4po24.ttf',
+	// iconUrl: '',
 	// 自定义图标
 	customIcon: {
 		family: '',
@@ -54,5 +54,5 @@ export default {
 		navbarLeftClick: null
 	},
 	// 只加载一次字体
-	loadFontOnce: true
+	loadFontOnce: false
 }

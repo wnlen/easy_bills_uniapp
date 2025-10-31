@@ -2,7 +2,7 @@
   <view
     :class="['wd-cell', isBorder ? 'is-border' : '', size ? 'is-' + size : '', center ? 'is-center' : '', customClass]"
     :style="customStyle"
-    :hover-class="isLink || clickable ? 'is-hover' : 'none'"
+    :hover-class="isLink || clickable ? 'none' : 'none'"
     :hover-stay-time="70"
     @click="onClick"
   >
