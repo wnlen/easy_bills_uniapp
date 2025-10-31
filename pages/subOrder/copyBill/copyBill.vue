@@ -152,7 +152,7 @@
 					<view class="ft-bold pt10 handcolor relative">发货单信息</view>
 					<view class="flex-row items-end pt20 pb20 u-border-bottom">
 						<text class="textcolor">订单编号:</text>
-						<text class="ft-red ml15" style="color: #fa5151; font-family: ddbh">
+						<text class="ft-red ml15" style="color: #fa5151; font-family: Alike Angular">
 							{{ receipts.orderNumber || '' }}
 						</text>
 					</view>
