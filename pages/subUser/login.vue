@@ -150,9 +150,10 @@
 					<text style="color: #01bb74" @top.stop @click="jump(1)">《隐私政策》</text>
 					<text>，同意授权后未注册的手机号码将自动注册易单据账号</text>
 				</view>
-
 				<view class="btn_l" @click="yinsi_close">不同意</view>
-				<view @click="yinsi_agree"><button class="btn_r" open-type="getPhoneNumber" @getphonenumber="(e) => getPhoneNumber(e)">同意并继续</button></view>
+				<view @click="yinsi_agree" class="btn_r">
+					<wd-button class="btn_r" open-type="getPhoneNumber" @getphonenumber="(e) => getPhoneNumber(e)">同意并继续</wd-button>
+				</view>
 			</view>
 		</up-popup>
 
@@ -308,7 +309,6 @@ export default {
 		},
 		//微信小程序登录和获取手机号
 		getPhoneNumber(e) {
-			console.log('微信小程序登录和获取手机号', e);
 			if (e.errMsg != 'getPhoneNumber:ok') {
 				this.$u.toast('您已拒绝授权 请重新点击并授权');
 				return;
@@ -367,7 +367,7 @@ export default {
 									uni.switchTab({
 										url: '/pages/index/index'
 									});
-									that.roleShow = true;
+									// that.roleShow = true;
 								}
 							} else {
 								that.$u.toast(that.message);

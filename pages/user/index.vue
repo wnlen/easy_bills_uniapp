@@ -98,19 +98,11 @@
 			>
 				<view class="" style="width: 94%">
 					<wd-cell-group :border="true">
-						<wd-cell size="large" :title="menus[0].name" :titleStyle="{ color: '#666666' }" isLink @click="menuClick(menus[0])">
+						<wd-cell :titleStyle="{ color: '#666666' }" v-for="(item, index) in menus" :key="index" :title="item.name" isLink @click="menuClick(item)">
 							<template #icon>
-								<wd-icon slot="icon" size="40rpx" :name="ImgUrl + menus[0].icon" color="#999" :customStyle="{ marginRight: '20rpx' }"></wd-icon>
-							</template>
-						</wd-cell>
-						<wd-cell :titleStyle="{ color: '#666666' }" v-for="(item, index) in filteredMenus" :key="index" :title="item.name" isLink @click="menuClick(item)">
-							<template #icon>
-								<wd-icon slot="icon" size="40rpx" :name="ImgUrl + item.icon" color="#999" :customStyle="{ marginRight: '20rpx' }"></wd-icon>
-							</template>
-						</wd-cell>
-						<wd-cell :titleStyle="{ color: '#666666' }" :title="menus[menus.length - 1].name" isLink @click="menuClick(menus[menus.length - 1])" :border="false">
-							<template #icon>
-								<wd-icon slot="icon" size="40rpx" :name="ImgUrl + menus[menus.length - 1].icon" color="#999" :customStyle="{ marginRight: '20rpx' }"></wd-icon>
+								<view class="mr20 flex-row items-center">
+									<wd-icon slot="icon" size="40rpx" :name="ImgUrl + item.icon" color="#999"></wd-icon>
+								</view>
 							</template>
 						</wd-cell>
 					</wd-cell-group>
@@ -480,7 +472,7 @@ export default {
 	height: 100vh;
 	overflow: hidden;
 }
-::v-deep .u-cell__body {
+::v-deep .wd-cell__wrapper {
 	padding: 30rpx !important;
 }
 ::v-deep .u-line {

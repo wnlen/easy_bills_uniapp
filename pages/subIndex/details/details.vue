@@ -11,7 +11,7 @@
 			bgColor="#ffffff"
 		></up-navbar>
 
-		<uv-popup ref="popup" mode="center" round="50" :customStyle="popup_style" zIndex="999999">
+		<uv-popup ref="popup" :closeOnClickOverlay="false" mode="center" round="50" :customStyle="popup_style" zIndex="999999">
 			<view v-if="pinia_userRole == 'D'">
 				<uv-textarea v-model="up.remarkD" border="none" placeholder="请输入备注" height="100" :customStyle="textareaStyle"></uv-textarea>
 			</view>
@@ -24,8 +24,8 @@
 					class="btn-l"
 					@click="
 						this.$refs.popup.close();
-						up.remarkD = '';
-						up.remarkR = '';
+						up.remarkD = remark;
+						up.remarkR = remark;
 					"
 				>
 					取消
