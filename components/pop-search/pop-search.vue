@@ -19,7 +19,7 @@
 				</view>
 
 				<view class="flex-col justify-center items-center" style="height: 5vh">
-					<view class="ml40"><up-icon name="/static/img/list/lxr.svg" size="45rpx" @click="choice"></up-icon></view>
+					<view class="ml40"><wd-icon name="/static/img/list/lxr.svg" size="45rpx" @click="choice"></wd-icon></view>
 				</view>
 			</view>
 
@@ -27,8 +27,8 @@
 				<text class="ft11 ft-gray ml20" @click="openSearchTj">
 					{{ InputOneName.c }}
 				</text>
-				<view class="ml10 mr10" style="right: 0; top: 40rpx">
-					<up-icon name="arrow-down-fill" size="20rpx"></up-icon>
+				<view style="right: 0; top: 40rpx">
+					<wd-icon name="caret-down-small" size="20px"></wd-icon>
 				</view>
 
 				<view class="my-input">
@@ -47,7 +47,7 @@
 				</view>
 
 				<view class="flex-col justify-center items-center ml40" style="height: 5vh">
-					<up-icon name="/static/img/list/ss.svg" size="45rpx" @click="SearchBtn"></up-icon>
+					<wd-icon name="/static/img/list/ss.svg" size="45rpx" @click="SearchBtn"></wd-icon>
 				</view>
 			</view>
 		</view>

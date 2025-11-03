@@ -1,7 +1,7 @@
 <template>
 	<view class="shareFriend">
 		<view class="absolute" style="left: 24rpx; top: 120rpx">
-			<up-icon name="arrow-left" color="#333333" size="45rpx" @click="close"></up-icon>
+			<wd-icon name="arrow-left" color="#333333" size="45rpx" @click="close"></wd-icon>
 		</view>
 		<view
 			class="shareFriendBottom"

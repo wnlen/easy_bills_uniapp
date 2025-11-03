@@ -86,7 +86,7 @@
 							:previewFullImage="true"
 							@afterRead="handleUpload"
 						>
-							<up-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></up-icon>
+							<wd-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></wd-icon>
 						</up-upload>
 						<!-- <up-upload
 							:custom-btn="true"
@@ -102,7 +102,7 @@
 							del-bg-color="#e9e9e9"
 						>
 							<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
-								<up-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200"></up-icon>
+								<wd-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200"></wd-icon>
 							</view>
 						</up-upload> -->
 					</view>
@@ -113,12 +113,14 @@
 
 					<!-- #ifdef MP-WEIXIN -->
 					<view v-if="fileList.length < 3" class="uploadView" @click="uploadFile">
-						<up-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></up-icon>
+						<wd-icon :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></wd-icon>
+						<view class="ft-green">点击上传</view>
 					</view>
 					<!-- #endif -->
-					<!-- #ifdef APP -->
+					<!-- #ifndef MP-WEIXIN -->
 					<view class="uploadView" @click="chooseFile">
-						<up-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></up-icon>
+						<wd-icon :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></wd-icon>
+						<view class="ft-green">点击上传</view>
 					</view>
 					<!-- #endif -->
 

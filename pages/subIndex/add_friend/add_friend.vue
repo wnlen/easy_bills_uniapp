@@ -11,7 +11,7 @@
 				maxlength="11"
 				shape="square"
 				class="u-search"
-				height="90"
+				height="90rpx"
 				bg-color="#ffffff"
 				v-model="searchNumber"
 			></up-search>
@@ -36,8 +36,8 @@
 						{{role==0?"客户":"供应商"}}
 					</view>
 					<view class="ml10">
-						<up-icon v-if="!showChecked" name="arrow-down-fill" color="#000000" size="15"></up-icon>
-						<up-icon v-if="showChecked" name="arrow-up-fill" color="#000000" size="15"></up-icon>
+						<wd-icon v-if="!showChecked" name="arrow-down-fill" color="#000000" size="15"></wd-icon>
+						<wd-icon v-if="showChecked" name="arrow-up-fill" color="#000000" size="15"></wd-icon>
 					</view>
 				</view>
 				<view v-if="!showChecked" class=" u-border-top flex-row absolute"
@@ -62,7 +62,7 @@
 							客户
 						</view>
 						<view v-if="role==0" class="absolute" style="right: 10px;">
-							<up-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></up-icon>
+							<wd-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></wd-icon>
 						</view>
 					</view>
 					<view @click="role=1;showChecked=false;heig='20vh'"
@@ -73,7 +73,7 @@
 							供应商
 						</view>
 						<view v-if="role==1" class="absolute" style="right: 10px;">
-							<up-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></up-icon>
+							<wd-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></wd-icon>
 						</view>
 					</view>
 				</view>
@@ -99,8 +99,8 @@
 						{{role==0?"客户":"供应商"}}
 					</view>
 					<view class="ml10">
-						<up-icon v-if="!showChecked" name="arrow-down-fill" color="#000000" size="15"></up-icon>
-						<up-icon v-if="showChecked" name="arrow-up-fill" color="#000000" size="15"></up-icon>
+						<wd-icon v-if="!showChecked" name="arrow-down-fill" color="#000000" size="15"></wd-icon>
+						<wd-icon v-if="showChecked" name="arrow-up-fill" color="#000000" size="15"></wd-icon>
 					</view>
 				</view>
 				<view v-if="!showChecked" class=" u-border-top flex-row absolute"
@@ -125,7 +125,7 @@
 							客户
 						</view>
 						<view v-if="role==0" class="absolute" style="right: 10px;">
-							<up-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></up-icon>
+							<wd-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></wd-icon>
 						</view>
 					</view>
 					<view @click="role=1;showChecked=false;heig='20vh'"
@@ -136,7 +136,7 @@
 							供应商
 						</view>
 						<view v-if="role==1" class="absolute" style="right: 10px;">
-							<up-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></up-icon>
+							<wd-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></wd-icon>
 						</view>
 					</view>
 				</view>
@@ -166,8 +166,8 @@
 						{{ role == 0 ? '客户' : '供应商' }}
 					</view>
 					<view class="ml10">
-						<up-icon v-if="!showChecked" name="arrow-down-fill" color="#000000" size="15"></up-icon>
-						<up-icon v-if="showChecked" name="arrow-up-fill" color="#000000" size="15"></up-icon>
+						<wd-icon name="caret-down-small" v-if="!showChecked" size="15" color="#000000"></wd-icon>
+						<wd-icon name="caret-up-small" v-if="showChecked" color="#000000" size="15"></wd-icon>
 					</view>
 				</view>
 				<view v-if="!showChecked" class="u-border-top flex-row" style="width: 100%; height: 7vh" @tap.stop>
@@ -200,7 +200,7 @@
 					>
 						<view>客户</view>
 						<view v-if="role == 0" class="absolute" style="right: 10px">
-							<up-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></up-icon>
+							<wd-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></wd-icon>
 						</view>
 					</view>
 					<view
@@ -218,7 +218,7 @@
 					>
 						<view>供应商</view>
 						<view v-if="role == 1" class="absolute" style="right: 10px">
-							<up-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></up-icon>
+							<wd-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></wd-icon>
 						</view>
 					</view>
 				</view>

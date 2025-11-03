@@ -40,7 +40,7 @@
 						@click="checkboxClick(index)"
 					>
 						<view class="card_people_icon">
-							<up-icon size="90rpx" name="https://res-oss.elist.com.cn/wxImg/vip/jyn.svg"></up-icon>
+							<wd-icon size="90rpx" name="https://res-oss.elist.com.cn/wxImg/vip/jyn.svg"></wd-icon>
 						</view>
 						<view class="card_people_title">
 							<view class="card_people_title_one">
@@ -116,8 +116,8 @@
 						<view class="width40 flex-col pt20" @click="dropdownIcon" style="z-index: 98; height: 100%; text-align: center">
 							<liu-data-select elementId="data-select1" :dataList="dataListAll" @change="dropdown">
 								<view id="data-select1" class="btn-info flex-row justify-left pl30 items-center">
-									<view class="mr10" v-if="selectionIcon"><up-icon name="arrow-down-fill" color="#333333" size="20rpx"></up-icon></view>
-									<view class="mr10" v-else><up-icon name="arrow-up-fill" color="#333333" size="20rpx"></up-icon></view>
+									<view class="mr10" v-if="selectionIcon"><wd-icon name="caret-down-small" size="15" color="#333333"></wd-icon></view>
+									<view class="mr10" v-else><wd-icon name="caret-up-small" color="#333333" size="15"></wd-icon></view>
 									<text>{{ dropdownName || '' }}</text>
 								</view>
 							</liu-data-select>

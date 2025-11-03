@@ -53,7 +53,7 @@
 					@click="$goPath(item.path)"
 				>
 					<view class="ml10 mr10 mt8">
-						<up-icon size="72rpx" :name="item.icon"></up-icon>
+						<wd-icon size="72rpx" :name="item.icon"></wd-icon>
 					</view>
 					<view>
 						<view class="ft36 ft-bold">
@@ -73,11 +73,12 @@
 				</view>
 			</view>
 		</view>
+
 		<view class="bg-white radius12 mt30 ml30 mr30">
 			<view class="flex-row flex-wrap">
 				<view class="flex-col width25 items-center relative" @click="$goPath(listItem.path)" v-for="(listItem, listIndex) in iconlist" :key="listIndex">
 					<view class="mt10">
-						<up-icon size="80rpx" :name="listItem.icon"></up-icon>
+						<wd-icon size="80rpx" :name="listItem.icon"></wd-icon>
 					</view>
 					<text>{{ listItem.title }}</text>
 					<up-badge bgColor="#FA5151" :offset="['12rpx', '50rpx']" absolute :value="listItem.count"></up-badge>
@@ -85,7 +86,6 @@
 			</view>
 			<view class="flex-row justify-center pb20">
 				<up-button hover-class="none" :active="false" :hair-line="false" class="no-shadow-button" :customStyle="buttonStyle" open-type="contact">
-					<!-- <up-icon name="kefu-ermai" size="28rpx"></up-icon> -->
 					<wd-icon name="service" size="28rpx"></wd-icon>
 					<text class="ft28 ml10">客服咨询 ></text>
 				</up-button>
@@ -180,9 +180,9 @@
 					</text>
 					<text>”转发分享进行送货单签收。或者养成开单后立即分享给签收人，提示签字~</text>
 				</view>
-				<view class="flex-row justify-center">
+				<view class="flex-row justify-center mt10">
 					<up-checkbox-group :labelSize="12" activeColor="#01bb74" shape="circle" v-model="unreceivedValue">
-						<up-checkbox label="不再提醒" :name="true" :labelSize="12"></up-checkbox>
+						<up-checkbox label="不再提醒" :name="true" :labelSize="14"></up-checkbox>
 					</up-checkbox-group>
 				</view>
 				<view class="">
@@ -1085,8 +1085,8 @@ export default {
 	justify-content: center;
 }
 ::v-deep .u-checkbox__icon-wrap {
-	width: 24rpx !important;
-	height: 24rpx !important;
+	width: 28rpx !important;
+	height: 28rpx !important;
 }
 .Index {
 	min-height: 100vh;

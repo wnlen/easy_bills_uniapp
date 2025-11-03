@@ -4,11 +4,11 @@
 	<up-tabbar :value="tabIndex" activeColor="#01BB74" @change="changeTab" :placeholder="true" :fixed="true" :safeAreaInsetBottom="true">
 		<up-tabbar-item :text="item.text" v-for="(item, index) in tabbar" :key="index" :badge="index == 2 ? messNum : 0" badgeStyle="background-color:#FA5151;">
 			<template #active-icon>
-				<up-icon size="40rpx" :name="item.selectedIconPath"></up-icon>
+				<wd-icon size="40rpx" :name="item.selectedIconPath"></wd-icon>
 			</template>
 			<template #inactive-icon>
 				<view :id="index == 1 ? 'box4' : ''">
-					<up-icon size="40rpx" :name="item.iconPath"></up-icon>
+					<wd-icon size="40rpx" :name="item.iconPath"></wd-icon>
 				</view>
 			</template>
 		</up-tabbar-item>

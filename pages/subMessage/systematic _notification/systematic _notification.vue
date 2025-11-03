@@ -16,7 +16,7 @@
 					<view class="u-body-item-title u-line-2 mt40" style="color: #01bb74">{{ item.jump.titel }}</view>
 					<view class="" style="float: right">
 						<view class="u-body-item-title u-line-2 mt40">
-							<up-icon name="arrow-right" color="#666666" size="28rpx"></up-icon>
+							<wd-icon name="arrow-right" color="#666666" size="28rpx"></wd-icon>
 						</view>
 					</view>
 				</view>

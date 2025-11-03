@@ -3,7 +3,7 @@
 		<view class="relative flex-col justify-center items-center">
 			<up-image class="" :showLoading="true" :src="src" width="360px" height="360px"></up-image>
 			<view class="absolute" style="top: 5%; right: 10%">
-				<up-icon @click="close" name="close-circle" color="#ffffff" size="40rpx"></up-icon>
+				<wd-icon @click="close" name="close-circle" color="#ffffff" size="40rpx"></wd-icon>
 			</view>
 
 			<view @click="buyRenew" class="absolute flex-row justify-center items-center buttonRenew" style="bottom: 100rpx">

@@ -20,7 +20,8 @@
 					></image>
 				</view>
 				<view v-else class="bg-white pd20 text-center width100 mt30 signeeBox flex-row items-center justify-center" @click="$goPath('/pages/subSignature/signature')">
-					<up-icon label="点击去签名" labelColor="#eee" name="edit-pen" color="#eee"></up-icon>
+					<wd-icon name="edit-1" color="#eee"></wd-icon>
+					<text style="color: #eee" class="ml5">点击去签名</text>
 				</view>
 			</up-form-item>
 		</up-form>

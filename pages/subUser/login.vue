@@ -129,7 +129,7 @@
 				<view class="mt20" style="color: #aaaaaa; font-size: 24rpx; text-align: center">第三方登录</view>
 				<view class="mt10 flex-row justify-center items-center" style="text-align: center">
 					<view class="flex-row justify-center items-center mr30" style="background-color: #01bb74; height: 96rpx; width: 96rpx; border-radius: 50%" @click="wxloginInit">
-						<up-icon name="weixin-fill" color="#fff" size="80rpx" @click="wxloginInit"></up-icon>
+						<albb-icon icon="ydj-weixin-fill" color="#fff" size="80rpx" @click="wxloginInit"></albb-icon>
 					</view>
 					<!-- #ifdef APP-IOS -->
 					<wd-icon name="apple-filled" size="96rpx"></wd-icon>

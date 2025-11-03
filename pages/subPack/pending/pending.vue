@@ -138,7 +138,7 @@
 						</view>
 
 						<view class="flex-col justify-center items-center" style="height: 5vh">
-							<view class="ml40"><up-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></up-icon></view>
+							<view class="ml40"><wd-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></wd-icon></view>
 						</view>
 					</view>
 
@@ -147,7 +147,7 @@
 							<!-- {{showTage==0?"联系人":(showTage==1?"联系号码":showTage==2?(pinia_userRole=='R'?'收货地址':'收货地址'):showTage==3?"产品名称":"条件筛选")}} -->
 							{{ Title }}
 						</text>
-						<view class="ml10 mr10"><up-icon name="arrow-down-fill" size="20rpx"></up-icon></view>
+						<wd-icon name="caret-down-small" size="20px"></wd-icon>
 						<view class="my-input flex-1" v-if="showTage !== '1'">
 							<uv-input border="none" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入关键字进行检索"></uv-input>
 						</view>
@@ -156,7 +156,7 @@
 						</view>
 
 						<view class="flex-col justify-center items-center" style="height: 5vh">
-							<view class="ml40"><up-icon name="/static/img/list/ss.svg" size="45rpx" @click="SearchBtn"></up-icon></view>
+							<view class="ml40"><wd-icon name="/static/img/list/ss.svg" size="45rpx" @click="SearchBtn"></wd-icon></view>
 						</view>
 					</view>
 				</view>
@@ -266,15 +266,8 @@
 									:data-thumb="item.picturesId"
 									:data-id="item.id"
 								>
-									<up-icon
-										top="2rpx"
-										name="share-square"
-										size="25rpx"
-										color="#666666"
-										labelColor="#333333"
-										labelSize="22rpx"
-										:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '有金额转发' : '有金额转发'"
-									></up-icon>
+									<albb-icon icon="ydj-zhuanfa" size="20rpx" color="#666666"></albb-icon>
+									<text class="ft22 ml5">{{ pinia_user.data.work !== '1' && pinia_user.workDate == null ? '有金额转发' : '有金额转发' }}</text>
 								</button>
 							</view>
 							<view class="flex-row justify-center items-center u-border-left u-border-right" style="width: 40%; color: #cccccc">
@@ -287,15 +280,8 @@
 									:data-thumb="item.picturesId"
 									:data-id="item.id"
 								>
-									<up-icon
-										top="2rpx"
-										name="share-square"
-										size="25rpx"
-										color="#666666"
-										labelColor="#333333"
-										labelSize="22rpx"
-										:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '无金额转发' : '无金额转发'"
-									></up-icon>
+									<albb-icon icon="ydj-zhuanfa" size="20rpx" color="#666666"></albb-icon>
+									<text class="ft22 ml5">{{ pinia_user.data.work !== '1' && pinia_user.workDate == null ? '无金额转发' : '无金额转发' }}</text>
 								</button>
 							</view>
 							<view class="flex-row justify-center items-center" style="width: 20%; color: #f76565" @click="shareNY(item, 2)">关闭</view>
@@ -315,28 +301,8 @@
 								:data-id="item.id"
 								:data-versions="'Y'"
 							>
-								<up-icon
-									v-show="OperatingSystem"
-									name="share-square"
-									size="25rpx"
-									v-if="pinia_userRole === 'D' || pinia_userRole === 'R'"
-									color="#666666"
-									labelColor="#333333"
-									labelSize="22rpx"
-									:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发'"
-								></up-icon>
-
-								<!-- <up-icon
-									top="2rpx"
-									v-show="!OperatingSystem"
-									name="share-square"
-									size="25rpx"
-									v-if="pinia_userRole === 'D' || pinia_userRole === 'R'"
-									color="#666666"
-									labelColor="#333333"
-									labelSize="22rpx"
-									:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发'"
-								></up-icon> -->
+								<albb-icon icon="ydj-zhuanfa" size="20rpx" color="#666666"></albb-icon>
+								<text class="ft22 ml5">{{ pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发' }}</text>
 							</button>
 							<button
 								v-if="pinia_userRole === 'R' && pinia_user.workData.identity !== '3' && item.paymentState === '0' && item.lockOrder != 1"
@@ -344,19 +310,8 @@
 								type="default"
 								@click="$goPath('/pages/subOrder/details?id=' + item.id)"
 							>
-								<!-- &&item.lockOrder!=1 -->
-								<up-icon name="order" v-if="OperatingSystem" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="确认签收"></up-icon>
-
-								<up-icon
-									top="2rrpx"
-									name="order"
-									v-if="!OperatingSystem"
-									size="25rpx"
-									color="#666666"
-									labelSize="22rpx"
-									labelColor="#333333"
-									label="确认签收"
-								></up-icon>
+								<wd-icon name="list" size="20rpx" color="#666666"></wd-icon>
+								<text class="ft22 ml5">确认签收</text>
 							</button>
 							<button
 								v-if="pinia_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
@@ -364,19 +319,8 @@
 								type="default"
 								@click="VerifyAdd(item, index, 2)"
 							>
-								<!-- &&item.lockOrder!=1 -->
-								<up-icon v-if="OperatingSystem" name="rmb-circle" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" :label="labText"></up-icon>
-
-								<up-icon
-									top="2rpx"
-									v-if="!OperatingSystem"
-									name="rmb-circle"
-									size="25rpx"
-									color="#666666"
-									labelSize="22rpx"
-									labelColor="#333333"
-									:label="labText"
-								></up-icon>
+								<wd-icon name="money-circle" size="25rpx" color="#666666"></wd-icon>
+								<text class="ft22 ml5">{{ labText }}</text>
 							</button>
 							<button
 								v-if="pinia_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
@@ -384,18 +328,8 @@
 								type="default"
 								@click="VerifyAdd(item, index, 1)"
 							>
-								<!-- &&item.lockOrder!=1 -->
-								<up-icon v-if="OperatingSystem" name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></up-icon>
-								<up-icon
-									v-if="!OperatingSystem"
-									top="2rrpx"
-									name="trash"
-									size="25rpx"
-									color="#666666"
-									labelSize="22rpx"
-									labelColor="#333333"
-									label="删除"
-								></up-icon>
+								<wd-icon name="delete1" size="25rpx" color="#666666"></wd-icon>
+								<text class="ft22 ml5">删除</text>
 							</button>
 						</view>
 					</view>
@@ -428,28 +362,26 @@
 
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
 							<view class="flex-row items-center flex-1">
-								<text class="mr10" style="color: #999999">开始日期</text>
-								<up-icon name="arrow-down-fill" size="10"></up-icon>
+								<text style="color: #999999">开始日期</text>
+								<wd-icon name="caret-down-small" size="20"></wd-icon>
 								<view
 									@click="
 										$refs.calendars.open();
 										timeType = 1;
 									"
-									class="ml14"
 									style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx"
 								>
 									{{ date1 || '开始日期' }}
 								</view>
 							</view>
 							<view class="flex-row items-center flex-1">
-								<text class="mr10" style="color: #999999">结束日期</text>
-								<up-icon name="arrow-down-fill" size="10"></up-icon>
+								<text style="color: #999999">结束日期</text>
+								<wd-icon name="caret-down-small" size="20"></wd-icon>
 								<view
 									@click="
 										$refs.calendars.open();
 										timeType = 2;
 									"
-									class="ml14"
 									style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx"
 								>
 									{{ date2 || '结束日期' }}

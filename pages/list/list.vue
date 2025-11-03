@@ -13,7 +13,7 @@
 								style="border: 2.2rpx solid #01bb74; height: 44rpx; width: 136rpx; border-radius: 8rpx; color: #01bb74; font-size: 22rpx"
 							>
 								<text class="mr6">使用方法</text>
-								<up-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></up-icon>
+								<wd-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></wd-icon>
 							</view>
 						</view>
 					</template>
@@ -73,7 +73,7 @@
 							</template>
 							<template #suffix>
 								<view class="flex-col justify-center items-center ml40">
-									<up-icon name="/static/img/list/lxr.svg" size="46rpx" @click="CustomerGet"></up-icon>
+									<wd-icon name="/static/img/list/lxr.svg" size="46rpx" @click="CustomerGet"></wd-icon>
 								</view>
 							</template>
 						</uv-input>
@@ -101,7 +101,7 @@
 							</template>
 							<template #suffix>
 								<view class="flex-col justify-center items-center">
-									<up-icon name="/static/img/list/ss.svg" size="46rpx" @click="searchListennerConfirm"></up-icon>
+									<wd-icon name="/static/img/list/ss.svg" size="46rpx" @click="searchListennerConfirm"></wd-icon>
 								</view>
 							</template>
 						</uv-input>
@@ -129,7 +129,7 @@
 							</template>
 							<template #suffix>
 								<view class="ml40 flex-col justify-center items-center">
-									<up-icon name="/static/img/list/ss.svg" size="46rpx" @click="searchListennerConfirm"></up-icon>
+									<wd-icon name="/static/img/list/ss.svg" size="46rpx" @click="searchListennerConfirm"></wd-icon>
 								</view>
 							</template>
 						</uv-input>
@@ -204,9 +204,9 @@
 								{{ item.orderNumber }}
 							</text>
 						</text>
-						<up-icon size="28rpx" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></up-icon>
+						<wd-icon size="30rpx" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></wd-icon>
 						<view class="ml15">
-							<up-icon size="28rpx" v-if="item.lockOrder == 1 && item.paymentState != 2" :name="bat64.lock" color="#666666"></up-icon>
+							<wd-icon size="30rpx" v-if="item.lockOrder == 1 && item.paymentState != 2" :name="bat64.lock" color="#666666"></wd-icon>
 						</view>
 					</view>
 					<view class="ml20" style="width: 30%">
@@ -285,15 +285,9 @@
 										:data-id="item.id"
 										:data-versions="'Y'"
 									>
-										<view style="top: 2rpx">
-											<up-icon
-												name="share-square"
-												size="25rpx"
-												color="#666666"
-												labelColor="#333333"
-												labelSize="22rpx"
-												:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '有金额转发' : '有金额转发'"
-											></up-icon>
+										<view>
+											<albb-icon icon="ydj-zhuanfa" size="20rpx" color="#666666"></albb-icon>
+											<text class="ft22 ml5">{{ pinia_user.data.work !== '1' && pinia_user.workDate == null ? '有金额转发' : '有金额转发' }}</text>
 										</view>
 									</button>
 								</view>
@@ -308,15 +302,9 @@
 									:data-id="item.id"
 									:data-versions="'N'"
 								>
-									<view style="top: 2rpx">
-										<up-icon
-											name="share-square"
-											size="25rpx"
-											color="#666666"
-											labelColor="#333333"
-											labelSize="22rpx"
-											:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '无金额转发' : '无金额转发'"
-										></up-icon>
+									<view>
+										<albb-icon icon="ydj-zhuanfa" size="20rpx" color="#666666"></albb-icon>
+										<text class="ft22 ml5">{{ pinia_user.data.work !== '1' && pinia_user.workDate == null ? '无金额转发' : '无金额转发' }}</text>
 									</view>
 								</button>
 							</view>
@@ -338,25 +326,8 @@
 								:data-id="item.id"
 								:data-versions="'Y'"
 							>
-								<up-icon
-									name="share-square"
-									size="25rpx"
-									v-if="OperatingSystem"
-									color="#666666"
-									labelColor="#333333"
-									labelSize="22rpx"
-									:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发'"
-								></up-icon>
-
-								<up-icon
-									name="share-square"
-									size="25rpx"
-									v-if="!OperatingSystem"
-									color="#666666"
-									labelColor="#333333"
-									labelSize="22rpx"
-									:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发'"
-								></up-icon>
+								<albb-icon icon="ydj-zhuanfa" size="20rpx" color="#666666"></albb-icon>
+								<text class="ft22 ml10">{{ pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发' }}</text>
 							</button>
 							<!-- #endif -->
 							<!-- #ifndef MP-WEIXIN -->
@@ -368,14 +339,8 @@
 									shareImg = item.picturesId;
 								"
 							>
-								<up-icon
-									name="share-square"
-									size="25rpx"
-									color="#666666"
-									labelColor="#333333"
-									labelSize="22rpx"
-									:label="pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发'"
-								></up-icon>
+								<albb-icon icon="ydj-zhuanfa" size="20rpx" color="#666666"></albb-icon>
+								<text class="ft22 ml10">{{ pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发' }}</text>
 							</button>
 							<!-- #endif -->
 							<button
@@ -384,11 +349,8 @@
 								type="default"
 								@click="$goPath('/pages/subOrder/details?id=' + item.id)"
 							>
-								<!-- &&item.lockOrder!=1 v-if="OperatingSystem" -->
-								<up-icon name="order" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="确认签收"></up-icon>
-								<!-- <view style="top: 2rpx">
-									<up-icon name="order" v-if="!OperatingSystem" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="确认签收"></up-icon>
-								</view> -->
+								<wd-icon name="list" size="20rpx" color="#666666"></wd-icon>
+								<text class="ft22 ml5">确认签收</text>
 							</button>
 							<button
 								v-if="pinia_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
@@ -397,25 +359,8 @@
 								@click="VerifyAdd(item, index, 2)"
 							>
 								<!-- &&item.lockOrder!=1 -->
-								<up-icon
-									name="rmb-circle"
-									size="25rpx"
-									color="#666666"
-									labelSize="22rpx"
-									labelColor="#333333"
-									:label="userStore.userRole === 'R' ? '确认付款' : '确认收款'"
-								></up-icon>
-								<!-- <view style="top: 2rpx">
-									<up-icon
-										v-if="!OperatingSystem"
-										name="rmb-circle"
-										size="25rpx"
-										color="#666666"
-										labelSize="22rpx"
-										labelColor="#333333"
-										:label="userStore.userRole === 'R' ? '确认付款' : '确认收款'"
-									></up-icon>
-								</view> -->
+								<wd-icon name="money-circle" size="25rpx" color="#666666"></wd-icon>
+								<text class="ft22 ml5">{{ userStore.userRole === 'R' ? '确认付款' : '确认收款' }}</text>
 							</button>
 							<button
 								v-if="pinia_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
@@ -423,9 +368,8 @@
 								type="default"
 								@click="VerifyAdd(item, index, 1)"
 							>
-								<!-- &&item.lockOrder!=1 -->
-								<up-icon name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></up-icon>
-								<!-- <up-icon v-if="!OperatingSystem" name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></up-icon> -->
+								<wd-icon name="delete1" size="25rpx" color="#666666"></wd-icon>
+								<text class="ft22 ml5">删除</text>
 							</button>
 							<button
 								v-if="
@@ -439,17 +383,9 @@
 								type="default"
 								@click="VerifyAdd(item, index, 3)"
 							>
-								<!-- &&item.lockOrder!=1 -->
-								<up-icon name="edit-pen" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="修改"></up-icon>
-								<!-- <up-icon v-if="!OperatingSystem" name="edit-pen" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="修改"></up-icon> -->
+								<wd-icon name="edit-1" size="25rpx" color="#666666"></wd-icon>
+								<text class="ft22 ml5">修改</text>
 							</button>
-							<!-- 							<button class="hl-btn ml20 flex-row items-center justify-center" type="default"
-								@click="VerifyAdd(item, index, 4)">
-								<up-icon v-if="OperatingSystem" name="edit-pen" size="25" color="#666666" labelSize="22"
-									labelColor="#333333" label="通知"></up-icon>
-								<up-icon v-if="!OperatingSystem" top="2rpx" name="edit-pen" size="25" color="#666666"
-									labelSize="22" labelColor="#333333" label="通知"></up-icon>
-							</button> -->
 						</view>
 					</view>
 				</view>
@@ -475,7 +411,7 @@
 							style="border: 2.2rpx solid #01bb74; height: 44rpx; width: 136rpx; border-radius: 8rpx; color: #01bb74; font-size: 22rpx"
 						>
 							<text class="mr6">使用方法</text>
-							<up-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></up-icon>
+							<wd-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></wd-icon>
 						</view>
 					</view>
 				</template>
@@ -503,28 +439,26 @@
 						</text>
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
 							<view class="flex-row items-center flex-1">
-								<text class="mr10" style="color: #999999">开始日期</text>
-								<up-icon name="arrow-down-fill" size="10"></up-icon>
+								<text style="color: #999999">开始日期</text>
+								<wd-icon name="caret-down-small" size="20"></wd-icon>
 								<view
 									@click="
 										calendars.open();
 										timeType = 1;
 									"
-									class="ml14"
 									style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx"
 								>
 									{{ date1 }}
 								</view>
 							</view>
 							<view class="flex-row items-center flex-1">
-								<text class="mr10" style="color: #999999">结束日期</text>
-								<up-icon name="arrow-down-fill" size="10"></up-icon>
+								<text style="color: #999999">结束日期</text>
+								<wd-icon name="caret-down-small" size="20"></wd-icon>
 								<view
 									@click="
 										calendars.open();
 										timeType = 2;
 									"
-									class="ml14"
 									style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx"
 								>
 									{{ date2 }}

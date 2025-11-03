@@ -60,8 +60,8 @@
 						placeholder="请输入密码"
 						class="u-line-1 ml15 endcolor"
 					/>
-					<up-icon v-if="eyePassword" @click="eyePassword = !eyePassword" name="eye-off" color="#01BB74" size="35"></up-icon>
-					<up-icon v-if="!eyePassword" @click="eyePassword = !eyePassword" name="eye-fill" color="#01BB74" size="35"></up-icon>
+					<wd-icon v-if="eyePassword" @click="eyePassword = !eyePassword" name="eye-close" color="#01BB74" size="35rpx"></wd-icon>
+					<wd-icon v-if="!eyePassword" @click="eyePassword = !eyePassword" name="view" color="#01BB74" size="35rpx"></wd-icon>
 				</view>
 			</view>
 			<view class="InputTab">
@@ -75,8 +75,8 @@
 						placeholder="请输入密码"
 						class="u-line-1 ml15 endcolor"
 					/>
-					<up-icon v-if="eyePassword" @click="eyePassword = !eyePassword" name="eye-off" color="#01BB74" size="35"></up-icon>
-					<up-icon v-if="!eyePassword" @click="eyePassword = !eyePassword" name="eye-fill" color="#01BB74" size="35"></up-icon>
+					<wd-icon v-if="eyePassword" @click="eyePassword = !eyePassword" name="eye-close" color="#01BB74" size="35rpx"></wd-icon>
+					<wd-icon v-if="!eyePassword" @click="eyePassword = !eyePassword" name="view" color="#01BB74" size="35rpx"></wd-icon>
 				</view>
 			</view>
 			<view class="buttonTab">
@@ -109,7 +109,7 @@
 			<view class="mt10 flex-row justify-center items-center" style="text-align: center;">
 				<view class="flex-row justify-center items-center"
 					style="background-color: #20C300;height: 120rpx;width: 120rpx;border-radius: 50%;">
-					<up-icon name="weixin-fill" color="#ffffff" size="100"></up-icon>
+					<albb-icon icon="ydj-weixin-fill" color="#ffffff" size="100"></albb-icon>
 				</view>
 
 			</view>

@@ -94,59 +94,59 @@
 
 					<view class="pd20 black-border-top black-border-left black-border-right">
 						<view class="flex-row" style="font-family: Alike Angular">
-							<up-icon size="50rpx" name="https://res-oss.elist.com.cn/wxImg/order/number.svg"></up-icon>
+							<wd-icon size="50rpx" name="https://res-oss.elist.com.cn/wxImg/order/number.svg"></wd-icon>
 							<text class="ml10 mt10" style="color: #fa5151; font-size: 30rpx">{{ post.orderNumber || '' }}</text>
 						</view>
 						<view class="flex-row mt13 xqcss">
 							<view class="">发货日期：</view>
-							<view class="yrd mt5">{{ $u.timeFormat(post.creationTime, 'yyyy-mm-dd') || '' }}</view>
+							<view class="yrd">{{ $u.timeFormat(post.creationTime, 'yyyy-mm-dd') || '' }}</view>
 						</view>
 						<view class="flex-row mt13 xqcss">
 							<view class="">购货单位：</view>
-							<view class="yrd mt5">
+							<view class="yrd">
 								{{ post.organizationE || '' }}
 							</view>
 						</view>
 						<view class="flex-row mt13 xqcss">
 							<view class="">联系人：</view>
-							<text class="yrd mt5">{{ post.kTakeE || '' }}</text>
+							<text class="yrd">{{ post.kTakeE || '' }}</text>
 						</view>
 						<view class="flex-row mt13 xqcss">
 							<view class="">联系电话：</view>
-							<text class="yrd mt5">{{ post.kPhoneE || '' }}</text>
+							<text class="yrd">{{ post.kPhoneE || '' }}</text>
 						</view>
 						<view class="flex-row mt13 xqcss">
 							<view class="">收货地址：</view>
-							<text class="yrd mt5">{{ post.kSiteE || '' }}</text>
+							<text class="yrd">{{ post.kSiteE || '' }}</text>
 						</view>
 						<view class="" v-if="uni.$u.getPinia('user.customized') || orderisCustomized">
 							<view class="flex-row mt13 xqcss">
 								<view class="">项目名称：</view>
-								<text class="yrd mt5">{{ post.projectName || '' }}</text>
+								<text class="yrd">{{ post.projectName || '' }}</text>
 							</view>
 							<view class="flex-row mt13 xqcss">
 								<view class="">物流单位：</view>
-								<text class="yrd mt5">{{ post.logisticsCompany || '' }}</text>
+								<text class="yrd">{{ post.logisticsCompany || '' }}</text>
 							</view>
 							<view class="flex-row mt13 xqcss">
 								<view class="">车次：</view>
-								<text class="yrd mt5">{{ post.transportBatchNo || '' }}</text>
+								<text class="yrd">{{ post.transportBatchNo || '' }}</text>
 							</view>
 							<view class="flex-row mt13 xqcss">
 								<view class="">承运人：</view>
-								<text class="yrd mt5">{{ post.carrierName || '' }}</text>
+								<text class="yrd">{{ post.carrierName || '' }}</text>
 							</view>
 							<view class="flex-row mt13 xqcss">
 								<view class="">车牌号：</view>
-								<text class="yrd mt5">{{ post.plateNo || '' }}</text>
+								<text class="yrd">{{ post.plateNo || '' }}</text>
 							</view>
 							<view class="flex-row mt13 xqcss">
 								<view class="">车型：</view>
-								<text class="yrd mt5">{{ post.vehicleType || '' }}</text>
+								<text class="yrd">{{ post.vehicleType || '' }}</text>
 							</view>
 							<view class="flex-row mt13 xqcss">
 								<view class="">司机电话：</view>
-								<text class="yrd mt5">{{ post.driverPhone || '' }}</text>
+								<text class="yrd">{{ post.driverPhone || '' }}</text>
 							</view>
 						</view>
 					</view>

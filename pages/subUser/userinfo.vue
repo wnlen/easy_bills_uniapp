@@ -9,7 +9,7 @@
 						class="absolute flex-col justify-center items-center"
 						style="border-radius: 50%; width: 50rpx; height: 50rpx; background-color: #f4f4f4; z-index: 9999; right: 0; bottom: 10rpx"
 					>
-						<up-icon name="camera" color="#333333" size="30rpx"></up-icon>
+						<wd-icon name="camera" color="#333333" size="30rpx"></wd-icon>
 					</view>
 				</view>
 			</button>
@@ -30,7 +30,7 @@
 						placeholder="输入姓名"
 						@blur="onNickname"
 					/>
-					<up-icon name="arrow-right" color="#ccc" @click="userInfoNickNameFocus = true"></up-icon>
+					<wd-icon name="arrow-right" color="#ccc" @click="userInfoNickNameFocus = true"></wd-icon>
 				</view>
 			</view>
 			<view class="flex-row pt35 pb35 u-border-bottom items-center justify-between">
@@ -46,7 +46,7 @@
 						<view class="flex-row justify-end items-center flex-1">
 							<text>{{ array[gender] || '请选择' }}</text>
 							<view class="ml3">
-								<up-icon name="arrow-right" color="#ccc"></up-icon>
+								<wd-icon name="arrow-right" color="#ccc"></wd-icon>
 							</view>
 						</view>
 					</picker>

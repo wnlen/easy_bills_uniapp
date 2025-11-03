@@ -1,7 +1,7 @@
 <template>
 	<view class="page-container">
 		<view class="return_icon" @click="return_page">
-			<uv-icon name="arrow-left" size="18" color="#333333"></uv-icon>
+			<wd-icon name="arrow-left" size="18" color="#333333"></wd-icon>
 		</view>
 		<view class="top-img">
 			<image class="banner" src="https://res-oss.elist.com.cn/advertising/wenjuan_backgroundT.png" mode="widthFix"></image>
@@ -91,7 +91,7 @@
 			</view>
 			<view class="Note">注：仅可领取一次，主体下多成员的累积领取至多四次</view>
 			<view class="btn_submit">
-				<wd-button type="warning"  @click="submit" :customStyle="btn_submitStyle">提交</wd-button>
+				<wd-button type="warning" @click="submit" :customStyle="btn_submitStyle">提交</wd-button>
 			</view>
 			<up-toast ref="uToast1" />
 		</view>

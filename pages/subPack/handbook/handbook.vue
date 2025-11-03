@@ -9,7 +9,8 @@
 
 				<view class="cardOneIcon flex-row justify-center items-center" v-for="(item, index) in iconList.cardOne" :key="index">
 					<view class="item" v-for="(item2, index2) in item" :key="index2">
-						<up-icon @click="jump(item2)" labelPos="bottom" :label="item2.name" :name="item2.icon" size="90rpx"></up-icon>
+						<wd-icon @click="jump(item2)" :name="item2.icon" size="90rpx"></wd-icon>
+						<view class="">{{ item2.name }}</view>
 					</view>
 				</view>
 			</view>
@@ -19,7 +20,8 @@
 
 				<view class="cardOneIcon flex-row justify-center items-center" v-for="(item, index) in iconList.cardTowS" :key="index">
 					<view class="item" v-for="(item2, index2) in item" :key="index2">
-						<up-icon @click="jump(item2)" labelPos="bottom" :label="item2.name" :name="item2.icon" size="90rpx"></up-icon>
+						<wd-icon @click="jump(item2)" :name="item2.icon" size="90rpx"></wd-icon>
+						<view class="">{{ item2.name }}</view>
 					</view>
 				</view>
 			</view>
@@ -29,7 +31,8 @@
 
 				<view class="cardOneIcon flex-row justify-center items-center" v-for="(item, index) in iconList.cardTowF" :key="index">
 					<view class="item" v-for="(item2, index2) in item" :key="index2">
-						<up-icon @click="jump(item2)" labelPos="bottom" :label="item2.name" :name="item2.icon" size="90rpx"></up-icon>
+						<wd-icon @click="jump(item2)" :name="item2.icon" size="90rpx"></wd-icon>
+						<view class="">{{ item2.name }}</view>
 					</view>
 				</view>
 			</view>
@@ -39,7 +42,8 @@
 
 				<view class="cardOneIcon flex-row justify-center items-center" v-for="(item, index) in iconList.cardThree" :key="index">
 					<view class="item" v-for="(item2, index2) in item" :key="index2">
-						<up-icon @click="jump(item2)" labelPos="bottom" :label="item2.name" :name="item2.icon" size="90rpx"></up-icon>
+						<wd-icon @click="jump(item2)" :name="item2.icon" size="90rpx"></wd-icon>
+						<view class="">{{ item2.name }}</view>
 					</view>
 				</view>
 			</view>
@@ -311,7 +315,9 @@ export default {
 	/* border: 2rpx solid #ccc; */
 	box-sizing: border-box;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	color: rgb(96, 98, 102);
 }
 </style>

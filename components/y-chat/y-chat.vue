@@ -136,7 +136,7 @@
 					<up-icon
 						:customStyle="{ padding: '0 10rpx' }"
 						:size="iconSize"
-						name="plus"
+						name="add"
 						@click="showHideBox"
 						:class="!sendVal ? 'width_to_mini' : 'fade_show'"
 						v-if="!sendVal"
@@ -157,7 +157,7 @@
 					<up-transition :show="!sendVal">
 						<view style="padding: 0 10rpx"></view>
 
-						<up-icon :size="iconSize" name="plus" @click="showHideBox" v-if="!sendVal"></up-icon>
+						<up-icon :size="iconSize" name="add" @click="showHideBox" v-if="!sendVal"></up-icon>
 					</up-transition>
 					<up-transition :show="sendVal">
 						<button

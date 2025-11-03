@@ -23,7 +23,7 @@
 								style="border: 2.2rpx solid #01bb74; height: 44rpx; width: 136rpx; border-radius: 8rpx; color: #01bb74; font-size: 22rpx"
 							>
 								<text class="mr6">使用方法</text>
-								<up-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></up-icon>
+								<wd-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></wd-icon>
 							</view>
 						</view>
 					</template>
@@ -39,7 +39,7 @@
 							class="filter-btn flex-row justify-center items-center"
 							:class="{ active: index == tagIndex }"
 						>
-							<up-icon v-if="item.key == false" size="35rpx" name="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/vip/vip.svg"></up-icon>
+							<wd-icon v-if="item.key == false" size="35rpx" name="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/vip/vip.svg"></wd-icon>
 							{{ item.value }}
 						</view>
 					</view>
@@ -113,18 +113,18 @@
 							</view>
 
 							<div class="flex-col justify-center items-center" style="height: 5vh">
-								<up-icon class="ml48" name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></up-icon>
+								<wd-icon class="ml48" name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></wd-icon>
 							</div>
 						</div>
 					</div>
 
 					<div class="flex-row items-center radius pr20 mr10 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%">
 						<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
-							<text class="ft11 ft-gray ml36 mr10" @click="filtrateGet">
+							<text class="ft11 ft-gray ml36" @click="filtrateGet">
 								{{ Title }}
 							</text>
-							<up-icon name="arrow-down-fill" size="10"></up-icon>
-							<view class="my-input flex-1 ml10" v-if="showTage != '1'">
+							<wd-icon name="caret-down-small" size="20"></wd-icon>
+							<view class="my-input flex-1" v-if="showTage != '1'">
 								<uv-input border="none" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入关键字进行检索"></uv-input>
 							</view>
 							<view class="ml10 my-input flex-1" v-if="showTage == '1'">
@@ -132,7 +132,7 @@
 							</view>
 
 							<div class="flex-col justify-center items-center" style="height: 5vh">
-								<up-icon class="ml48" name="/static/img/list/ss.svg" size="45rpx"></up-icon>
+								<wd-icon class="ml48" name="/static/img/list/ss.svg" size="45rpx"></wd-icon>
 							</div>
 						</div>
 					</div>
@@ -367,7 +367,7 @@
 								style="border: 2.2rpx solid #01bb74; height: 44rpx; width: 136rpx; border-radius: 8rpx; color: #01bb74; font-size: 22rpx"
 							>
 								<text class="mr6">使用方法</text>
-								<up-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></up-icon>
+								<wd-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></wd-icon>
 							</view>
 						</view>
 					</template>
@@ -389,28 +389,26 @@
 						</text>
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
 							<view class="flex-row items-center flex-1">
-								<text class="mr10" style="color: #999999">开始日期</text>
-								<up-icon name="arrow-down-fill" size="10"></up-icon>
+								<text style="color: #999999">开始日期</text>
+								<wd-icon name="caret-down-small" size="20"></wd-icon>
 								<view
 									@click="
 										$refs.calendars.open();
 										timeType = 1;
 									"
-									class="ml14"
 									style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx"
 								>
 									{{ date1 || '开始日期' }}
 								</view>
 							</view>
 							<view class="flex-row items-center flex-1">
-								<text class="mr10" style="color: #999999">结束日期</text>
-								<up-icon name="arrow-down-fill" size="10"></up-icon>
+								<text style="color: #999999">结束日期</text>
+								<wd-icon name="caret-down-small" size="20"></wd-icon>
 								<view
 									@click="
 										$refs.calendars.open();
 										timeType = 2;
 									"
-									class="ml14"
 									style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx"
 								>
 									{{ date2 || '结束日期' }}

@@ -68,7 +68,7 @@
 							</view>
 
 							<view class="flex-col justify-center items-center" style="height: 5vh">
-								<view class="ml40"><up-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></up-icon></view>
+								<view class="ml40"><wd-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></wd-icon></view>
 							</view>
 						</view>
 
@@ -76,7 +76,7 @@
 							<text class="ft11 ft-gray ml20" @click="filtrateGet">
 								{{ Title }}
 							</text>
-							<view class="ml10 mr10"><up-icon name="arrow-down-fill" size="20rpx"></up-icon></view>
+							<wd-icon name="caret-down-small" size="20px"></wd-icon>
 							<view class="my-input flex-1" v-if="showTage !== '1'">
 								<uv-input border="none" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入关键字进行检索"></uv-input>
 							</view>
@@ -95,7 +95,8 @@
 			</template>
 			<template #empty>
 				<view style="padding-bottom: 200rpx">
-					<up-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180"></up-icon>
+					<wd-icon :name="ImgUrl + '/wxImg/list/empty.svg'" size="180"></wd-icon>
+					<view class="text-center ft-lightgray">暂无记录</view>
 				</view>
 			</template>
 			<view
@@ -281,49 +282,32 @@
 
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
 							<view class="flex-row items-center" style="width: 50%">
-								<text class="mr10" style="color: #999999">开始日期</text>
-								<up-icon name="arrow-down-fill" size="10"></up-icon>
+								<text style="color: #999999">开始日期</text>
+								<wd-icon name="caret-down-small" size="20"></wd-icon>
 								<view
 									@click="
 										$refs.calendars.open();
 										timeType = 1;
 									"
-									class="ml24"
 									style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;"
 								>
 									{{ date1 || '开始日期' }}
 								</view>
 							</view>
 							<view class="flex-row items-center" style="width: 50%">
-								<text class="mr10 ml20" style="color: #999999">结束日期</text>
-								<up-icon name="arrow-down-fill" size="10"></up-icon>
+								<text class="ml20" style="color: #999999">结束日期</text>
+								<wd-icon name="caret-down-small" size="20"></wd-icon>
 								<view
 									@click="
 										$refs.calendars.open();
 										timeType = 2;
 									"
-									class="ml24"
 									style="border-box;border: 1rpx solid #999999;padding: 12rpx;border-radius: 6rpx;"
 								>
 									{{ date2 || '结束日期' }}
 								</view>
 							</view>
 						</view>
-						<!-- 
-						<view class="flex-row items-center justify-between mt10 vw100">
-							<view class="flex-row items-center">
-								<text class="mr10" style="color: #999999;">开始日期</text>
-								<up-icon name="arrow-down-fill" size="10"></up-icon>
-								<input @click="calendar1Show=true" disabled class="ml24"
-									style="box-sizing: border-box;border: 1rpx solid #999999;width: 20%;border-radius: 6rpx;height: 60rpx;align-items: center;text-align: center;"
-									type="text" placeholder=" 开始日期" v-model="date1" />
-								<text class="mr10 ml20" style="color: #999999;">结束日期</text>
-								<up-icon name="arrow-down-fill" size="10"></up-icon>
-								<input @click="calendar2Show=true" disabled class="ml24"
-									style="box-sizing: border-box;border: 1rpx solid #999999;width: 20%;border-radius: 6rpx;height: 60rpx;align-items: center;text-align: center;"
-									type="text" placeholder=" 结束日期" v-model="date2" />
-							</view>
-						</view> -->
 
 						<view class="mt40">
 							<text
