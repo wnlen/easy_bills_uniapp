@@ -183,7 +183,7 @@
 					</view>
 
 					<view class="pd20 black-border-top black-border-left black-border-right">
-						<view class="flex-row" style="font-family: ddbh">
+						<view class="flex-row" style="font-family: Alike Angular">
 							<up-icon size="50rpx" name="https://res-oss.elist.com.cn/wxImg/order/number.svg"></up-icon>
 							<text class="ml10 mt10" style="color: #fa5151; font-size: 30rpx">{{ post.orderNumber || '' }}</text>
 						</view>
@@ -429,7 +429,12 @@
 				<view class="fixed-bar" style="background: none">
 					<view class="pl30 pr30 pb30 flex-row justify-between items-center">
 						<view v-if="pinia_user.workData.identity != '3' && post.lockOrder != 1" class="flex-row flex-1 items-center">
-							<wd-button :customStyle="{ width: '100%' }" v-if="LookShar == 'F' && post.paymentState == '0' && workState" @click="onConfirm" :disabled="post.paymentState != '0'">
+							<wd-button
+								:customStyle="{ width: '100%' }"
+								v-if="LookShar == 'F' && post.paymentState == '0' && workState"
+								@click="onConfirm"
+								:disabled="post.paymentState != '0'"
+							>
 								确认签收
 							</wd-button>
 						</view>

@@ -162,18 +162,18 @@ export default {
 @import 'static/common/css/base.scss';
 
 @font-face {
-	font-family: 'ddbh';
-	src: url('https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/font/DDBH.ttf') format('truetype');
+	font-family: '杨任东竹石体';
+	src: url('https://wxapi.elist.com.cn/fonts/%E6%9D%A8%E4%BB%BB%E4%B8%9C%E7%AB%B9%E7%9F%B3%E4%BD%93-Semibold.ttf') format('truetype');
 }
 
 @font-face {
-	font-family: 'ysdzt';
-	src: url('https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/font/YSDZT.ttf') format('truetype');
+	font-family: 'Alike Angular';
+	src: url('https://wxapi.elist.com.cn/fonts/DDBH.ttf') format('truetype');
 }
 
 @font-face {
-	font-family: 'syst';
-	src: url('https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/font/syst.ttf') format('truetype');
+	font-family: '思源宋体';
+	src: url('https://wxapi.elist.com.cn/fonts/syst.ttf') format('truetype');
 }
 /* #ifdef APP */
 ::v-deep a {

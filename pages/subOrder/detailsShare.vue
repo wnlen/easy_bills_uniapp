@@ -93,7 +93,7 @@
 					</view>
 
 					<view class="pd20 black-border-top black-border-left black-border-right">
-						<view class="flex-row" style="font-family: ddbh">
+						<view class="flex-row" style="font-family: Alike Angular">
 							<up-icon size="50rpx" name="https://res-oss.elist.com.cn/wxImg/order/number.svg"></up-icon>
 							<text class="ml10 mt10" style="color: #fa5151; font-size: 30rpx">{{ post.orderNumber || '' }}</text>
 						</view>
@@ -305,7 +305,7 @@
 				<view class="fixed-bar">
 					<view class="pl30 pr30 pb30 flex-row justify-between items-center">
 						<view v-if="LookBtn == 'Y' && post.paymentState == '0' && post.lockOrder != 1" class="flex-row flex-1 items-center">
-							<wd-button :customStyle="{ width: '100%' }"  @click="onConfirm">确认签收</wd-button>
+							<wd-button :customStyle="{ width: '100%' }" @click="onConfirm">确认签收</wd-button>
 						</view>
 					</view>
 				</view>
@@ -1144,7 +1144,7 @@ export default {
 	white-space: nowrap;
 	animation: typing 0.5s forwards;
 	// font-size:32rpx;
-	// font-family: 'ysdzt', Arial, sans-serif;
+	// font-family: '杨任东竹石体', Arial, sans-serif;
 	padding-top: 12rpx;
 	color: #8f3e04;
 }
