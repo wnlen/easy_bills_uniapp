@@ -57,15 +57,15 @@
 								<!-- 此层wrap在此为必写的，否则可能会出现标题定位错误 -->
 								<view class="u-body-item u-flex u-row-between u-p-b-0 justify-between">
 									<view class="flex-row justify-center items-center" v-if="item.genre == 'D'">
-										<up-icon name="https://res-oss.elist.com.cn/wxImg/index/del.svg" size="40rpx"></up-icon>
+										<wd-icon name="https://res-oss.elist.com.cn/wxImg/index/del.svg" size="40rpx"></wd-icon>
 										<text class="ml20" style="font-size: 32rpx; font-weight: bold">删除申请</text>
 									</view>
 									<view class="flex-row justify-center items-center" v-if="item.genre == 'P'">
-										<up-icon name="https://res-oss.elist.com.cn/wxImg/index/play.svg" size="40rpx"></up-icon>
+										<wd-icon name="https://res-oss.elist.com.cn/wxImg/index/play.svg" size="40rpx"></wd-icon>
 										<text class="ml20" style="font-size: 32rpx; font-weight: bold">确认付款申请</text>
 									</view>
 									<div>
-										<wd-button size="small" :customStyle="customStyle"  @click="clickApply(item)">同意</wd-button>
+										<wd-button size="small" :customStyle="customStyle" @click="clickApply(item)">同意</wd-button>
 									</div>
 								</view>
 								<view class="">
@@ -129,7 +129,7 @@
 								</view>
 								<view class="u-body-item u-flex u-row-between u-p-b-0 u-border-top items-center justify-between" @click="jumpDetails(item)">
 									<view class="u-body-item-title u-line-0 mt15" style="color: #01bb74">查看订单</view>
-									<view class="u-body-item-title u-line-1 mt15"><up-icon name="arrow-right" color="#666666" size="28rpx"></up-icon></view>
+									<view class="u-body-item-title u-line-1 mt15"><wd-icon name="arrow-right" color="#666666" size="28rpx"></wd-icon></view>
 								</view>
 							</view>
 						</view>

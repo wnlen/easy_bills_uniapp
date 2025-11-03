@@ -17,8 +17,9 @@
 				height="16vh"
 				width="34vw"
 			>
-				<view class="">
-					<up-icon name="plus-circle-fill" space="16rpx" color="#01BB74" size="50rpx" label="添加图片" labelPos="bottom" />
+				<view class="flex-col items-center justify-center">
+					<wd-icon name="add-circle" color="#01BB74" size="50rpx" />
+					<view class="mt15">添加图片</view>
 				</view>
 			</up-upload>
 		</view>

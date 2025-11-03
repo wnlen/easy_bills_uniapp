@@ -1,6 +1,6 @@
 <template>
 	<view class="applyAffirm">
-		<up-icon size="250rpx" :name="ImgUrl + '/wxImg/user/unsubscribeApplyImg02.png'"></up-icon>
+		<wd-icon size="250rpx" :name="ImgUrl + '/wxImg/user/unsubscribeApplyImg02.png'"></wd-icon>
 
 		<view class="applyAffirmTitle">账号注销中</view>
 		<text class="applyAffirmText">账户预计在7天内完成数据清除，完</text>

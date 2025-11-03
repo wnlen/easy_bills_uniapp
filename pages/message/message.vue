@@ -29,7 +29,7 @@
 				<view class="">
 					<up-swipe-action :show="item.show" :index="index" v-for="(item, index) in list" :key="index" @click="click" disabled :options="options">
 						<view class="item u-border-bottom relative" v-show="item.number > 0" v-if="item.ifwork && showMess && ifShow()">
-							<view class="mr30"><up-icon :name="ImgUrl + item.images" size="100rpx"></up-icon></view>
+							<view class="mr30"><wd-icon :name="ImgUrl + item.images" size="100rpx"></wd-icon></view>
 
 							<view class="title-wrap flex-col" style="background-color: #ffffff; width: 80%" @click="jumpChat(item.name, item.images, item)">
 								<view class="flex-row" style="width: 100%">

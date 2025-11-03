@@ -23,7 +23,7 @@
 				></up-navbar>
 				<view class="ml24 mr24 flex-row items-center justify-center pb30">
 					<view class="flex-row items-center justify-center pl20 pr10" style="background: #ffffff; border-radius: 254rpx; width: 75%; height: 60rpx">
-						<up-icon name="search" color="#01BB74" size="40rpx"></up-icon>
+						<wd-icon name="search" color="#01BB74" size="40rpx"></wd-icon>
 						<uv-input
 							:customStyle="{
 								backgroundColor: 'transparent',
@@ -49,8 +49,8 @@
 			>
 				<wd-button
 					iconColor="#ECFFF9"
-						:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent', color: '#01BB74' }"
-						:plain="true"
+					:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent', color: '#01BB74' }"
+					:plain="true"
 					@click="jumpAddCommodity"
 				>
 					<text>去添加</text>
@@ -76,7 +76,7 @@
 						style="width: 280rpx; height: 80rpx; border-radius: 338.4rpx; box-sizing: border-box; border: 3rpx solid #01bb74"
 					>
 						<view class="absolute">
-							<up-icon label="添加商品" labelColor="#01BB74" name="plus" color="#01BB74" size="30rpx"></up-icon>
+							<wd-icon label="添加商品" labelColor="#01BB74" name="add" color="#01BB74" size="30rpx"></wd-icon>
 						</view>
 					</view>
 				</view>
@@ -112,7 +112,7 @@
 			<template #bottom>
 				<view class="bottomCard">
 					<view class="relative pd10" id="box2">
-						<up-icon name="https://res-oss.elist.com.cn/wxImg/order/merchandiseInventory.png" size="110rpx" @click="AlertCard"></up-icon>
+						<wd-icon name="https://res-oss.elist.com.cn/wxImg/order/merchandiseInventory.png" size="110rpx" @click="AlertCard"></wd-icon>
 						<up-badge absolute bgColor="#FA5151" :value="orderItemList.length" :offset="['0rpx', '-20rpx']"></up-badge>
 					</view>
 
@@ -161,7 +161,7 @@
 										<view class="u-border-bottom flex-1">
 											<input type="digit" v-model="item.quantity" maxlength="10" placeholder="请输入" @input="calculate" />
 										</view>
-										<up-icon
+										<wd-icon
 											color="#999"
 											size="36rpx"
 											name="close-circle"
@@ -169,7 +169,7 @@
 												item.quantity = '';
 												calculate();
 											"
-										></up-icon>
+										></wd-icon>
 									</view>
 								</up-td>
 								<up-td>{{ item.unit }}</up-td>
@@ -186,7 +186,7 @@
 											/>
 											<input type="digit" v-else v-model="item.unitPrice" maxlength="10" @input="calculate" placeholder="请输入" />
 										</view>
-										<up-icon
+										<wd-icon
 											color="#999"
 											size="36rpx"
 											name="close-circle"
@@ -195,7 +195,7 @@
 												item.unitPrice = '';
 												calculate();
 											"
-										></up-icon>
+										></wd-icon>
 									</view>
 								</up-td>
 								<up-td width="200rpx">
@@ -213,7 +213,7 @@
 					<template #bottom>
 						<view class="bottomCard">
 							<view class="relative">
-								<up-icon name="https://res-oss.elist.com.cn/wxImg/order/merchandiseInventory.png" size="110rpx" @click="closeOpen"></up-icon>
+								<wd-icon name="https://res-oss.elist.com.cn/wxImg/order/merchandiseInventory.png" size="110rpx" @click="closeOpen"></wd-icon>
 								<up-badge absolute bgColor="#FA5151" :value="orderItemList.length" :offset="['0rpx', '-20rpx']"></up-badge>
 							</view>
 							<text class="ml12">
@@ -221,7 +221,7 @@
 								<text style="color: #01bb74" v-if="uni.$u.getPinia('user.customized')">{{ totalPrices }}</text>
 								<text style="color: #01bb74" v-else>￥{{ formatAmount(totalPrices) }}</text>
 							</text>
-							<wd-button :customStyle="bottomCustomStyle"  @click="closeOpen">保存</wd-button>
+							<wd-button :customStyle="bottomCustomStyle" @click="closeOpen">保存</wd-button>
 						</view>
 					</template>
 				</z-paging>

@@ -39,7 +39,7 @@
 					v-if="1 == 2"
 					style="height: 6vh; background: rgba(1, 187, 116, 0.05); border-radius: 12rpx; position: relative; padding-left: 20rpx"
 				>
-					<up-icon class="ml20" :name="ImgUrl + '/wxImg/user/sfz.svg'" size="30"></up-icon>
+					<wd-icon class="ml20" :name="ImgUrl + '/wxImg/user/sfz.svg'" size="30"></wd-icon>
 					<text class="ml15" style="font-weight: 500; color: #333333">身份证认证</text>
 					<button
 						class="ml48 mr20 flex-col justify-center"
@@ -62,7 +62,7 @@
 				</view>
 				<!-- 				<view class="flex-row items-center card ml24 mr24 flex-row mb18"
 					style="width: 93%;height: 6vh;background: rgba(1, 187, 116, 0.05);border-radius: 12rpx;position: relative; ">
-					<up-icon class="ml20" name="/static/img/auth/rl.svg" size="30"></up-icon>
+					<wd-icon class="ml20" name="/static/img/auth/rl.svg" size="30"></wd-icon>
 					<text class="ml15" style="font-weight: 500;color: #333333;">人脸认证</text>
 					<button class="ml48 mr20 flex-col justify-center" shape="circle" @click="jump(2)"
 						style="background-color: #01BB74;color: white;width: 120rpx;height: 60rpx;font-size: 20rpx;align-items: center;position: absolute;right: 0;border-radius: 434rpx;">去认证</button>
@@ -80,7 +80,7 @@
 						padding-left: 20rpx;
 					"
 				>
-					<up-icon class="ml20" :name="ImgUrl + '/wxImg/user/qyrz.png'" size="45"></up-icon>
+					<wd-icon class="ml20" :name="ImgUrl + '/wxImg/user/qyrz.png'" size="45"></wd-icon>
 					<text class="ml15" style="font-weight: 500; color: #333333">公司资料</text>
 					<button
 						v-if="btnqy == 0"

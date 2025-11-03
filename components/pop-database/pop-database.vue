@@ -3,7 +3,7 @@
 		<view class="relative flex-col justify-center items-center" style="height: 100%; width: 100%">
 			<up-image class="" :lazy-load="true" :showLoading="true" :src="src" width="720rpx" height="720rpx"></up-image>
 			<view class="absolute" style="top: 5%; right: 10%">
-				<up-icon @click="close" name="close-circle" color="#ffffff" size="40rpx"></up-icon>
+				<wd-icon @click="close" name="close-circle" color="#ffffff" size="40rpx"></wd-icon>
 			</view>
 			<view class="absolute flex-row justify-center items-center mt30" style="width: 100%; height: 240rpx">
 				<view class="mr15 tab flex-col justify-center items-center" :style="{ backgroundColor: year == 1 ? '#FDF7ED' : '#FFFFFF' }" @click="orderInit('A1')">
@@ -14,7 +14,7 @@
 				</view>
 				<view class="ml15 tab flex-col justify-center items-center" :style="{ backgroundColor: year == 2 ? '#FDF7ED' : '#FFFFFF' }" @click="orderInit('A2')">
 					<view style="position: absolute; top: -4rpx">
-						<up-icon name="https://res-oss.elist.com.cn/wxImg/order/tj.png" width="120rpx" height="30rpx"></up-icon>
+						<wd-icon name="https://res-oss.elist.com.cn/wxImg/order/tj.png" width="120rpx" height="30rpx"></wd-icon>
 					</view>
 
 					<text class="t1">{{ productCode[1] ? productCode[1].product : '' }}</text>

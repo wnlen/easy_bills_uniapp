@@ -26,7 +26,7 @@
 						{{ pinia_user.data.name }}
 						<view class="width100 flex-row justify-center items-center">
 							<view class="flex-row justify-center items-center">
-								<up-icon name="phone" color="#AAAAAA" size="28rpx"></up-icon>
+								<wd-icon name="phone" color="#AAAAAA" size="28rpx"></wd-icon>
 							</view>
 							<view class="ml2 ft14" style="color: #aaaaaa; font-weight: 400">
 								{{ pinia_user.phone }}
@@ -43,38 +43,17 @@
 			</view>
 			<view class="cardThree">
 				<view class="flex-row justify-center items-center" style="">
-					<view class="icon">
-						<up-icon
-							name="https://res-oss.elist.com.cn/wxImg/user/bc.svg"
-							size="130rpx"
-							label="保存"
-							margin-top="20"
-							labelPos="bottom"
-							labelColor="#ffffff"
-							@click="uiconGet('1')"
-						></up-icon>
+					<view class="icon" @click="uiconGet('1')">
+						<wd-icon name="https://res-oss.elist.com.cn/wxImg/user/bc.svg" size="130rpx"></wd-icon>
+						<view class="ft-white text-center">保存</view>
 					</view>
-					<view class="icon">
-						<up-icon
-							name="https://res-oss.elist.com.cn/wxImg/user/sys.svg"
-							size="130rpx"
-							label="扫一扫"
-							margin-top="20"
-							labelPos="bottom"
-							labelColor="#ffffff"
-							@click="uiconGet('2')"
-						></up-icon>
+					<view class="icon" @click="uiconGet('2')">
+						<wd-icon name="https://res-oss.elist.com.cn/wxImg/user/sys.svg" size="130rpx"></wd-icon>
+						<view class="ft-white text-center">扫一扫</view>
 					</view>
-					<view class="icon">
-						<up-icon
-							name="https://res-oss.elist.com.cn/wxImg/user/fx.svg"
-							size="130rpx"
-							label="分享"
-							margin-top="20"
-							labelPos="bottom"
-							labelColor="#ffffff"
-							@click="uiconGet('3')"
-						></up-icon>
+					<view class="icon" @click="uiconGet('3')">
+						<wd-icon name="https://res-oss.elist.com.cn/wxImg/user/fx.svg" size="130rpx"></wd-icon>
+						<view class="ft-white text-center">分享</view>
 					</view>
 				</view>
 			</view>
@@ -102,8 +81,8 @@
 						{{ role == 1 ? '客户' : '供应商' }}
 					</view>
 					<view class="ml10">
-						<up-icon v-if="!showChecked" name="arrow-down-fill" color="#000000" size="15"></up-icon>
-						<up-icon v-if="showChecked" name="arrow-up-fill" color="#000000" size="15"></up-icon>
+						<wd-icon name="caret-down-small" v-if="!showChecked" size="15" color="#000000"></wd-icon>
+						<wd-icon name="caret-up-small" v-if="showChecked" color="#000000" size="15"></wd-icon>
 					</view>
 				</view>
 				<view v-if="!showChecked" class="u-border-top flex-row absolute" style="width: 100%; height: 104rpx; bottom: 0" @tap.stop>
@@ -135,7 +114,7 @@
 					>
 						<view>客户</view>
 						<view v-if="role == 1" class="absolute" style="right: 20rpx">
-							<up-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></up-icon>
+							<wd-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></wd-icon>
 						</view>
 					</view>
 					<view
@@ -153,7 +132,7 @@
 					>
 						<view>供应商</view>
 						<view v-if="role == 0" class="absolute" style="right: 20rpx">
-							<up-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></up-icon>
+							<wd-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></wd-icon>
 						</view>
 					</view>
 				</view>

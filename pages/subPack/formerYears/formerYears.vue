@@ -25,8 +25,8 @@
 					<view class="flex-col justify-center items-center" @click="selectionIconClick" style="height: 100%">
 						<liu-data-select elementId="data-select1" :dataList="dataList" @change="dropdown" color="#965510">
 							<view id="data-select1" class="btn-info flex-row justify-center items-center">
-								<view class="mr10" v-if="!selectionIcon"><up-icon name="arrow-up-fill" color=" #965510" size="15"></up-icon></view>
-								<view class="mr10" v-else><up-icon name="arrow-down-fill" color=" #965510" size="15"></up-icon></view>
+								<view v-if="!selectionIcon"><wd-icon name="caret-up-small" color="#965510" size="20"></wd-icon></view>
+								<view v-else><wd-icon name="caret-down-small" size="20" color="#965510"></wd-icon></view>
 								<text style="color: #965510">{{ dropdownName }}</text>
 								<text style="color: #965510" v-if="dropdownName != '请选择'">年</text>
 							</view>
@@ -139,14 +139,14 @@
 					<div class="flex-row items-center radius pr20 mr10 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%">
 						<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
 							<text class="ft11 ft-gray ml36" @click="filtrateGet">{{ Title }}</text>
-							<view class="ml10">
-								<up-icon name="arrow-down-fill" size="10"></up-icon>
+							<view>
+								<wd-icon name="caret-down-small" size="20"></wd-icon>
 							</view>
 
-							<view class="ml10 my-input flex-1" v-if="showTage != '1'">
+							<view class="my-input flex-1" v-if="showTage != '1'">
 								<uv-input border="none" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入关键字进行检索"></uv-input>
 							</view>
-							<view class="ml10 my-input flex-1" v-if="showTage == '1'">
+							<view class="my-input flex-1" v-if="showTage == '1'">
 								<uv-input border="none" maxlength="11" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入号码进行检索"></uv-input>
 							</view>
 							<view class="flex-col justify-center items-center" style="height: 5vh">
@@ -367,7 +367,7 @@
 							font-weight: 600;
 						"
 					>
-						<up-icon name="https://res-oss.elist.com.cn/wxImg/statistics/down.svg" size="40rpx"></up-icon>
+						<wd-icon name="https://res-oss.elist.com.cn/wxImg/statistics/down.svg" size="40rpx"></wd-icon>
 						下载PDF
 					</view>
 				</view>
@@ -394,28 +394,28 @@
 
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
 							<view class="flex-row items-center" style="width: 50%">
-								<text class="mr10" style="color: #999999">开始日期</text>
-								<up-icon name="arrow-down-fill" size="10"></up-icon>
+								<text style="color: #999999">开始日期</text>
+								<wd-icon name="caret-down-small" size="20"></wd-icon>
 								<view
 									@click="
 										$refs.calendars.open();
 										timeType = 1;
 									"
-									class="ml14 text-center flex-row justify-center items-center"
+									class="text-center flex-row justify-center items-center"
 									style="border: 1rpx solid #999999; padding: 12rpx 6rpx; border-radius: 6rpx; min-width: 180rpx; height: 56rpx"
 								>
 									{{ date1 == '' ? '开始日期' : date1 }}
 								</view>
 							</view>
 							<view class="flex-row items-center" style="width: 50%">
-								<text class="mr10" style="color: #999999">结束日期</text>
-								<up-icon name="arrow-down-fill" size="10"></up-icon>
+								<text style="color: #999999">结束日期</text>
+								<wd-icon name="caret-down-small" size="20"></wd-icon>
 								<view
 									@click="
 										$refs.calendars.open();
 										timeType = 2;
 									"
-									class="ml14 text-center flex-row justify-center items-center"
+									class="text-center flex-row justify-center items-center"
 									style="border: 1rpx solid #999999; padding: 12rpx 6rpx; border-radius: 6rpx; min-width: 180rpx; height: 56rpx"
 								>
 									{{ date2 == '' ? '结束日期' : date2 }}

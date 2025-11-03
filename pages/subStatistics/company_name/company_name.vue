@@ -4,7 +4,7 @@
 			<view class="mt18" style="margin-left: 40rpx; border-radius: 12.24rpx; display: flex; flex-direction: row; width: 90%; border-radius: 12.24rpx">
 				<view class="flex-row justify-center" style="width: 95%; border-radius: 12.24rpx; background-color: #f8f8f8">
 					<view class="flex-col justify-center" style="width: 5%; height: 100%; height: 5vh">
-						<view class="mr10"><up-icon name="search" color="#01BB74" size="30rpx"></up-icon></view>
+						<view class="mr10"><wd-icon name="search" color="#01BB74" size="30rpx"></wd-icon></view>
 					</view>
 					<view class="ml20" style="width: 90%; height: 100%">
 						<uv-input border="none"></uv-input>
@@ -13,7 +13,7 @@
 
 				<view class="ml10 flex-col justify-center" style="width: 5%; height: 5vh">
 					<view class="ml10">
-						<up-icon name="https://res-oss.elist.com.cn/wxImg/order/add.png" color="#01BB74" size="50"></up-icon>
+						<wd-icon name="https://res-oss.elist.com.cn/wxImg/order/add.png" color="#01BB74" size="50"></wd-icon>
 					</view>
 				</view>
 			</view>

@@ -4,7 +4,7 @@
 			<template #center>
 				<view class="ft-500 flex-row items-center justify-center ft34" @click="showNavbar = !showNavbar">
 					<text>{{ navbarList[navbarAct].name }}</text>
-					<wd-icon name="fill-arrow-down" size="22px"></wd-icon>
+					<wd-icon name="caret-down-small" size="22px"></wd-icon>
 				</view>
 			</template>
 		</up-navbar>
@@ -16,7 +16,7 @@
 			<view class="timeTitle">{{ setTitle() }}流水账一{{ timeList[timeAct].name }}表</view>
 			<view class="mb20 flex-row items-center">
 				<text class="ft-500 ft24 mr12">统计时间</text>
-				<wd-icon name="fill-arrow-down" size="22px"></wd-icon>
+				<wd-icon name="caret-down-small" size="22px"></wd-icon>
 				<text class="timeBox ml10" @click="showPicker()">{{ statisticsTime }}</text>
 			</view>
 			<!-- 支出、收入报表 -->
@@ -84,7 +84,7 @@
 					<template #center>
 						<view class="ft-500 flex-row items-center justify-center ft34" @click="showNavbar = !showNavbar">
 							<text>{{ navbarList[navbarAct].name }}</text>
-							<wd-icon name="fill-arrow-down" size="22px"></wd-icon>
+							<wd-icon name="caret-down-small" size="22px"></wd-icon>
 						</view>
 					</template>
 				</up-navbar>
