@@ -8,6 +8,9 @@ export default {
 		};
 	},
 	onLaunch(options) {
+		//加载字体
+		this.loadfont();
+
 		uni.$on('switchTabToList', (e) => {
 			console.log('监听到isFromSwitchTab');
 		});
@@ -70,6 +73,23 @@ export default {
 		SocketManager.close(); // 页面卸载时清理 WebSocket
 	},
 	methods: {
+		loadfont() {
+			uni.loadFontFace({
+				family: '杨任东竹石体',
+				source: 'url("https://wxapi.elist.com.cn/fonts/%E6%9D%A8%E4%BB%BB%E4%B8%9C%E7%AB%B9%E7%9F%B3%E4%BD%93-Semibold.woff2")',
+				global: true
+			});
+			uni.loadFontFace({
+				family: '思源宋体',
+				source: 'url("https://wxapi.elist.com.cn/fonts/syst.woff2")',
+				global: true
+			});
+			uni.loadFontFace({
+				family: 'Alike Angular',
+				source: 'url("https://wxapi.elist.com.cn/fonts/DDBH.woff2")',
+				global: true
+			});
+		},
 		updateMessageCounts() {
 			this.getPendingTasks();
 			this.getNotifications();
@@ -161,20 +181,6 @@ export default {
 @import '@/uni_modules/uview-plus/index.scss';
 @import 'static/common/css/base.scss';
 
-@font-face {
-	font-family: '杨任东竹石体';
-	src: url('https://wxapi.elist.com.cn/fonts/%E6%9D%A8%E4%BB%BB%E4%B8%9C%E7%AB%B9%E7%9F%B3%E4%BD%93-Semibold.ttf') format('truetype');
-}
-
-@font-face {
-	font-family: 'Alike Angular';
-	src: url('https://wxapi.elist.com.cn/fonts/DDBH.ttf') format('truetype');
-}
-
-@font-face {
-	font-family: '思源宋体';
-	src: url('https://wxapi.elist.com.cn/fonts/syst.ttf') format('truetype');
-}
 /* #ifdef APP */
 ::v-deep a {
 	color: #01bb74 !important;
