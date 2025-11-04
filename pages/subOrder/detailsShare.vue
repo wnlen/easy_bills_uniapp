@@ -1144,7 +1144,7 @@ export default {
 	white-space: nowrap;
 	animation: typing 0.5s forwards;
 	// font-size:32rpx;
-	// font-family: '杨任东竹石体', Arial, sans-serif;
+	// font-family: 'YRDZS-Semibold', Arial, sans-serif;
 	padding-top: 12rpx;
 	color: #8f3e04;
 }

@@ -29,7 +29,7 @@
 							border-radius: 8rpx;
 							width: 220px;
 							height: 240px;
-							font-family: '杨任东竹石体', Arial, sans-serif;
+							font-family: 'YRDZS-Semibold', Arial, sans-serif;
 						"
 						@tab.stop
 						@click="showImg"
