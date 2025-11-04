@@ -5,7 +5,7 @@
 				<up-navbar :autoBack="true" :placeholder="true" bgColor="transparent" :titleStyle="titleStyle" title="商品库"></up-navbar>
 				<view class="ml24 mr24 flex-row items-center justify-center pb30">
 					<view class="flex-row items-center justify-center pl20 pr10" style="background: #ffffff; border-radius: 254rpx; width: 75%; height: 60rpx">
-						<up-icon name="search" color="#01BB74" size="40rpx"></up-icon>
+						<wd-icon name="search" color="#01BB74" size="40rpx"></wd-icon>
 						<uv-input
 							:customStyle="{
 								backgroundColor: 'transparent',
@@ -63,7 +63,7 @@
 						<text>单价：{{ item.unitPrice == '0' ? '-' : '￥' + item.unitPrice }}</text>
 					</view>
 					<view class="del_product_icon">
-						<up-icon :stop="true" name="trash" color="#666666" size="40rpx" @click="delOrderBill(item)"></up-icon>
+						<wd-icon name="delete1" color="#666666" size="40rpx" @click.stop="delOrderBill(item)"></wd-icon>
 					</view>
 				</view>
 			</view>

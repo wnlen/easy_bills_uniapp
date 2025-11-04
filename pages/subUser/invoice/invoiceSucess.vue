@@ -12,7 +12,7 @@
 		></up-navbar>
 		<view class="w100 box">
 			<view class="mb36">
-				<up-icon name="https://res-oss.elist.com.cn/wxImg/user/invoic.png" size="200rpx"></up-icon>
+				<wd-icon name="https://res-oss.elist.com.cn/wxImg/user/invoic.png" size="200rpx"></wd-icon>
 			</view>
 			<view class="success">申请提交成功</view>
 			<view class="ts mt10 flex-col justify-center">

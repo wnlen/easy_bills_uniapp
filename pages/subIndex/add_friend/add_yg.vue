@@ -35,7 +35,6 @@
 						<text class="ml10" style="">{{ userName(item.name) || '用户' }}</text>
 					</view>
 					<view v-show="item.map != '' && item.map.boss" class="flex-row justify-start items-center" style="width: 60vw; font-size: 12px; height: 50%">
-						<!-- <up-icon name="https://res-oss.elist.com.cn/wxImg/user/yrz-s.svg" width="200rpx" height="20rpx"></up-icon> -->
 						<image src="https://res-oss.elist.com.cn/wxImg/user/yrz-s.svg" style="width: 100rpx" mode="widthFix"></image>
 						<text class="ml10" style="color: #333333">
 							{{ item.map.enterpriseName != undefined ? item.map.enterpriseName : '该用户已进入其他账户' }}

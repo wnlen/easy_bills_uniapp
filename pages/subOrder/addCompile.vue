@@ -103,7 +103,7 @@
 							<view class="mr20">
 								<up-line class="" color="#D8D8D8" length="50rpx" direction="col"></up-line>
 							</view>
-							<up-icon size="45rpx" name="https://res-oss.elist.com.cn/wxImg/order/time.png"></up-icon>
+							<wd-icon size="45rpx" name="https://res-oss.elist.com.cn/wxImg/order/time.png"></wd-icon>
 						</view>
 						<uv-calendars
 							color="#01BB74"
@@ -213,20 +213,20 @@
 				</view>
 				<view class="pd12 flex-row justify-center" style="width: 100%">
 					<view class="flex-row justify-center items-center" style="width: 49%">
-						<up-icon labelPos="bottom" @click="merchandiseInventory(true)" name="https://res-oss.elist.com.cn/wxImg/order/bj.svg" size="70rpx" label="修改"></up-icon>
+						<wd-icon labelPos="bottom" @click="merchandiseInventory(true)" name="https://res-oss.elist.com.cn/wxImg/order/bj.svg" size="70rpx" label="修改"></wd-icon>
 					</view>
 					<view class="flex-row justify-center items-center" style="width: 2%">
 						<up-line direction="col" length="50" color="#E0E0E0" />
 					</view>
 					<view class="flex-row justify-center items-center" style="width: 49%">
 						<wd-badge :is-dot="!orderTotal" bg-color="#FA5151" :top="5" :right="10">
-							<up-icon
+							<wd-icon
 								labelPos="bottom"
 								@click="merchandiseInventory(false)"
 								name="https://res-oss.elist.com.cn/wxImg/order/spk.svg"
 								size="70rpx"
 								label="添加商品"
-							></up-icon>
+							></wd-icon>
 						</wd-badge>
 					</view>
 				</view>
@@ -250,7 +250,7 @@
 						:previewFullImage="true"
 						@afterRead="handleUpload"
 					>
-						<up-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></up-icon>
+						<wd-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></wd-icon>
 					</up-upload>
 				</view>
 

@@ -30,34 +30,38 @@
 			<view v-for="(item, index) in orderList" :key="index" class="flex-col pd24 ml24 mr24 mb24 bg-white radius">
 				<view class="flex-row items-center justify-between">
 					<view class="mr20">
-						<up-icon name="https://res-oss.elist.com.cn/wxImg/user/qm.svg" size="80rpx"></up-icon>
+						<wd-icon name="https://res-oss.elist.com.cn/wxImg/user/qm.svg" size="80rpx"></wd-icon>
 					</view>
 					<view class="flex-col flex-1 pr35">
 						<view class="flex-row">
 							<text class="ft32 ft-bold ft-black">{{ item.name }}</text>
 							<view style="margin-left: 24rpx">
-								<up-icon name="eye" color="#999999" size="40rpx" @click="show = true"></up-icon>
+								<wd-icon name="view" color="#999999" size="40rpx" @click="show = true"></wd-icon>
 							</view>
 						</view>
 						<text class="ft25 line25 ft-gray mt10">{{ item.phone }}</text>
 					</view>
 					<!-- #ifdef MP-WEIXIN -->
 					<view style="margin-right: 15rpx">
-						<view class="mr20"><up-icon name="edit-pen" color="#aaa" size="34rpx" @click.stop="goDetails(item, 1)"></up-icon></view>
+						<view class="mr20">
+							<wd-icon name="edit-1" color="#aaa" size="34rpx" @click="goDetails(item, 1)"></wd-icon>
+						</view>
 					</view>
 					<view style="margin-right: 24rpx; margin-left: 30rpx">
-						<view class="ml30 mr20"><up-icon name="trash" color="#aaa" size="34rpx" @click="goDetails(item.id, 2)"></up-icon></view>
+						<view class="ml30 mr20">
+							<wd-icon name="delete1" color="#aaa" size="34rpx" @click="goDetails(item.id, 2)"></wd-icon>
+						</view>
 					</view>
 					<!-- #endif -->
 					<!-- #ifndef MP-WEIXIN -->
 					<view style="margin-right: 15rpx">
 						<view class="mr20">
-							<up-icon name="edit-pen" color="#aaa" size="34rpx" @click="goDetails(item, 1)"></up-icon>
+							<wd-icon name="edit-1" color="#aaa" size="34rpx" @click="goDetails(item, 1)"></wd-icon>
 						</view>
 					</view>
 					<view style="margin-right: 24rpx; margin-left: 30rpx">
 						<view class="ml30 mr20">
-							<up-icon name="trash" color="#aaa" size="34rpx" @click="goDetails(item.id, 2)"></up-icon>
+							<wd-icon name="delete1" color="#aaa" size="34rpx" @click="goDetails(item.id, 2)"></wd-icon>
 						</view>
 					</view>
 					<!-- #endif -->

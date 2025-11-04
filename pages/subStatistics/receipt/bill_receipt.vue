@@ -56,35 +56,33 @@
 
 						<view class="flex-col justify-center items-center" style="height: 100%">
 							<view class="ml40">
-								<up-icon name="/static/img/list/lxr.svg" size="45rpx" @click="openTableChoice"></up-icon>
+								<wd-icon name="/static/img/list/lxr.svg" size="45rpx" @click="openTableChoice"></wd-icon>
 							</view>
 						</view>
 					</view>
 
 					<view class="billCardTime cardShow">
 						<view class="billCardTimeStart">
-							<text class="mr10" style="color: #666666">开始日期</text>
-							<up-icon name="arrow-down-fill" size="10"></up-icon>
+							<text style="color: #666666">开始日期</text>
+							<wd-icon name="caret-down-small" size="20px"></wd-icon>
 							<view
 								@click="
 									$refs.calendars.open();
 									timeType = 1;
 								"
-								class="ml10"
 								style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx"
 							>
 								{{ time.start }}
 							</view>
 						</view>
 						<view class="billCardTimeEnd">
-							<text class="mr10" style="color: #666666">结束日期</text>
-							<up-icon name="arrow-down-fill" size="10"></up-icon>
+							<text style="color: #666666">结束日期</text>
+							<wd-icon name="caret-down-small" size="20"></wd-icon>
 							<view
 								@click="
 									$refs.calendars.open();
 									timeType = 2;
 								"
-								class="ml10"
 								style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx"
 							>
 								{{ time.end }}
@@ -203,21 +201,25 @@
 						@click="click(index, 0)"
 						:customStyle="SearchCustomStyleWechat"
 					>
-						<up-icon name="order" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="修改"></up-icon>
+						<wd-icon name="edit-1" size="20rpx" color="#666666"></wd-icon>
+						<text class="ft22 ml5">修改</text>
 					</wd-button>
 
-					<wd-button class="ml30"  plain size="small" @click="viewDetails(item)" :customStyle="SearchCustomStyleWechat">
-						<up-icon name="list-dot" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="订单列表"></up-icon>
+					<wd-button class="ml30" plain size="small" @click="viewDetails(item)" :customStyle="SearchCustomStyleWechat">
+						<wd-icon name="list" size="20rpx" color="#666666"></wd-icon>
+						<text class="ft22 ml5">订单列表</text>
 					</wd-button>
 					<!-- v-if="pinia_user.data.work=='1'?pinia_user.workData.identity!=3:true&&item.billState!=1" -->
 					<wd-button class="ml30" plain size="small" @click="click(index, 1)" v-if="item.billState != 1" :customStyle="SearchCustomStyleWechat">
-						<up-icon name="trash" size="25rpx" color="#666666" labelSize="22rpx" labelColor="#333333" label="删除"></up-icon>
+						<wd-icon name="delete1" size="25rpx" color="#666666"></wd-icon>
+						<text class="ft22 ml5">删除</text>
 					</wd-button>
 				</view>
 			</view>
 			<template #empty>
 				<view style="padding-bottom: 200rpx">
-					<up-icon margin-top="22rpx" label-pos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180"></up-icon>
+					<wd-icon :name="ImgUrl + '/wxImg/list/empty.svg'" size="180"></wd-icon>
+					<view class="text-center ft-lightgray">暂无记录</view>
 				</view>
 			</template>
 			<template #bottom>
@@ -355,12 +357,12 @@ export default {
 			},
 			SearchCustomStyleWechat: {
 				width: 'auto',
-				height: 'auto',
+				height: '50rpx',
 				padding: '12rpx 24rpx',
 				fontSize: '24rpx',
 				color: '#666666',
 				margin: '0',
-				borderColor:'#ebedf0'
+				borderColor: '#ebedf0'
 			},
 			identity: false,
 			billTitle: '收款',

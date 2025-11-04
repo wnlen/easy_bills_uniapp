@@ -66,7 +66,7 @@
 								</view>
 
 								<view class="flex-col justify-center items-center" style="height: 5vh">
-									<view class="ml40"><up-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></up-icon></view>
+									<view class="ml40"><wd-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></wd-icon></view>
 								</view>
 							</view>
 
@@ -74,7 +74,7 @@
 								<text class="ft11 ft-gray ml20" @click="filtrateGet">
 									{{ Title }}
 								</text>
-								<view class="ml10 mr10"><up-icon name="arrow-down-fill" size="20rpx"></up-icon></view>
+								<wd-icon name="caret-down-small" size="20px"></wd-icon>
 								<view class="my-input flex-1" v-if="showTage !== '1'">
 									<uv-input border="none" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入关键字进行检索"></uv-input>
 								</view>
@@ -84,7 +84,7 @@
 
 								<view class="flex-col justify-center items-center" style="height: 5vh">
 									<view class="ml40">
-										<up-icon name="/static/img/list/ss.svg" size="45rpx" @click="SearchBtn"></up-icon>
+										<wd-icon name="/static/img/list/ss.svg" size="45rpx" @click="SearchBtn"></wd-icon>
 									</view>
 								</view>
 							</view>
@@ -108,7 +108,8 @@
 				</view>
 			</template>
 			<view slot="empty" style="padding-bottom: 200rpx">
-				<up-icon margin-top="22rpx" labelPos="bottom" :name="ImgUrl + '/wxImg/list/empty.svg'" labelColor="#AAAAAA" label="暂无记录" size="180"></up-icon>
+				<wd-icon :name="ImgUrl + '/wxImg/list/empty.svg'" size="180"></wd-icon>
+				<view class="text-center ft-lightgray">暂无记录</view>
 			</view>
 
 			<view
@@ -228,7 +229,7 @@
 						<view class="items-center flex-row" style="width: 92%; display: flex; justify-content: space-between">
 							<view class="relative" @click="showCheckClick">
 								<up-badge :offset="[0, 0]" bgColor="#FF8F1F" :absolute="true" :value="realTimeSel.ids.length" color="#ffffff"></up-badge>
-								<up-icon size="100rpx" name="https://res-oss.elist.com.cn/wxImg/order/checkOrder.svg"></up-icon>
+								<wd-icon size="100rpx" name="https://res-oss.elist.com.cn/wxImg/order/checkOrder.svg"></wd-icon>
 							</view>
 							<view class="mr20 flex-row" style="text-align: left; font-size: 24rpx; width: 30%; color: #666666">
 								统计：
@@ -367,7 +368,7 @@
 								<view class="items-center flex-row" style="width: 92%; display: flex; justify-content: space-between">
 									<view class="relative" @click="showCheckClick">
 										<up-badge :offset="[0, 0]" bgColor="#FF8F1F" :absolute="true" :value="realTimeSel.ids.length" color="#ffffff"></up-badge>
-										<up-icon size="100rpx" name="https://res-oss.elist.com.cn/wxImg/order/checkOrder.svg"></up-icon>
+										<wd-icon size="100rpx" name="https://res-oss.elist.com.cn/wxImg/order/checkOrder.svg"></wd-icon>
 									</view>
 									<view class="mr20 flex-row" style="text-align: left; font-size: 24rpx; width: 30%; color: #666666">
 										统计：
@@ -420,28 +421,26 @@
 
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
 							<view class="flex-row items-center flex-1">
-								<text class="mr10" style="color: #999999">开始日期</text>
-								<up-icon name="arrow-down-fill" size="10"></up-icon>
+								<text style="color: #999999">开始日期</text>
+								<wd-icon name="caret-down-small" size="20"></wd-icon>
 								<view
 									@click="
 										$refs.calendars.open();
 										timeType = 1;
 									"
-									class="ml14"
 									style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx"
 								>
 									{{ date1 == '' ? '开始日期' : date1 }}
 								</view>
 							</view>
 							<view class="flex-row items-center flex-1">
-								<text class="mr10" style="color: #999999">结束日期</text>
-								<up-icon name="arrow-down-fill" size="10"></up-icon>
+								<text style="color: #999999">结束日期</text>
+								<wd-icon name="caret-down-small" size="20"></wd-icon>
 								<view
 									@click="
 										$refs.calendars.open();
 										timeType = 2;
 									"
-									class="ml14"
 									style="border: 1rpx solid #999999; padding: 6rpx; border-radius: 6rpx"
 								>
 									{{ date1 == '' ? '结束日期' : date1 }}

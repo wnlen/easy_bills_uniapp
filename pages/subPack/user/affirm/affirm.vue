@@ -18,14 +18,14 @@
 		</view>
 		<view class="flex-col justify-center items-center mt30">
 			<view class="">
-				<up-icon name="https://res-oss.elist.com.cn/wxImg/user/del.svg" size="200rpx"></up-icon>
+				<wd-icon name="https://res-oss.elist.com.cn/wxImg/user/del.svg" size="200rpx"></wd-icon>
 			</view>
 			<view class="" style="font-size: 36rpx; font-weight: 700; text-align: center; letter-spacing: 0rpx">注销账号将永久失效且不可恢复</view>
 		</view>
 		<view class="ml24 mr24 mt30 pd30" style="background-color: #f9f9f9; width: 94%; border-radius: 12rpx">
 			<view class="flex-col items-baseline pt25 pb30">
 				<view class="flex-row items-center">
-					<up-icon name="https://res-oss.elist.com.cn/wxImg/user/dian.svg" size="15rpx"></up-icon>
+					<wd-icon name="https://res-oss.elist.com.cn/wxImg/user/dian.svg" size="15rpx"></wd-icon>
 					<view class="title ml15 pb15 mt10">订单信息确认</view>
 				</view>
 				<!-- #ifdef MP-WEIXIN -->
@@ -37,7 +37,7 @@
 			</view>
 			<view class="flex-col items-baseline pb30">
 				<view class="flex-row items-center">
-					<up-icon name="https://res-oss.elist.com.cn/wxImg/user/dian.svg" size="15rpx"></up-icon>
+					<wd-icon name="https://res-oss.elist.com.cn/wxImg/user/dian.svg" size="15rpx"></wd-icon>
 					<text class="title ml15 pb15 mt10">账号信息</text>
 				</view>
 				<!-- #ifdef MP-WEIXIN -->
@@ -49,7 +49,7 @@
 			</view>
 			<view class="flex-col items-baseline pb30">
 				<view class="flex-row items-center">
-					<up-icon name="https://res-oss.elist.com.cn/wxImg/user/dian.svg" size="15rpx"></up-icon>
+					<wd-icon name="https://res-oss.elist.com.cn/wxImg/user/dian.svg" size="15rpx"></wd-icon>
 					<text class="title ml15 pb15 mt10">虚拟权益</text>
 				</view>
 				<!-- #ifdef MP-WEIXIN -->

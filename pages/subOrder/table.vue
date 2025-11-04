@@ -23,8 +23,8 @@
 						{{ role == 0 ? '客户' : '供应商' }}
 					</view>
 					<view class="ml10">
-						<up-icon v-if="!showChecked" name="arrow-down-fill" color="#000000" size="15rpx"></up-icon>
-						<up-icon v-if="showChecked" name="arrow-up-fill" color="#000000" size="15rpx"></up-icon>
+						<wd-icon name="caret-down-small" v-if="!showChecked" size="15" color="#000000"></wd-icon>
+						<wd-icon name="caret-up-small" v-if="showChecked" color="#000000" size="15"></wd-icon>
 					</view>
 				</view>
 				<view v-if="!showChecked" class="u-border-top flex-row" style="width: 100%; height: 7vh" @tap.stop>
@@ -57,7 +57,7 @@
 					>
 						<view>客户</view>
 						<view v-if="role == 0" class="absolute" style="right: 20rpx">
-							<up-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></up-icon>
+							<wd-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></wd-icon>
 						</view>
 					</view>
 					<view
@@ -75,7 +75,7 @@
 					>
 						<view>供应商</view>
 						<view v-if="role == 1" class="absolute" style="right: 20rpx">
-							<up-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></up-icon>
+							<wd-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></wd-icon>
 						</view>
 					</view>
 				</view>
@@ -86,7 +86,7 @@
 			<view class="ml5 mr5 flex-row justify-center" style="flex: 1">
 				<wd-button openType="share" color="#01BB74" :customStyle="SearchCustomStyleWechat" :plain="true">
 					<view class="flex-row items-center justify-center">
-						<view><up-icon name="weixin-fill" color="#01BB74" size="30rpx"></up-icon></view>
+						<view><albb-icon icon="ydj-weixin-fill" color="#01BB74" size="30rpx"></albb-icon></view>
 						<text class="pl10">微信邀请</text>
 					</view>
 				</wd-button>
@@ -102,7 +102,7 @@
 				<wd-button :customStyle="SearchCustomStyle" color="#FFAF38" shape="circle" @click="establish">
 					<view class="flex-row items-center justify-center">
 						<view class="pr10">
-							<up-icon name="plus" color="#ffffff" size="30rpx"></up-icon>
+							<wd-icon name="add" color="#ffffff" size="30rpx"></wd-icon>
 						</view>
 						<text class="">创建{{ pinia_userRole == 'D' ? '客户' : '供应商' }}</text>
 					</view>
@@ -112,7 +112,7 @@
 		<view class="anchorText">
 			<view class="SearchTablePage">
 				<view class="SearchTablePageIcon">
-					<up-icon name="search" color="#01BB74" size="40rpx"></up-icon>
+					<wd-icon name="search" color="#01BB74" size="40rpx"></wd-icon>
 				</view>
 				<view class="SearchTablePageInput">
 					<uv-input placeholder="请输入关键字进行查找" border="none" @change="search"></uv-input>
@@ -248,7 +248,7 @@ export default {
 				padding: '12rpx',
 				fontSize: '24rpx',
 				color: '#ffffff',
-				background: '#FFAF38',
+				background: '#FFAF38'
 			},
 			SearchCustomStyleWechat: {
 				width: '80%',

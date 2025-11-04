@@ -34,19 +34,9 @@
 					></image>
 				</view>
 				<view v-else class="bg-white pd20 text-center width100 mt30 signeeBox flex-row items-center justify-center" @click="$goPath('/pages/subSignature/signature')">
-					<up-icon label="点击去签名" labelColor="#eee" name="edit-pen" color="#eee"></up-icon>
+					<wd-icon name="edit-1" color="#eee"></wd-icon>
+					<text style="color: #eee" class="ml5">点击去签名</text>
 				</view>
-				<!-- <view v-if="formData.signeeImage" class="text-center width100" style="height: 50vw; border: 4rpx dashed #eee">
-					<image
-						@click="$goPath('/pages/subSignature/signature')"
-						style="transform: rotate(-90deg); height: 50vw; width: 100%"
-						:src="formData.signeeImage"
-						mode="heightFix"
-					></image>
-				</view>
-				<view v-else class="bg-white pd20 text-center width100" @click="$goPath('/pages/subSignature/signature')">
-					<up-icon label="点击去签名" name="edit-pen"></up-icon>
-				</view> -->
 			</up-form-item>
 		</up-form>
 		<view class="mt60">

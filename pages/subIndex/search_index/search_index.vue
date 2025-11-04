@@ -2,7 +2,7 @@
 	<view>
 		<view class="header">
 			<view class="header-left ml20 flex-row" style="width: 100vw">
-				<up-icon name="arrow-left" color="#000000" size="40" @click="Reba"></up-icon>
+				<wd-icon name="arrow-left" color="#000000" size="40" @click="Reba"></wd-icon>
 				<up-search
 					search-icon-color="#dcdcdc"
 					:show-action="false"
@@ -19,30 +19,18 @@
 		</view>
 
 		<view class="vw100 flex-row items-center mt30">
-			<!-- 			<view class="mt20 ml24 flex-row justify-between" style="font-size: 16px;font-weight: bold;background-color: aquamarine;">
-				历史搜索
-				<view class="" style="font-size: 14px;font-weight: normal;width: 80vw;height: 100%;background-color: bisque;">
-					<view @click="isLook = !isLook">
-						<up-icon v-if="isLook" name="eye-fill" size="35"></up-icon>
-						<up-icon v-else name="eye-off" size="35"></up-icon>
-					</view>
-					<view class="flex-col justify-start" style="font-size: 14px;font-weight: normal;float: right;">
-						<up-icon name="trash" color="#000000" size="28rpx"></up-icon>
-					</view>
-				</view>
-			</view> -->
 			<view class="mt20 ml24 flex-row justify-between" style="font-size: 16px; font-weight: bold; display: flex; align-items: center; width: 90vw">
 				<view class="flex-row justify-start" style="font-size: 14px; font-weight: normal">
 					历史搜索
 					<view class="flex-col justify-start ml10" style="font-size: 14px; font-weight: normal" @click="isLook = !isLook">
-						<up-icon v-if="isLook" name="eye-fill" size="35"></up-icon>
-						<up-icon v-else name="eye-off" size="35"></up-icon>
+						<wd-icon v-if="isLook" name="view" size="35rpx"></wd-icon>
+						<wd-icon v-else name="eye-close" size="35rpx"></wd-icon>
 					</view>
 				</view>
 
 				<view class="flex-col justify-start" style="font-size: 14px; font-weight: normal">
 					<view class="flex-row justify-between" style="font-size: 14px; font-weight: normal; float: right">
-						<up-icon name="trash" color="#000000" size="40rpx"></up-icon>
+						<wd-icon name="delete1" color="#000000" size="40rpx"></wd-icon>
 					</view>
 				</view>
 			</view>
@@ -61,7 +49,7 @@
 
 			<view class="flex-col justify-start" style="font-size: 14px; font-weight: normal">
 				<view class="flex-row justify-between" style="font-size: 14px; font-weight: normal; float: right">
-					<up-icon name="reload" color="#000000" size="40rpx"></up-icon>
+					<wd-icon name="refresh" color="#000000" size="40rpx"></wd-icon>
 				</view>
 			</view>
 		</view>

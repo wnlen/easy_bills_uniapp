@@ -3,21 +3,19 @@
 		<view class="vw100 relative flex-col justify-center items-center" style="height: 30vh; margin-top: 60%" v-if="!allShow && !defShow">
 			<up-empty icon="https://res-oss.elist.com.cn/wxImg/vip/print.svg" iconSize="400rpx" text="暂无打印机~" mode="search" margin-top="-200"></up-empty>
 
-			<wd-button @click="buy" :customStyle="{ width: '300rpx', height: '70rpx', fontSize: '30rpx', marginTop: '100rpx',background:'#47506C' }">
-				去购买
-			</wd-button>
+			<wd-button @click="buy" :customStyle="{ width: '300rpx', height: '70rpx', fontSize: '30rpx', marginTop: '100rpx', background: '#47506C' }">去购买</wd-button>
 		</view>
 
 		<view v-if="defShow" class="cardPrint flex-col justify-center items-start relative mt40" v-for="(item, index) in def" :key="index">
 			<view class="ml15 flex-row justify-center items-center">
-				<up-icon name="https://res-oss.elist.com.cn/wxImg/print/print-icon.svg" size="80rpx"></up-icon>
+				<wd-icon name="https://res-oss.elist.com.cn/wxImg/print/print-icon.svg" size="80rpx"></wd-icon>
 				<text class="ml15" style="color: #666666; font-size: 14px">默认设备名称：{{ item.name }}</text>
 				<view class="ml15" :style="{ backgroundColor: item.online ? '#01BB74' : '#F76565' }" style="width: 5px; height: 5px; border-radius: 45%"></view>
 			</view>
 			<view class="absolute flex-row justify-center items-center" style="right: 5px" @click="edit(item)">
 				<text class="mr20" style="color: #01bb74" v-show="item.online">在线</text>
 				<text class="mr20" style="color: #f76565" v-show="!item.online">离线</text>
-				<up-icon name="arrow-right" color="#666666" size="20rpx"></up-icon>
+				<wd-icon name="arrow-right" color="#666666" size="20rpx"></wd-icon>
 			</view>
 		</view>
 
@@ -30,7 +28,7 @@
 				<view class="absolute flex-row justify-center items-center" style="right: 5px">
 					<text class="mr20" style="color: #01bb74" v-show="item.online">在线</text>
 					<text class="mr20" style="color: #f76565" v-show="!item.online">离线</text>
-					<up-icon name="arrow-right" color="#666666" size="20rpx"></up-icon>
+					<wd-icon name="arrow-right" color="#666666" size="20rpx"></wd-icon>
 				</view>
 			</view>
 		</view>

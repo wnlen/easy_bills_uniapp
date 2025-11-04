@@ -78,11 +78,11 @@
 							"
 						></view>
 						<view class="flex-row u-border-bottom pd20 items-center" @click="getPhone(1)">
-							<view class="mr15"><up-icon name="phone" color="#ffffff" size="35rpx"></up-icon></view>
+							<view class="mr15"><wd-icon name="phone" color="#ffffff" size="35rpx"></wd-icon></view>
 							<text style="font-weight: normal">手机号</text>
 						</view>
 						<view class="pd16 flex-row items-center" @click="scanQRcodes(1)">
-							<view class="mr15"><up-icon name="scan" color="#ffffff" size="35rpx"></up-icon></view>
+							<view class="mr15"><wd-icon name="scan" color="#ffffff" size="35rpx"></wd-icon></view>
 							<text style="font-weight: normal">扫一扫</text>
 						</view>
 					</view>
@@ -90,7 +90,7 @@
 			</view>
 			<view class="flex-row justify-left" v-if="userUrl['1'].length == 0" style="height: 90%; width: 100%">
 				<view class="flex-row justify-center items-center" style="width: 10%">
-					<view class="mt20"><up-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" shape="circle" size="80rpx" @click=""></up-icon></view>
+					<view class="mt20"><wd-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" shape="circle" size="80rpx" @click=""></wd-icon></view>
 				</view>
 			</view>
 
@@ -98,14 +98,30 @@
 				<view class="flex-col justify-left pt20 pb20" v-for="(item, index) in userUrl['1']" :key="index" style="height: 90%; width: 100%">
 					<view class="flex-row justify-left items-center mt20">
 						<view v-if="item.name == ''" class="flex-row justify-left items-center" style="width: 10%">
-							<up-image class="" width="80rpx" height="80rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></up-image>
+							<up-image
+								class=""
+								width="80rpx"
+								height="80rpx"
+								shape="circle"
+								:src="item.img || img"
+								:show-menu-by-longpress="false"
+								@click="addStaff(item)"
+							></up-image>
 							<text class="ml10">{{ item.name }}</text>
 							<text class="ml15 jzzh" :style="{ color: expireDate(item.endTime) ? '' : '#FA5151' }">账号截止到{{ $u.timeFormat(item.endTime, 'yyyy-mm-dd') }}</text>
 							<view v-if="item.staffNumber == 0" @click="RenewPeople(item, 1)" class="xf flex-col justify-center items-center ml24" style="">续费</view>
 						</view>
 
 						<view v-else class="flex-row justify-left items-center" style="width: 10%">
-							<up-image class="" width="80rpx" height="80rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></up-image>
+							<up-image
+								class=""
+								width="80rpx"
+								height="80rpx"
+								shape="circle"
+								:src="item.img || img"
+								:show-menu-by-longpress="false"
+								@click="addStaff(item)"
+							></up-image>
 							<view class="flex-col ml20">
 								<view class="flex-row items-center">
 									<text class="ml10 ft16">{{ item.name }}</text>
@@ -119,7 +135,7 @@
 
 						<view class="flex-row justify-end items-center" style="width: 92%">
 							<view class="mr30" v-if="item.name != ''">
-								<up-icon @click="deleteRole(item)" name="trash" size="35rpx" color="#333333"></up-icon>
+								<wd-icon name="delete1" @click="deleteRole(item)" size="35rpx" color="#333333"></wd-icon>
 							</view>
 
 							<!--  <up-icon @click="changeUser(1)" name="" :customStyle="{ margin: '0 0 0 30rpx' }" size="38rpx" class="mr30"></up-icon> -->
@@ -185,11 +201,11 @@
 							"
 						></view>
 						<view class="flex-row u-border-bottom pd20 items-center" @click="getPhone(3)">
-							<view class="mr15"><up-icon name="phone" color="#ffffff" size="35rpx"></up-icon></view>
+							<view class="mr15"><wd-icon name="phone" color="#ffffff" size="35rpx"></wd-icon></view>
 							<text style="font-weight: normal">手机号</text>
 						</view>
 						<view class="pd16 flex-row items-center" @click="scanQRcodes(3)">
-							<view class="mr15"><up-icon name="scan" color="#ffffff" size="35rpx"></up-icon></view>
+							<view class="mr15"><wd-icon name="scan" color="#ffffff" size="35rpx"></wd-icon></view>
 							<text style="font-weight: normal">扫一扫</text>
 						</view>
 					</view>
@@ -197,21 +213,37 @@
 			</view>
 			<view class="flex-row justify-left" v-if="userUrl['3'].length == 0" style="height: 90%; width: 100%">
 				<view class="flex-row justify-center items-center" style="width: 10%">
-					<view class="mt20"><up-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" shape="circle" size="80rpx" @click=""></up-icon></view>
+					<view class="mt20"><wd-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" shape="circle" size="80rpx" @click=""></wd-icon></view>
 				</view>
 			</view>
 			<view class="" v-else>
 				<view class="flex-col justify-left pt20 pb20" v-for="(item, index) in userUrl['3']" :key="index" style="height: 90%; width: 100%">
 					<view class="flex-row justify-left items-center mt20">
 						<view v-if="item.name == ''" class="flex-row justify-left items-center" style="width: 10%">
-							<up-image class="" width="80rpx" height="80rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></up-image>
+							<up-image
+								class=""
+								width="80rpx"
+								height="80rpx"
+								shape="circle"
+								:src="item.img || img"
+								:show-menu-by-longpress="false"
+								@click="addStaff(item)"
+							></up-image>
 							<text class="ml10">{{ item.name }}</text>
 							<text class="ml15 jzzh" :style="{ color: expireDate(item.endTime) ? '' : '#FA5151' }">账号截止到{{ $u.timeFormat(item.endTime, 'yyyy-mm-dd') }}</text>
 							<view v-if="item.staffNumber == 0" @click="RenewPeople(item, 3)" class="xf flex-col justify-center items-center ml24" style="">续费</view>
 						</view>
 
 						<view v-else class="flex-row justify-left items-center" style="width: 10%">
-							<up-image class="" width="80rpx" height="80rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></up-image>
+							<up-image
+								class=""
+								width="80rpx"
+								height="80rpx"
+								shape="circle"
+								:src="item.img || img"
+								:show-menu-by-longpress="false"
+								@click="addStaff(item)"
+							></up-image>
 							<view class="flex-col ml20">
 								<view class="flex-row items-center">
 									<text class="ml10 ft16">{{ item.name }}</text>
@@ -225,7 +257,7 @@
 
 						<view class="flex-row justify-end items-center" style="width: 92%">
 							<view class="mr30" v-if="item.name != ''">
-								<up-icon @click="deleteRole(item)" name="trash" size="35rpx" color="#333333"></up-icon>
+								<wd-icon name="delete1" @click="deleteRole(item)" size="35rpx" color="#333333"></wd-icon>
 							</view>
 
 							<!-- <up-icon @click="changeUser(3)" name="" :customStyle="{ margin: '0 0 0 30rpx' }" size="38rpx" class="mr30"></up-icon> -->
@@ -290,11 +322,11 @@
 							"
 						></view>
 						<view class="flex-row u-border-bottom pd20 items-center" @click="getPhone(4)">
-							<view class="mr15"><up-icon name="phone" color="#ffffff" size="35rpx"></up-icon></view>
+							<view class="mr15"><wd-icon name="phone" color="#ffffff" size="35rpx"></wd-icon></view>
 							<text style="font-weight: normal">手机号</text>
 						</view>
 						<view class="pd16 flex-row items-center" @click="scanQRcodes(4)">
-							<view class="mr15"><up-icon name="scan" color="#ffffff" size="35rpx"></up-icon></view>
+							<view class="mr15"><wd-icon name="scan" color="#ffffff" size="35rpx"></wd-icon></view>
 							<text style="font-weight: normal">扫一扫</text>
 						</view>
 					</view>
@@ -303,21 +335,37 @@
 
 			<view class="flex-row justify-left" v-if="userUrl['4'].length == 0" style="height: 90%; width: 100%">
 				<view class="flex-row justify-center items-center" style="width: 10%">
-					<view class="mt20"><up-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" shape="circle" size="80rpx" @click=""></up-icon></view>
+					<view class="mt20"><wd-icon name="https://res-oss.elist.com.cn/wxImg/vip/init.svg" shape="circle" size="80rpx" @click=""></wd-icon></view>
 				</view>
 			</view>
 			<view class="" v-else>
 				<view class="flex-col justify-left pt20 pb20" v-for="(item, index) in userUrl['4']" :key="index" style="height: 90%; width: 100%">
 					<view class="flex-row justify-left items-center mt20">
 						<view v-if="item.name == ''" class="flex-row justify-left items-center" style="width: 10%">
-							<up-image class="" width="80rpx" height="80rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></up-image>
+							<up-image
+								class=""
+								width="80rpx"
+								height="80rpx"
+								shape="circle"
+								:src="item.img || img"
+								:show-menu-by-longpress="false"
+								@click="addStaff(item)"
+							></up-image>
 							<text class="ml10">{{ item.name }}</text>
 							<text class="ml15 jzzh" :style="{ color: expireDate(item.endTime) ? '' : '#FA5151' }">账号截止到{{ $u.timeFormat(item.endTime, 'yyyy-mm-dd') }}</text>
 							<view v-if="item.staffNumber == 0" @click="RenewPeople(item, 4)" class="xf flex-col justify-center items-center ml24" style="">续费</view>
 						</view>
 
 						<view v-else class="flex-row justify-left items-center" style="width: 10%">
-							<up-image class="" width="80rpx" height="80rpx" shape="circle" :src="item.img || img" :show-menu-by-longpress="false" @click="addStaff(item)"></up-image>
+							<up-image
+								class=""
+								width="80rpx"
+								height="80rpx"
+								shape="circle"
+								:src="item.img || img"
+								:show-menu-by-longpress="false"
+								@click="addStaff(item)"
+							></up-image>
 							<view class="flex-col ml20">
 								<view class="flex-row items-center">
 									<text class="ml10 ft16">{{ item.name }}</text>
@@ -330,10 +378,8 @@
 						</view>
 						<view class="flex-row justify-end" style="width: 92%">
 							<view class="mr30" v-if="item.name != ''">
-								<up-icon @click="deleteRole(item)" name="trash" size="35rpx" color="#333333"></up-icon>
+								<wd-icon name="delete1" @click="deleteRole(item)" size="35rpx" color="#333333"></wd-icon>
 							</view>
-
-							<!-- <up-icon @click="changeUser(4)" name="" :customStyle="{ margin: '0 0 0 30rpx' }" size="38rpx" class="mr30"></up-icon> -->
 						</view>
 					</view>
 				</view>

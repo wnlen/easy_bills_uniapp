@@ -3,7 +3,7 @@
 		<view class="relative flex-col justify-center items-center" style="height: 100%; width: 100%; margin-top: 200rpx">
 			<up-image class="" :showLoading="true" :src="src" width="720rpx" height="720rpx"></up-image>
 			<view class="absolute" style="top: 5%; right: 10%">
-				<up-icon @click="close" name="close-circle" color="#ffffff" size="40rpx"></up-icon>
+				<wd-icon @click="close" name="close-circle" color="#ffffff" size="40rpx"></wd-icon>
 			</view>
 
 			<view class="absolute flex-row justify-center items-center mt30" style="width: 100%; height: 240rpx">

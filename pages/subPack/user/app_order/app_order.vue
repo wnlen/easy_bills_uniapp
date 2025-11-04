@@ -172,7 +172,7 @@
 								@click="checkboxClick(index)"
 							>
 								<view class="card_people_icon">
-									<up-icon size="90rpx" name="https://res-oss.elist.com.cn/wxImg/vip/jyn.svg"></up-icon>
+									<wd-icon size="90rpx" name="https://res-oss.elist.com.cn/wxImg/vip/jyn.svg"></wd-icon>
 								</view>
 								<view class="card_people_title">
 									<view class="card_people_title_one">

@@ -5,7 +5,7 @@
 			style="height: 488rpx; background: url('https://res-oss.elist.com.cn/wxImg/order/wskdxx.png') no-repeat; background-size: 100% 100%; width: 540rpx; margin-top: 400rpx"
 		>
 			<view class="absolute" style="right: 0; top: 10rpx">
-				<up-icon @click="close" name="https://res-oss.elist.com.cn/wxImg/order/cha.png" size="40rpx"></up-icon>
+				<wd-icon @click="close" name="https://res-oss.elist.com.cn/wxImg/order/cha.png" size="40rpx"></wd-icon>
 			</view>
 
 			<view class="flex-col justify-center items-center absolute" style="bottom: 30rpx">

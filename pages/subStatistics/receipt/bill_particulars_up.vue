@@ -131,7 +131,7 @@
 							@delete="deleteimg"
 							@afterRead="afterRead"
 						>
-							<up-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></up-icon>
+							<wd-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></wd-icon>
 						</up-upload>
 					</view>
 				</view>
@@ -143,12 +143,14 @@
 
 				<!-- #ifdef MP-WEIXIN -->
 				<view v-if="fileList.length < 3" class="uploadView" @click="uploadFile">
-					<up-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></up-icon>
+					<wd-icon :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></wd-icon>
+					<view class="ft-green">点击上传</view>
 				</view>
 				<!-- #endif -->
-				<!-- #ifdef APP -->
+				<!-- #ifndef MP-WEIXIN -->
 				<view class="uploadView" @click="chooseFile">
-					<up-icon labelColor="#01BB74" labelPos="bottom" label="点击上传" :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></up-icon>
+					<wd-icon :name="ImgUrl + '/wxImg/order/fjUpload.svg'" size="100rpx"></wd-icon>
+					<view class="ft-green">点击上传</view>
 				</view>
 				<!-- #endif -->
 
@@ -186,12 +188,12 @@
 			</view>
 			<view class="sendBill">
 				<!-- #ifdef MP-WEIXIN -->
-				<wd-button  @click="sendOrder(true)" :customStyle="{ width: '100%' }">
+				<wd-button @click="sendOrder(true)" :customStyle="{ width: '100%' }">
 					{{ pinia_userRole == 'D' ? '修改收款单' : '修改付款单' }}
 				</wd-button>
 				<!-- #endif -->
 				<!-- #ifndef MP-WEIXIN -->
-				<wd-button  @click="sendOrder(false)" :customStyle="{ width: '100%' }">
+				<wd-button @click="sendOrder(false)" :customStyle="{ width: '100%' }">
 					{{ pinia_userRole == 'D' ? '修改收款单' : '修改付款单' }}
 				</wd-button>
 				<!-- #endif -->
@@ -688,7 +690,7 @@ export default {
 
 	.uploadView {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 
