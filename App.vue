@@ -1,5 +1,6 @@
 <script>
 import SocketManager from '@/utils/socketManager.js';
+import { ensureFontsReady } from '@/utils/font-loader.js';
 
 export default {
 	data() {
@@ -8,6 +9,9 @@ export default {
 		};
 	},
 	onLaunch(options) {
+		//加载字体
+		this.loadfont();
+
 		uni.$on('switchTabToList', (e) => {
 			console.log('监听到isFromSwitchTab');
 		});
@@ -58,18 +62,20 @@ export default {
 	},
 	onHide() {
 		SocketManager.close(); // 页面隐藏时清理 WebSocket
-
-		// this.$u.setPinia({
-		// 	guide: {
-		// 		guidance: 0
-		// 	}
-		// });
 	},
 	onUnload() {
 		uni.setStorageSync('auth', '0');
 		SocketManager.close(); // 页面卸载时清理 WebSocket
 	},
 	methods: {
+		async loadfont() {
+			try {
+				await ensureFontsReady();
+				// 字体已全局可用，后续各页面无需再 loadFontFace
+			} catch (e) {
+				console.error('font init failed', e);
+			}
+		},
 		updateMessageCounts() {
 			this.getPendingTasks();
 			this.getNotifications();
@@ -160,21 +166,6 @@ export default {
 <style lang="scss">
 @import '@/uni_modules/uview-plus/index.scss';
 @import 'static/common/css/base.scss';
-
-@font-face {
-	font-family: '杨任东竹石体';
-	src: url('https://wxapi.elist.com.cn/fonts/%E6%9D%A8%E4%BB%BB%E4%B8%9C%E7%AB%B9%E7%9F%B3%E4%BD%93-Semibold.ttf') format('truetype');
-}
-
-@font-face {
-	font-family: 'Alike Angular';
-	src: url('https://wxapi.elist.com.cn/fonts/DDBH.ttf') format('truetype');
-}
-
-@font-face {
-	font-family: '思源宋体';
-	src: url('https://wxapi.elist.com.cn/fonts/syst.ttf') format('truetype');
-}
 /* #ifdef APP */
 ::v-deep a {
 	color: #01bb74 !important;
