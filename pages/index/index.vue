@@ -493,6 +493,9 @@ export default {
 				this.getCustomization();
 			});
 		}
+		if (uni.getStorageSync('inventoryStockpile')) {
+			uni.removeStorageSync('inventoryStockpile');
+		}
 	},
 	onShareAppMessage() {
 		if (res.from === 'button') {

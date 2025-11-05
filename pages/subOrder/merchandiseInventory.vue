@@ -67,7 +67,7 @@
 						<text>规格：00A1</text>
 						<text>单位：个</text>
 					</view>
-					<up-icon @tab.stop class="absolute" style="bottom: 24rpx; right: 24rpx" name="plus-circle" color="#01BB74" size="50rpx"></up-icon>
+					<wd-icon @tab.stop class="absolute" style="bottom: 24rpx; right: 24rpx" name="add-circle1" color="#01BB74" size="50rpx"></wd-icon>
 				</view>
 				<view class="flex-row justify-center items-center mt80 pb24">
 					<view
@@ -105,7 +105,7 @@
 					<text>单价：{{ item.unitPrice == '0' ? '-' : '￥' + item.unitPrice }}</text>
 				</view>
 				<view class="absolute addicon" :id="index == 0 ? 'box1' : ''">
-					<up-icon @tab.stop class="absolute" style="bottom: 24rpx; right: 24rpx" name="plus-circle" color="#01BB74" size="50rpx" @click="addOrderBill(item)"></up-icon>
+					<wd-icon @tab.stop class="absolute" style="bottom: 24rpx; right: 24rpx" name="add-circle1" color="#01BB74" size="40rpx" @click="addOrderBill(item)"></wd-icon>
 				</view>
 			</view>
 
@@ -137,7 +137,7 @@
 					<view class="OrderCard" style="width: 94vw" v-for="(item, index) in orderItemList" :key="index">
 						<!-- <up-swipe-action-item :show="item.show" :options="options" :name="index" @click="delclick" @open="open"> -->
 						<view class="absolute" style="right: 24rpx">
-							<up-icon name="minus-circle-fill" color="#FA5151" size="40rpx" @click="delclick(index)"></up-icon>
+							<wd-icon name="minus-circle-filled" color="#FA5151" size="40rpx" @click="delclick(index)"></wd-icon>
 						</view>
 						<view class="flex-row pb24" style="width: 93%">
 							<view class="">品名:</view>

@@ -156,7 +156,7 @@
 									@click="checkboxGroupChange(item, index)"
 									style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 								>
-									<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
+									<wd-icon name="check" color="#ffffff" size="20rpx"></wd-icon>
 								</view>
 								<view class="ml15">订单编号:</view>
 								<view class="ml10" style="color: #f76565">
@@ -293,7 +293,7 @@
 												}"
 												style="border-radius: 50%; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 											>
-												<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
+												<wd-icon name="check" color="#ffffff" size="20rpx"></wd-icon>
 											</view>
 											<view class="ml15" style="color: #333333; font-size: 28rpx">全选</view>
 										</view>
@@ -309,7 +309,7 @@
 									class="flex-row justify-center items-center"
 									style="width: 280rpx; height: 80rpx; border-radius: 90rpx; opacity: 1; background-color: #01bb74; color: white; float: right; font-weight: 600"
 								>
-									<up-icon name="https://res-oss.elist.com.cn/wxImg/statistics/down.svg" size="40rpx"></up-icon>
+									<wd-icon name="https://res-oss.elist.com.cn/wxImg/statistics/down.svg" size="40rpx"></wd-icon>
 									下载PDF
 								</view>
 							</view>
@@ -332,7 +332,7 @@
 										<view class="flex-col justify-center items-center" @click="checkedAll"
 											:style="{backgroundColor:checked?'#01BB74':'#ffffff'}"
 											style="border-radius: 100rpx;height: 40rpx;width: 40rpx;border: 2rpx solid #AAAAAA;">
-											<up-icon name="checkbox-mark" color="#ffffff" size="28"></up-icon>
+											<wd-icon name="check" color="#ffffff" size="20rpx"></wd-icon>
 										</view>
 										<view class="ml15" style="color: #333333;">
 											全选
@@ -348,8 +348,8 @@
 								style="width: 280rpx;height: 80rpx;border-radius: 90rpx;opacity: 1;background-color: #01BB74;color: white;float: right;
 								font-weight: 600;
 								">
-								<up-icon name="https://res-oss.elist.com.cn/wxImg/statistics/down.svg"
-									size="40"></up-icon>下载PDF
+								<wd-icon name="https://res-oss.elist.com.cn/wxImg/statistics/down.svg"
+									size="40"></wd-icon>下载PDF
 							</view>
 						</view>
 					</view>

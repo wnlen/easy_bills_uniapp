@@ -99,7 +99,7 @@
 									:style="{ backgroundColor: checked ? '#01BB74' : '#ffffff' }"
 									style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 								>
-									<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
+									<wd-icon name="check" color="#ffffff" size="20rpx"></wd-icon>
 								</view>
 								<view class="ml15" style="color: #333333">全选</view>
 							</view>
@@ -130,7 +130,7 @@
 							@click.stop="checkboxGroupChange(item, index)"
 							style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 						>
-							<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
+							<wd-icon name="check" color="#ffffff" size="20rpx"></wd-icon>
 						</view>
 
 						<text class="ft30 ft-lightgray pr30" style="color: #666666" @tap.stop>
@@ -140,7 +140,7 @@
 							</text>
 						</text>
 
-						<up-icon size="28rpx" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></up-icon>
+						<wd-icon size="30rpx" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></wd-icon>
 					</view>
 					<view class="ml20" style="margin-right: -20rpx">
 						<up-image
@@ -273,7 +273,7 @@
 												</text>
 											</text>
 
-											<up-icon size="28rpx" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></up-icon>
+											<wd-icon size="30rpx" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></wd-icon>
 										</view>
 										<view class="ml20 absolute" style="top: 0; right: 0">
 											<up-image

@@ -100,7 +100,7 @@
 						@click="checkboxGroupChange(item, index)"
 						style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 					>
-						<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
+						<wd-icon name="check" color="#ffffff" size="20rpx"></wd-icon>
 					</view>
 					<view class="OrderCard_Hand_time">
 						{{ $u.timeFormat(item.billTime, 'yyyy-mm-dd') }}

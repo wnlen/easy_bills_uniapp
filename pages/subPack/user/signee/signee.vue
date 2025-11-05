@@ -67,9 +67,10 @@
 					<!-- #endif -->
 				</view>
 				<view class="u-border-top pt30 mt30 flex-row items-center justify-between">
-					<up-icon v-if="item.ifDefault != 'Y'" labelSize="12" name="checkmark-circle-fill" color="#01BB74" size="38rpx" label="默认签收人"></up-icon>
-					<up-icon @click="defaultItem(item.id)" v-else name="minus-circle" labelSize="12" color="#ccc" size="38rpx" label="默认签收人"></up-icon>
-					<!-- 			<text class="ft-gray ft24" @click="deleteItem(item.id)">删除</text> -->
+					<view class="flex-row items-center" v-if="item.ifDefault != 'Y'">
+						<wd-icon name="check-circle-filled" size="38rpx" color="#01BB74"></wd-icon>
+						<text class="ft24 ml10">默认签收人</text>
+					</view>
 				</view>
 				<up-popup :show="show" @close="show = false" :safeAreaInsetBottom="false" mode="center" :closeable="true">
 					<up-image style="transform: rotate(90deg)" width="500rpx" mode="widthFix" :src="item.signatureImg"></up-image>

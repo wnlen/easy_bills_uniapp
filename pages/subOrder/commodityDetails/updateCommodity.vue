@@ -18,7 +18,7 @@
 				width="34vw"
 			>
 				<view class="flex-col items-center justify-center">
-					<wd-icon name="add-circle" color="#01BB74" size="50rpx" />
+					<wd-icon name="add-circle1" color="#01BB74" size="50rpx" />
 					<view class="mt15">添加图片</view>
 				</view>
 			</up-upload>

@@ -137,8 +137,6 @@
 							<view class="mr30" v-if="item.name != ''">
 								<wd-icon name="delete1" @click="deleteRole(item)" size="35rpx" color="#333333"></wd-icon>
 							</view>
-
-							<!--  <up-icon @click="changeUser(1)" name="" :customStyle="{ margin: '0 0 0 30rpx' }" size="38rpx" class="mr30"></up-icon> -->
 						</view>
 					</view>
 				</view>
@@ -259,8 +257,6 @@
 							<view class="mr30" v-if="item.name != ''">
 								<wd-icon name="delete1" @click="deleteRole(item)" size="35rpx" color="#333333"></wd-icon>
 							</view>
-
-							<!-- <up-icon @click="changeUser(3)" name="" :customStyle="{ margin: '0 0 0 30rpx' }" size="38rpx" class="mr30"></up-icon> -->
 						</view>
 					</view>
 				</view>

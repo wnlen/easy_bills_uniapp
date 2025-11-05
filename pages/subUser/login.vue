@@ -10,12 +10,12 @@
 			<view class="width100 pb60 login_box">
 				<view class="login_btn1" v-if="ischeck">
 					<wd-button :customStyle="{ width: '100%' }" open-type="getPhoneNumber" @getphonenumber="(e) => getPhoneNumber(e)">
-						<up-icon size="25" label="手机号快捷登录" labelColor="#fff" labelSize="16"></up-icon>
+						<text class="ft-white ft32">手机号快捷登录</text>
 					</wd-button>
 				</view>
 				<view class="login_btn2" v-else>
 					<wd-button :customStyle="{ width: '100%' }" @click="wxmp_login">
-						<up-icon size="25" label="手机号快捷登录" labelColor="#fff" labelSize="16"></up-icon>
+						<text class="ft-white ft32">手机号快捷登录</text>
 					</wd-button>
 				</view>
 				<view class="width100 justify-center items-center flex-row pt30" style="font-size: 20rpx">
@@ -25,7 +25,7 @@
 						@click="radioGroupChange"
 						style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 					>
-						<up-icon name="checkbox-mark" color="#ffffff" size="20rpx"></up-icon>
+						<wd-icon name="check" color="#ffffff" size="16rpx"></wd-icon>
 					</view>
 					<view class="ml15">
 						<text style="color: #aaaaaa; font-size: 24rpx">同意并遵行易单据</text>
@@ -114,7 +114,7 @@
 			</view>
 			<view class="yszc" style="font-size: 20rpx">
 				<view class="flex-col justify-center items-center list1" :style="{ backgroundColor: ischeck ? '#01BB74' : '#ffffff' }" @click="radioGroupChange">
-					<up-icon name="checkbox-mark" color="#ffffff" size="20rpx"></up-icon>
+					<wd-icon name="check" color="#ffffff" size="16rpx"></wd-icon>
 				</view>
 				<view class="ml15">
 					<text style="color: #aaaaaa; font-size: 24rpx">同意并遵行易单据</text>

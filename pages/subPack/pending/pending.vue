@@ -188,11 +188,8 @@
 								{{ item.orderNumber }}
 							</text>
 						</text>
-						<up-icon size="28rpx" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></up-icon>
-						<view class="ml15"><up-icon size="28rpx" v-if="item.lockOrder == 1 && item.paymentState != 2" :name="bat64.lock" color="#666666"></up-icon></view>
-
-						<!-- 			<up-icon size="28" v-if="item.paymentState!=2" :name="bat64.bz" @click="remark(item)"></up-icon>
-						<view class=></view><up-icon  "ml15" size="28" v-if="item.lockOrder==1" :name="bat64.lock" color="#666666" @click="remark(item)"></up-icon> -->
+						<wd-icon size="30rpx" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></wd-icon>
+						<view class="ml15"><wd-icon size="28rpx" v-if="item.lockOrder == 1 && item.paymentState != 2" :name="bat64.lock" color="#666666"></wd-icon></view>
 					</view>
 					<view class="ml20 flex-1" style="margin-right: -10px">
 						<view class="u-img" v-if="pinia_userRole == 'D' && item.paymentState == '0'">

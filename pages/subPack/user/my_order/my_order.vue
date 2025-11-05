@@ -47,10 +47,10 @@
 								<view class="relative flex-row items-start">
 									<text class="mr10">{{ item.product || '' }}</text>
 									<!-- #ifdef MP-WEIXIN -->
-									<up-icon @tap.stop @click="popDetails(1, item)" class="mb10 ml5 absolute" size="23rpx" name="question-circle" color="#AAAAAA"></up-icon>
+									<wd-icon @tap.stop @click="popDetails(1, item)" class="mb10 ml5 absolute" size="23rpx" name="help-circle" color="#AAAAAA"></wd-icon>
 									<!-- #endif -->
 									<!-- #ifdef APP -->
-									<up-icon @click="popDetails(1, item)" class="mb10 ml5 absolute" size="23rpx" name="question-circle" color="#AAAAAA"></up-icon>
+									<wd-icon @click="popDetails(1, item)" class="mb10 ml5 absolute" size="23rpx" name="help-circle" color="#AAAAAA"></wd-icon>
 									<!-- #endif -->
 								</view>
 							</view>
@@ -71,7 +71,7 @@
 								}"
 								style="border-radius: 100rpx; height: 32rpx; width: 32rpx; border: 2rpx solid #aaaaaa"
 							>
-								<up-icon name="checkbox-mark" color="#ffffff" size="20rpx"></up-icon>
+								<wd-icon name="check" color="#ffffff" size="16rpx"></wd-icon>
 							</view>
 
 							<view class="absolute" style="right: 30rpx; top: -4rpx" v-if="index == 1">
@@ -96,7 +96,7 @@
 								<wd-button :customStyle="buttonStyle" open-type="contact">
 									<view class="flex-row items-center">
 										<text>报价咨询</text>
-										<view class="ml8 mt1"><up-icon name="play-right-fill" color="#E7647F" size="16rpx"></up-icon></view>
+										<view class="ml8 mt1"><wd-icon name="play" color="#E7647F" size="30rpx"></wd-icon></view>
 									</view>
 								</wd-button>
 							</view>
@@ -116,8 +116,8 @@
 						<view class="width40 flex-col pt20" @click="dropdownIcon" style="z-index: 98; height: 100%; text-align: center">
 							<liu-data-select elementId="data-select1" :dataList="dataListAll" @change="dropdown">
 								<view id="data-select1" class="btn-info flex-row justify-left pl30 items-center">
-									<view class="mr10" v-if="selectionIcon"><wd-icon name="caret-down-small" size="15" color="#333333"></wd-icon></view>
-									<view class="mr10" v-else><wd-icon name="caret-up-small" color="#333333" size="15"></wd-icon></view>
+									<view class="mr10" v-if="selectionIcon"><wd-icon name="caret-down-small" size="20" color="#333333"></wd-icon></view>
+									<view class="mr10" v-else><wd-icon name="caret-up-small" color="#333333" size="20"></wd-icon></view>
 									<text>{{ dropdownName || '' }}</text>
 								</view>
 							</liu-data-select>
@@ -132,18 +132,18 @@
 										}"
 										style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 									>
-										<up-icon name="checkbox-mark" color="#ffffff" size="25rpx"></up-icon>
+										<wd-icon name="check" color="#ffffff" size="20rpx"></wd-icon>
 									</view>
 									<view class="ml15 relative mr48 flex-row items-start">
 										<text class="mr10">{{ c_product_old_data[0] ? c_product_old_data[0].product : 0 }}</text>
-										<up-icon
+										<wd-icon
 											@tap.stop
 											@click="popDetails(1, c_product_old_data[0])"
 											class="mb10 ml5 absolute"
 											size="23rpx"
-											name="question-circle"
+											name="help-circle"
 											color="#AAAAAA"
-										></up-icon>
+										></wd-icon>
 									</view>
 									<text class="grandsonPriceSign">￥</text>
 									<text class="grandsonPrice">{{ c_product_old_data[0] ? c_product_old_data[0].priceDiscount : 0 }}/年</text>
@@ -160,19 +160,19 @@
 										}"
 										style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 									>
-										<up-icon name="checkbox-mark" color="#ffffff" size="25rpx"></up-icon>
+										<wd-icon name="check" color="#ffffff" size="20rpx"></wd-icon>
 									</view>
 
 									<view class="ml15 relative mr48 flex-row items-start">
 										<text class="mr10">{{ c_product_old_data[1] ? c_product_old_data[1].product : '' }}</text>
-										<up-icon
+										<wd-icon
 											@tap.stop
 											@click="popDetails(1, c_product_old_data[1])"
 											class="mb10 ml5 absolute"
 											size="23rpx"
-											name="question-circle"
+											name="help-circle"
 											color="#AAAAAA"
-										></up-icon>
+										></wd-icon>
 									</view>
 									<text class="grandsonPriceSign">￥</text>
 									<text class="grandsonPrice">{{ c_product_old_data[1] ? c_product_old_data[1].priceDiscount : 0 }}/年</text>
@@ -213,14 +213,14 @@
 						<view class="tabBodyOne_card_body">
 							<view class="tabBodyOne_card_body_hand">
 								<text class="mr10">合伙人</text>
-								<up-icon
+								<wd-icon
 									@click="popDetails(4, c_product_people[2])"
 									size="20rpx"
-									name="question-circle"
+									name="help-circle"
 									color="#AAAAAA"
 									class="absolute ml5"
 									style="top: 0; right: 0rpx"
-								></up-icon>
+								></wd-icon>
 							</view>
 							<view class="tabBodyOne_card_body_sum">
 								<up-number-box
@@ -253,7 +253,7 @@
 									}"
 									style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 								>
-									<up-icon name="checkbox-mark" color="#ffffff" size="20rpx"></up-icon>
+									<wd-icon name="check" color="#ffffff" size="16rpx"></wd-icon>
 								</view>
 							</view>
 						</view>
@@ -261,14 +261,14 @@
 						<view class="tabBodyOne_card_body">
 							<view class="tabBodyOne_card_body_hand">
 								<text class="mr10">财务</text>
-								<up-icon
+								<wd-icon
 									@click="popDetails(2, c_product_people[0])"
 									size="20rpx"
-									name="question-circle"
+									name="help-circle"
 									color="#AAAAAA"
 									class="absolute ml5"
 									style="top: 0; right: 20rpx"
-								></up-icon>
+								></wd-icon>
 							</view>
 							<view class="tabBodyOne_card_body_sum">
 								<up-number-box
@@ -301,7 +301,7 @@
 									}"
 									style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 								>
-									<up-icon name="checkbox-mark" color="#ffffff" size="20rpx"></up-icon>
+									<wd-icon name="check" color="#ffffff" size="16rpx"></wd-icon>
 								</view>
 							</view>
 						</view>
@@ -309,14 +309,14 @@
 						<view class="tabBodyOne_card_body">
 							<view class="tabBodyOne_card_body_hand">
 								<text class="mr10">员工</text>
-								<up-icon
+								<wd-icon
 									@click="popDetails(2, c_product_people[1])"
 									size="20rpx"
-									name="question-circle"
+									name="help-circle"
 									color="#AAAAAA"
 									class="absolute ml5"
 									style="top: 0; right: 20rpx"
-								></up-icon>
+								></wd-icon>
 							</view>
 							<view class="tabBodyOne_card_body_sum">
 								<up-number-box
@@ -349,7 +349,7 @@
 									}"
 									style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 								>
-									<up-icon name="checkbox-mark" color="#ffffff" size="20rpx"></up-icon>
+									<wd-icon name="check" color="#ffffff" size="16rpx"></wd-icon>
 								</view>
 							</view>
 						</view>
@@ -363,14 +363,14 @@
 						<view class="tabBodyTwoTitle" v-if="renew['C3'] != null">
 							<view class="title_hhr">
 								<text class="mr10">合伙人</text>
-								<up-icon
+								<wd-icon
 									@click="popDetails(3, c_product_people[2])"
 									size="20rpx"
-									name="question-circle"
+									name="help-circle"
 									color="#AAAAAA"
 									class="absolute ml32"
 									style="top: 0; right: 20rpx"
-								></up-icon>
+								></wd-icon>
 							</view>
 						</view>
 
@@ -393,7 +393,7 @@
 									}"
 									style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 								>
-									<up-icon name="checkbox-mark" color="#ffffff" size="20rpx"></up-icon>
+									<wd-icon name="check" color="#ffffff" size="16rpx"></wd-icon>
 								</view>
 							</view>
 						</view>
@@ -402,14 +402,14 @@
 						<view class="tabBodyTwoTitle" v-if="renew['C1'] != null">
 							<view class="title_cw">
 								<text class="mr10">财务</text>
-								<up-icon
+								<wd-icon
 									@click="popDetails(3, c_product_people[0])"
 									size="20rpx"
-									name="question-circle"
+									name="help-circle"
 									color="#AAAAAA"
 									class="absolute ml5"
 									style="top: 0; right: 20rpx"
-								></up-icon>
+								></wd-icon>
 							</view>
 						</view>
 
@@ -432,7 +432,7 @@
 									}"
 									style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 								>
-									<up-icon name="checkbox-mark" color="#ffffff" size="20rpx"></up-icon>
+									<wd-icon name="check" color="#ffffff" size="16rpx"></wd-icon>
 								</view>
 							</view>
 						</view>
@@ -440,14 +440,14 @@
 						<view class="tabBodyTwoTitle" v-if="renew['C2'] != null">
 							<view class="title_cw">
 								<text class="mr10">员工</text>
-								<up-icon
+								<wd-icon
 									@click="popDetails(3, c_product_people[1])"
 									size="20rpx"
-									name="question-circle"
+									name="help-circle"
 									color="#AAAAAA"
 									class="absolute ml5"
 									style="top: 0; right: 20rpx"
-								></up-icon>
+								></wd-icon>
 							</view>
 						</view>
 
@@ -470,7 +470,7 @@
 									}"
 									style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 								>
-									<up-icon name="checkbox-mark" color="#ffffff" size="20rpx"></up-icon>
+									<wd-icon name="check" color="#ffffff" size="16rpx"></wd-icon>
 								</view>
 							</view>
 						</view>
@@ -763,13 +763,13 @@
 							<view class="items-center dqsj flex-row" v-if="!item.open" @click="open(item, index)">
 								<text>全部订单信息</text>
 								<view class="ml5">
-									<up-icon name="arrow-down" color="#999999" size="28rpx"></up-icon>
+									<wd-icon name="chevron-down" color="#999999" size="28rpx"></wd-icon>
 								</view>
 							</view>
 							<view class="items-center dqsj flex-row" v-if="item.open" @click="close(item, index)">
 								<text>收起</text>
 								<view class="ml5">
-									<up-icon name="arrow-up" color="#999999" size="28rpx"></up-icon>
+									<wd-icon name="chevron-up" color="#999999" size="28rpx"></wd-icon>
 								</view>
 							</view>
 						</view>

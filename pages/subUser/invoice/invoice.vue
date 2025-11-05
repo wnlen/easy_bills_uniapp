@@ -15,7 +15,7 @@
 							:style="{ backgroundColor: type ? '#EA7183' : '#ffffff' }"
 							style="border-radius: 50px; height: 15px; width: 15px; border: 1px solid #aaaaaa"
 						>
-							<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
+							<wd-icon name="check" color="#ffffff" size="20rpx"></wd-icon>
 						</view>
 						<view class="ml5">企业</view>
 					</view>
@@ -26,7 +26,7 @@
 							:style="{ backgroundColor: !type ? '#EA7183' : '#ffffff' }"
 							style="border-radius: 50px; height: 15px; width: 15px; border: 1px solid #aaaaaa"
 						>
-							<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
+							<wd-icon name="check" color="#ffffff" size="20rpx"></wd-icon>
 						</view>
 						<view class="ml5">个人/非企业单位</view>
 					</view>
@@ -86,7 +86,7 @@
 
 		<view class="flex-col justify-center pl60 pr60 pb60 pt60 vw100" style="position: absolute; bottom: 0">
 			<text class="kpxz" @click="jump()">《开票须知》</text>
-			<wd-button  :customStyle="{ background:'#47506C' }" @click="installInvoice">提交申请</wd-button>
+			<wd-button :customStyle="{ background: '#47506C' }" @click="installInvoice">提交申请</wd-button>
 		</view>
 	</view>
 </template>

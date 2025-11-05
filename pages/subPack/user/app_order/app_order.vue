@@ -84,7 +84,7 @@
 					<view class="" v-show="current == 0">
 						<view class="BodyQBQYScrollViewHand" style="padding-bottom: 20rpx">
 							<text class="Hand_title mr10">套餐选择</text>
-							<up-icon @click="popDetails(1, item)" size="23rpx" name="question-circle" color="#AAAAAA"></up-icon>
+							<wd-icon @click="popDetails(1, item)" size="23rpx" name="help-circle" color="#AAAAAA"></wd-icon>
 						</view>
 						<view class="pl24 pr24">
 							<scroll-view :show-scrollbar="false" scroll-x="true" style="width: 100%">
@@ -108,7 +108,7 @@
 						</view>
 						<view class="BodyQBQYScrollViewHand" style="padding-bottom: 20rpx">
 							<text class="Hand_title mr10">法律签署能力</text>
-							<up-icon @click="popDetails(1, item)" size="23rpx" name="question-circle" color="#AAAAAA"></up-icon>
+							<wd-icon @click="popDetails(1, item)" size="23rpx" name="help-circle" color="#AAAAAA"></wd-icon>
 						</view>
 						<view class="pt30 pl24 pr24">
 							<view class="flqsnlBox relative">
@@ -179,10 +179,10 @@
 										<view class="relative flex-row items-start">
 											<text class="mr10">{{ item.product || '' }}</text>
 											<!-- #ifdef MP-WEIXIN -->
-											<up-icon @tap.stop @click="popDetails(1, item)" class="mb10 ml5 absolute" size="23rpx" name="question-circle" color="#AAAAAA"></up-icon>
+											<wd-icon @tap.stop @click="popDetails(1, item)" class="mb10 ml5 absolute" size="23rpx" name="help-circle" color="#AAAAAA"></wd-icon>
 											<!-- #endif -->
 											<!-- #ifdef APP -->
-											<up-icon @click="popDetails(1, item)" class="mb10 ml5 absolute" size="23rpx" name="question-circle" color="#AAAAAA"></up-icon>
+											<wd-icon @click="popDetails(1, item)" class="mb10 ml5 absolute" size="23rpx" name="help-circle" color="#AAAAAA"></wd-icon>
 											<!-- #endif -->
 										</view>
 									</view>
@@ -203,7 +203,7 @@
 										}"
 										style="border-radius: 100rpx; height: 32rpx; width: 32rpx; border: 2rpx solid #aaaaaa"
 									>
-										<up-icon name="checkbox-mark" color="#ffffff" size="20rpx"></up-icon>
+										<wd-icon name="check" color="#ffffff" size="20rpx"></wd-icon>
 									</view>
 
 									<view class="absolute" style="right: 30rpx; top: -4rpx" v-if="index == 1">
@@ -500,13 +500,13 @@
 							<view class="items-center dqsj flex-row" v-if="!item.open" @click="open(item, index)">
 								<text>全部订单信息</text>
 								<view class="ml5">
-									<up-icon name="arrow-down" color="#999999" size="28rpx"></up-icon>
+									<wd-icon name="chevron-down" color="#999999" size="28rpx"></wd-icon>
 								</view>
 							</view>
 							<view class="items-center dqsj flex-row" v-if="item.open" @click="close(item, index)">
 								<text>收起</text>
 								<view class="ml5">
-									<up-icon name="arrow-up" color="#999999" size="28rpx"></up-icon>
+									<wd-icon name="chevron-up" color="#999999" size="28rpx"></wd-icon>
 								</view>
 							</view>
 						</view>
