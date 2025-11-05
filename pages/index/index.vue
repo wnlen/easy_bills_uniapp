@@ -8,10 +8,8 @@
 
 				<view class="ft28">送货单轻松签收</view>
 			</view>
-			<view class="flex-row justify-between butBox text-center ft28 ft-bold" id="box">
-				<view v-for="(item, index) in roleList" :key="item.value" @click="changeRole(item.value)" :class="pinia_userRole === item.value ? 'activeBtn' : 'flex-1'">
-					{{ item.name }}
-				</view>
+			<view class="flex-row justify-between text-center ft28 ft-bold" id="box">
+				<wd-segmented :options="segmentedList" v-model:value="current" size="middle" @click="changeRole(role)"></wd-segmented>
 			</view>
 		</view>
 		<view class="bg-white radius12 mt60 ml30 mr30">
@@ -199,7 +197,9 @@ import { useSystemStore } from '@/store/system';
 export default {
 	data() {
 		return {
+			current: '发货端',
 			unreceivedValue: [],
+			selectCurrent: 'D',
 			unreceivedStyle: {
 				background: 'url(https://res-oss.elist.com.cn/wxImg/index/wqstx.png) no-repeat',
 				backgroundSize: '100% 100%',
@@ -331,6 +331,16 @@ export default {
 					value: 'R'
 				}
 			],
+			segmentedList: [
+				{
+					value: '发货端',
+					disabled: false
+				},
+				{
+					value: '收货端',
+					disabled: false
+				}
+			],
 			iconlistD: [
 				{
 					title: '客户',
@@ -448,6 +458,15 @@ export default {
 			daibannum: 0,
 			tagsIndex: 1
 		};
+	},
+	computed: {
+		role() {
+			if (this.current == '发货端') {
+				return 'D';
+			} else {
+				return 'R';
+			}
+		}
 	},
 	onLoad() {
 		// console.log('uni', uni);
@@ -1152,5 +1171,25 @@ export default {
 	background: #ecf3ff;
 	border: 2.2rpx solid #3465ff;
 	color: #3465ff;
+}
+
+:deep(.wd-segmented) {
+	background-color: #fff !important;
+	color: #fff;
+	border-radius: 214rpx !important;
+	border: 1rpx #ffc300 solid;
+}
+
+:deep(.wd-segmented__item) {
+	color: #ffc300 !important;
+}
+
+:deep(.wd-segmented__item.is-active) {
+	color: #fff !important;
+}
+
+:deep(.wd-segmented__item--active) {
+	background-color: var(--wot-segmented-item-acitve-bg, #ffc300) !important;
+	border-radius: 214rpx !important;
 }
 </style>
