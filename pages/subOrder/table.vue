@@ -94,7 +94,7 @@
 			<!-- <view class="ml5 mr5" style="flex: 1">
 				<wd-button :customStyle="SearchCustomStyle"  shape="circle"
 					@click="$goPath('/pages/subIndex/add_friend/add_friend')">
-					<view class=></view><up-icon  "pr10" name="phone-fill" color="#ffffff" size="30rpx"></up-icon>
+					<view class=></view><wd-icon  "pr10" name="phone" color="#ffffff" size="30rpx"></wd-icon>
 					手机号邀请
 				</wd-button>
 			</view> -->

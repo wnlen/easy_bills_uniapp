@@ -131,7 +131,7 @@
 							</view>
 
 							<view class="flex-col justify-center items-center" style="height: 5vh">
-								<view class="ml40"><up-icon name="https://res-oss.elist.com.cn/wxImg/statistics/lxrOther.svg" size="45rpx" @click="CustomerGet"></up-icon></view>
+								<view class="ml40"><wd-icon name="https://res-oss.elist.com.cn/wxImg/statistics/lxrOther.svg" size="45rpx" @click="CustomerGet"></wd-icon></view>
 							</view>
 						</div>
 					</div>
@@ -150,7 +150,7 @@
 								<uv-input border="none" maxlength="11" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入号码进行检索"></uv-input>
 							</view>
 							<view class="flex-col justify-center items-center" style="height: 5vh">
-								<view class="ml40"><up-icon name="https://res-oss.elist.com.cn/wxImg/statistics/ssOther.svg" size="36rpx" @click="searchListenner"></up-icon></view>
+								<view class="ml40"><wd-icon name="https://res-oss.elist.com.cn/wxImg/statistics/ssOther.svg" size="36rpx" @click="searchListenner"></wd-icon></view>
 							</view>
 						</div>
 					</div>
@@ -209,7 +209,7 @@
 										}"
 										style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 									>
-										<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
+										<wd-icon name="check" color="#ffffff" size="20rpx"></wd-icon>
 									</view>
 									<view class="ft30 ft-lightgray pr30 ml24" style="color: #666666">
 										订单编号
@@ -341,7 +341,7 @@
 										}"
 										style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 									>
-										<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
+										<wd-icon name="check" color="#ffffff" size="20rpx"></wd-icon>
 									</view>
 									<view class="ml15" style="color: #333333; font-size: 28rpx">全选</view>
 								</view>

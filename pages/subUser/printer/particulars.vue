@@ -7,10 +7,10 @@
 			<view class="flex-row justify-left items-center relative">
 				<view class="flex-row">
 					<view class="ml30">
-						<up-icon :name="imageUrl[1]" size="100rpx"></up-icon>
+						<wd-icon :name="imageUrl[1]" size="100rpx"></wd-icon>
 					</view>
 					<view class="ml30">
-						<up-icon class="ml30" :name="imageUrl[1]" size="100rpx"></up-icon>
+						<wd-icon class="ml30" :name="imageUrl[1]" size="100rpx"></wd-icon>
 					</view>
 				</view>
 				<view class="absolute" style="right: 10px">
@@ -39,7 +39,7 @@
 		</view>
 		<view class="pt180"></view>
 		<view class="flex-col justify-center pl60 pr60 vw100 fixed-bar" style="background-color: transparent">
-			<wd-button :customStyle="{ background:'#47506C' }" open-type="contact">购买咨询</wd-button>
+			<wd-button :customStyle="{ background: '#47506C' }" open-type="contact">购买咨询</wd-button>
 			<!-- @click="jump" -->
 		</view>
 	</view>

@@ -42,10 +42,6 @@
 				<view class="flex-row items-center justify-between u-border-bottom pt15 pb15">
 					<view class="flex-row items-center">
 						<text>总金额</text>
-						<!-- <view class="flex-row items-center ml20">
-							<up-icon name="arrow-downward" size="20rpx" color="#F53F3F"></up-icon>
-							<text class="ft12" style="color: #f53f3f">0.8%</text>
-						</view> -->
 					</view>
 					<view class="ft-green">
 						<text>￥</text>

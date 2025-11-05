@@ -89,7 +89,7 @@
 					@click="radioGroupChange"
 					style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 				>
-					<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
+					<wd-icon name="check" color="#ffffff" size="20rpx"></wd-icon>
 				</view>
 				<view class="ml15">
 					<text style="color: #aaaaaa; font-size: 24rpx">同意并遵行易单据</text>

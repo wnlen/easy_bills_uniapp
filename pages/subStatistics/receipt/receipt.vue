@@ -86,7 +86,7 @@
 
 							<view class="flex-col justify-center items-center" style="height: 5vh">
 								<view class="ml40">
-									<up-icon name="/static/img/list/ss.svg" size="45rpx" @click="SearchBtn"></up-icon>
+									<wd-icon name="/static/img/list/ss.svg" size="45rpx" @click="SearchBtn"></wd-icon>
 								</view>
 							</view>
 						</view>
@@ -118,7 +118,7 @@
 							:style="{ backgroundColor: item.check ? '#01BB74' : '#ffffff' }"
 							style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 						>
-							<up-icon name="checkbox-mark" @click="checkboxGroupChange(item, index)" color="#ffffff" size="28rpx"></up-icon>
+							<wd-icon name="check" @click="checkboxGroupChange(item, index)" color="#ffffff" size="20rpx"></wd-icon>
 						</view>
 						<!-- #endif -->
 						<!-- #ifdef APP -->
@@ -127,7 +127,7 @@
 							:style="{ backgroundColor: item.check ? '#01BB74' : '#ffffff' }"
 							style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 						>
-							<up-icon name="checkbox-mark" @click="checkboxGroupChange(item, index)" color="#ffffff" size="28rpx"></up-icon>
+							<wd-icon name="check" @click="checkboxGroupChange(item, index)" color="#ffffff" size="20rpx"></wd-icon>
 						</view>
 						<!-- #endif -->
 
@@ -138,7 +138,7 @@
 							</text>
 						</text>
 
-						<up-icon size="28rpx" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></up-icon>
+						<wd-icon size="30rpx" v-if="item.paymentState != 2" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></wd-icon>
 					</view>
 					<view class="ml20">
 						<up-image
@@ -236,7 +236,7 @@
 											}"
 											style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 										>
-											<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
+											<wd-icon name="check" color="#ffffff" size="20rpx"></wd-icon>
 										</view>
 										<view class="ml15" style="color: #333333">全选</view>
 									</view>

@@ -450,7 +450,9 @@
 				<view class="width100 mb54" style="color: #999999; font-weight: bold; text-align: center; font-size: 32rpx">请输入双方任意手机号后四位</view>
 				<up-message-input mode="bottomLine" maxlength="4" @change="change" @finish="finish" :inactive-color="colorT" :active-color="color"></up-message-input>
 				<view v-if="colorT == '#F9393A'" class="mt25" style="text-align: center; font-size: 20rpx">
-					<up-icon name="error-circle-fill" color="#FF8181" labelColor="#FF8181" label="手机号错误，请重新输入" size="28" labelSize="20"></up-icon>
+					<wd-icon name="info-circle-filled" size="28rpx" color="#FF8181"></wd-icon>
+					<text class="ft24" style="color: #ff8181">手机号错误，请重新输入</text>
+					<!-- <up-icon name="error-circle-fill" color="#FF8181" labelColor="#FF8181" label="手机号错误，请重新输入" size="28" labelSize="20"></up-icon> -->
 				</view>
 
 				<view class="mt36 flex-row justify-center items-center" style="color: #aaaaaa; width: 100%" @click="exit">
@@ -704,6 +706,9 @@ export default {
 			.then((res) => {
 				that.qyList = res.data.data;
 			});
+		if (uni.getStorageSync('inventoryStockpile')) {
+			uni.removeStorageSync('inventoryStockpile');
+		}
 	},
 	onShareAppMessage(ops) {
 		return {

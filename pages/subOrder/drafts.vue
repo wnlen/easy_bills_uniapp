@@ -81,7 +81,7 @@
 						@click.stop="checkboxGroupChange(item, index)"
 						style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 					>
-						<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
+						<wd-icon name="check" color="#ffffff" size="20rpx"></wd-icon>
 					</view>
 					<view class="flex-col text-left" style="width: 90%" @click.stop="jumpDraftsOrder(item.id)">
 						<text
@@ -140,7 +140,7 @@
 											}"
 											style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
 										>
-											<up-icon name="checkbox-mark" color="#ffffff" size="28rpx"></up-icon>
+											<wd-icon name="check" color="#ffffff" size="20rpx"></wd-icon>
 										</view>
 										<view class="ml15" style="color: #333333; font-size: 28rpx">全选</view>
 									</view>
@@ -388,6 +388,9 @@ export default {
 			this.Init();
 		} else {
 			this.$u.toast('登录查看更多');
+		}
+		if (uni.getStorageSync('inventoryStockpile')) {
+			uni.removeStorageSync('inventoryStockpile');
 		}
 	},
 	onUnload() {},

@@ -22,11 +22,18 @@
 				<SortByDrag :data="list" :drag="drag" :minus="compile" height="500rpx" :itemWidth="136"
 					:itemHeight="162" @sort="handleSort">
 					<template v-slot="{item, index}">
-						<view class="ml5 mr5 flex-col justify-center items-center relative"
-							style="background-color: transparent;">
-							<up-icon :label="item.name" size="100" :name="item.icon" labelPos="bottom" labelSize="25"
-								labelColor="#333333" @touchstart="handleTouchStart" @touchend="handleTouchEnd"
-								@touchcancel="handleTouchCancel"></up-icon>
+						<view class="ml5 mr5 relative" style="background-color: transparent">
+							<view class="flex-col justify-center items-center">
+								<wd-icon
+									size="80rpx"
+									:name="item.icon"
+									@touchstart="handleTouchStart"
+									@touchend="handleTouchEnd"
+									@click="jump(item)"
+									@touchcancel="handleTouchCancel"
+								></wd-icon>
+								<text class="ft25">{{ item.name }}</text>
+							</view>
 						</view>
 					</template>
 
@@ -46,19 +53,18 @@
 					@sort="handleSort"
 				>
 					<template v-slot="{ item, index }">
-						<view class="ml5 mr5 flex-col justify-center items-center relative" style="background-color: transparent">
-							<up-icon
-								:label="item.name"
-								size="80rpx"
-								:name="item.icon"
-								labelPos="bottom"
-								labelSize="25rpx"
-								labelColor="#333333"
-								@touchstart="handleTouchStart"
-								@touchend="handleTouchEnd"
-								@click="jump(item)"
-								@touchcancel="handleTouchCancel"
-							></up-icon>
+						<view class="ml5 mr5 relative" style="background-color: transparent">
+							<view class="flex-col justify-center items-center">
+								<wd-icon
+									size="80rpx"
+									:name="item.icon"
+									@touchstart="handleTouchStart"
+									@touchend="handleTouchEnd"
+									@click="jump(item)"
+									@touchcancel="handleTouchCancel"
+								></wd-icon>
+								<text class="ft25">{{ item.name }}</text>
+							</view>
 						</view>
 					</template>
 				</SortByDrag>

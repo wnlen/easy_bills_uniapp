@@ -849,6 +849,9 @@ onShow(() => {
 			uni.$u.toast('登录查看更多');
 		}
 	});
+	if (uni.getStorageSync('inventoryStockpile')) {
+		uni.removeStorageSync('inventoryStockpile');
+	}
 });
 
 onReady(async () => {

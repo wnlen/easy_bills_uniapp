@@ -103,7 +103,7 @@
 				</view>
 
 				<view class="mt10 ml10" style="height: 100%; align-items: center">
-					<view :style="{ display: showFile == 0 ? 'block' : 'none' }" class="mr10 ml10"><up-icon name="plus-circle" size="50" @click="sendImg"></up-icon></view>
+					<view :style="{ display: showFile == 0 ? 'block' : 'none' }" class="mr10 ml10"><wd-icon name="add-circle1" size="50" @click="sendImg"></wd-icon></view>
 
 					<button @click="send" :style="{ display: showFile == 1 ? 'block' : 'none' }" class="fsbtm">发送</button>
 				</view>

@@ -3,7 +3,8 @@
 		<!-- #ifndef MP-WEIXIN -->
 		<up-popup :show="show" mode="bottom" @close="handleClose">
 			<view class="top1 flex-row items-center">
-				<up-icon :name="iconName" size="40rpx" bold></up-icon>
+				<albb-icon v-if="iconName == 'share-square'" icon="ydj-zhuanfa" size="40rpx" color="#666666"></albb-icon>
+				<wd-icon v-else name="share" size="40rpx" color="#666666"></wd-icon>
 				<text class="ml20">{{ iconName == 'share-square' ? '转发至' : '分享至' }}</text>
 			</view>
 			<view class="flex-row justify-around items-center">
