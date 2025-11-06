@@ -9,7 +9,7 @@
 				<view class="ft28">送货单轻松签收</view>
 			</view>
 			<view class="flex-row justify-between text-center ft28 ft-bold" id="box">
-				<wd-segmented :options="segmentedList" v-model:value="current" size="middle" @click="changeRole(role)"></wd-segmented>
+				<wd-segmented :options="segmentedList" v-model:value="current" size="small" @click="changeRole(current)"></wd-segmented>
 			</view>
 		</view>
 		<view class="bg-white radius12 mt60 ml30 mr30">
@@ -459,18 +459,7 @@ export default {
 			tagsIndex: 1
 		};
 	},
-	computed: {
-		role() {
-			if (this.current == '发货端') {
-				return 'D';
-			} else {
-				return 'R';
-			}
-		}
-	},
 	onLoad() {
-		// console.log('uni', uni);
-		// console.log('this', this);
 		if (this.pinia_token) {
 			const role = this.$u.getPinia('user.userRole');
 			const guidanceD = this.$u.getPinia('guide.guidanceD');
@@ -927,6 +916,7 @@ export default {
 			}
 		},
 		setDR(value) {
+			this.current = value == 'D' ? '发货端' : '收货端';
 			this.$set(this.ringOpts.subtitle, 'name', `（${new Date().getFullYear()}年）`);
 			if (value === 'D') {
 				this.rawData[0].name = '待签收';
@@ -988,6 +978,7 @@ export default {
 		},
 		/*切换角色  */
 		changeRole(value) {
+			value = value == '发货端' ? 'D' : 'R';
 			this.setDR(value);
 			this.$u.setPinia({
 				user: {
@@ -1177,7 +1168,7 @@ export default {
 	background-color: #fff !important;
 	color: #fff;
 	border-radius: 214rpx !important;
-	border: 1rpx #ffc300 solid;
+	border: 2rpx #ffc300 solid;
 }
 
 :deep(.wd-segmented__item) {
@@ -1191,5 +1182,8 @@ export default {
 :deep(.wd-segmented__item--active) {
 	background-color: var(--wot-segmented-item-acitve-bg, #ffc300) !important;
 	border-radius: 214rpx !important;
+}
+:deep(.wd-segmented__item-label) {
+	text-overflow: clip !important;
 }
 </style>
