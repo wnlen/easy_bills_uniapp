@@ -1,7 +1,7 @@
 <template>
 	<view class="content pd15 bg-gray">
-		<view class="vw100 relative flex-col justify-center items-center" style="height: 30vh; margin-top: 60%" v-if="!allShow && !defShow">
-			<up-empty icon="https://res-oss.elist.com.cn/wxImg/vip/print.svg" iconSize="400rpx" text="暂无打印机~" mode="search" margin-top="-200"></up-empty>
+		<view class="vw100 relative flex-col justify-center items-center" style="height: 100vh" v-if="!allShow && !defShow">
+			<up-empty icon="https://res-oss.elist.com.cn/wxImg/vip/print.svg" iconSize="400rpx" text="暂无打印机~" mode="search" margin-top="-150"></up-empty>
 
 			<wd-button @click="buy" :customStyle="{ width: '300rpx', height: '70rpx', fontSize: '30rpx', marginTop: '100rpx', background: '#47506C' }">去购买</wd-button>
 		</view>
@@ -47,7 +47,7 @@ export default {
 		};
 	},
 	onShow() {
-		this.getPrinter();
+		// this.getPrinter();
 	},
 	methods: {
 		buy() {

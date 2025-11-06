@@ -166,8 +166,8 @@
 						{{ role == 0 ? '客户' : '供应商' }}
 					</view>
 					<view class="ml10">
-						<wd-icon name="caret-down-small" v-if="!showChecked" size="15" color="#000000"></wd-icon>
-						<wd-icon name="caret-up-small" v-if="showChecked" color="#000000" size="15"></wd-icon>
+						<albb-icon icon="ydj-tiaojianshaixuanfan2" v-if="!showChecked" size="15" color="#000000"></albb-icon>
+						<albb-icon icon="ydj-tiaojianshaixuan2" v-if="showChecked" color="#000000" size="15"></albb-icon>
 					</view>
 				</view>
 				<view v-if="!showChecked" class="u-border-top flex-row" style="width: 100%; height: 7vh" @tap.stop>

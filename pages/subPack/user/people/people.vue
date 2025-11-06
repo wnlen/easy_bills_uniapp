@@ -78,11 +78,11 @@
 							"
 						></view>
 						<view class="flex-row u-border-bottom pd20 items-center" @click="getPhone(1)">
-							<view class="mr15"><wd-icon name="phone" color="#ffffff" size="35rpx"></wd-icon></view>
+							<view class="mr15"><albb-icon icon="ydj-shoujihao" color="#ffffff" size="30rpx"></albb-icon></view>
 							<text style="font-weight: normal">手机号</text>
 						</view>
 						<view class="pd16 flex-row items-center" @click="scanQRcodes(1)">
-							<view class="mr15"><wd-icon name="scan" color="#ffffff" size="35rpx"></wd-icon></view>
+							<view class="mr15"><albb-icon icon="ydj-saoyisao" color="#ffffff" size="35rpx"></albb-icon></view>
 							<text style="font-weight: normal">扫一扫</text>
 						</view>
 					</view>
@@ -199,11 +199,11 @@
 							"
 						></view>
 						<view class="flex-row u-border-bottom pd20 items-center" @click="getPhone(3)">
-							<view class="mr15"><wd-icon name="phone" color="#ffffff" size="35rpx"></wd-icon></view>
+							<view class="mr15"><albb-icon icon="ydj-shoujihao" color="#ffffff" size="30rpx"></albb-icon></view>
 							<text style="font-weight: normal">手机号</text>
 						</view>
 						<view class="pd16 flex-row items-center" @click="scanQRcodes(3)">
-							<view class="mr15"><wd-icon name="scan" color="#ffffff" size="35rpx"></wd-icon></view>
+							<view class="mr15"><albb-icon icon="ydj-saoyisao" color="#ffffff" size="35rpx"></albb-icon></view>
 							<text style="font-weight: normal">扫一扫</text>
 						</view>
 					</view>
@@ -318,11 +318,11 @@
 							"
 						></view>
 						<view class="flex-row u-border-bottom pd20 items-center" @click="getPhone(4)">
-							<view class="mr15"><wd-icon name="phone" color="#ffffff" size="35rpx"></wd-icon></view>
+							<view class="mr15"><albb-icon icon="ydj-shoujihao" color="#ffffff" size="30rpx"></albb-icon></view>
 							<text style="font-weight: normal">手机号</text>
 						</view>
 						<view class="pd16 flex-row items-center" @click="scanQRcodes(4)">
-							<view class="mr15"><wd-icon name="scan" color="#ffffff" size="35rpx"></wd-icon></view>
+							<view class="mr15"><albb-icon icon="ydj-saoyisao" color="#ffffff" size="35rpx"></albb-icon></view>
 							<text style="font-weight: normal">扫一扫</text>
 						</view>
 					</view>

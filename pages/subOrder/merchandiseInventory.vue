@@ -20,10 +20,16 @@
 					title-size="34"
 					@leftClick="customBack"
 					bgColor="transparent"
-				></up-navbar>
+				>
+					<template #right>
+						<!-- #ifndef MP-WEIXIN -->
+						<wd-icon name="share" size="44rpx" @click="toShare"></wd-icon>
+						<!-- #endif -->
+					</template>
+				</up-navbar>
 				<view class="ml24 mr24 flex-row items-center justify-center pb30">
-					<view class="flex-row items-center justify-center pl20 pr10" style="background: #ffffff; border-radius: 254rpx; width: 75%; height: 60rpx">
-						<wd-icon name="search" color="#01BB74" size="40rpx"></wd-icon>
+					<view class="flex-row items-center justify-center pl20 pr10 flex-1" style="background: #ffffff; border-radius: 254rpx; height: 60rpx">
+						<wd-icon name="search" color="#01BB74" size="34rpx"></wd-icon>
 						<uv-input
 							:customStyle="{
 								backgroundColor: 'transparent',
@@ -37,6 +43,11 @@
 						></uv-input>
 					</view>
 					<wd-button @click="jumpAddCommodity" :customStyle="SearchCustomStyle" size="small" :round="false">添加商品</wd-button>
+					<!-- #ifdef MP-WEIXIN -->
+					<!-- <view class="ml20">
+						<button open-type="share" class="shareBtn" hover-class="none"><wd-icon name="share" size="44rpx"></wd-icon></button>
+					</view> -->
+					<!-- #endif -->
 				</view>
 			</template>
 
@@ -252,7 +263,6 @@ export default {
 				width: '120rpx',
 				height: '50rpx',
 				padding: '6rpx',
-				marginLeft: '24rpx',
 				fontSize: '24rpx',
 				margin: '0 0 0 24rpx'
 			},
@@ -289,6 +299,17 @@ export default {
 			update: false,
 			invCardEmpty: false,
 			hideEmptyView: true
+		};
+	},
+	onShareAppMessage(res) {
+		if (res.from === 'button') {
+			// 来自页面内分享按钮
+			console.log(res.target);
+		}
+		return {
+			title: '自定义分享标题',
+			path: '/pages/test/test?id=123',
+			imageUrl: ''
 		};
 	},
 	onLoad(option) {
@@ -349,6 +370,22 @@ export default {
 		// });
 	},
 	methods: {
+		// app分享
+		toShare() {
+			// 分享图片
+			uni.share({
+				provider: 'weixin',
+				scene: 'WXSceneSession',
+				type: 2,
+				imageUrl: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/uni@2x.png',
+				success: function (res) {
+					console.log('success:' + JSON.stringify(res));
+				},
+				fail: function (err) {
+					console.log('fail:' + JSON.stringify(err));
+				}
+			});
+		},
 		//监听引导页每一步位置
 		onGuideStepChange({ step }) {
 			console.log('监听', step);
@@ -699,6 +736,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.shareBtn {
+	padding: 0;
+	line-height: 44rpx;
+	background-color: transparent;
+}
+.shareBtn:after {
+	width: auto;
+	height: auto;
+}
 .addicon {
 	padding: 10rpx;
 	border-radius: 50%;

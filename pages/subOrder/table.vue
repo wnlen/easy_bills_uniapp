@@ -23,8 +23,8 @@
 						{{ role == 0 ? '客户' : '供应商' }}
 					</view>
 					<view class="ml10">
-						<wd-icon name="caret-down-small" v-if="!showChecked" size="15" color="#000000"></wd-icon>
-						<wd-icon name="caret-up-small" v-if="showChecked" color="#000000" size="15"></wd-icon>
+						<albb-icon icon="ydj-tiaojianshaixuanfan2" v-if="!showChecked" size="15" color="#000000"></albb-icon>
+						<albb-icon icon="ydj-tiaojianshaixuan2" v-if="showChecked" color="#000000" size="15"></albb-icon>
 					</view>
 				</view>
 				<view v-if="!showChecked" class="u-border-top flex-row" style="width: 100%; height: 7vh" @tap.stop>
@@ -86,7 +86,7 @@
 			<view class="ml5 mr5 flex-row justify-center" style="flex: 1">
 				<wd-button openType="share" color="#01BB74" :customStyle="SearchCustomStyleWechat" :plain="true">
 					<view class="flex-row items-center justify-center">
-						<view><albb-icon icon="ydj-weixin-fill" color="#01BB74" size="30rpx"></albb-icon></view>
+						<view><albb-icon icon="ydj-weixin-fill" color="#01BB74" size="40rpx"></albb-icon></view>
 						<text class="pl10">微信邀请</text>
 					</view>
 				</wd-button>
@@ -94,7 +94,7 @@
 			<!-- <view class="ml5 mr5" style="flex: 1">
 				<wd-button :customStyle="SearchCustomStyle"  shape="circle"
 					@click="$goPath('/pages/subIndex/add_friend/add_friend')">
-					<view class=></view><wd-icon  "pr10" name="phone" color="#ffffff" size="30rpx"></wd-icon>
+					<view class=></view><albb-icon icon="ydj-shoujihao" color="#ffffff" size="30rpx"></albb-icon>
 					手机号邀请
 				</wd-button>
 			</view> -->
@@ -111,8 +111,8 @@
 		</view>
 		<view class="anchorText">
 			<view class="SearchTablePage">
-				<view class="SearchTablePageIcon">
-					<wd-icon name="search" color="#01BB74" size="40rpx"></wd-icon>
+				<view class="SearchTablePageIcon pl24">
+					<wd-icon name="search" color="#01BB74" size="34rpx"></wd-icon>
 				</view>
 				<view class="SearchTablePageInput">
 					<uv-input placeholder="请输入关键字进行查找" border="none" @change="search"></uv-input>

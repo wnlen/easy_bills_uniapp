@@ -147,7 +147,7 @@
 							<!-- {{showTage==0?"联系人":(showTage==1?"联系号码":showTage==2?(pinia_userRole=='R'?'收货地址':'收货地址'):showTage==3?"产品名称":"条件筛选")}} -->
 							{{ Title }}
 						</text>
-						<wd-icon name="caret-down-small" size="20px"></wd-icon>
+						<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 						<view class="my-input flex-1" v-if="showTage !== '1'">
 							<uv-input border="none" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入关键字进行检索"></uv-input>
 						</view>
@@ -360,7 +360,7 @@
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
 							<view class="flex-row items-center flex-1">
 								<text style="color: #999999">开始日期</text>
-								<wd-icon name="caret-down-small" size="20"></wd-icon>
+								<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 								<view
 									@click="
 										$refs.calendars.open();
@@ -372,8 +372,8 @@
 								</view>
 							</view>
 							<view class="flex-row items-center flex-1">
-								<text style="color: #999999">结束日期</text>
-								<wd-icon name="caret-down-small" size="20"></wd-icon>
+								<text style="color: #999999" class="ml10">结束日期</text>
+								<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 								<view
 									@click="
 										$refs.calendars.open();

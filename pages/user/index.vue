@@ -473,7 +473,7 @@ export default {
 	overflow: hidden;
 }
 ::v-deep .wd-cell__wrapper {
-	padding: 30rpx !important;
+	padding: 30rpx 0 !important;
 }
 ::v-deep .u-line {
 	border-color: #f4f4f4 !important;

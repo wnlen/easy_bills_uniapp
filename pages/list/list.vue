@@ -368,7 +368,7 @@
 								type="default"
 								@click="VerifyAdd(item, index, 1)"
 							>
-								<wd-icon name="delete1" size="25rpx" color="#666666"></wd-icon>
+								<wd-icon name="delete1" size="26rpx" color="#666666"></wd-icon>
 								<text class="ft22 ml5">删除</text>
 							</button>
 							<button
@@ -383,7 +383,7 @@
 								type="default"
 								@click="VerifyAdd(item, index, 3)"
 							>
-								<wd-icon name="edit-1" size="25rpx" color="#666666"></wd-icon>
+								<albb-icon icon="ydj-dingdanliebiao2" color="#666666" size="24rpx" class="mt2"></albb-icon>
 								<text class="ft22 ml5">修改</text>
 							</button>
 						</view>
@@ -440,7 +440,7 @@
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
 							<view class="flex-row items-center flex-1">
 								<text style="color: #999999">开始日期</text>
-								<wd-icon name="caret-down-small" size="20"></wd-icon>
+								<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 								<view
 									@click="
 										calendars.open();
@@ -452,8 +452,8 @@
 								</view>
 							</view>
 							<view class="flex-row items-center flex-1">
-								<text style="color: #999999">结束日期</text>
-								<wd-icon name="caret-down-small" size="20"></wd-icon>
+								<text style="color: #999999" class="ml10">结束日期</text>
+								<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 								<view
 									@click="
 										calendars.open();

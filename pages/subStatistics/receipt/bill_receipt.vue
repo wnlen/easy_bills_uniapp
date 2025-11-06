@@ -64,7 +64,7 @@
 					<view class="billCardTime cardShow">
 						<view class="billCardTimeStart">
 							<text style="color: #666666">开始日期</text>
-							<wd-icon name="caret-down-small" size="20px"></wd-icon>
+							<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 							<view
 								@click="
 									$refs.calendars.open();
@@ -77,7 +77,7 @@
 						</view>
 						<view class="billCardTimeEnd">
 							<text style="color: #666666">结束日期</text>
-							<wd-icon name="caret-down-small" size="20"></wd-icon>
+							<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 							<view
 								@click="
 									$refs.calendars.open();
@@ -187,8 +187,9 @@
 					</view>
 				</view>
 				<view class="OrderCard_end" @tap.stop>
-					<wd-button
-						class="ml30"
+					<button
+						class="hl-btn flex-row items-center justify-center"
+						type="default"
 						v-if="
 							pinia_user.data.work == '1'
 								? pinia_user.workData.identity == 3 || pinia_user.workData.identity == 1
@@ -196,24 +197,21 @@
 									: false
 								: item.sourcePhone == pinia_user.phone && item.billState != 1
 						"
-						size="small"
-						:plain="true"
 						@click="click(index, 0)"
-						:customStyle="SearchCustomStyleWechat"
 					>
-						<wd-icon name="edit-1" size="20rpx" color="#666666"></wd-icon>
+						<albb-icon icon="ydj-dingdanliebiao2" color="#666666" size="24rpx" class="mt2"></albb-icon>
 						<text class="ft22 ml5">修改</text>
-					</wd-button>
+					</button>
 
-					<wd-button class="ml30" plain size="small" @click="viewDetails(item)" :customStyle="SearchCustomStyleWechat">
-						<wd-icon name="list" size="20rpx" color="#666666"></wd-icon>
+					<button class="hl-btn flex-row items-center justify-center" type="default" @click="viewDetails(item)">
+						<albb-icon icon="ydj-dingdanliebiao21" color="#666666" size="18rpx"></albb-icon>
 						<text class="ft22 ml5">订单列表</text>
-					</wd-button>
+					</button>
 					<!-- v-if="pinia_user.data.work=='1'?pinia_user.workData.identity!=3:true&&item.billState!=1" -->
-					<wd-button class="ml30" plain size="small" @click="click(index, 1)" v-if="item.billState != 1" :customStyle="SearchCustomStyleWechat">
-						<wd-icon name="delete1" size="25rpx" color="#666666"></wd-icon>
+					<button class="hl-btn flex-row items-center justify-center" type="default" @click="click(index, 1)" v-if="item.billState != 1">
+						<wd-icon name="delete1" size="26rpx" color="#666666"></wd-icon>
 						<text class="ft22 ml5">删除</text>
-					</wd-button>
+					</button>
 				</view>
 			</view>
 			<template #empty>
@@ -362,7 +360,7 @@ export default {
 				fontSize: '24rpx',
 				color: '#666666',
 				margin: '0',
-				borderColor: '#ebedf0'
+				borderColor: '#333'
 			},
 			identity: false,
 			billTitle: '收款',
@@ -1047,12 +1045,11 @@ export default {
 
 	.OrderCard_end {
 		height: 100rpx;
-
 		display: flex;
 		align-items: center;
 		padding: 0 40rpx;
 		::v-deep button {
-			margin-right: 20rpx !important;
+			margin: 0 20rpx 0 0 !important;
 			&:last-of-type {
 				margin-right: 0 !important;
 			}

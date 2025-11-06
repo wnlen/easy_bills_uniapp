@@ -76,7 +76,7 @@
 							<text class="ft11 ft-gray ml20" @click="filtrateGet">
 								{{ Title }}
 							</text>
-							<wd-icon name="caret-down-small" size="20px"></wd-icon>
+							<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 							<view class="my-input flex-1" v-if="showTage !== '1'">
 								<uv-input border="none" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入关键字进行检索"></uv-input>
 							</view>
@@ -283,7 +283,7 @@
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
 							<view class="flex-row items-center" style="width: 50%">
 								<text style="color: #999999">开始日期</text>
-								<wd-icon name="caret-down-small" size="20"></wd-icon>
+								<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 								<view
 									@click="
 										$refs.calendars.open();
@@ -296,7 +296,7 @@
 							</view>
 							<view class="flex-row items-center" style="width: 50%">
 								<text class="ml20" style="color: #999999">结束日期</text>
-								<wd-icon name="caret-down-small" size="20"></wd-icon>
+								<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 								<view
 									@click="
 										$refs.calendars.open();
