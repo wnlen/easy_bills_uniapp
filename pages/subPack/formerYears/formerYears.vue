@@ -25,8 +25,9 @@
 					<view class="flex-col justify-center items-center" @click="selectionIconClick" style="height: 100%">
 						<liu-data-select elementId="data-select1" :dataList="dataList" @change="dropdown" color="#965510">
 							<view id="data-select1" class="btn-info flex-row justify-center items-center">
-								<view v-if="!selectionIcon"><wd-icon name="caret-up-small" color="#965510" size="20"></wd-icon></view>
-								<view v-else><wd-icon name="caret-down-small" size="20" color="#965510"></wd-icon></view>
+								<view class="mr10">
+									<albb-icon :icon="selectionIcon ? 'ydj-tiaojianshaixuanfan2' : 'ydj-tiaojianshaixuan2'" color="#965510" size="30rpx"></albb-icon>
+								</view>
 								<text style="color: #965510">{{ dropdownName }}</text>
 								<text style="color: #965510" v-if="dropdownName != '请选择'">年</text>
 							</view>
@@ -140,7 +141,7 @@
 						<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
 							<text class="ft11 ft-gray ml36" @click="filtrateGet">{{ Title }}</text>
 							<view>
-								<wd-icon name="caret-down-small" size="20"></wd-icon>
+								<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 							</view>
 
 							<view class="my-input flex-1" v-if="showTage != '1'">
@@ -395,7 +396,7 @@
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
 							<view class="flex-row items-center" style="width: 50%">
 								<text style="color: #999999">开始日期</text>
-								<wd-icon name="caret-down-small" size="20"></wd-icon>
+								<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 								<view
 									@click="
 										$refs.calendars.open();
@@ -408,8 +409,8 @@
 								</view>
 							</view>
 							<view class="flex-row items-center" style="width: 50%">
-								<text style="color: #999999">结束日期</text>
-								<wd-icon name="caret-down-small" size="20"></wd-icon>
+								<text style="color: #999999" class="ml10">结束日期</text>
+								<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 								<view
 									@click="
 										$refs.calendars.open();

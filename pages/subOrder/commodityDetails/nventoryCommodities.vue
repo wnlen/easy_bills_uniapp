@@ -2,10 +2,16 @@
 	<view class="modification">
 		<z-paging ref="paging" use-virtual-list :force-close-inner-list="true" cell-height-mode="dynamic" @virtualListChange="virtualListChange" @query="queryList">
 			<template #top>
-				<up-navbar :autoBack="true" :placeholder="true" bgColor="transparent" :titleStyle="titleStyle" title="商品库"></up-navbar>
+				<up-navbar :autoBack="true" :placeholder="true" bgColor="transparent" :titleStyle="titleStyle" title="商品库">
+					<template #right>
+						<!-- #ifndef MP-WEIXIN -->
+						<wd-icon name="share" size="44rpx" @click="toShare"></wd-icon>
+						<!-- #endif -->
+					</template>
+				</up-navbar>
 				<view class="ml24 mr24 flex-row items-center justify-center pb30">
-					<view class="flex-row items-center justify-center pl20 pr10" style="background: #ffffff; border-radius: 254rpx; width: 75%; height: 60rpx">
-						<wd-icon name="search" color="#01BB74" size="40rpx"></wd-icon>
+					<view class="flex-row items-center justify-center pl20 pr10 flex-1" style="background: #ffffff; border-radius: 254rpx; height: 60rpx">
+						<wd-icon name="search" color="#01BB74" size="34rpx"></wd-icon>
 						<uv-input
 							:customStyle="{
 								backgroundColor: 'transparent',
@@ -19,6 +25,11 @@
 						></uv-input>
 					</view>
 					<wd-button size="small" :round="false" @click="jumpAddCommodity" :customStyle="SearchCustomStyle">添加商品</wd-button>
+					<!-- #ifdef MP-WEIXIN -->
+					<!-- <view class="ml20">
+						<button open-type="share" class="shareBtn" hover-class="none"><wd-icon name="share" size="44rpx"></wd-icon></button>
+					</view> -->
+					<!-- #endif -->
 				</view>
 			</template>
 			<template #empty>
@@ -156,7 +167,34 @@ export default {
 		}
 		this.$refs.paging.reload();
 	},
+	onShareAppMessage(res) {
+		if (res.from === 'button') {
+			// 来自页面内分享按钮
+			console.log(res.target);
+		}
+		return {
+			title: '自定义分享标题',
+			path: '/pages/test/test?id=123',
+			imageUrl: ''
+		};
+	},
 	methods: {
+		// app分享
+		toShare() {
+			// 分享图片
+			uni.share({
+				provider: 'weixin',
+				scene: 'WXSceneSession',
+				type: 2,
+				imageUrl: 'https://qiniu-web-assets.dcloud.net.cn/unidoc/zh/uni@2x.png',
+				success: function (res) {
+					console.log('success:' + JSON.stringify(res));
+				},
+				fail: function (err) {
+					console.log('fail:' + JSON.stringify(err));
+				}
+			});
+		},
 		virtualListChange(vList) {
 			this.orderList = vList;
 		},
@@ -236,6 +274,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.shareBtn {
+	padding: 0;
+	line-height: 44rpx;
+	background-color: transparent;
+}
+.shareBtn:after {
+	width: auto;
+	height: auto;
+}
 .rectBtn {
 	position: absolute;
 	width: 328rpx;

@@ -26,7 +26,7 @@
 						{{ pinia_user.data.name }}
 						<view class="width100 flex-row justify-center items-center">
 							<view class="flex-row justify-center items-center">
-								<wd-icon name="phone" color="#AAAAAA" size="28rpx"></wd-icon>
+								<albb-icon icon="ydj-erweimashouji" color="#AAAAAA" size="28rpx"></albb-icon>
 							</view>
 							<view class="ml2 ft14" style="color: #aaaaaa; font-weight: 400">
 								{{ pinia_user.phone }}
@@ -81,8 +81,8 @@
 						{{ role == 1 ? '客户' : '供应商' }}
 					</view>
 					<view class="ml10">
-						<wd-icon name="caret-down-small" v-if="!showChecked" size="15" color="#000000"></wd-icon>
-						<wd-icon name="caret-up-small" v-if="showChecked" color="#000000" size="15"></wd-icon>
+						<albb-icon icon="ydj-tiaojianshaixuanfan2" v-if="!showChecked" size="15" color="#000000"></albb-icon>
+						<albb-icon icon="ydj-tiaojianshaixuan2" v-if="showChecked" color="#000000" size="15"></albb-icon>
 					</view>
 				</view>
 				<view v-if="!showChecked" class="u-border-top flex-row absolute" style="width: 100%; height: 104rpx; bottom: 0" @tap.stop>

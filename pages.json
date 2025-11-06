@@ -561,6 +561,14 @@
 					}
 				},
 				{
+					"path": "advancedOrder",
+					"style": {
+						"navigationBarTitleText": "预定单",
+						"navigationBarBackgroundColor": "#00D383",
+						"navigationBarTextStyle": "white"
+					}
+				},
+				{
 					"path": "modification",
 					"style": {
 						"navigationBarTitleText": "",
@@ -604,6 +612,13 @@
 				},
 				{
 					"path": "draftsOrders/draftsOrders",
+					"style": {
+						"navigationBarTitleText": "",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "commodityDetails/shareCommodity",
 					"style": {
 						"navigationBarTitleText": "",
 						"navigationStyle": "custom"

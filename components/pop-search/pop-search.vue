@@ -28,7 +28,7 @@
 					{{ InputOneName.c }}
 				</text>
 				<view style="right: 0; top: 40rpx">
-					<wd-icon name="caret-down-small" size="20px"></wd-icon>
+					<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 				</view>
 
 				<view class="my-input">

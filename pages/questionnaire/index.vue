@@ -128,7 +128,8 @@ export default {
 				height: '96rpx',
 				lineHeight: '96rpx',
 				width: '70%',
-				fontSize: '38rpx'
+				fontSize: '38rpx',
+				backgroundColor: '#FFAF38'
 			}
 		};
 	},

@@ -116,8 +116,8 @@
 						<view class="width40 flex-col pt20" @click="dropdownIcon" style="z-index: 98; height: 100%; text-align: center">
 							<liu-data-select elementId="data-select1" :dataList="dataListAll" @change="dropdown">
 								<view id="data-select1" class="btn-info flex-row justify-left pl30 items-center">
-									<view class="mr10" v-if="selectionIcon"><wd-icon name="caret-down-small" size="20" color="#333333"></wd-icon></view>
-									<view class="mr10" v-else><wd-icon name="caret-up-small" color="#333333" size="20"></wd-icon></view>
+									<view class="mr10" v-if="selectionIcon"><albb-icon icon="ydj-tiaojianshaixuanfan2" color="#333333" size="30rpx"></albb-icon></view>
+									<view class="mr10" v-else><albb-icon icon="ydj-tiaojianshaixuan2" color="#333333" size="30rpx"></albb-icon></view>
 									<text>{{ dropdownName || '' }}</text>
 								</view>
 							</liu-data-select>

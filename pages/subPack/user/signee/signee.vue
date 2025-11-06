@@ -36,7 +36,7 @@
 						<view class="flex-row">
 							<text class="ft32 ft-bold ft-black">{{ item.name }}</text>
 							<view style="margin-left: 24rpx">
-								<wd-icon name="view" color="#999999" size="40rpx" @click="show = true"></wd-icon>
+								<albb-icon icon="ydj-chakan" color="#999999" size="40rpx" @active="show = true"></albb-icon>
 							</view>
 						</view>
 						<text class="ft25 line25 ft-gray mt10">{{ item.phone }}</text>
@@ -44,24 +44,26 @@
 					<!-- #ifdef MP-WEIXIN -->
 					<view style="margin-right: 15rpx">
 						<view class="mr20">
-							<wd-icon name="edit-1" color="#aaa" size="34rpx" @click="goDetails(item, 1)"></wd-icon>
+							<albb-icon icon="ydj-bianji" color="#aaa" size="34rpx" @active="goDetails(item, 1)"></albb-icon>
 						</view>
 					</view>
 					<view style="margin-right: 24rpx; margin-left: 30rpx">
 						<view class="ml30 mr20">
-							<wd-icon name="delete1" color="#aaa" size="34rpx" @click="goDetails(item.id, 2)"></wd-icon>
+							<albb-icon icon="ydj-shanchu" color="#aaa" size="34rpx" @active="goDetails(item, 2)"></albb-icon>
 						</view>
 					</view>
 					<!-- #endif -->
 					<!-- #ifndef MP-WEIXIN -->
 					<view style="margin-right: 15rpx">
 						<view class="mr20">
-							<wd-icon name="edit-1" color="#aaa" size="34rpx" @click="goDetails(item, 1)"></wd-icon>
+							<albb-icon icon="ydj-bianji" color="#aaa" size="34rpx" @active="goDetails(item, 1)"></albb-icon>
+							<!-- <wd-icon name="edit-1" color="#aaa" size="34rpx" @click="goDetails(item, 1)"></wd-icon> -->
 						</view>
 					</view>
 					<view style="margin-right: 24rpx; margin-left: 30rpx">
 						<view class="ml30 mr20">
-							<wd-icon name="delete1" color="#aaa" size="34rpx" @click="goDetails(item.id, 2)"></wd-icon>
+							<albb-icon icon="ydj-shanchu" color="#aaa" size="34rpx" @active="goDetails(item, 2)"></albb-icon>
+							<!-- <wd-icon name="delete1" color="#aaa" size="34rpx" @click="goDetails(item.id, 2)"></wd-icon> -->
 						</view>
 					</view>
 					<!-- #endif -->

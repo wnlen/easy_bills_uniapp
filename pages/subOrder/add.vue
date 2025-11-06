@@ -544,12 +544,12 @@
 			</view>
 
 			<view class="mt60 pl20 pr20 pb30 flex-row">
-				<view class="" style="padding: 12rpx" :style="pageType == 0 || pageType == 3 ? 'width: 60%; ' : 'width: 100%; '">
+				<view class="" style="padding: 12rpx" :style="pageType == 0 || pageType == 3 ? 'width: 63%; ' : 'width: 100%; '">
 					<wd-button type="primary" :customStyle="{ width: '100%' }" @click="sendOrder">
 						{{ pageType == 1 ? '修改订单' : '发送订单' }}
 					</wd-button>
 				</view>
-				<view class="" style="width: 40%; padding: 12rpx" v-if="pageType == 0 || pageType == 3">
+				<view class="" style="width: 35%; padding: 12rpx" v-if="pageType == 0 || pageType == 3">
 					<wd-button plain :customStyle="{ border: '2rpx solid #01BB74', color: '#01BB74' }" @click="draftOrder">存草稿</wd-button>
 				</view>
 			</view>

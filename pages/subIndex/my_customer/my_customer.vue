@@ -33,14 +33,14 @@
 			<view class="ml5 mr5 flex-row justify-center" style="flex: 1">
 				<wd-button openType="share" color="#01BB74" :customStyle="SearchCustomStyleWechat" :plain="true">
 					<view class="flex-row items-center justify-center">
-						<view><albb-icon icon="ydj-weixin-fill" color="#09BB07" size="30rpx"></albb-icon></view>
+						<view><albb-icon icon="ydj-weixin-fill" color="#01BB74" size="40rpx"></albb-icon></view>
 						<text class="pl10">微信邀请</text>
 					</view>
 				</wd-button>
 			</view>
 			<!-- <view class="ml5 mr5" style="flex: 1">
 				<wd-button :customStyle="SearchCustomStyle"  shape="circle" @click="$goPath('/pages/subIndex/add_friend/add_friend')">
-					<wd-icon name="phone" color="#ffffff" size="30rpx"></wd-icon>
+					<albb-icon icon="ydj-shoujihao" color="#ffffff" size="30rpx"></albb-icon>
 					<text class="pl10">手机号邀请</text>
 				</wd-button>
 			</view> -->
@@ -60,7 +60,7 @@
 
 		<view class="mt24 flex-row ml24 mr24" style="background-color: #f8f8f8; border-radius: 12.24rpx">
 			<view class="flex-col justify-center pd12">
-				<view class="search"><wd-icon name="search" color="#01BB74" size="40rpx"></wd-icon></view>
+				<view class="search pl24"><wd-icon name="search" color="#01BB74" size="32rpx"></wd-icon></view>
 			</view>
 			<view class="pd10 flex-1">
 				<uv-input
@@ -104,8 +104,8 @@
 						{{ role == 0 ? '客户' : '供应商' }}
 					</view>
 					<view class="ml10">
-						<wd-icon name="caret-down-small" v-if="!showChecked" size="15" color="#000000"></wd-icon>
-						<wd-icon name="caret-up-small" v-if="showChecked" color="#000000" size="15"></wd-icon>
+						<albb-icon icon="ydj-tiaojianshaixuanfan2" v-if="!showChecked" size="15" color="#000000"></albb-icon>
+						<albb-icon icon="ydj-tiaojianshaixuan2" v-if="showChecked" color="#000000" size="15"></albb-icon>
 					</view>
 				</view>
 				<view v-if="!showChecked" class="u-border-top flex-row" style="width: 100%; height: 7vh" @tap.stop>
