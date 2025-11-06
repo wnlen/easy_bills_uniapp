@@ -8,10 +8,8 @@
 
 				<view class="ft28">送货单轻松签收</view>
 			</view>
-			<view class="flex-row justify-between butBox text-center ft28 ft-bold" id="box">
-				<view v-for="(item, index) in roleList" :key="item.value" @click="changeRole(item.value)" :class="pinia_userRole === item.value ? 'activeBtn' : 'flex-1'">
-					{{ item.name }}
-				</view>
+			<view class="flex-row justify-between text-center ft28 ft-bold" id="box">
+				<wd-segmented :options="segmentedList" v-model:value="current" size="small" @click="changeRole(current)"></wd-segmented>
 			</view>
 		</view>
 		<view class="bg-white radius12 mt60 ml30 mr30">
@@ -199,7 +197,9 @@ import { useSystemStore } from '@/store/system';
 export default {
 	data() {
 		return {
+			current: '发货端',
 			unreceivedValue: [],
+			selectCurrent: 'D',
 			unreceivedStyle: {
 				background: 'url(https://res-oss.elist.com.cn/wxImg/index/wqstx.png) no-repeat',
 				backgroundSize: '100% 100%',
@@ -331,6 +331,16 @@ export default {
 					value: 'R'
 				}
 			],
+			segmentedList: [
+				{
+					value: '发货端',
+					disabled: false
+				},
+				{
+					value: '收货端',
+					disabled: false
+				}
+			],
 			iconlistD: [
 				{
 					title: '客户',
@@ -450,8 +460,6 @@ export default {
 		};
 	},
 	onLoad() {
-		// console.log('uni', uni);
-		// console.log('this', this);
 		if (this.pinia_token) {
 			const role = this.$u.getPinia('user.userRole');
 			const guidanceD = this.$u.getPinia('guide.guidanceD');
@@ -911,6 +919,7 @@ export default {
 			}
 		},
 		setDR(value) {
+			this.current = value == 'D' ? '发货端' : '收货端';
 			this.$set(this.ringOpts.subtitle, 'name', `（${new Date().getFullYear()}年）`);
 			if (value === 'D') {
 				this.rawData[0].name = '待签收';
@@ -972,6 +981,7 @@ export default {
 		},
 		/*切换角色  */
 		changeRole(value) {
+			value = value == '发货端' ? 'D' : 'R';
 			this.setDR(value);
 			this.$u.setPinia({
 				user: {
@@ -1155,5 +1165,28 @@ export default {
 	background: #ecf3ff;
 	border: 2.2rpx solid #3465ff;
 	color: #3465ff;
+}
+
+:deep(.wd-segmented) {
+	background-color: #fff !important;
+	color: #fff;
+	border-radius: 214rpx !important;
+	border: 2rpx #ffc300 solid;
+}
+
+:deep(.wd-segmented__item) {
+	color: #ffc300 !important;
+}
+
+:deep(.wd-segmented__item.is-active) {
+	color: #fff !important;
+}
+
+:deep(.wd-segmented__item--active) {
+	background-color: var(--wot-segmented-item-acitve-bg, #ffc300) !important;
+	border-radius: 214rpx !important;
+}
+:deep(.wd-segmented__item-label) {
+	text-overflow: clip !important;
 }
 </style>
