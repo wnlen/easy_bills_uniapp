@@ -30,7 +30,7 @@ export default {
 				{
 					name: '操作手册',
 					icon: '/static/img/user/wh.svg',
-					url: 'https://res-oss.elist.com.cn/edo/tutorial/index.html'
+					url: 'https://upbill.cn/tutorial/index.html'
 				},
 				{
 					name: '系统设置',
