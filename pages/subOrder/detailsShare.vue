@@ -43,8 +43,8 @@
 						</view>
 					</view>
 				</view>
-				<view class="bg-white pb350 flex-co mt10">
-					<view v-if="wxType == 1 && LookShar == 'D'" class="absolute" style="right: 20rpx">
+				<view class="bg-white pb350 flex-co mt10 relative">
+					<view v-if="wxType == 1 && LookShar == 'D'" class="absolute" style="right: 20rpx; top: -20rpx">
 						<up-image
 							v-if="post.paymentState == '0'"
 							:show-menu-by-longpress="false"
@@ -68,7 +68,7 @@
 						></up-image>
 					</view>
 
-					<view v-if="wxType == 1 && LookShar == 'R'" class="absolute" style="right: 20rpx">
+					<view v-if="wxType == 1 && LookShar == 'R'" class="absolute" style="right: 20rpx; top: -20rpx">
 						<up-image
 							v-if="post.paymentState == '0'"
 							:show-menu-by-longpress="false"

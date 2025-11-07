@@ -44,8 +44,8 @@
 					</view>
 				</view>
 
-				<view class="bg-white pb350 flex-co mt10">
-					<view v-if="wxType == 0 || wxType == undefined" class="absolute" style="right: 20rpx">
+				<view class="bg-white pb350 flex-co mt10 relative">
+					<view v-if="wxType == 0 || wxType == undefined" class="absolute" style="right: 20rpx; top: -20rpx">
 						<up-image
 							v-if="post.paymentState == '0' && pinia_userRole != 'R'"
 							src="https://res-oss.elist.com.cn/wxImg/order/dqs.png"
@@ -73,7 +73,7 @@
 						></up-image>
 					</view>
 
-					<view v-if="wxType == 1 && ShowFXE" class="absolute" style="right: 20rpx">
+					<view v-if="wxType == 1 && ShowFXE" class="absolute" style="right: 20rpx; top: -20rpx">
 						<up-image v-if="post.paymentState == '0' && port == 'D'" src="https://res-oss.elist.com.cn/wxImg/order/dqs.png" width="240rpx" height="240rpx"></up-image>
 						<up-image v-if="post.paymentState == '0' && port == 'R'" src="https://res-oss.elist.com.cn/wxImg/order/dqs-r.png" width="240rpx" height="240rpx"></up-image>
 						<up-image v-if="post.paymentState == '1' && port == 'D'" src="https://res-oss.elist.com.cn/wxImg/order/yqs.png" width="240rpx" height="240rpx"></up-image>
@@ -82,13 +82,13 @@
 						<up-image v-if="post.paymentState == '2' && port == 'R'" src="https://res-oss.elist.com.cn/wxImg/order/yfk.png" width="240rpx" height="240rpx"></up-image>
 					</view>
 
-					<view v-if="wxType == 1 && LookShar == 'S'" class="absolute" style="right: 20rpx">
+					<view v-if="wxType == 1 && LookShar == 'S'" class="absolute" style="right: 20rpx; top: -20rpx">
 						<up-image v-if="post.paymentState == '0'" src="https://res-oss.elist.com.cn/wxImg/order/dqs.png" width="240rpx" height="240rpx"></up-image>
 						<up-image v-if="post.paymentState == '1'" src="https://res-oss.elist.com.cn/wxImg/order/yqs.png" width="240rpx" height="240rpx"></up-image>
 						<up-image v-if="post.paymentState == '2'" src="https://res-oss.elist.com.cn/wxImg/order/yfk.png" width="240rpx" height="240rpx"></up-image>
 					</view>
 
-					<view v-if="wxType == 1 && LookShar == 'F'" class="absolute" style="right: 20rpx">
+					<view v-if="wxType == 1 && LookShar == 'F'" class="absolute" style="right: 20rpx; top: -20rpx">
 						<up-image v-if="post.paymentState == '0'" src="https://res-oss.elist.com.cn/wxImg/order/dqs-r.png" width="240rpx" height="240rpx"></up-image>
 						<up-image v-if="post.paymentState == '1'" src="https://res-oss.elist.com.cn/wxImg/order/yqs.png" width="240rpx" height="240rpx"></up-image>
 						<up-image v-if="post.paymentState == '2' && port == 'R'" src="https://res-oss.elist.com.cn/wxImg/order/yfk.png" width="240rpx" height="240rpx"></up-image>

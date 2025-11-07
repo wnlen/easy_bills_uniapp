@@ -501,7 +501,7 @@
 					>
 						重置
 					</wd-button>
-					<wd-button size="small" @click="filterSubmit" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx' }">确定</wd-button>
+					<wd-button size="small" @click="filterSubmit" :customStyle="{ width: '154rpx', margin: 0, height: '60rpx', background: '#4E5777' }">确定</wd-button>
 				</view>
 				<!-- 日历选择器 -->
 				<uv-calendars color="#01BB74" confirmColor="#01BB74" :startDate="limitingTimeO" :endDate="limitingTimeT" ref="calendars" @confirm="date1Change" />
