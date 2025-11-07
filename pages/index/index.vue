@@ -9,7 +9,7 @@
 				<view class="ft28">送货单轻松签收</view>
 			</view>
 			<view class="flex-row justify-between text-center ft28 ft-bold" id="box">
-				<wd-segmented :options="segmentedList" v-model:value="current" size="small" @click="changeRole(current)"></wd-segmented>
+				<wd-segmented :options="segmentedList" v-model:value="current" size="middle" @change="changeRole(current)"></wd-segmented>
 			</view>
 		</view>
 		<view class="bg-white radius12 mt60 ml30 mr30">
@@ -917,6 +917,7 @@ export default {
 		},
 		setDR(value) {
 			this.current = value == 'D' ? '发货端' : '收货端';
+
 			this.$set(this.ringOpts.subtitle, 'name', `（${new Date().getFullYear()}年）`);
 			if (value === 'D') {
 				this.rawData[0].name = '待签收';
@@ -1173,6 +1174,9 @@ export default {
 
 :deep(.wd-segmented__item) {
 	color: #ffc300 !important;
+	min-height: 24px !important;
+	line-height: 24px !important;
+	padding: 0 8px !important;
 }
 
 :deep(.wd-segmented__item.is-active) {
