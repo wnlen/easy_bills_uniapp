@@ -49,7 +49,7 @@
 					</view>
 					<view style="margin-right: 24rpx; margin-left: 30rpx">
 						<view class="ml30 mr20">
-							<albb-icon icon="ydj-shanchu" color="#aaa" size="34rpx" @active="goDetails(item, 2)"></albb-icon>
+							<albb-icon icon="ydj-shanchu" color="#aaa" size="34rpx" @active="goDetails(item.id, 2)"></albb-icon>
 						</view>
 					</view>
 					<!-- #endif -->
@@ -62,7 +62,7 @@
 					</view>
 					<view style="margin-right: 24rpx; margin-left: 30rpx">
 						<view class="ml30 mr20">
-							<albb-icon icon="ydj-shanchu" color="#aaa" size="34rpx" @active="goDetails(item, 2)"></albb-icon>
+							<albb-icon icon="ydj-shanchu" color="#aaa" size="34rpx" @active="goDetails(item.id, 2)"></albb-icon>
 							<!-- <wd-icon name="delete1" color="#aaa" size="34rpx" @click="goDetails(item.id, 2)"></wd-icon> -->
 						</view>
 					</view>

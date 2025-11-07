@@ -9,60 +9,60 @@
 			@query="queryList"
 		>
 			<template #empty>
-				<up-empty :icon="ImgUrl + '/wxImg/list/empty.svg'" iconSize="200rpx" text="暂时还空着呢~先去开一个单试试吧！" marginTop="-200">
-					<wd-button
-						iconColor="#ECFFF9"
-						:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent', color: '#01BB74' }"
-						:plain="true"
-						@click="
-							uni.navigateTo({
-								url: '/pages/subOrder/add'
-							})
-						"
-					>
-						<text>去开单</text>
-					</wd-button>
-				</up-empty>
+				<up-empty icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg" iconSize="200rpx" text="暂无订单~"></up-empty>
 			</template>
 			<template #top>
-				<view class="Card cardShow" @touchmove.stop.prevent>
-					<view class="InputCard">
-						<view class="InputOne">
-							<text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
-								{{ pinia_userRole === 'R' ? '供应商选择' : '客户选择' }}
-							</text>
-							<up-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></up-line>
-							<view class="my-input flex-1">
-								<uv-input
-									border="none"
-									@change="CustomerGetChange"
-									v-model="customer"
-									:customStyle="{ backgroundColor: 'transparent' }"
-									:placeholder="pinia_userRole === 'R' ? '请选择供应商' : '请选择客户'"
-									:clearable="true"
-								></uv-input>
-							</view>
-
-							<view class="flex-col justify-center items-center" style="height: 5vh">
-								<view class="ml40"><wd-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></wd-icon></view>
+				<view class="relative topBoxAll">
+					<view class="flex-row items-center justify-between topBox">
+						<view class="ft-white">
+							<view class="ft36 ft-bold">客户已下单</view>
+							<view class="ft24 mt10">请您尽快开送货单</view>
+						</view>
+						<view class="bg-white relative">
+							<view class="absolute">
+								<wd-icon name="check-circle-filled" size="60rpx" color="#FFCB21"></wd-icon>
 							</view>
 						</view>
+					</view>
+					<view class="Card cardShow" @touchmove.stop.prevent>
+						<view class="InputCard">
+							<view class="InputOne">
+								<text class="ft11 ft-gray ml20" style="background-color: transparent" @click="CustomerGet">
+									{{ pinia_userRole === 'R' ? '供应商选择' : '客户选择' }}
+								</text>
+								<up-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></up-line>
+								<view class="my-input flex-1">
+									<uv-input
+										border="none"
+										@change="CustomerGetChange"
+										v-model="customer"
+										:customStyle="{ backgroundColor: 'transparent' }"
+										:placeholder="pinia_userRole === 'R' ? '请选择供应商' : '请选择客户'"
+										:clearable="true"
+									></uv-input>
+								</view>
 
-						<view class="InputOne">
-							<text class="ft11 ft-gray ml20" @click="filtrateGet">
-								{{ Title }}
-							</text>
-							<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
-							<view class="my-input flex-1" v-if="showTage !== '1'">
-								<uv-input border="none" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入关键字进行检索"></uv-input>
-							</view>
-							<view class="ml24 my-input flex-1" v-if="showTage === '1'">
-								<uv-input border="none" maxlength="11" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入号码进行检索"></uv-input>
+								<view class="flex-col justify-center items-center" style="height: 5vh">
+									<view class="ml40"><wd-icon name="/static/img/list/lxr.svg" size="45rpx" @click="CustomerGet"></wd-icon></view>
+								</view>
 							</view>
 
-							<view class="flex-col justify-center items-center" style="height: 5vh">
-								<view class="ml40">
-									<wd-icon name="/static/img/list/ss.svg" size="45rpx"></wd-icon>
+							<view class="InputOne">
+								<text class="ft11 ft-gray ml20" @click="filtrateGet">
+									{{ Title }}
+								</text>
+								<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
+								<view class="my-input flex-1" v-if="showTage !== '1'">
+									<uv-input border="none" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入关键字进行检索"></uv-input>
+								</view>
+								<view class="ml24 my-input flex-1" v-if="showTage === '1'">
+									<uv-input border="none" maxlength="11" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入号码进行检索"></uv-input>
+								</view>
+
+								<view class="flex-col justify-center items-center" style="height: 5vh">
+									<view class="ml40">
+										<wd-icon name="/static/img/list/ss.svg" size="45rpx"></wd-icon>
+									</view>
 								</view>
 							</view>
 						</view>
@@ -79,7 +79,7 @@
 						class="flex-col justify-center items-center mr10"
 						:style="{ backgroundColor: item.check ? '#01BB74' : '#ffffff' }"
 						@click.stop="checkboxGroupChange(item, index)"
-						style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
+						style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 					>
 						<wd-icon name="check" color="#ffffff" size="20rpx"></wd-icon>
 					</view>
@@ -100,7 +100,7 @@
 				</view>
 				<view class="" style="" @click="jumpDraftsOrder(item.id)">
 					<text class="ft30 line25 ft-lightgray">
-						<text>日期：{{ $u.timeFormat(item.creationTime, 'yyyy-mm-dd') }}</text>
+						<text class="pl35">日期：{{ $u.timeFormat(item.creationTime, 'yyyy-mm-dd') }}</text>
 					</text>
 
 					<text class="ft-lightgray mt10 line25 flex-row items-center justify-end">
@@ -138,7 +138,7 @@
 											:style="{
 												backgroundColor: checked ? '#01BB74' : '#ffffff'
 											}"
-											style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
+											style="border-radius: 100rpx; height: 30rpx; width: 30rpx; border: 2rpx solid #aaaaaa"
 										>
 											<wd-icon name="check" color="#ffffff" size="20rpx"></wd-icon>
 										</view>
@@ -888,7 +888,22 @@ export default {
 	background: #f5f5f5;
 	overflow-y: auto;
 	align-items: center;
-
+	.topBoxAll {
+		height: 350rpx;
+	}
+	.topBox {
+		background: #00d383;
+		padding: 0 54rpx 114rpx 40rpx;
+		> view:nth-of-type(2) {
+			border-radius: 50%;
+			width: 50rpx;
+			height: 50rpx;
+			> view {
+				top: -6rpx;
+				left: -6rpx;
+			}
+		}
+	}
 	.Card {
 		width: 94%;
 		background-color: white;
@@ -898,9 +913,12 @@ export default {
 		justify-content: center;
 		border-radius: 14rpx;
 		padding: 20rpx;
-		margin-left: 3%;
-		margin-top: 25rpx;
-		margin-bottom: 24rpx;
+		// margin-left: 3%;
+		// margin-top: 25rpx;
+		// margin-bottom: 24rpx;
+		position: absolute;
+		left: 3%;
+		bottom: 30rpx;
 		.priceCard {
 			display: flex;
 			flex-direction: column;
