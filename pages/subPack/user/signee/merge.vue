@@ -68,7 +68,7 @@ export default {
 				signeeImage: '', //签名图
 				remark: '',
 				// password: '',
-				cEnterpriseVerification: {}
+				wCompanyVerification: {}
 			},
 			switchVal: false,
 			rules: {
@@ -178,7 +178,7 @@ export default {
 				// password: this.formData.password,
 				password: 1111,
 				state: '1',
-				cEnterpriseVerification: this.formDataFirm
+				wCompanyVerification: this.formDataFirm
 			};
 
 			console.log(this.formData);
