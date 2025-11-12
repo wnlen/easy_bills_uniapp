@@ -417,7 +417,13 @@ export default {
 				// #endif
 				return;
 			} else {
-				let url = !this.pinia_user.ac? '/pages/subAuth/qiye?btn=0' : '/pages/subAuth/qiye?btn=3';
+				let url =null
+				if(this.pinia_user.data.work=='0'){
+					url=!this.pinia_user.ac? '/pages/subAuth/qiye?btn=0' : '/pages/subAuth/qiye?btn=3';
+				}else{
+					url='/pages/subAuth/auth'
+				}
+
 				uni.navigateTo({
 					url: url
 				});

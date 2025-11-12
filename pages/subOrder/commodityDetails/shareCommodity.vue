@@ -11,13 +11,16 @@
 			@query="queryList"
 		>
 			<template #top>
-				<view class="topBox flex-row">
-					<view class="flex-col">
-						<image src="https://res-oss.elist.com.cn/wxImg/commodity/title.svg"></image>
-						<text class="ft24">上海欣欣日用百货有限公司</text>
+				<view class="topBoxAll">
+					<view class="topBox flex-row items-center justify-between">
+						<view class="flex-col">
+							<image src="https://res-oss.elist.com.cn/wxImg/commodity/title.svg" mode="widthFix"></image>
+							<text class="ft28 mt5">上海欣欣日用百货有限公司</text>
+						</view>
+						<image src="https://res-oss.elist.com.cn/wxImg/commodity/car.png"></image>
 					</view>
-					<image src="https://res-oss.elist.com.cn/wxImg/commodity/car.svg"></image>
 				</view>
+
 				<view class="ml24 mr24 flex-row items-center justify-center pb30">
 					<view class="flex-row items-center justify-center pl20 pr10 flex-1 searchBox">
 						<wd-icon name="search" color="#01BB74" size="34rpx"></wd-icon>
@@ -62,35 +65,32 @@
 				<view class="invCard relative" v-for="(item, index) in orderList" :key="index">
 					<view class="" @click="jumpCommodityDetails(item)">
 						<up-image
-							radius="12rpx"
-							width="200rpx"
-							height="200rpx"
+							radius="12rpx 12rpx 0 0"
+							width="340rpx"
+							height="340rpx"
 							:show-menu-by-longpress="false"
 							:src="item.img === 'definde' ? 'https://res-oss.elist.com.cn/wxImg/order/emptyView.png' : item.img"
 						></up-image>
 					</view>
-					<view class="invText flex-1" @click="jumpCommodityDetails(item)" v-if="uni.$u.getPinia('user.customized')">
-						<text>{{ item.description }}</text>
-						<text class="up-line-1">型号：{{ item.modelNo }}</text>
-						<text>长度(毫米)：{{ item.lengthMm }}</text>
-						<text>单重(kg/件)：{{ item.unitWeightKg }}</text>
-					</view>
-					<view class="invText flex-1" @click="jumpCommodityDetails(item)" v-else>
-						<text>{{ item.description }}</text>
-						<text class="up-line-1" style="width: 418rpx">规格：{{ item.specification }}</text>
-						<text>单位：{{ item.unit }}</text>
-						<text>单价：{{ item.unitPrice == '0' ? '-' : '￥' + item.unitPrice }}</text>
-					</view>
-					<view class="absolute addicon" :id="index == 0 ? 'box1' : ''">
-						<wd-icon
-							@tab.stop
-							class="absolute"
-							style="bottom: 24rpx; right: 24rpx"
-							name="add-circle1"
-							color="#01BB74"
-							size="40rpx"
-							@click="addOrderBill(item)"
-						></wd-icon>
+					<view class="pl20 pt15">
+						<view class="invText flex-1" @click="jumpCommodityDetails(item)" v-if="uni.$u.getPinia('user.customized')">
+							<text>{{ item.description }}</text>
+							<text class="up-line-1">型号：{{ item.modelNo }}</text>
+							<text>单重(kg/件)：{{ item.unitWeightKg }}</text>
+						</view>
+						<view class="invText flex-1" @click="jumpCommodityDetails(item)" v-else>
+							<text>{{ item.description }}</text>
+							<text class="up-line-1">规格：{{ item.specification }}</text>
+							<text class="money">
+								<text>￥</text>
+								{{ item.unitPrice == '0' ? '-' : formatAmount(item.unitPrice) }}
+							</text>
+						</view>
+						<view class="absolute addicon">
+							<wd-badge :is-dot="isShowDot(item.id)" :top="3" :right="1">
+								<wd-icon name="cart" size="40rpx" @click.stop="addOrderBill(item)" color="#01BB74"></wd-icon>
+							</wd-badge>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -305,6 +305,9 @@ export default {
 	},
 	onUnload() {},
 	methods: {
+		isShowDot(id) {
+			return this.orderItemList.some((item) => item.id === id);
+		},
 		getElementData(el, cb) {
 			let query = null;
 			query = uni.createSelectorQuery().in(this);
@@ -530,9 +533,9 @@ export default {
 			});
 		},
 		jumpCommodityDetails(item) {
-			uni.navigateTo({
-				url: 'commodityDetails/commodityDetails?id=' + item.id
-			});
+			// uni.navigateTo({
+			// 	url: '/pages/subOrder/commodityDetails/commodityDetails?id=' + item.id
+			// });
 		},
 		delclick(index) {
 			let order = this.orderItemList[index];
@@ -594,17 +597,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.topBox {
+.topBoxAll {
 	padding-top: var(--status-bar-height);
+}
+.topBox {
+	padding: 70rpx 100rpx 20rpx 40rpx;
 	> view {
 		image {
-			width: 105px;
-			height: 44rpx;
+			width: 112px;
 		}
 	}
 	> image {
 		width: 224rpx;
-		height: 70rpx;
+		height: 140rpx;
 	}
 }
 .searchBox {
@@ -632,11 +637,9 @@ export default {
 	font-size: 28rpx;
 }
 .addicon {
-	padding: 10rpx;
-	border-radius: 50%;
-	bottom: 20rpx;
+	bottom: 15rpx;
 	z-index: 10;
-	right: 22rpx;
+	right: 20rpx;
 }
 ::v-deep .u-border-bottom,
 .up-border-bottom {
@@ -654,45 +657,48 @@ export default {
 }
 .invCardBox {
 	background: #f9f9f9;
-}
-.invCard {
-	box-shadow: 0rpx 2rpx 6rpx 0rpx rgba(216, 216, 216, 0.5);
-	margin-right: 24rpx;
-	margin-left: 24rpx;
-	padding: 24rpx;
-	background-color: #ffffff;
-	border-radius: 12rpx;
-	margin-bottom: 24rpx;
 	position: relative;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding: 0 24rpx;
+}
+.invCard {
+	box-shadow: 0rpx 2rpx 6rpx 0rpx rgba(216, 216, 216, 0.5);
+	background-color: #ffffff;
+	border-radius: 12rpx;
+	margin-bottom: 24rpx;
 	.invText {
 		display: flex;
 		flex-direction: column;
 		align-items: left;
 		justify-content: left;
-		margin-left: 48rpx;
-
-		text:nth-child(1) {
-			padding-bottom: 24rpx;
-			font-size: 32rpx;
+		> text:nth-child(1) {
+			font-size: 24rpx;
 			font-weight: bold;
-			line-height: 36rpx;
 			letter-spacing: 0rpx;
 			color: #3d3d3d;
 		}
 
-		text:not(:nth-child(1)) {
-			font-size: 28rpx;
+		> text:nth-child(2) {
+			font-size: 20rpx;
 			font-weight: normal;
-			line-height: 36rpx;
 			letter-spacing: 0rpx;
 			color: #999999;
 			padding-bottom: 12rpx;
-			padding-top: 4rpx;
+			padding-top: 8rpx;
 			// background-color: red;
+		}
+		.money {
+			text {
+				font-size: 16rpx;
+			}
+			font-weight: 500;
+			font-size: 28rpx;
+			color: #fa5151;
+			padding-bottom: 16rpx;
 		}
 	}
 }
