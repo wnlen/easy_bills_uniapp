@@ -774,7 +774,7 @@ export default {
 						tips: '快速切换收发端口',
 						btnGroupPosition: '10rpx',
 						tipsPosition: {
-							top: '50rpx',
+							top: '60rpx',
 							right: '26rpx',
 							backgroundImage: 'url(https://res-oss.elist.com.cn/wxImg/handbook/guide/guidanc1.png)'
 						},

@@ -409,11 +409,11 @@ export default {
 	onLoad(options) {
 		this.options = options;
 		if (this.$u.getPinia('user') && this.$u.getPinia('user.user.phone')) {
-			this.$loadUser(this);
+			// this.$loadUser(this);
 			//单据id
-			this.getOrder(options);
-			this.$getRecord(this);
-			this.getQs();
+			// this.getOrder(options);
+			// this.$getRecord(this);
+			// this.getQs();
 		} else {
 			console.warn('pinia_user 未初始化');
 			uni.navigateTo({
@@ -423,11 +423,11 @@ export default {
 	},
 	onShow() {
 		if (this.$u.getPinia('user') && this.$u.getPinia('user.user.phone')) {
+			this.getQs();
 			this.$loadUser(this);
 			//单据id
 			this.getOrder(this.options);
 			this.$getRecord(this);
-			this.getQs();
 		} else {
 		}
 	},
@@ -829,6 +829,7 @@ export default {
 		},
 		onConfirm() {
 			console.log(this.qsrList);
+			console.log(this.qyList);
 			var that = this;
 			if (that.qsrList.length == 0 || (that.qyList == null && this.$u.getPinia('user.user.data.work') == '0')) {
 				//  无签收人
