@@ -205,11 +205,11 @@
 							<view class="">联系电话：</view>
 							<text class="yrd">{{ post.kPhoneE || '' }}</text>
 						</view>
-						<view class="flex-row mt13 xqcss">
+						<view class="flex-row mt13 xqcss" v-if="!orderisCustomized">
 							<view class="">收货地址：</view>
 							<text class="yrd">{{ post.kSiteE || '' }}</text>
 						</view>
-						<view class="" v-if="uni.$u.getPinia('user.customized') || orderisCustomized">
+						<view class="" v-if="orderisCustomized">
 							<view class="flex-row mt13 xqcss">
 								<view class="">项目名称：</view>
 								<text class="yrd">{{ post.projectName || '' }}</text>
@@ -247,10 +247,10 @@
 								<view class="table-header flex-row justify-center items-center">
 									<view class="table-cell">品名</view>
 									<view class="table-cell">规格</view>
-									<view class="table-cell">单位</view>
+									<view class="table-cell">{{ orderisCustomized ? '型号' : '单位' }}</view>
 									<view class="table-cell">数量</view>
-									<view class="table-cell">{{ uni.$u.getPinia('user.customized') || orderisCustomized ? '单重' : '单价' }}</view>
-									<view class="table-cell">{{ uni.$u.getPinia('user.customized') || orderisCustomized ? '总重' : '金额' }}</view>
+									<view class="table-cell">{{ orderisCustomized ? '单重' : '单价' }}</view>
+									<view class="table-cell">{{ orderisCustomized ? '总重' : '金额' }}</view>
 								</view>
 								<view class="table-row" v-for="(item, index) in orderItemList" :key="index">
 									<view class="table-cell flex-col justify-center items-center">
@@ -260,16 +260,16 @@
 										<text class="ft24">{{ item.specification || '-' }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24">{{ item.unit || '-' }}</text>
+										<text class="ft24">{{ orderisCustomized ? item.modelNo : item.unit }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
 										<text class="ft24">{{ item.quantity }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24">{{ uni.$u.getPinia('user.customized') || orderisCustomized ? item.unitWeightKg : item.unitPrice }}</text>
+										<text class="ft24">{{ orderisCustomized ? item.unitWeightKg : item.unitPrice }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24" v-if="uni.$u.getPinia('user.customized') || orderisCustomized">
+										<text class="ft24" v-if="orderisCustomized">
 											{{ item.quantity != '-' && item.quantity != '' ? item.unitWeightKg * item.quantity : 0 }}
 										</text>
 										<text class="ft24" v-else>{{ towDig(item.quantity, item.unitPrice) }}</text>
@@ -283,10 +283,10 @@
 								<view class="table-header flex-row justify-center items-center">
 									<view class="table-cell">品名</view>
 									<view class="table-cell">规格</view>
-									<view class="table-cell">单位</view>
+									<view class="table-cell">{{ orderisCustomized ? '型号' : '单位' }}</view>
 									<view class="table-cell">数量</view>
-									<view class="table-cell">{{ uni.$u.getPinia('user.customized') || orderisCustomized ? '单重' : '单价' }}</view>
-									<view class="table-cell">{{ uni.$u.getPinia('user.customized') || orderisCustomized ? '总重' : '金额' }}</view>
+									<view class="table-cell">{{ orderisCustomized ? '单重' : '单价' }}</view>
+									<view class="table-cell">{{ orderisCustomized ? '总重' : '金额' }}</view>
 								</view>
 								<view class="table-row" v-for="(item, index) in orderItemList" :key="index">
 									<view class="table-cell flex-col justify-center items-center">
@@ -296,17 +296,17 @@
 										<text class="ft24">{{ item.specification || '-' }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24">{{ item.unit || '-' }}</text>
+										<text class="ft24">{{ orderisCustomized ? item.modelNo : item.unit }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
 										<text class="ft24">{{ item.quantity }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24" v-if="uni.$u.getPinia('user.customized') || orderisCustomized">{{ versions == 'Y' ? item.unitWeightKg : '****' }}</text>
+										<text class="ft24" v-if="orderisCustomized">{{ versions == 'Y' ? item.unitWeightKg : '****' }}</text>
 										<text class="ft24" v-else>{{ versions == 'Y' ? item.unitPrice : '****' }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24" v-if="uni.$u.getPinia('user.customized') || orderisCustomized">
+										<text class="ft24" v-if="orderisCustomized">
 											{{ versions == 'Y' ? item.unitWeightKg * item.quantity : '****' }}
 										</text>
 										<text class="ft24" v-else>{{ versions == 'Y' ? towDig(item.quantity, item.unitPrice) : '****' }}</text>
@@ -317,13 +317,10 @@
 
 						<view class="xqcss pd10 pt10 pb10 black-border-left black-border-right black-border-bottom">
 							<text class="ml10 xqcss">合计：</text>
-							<text class="xqcss" v-if="uni.$u.getPinia('user.customized') || orderisCustomized">{{ post.totalWeightKg || 0 }}</text>
+							<text class="xqcss" v-if="orderisCustomized">{{ post.totalWeightKg || 0 }}KG</text>
 							<text class="xqcss" v-else>¥ {{ versions == 'Y' ? DigPrice(post.price) || '' : '****' }}</text>
 						</view>
-						<view
-							class="xqcss pd10 pt10 pb10 black-border-bottom black-border-left black-border-right"
-							v-if="!(uni.$u.getPinia('user.customized') || orderisCustomized)"
-						>
+						<view class="xqcss pd10 pt10 pb10 black-border-bottom black-border-left black-border-right" v-if="!orderisCustomized">
 							<text class="ft-bold ml10 xqcss">金额大写：</text>
 							<text class="yrd">{{ versions == 'Y' ? digitUppercase(post.price) : '****' }}</text>
 						</view>
@@ -399,7 +396,7 @@
 							}"
 							style="width: 48%; color: #aaaaaa; background-color: #f5fcf9; border-radius: 6rpx; height: 80rpx"
 						>
-							<view class="flex-row justify-between ml10 mb4" style="border-bottom: 2rpx solid #01bb74; left: 20rpx" @click="print">
+							<view class="flex-row justify-between ml10 mb4" style="border-bottom: 2rpx solid #01bb74; left: 20rpx" @click="toPrint">
 								<wd-icon name="https://res-oss.elist.com.cn/wxImg/print/print.svg" size="40rpx"></wd-icon>
 								<text class="ft-green">打印单据</text>
 							</view>
@@ -531,7 +528,7 @@
 				</scroll-view>
 
 				<view
-					@click="print(1)"
+					@click="toPrint(1)"
 					class="absolute flex-col justify-center items-center"
 					style="bottom: 10rpx; width: 297.08rpx; height: 80rpx; border-radius: 10rpx; background-color: #01bb74; color: white"
 				>
@@ -748,7 +745,7 @@ export default {
 				this.PrintNum = rest.data.data;
 			});
 		},
-		print(type) {
+		toPrint(type) {
 			console.log('打印', this.orderId);
 			//获取默认打印机
 			if (this.isPrinterOK) {
@@ -779,7 +776,7 @@ export default {
 				mask: true // 是否显示透明蒙层，防止触摸穿透
 			});
 			let reqUrl = '';
-			if (uni.$u.getPinia('user.customized') || this.orderisCustomized) {
+			if (this.orderisCustomized) {
 				reqUrl = uni.$api.customization.customizationLookDzImg;
 			} else {
 				reqUrl = uni.$api.printer.previewPrintImage;
@@ -848,12 +845,14 @@ export default {
 				print.orderId = this.orderId;
 				print.port = this.pinia_userRole;
 				print.phone = this.pinia_user.phone;
+				// 先都用默认打印机
+				print.deviceOpenid = res.data.def[0].deviceopenid;
 				//判断是否是子账号
-				if (this.pinia_user.data.work == '0') {
-					print.deviceOpenid = res.data.def[0].deviceopenid;
-				} else {
-					print.deviceOpenid = res.data.all[0].deviceopenid;
-				}
+				// if (this.pinia_user.data.work == '0') {
+				// 	print.deviceOpenid = res.data.def[0].deviceopenid;
+				// } else {
+				// 	print.deviceOpenid = res.data.all[0].deviceopenid;
+				// }
 
 				if (ifwork) {
 					print.boss = phone;
@@ -1227,6 +1226,13 @@ export default {
 				}
 				return;
 			} else {
+				// 定制的单子
+				if (this.orderisCustomized) {
+					uni.navigateTo({
+						url: '/pages/subOrder/confirmationPhoto'
+					});
+					return;
+				}
 				uni.showModal({
 					title: '确认签收提醒',
 					content: '请仔细核对货物信息后确认签收',
@@ -1308,7 +1314,7 @@ export default {
 
 			// #ifdef MP-WEIXIN
 			let reqUrl = '';
-			if (uni.$u.getPinia('user.customized') || this.orderisCustomized) {
+			if (this.orderisCustomized) {
 				reqUrl = uni.$api.customization.customizationCreatePdf;
 			} else {
 				reqUrl = uni.$api.order.generateOrderPDFWithId;
@@ -1362,7 +1368,7 @@ export default {
 			// #endif
 			// #ifdef APP
 			let reqUrl = '';
-			if (uni.$u.getPinia('user.customized') || this.orderisCustomized) {
+			if (this.orderisCustomized) {
 				reqUrl = uni.$api.customization.customizationCreatePdf;
 			} else {
 				reqUrl = uni.$api.order.generateOrderPDFWithId;

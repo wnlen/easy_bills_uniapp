@@ -48,7 +48,7 @@
 					:class="pinia_userRole === 'D' && index === 0 ? 'indexbox1 indexbox' : pinia_userRole === 'R' && index === 0 ? 'indexbox2 indexbox' : 'indexbox3 indexbox'"
 					v-for="(item, index) in orderList2"
 					:key="index"
-					@click="$goPath(item.path)"
+					@click="goPath(item.path, index)"
 				>
 					<view class="ml10 mr10 mt8">
 						<wd-icon size="72rpx" :name="item.icon"></wd-icon>
@@ -516,6 +516,18 @@ export default {
 		};
 	},
 	methods: {
+		goPath(path, index) {
+			if (this.pinia_userRole == 'D' && index == 1 && uni.$u.getPinia('user.customized')) {
+				return uni.showToast({
+					title: '定制版暂不支持此功能',
+					icon: 'none'
+				});
+			} else {
+				uni.navigateTo({
+					url: path
+				});
+			}
+		},
 		getCustomization() {
 			uni.$api.customization.customizationUpdated().then((res) => {
 				console.log('定制化信息', res);
@@ -918,6 +930,25 @@ export default {
 				});
 			}
 		},
+		// 根据定制设置发货端菜单
+		setIconlistD() {
+			if (uni.$u.getPinia('user.customized')) {
+				this.iconlistD[4] = {
+					title: '往年数据',
+					icon: 'https://res-oss.elist.com.cn/wxImg/icon/icon/tb10.png',
+					path: '/pages/subPack/formerYears/formerYears',
+					count: 0
+				};
+			} else {
+				this.iconlistD[4] = {
+					title: '更多功能',
+					icon: 'https://res-oss.elist.com.cn/wxImg/index/new/icon5.png',
+					path: '/pages/subPack/more/more?tid=更多功能',
+					count: 0
+				};
+			}
+			this.iconlist = this.iconlistD;
+		},
 		setDR(value) {
 			this.current = value == 'D' ? '发货端' : '收货端';
 
@@ -931,16 +962,16 @@ export default {
 				// 设置菜单
 				if (this.pinia_token) {
 					if (this.pinia_user.data.work == '0') {
-						this.iconlist = this.iconlistD;
+						this.setIconlistD();
 					} else {
 						if (this.pinia_user.workData.identity == '3') {
 							this.iconlist = this.iconlistC;
 						} else {
-							this.iconlist = this.iconlistD;
+							this.setIconlistD();
 						}
 					}
 				} else {
-					this.iconlist = this.iconlistD;
+					this.setIconlistD();
 				}
 
 				this.orderList2 = [

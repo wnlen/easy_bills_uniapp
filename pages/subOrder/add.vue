@@ -281,7 +281,7 @@
 						/>
 					</view>
 
-					<view class="flex-row items-center justify-between pt20 pb20 u-border-bottom">
+					<view class="flex-row items-center justify-between pt20 pb20 u-border-bottom" v-if="!uni.$u.getPinia('user.customized')">
 						<view class="flex-row items-center width100">
 							<text class="textcolor">收货地址:</text>
 							<input
@@ -422,13 +422,13 @@
 					<up-table border-color="#ffffff">
 						<up-tr>
 							<up-td>数量</up-td>
-							<up-td>单位</up-td>
+							<up-td>{{ uni.$u.getPinia('user.customized') ? '型号' : '单位' }}</up-td>
 							<up-td>{{ uni.$u.getPinia('user.customized') ? '单重' : '单价' }}</up-td>
 							<up-td>{{ uni.$u.getPinia('user.customized') ? '总重' : '金额' }}</up-td>
 						</up-tr>
 						<up-tr>
 							<up-td>{{ item.quantity }}</up-td>
-							<up-td>{{ item.unit }}</up-td>
+							<up-td>{{ uni.$u.getPinia('user.customized') ? item.modelNo : item.unit }}</up-td>
 							<up-td>{{ uni.$u.getPinia('user.customized') ? item.unitWeightKg : item.unitPrice }}</up-td>
 							<up-td>
 								<text style="width: 200rpx" class="up-line-1" v-if="uni.$u.getPinia('user.customized')">
@@ -446,7 +446,7 @@
 			<view class="pt12 mt12" style="background-color: #ffffff">
 				<view class="relative pt12 pb12">
 					<text class="pl20 textcolor">合计</text>
-					<text class="absolute" v-if="uni.$u.getPinia('user.customized')" style="right: 24rpx; color: #01bb74">{{ orderTotal }}</text>
+					<text class="absolute" v-if="uni.$u.getPinia('user.customized')" style="right: 24rpx; color: #01bb74">{{ orderTotal }}KG</text>
 					<text class="absolute" v-else style="right: 24rpx; color: #01bb74">￥{{ formatAmount(orderTotal) }}</text>
 				</view>
 				<view class="relative pt12 pb12" v-if="!uni.$u.getPinia('user.customized')">

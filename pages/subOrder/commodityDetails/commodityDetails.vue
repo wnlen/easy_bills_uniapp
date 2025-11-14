@@ -2,7 +2,7 @@
 	<view class="pb150">
 		<up-navbar :autoBack="true" :placeholder="true" title="商品详情"></up-navbar>
 		<view class="" v-if="details.img != null && details.img != 'definde'">
-			<up-image width="100%" height="600rpx" :src="details.img" :show-menu-by-longpress="false"></up-image>
+			<up-image width="100%" height="600rpx" :src="details.img" :show-menu-by-longpress="false" @click="previewImage"></up-image>
 		</view>
 		<view class="flex-col pt24" style="width: 100%">
 			<view class="relative flex-row justify-center items-center pd24 mt24" style="width: 100%">
@@ -71,9 +71,7 @@
 		</view>
 
 		<view class="" style="position: fixed; bottom: 40rpx; width: 94%; justify-content: center; left: 3%">
-			<wd-button :customStyle="{ backgroundColor: '#01BB74', color: '#ffffff',width: '100%' }"  @click="commodityDetailsUpdate">
-				编辑商品
-			</wd-button>
+			<wd-button :customStyle="{ backgroundColor: '#01BB74', color: '#ffffff', width: '100%' }" @click="commodityDetailsUpdate">编辑商品</wd-button>
 		</view>
 	</view>
 </template>
@@ -140,6 +138,12 @@ export default {
 			console.log('编辑商品');
 			uni.navigateTo({
 				url: '/pages/subOrder/commodityDetails/updateCommodity?id=' + this.details.id
+			});
+		},
+		previewImage() {
+			// 预览图片
+			uni.previewImage({
+				urls: [this.details.img]
 			});
 		}
 	}

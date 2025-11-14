@@ -219,8 +219,12 @@
 						<view class="ft-bold">
 							{{ item2.company }}
 						</view>
-						<view class="ft-gray">
-							{{ pinia_userRole == 'R' ? '应付款:' : '应收欠款:' }}
+						<view class="ft-gray" v-if="!uni.$u.getPinia('user.customized') && pinia_userRole == 'D'">
+							应收欠款:
+							<text class="ft-bold" size="mini" :style="{ color: item2.total > 0 ? '#01BB74' : '#999999' }">￥{{ formatAmount(item2.total) }}</text>
+						</view>
+						<view class="ft-gray" v-if="pinia_userRole == 'R'">
+							应付款:
 							<text class="ft-bold" size="mini" :style="{ color: item2.total > 0 ? '#01BB74' : '#999999' }">￥{{ formatAmount(item2.total) }}</text>
 						</view>
 					</view>
@@ -268,7 +272,7 @@
 					<text>去邀请</text>
 				</wd-button>
 			</up-empty>
-
+			<!-- 之前show为0时展示的数据 现在合并后默认展示show=1 -->
 			<view class="" :style="{ display: show != 0 ? 'none' : 'block' }">
 				<view v-for="(item, index) in client" :key="index" @click="particulars(item, true)">
 					<view class="ml20 mr20">
@@ -276,19 +280,12 @@
 							<view class="" style="display: flex; flex-direction: row; color: black">{{ getCompanyName(item) }}</view>
 						</view>
 					</view>
-					<!-- <view class="ml20 mt15" style="width: 110vw">
-						<up-collapse :border="false">
-							<view class="flex-col justify-center items-baseline" style="height: 80rpx" :style="{ color: ifZX(index) ? 'red' : 'black' }">
-								{{ getCompanyName(item) }}
-							</view>
-						</up-collapse>
-					</view> -->
 				</view>
 			</view>
 		</view>
 
 		<view
-			:style="{ display: show != 1 ? 'none' : 'block' }"
+			:style="{ display: uni.$u.getPinia('user.customized') && pinia_userRole == 'D' ? 'none' : 'block' }"
 			class="vw100 pd30"
 			style="position: fixed; bottom: 0rpx; height: 100rpx; background-color: #01bb74; z-index: 999; align-items: center; border-radius: 12rpx 12rpx 0rpx 0rpx; opacity: 1"
 		>
@@ -385,6 +382,10 @@ export default {
 		}
 
 		var identity = this.pinia_user.data.work == '1' ? this.pinia_user.workData.identity != 4 : true;
+		// 定制
+		if (uni.$u.getPinia('user.customized') && this.pinia_userRole == 'D') {
+			identity = false;
+		}
 		this.identity = identity;
 
 		var that = this;

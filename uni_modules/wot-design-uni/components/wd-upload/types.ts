@@ -179,6 +179,12 @@ export const uploadProps = {
    */
   showLimitNum: makeBooleanProp(true),
   /**
+   * 上传区域的提示文字
+   * 类型：string
+   * 默认值：''
+   */
+  uploadText:makeStringProp(''),
+  /**
    * 文件大小限制，单位为byte
    * 类型：number
    * 默认值：Number.MAX_VALUE

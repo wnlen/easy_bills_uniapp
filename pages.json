@@ -623,6 +623,13 @@
 						"navigationBarTitleText": "",
 						"navigationStyle": "custom"
 					}
+				},
+				{
+					"path": "confirmationPhoto",
+					"style": {
+						"navigationBarTitleText": "拍照上传",
+						"navigationBarBackgroundColor": "#fff"
+					}
 				}
 			]
 		},

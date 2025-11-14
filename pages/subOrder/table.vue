@@ -82,7 +82,7 @@
 			</div>
 		</up-overlay>
 
-		<view class="flex-row" style="width: 100%; display: flex">
+		<view class="flex-row ml24 mr24 mt24" style="display: flex">
 			<view class="ml5 mr5 flex-row justify-center" style="flex: 1">
 				<wd-button openType="share" color="#01BB74" :customStyle="SearchCustomStyleWechat" :plain="true">
 					<view class="flex-row items-center justify-center">
@@ -98,7 +98,7 @@
 					手机号邀请
 				</wd-button>
 			</view> -->
-			<view class="ml5 mr5" style="flex: 1">
+			<view class="ml5 mr5 flex-row justify-center" style="flex: 1">
 				<wd-button :customStyle="SearchCustomStyle" color="#FFAF38" shape="circle" @click="establish">
 					<view class="flex-row items-center justify-center">
 						<view class="pr10">
@@ -535,14 +535,14 @@ export default {
 
 .anchorText {
 	// background-color: #ffaaff;
-	height: 7vh;
+	// height: 7vh;
 
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 	// margin-left: 24rpx;
-	margin-right: 24rpx;
+	margin: 24rpx 24rpx 0 0;
 
 	padding-left: 24rpx;
 
