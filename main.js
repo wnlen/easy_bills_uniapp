@@ -1,43 +1,78 @@
-import Vue from 'vue';
+// main.js
 import App from './App.vue';
-Vue.config.productionTip = false;
-App.mpType = 'app';
+import {
+	createSSRApp
+} from 'vue';
 
 // ========== UI 框架 ==========
-import uView from '@/uni_modules/vk-uview-ui';
-Vue.use(uView); // 注册 uView UI
+import uView from '@/uni_modules/uview-plus';
 
 // ========== 状态管理 ==========
-import store from '@/store';
-import vuexStore from '@/store/$u.mixin.js';
-Vue.mixin(vuexStore); // vuex 简写
+import * as Pinia from 'pinia';
+import {
+	createUnistorage
+} from './uni_modules/pinia-plugin-unistorage';
+import {
+	setPinia,
+	getPinia
+} from '@/common/piniaHelper';
+
+// ========== 初始化请求库（含拦截器、headers等） ==========
+import {
+	initRequest
+} from '@/common/http.interceptor.js';
 
 // ========== 自定义插件 ==========
-import httpInterceptor from '@/common/http.interceptor.js';
-Vue.use(httpInterceptor); // 请求拦截
+import plugins from '@/common/plugins'; //全局插件
+import globalMixin from '@/common/mixins/global.js'; //全局混入
+import createApi from '@/api'; //api接口
 
-import push from '@/common/push.js';
-Vue.use(push);
+// import uExtend from '@/plugins/uExtend'
 
-import createApi from '@/api';
-const api = createApi(uni.$u); 
-Vue.prototype.$api = api;
-uni.$api = api; 
+export function createApp() {
+	const app = createSSRApp(App);
 
-// import socket from '@/common/socket.js';
-// Vue.use(socket);
+	// 创建 Pinia 实例
+	const store = Pinia.createPinia();
+	store.use(createUnistorage());
+	app.use(store);
 
-import refresh from '@/common/refresh.js';
-Vue.use(refresh);
+	// 初始化 uView 拦截器
+	const http = initRequest();
 
-//全局方法插件
-import globalMethods from '@/common/globalMethods.js';
-Vue.use(globalMethods);
+	// UI 框架
+	app.use(uView, () => ({
+		httpIns: () => http
+	}));
 
-// ========== 创建 Vue 实例 ==========
-const app = new Vue({
-	store,
-	...App
-});
+	// Vue 3 的全局属性配置$u
+	app.config.globalProperties.$u = {
+		...app.config.globalProperties.$u,
+		setPinia,
+		getPinia
+	};
+	//给全局this赋值$u
+	uni.$u = app.config.globalProperties.$u;
 
-app.$mount();
+	// API 注入
+	const api = createApi(http);
+	app.config.globalProperties.$api = api;
+	uni.$api = api;
+
+	app.config.globalProperties.$http = http;
+	uni.$http = http;
+
+	// 全局插件 & Mixin
+	app.use(plugins);
+	app.mixin(globalMixin); //混入全局变量\全局方法
+
+	// 挂载 Vue 应用
+	// #ifdef H5
+	// app.mount('#app');
+	// #endif
+
+	return {
+		app,
+		Pinia
+	};
+}

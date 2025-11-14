@@ -1,16 +1,29 @@
-const context = require.context('./', true, /\.js$/);  // 递归读取
+// api/index.js
+const files = import.meta.glob('./**/*.js', { eager: true });
 
 export default (http) => {
 	const modules = {};
-	context.keys().forEach(fileName => {
-		if (fileName === './index.js') return;
 
-		const name = fileName
-			.replace(/^\.\/|\.js$/g, '')
-			.replace(/\//g, '_');
+	for (const path in files) {
+		// 跳过index.js自身
+		if (path === './index.js') continue;
 
-		const moduleFunc = context(fileName).default;
-		modules[name] = typeof moduleFunc === 'function' ? moduleFunc(http) : moduleFunc;
-	});
+		// 提取目录名（模块名）
+		const [, moduleName, fileName] = path.match(/\.\/([^/]+)\/([^/]+)\.js$/) || [];
+
+		if (!moduleName || !fileName) continue;
+
+		const mod = files[path].default;
+
+		// 初始化模块容器
+		if (!modules[moduleName]) {
+			modules[moduleName] = {};
+		}
+
+		// 合并每个文件导出的方法进模块中
+		const resolvedModule = typeof mod === 'function' ? mod(http) : mod;
+		Object.assign(modules[moduleName], resolvedModule);
+	}
+
 	return modules;
 };

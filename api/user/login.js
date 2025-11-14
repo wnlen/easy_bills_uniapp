@@ -1,0 +1,136 @@
+export default (http) => ({
+	/**
+	 * 小程序微信登录
+	 * @param {Object} params
+	 */
+	loginMpWX(params) {
+		return http.post('rest/v1/auth/mp-weixin/login', params);
+	},
+
+	/**
+	 * APP 微信登录
+	 * @param {Object} params
+	 */
+	loginAppWX(params) {
+		return http.post('rest/v1/auth/app-weixin/login', params);
+	},
+
+	/**
+	 * APP 微信登录绑定手机号
+	 * @param {Object} params
+	 */
+	loginAppWXBindPhone(params) {
+		return http.post('rest/v1/auth/app-weixin/bind-with-phone', params);
+	},
+
+	/**
+	 * APP 一键登录
+	 * @param {Object} params
+	 */
+	loginAppYJ(params) {
+		return http.post('rest/v1/auth/app-yijian/login', params);
+	},
+
+	/**
+	 * APP 手机号验证码登录
+	 * @param {Object} params
+	 */
+	loginAppPhone(params) {
+		return http.post('rest/v1/auth/app-phone/login', params);
+	},
+
+	/**
+	 * APP 账号密码登录
+	 * @param {Object} params
+	 */
+	loginAppPwd(params) {
+		return http.post('rest/v1/auth/app-pwd/login', params);
+	},
+
+	/**
+	 * APP 苹果登录
+	 * @param {Object} params
+	 */
+	loginAppApple(params) {
+		return http.post('rest/v1/auth/app-apple/login', params);
+	},
+
+	/**
+	 * 退出登录
+	 * @param {Object} params
+	 */
+	loginlogout(params) {
+		return http.post('rest/v1/auth/logout', params);
+	},
+
+	/**
+	 * 小程序微信登录（新版接口）
+	 * 原始接口：/edo/rest/app/v1/loginWX
+	 */
+	// loginWithWX(params) {
+	// 	return http.post('rest/v1/loginWX', params);
+	// },
+
+	/**
+	 * APP 账号密码登录
+	 * 原始接口：/edo/rest/app/v1/loginApp
+	 */
+	// loginWithAppAccount(params) {
+	// 	return http.post('rest/v1/loginApp', params);
+	// },
+
+	/**
+	 * APP 手机号验证码登录
+	 * 原始接口：/edo/rest/app/v1/loginAppPhone
+	 */
+	// loginWithAppPhone(params) {
+	// 	return http.post('rest/v1/loginAppPhone', params);
+	// },
+
+	/**
+	 * 小程序微信一键登录（旧版接口）
+	 * 原始接口：/edo/rest/v1/login
+	 */
+	loginWithWXOld(params) {
+		return http.post('rest/v1/login', params);
+	},
+
+	/**
+	 * 获取当前用户订单列表（分页+筛选）
+	 * 原始接口：/edo/rest/v1/myOrderList
+	 */
+	getMyOrderList(params) {
+		return http.post('rest/v1/myOrderList', params);
+	},
+
+	/**
+	 * 微信绑定手机号码（授权手机号）
+	 * 原始接口：/edo/rest/v1/phone
+	 */
+	bindPhoneNumber(params) {
+		return http.post('rest/v1/phone', params);
+	},
+	/**
+	 * 获取重置密码验证码
+	 * 原始接口：/edo/rest/app/v1/passwordResetGetCode
+	 */
+	getPasswordResetCode(params) {
+		return http.post('rest/v1/passwordResetGetCode', params);
+	},
+
+	/**
+	 * 重置用户密码（通过验证码）
+	 * 原始接口：/edo/rest/app/v1/passwordReset
+	 */
+	resetPassword(params) {
+		return http.post('rest/v1/passwordReset', params);
+	},
+
+	/**
+	 * 小程序登录后验证身份（验证是否已绑定/首次登录）
+	 * 原始接口：/edo/rest/app/v1/loginWXVerifyId
+	 */
+	verifyLoginWXIdentity(params) {
+		return http.post('rest/v1/loginWXVerifyId', params);
+	}
+});

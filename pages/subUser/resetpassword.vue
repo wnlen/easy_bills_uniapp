@@ -1,126 +1,138 @@
 <template>
-	<view class="vh100 vw100 flex-col items-center"
-		style="background-size: cover;background-image: url('https://res-oss.elist.com.cn/wxImg/user/unsubscribe.png');">
-		<view class="absolute">
-			<u-navbar background="transparent" :border-bottom="false"></u-navbar>
-		</view>
+	<view class="vh100 vw100 flex-col items-center" style="background-size: cover; background-image: url('https://res-oss.elist.com.cn/wxImg/user/unsubscribe.png')">
+		<up-navbar :autoBack="true" :placeholder="true" bgColor="transparent"></up-navbar>
 
-
-		<view class="flex-row justify-center items-center"
-			style="margin-top: 20%;font-size: 19px;font-weight: 600;line-height: 21.12px;text-align: center;letter-spacing: 0px;color: #333333;width: 100%;height: 10vh;">
+		<view
+			class="flex-row justify-center items-center"
+			style="margin-top: 10%; font-size: 38rpx; font-weight: 600; line-height: 42.24rpx; text-align: center; letter-spacing: 0rpx; color: #333333; width: 100%; height: 10vh"
+		>
 			找回密码身份验证
 		</view>
-		<view class=""
-			style="margin-top: 0%;background-color: #ffffff;border-radius: 6px;padding: 20px;padding-bottom: 70px;">
+		<view class="" style="margin-top: 0%; background-color: #ffffff; border-radius: 12rpx; padding: 40rpx; padding-bottom: 140rpx">
 			<view class="mt45">
-				<view class="">
-					手机号
-				</view>
-				<view class="flex-row justify-center items-center u-border-bottom relative">
-					<text type="primary" class="absolute" style="left: 0;">+86</text>
-					<u-input :value="maskPhoneNumber(vuex_user.phone)" type="text" disabled="true"
-						placeholder="请输入手机号"></u-input>
-				</view>
-			</view>
-			<view class="mt30">
-				<view class="">
-					验证码
-				</view>
-				<view class="flex-row justify-center items-center u-border-bottom relative mt30 pb20"
-					style="width: 100%;height: 30px;">
-					<u-input class="absolute my-input" style="left: 0;" v-model="form.code" type="text"
-						placeholder="请输入您的验证码"></u-input>
-					<text class="absolute"
-						style="font-size: 12px;font-weight: normal;line-height: 21.12px;text-align: center;letter-spacing: 0px;color: #01BB74;right: 10px;"
-						type="primary" @click="getCode">
-						{{codeText==0?"获取验证码":"已发送（"+interval+")"}}</text>
+				<view class="">手机号</view>
+				<view class="flex-row justify-center items-center u-border-bottom relative mt30">
+					<uv-input border="none" v-model="userPhone" disabledColor="#fff" type="text" disabled="true" placeholder="请输入手机号">
+						<template #prefix>
+							<up-text text="+86" margin="0 3px 0 0" type="tips"></up-text>
+							<!-- <up-text mode="phone" :text="$u.getPinia('user.user.phone')" format="encrypt"></up-text> -->
+						</template>
+					</uv-input>
 				</view>
 			</view>
-			<view class="flex-col justify-center items-center mt60">
-				<view @click="comparisonCode" class="flex-row justify-center items-center"
-					style="width: 268.76px;height: 52px;border-radius: 188px;opacity: 1;background: #01BB74;color: #FFFFFF;">
+			<view class="mt45">
+				<view class="">验证码</view>
+				<view class="flex-row justify-center items-center u-border-bottom relative mt30 pb20" style="width: 100%; height: 60rpx">
+					<view class="absolute my-input" style="left: 0">
+						<uv-input border="none" v-model="form.code" type="text" placeholder="请输入您的验证码"></uv-input>
+					</view>
+					<text
+						class="absolute"
+						style="font-size: 24rpx; font-weight: normal; line-height: 42.24rpx; text-align: center; letter-spacing: 0rpx; color: #01bb74; right: 20rpx"
+						type="primary"
+						@click="getCode"
+					>
+						{{ codeText == 0 ? '获取验证码' : '已发送（' + interval + ')' }}
+					</text>
+				</view>
+			</view>
+			<view class="flex-col justify-center items-center mt120">
+				<view
+					@click="comparisonCode"
+					class="flex-row justify-center items-center"
+					style="width: 508rpx; height: 90rpx; border-radius: 376rpx; opacity: 1; background: #01bb74; color: #ffffff"
+				>
 					下一步
 				</view>
-				<view @click="comparisonCode" class="flex-row justify-end items-center"
-					style="background: transparent;width: 100%;text-align: right;margin-right: 24rpx;">
-					<u-button hover-class="none" :hair-line="false" :custom-style="buttonStyle" open-type="contact">
-						人工找回密码
-					</u-button>
+				<view class="relative" style="width: 100%">
+					<wd-button :customStyle="buttonStyle" open-type="contact">人工找回密码</wd-button>
 				</view>
 			</view>
 		</view>
-
-
 	</view>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				form: {
-					code: '',
-				},
-				timer: null, // 用于存储计时器  
-				interval: 70, // 验证码倒计时，单位秒  
-				codeText: 0,
-				codeClick: true,
-				signature: [],
-				buttonStyle: {
-					backgroundColor: 'transparent',
-					border: 'none',
-					appearance: 'none',
-					outline: 'none',
-					boxShadow: 'none',
-					height: "100%",
-					width: "100%",
-					padding: "0",
-					fontSize: "12px",
-					color:"#666666"
-				},
-			}
-		},
-		onShareAppMessage(ops) {
-
-		},
-		onShow() {
-			this.loadData()
-		},
-		methods: {
-			loadData() {
-				var that = this;
-				this.$u.post('/edo/signature/get', {
-					"phone": this.vuex_user.phone
-				}).then(res => {
-					console.log(res);
-					this.signature = res.data.data
-				})
-
+export default {
+	data() {
+		return {
+			form: {
+				code: ''
 			},
-			comparisonCode() {
-				var code = this.form.code;
-				if (code != "") {
-					this.$u.post('edo/user/comparisonCode?phone=' + this.vuex_user.phone + "&&code=" + code).then(res => {
+			timer: null, // 用于存储计时器
+			interval: 70, // 验证码倒计时，单位秒
+			codeText: 0,
+			codeClick: true,
+			signature: [],
+			buttonStyle: {
+				backgroundColor: 'transparent',
+				border: 'none',
+				appearance: 'none',
+				outline: 'none',
+				boxShadow: 'none',
+				textAlign: 'right',
+				height: '80rpx',
+				width: '200rpx',
+				padding: '0',
+				fontSize: '24rpx',
+				color: '#666666',
+				position: 'absolute',
+				top: 0,
+				right: '-20rpx'
+			},
+			userPhone: ''
+		};
+	},
+	onShareAppMessage(ops) {},
+	onShow() {
+		this.loadData();
+		this.userPhone = this.maskPhoneNumber(this.$u.getPinia('user.user.phone'));
+	},
+	methods: {
+		loadData() {
+			var that = this;
+			uni.$api.sign
+				.getSignature({
+					phone: this.pinia_user.phone
+				})
+				.then((res) => {
+					console.log(res);
+					this.signature = res.data.data;
+				});
+		},
+		comparisonCode() {
+			var code = this.form.code;
+			if (code != '') {
+				uni.$api.sms
+					.verifyCode({
+						phone: this.pinia_user.phone,
+						code: code,
+						scene: 'Logout'
+					})
+					.then((res) => {
 						if (res.data.code == 200) {
 							console.log(this.signature);
 							uni.redirectTo({
-								url: "/pages/subPack/user/signee/add?item=" + JSON.stringify(this
-									.signature[0])
-							})
+								url: '/pages/subPack/user/signee/add?item=' + JSON.stringify(this.signature[0])
+							});
 						} else {
-							this.$u.toast("请填写正常验证码")
+							this.$u.toast('请填写正常验证码');
 						}
 					});
-				} else {
-					this.$u.toast("请填写验证码")
-				}
-
-			},
-			// 获取验证码  
-			getCode() {
-				if (this.codeClick) {
-					this.codeClick = false;
-					this.$u.post('edo/user/getUnsubscribeCode?phone=' + this.vuex_user.phone + "&type=1").then(res => {
+			} else {
+				this.$u.toast('请填写验证码');
+			}
+		},
+		// 获取验证码
+		getCode() {
+			if (this.codeClick) {
+				this.codeClick = false;
+				uni.$api.sms
+					.getSmsCode({
+						phone: this.pinia_user.phone,
+						scene: 'Logout'
+					})
+					.then((res) => {
 						if (res.data.code === 200) {
 							if (this.timer) {
 								uni.showToast({
@@ -129,7 +141,7 @@
 								});
 								return;
 							}
-					
+
 							this.codeText = 1;
 							this.timer = setInterval(() => {
 								if (this.interval > 0) {
@@ -142,7 +154,7 @@
 									this.codeClick = true;
 								}
 							}, 1000);
-					
+
 							uni.showToast({
 								title: '验证码已发送',
 								icon: 'success'
@@ -150,37 +162,36 @@
 						} else {
 							this.$u.toast(res.data.message || '发送失败');
 						}
-					})
-				} else {
-					this.$u.toast("请勿重复获取")
-				}
-			},
-			maskPhoneNumber(phoneNumber) {
-				if (!phoneNumber || phoneNumber.length < 10) {
-					return phoneNumber; // 如果电话号码无效或长度不足，直接返回原号码  
-				}
-
-				// 提取前三位和后四位  
-				const firstPart = phoneNumber.substring(0, 3);
-				const lastPart = phoneNumber.substring(7);
-
-				// 生成中间四位星号  
-				const middlePart = '*'.repeat(4);
-
-				// 组合成新的电话号码  
-				const maskedPhoneNumber = `${firstPart}${middlePart}${lastPart}`;
-
-				return maskedPhoneNumber;
+					});
+			} else {
+				this.$u.toast('请勿重复获取');
 			}
-		}
+		},
+		maskPhoneNumber(phoneNumber) {
+			if (!phoneNumber || phoneNumber.length < 10) {
+				return phoneNumber; // 如果电话号码无效或长度不足，直接返回原号码
+			}
 
-	};
+			// 提取前三位和后四位
+			const firstPart = phoneNumber.substring(0, 3);
+			const lastPart = phoneNumber.substring(7);
+
+			// 生成中间四位星号
+			const middlePart = '*'.repeat(4);
+
+			// 组合成新的电话号码
+			const maskedPhoneNumber = `${firstPart}${middlePart}${lastPart}`;
+			console.log(11111, maskedPhoneNumber);
+			return maskedPhoneNumber;
+		}
+	}
+};
 </script>
 
 <style>
-	.my-input .u-input-clear {
-		/* 调整清除按钮的样式，比如 margin 或 padding */
-		margin-right: 10px;
-		/* 或者其他你想要的样式 */
-	}
+.my-input .u-input-clear {
+	/* 调整清除按钮的样式，比如 margin 或 padding */
+	margin-right: 20rpx;
+	/* 或者其他你想要的样式 */
+}
 </style>

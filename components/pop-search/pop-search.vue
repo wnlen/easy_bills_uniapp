@@ -2,29 +2,52 @@
 	<view class="Card cardShow">
 		<view class="InputCard">
 			<view class="InputOne">
-				<text class="ft11 ft-gray ml20" style="background-color: transparent;" @click="choice">
-					{{ vuex_userRole === 'R' ? InputOneName.a: InputOneName.b}}
+				<text class="ft11 ft-gray ml20" style="background-color: transparent" @click="choice">
+					{{ pinia_userRole === 'R' ? InputOneName.a : InputOneName.b }}
 				</text>
-				<u-icon class="ml10 mr10" name="/static/img/list/sx.svg" size="40"></u-icon>
-				<u-input class="my-input" style="width: 100%;" @input="InputTextOne" v-model="InputOneText"
-					:custom-style="{ backgroundColor: 'transparent' }"
-					:placeholder="vuex_userRole === 'R' ? InputOneName.a: InputOneName.b" clearable="true" />
-				<view class="flex-col justify-center items-center" style="height: 5vh;">
-					<u-icon class="ml40" name="/static/img/list/lxr.svg" size="45" @click="choice"></u-icon>
+				<up-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></up-line>
+
+				<view class="my-input">
+					<uv-input
+						border="none"
+						@change="InputTextOne"
+						v-model="InputOneText"
+						:customStyle="{ backgroundColor: 'transparent' }"
+						:placeholder="pinia_userRole === 'R' ? InputOneName.a : InputOneName.b"
+						clearable="true"
+					></uv-input>
+				</view>
+
+				<view class="flex-col justify-center items-center" style="height: 5vh">
+					<view class="ml40"><wd-icon name="/static/img/list/lxr.svg" size="45rpx" @click="choice"></wd-icon></view>
 				</view>
 			</view>
 
 			<view class="InputOne">
 				<text class="ft11 ft-gray ml20" @click="openSearchTj">
-					{{InputOneName.c}}
+					{{ InputOneName.c }}
 				</text>
-				<u-icon class="ml10 mr10" name="/static/img/list/sj.svg" size="40"></u-icon>
-				<u-input v-if="showTage !== '1'" class="my-input" style="width: 100%;" v-model="field"
-					@input="searchListenner" placeholder="输入关键字进行检索" />
-				<u-input v-if="showTage === '1'" maxlength="11" class="ml24 my-input" style="width: 100%;"
-					v-model="field" @input="searchListenner" placeholder="输入号码进行检索" />
-				<view class="flex-col justify-center items-center" style="height: 5vh;">
-					<u-icon class="ml40" name="/static/img/list/ss.svg" size="45" @click="SearchBtn"></u-icon>
+				<view style="right: 0; top: 40rpx">
+					<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
+				</view>
+
+				<view class="my-input">
+					<uv-input border="none" v-if="showTage !== '1'" v-model="field" @change="searchListenner" :clearable="true" placeholder="输入关键字进行检索"></uv-input>
+				</view>
+				<view class="ml24 my-input">
+					<uv-input
+						border="none"
+						v-if="showTage === '1'"
+						maxlength="11"
+						v-model="field"
+						@change="searchListenner"
+						:clearable="true"
+						placeholder="输入号码进行检索"
+					></uv-input>
+				</view>
+
+				<view class="flex-col justify-center items-center ml40" style="height: 5vh">
+					<wd-icon name="/static/img/list/ss.svg" size="45rpx" @click="SearchBtn"></wd-icon>
 				</view>
 			</view>
 		</view>
@@ -32,75 +55,74 @@
 </template>
 
 <script>
-	export default {
-		props: {
-			InputOneName: {
-				type: Object,
-				default: {
-					a: '供应商选择',
-					b: '客户选择',
-					c: '条件筛选'
-				}
-			}
-		},
-		name: "pop-search",
-		data() {
-			return {
-				InputOneText: ""
-			}
-		},
-		methods: {
-			openSearchTj(){
-				this.$parent.openSearchTj();
-			},
-			choice() {
-				uni.navigateTo({
-					url: '/pages/subOrder/table?show=0'
-				})
-			},
-			InputTextOne(text) {
-				console.log(text);
+export default {
+	props: {
+		InputOneName: {
+			type: Object,
+			default: {
+				a: '供应商选择',
+				b: '客户选择',
+				c: '条件筛选'
 			}
 		}
+	},
+	name: 'pop-search',
+	data() {
+		return {
+			InputOneText: ''
+		};
+	},
+	methods: {
+		openSearchTj() {
+			this.$parent.openSearchTj();
+		},
+		choice() {
+			uni.navigateTo({
+				url: '/pages/subOrder/table?show=0'
+			});
+		},
+		InputTextOne(text) {
+			console.log(text);
+		}
 	}
+};
 </script>
 
 <style scoped lang="scss">
-	.Card {
-		width: 94%;
-		background-color: white;
+.Card {
+	width: 94%;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	border-radius: 14rpx;
+	padding: 20rpx;
+	margin-left: 3%;
+	margin-top: 25rpx;
+
+	.priceCard {
 		display: flex;
 		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		border-radius: 14rpx;
-		padding: 20rpx;
-		margin-left: 3%;
-		margin-top: 25rpx;
-
-		.priceCard {
-			display: flex;
-			flex-direction: column;
-			width: 100%;
-		}
-
-		.InputCard {
-			display: flex;
-			flex-direction: column;
-			width: 100%;
-			margin-top: 5px;
-
-			.InputOne {
-				background-color: #F9F9F9;
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				justify-content: left;
-				border-radius: 12px;
-				margin-top: 10px;
-				padding-right: 10px;
-			}
-		}
-
+		width: 100%;
 	}
+
+	.InputCard {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		margin-top: 10rpx;
+
+		.InputOne {
+			background-color: #f9f9f9;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: left;
+			border-radius: 24rpx;
+			margin-top: 20rpx;
+			padding-right: 20rpx;
+		}
+	}
+}
 </style>

@@ -2,7 +2,6 @@ import GContext2D from '../context-2d/RenderingContext';
 import GContextWebGL from '../context-webgl/RenderingContext';
 
 export default class GCanvas {
-
     // static GBridge = null;
 
     id = null;
@@ -16,12 +15,11 @@ export default class GCanvas {
         if (disableAutoSwap) {
             this._swapBuffers = () => {
                 GCanvas.GBridge.render(this.id);
-            }
+            };
         }
     }
 
     getContext(type) {
-
         let context = null;
 
         if (type.match(/webgl/i)) {
@@ -35,7 +33,7 @@ export default class GCanvas {
                         GCanvas.GBridge.render(this.id);
                         this._needRender = false;
                     }
-                }
+                };
                 setInterval(render, 16);
             }
 
@@ -45,17 +43,17 @@ export default class GCanvas {
 
             context.componentId = this.id;
 
-//             const render = ( callback ) => {
-// 
-//                 const commands = context._drawCommands;
-//                 context._drawCommands = '';
-// 
-//                 GCanvas.GBridge.render2d(this.id, commands, callback);
-//                 this._needRender = false;
-//             }
-// 			//draw方法触发
-// 			context._flush = render;
-//             //setInterval(render, 16);
+            //             const render = ( callback ) => {
+            //
+            //                 const commands = context._drawCommands;
+            //                 context._drawCommands = '';
+            //
+            //                 GCanvas.GBridge.render2d(this.id, commands, callback);
+            //                 this._needRender = false;
+            //             }
+            // 			//draw方法触发
+            // 			context._flush = render;
+            //             //setInterval(render, 16);
 
             GCanvas.GBridge.callSetContextType(this.id, 0);
         } else {
@@ -63,12 +61,9 @@ export default class GCanvas {
         }
 
         return context;
-
     }
 
     reset() {
         GCanvas.GBridge.callReset(this.id);
     }
-
-
 }

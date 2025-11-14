@@ -1,430 +1,394 @@
 <template>
 	<view class="root">
 		<view>
-			<!-- <u-navbar :border-bottom="false" back-icon-color="#FFFFFF" :titleBold="true" title-color="#FFFFFF"
-				title="我的二维码" title-size="34" background="transparent"></u-navbar> -->
-				<u-navbar :border-bottom="false" back-icon-color="#FFFFFF" :titleBold="true" title-color="#FFFFFF"
-					title="我的二维码" title-size="34" background="transparent"></u-navbar>
+			<up-navbar
+				:autoBack="true"
+				:placeholder="true"
+				:border-bottom="false"
+				leftIconColor="#FFFFFF"
+				:titleBold="true"
+				title-color="#FFFFFF"
+				title="我的二维码"
+				title-size="34"
+				bgColor="transparent"
+			></up-navbar>
 		</view>
 		<view class="card">
 			<view class="cardCode">
-				<view class="icon flex-col justify-center items-center absolute" style="position: relative;top: -40px;">
-					<u-avatar :src="vuex_user.data.headPortrait" size="150" mode="circle"></u-avatar>
+				<view class="icon flex-col justify-center items-center absolute" style="position: relative; top: -80rpx">
+					<up-avatar :src="pinia_user.data.headPortrait" size="150rpx" mode="circle"></up-avatar>
 				</view>
-				<view class="absolute" style="position: relative;width: 100%;top: -50px;">
-					<view class="flex-col justify-center items-center width100 mb54" style="font-family: Source Han Sans;font-size: 19.2px;font-weight: bold;
-						line-height: 24px;text-align: center;letter-spacing: 0px;height: 40px;">
-						{{vuex_user.data.name}}
+				<view class="absolute" style="position: relative; width: 100%; top: -100rpx">
+					<view
+						class="flex-col justify-center items-center width100 mb54"
+						style="font-family: Source Han Sans; font-size: 38.4rpx; font-weight: bold; line-height: 48rpx; text-align: center; letter-spacing: 0rpx; height: 80rpx"
+					>
+						{{ pinia_user.data.name }}
 						<view class="width100 flex-row justify-center items-center">
 							<view class="flex-row justify-center items-center">
-								<u-icon name="phone" color="#AAAAAA" size="28"></u-icon>
+								<albb-icon icon="ydj-erweimashouji" color="#AAAAAA" size="28rpx"></albb-icon>
 							</view>
-							<view class="ml2 ft14" style="color: #AAAAAA;font-weight: 400;">
-								{{vuex_user.phone}}
+							<view class="ml2 ft14" style="color: #aaaaaa; font-weight: 400">
+								{{ pinia_user.phone }}
 							</view>
 						</view>
 					</view>
 
-					<view class="width100 absolute" style="width: 100%;top: 60px;">
-						<view v-if="!showSF" class="flex-col justify-center items-center" style="width: 100%;">
-							<canvas ref="content" id="qrcode" canvas-id="qrcode"
-								style="width: 200px;height:200px;"></canvas>
+					<view class="width100 absolute" style="width: 100%; top: 120rpx">
+						<view v-if="!showSF" class="flex-col justify-center items-center" style="width: 100%">
+							<canvas ref="content" id="qrcode" canvas-id="qrcode" style="width: 400rpx; height: 400rpx"></canvas>
 						</view>
 					</view>
 				</view>
 			</view>
 			<view class="cardThree">
 				<view class="flex-row justify-center items-center" style="">
-					<u-icon class="icon" name="https://res-oss.elist.com.cn/wxImg/user/bc.svg"
-						size="130" label="保存" margin-top="20" label-pos="bottom" label-color="#ffffff"
-						@click="uiconGet('1')"></u-icon>
-					<u-icon class="icon" name="https://res-oss.elist.com.cn/wxImg/user/sys.svg" 
-						size="130" label="扫一扫" margin-top="20" label-pos="bottom" label-color="#ffffff"
-						@click="uiconGet('2')"></u-icon>
-					<u-icon class="icon" name="https://res-oss.elist.com.cn/wxImg/user/fx.svg" 
-						size="130" label="分享" margin-top="20" label-pos="bottom" label-color="#ffffff"
-						@click="uiconGet('3')"></u-icon>
+					<view class="icon" @click="uiconGet('1')">
+						<wd-icon name="https://res-oss.elist.com.cn/wxImg/user/bc.svg" size="130rpx"></wd-icon>
+						<view class="ft-white text-center">保存</view>
+					</view>
+					<view class="icon" @click="uiconGet('2')">
+						<wd-icon name="https://res-oss.elist.com.cn/wxImg/user/sys.svg" size="130rpx"></wd-icon>
+						<view class="ft-white text-center">扫一扫</view>
+					</view>
+					<view class="icon" @click="uiconGet('3')">
+						<wd-icon name="https://res-oss.elist.com.cn/wxImg/user/fx.svg" size="130rpx"></wd-icon>
+						<view class="ft-white text-center">分享</view>
+					</view>
 				</view>
 			</view>
 		</view>
-		<!-- <view class="relative flex-col  items-center" style="height:60%;background-color: transparent;margin-top: 10%;">
-			<view class="flex-col items-center"
-				style="background-color: #FFFFFF;border-radius: 18px;height: 380px;width: 80%;margin-top: 20%;">
-				<view class="icon flex-col justify-center items-center absolute" style="position: relative;top: -40px;">
-					<u-avatar :src="vuex_user.data.headPortrait" size="150" mode="circle"></u-avatar>
-				</view>
-				<view class="absolute" style="position: relative;width: 100%;top: -50px;">
-					<view class="flex-col justify-center items-center width100"
-						style="font-family: Source Han Sans;font-size: 19.2px;font-weight: bold;line-height: 26.4px;text-align: center;letter-spacing: 0px;">
-						{{vuex_user.data.name}}
-					</view>
-					<view class="width100 flex-row justify-center items-center">
-						<view class="">
-							<u-icon name="phone" color="#AAAAAA" size="28"></u-icon>
-						</view>
-						<view class="">
-							{{vuex_user.phone}}
-						</view>
-					</view>
-				</view>
-				<view class="width100 absolute" style="width: 100%;bottom: 20%;">
-					<view v-if="!showSF" class="flex-col justify-center items-center" style="width: 100%;">
-						<canvas ref="content" id="qrcode" canvas-id="qrcode"
-							style="width: 200px;height:200px;"></canvas>
-					</view>
-				</view>
-			</view>
-		</view> -->
 
-
-		<!-- 	<view class="flex-row justify-center items-center" style="position: fixed; bottom: 5%;width: 100vw;">
-			<u-icon class="icon" name="https://res-oss.elist.com.cn/wxImg/user/bc.svg" color="transparent" size="130"
-				label="保存" margin-top="10" label-pos="bottom" label-color="#ffffff" @click="uiconGet('1')"></u-icon>
-			<u-icon class="icon" name="https://res-oss.elist.com.cn/wxImg/user/sys.svg" color="transparent" size="130"
-				label="扫一扫" margin-top="10" label-pos="bottom" label-color="#ffffff" @click="uiconGet('2')"></u-icon>
-			<u-icon class="icon" name="https://res-oss.elist.com.cn/wxImg/user/fx.svg" color="transparent" size="130"
-				label="分享" margin-top="10" label-pos="bottom" label-color="#ffffff" @click="uiconGet('3')"></u-icon>
-		</view> -->
-
-
-
-		<u-mask :show="showSF" @click="showSF = false">
-			<div @tap.stop v-if="showSF" class="flex-col justify-center items-center relative" :style="{height:heig}"
-				style="background-color: white;position: absolute;width: 75%;height: 20vh;margin-top: 70%;
-				         border-radius: 6.87px;margin-left: 46px;">
-				<view class="absolute mt60" style="font-size: 18px;top: 0;height: 30px;">
-					添加好友
-				</view>
-				<view class="flex-row text-center justify-center items-center absolute"
-					style="width: 100%;height: 40px;top:55px;">
-					<view class="flex-col text-center justify-center items-center"
-						style="color: #999999;font-size: 18px;">
-						申请添加对方为
-					</view>
-					<view @click="showChecked=(showChecked==true?false:true);!showChecked?(heig='20vh'):(heig='25vh')"
+		<up-overlay :show="showSF" @click="showSF = false">
+			<div
+				@tap.stop
+				v-if="showSF"
+				class="flex-col justify-center items-center relative"
+				:style="{ height: heig }"
+				style="background-color: white; position: absolute; width: 75%; height: 20vh; margin-top: 70%; border-radius: 13.74rpx; margin-left: 92rpx"
+			>
+				<view class="absolute mt60" style="font-size: 36rpx; top: 0; height: 60rpx">添加好友</view>
+				<view class="flex-row text-center justify-center items-center absolute" style="width: 100%; height: 80rpx; top: 110rpx">
+					<view class="flex-col text-center justify-center items-center" style="color: #999999; font-size: 36rpx">申请添加对方为</view>
+					<view
+						@click="
+							showChecked = showChecked == true ? false : true;
+							!showChecked ? (heig = '20vh') : (heig = '25vh');
+						"
 						class="ml15 flex-col text-center justify-center items-center"
-						style="box-sizing: border-box;border: 0.57px solid #999999;border-radius: 6.87px;width: 79.58px;height: 30.23px;">
-						{{role==1?"客户":"供应商"}}
+						style="box-sizing: border-box; border: 1.14rpx solid #999999; border-radius: 13.74rpx; width: 159.16rpx; height: 60.46rpx"
+					>
+						{{ role == 1 ? '客户' : '供应商' }}
 					</view>
 					<view class="ml10">
-						<u-icon v-if="!showChecked" name="arrow-down-fill" color="#000000" size="15"></u-icon>
-						<u-icon v-if="showChecked" name="arrow-up-fill" color="#000000" size="15"></u-icon>
+						<albb-icon icon="ydj-tiaojianshaixuanfan2" v-if="!showChecked" size="15" color="#000000"></albb-icon>
+						<albb-icon icon="ydj-tiaojianshaixuan2" v-if="showChecked" color="#000000" size="15"></albb-icon>
 					</view>
 				</view>
-				<view v-if="!showChecked" class=" u-border-top flex-row absolute"
-					style="width: 100%;height: 52px;bottom: 0;" @tap.stop>
-					<view @click="showSF=false;init()"
+				<view v-if="!showChecked" class="u-border-top flex-row absolute" style="width: 100%; height: 104rpx; bottom: 0" @tap.stop>
+					<view
+						@click="
+							showSF = false;
+							init();
+						"
 						class="onsm u-border-right flex-col text-center justify-center items-cente"
-						style="width:50%;height: 100%;">
+						style="width: 50%; height: 100%"
+					>
 						取消
 					</view>
-					<view @click="addFriend(sm)" class="oksm flex-col text-center justify-center items-center"
-						style="width: 50%;height: 100%;">
-						确认
-					</view>
+					<view @click="addFriend(sm)" class="oksm flex-col text-center justify-center items-center" style="width: 50%; height: 100%">确认</view>
 				</view>
-				<view v-if="showChecked" class="u-border-top flex-col absolute mt20"
-					style="width: 100%;height: 100px;bottom: 0;" @tap.stop>
-					<view @click="role=1;showChecked=false;heig='20vh'"
+				<view v-if="showChecked" class="u-border-top flex-col absolute mt20" style="width: 100%; height: 200rpx; bottom: 0" @tap.stop>
+					<view
+						@click="
+							role = 1;
+							showChecked = false;
+							heig = '20vh';
+						"
 						class="flex-row items-center ml36 mt25 pl20 relative"
-						style="height: 35px;width: 255px;border-radius: 3px;"
-						:style="{backgroundColor:role==1?'#ECFAF4':'#FBFBFB',color:role==1?'#01BB74':'#333333'}">
-						<view>
-							客户
-						</view>
-						<view v-if="role==1" class="absolute" style="right: 10px;">
-							<!-- https://res-oss.elist.com.cn/wxImg/code/check.svg -->
-							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28"></u-icon>
-
+						style="height: 70rpx; width: 510rpx; border-radius: 6rpx"
+						:style="{
+							backgroundColor: role == 1 ? '#ECFAF4' : '#FBFBFB',
+							color: role == 1 ? '#01BB74' : '#333333'
+						}"
+					>
+						<view>客户</view>
+						<view v-if="role == 1" class="absolute" style="right: 20rpx">
+							<wd-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></wd-icon>
 						</view>
 					</view>
-					<view @click="role=0;showChecked=false;heig='20vh'"
+					<view
+						@click="
+							role = 0;
+							showChecked = false;
+							heig = '20vh';
+						"
 						class="flex-row items-center ml36 mt10 pl20 relative"
-						style="height: 35px;width: 255px;border-radius: 3px;"
-						:style="{backgroundColor:role==0?'#ECFAF4':'#FBFBFB',color:role==0?'#01BB74':'#333333'}">
-						<view>
-							供应商
-						</view>
-						<view v-if="role==0" class="absolute" style="right: 10px;">
-							<!-- https://res-oss.elist.com.cn/wxImg/code/check.svg -->
-							<u-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28"></u-icon>
+						style="height: 70rpx; width: 510rpx; border-radius: 6rpx"
+						:style="{
+							backgroundColor: role == 0 ? '#ECFAF4' : '#FBFBFB',
+							color: role == 0 ? '#01BB74' : '#333333'
+						}"
+					>
+						<view>供应商</view>
+						<view v-if="role == 0" class="absolute" style="right: 20rpx">
+							<wd-icon name="https://res-oss.elist.com.cn/wxImg/code/check.svg" size="28rpx"></wd-icon>
 						</view>
 					</view>
 				</view>
 			</div>
-		</u-mask>
-
+		</up-overlay>
 	</view>
-
-
 </template>
 
 <script>
-	import UQRCode from '@/components/uqrcode.js'
-	import html2canvas from '@/components/html2canvas.min.js'
-	export default {
-		data() {
-			return {
-				scanQRcodesData: {
-					phone: ""
-				},
-				showSF: false,
-				checked: "供应商",
-				showChecked: false,
-				heig: "20vh",
-				role: 0,
-				sm: ""
-			};
-		},
-		mounted() {
-
-		},
-		onShow() {
-			var role = this.vuex_userRole == "R"
-			if (role) {
-				this.checked = "供应商"
-			} else {
-				this.checked = "客户"
-			}
-			var workIF = this.vuex_user.data.work != "0"
-
-
-			this.scanQRcodesData.phone = this.vuex_user.phone
-
-			this.init()
-		},
-		methods: {
-			scanQRcodes() {
-				const that = this;
-				uni.scanCode({
-					success: (res) => {
-						that.scanResult = res.result;
-						console.log('扫码:', res);
-						var json = JSON.parse(that.scanResult);
-						console.log('扫码:', json);
-						that.sm = json
-						that.showSF = true;
-					},
-					fail: (err) => {
-						console.error('扫码失败:', err);
-					}
-				});
+import UQRCode from './uqrcode.js';
+import html2canvas from 'html2canvas';
+export default {
+	data() {
+		return {
+			scanQRcodesData: {
+				phone: ''
 			},
-			addFriend(json) {
-				var addPhone = json.phone;
-				var phone = this.vuex_user.phone
-				var work = this.vuex_user.data.work == "1"
-				var img = this.vuex_user.data.headPortrait;
-				var aName = this.vuex_user.data.nickName || phone;
-				var identy = ""
-				var aBossNumber = phone
+			showSF: false,
+			checked: '供应商',
+			showChecked: false,
+			heig: '20vh',
+			role: 0,
+			sm: ''
+		};
+	},
+	mounted() {},
+	onShow() {
+		var role = this.pinia_userRole == 'R';
+		if (role) {
+			this.checked = '供应商';
+		} else {
+			this.checked = '客户';
+		}
+		var workIF = this.pinia_user.data.work != '0';
 
-				if (addPhone == phone) {
-					this.showSF = false
-					this.$u.toast("请勿添加自己~")
-					this.init()
+		this.scanQRcodesData.phone = this.pinia_user.phone;
+
+		this.init();
+	},
+	methods: {
+		scanQRcodes() {
+			const that = this;
+			uni.scanCode({
+				success: (res) => {
+					that.scanResult = res.result;
+					console.log('扫码:', res);
+					var json = JSON.parse(that.scanResult);
+					console.log('扫码:', json);
+					that.sm = json;
+					that.showSF = true;
+				},
+				fail: (err) => {
+					console.error('扫码失败:', err);
+				}
+			});
+		},
+		addFriend(json) {
+			var addPhone = json.phone;
+			var phone = this.pinia_user.phone;
+			var work = this.pinia_user.data.work == '1';
+			var img = this.pinia_user.data.headPortrait;
+			var aName = this.pinia_user.data.nickName || phone;
+			var identy = '';
+			var aBossNumber = phone;
+
+			if (addPhone == phone) {
+				this.showSF = false;
+				this.$u.toast('请勿添加自己~');
+				this.init();
+				return;
+			}
+
+			if (work) {
+				identy = this.pinia_user.workData.identity;
+				aBossNumber = this.pinia_user.workData.bossNumber;
+				if (aBossNumber == phone) {
+					this.showSF = false;
+					this.$u.toast('请勿添加自己老板~');
+					this.init();
+					return;
+				}
+				var boss = this.pinia_user.workData.bossNumber;
+				if (boss == dx.aBossNumber) {
+					this.showSF = false;
+					this.$u.toast('请勿添加自己老板~');
+					return;
+				}
+			}
+
+			var dx = {
+				aNumber: phone,
+				aBossNumber: aBossNumber,
+				bBossNumber: '',
+				aJobBumber: '',
+				bNumber: '',
+				aImg: img,
+				bImg: '',
+				state: '0',
+				aName: '',
+				port: '',
+				aCompany: ''
+			};
+
+			uni.$api.user.searchUser({ phone: addPhone }).then((res) => {
+				console.log('(检索添加人)： ', JSON.stringify(res.data.data.map));
+				var addUser = res.data.data;
+				var bossAdd = addPhone;
+
+				if (addUser.map.boss !== undefined) {
+					bossAdd = addUser.map.boss;
+				}
+				var bImg = addUser.headPortrait;
+
+				if (bossAdd == phone) {
+					this.showSF = false;
+					this.$u.toast('请勿添加自己~');
+					this.init();
 					return;
 				}
 
+				dx.bImg = bImg;
+				dx.bNumber = addPhone;
+				dx.bBossNumber = bossAdd;
 
-				if (work) {
-					identy = this.vuex_user.workData.identity;
-					aBossNumber = this.vuex_user.workData.bossNumber;
-					if (aBossNumber == phone) {
-						this.showSF = false
-						this.$u.toast("请勿添加自己老板~")
-						this.init()
-						return;
+				dx.port = this.role == 1 ? 'D' : 'R';
+
+				uni.$api.user.addClient(dx).then.then((res) => {
+					console.log('添加申请： ' + res.data.data);
+					var resAddFriend = res.data;
+					this.addResAlert(resAddFriend);
+				});
+			});
+		},
+		addResAlert(data) {
+			this.$u.toast(data.message);
+			this.showSF = false;
+			this.init();
+		},
+		init() {
+			// 获取uQRCode实例
+			var qr = new UQRCode();
+			// 设置二维码内容
+			qr.data = JSON.stringify(this.scanQRcodesData);
+			// 设置二维码大小，必须与canvas设置的宽高一致
+			qr.size = 200;
+			// 调用制作二维码方法
+			qr.make();
+			// 获取canvas上下文
+			var canvasContext = uni.createCanvasContext('qrcode', this); // 如果是组件，this必须传入
+			// 设置uQRCode实例的canvas上下文
+			qr.canvasContext = canvasContext;
+			// 调用绘制方法将二维码图案绘制到canvas上
+			qr.drawCanvas();
+		},
+
+		uiconGet(e) {
+			if (e == '1') {
+				uni.canvasToTempFilePath({
+					canvasId: 'qrcode',
+					fileType: 'png',
+					quality: 1, //图片质量
+					success(res) {
+						console.log(res.tempFilePath, 'canvas生成图片地址');
+						uni.saveImageToPhotosAlbum({
+							filePath: res.tempFilePath,
+							success: () => {
+								uni.showToast({
+									title: '图片已保存到相册'
+								});
+							},
+							fail: (err) => {
+								console.log(err);
+								uni.showToast({
+									title: '保存失败',
+									icon: 'none'
+								});
+							}
+						});
 					}
-					var boss = this.vuex_user.workData.bossNumber;
-					if (boss == dx.aBossNumber) {
-						this.showSF = false
-						this.$u.toast("请勿添加自己老板~")
-						return;
-					}
-				}
-
-				var dx = {
-					"aNumber": phone,
-					"aBossNumber": aBossNumber,
-					"bBossNumber": "",
-					"aJobBumber": "",
-					"bNumber": "",
-					"aImg": img,
-					"bImg": "",
-					"state": "0",
-					"aName": "",
-					"port": "",
-					"aCompany": ""
-				}
-
-				this.$u.post('edo/user/search?phone=' + addPhone).then(res => {
-					console.log("(检索添加人)： ", JSON.stringify(res.data.data.map));
-					var addUser = res.data.data;
-					var bossAdd = addPhone;
-
-
-
-					if (addUser.map.boss !== undefined) {
-						bossAdd = addUser.map.boss;
-					}
-					var bImg = addUser.headPortrait;
-
-
-					if (bossAdd == phone) {
-						this.showSF = false
-						this.$u.toast("请勿添加自己~")
-						this.init()
-						return;
-					}
-
-
-					dx.bImg = bImg
-					dx.bNumber = addPhone
-					dx.bBossNumber = bossAdd
-
-					dx.port = this.role == 1 ? "D" : "R"
-
-
-					this.$u.post('edo/client/add', dx).then(res => {
-						console.log("添加申请： " + res.data.data);
-						var resAddFriend = res.data
-						this.addResAlert(resAddFriend)
-					})
-				})
-
-
-			},
-			addResAlert(data) {
-				this.$u.toast(data.message)
-				this.showSF = false;
-				this.init()
-			},
-			init() {
-				// 获取uQRCode实例
-				var qr = new UQRCode();
-				// 设置二维码内容
-				qr.data = JSON.stringify(this.scanQRcodesData);
-				// 设置二维码大小，必须与canvas设置的宽高一致
-				qr.size = 200;
-				// 调用制作二维码方法
-				qr.make();
-				// 获取canvas上下文
-				var canvasContext = uni.createCanvasContext('qrcode', this); // 如果是组件，this必须传入
-				// 设置uQRCode实例的canvas上下文
-				qr.canvasContext = canvasContext;
-				// 调用绘制方法将二维码图案绘制到canvas上
-				qr.drawCanvas();
-			},
-
-			uiconGet(e) {
-				if (e == '1') {
-					uni.canvasToTempFilePath({
-						canvasId: 'qrcode',
-						fileType: 'png',
-						quality: 1, //图片质量
-						success(res) {
-							console.log(res.tempFilePath, 'canvas生成图片地址');
-							uni.saveImageToPhotosAlbum({
-								filePath: res.tempFilePath,
-								success: () => {
-									uni.showToast({
-										title: '图片已保存到相册'
-									});
-								},
-								fail: (err) => {
-									console.log(err);
-									uni.showToast({
-										title: '保存失败',
-										icon: 'none'
-									});
-								}
-							});
-						}
-					})
-				} else if (e == '2') {
-					this.scanQRcodes()
-				} else if (e == '3') {
-					// const canvas = html2canvas();  
-					//  console.log(canvas);  
-				}
-
-			},
+				});
+			} else if (e == '2') {
+				this.scanQRcodes();
+			} else if (e == '3') {
+				// const canvas = html2canvas();
+				//  console.log(canvas);
+			}
 		}
-	};
+	}
+};
 </script>
 
 <style scoped lang="scss">
-	/* 样式 */
-	.root {
-		background-color: #01BB74;
-		width: 100vw;
-		height: 100vh;
+/* 样式 */
+.root {
+	background-color: #01bb74;
+	width: 100vw;
+	height: 100vh;
 
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	overflow: hidden;
+}
+
+.card {
+	width: 100vw;
+	height: 90vh;
+	background-color: transparent;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+
+	overflow: hidden;
+
+	.cardCode {
+		width: 70vw;
+		height: 700rpx;
+		background-color: #ffffff;
+		margin-bottom: 10vh;
+		border-radius: 36rpx;
+	}
+
+	.cardThree {
+		height: 10vh;
+		width: 100vw;
 		display: flex;
-		flex-direction: column;
+		flex-direction: row;
 		justify-content: center;
 		align-items: center;
-
-		overflow: hidden;
 	}
+}
 
-	.card {
-		width: 100vw;
-		height: 90vh;
-		background-color: transparent;
+.icon {
+	padding-left: 46rpx;
+	padding-right: 46rpx;
+	padding-bottom: 40rpx;
+}
 
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		position: relative;
+.oksm {
+	background-color: #ffffff;
+}
 
-		overflow: hidden;
+.oksm:active {
+	background-color: #f0f0f0;
+}
 
-		.cardCode {
-			width: 70vw;
-			height: 350px;
-			background-color: #ffffff;
-			margin-bottom: 10vh;
-			border-radius: 18px;
-		}
+.onsm {
+	background-color: #ffffff;
+}
 
-
-		.cardThree {
-			height: 10vh;
-			width: 100vw;
-			display: flex;
-			flex-direction: row;
-			justify-content: center;
-			align-items: center;
-		}
-
-
-
-
-
-	}
-
-	.icon {
-		padding-left: 23px;
-		padding-right: 23px;
-		padding-bottom: 20px;
-	}
-
-	.oksm {
-		background-color: #ffffff;
-	}
-
-	.oksm:active {
-		background-color: #f0f0f0;
-	}
-
-	.onsm {
-		background-color: #ffffff;
-	}
-
-	.onsm:active {
-		background-color: #f0f0f0;
-	}
+.onsm:active {
+	background-color: #f0f0f0;
+}
 </style>

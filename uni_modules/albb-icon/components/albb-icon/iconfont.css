@@ -1,0 +1,79 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 4981937 */
+  src: url('iconfont.woff2?t=1762414148522') format('woff2'),
+       url('iconfont.woff?t=1762414148522') format('woff'),
+       url('iconfont.ttf?t=1762414148522') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ydj-tiaojianshaixuan2:before {
+  content: "\e611";
+}
+
+.ydj-tiaojianshaixuanfan2:before {
+  content: "\e612";
+}
+
+.ydj-dingdanliebiao21:before {
+  content: "\e610";
+}
+
+.ydj-dingdanliebiao2:before {
+  content: "\e60f";
+}
+
+.ydj-erweimashouji:before {
+  content: "\e60e";
+}
+
+.ydj-bianji:before {
+  content: "\e60d";
+}
+
+.ydj-saoyisao:before {
+  content: "\e609";
+}
+
+.ydj-shanchu:before {
+  content: "\e60b";
+}
+
+.ydj-chakan:before {
+  content: "\e60c";
+}
+
+.ydj-shoujihao:before {
+  content: "\e607";
+}
+
+.ydj-weixin:before {
+  content: "\e620";
+}
+
+.ydj-a-zu5078:before {
+  content: "\e604";
+}
+
+.ydj-weixin-fill:before {
+  content: "\e623";
+}
+
+.ydj-zhuanfa:before {
+  content: "\e602";
+}
+
+.ydj-a-zu5112:before {
+  content: "\e601";
+}
+
+.ydj-qiehuan:before {
+  content: "\e622";
+}
+

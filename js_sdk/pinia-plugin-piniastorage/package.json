@@ -1,0 +1,17 @@
+{
+	"id": "pinia-plugin-piniastorage",
+	"name": "pinia持久化插件",
+	"displayName": "pinia持久化插件",
+	"version": "1.2.0",
+	"description": "pinia 的持久化插件,支持自定义存储方式（sessionStorage等）",
+	"keywords": [
+		"pinia",
+		"storage，持久化"
+	],
+	"dcloudext": {
+		"category": [
+			"JS SDK",
+			"通用 SDK"
+		]
+	}
+}

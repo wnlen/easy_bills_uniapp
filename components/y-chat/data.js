@@ -1,4 +1,4 @@
-export default function (){
+export default function () {
 	return {
 		sendVal: '',
 		footerFlag: false,
@@ -7,7 +7,7 @@ export default function (){
 		triggered: true,
 		hideBoxHeight: 0,
 		showBoxHeight: 0,
-		clickAdd:true,
+		clickAdd: true,
 		defaultSheet: [
 			{
 				img: '',
@@ -23,12 +23,12 @@ export default function (){
 			}
 		],
 		focus: false,
-		
+
 		list: [],
-		
+
 		textShowFlag: true,
 		audioFlag: false,
 		y: 0,
-		readyCloseAudio: false,
-	}
+		readyCloseAudio: false
+	};
 }

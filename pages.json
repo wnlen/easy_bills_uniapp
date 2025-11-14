@@ -1,12 +1,26 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"easycom": {
+		"autoscan": true,
+		// 注意一定要放在custom里，否则无效，https://ask.dcloud.net.cn/question/131175
+		"custom": {
+			"^u--(.*)": "@/uni_modules/uview-plus/components/u-$1/u-$1.vue",
+			"^up-(.*)": "@/uni_modules/uview-plus/components/u-$1/u-$1.vue",
+			"^u-([^-].*)": "@/uni_modules/uview-plus/components/u-$1/u-$1.vue",
+			"^uni-(.*)": "@/components/uni-$1.vue", // 匹配components目录内的vue文件
+			"^vue-file-(.*)": "packageName/path/to/vue-file-$1.vue", // 匹配node_modules内的vue文件
+			"^albb-(.*)": "@/uni_modules/albb-icon/components/albb-icon/albb-icon.vue"
+		}
+	},
+	"pages": [
+		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "易单据",
 				"navigationBarBackgroundColor": "#fff",
 				"navigationStyle": "custom",
-				"enablePullDownRefresh": true,
+				"enablePullDownRefresh": false,
+				"disableScroll": true,
 				"onReachBottomDistance": 5
 			}
 		},
@@ -15,9 +29,9 @@
 			"style": {
 				"navigationBarTitleText": "我的",
 				"enablePullDownRefresh": false,
-				"navigationStyle": "custom"
+				"navigationStyle": "custom",
+				"disableScroll": true
 			}
-
 		},
 		{
 			"path": "pages/list/list",
@@ -28,23 +42,20 @@
 				// "enablePullDownRefresh": true,
 				// "onReachBottomDistance": 50
 			}
-
 		},
 		{
 			"path": "pages/message/message",
 			"style": {
 				"navigationBarTitleText": "消息",
 				"navigationStyle": "custom",
-				"enablePullDownRefresh": true,
-				"onReachBottomDistance": 50
+				"enablePullDownRefresh": false,
+				"disableScroll": true
 			}
-
 		},
 		{
-			"path" : "pages/user/share",
-			"style" : 
-			{
-				"navigationBarTitleText" : "分享给好友",
+			"path": "pages/user/share",
+			"style": {
+				"navigationBarTitleText": "分享给好友",
 				"navigationStyle": "custom",
 				"navigationBarTextStyle": "white",
 				"enablePullDownRefresh": false
@@ -58,6 +69,7 @@
 		"backgroundColor": "#F8F8F8"
 	},
 	"tabBar": {
+		"custom": true,
 		"color": "#7A7E83",
 		"selectedColor": "#0FB076",
 		"borderStyle": "black",
@@ -137,14 +149,16 @@
 						"enablePullDownRefresh": false,
 						"navigationBarBackgroundColor": "#fff"
 					}
-				}, {
+				},
+				{
 					"path": "user/signee/signee",
 					"style": {
 						"navigationBarTitleText": "签收管理",
 						"enablePullDownRefresh": false,
 						"navigationBarBackgroundColor": "#fff"
 					}
-				}, {
+				},
+				{
 					"path": "user/signee/add",
 					"style": {
 						"navigationBarTitleText": "签收管理",
@@ -181,7 +195,7 @@
 				{
 					"path": "pending/pending",
 					"style": {
-						"navigationBarTitleText": "待确认单据",
+						"navigationBarTitleText": "送货单签收",
 						"enablePullDownRefresh": false,
 						"navigationBarBackgroundColor": "#ffffff"
 					}
@@ -208,7 +222,6 @@
 						"navigationBarTitleText": "往年账目",
 						"enablePullDownRefresh": false,
 						"navigationStyle": "custom"
-
 					}
 				},
 				{
@@ -217,7 +230,6 @@
 						"navigationBarTitleText": "订单详情",
 						"enablePullDownRefresh": false,
 						"navigationStyle": "custom"
-
 					}
 				},
 				// {
@@ -269,6 +281,41 @@
 					"style": {
 						"navigationBarTitleText": "教程"
 					}
+				},
+				{
+					"path": "user/app_order/app_order",
+					"style": {
+						"navigationBarTitleText": "我的订购",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "report/report",
+					"style": {
+						"navigationBarTitleText": "报表",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "dataManagement/dataManagement",
+					"style": {
+						"navigationBarTitleText": "数据管理",
+						"navigationBarBackgroundColor": "#ffffff"
+					}
+				},
+				{
+					"path": "dataManagement/manageAnalysis",
+					"style": {
+						"navigationBarTitleText": "数据分析",
+						"navigationBarBackgroundColor": "#ffffff"
+					}
+				},
+				{
+					"path": "dataManagement/manageSales",
+					"style": {
+						"navigationBarTitleText": "销售排行榜",
+						"navigationBarBackgroundColor": "#ffffff"
+					}
 				}
 			]
 		},
@@ -282,7 +329,8 @@
 					"navigationBarBackgroundColor": "#ffffff"
 				}
 			}]
-		}, {
+		},
+		{
 			"root": "pages/subIndex",
 			"pages": [{
 					"path": "backlog/backlog",
@@ -339,7 +387,8 @@
 					}
 				}
 			]
-		}, {
+		},
+		{
 			"root": "pages/subList",
 			"pages": [{
 				"path": "remark",
@@ -350,7 +399,8 @@
 					"navigationBarBackgroundColor": "#fff"
 				}
 			}]
-		}, {
+		},
+		{
 			"root": "pages/subMessage",
 			"pages": [{
 					"path": "chitchat/chitchat",
@@ -437,7 +487,8 @@
 					}
 				}
 			]
-		}, {
+		},
+		{
 			"root": "pages/subOrder",
 			"pages": [{
 					"path": "receipt",
@@ -476,7 +527,6 @@
 						"navigationStyle": "custom",
 						"navigationBarBackgroundColor": "#fff"
 					}
-
 				},
 				{
 					"path": "addCompile",
@@ -486,7 +536,6 @@
 						"navigationStyle": "custom",
 						"navigationBarBackgroundColor": "#fff"
 					}
-
 				},
 				{
 					"path": "table",
@@ -496,7 +545,6 @@
 						"backgroundColor": "#ffffff",
 						"navigationBarBackgroundColor": "#fff"
 					}
-
 				},
 				{
 					"path": "forbid/forbid",
@@ -508,7 +556,16 @@
 				{
 					"path": "drafts",
 					"style": {
-						"navigationBarTitleText": "草稿箱"
+						"navigationBarTitleText": "草稿箱",
+						"navigationBarBackgroundColor": "#fff"
+					}
+				},
+				{
+					"path": "advancedOrder",
+					"style": {
+						"navigationBarTitleText": "预定单",
+						"navigationBarBackgroundColor": "#00D383",
+						"navigationBarTextStyle": "white"
 					}
 				},
 				{
@@ -520,13 +577,6 @@
 				},
 				{
 					"path": "merchandiseInventory",
-					"style": {
-						"navigationBarTitleText": "",
-						"navigationStyle": "custom"
-					}
-				},
-				{
-					"path": "uploadingCommodity",
 					"style": {
 						"navigationBarTitleText": "",
 						"navigationStyle": "custom"
@@ -566,6 +616,13 @@
 						"navigationBarTitleText": "",
 						"navigationStyle": "custom"
 					}
+				},
+				{
+					"path": "commodityDetails/shareCommodity",
+					"style": {
+						"navigationBarTitleText": "",
+						"navigationStyle": "custom"
+					}
 				}
 			]
 		},
@@ -578,16 +635,14 @@
 						"enablePullDownRefresh": false,
 						"navigationStyle": "custom"
 					}
-
 				},
 				{
 					"path": "geti",
 					"style": {
 						"navigationBarTitleText": "个体认证",
 						"enablePullDownRefresh": false,
-						"navigationStyle": "custom"
+						"navigationBarBackgroundColor": "#fff"
 					}
-
 				},
 				{
 					"path": "qiye",
@@ -596,7 +651,41 @@
 						"enablePullDownRefresh": false,
 						"navigationBarBackgroundColor": "#fff"
 					}
-
+				},
+				{
+					"path": "legalSignature",
+					"style": {
+						"navigationBarTitleText": "法律签署设置",
+						"navigationBarBackgroundColor": "#fff"
+					}
+				},
+				{
+					"path": "mySignature",
+					"style": {
+						"navigationBarTitleText": "我的签名",
+						"navigationBarBackgroundColor": "#fff"
+					}
+				},
+				{
+					"path": "dataAuthentication/dataAuthentication",
+					"style": {
+						"navigationBarTitleText": "资料认证",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "dataAuthentication/personalAuth",
+					"style": {
+						"navigationBarTitleText": "个人实名认证",
+						"navigationBarBackgroundColor": "#fff"
+					}
+				},
+				{
+					"path": "dataAuthentication/enterpriseAuth",
+					"style": {
+						"navigationBarTitleText": "企业实名认证",
+						"navigationBarBackgroundColor": "#fff"
+					}
 				}
 			]
 		},
@@ -605,8 +694,8 @@
 			"pages": [{
 					"path": "statistics",
 					"style": {
-						"navigationBarTitleText": "订单统计",
-						"enablePullDownRefresh": false,
+						"navigationBarTitleText": "统计对账",
+						"enablePullDownRefresh": true,
 						"navigationBarBackgroundColor": "#ffffff",
 						"navigationStyle": "custom"
 					}
@@ -671,7 +760,6 @@
 					}
 				}
 				// bill_particulars
-
 			]
 		},
 		{
@@ -684,7 +772,6 @@
 						"enablePullDownRefresh": false,
 						"navigationStyle": "custom"
 					}
-
 				},
 				{
 					"path": "system/system",
@@ -701,7 +788,6 @@
 						"enablePullDownRefresh": false,
 						"navigationBarBackgroundColor": "#fff"
 					}
-
 				},
 				{
 					"path": "login",
@@ -709,10 +795,11 @@
 						"navigationBarTitleText": "登录",
 						"enablePullDownRefresh": false,
 						"navigationStyle": "custom",
+						"disableScroll": true,
 						"navigationBarBackgroundColor": "#fff"
 					}
-
-				}, {
+				},
+				{
 					"path": "resetpassword",
 					"style": {
 						"navigationBarTitleText": "找回密码",
@@ -720,15 +807,14 @@
 						"navigationBarBackgroundColor": "#fff",
 						"navigationStyle": "custom"
 					}
-
-				}, {
+				},
+				{
 					"path": "setting",
 					"style": {
 						"navigationBarTitleText": "账号与安全",
 						"enablePullDownRefresh": false,
 						"navigationBarBackgroundColor": "#fff"
 					}
-
 				},
 				{
 					"path": "unsubscribe",
@@ -737,14 +823,14 @@
 						"enablePullDownRefresh": false,
 						"navigationStyle": "custom"
 					}
-				}, {
+				},
+				{
 					"path": "userinfo",
 					"style": {
 						"navigationBarTitleText": "个人资料",
 						"enablePullDownRefresh": false,
 						"navigationBarBackgroundColor": "#fff"
 					}
-
 				},
 				{
 					"path": "webpage",
@@ -753,33 +839,32 @@
 						"enablePullDownRefresh": false,
 						"navigationBarBackgroundColor": "#fff"
 					}
-				}, {
+				},
+				{
 					"path": "webview/webview",
 					"style": {
 						"navigationBarTitleText": "",
 						"enablePullDownRefresh": false,
 						"navigationBarBackgroundColor": "#fff"
 					}
-
-				}, {
+				},
+				{
 					"path": "wifi/wifi",
 					"style": {
 						"navigationBarTitleText": "",
 						"enablePullDownRefresh": false,
 						"navigationBarBackgroundColor": "#fff"
 					}
-
-				}, {
+				},
+				{
 					"path": "printer/printer",
 					"style": {
 						"navigationBarTitleText": "打印机配置",
 						"enablePullDownRefresh": false,
 						"navigationBarBackgroundColor": "#fff"
 					}
-
 				},
 				{
-
 					"path": "printer/edit",
 					"style": {
 						"navigationBarTitleText": "打印机名称",
@@ -833,10 +918,9 @@
 					}
 				},
 				{
-					"path" : "register/register",
-					"style" : 
-					{
-						"navigationBarTitleText" : "",
+					"path": "register/register",
+					"style": {
+						"navigationBarTitleText": "",
 						"navigationStyle": "custom"
 					}
 				}
@@ -845,14 +929,13 @@
 		{
 			"root": "pages/questionnaire",
 			"pages": [{
-					"path": "index",
-					"style": {
-						"navigationBarTitleText": "调查问卷",
-						"enablePullDownRefresh": false,
-						"navigationStyle": "custom"
-					}
+				"path": "index",
+				"style": {
+					"navigationBarTitleText": "调查问卷",
+					"enablePullDownRefresh": false,
+					"navigationStyle": "custom"
 				}
-			]
+			}]
 		}
 	]
 }

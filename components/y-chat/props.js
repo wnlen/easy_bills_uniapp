@@ -7,12 +7,12 @@ export default {
 	// 更新的消息
 	updateList: {
 		type: Array | Object,
-		default:() => []
+		default: () => []
 	},
 	// 消息列表
 	messageList: {
 		type: Array,
-		default:() => []
+		default: () => []
 	},
 	// 標簽颜色配置項
 	tagOptions: {
@@ -22,18 +22,16 @@ export default {
 	// 列表key配置项
 	defaultOptions: {
 		type: Object,
-		default:() => (
-			{
-				userId: 'userId',
-				msgId: 'msgId',
-				name: 'name',
-				message: 'message',
-				img: 'img',
-				time: 'time',
-				avator: 'avator',
-				tagLabel: 'tagLabel'
-			}
-		)
+		default: () => ({
+			userId: 'userId',
+			msgId: 'msgId',
+			name: 'name',
+			message: 'message',
+			img: 'img',
+			time: 'time',
+			avator: 'avator',
+			tagLabel: 'tagLabel'
+		})
 	},
 	// 是否使用下拉
 	useRefresh: {
@@ -78,8 +76,8 @@ export default {
 		type: String,
 		default: ''
 	},
-	OperatingSystem:{
-		type:Boolean,
-		default:false
+	OperatingSystem: {
+		type: Boolean,
+		default: false
 	}
-}
+};

@@ -1,33 +1,62 @@
 ## 1.0.14（2023-12-29）
-1. 修复上个版本引出的BUG
+
+1. 修复上个版本引出的 BUG
+
 ## 1.0.13（2023-12-26）
-1. 修复抖音小程序滚到底不触发change的BUG
+
+1. 修复抖音小程序滚到底不触发 change 的 BUG
+
 ## 1.0.12（2023-11-20）
-1. 修复issues反馈的问题uv-picker在组合式API的自定义组件中，columns动态赋值无法显示选项：https://gitee.com/climblee/uv-ui/issues/I8H0GQ
+
+1. 修复 issues 反馈的问题 uv-picker 在组合式 API 的自定义组件中，columns 动态赋值无法显示选项：https://gitee.com/climblee/uv-ui/issues/I8H0GQ
+
 ## 1.0.11（2023-10-11）
-1. 将immediate-change默认值改为true，该值在于change回调的及时性，微信小程序生效
+
+1. 将 immediate-change 默认值改为 true，该值在于 change 回调的及时性，微信小程序生效
+
 ## 1.0.10（2023-08-25）
-1. 增加round属性设置弹窗圆角，默认为0
+
+1. 增加 round 属性设置弹窗圆角，默认为 0
+
 ## 1.0.9（2023-08-24）
-1. 修复cli项目不返回值的问题
+
+1. 修复 cli 项目不返回值的问题
+
 ## 1.0.8（2023-08-04）
+
 1. 优化
+
 ## 1.0.7（2023-08-02）
-1. 改组件中删除uv-toolbar组件，请单独下载uv-toolbar组件
+
+1. 改组件中删除 uv-toolbar 组件，请单独下载 uv-toolbar 组件
+
 ## 1.0.6（2023-07-02）
-uv-picker  由于弹出层uv-popup的修改，打开和关闭方法更改，详情参考文档：https://www.uvui.cn/components/picker.html
+
+uv-picker 由于弹出层 uv-popup 的修改，打开和关闭方法更改，详情参考文档：https://www.uvui.cn/components/picker.html
+
 ## 1.0.5（2023-06-26）
-1. 增加color参数
-2. 增加activeColor参数
+
+1. 增加 color 参数
+2. 增加 activeColor 参数
+
 ## 1.0.4（2023-06-15）
-1. 修改支付宝报错的BUG
+
+1. 修改支付宝报错的 BUG
+
 ## 1.0.3（2023-06-12）
-1. setColumnValues的使用统一化，避免某些平台报错
-2. 取消change回调回传的组件实例，直接统一通过ref的方式调取setColumnValues方法
+
+1. setColumnValues 的使用统一化，避免某些平台报错
+2. 取消 change 回调回传的组件实例，直接统一通过 ref 的方式调取 setColumnValues 方法
+
 ## 1.0.2（2023-05-23）
-1. uv-toolbar组件新增下边框属性 
+
+1. uv-toolbar 组件新增下边框属性
+
 ## 1.0.1（2023-05-16）
+
 1. 优化组件依赖，修改后无需全局引入，组件导入即可使用
 2. 优化部分功能
+
 ## 1.0.0（2023-05-10）
+
 uv-picker 选择器

@@ -1,119 +1,155 @@
 <script>
 import SocketManager from '@/utils/socketManager.js';
+import { ensureFontsReady } from '@/utils/font-loader.js';
 
 export default {
 	data() {
 		return {
-			todoCount: 0,
-			messageCount: 0,
-			size: {
-				message: 0,
-				todo: 0,
-				contact: 0,
-				emp: 0,
-				notice: 0
-			}
+			todoCount: 0
 		};
 	},
 	onLaunch(options) {
-		console.log('options', options);
-		const inviterId = options?.query?.inviterId;
+		//加载字体
+		this.loadfont();
+
+		uni.$on('switchTabToList', (e) => {
+			console.log('监听到isFromSwitchTab');
+		});
 		//缓存邀请码
+		const inviterId = options?.query?.inviterId;
 		if (inviterId) {
 			uni.setStorageSync('inviterId', inviterId);
-		}else {
+		} else {
 			uni.removeStorageSync('inviterId');
 		}
-		
+
+		//程序更新
 		this.initUpdateManager();
 
-		if (uni.getStorageSync("1003") === "0") {
-			uni.removeStorage({ key: "1003" });
-		}
+		// if (uni.getStorageSync('1003') === '0') {
+		// 	uni.removeStorage({ key: '1003' });
+		// }
 
-		uni.removeStorage({ key: "details" });
-		uni.setStorageSync("auth", "0");
+		// uni.removeStorage({ key: 'details' });
+		uni.setStorageSync('auth', '0');
+		if (!uni.getStorageSync('wzc_img')) {
+			uni.setStorageSync('wzc_img', 'https://res-oss.elist.com.cn/wxImg/obj/wzc' + (Math.floor(Math.random() * 3) + 1) + '.svg');
+		}
+		// 如果存在且不是线上图片重新替换
+		else if (uni.getStorageSync('wzc_img').indexOf('https://res-oss.elist.com.cn/wxImg/obj/wzc') == -1) {
+			uni.setStorageSync('wzc_img', 'https://res-oss.elist.com.cn/wxImg/obj/wzc' + (Math.floor(Math.random() * 3) + 1) + '.svg');
+		}
 	},
 	onShow(options) {
-		console.log("Scene:", options);
 		this.$getCid?.();
 		this.$monitorPushMessage?.();
 
-		if (options.scene !== 1007 && this.vuex_user?.phone) {
-			// 👉 使用封装模块连接 WebSocket
-			SocketManager.connect(this.vuex_user.phone, (data) => {
-				if (data.type) {
+		if (options.scene !== 1007 && this.pinia_user?.phone) {
+			// 使用封装模块连接 WebSocket
+			SocketManager.connect(this.pinia_user.phone, (data) => {
+				if (this.pinia_user?.phone) {
 					this.updateMessageCounts();
-					this.$store.commit('updateFlush', data.type);
+					uni.$u.setPinia({
+						system: {
+							flush: data
+						}
+					});
 				}
 			});
 
-			this.updateMessageCounts();
 			this.redirectToIndexIfNeeded();
 		}
 	},
 	onHide() {
-		SocketManager.close(); // 👉 页面隐藏时清理 WebSocket
-		this.$u.vuex('guidance', 0);
+		SocketManager.close(); // 页面隐藏时清理 WebSocket
 	},
 	onUnload() {
-		uni.setStorageSync("auth", "0");
-		SocketManager.close(); // 👉 页面卸载时清理 WebSocket
+		uni.setStorageSync('auth', '0');
+		SocketManager.close(); // 页面卸载时清理 WebSocket
 	},
 	methods: {
+		async loadfont() {
+			try {
+				await ensureFontsReady();
+				// 字体已全局可用，后续各页面无需再 loadFontFace
+			} catch (e) {
+				console.error('font init failed', e);
+			}
+		},
 		updateMessageCounts() {
 			this.getPendingTasks();
 			this.getNotifications();
 		},
 		getPendingTasks() {
-			this.$u.post('edo/orderDel/get', { bUser: this.vuex_user.phone }).then(res => {
-				const isDirector = this.vuex_userRole === "D";
-				const tasks = res.data.data.filter(item =>
-				isDirector ? item.port === "1" || item.port === "f" : item.port === "0"
-				);
+			const param = {
+				bUser: this.pinia_user.phone,
+				port: this.pinia_userRole
+			};
+			uni.$api.order.getOrderDraftList(param).then((res) => {
+				const isDirector = this.pinia_userRole === 'D';
+				const tasks = res.data.data.filter((item) => (isDirector ? item.port === '1' || item.port === 'f' : item.port === '0'));
 				this.todoCount = tasks.length;
-				this.vuex_tabbar[0].counts = tasks.length;
-				// console.log("Pending tasks:", tasks);
+
+				this.$u.setPinia({
+					global: {
+						tabbar: [
+							{
+								count: tasks.length
+							}
+						]
+					}
+				});
 			});
 		},
 		getNotifications() {
-			const user = this.vuex_user;
+			const user = this.pinia_user;
 			const dx = {
-				boss: user.data.work === "1" ? user.workData.bossNumber : user.phone,
+				boss: user.data.work === '1' ? user.workData.bossNumber : user.phone,
 				staff: user.phone,
 				work: user.data.work
 			};
-			this.$u.post('/edo/inform/all', dx).then(res => {
+			uni.$api.inform.getAllInformList(dx).then((res) => {
 				const count = res.data.data;
-				if (this.vuex_tabbar[2].count !== count) {
-					this.vuex_tabbar[2].count = count;
+				if (this.$u.getPinia('global.tabbar.2.count') !== count) {
+					this.$u.setPinia({
+						global: {
+							tabbar: [
+								{},
+								{},
+								{
+									count: count
+								}
+							]
+						}
+					});
 				}
-			}).catch(() => {
-				this.$u.toast(this.messageCount);
 			});
 		},
 		redirectToIndexIfNeeded() {
-			if (uni.getStorageSync("details") === "1") {
-				uni.removeStorage({ key: "details" });
+			if (uni.getStorageSync('details') === '1') {
+				uni.removeStorage({ key: 'details' });
 				uni.switchTab({ url: '/pages/index/index' });
 			}
 		},
 		initUpdateManager() {
+			// #ifdef MP
 			const updateManager = uni.getUpdateManager();
-			updateManager.onCheckForUpdate(res => {
+			updateManager.onCheckForUpdate((res) => {
 				if (res.hasUpdate) {
 					uni.showModal({
 						content: '新版本已准备好，点击确定更新',
 						showCancel: false,
 						confirmText: '确定',
-						success: res => {
-						  if (res.confirm) {
+						confirmColor: '#01bb74',
+						success: (res) => {
+							if (res.confirm) {
 								updateManager.onUpdateReady(() => updateManager.applyUpdate());
 								updateManager.onUpdateFailed(() => {
 									uni.showModal({
 										content: '下载失败，请删除当前小程序后重装',
 										showCancel: false,
-										confirmText: '我知道了'
+										confirmText: '我知道了',
+										confirmColor: '#01bb74'
 									});
 								});
 							}
@@ -121,27 +157,18 @@ export default {
 					});
 				}
 			});
+			// #endif
 		}
 	}
 };
 </script>
 
 <style lang="scss">
-@import "uni_modules/vk-uview-ui/index.scss";
+@import '@/uni_modules/uview-plus/index.scss';
 @import 'static/common/css/base.scss';
-
-@font-face {
-	font-family: "ddbh";
-	src: url('https://cdn.elist.com.cn/uniapp/font/DDBH.ttf') format('truetype');
+/* #ifdef APP */
+::v-deep a {
+	color: #01bb74 !important;
 }
-
-@font-face {
-	font-family: "ysdzt";
-	src: url('https://cdn.elist.com.cn/uniapp/font/YSDZT.ttf') format('truetype');
-}
-
-@font-face {
-	font-family: "syst";
-	src: url('https://cdn.elist.com.cn/uniapp/font/syst.ttf') format('truetype');
-}
+/* #endif */
 </style>

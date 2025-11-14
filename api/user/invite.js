@@ -1,10 +1,14 @@
 export default (http) => ({
 	// 获取分享二维码、分享链接、邀请人数、是否可领取奖励
 	getInviteOverview() {
-		return http.get('/edo/invite/overview')
+		return http.get('invite/overview');
 	},
-	// 领取奖励
-	claimInviteReward(type) {
-		return http.post('/edo/invite/reward', { type });
+	// 邀请好友满足条件领取奖励
+	claimInviteReward(params) {
+		return http.post('invite/reward', params);
+	},
+	// 新手指引
+	Guidance(params) {
+		return http.post('user/Guidance', params);
 	}
 });

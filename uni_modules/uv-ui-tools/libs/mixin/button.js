@@ -10,4 +10,4 @@ export default {
         formType: String,
         openType: String
     }
-}
+};

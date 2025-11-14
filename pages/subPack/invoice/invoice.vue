@@ -1,24 +1,18 @@
 <template>
-	<view class="content">
-		
-	</view>
+	<view class="content"></view>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				
-			}
-		},
-		methods: {
-			
-		}
-	}
+export default {
+	data() {
+		return {};
+	},
+	methods: {}
+};
 </script>
 
 <style>
-.content{
+.content {
 	width: 100vw;
 	height: 100vh;
 }

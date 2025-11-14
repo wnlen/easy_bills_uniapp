@@ -5,31 +5,28 @@
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-               srcView:""
-			}
-		},
-		mounted() {
-
-		},
-		onLoad(option) {
-			var work=this.vuex_user.data.work!="0";
-			var phone=this.vuex_user.phone
-			var port=this.vuex_userRole
-			console.log('this.vuex_user.loginToken',this.vuex_user.loginToken)
-			console.log('phone',this.phone)
-			console.log('port',port)
-			console.log('option',option)
-		  	var href="https://www.upbill.cn/echarts/statistics?phone="+phone+"&year="+option.year+"&port="+port+"&token="+this.vuex_user.loginToken
-			this.srcView=href
-			console.log(href);
-		},
-		methods: {},
-	}
+export default {
+	data() {
+		return {
+			srcView: ''
+		};
+	},
+	mounted() {},
+	onLoad(option) {
+		var work = this.$u.getPinia('user.user.data.work') != '0';
+		var phone = this.$u.getPinia('user.user.phone');
+		var port = this.$u.getPinia('user.userRole');
+		console.log('!this.pinia_token', !this.pinia_token);
+		console.log('phone', phone);
+		console.log('port', port);
+		console.log('option', option);
+		console.log('token', this.$u.getPinia('user.token'), this.pinia_token);
+		var href = 'https://www.upbill.cn/echarts/statistics?phone=' + phone + '&year=' + option.year + '&port=' + port + '&token=' + !this.pinia_token;
+		this.srcView = href;
+		console.log(href);
+	},
+	methods: {}
+};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

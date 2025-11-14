@@ -5,4 +5,4 @@ export default {
         virtualHost: true
     }
     // #endif
-}
+};
