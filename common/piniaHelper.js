@@ -1,9 +1,19 @@
 // common/piniaHelper.js
-import { useUserStore } from '@/store/user';
-import { useGlobalStore } from '@/store/global';
-import { useGuideStore } from '@/store/guide';
-import { useDraftStore } from '@/store/draft';
-import { useSystemStore } from '@/store/system';
+import {
+	useUserStore
+} from '@/store/user';
+import {
+	useGlobalStore
+} from '@/store/global';
+import {
+	useGuideStore
+} from '@/store/guide';
+import {
+	useDraftStore
+} from '@/store/draft';
+import {
+	useSystemStore
+} from '@/store/system';
 
 const storeMap = {
 	user: useUserStore,
