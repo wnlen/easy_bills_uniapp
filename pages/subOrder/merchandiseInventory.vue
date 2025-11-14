@@ -162,9 +162,9 @@
 						<up-table border-color="#ffffff">
 							<up-tr>
 								<up-td>数量</up-td>
-								<up-td>单位</up-td>
+								<up-td>{{ uni.$u.getPinia('user.customized') ? '型号' : '单位' }}</up-td>
 								<up-td>{{ uni.$u.getPinia('user.customized') ? '单重' : '单价' }}</up-td>
-								<up-td>{{ uni.$u.getPinia('user.customized') ? '总重' : '金额' }}</up-td>
+								<up-td width="200rpx">{{ uni.$u.getPinia('user.customized') ? '总重' : '金额' }}</up-td>
 							</up-tr>
 							<up-tr>
 								<up-td>
@@ -183,7 +183,11 @@
 										></wd-icon>
 									</view>
 								</up-td>
-								<up-td>{{ item.unit }}</up-td>
+								<up-td>
+									<view class="up-line-1" style="width: 160rpx">
+										{{ uni.$u.getPinia('user.customized') ? item.modelNo : item.unit }}
+									</view>
+								</up-td>
 								<up-td>
 									<view class="flex-row items-center">
 										<view class="u-border-bottom flex-1">
@@ -554,20 +558,14 @@ export default {
 		},
 		save() {
 			var nullNot = this.orderItemList.filter((res) => res.unitPrice == null || res.unitPrice == '');
+			var nullunitWeightKg = this.orderItemList.filter((res) => res.unitWeightKg == null || res.unitWeightKg == '');
 			if (this.totalPrices > 0) {
-				if (nullNot.length <= 0) {
-					// uni.setStorageSync("inventoryStockpile", this.orderItemList);
-					// if (uni.getStorageSync("inventoryStockpile") != undefined) {
-					// 	uni.navigateBack()
-					// 	return;
-					// }
-				} else {
-					if (uni.$u.getPinia('user.customized')) {
-						this.$u.toast('单重不能为空');
-					} else {
-						this.$u.toast('单价不能为空');
-					}
-
+				if (uni.$u.getPinia('user.customized') && nullunitWeightKg > 0) {
+					this.$u.toast('单重不能为空');
+					this.shoppingTrolley = true;
+					return;
+				} else if (nullNot > 0) {
+					this.$u.toast('单价不能为空');
 					this.shoppingTrolley = true;
 					return;
 				}

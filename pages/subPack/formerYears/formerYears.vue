@@ -318,7 +318,7 @@
 
 			<template #bottom>
 				<view
-					v-if="current == 0 && !moneyCALL"
+					v-if="current == 0 && !moneyCALL && !uni.$u.getPinia('user.customized')"
 					class="items-center flex-row justify-center"
 					style="
 						padding-right: 30rpx;

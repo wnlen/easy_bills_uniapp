@@ -47,7 +47,7 @@ export default {
 		};
 	},
 	onShow() {
-		// this.getPrinter();
+		this.getPrinter();
 	},
 	methods: {
 		buy() {

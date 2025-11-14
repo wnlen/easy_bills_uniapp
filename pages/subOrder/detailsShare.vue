@@ -115,11 +115,11 @@
 							<view class="">联系电话：</view>
 							<text class="yrd">{{ post.kPhoneE || '' }}</text>
 						</view>
-						<view class="flex-row mt13 xqcss">
+						<view class="flex-row mt13 xqcss" v-if="!orderisCustomized">
 							<view class="">收货地址：</view>
 							<text class="yrd">{{ post.kSiteE || '' }}</text>
 						</view>
-						<view class="" v-if="uni.$u.getPinia('user.customized') || orderisCustomized">
+						<view class="" v-if="orderisCustomized">
 							<view class="flex-row mt13 xqcss">
 								<view class="">项目名称：</view>
 								<text class="yrd">{{ post.projectName || '' }}</text>
@@ -157,10 +157,10 @@
 								<view class="table-header flex-row justify-center items-center">
 									<view class="table-cell">品名</view>
 									<view class="table-cell">规格</view>
-									<view class="table-cell">单位</view>
+									<view class="table-cell">{{ orderisCustomized ? '型号' : '单位' }}</view>
 									<view class="table-cell">数量</view>
-									<view class="table-cell">{{ uni.$u.getPinia('user.customized') || orderisCustomized ? '单重' : '单价' }}</view>
-									<view class="table-cell">{{ uni.$u.getPinia('user.customized') || orderisCustomized ? '总重' : '金额' }}</view>
+									<view class="table-cell">{{ orderisCustomized ? '单重' : '单价' }}</view>
+									<view class="table-cell">{{ orderisCustomized ? '总重' : '金额' }}</view>
 								</view>
 								<view class="table-row" v-for="(item, index) in orderItemList" :key="index">
 									<view class="table-cell flex-col justify-center items-center">
@@ -170,16 +170,16 @@
 										<text class="ft24">{{ item.specification || '-' }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24">{{ item.unit || '-' }}</text>
+										<text class="ft24">{{ orderisCustomized ? item.modelNo : item.unit }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
 										<text class="ft24">{{ item.quantity }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24">{{ uni.$u.getPinia('user.customized') || orderisCustomized ? item.unitWeightKg : item.unitPrice }}</text>
+										<text class="ft24">{{ orderisCustomized ? item.unitWeightKg : item.unitPrice }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24" v-if="uni.$u.getPinia('user.customized') || orderisCustomized">
+										<text class="ft24" v-if="orderisCustomized">
 											{{ item.quantity != '-' && item.quantity != '' ? item.unitWeightKg * item.quantity : 0 }}
 										</text>
 										<text class="ft24" v-else>{{ towDig(item.quantity, item.unitPrice) }}</text>
@@ -193,10 +193,10 @@
 								<view class="table-header flex-row justify-center items-center">
 									<view class="table-cell">品名</view>
 									<view class="table-cell">规格</view>
-									<view class="table-cell">单位</view>
+									<view class="table-cell">{{ orderisCustomized ? '型号' : '单位' }}</view>
 									<view class="table-cell">数量</view>
-									<view class="table-cell">{{ uni.$u.getPinia('user.customized') || orderisCustomized ? '单重' : '单价' }}</view>
-									<view class="table-cell">{{ uni.$u.getPinia('user.customized') || orderisCustomized ? '总重' : '金额' }}</view>
+									<view class="table-cell">{{ orderisCustomized ? '单重' : '单价' }}</view>
+									<view class="table-cell">{{ orderisCustomized ? '总重' : '金额' }}</view>
 								</view>
 								<view class="table-row" v-for="(item, index) in orderItemList" :key="index">
 									<view class="table-cell flex-col justify-center items-center">
@@ -206,17 +206,17 @@
 										<text class="ft24">{{ item.specification || '-' }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24">{{ item.unit || '-' }}</text>
+										<text class="ft24">{{ orderisCustomized ? item.modelNo : item.unit }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
 										<text class="ft24">{{ item.quantity }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24" v-if="uni.$u.getPinia('user.customized') || orderisCustomized">{{ versions == 'Y' ? item.unitWeightKg : '****' }}</text>
+										<text class="ft24" v-if="orderisCustomized">{{ versions == 'Y' ? item.unitWeightKg : '****' }}</text>
 										<text class="ft24" v-else>{{ versions == 'Y' ? item.unitPrice : '****' }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24" v-if="uni.$u.getPinia('user.customized') || orderisCustomized">
+										<text class="ft24" v-if="orderisCustomized">
 											{{ versions == 'Y' ? item.unitWeightKg * item.quantity : '****' }}
 										</text>
 										<text class="ft24" v-else>{{ versions == 'Y' ? towDig(item.quantity, item.unitPrice) : '****' }}</text>
@@ -227,13 +227,10 @@
 
 						<view class="xqcss pd10 pt10 pb10 black-border-left black-border-right black-border-bottom">
 							<text class="ml10 xqcss">合计：</text>
-							<text class="xqcss" v-if="uni.$u.getPinia('user.customized') || orderisCustomized">{{ post.totalWeightKg || 0 }}</text>
+							<text class="xqcss" v-if="orderisCustomized">{{ post.totalWeightKg || 0 }}KG</text>
 							<text class="xqcss" v-else>¥ {{ versions == 'Y' ? DigPrice(post.price) || '' : '****' }}</text>
 						</view>
-						<view
-							class="xqcss pd10 pt10 pb10 black-border-bottom black-border-left black-border-right"
-							v-if="!(uni.$u.getPinia('user.customized') || orderisCustomized)"
-						>
+						<view class="xqcss pd10 pt10 pb10 black-border-bottom black-border-left black-border-right" v-if="!orderisCustomized">
 							<text class="ft-bold ml10 xqcss">金额大写：</text>
 							<text class="yrd">{{ versions == 'Y' ? digitUppercase(post.price) : '****' }}</text>
 						</view>
@@ -411,7 +408,7 @@ export default {
 		if (this.$u.getPinia('user') && this.$u.getPinia('user.user.phone')) {
 			// this.$loadUser(this);
 			//单据id
-			// this.getOrder(options);
+			this.getOrder(options);
 			// this.$getRecord(this);
 			// this.getQs();
 		} else {
@@ -909,6 +906,13 @@ export default {
 				}
 				return;
 			} else {
+				// 定制的单子
+				if (this.orderisCustomized) {
+					uni.navigateTo({
+						url: '/pages/subOrder/confirmationPhoto'
+					});
+					return;
+				}
 				uni.showModal({
 					title: '确认签收提醒',
 					content: '请仔细核对货物信息后确认签收',

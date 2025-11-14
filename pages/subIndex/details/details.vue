@@ -65,7 +65,7 @@
 			</uv-cell-group>
 		</view>
 
-		<view class="page-list">
+		<view class="page-list" v-if="!(pinia_userRole == 'D' && uni.$u.getPinia('user.customized'))">
 			<view class="page-list-box" v-if="pinia_userRole == 'D'">
 				<view class="box_l">
 					<text>销售总额：</text>

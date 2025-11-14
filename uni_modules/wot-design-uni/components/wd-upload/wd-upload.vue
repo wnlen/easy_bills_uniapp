@@ -78,6 +78,7 @@
         <wd-icon class="wd-upload__evoke-icon" name="fill-camera"></wd-icon>
         <!-- 有限制个数时确认是否展示限制个数 -->
         <view v-if="limit && showLimitNum" class="wd-upload__evoke-num">（{{ uploadFiles.length }}/{{ limit }}）</view>
+        <view v-if="uploadText" class="wd-upload__evoke-num">{{uploadText}}</view>
       </view>
     </block>
   </view>
