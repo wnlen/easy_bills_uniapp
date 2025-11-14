@@ -11,16 +11,16 @@ export default {
 			// finderUserName: "sphgIVBwvsJcDEZ",
 			feedId: '',
 			listD: [
-				'https://res-oss.elist.com.cn/wxImg/handbook/2025video/video0-d.html',
-				'https://res-oss.elist.com.cn/wxImg/handbook/2025video/video1-d.html',
-				'https://res-oss.elist.com.cn/wxImg/handbook/2025video/video2-d.html',
-				'https://res-oss.elist.com.cn/wxImg/handbook/2025video/video3-d.html'
+				'https://upbill.cn/h5/handbook/2025video/video0-d.html',
+				'https://upbill.cn/h5/handbook/2025video/video1-d.html',
+				'https://upbill.cn/h5/handbook/2025video/video2-d.html',
+				'https://upbill.cn/h5/handbook/2025video/video3-d.html'
 			],
 			listR: [
-				'https://res-oss.elist.com.cn/wxImg/handbook/2025video/video0-r.html',
-				'https://res-oss.elist.com.cn/wxImg/handbook/2025video/video1-r.html',
-				'https://res-oss.elist.com.cn/wxImg/handbook/2025video/video2-r.html',
-				'https://res-oss.elist.com.cn/wxImg/handbook/2025video/video3-r.html'
+				'https://upbill.cn/h5/handbook/2025video/video0-r.html',
+				'https://upbill.cn/h5/handbook/2025video/video1-r.html',
+				'https://upbill.cn/h5/handbook/2025video/video2-r.html',
+				'https://upbill.cn/h5/handbook/2025video/video3-r.html'
 			]
 		};
 	},

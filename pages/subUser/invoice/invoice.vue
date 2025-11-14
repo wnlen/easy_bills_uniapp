@@ -129,7 +129,7 @@ export default {
 	methods: {
 		jump() {
 			uni.navigateTo({
-				url: '/pages/subUser/webpage?url=' + 'https://res-oss.elist.com.cn/notice/BillingInstructions-v1.htm'
+				url: '/pages/subUser/webpage?url=' + 'https://upbill.cn/h5/notice/BillingInstructions-v1.htm'
 			});
 		},
 		installInvoice() {

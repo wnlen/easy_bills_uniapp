@@ -61,25 +61,25 @@ export default {
 						{
 							icon: 'https://res-oss.elist.com.cn/wxImg/handbook/icon/icon5.svg',
 							name: '端口切换',
-							path: 'https://res-oss.elist.com.cn/wxImg/handbook/course/dkqh.html',
+							path: 'https://upbill.cn/h5/handbook/course/dkqh.html',
 							accomplish: true
 						},
 						{
 							icon: 'https://res-oss.elist.com.cn/wxImg/handbook/icon/icon1.svg',
 							name: '资料填写',
-							path: 'https://res-oss.elist.com.cn/wxImg/handbook/course/ztrz.html',
+							path: 'https://upbill.cn/h5/handbook/course/ztrz.html',
 							accomplish: true
 						},
 						{
 							icon: 'https://res-oss.elist.com.cn/wxImg/handbook/icon/icon2.svg',
 							name: '人员邀请',
-							path: 'https://res-oss.elist.com.cn/wxImg/handbook/course/ryyq.html',
+							path: 'https://upbill.cn/h5/handbook/course/ryyq.html',
 							accomplish: true
 						},
 						{
 							icon: 'https://res-oss.elist.com.cn/wxImg/handbook/icon/icon3.svg',
 							name: '注销账号',
-							path: 'https://res-oss.elist.com.cn/wxImg/handbook/course/zxzh.html',
+							path: 'https://upbill.cn/h5/handbook/course/zxzh.html',
 							accomplish: true
 						}
 					],
@@ -87,7 +87,7 @@ export default {
 						{
 							icon: 'https://res-oss.elist.com.cn/wxImg/handbook/icon/icon4.svg',
 							name: '打印单据',
-							path: 'https://res-oss.elist.com.cn/wxImg/handbook/course/djdy.html',
+							path: 'https://upbill.cn/h5/handbook/course/djdy.html',
 							accomplish: true
 						},
 						{
@@ -112,25 +112,25 @@ export default {
 						{
 							icon: 'https://res-oss.elist.com.cn/wxImg/handbook/icon/icon8.svg',
 							name: '开送货单',
-							path: 'https://res-oss.elist.com.cn/wxImg/handbook/course/yjkd.html',
+							path: 'https://upbill.cn/h5/handbook/course/yjkd.html',
 							accomplish: true
 						},
 						{
 							icon: 'https://res-oss.elist.com.cn/wxImg/handbook/icon/icon6.svg',
 							name: '客户管理',
-							path: 'https://res-oss.elist.com.cn/wxImg/handbook/course/khgl.html',
+							path: 'https://upbill.cn/h5/handbook/course/khgl.html',
 							accomplish: true
 						},
 						{
 							icon: 'https://res-oss.elist.com.cn/wxImg/handbook/icon/icon7.svg',
 							name: '订单查询',
-							path: 'https://res-oss.elist.com.cn/wxImg/handbook/course/ddcx-f.html',
+							path: 'https://upbill.cn/h5/handbook/course/ddcx-f.html',
 							accomplish: true
 						},
 						{
 							icon: 'https://res-oss.elist.com.cn/wxImg/handbook/icon/icon9.svg',
 							name: '统计对账',
-							path: 'https://res-oss.elist.com.cn/wxImg/handbook/course/ddtj-f.html',
+							path: 'https://upbill.cn/h5/handbook/course/ddtj-f.html',
 							accomplish: true
 						}
 					],
@@ -138,19 +138,19 @@ export default {
 						{
 							icon: 'https://res-oss.elist.com.cn/wxImg/handbook/icon/icon10.svg',
 							name: '单据操作',
-							path: 'https://res-oss.elist.com.cn/wxImg/handbook/course/djcz-f.html',
+							path: 'https://upbill.cn/h5/handbook/course/djcz-f.html',
 							accomplish: true
 						},
 						{
 							icon: 'https://res-oss.elist.com.cn/wxImg/handbook/icon/icon16.svg',
 							name: '开收款单',
-							path: 'https://res-oss.elist.com.cn/wxImg/handbook/course/kskd.html',
+							path: 'https://upbill.cn/h5/handbook/course/kskd.html',
 							accomplish: true
 						},
 						{
 							icon: 'https://res-oss.elist.com.cn/wxImg/handbook/icon/icon15.svg',
 							name: '收款单操作',
-							path: 'https://res-oss.elist.com.cn/wxImg/handbook/course/skdcz.html',
+							path: 'https://upbill.cn/h5/handbook/course/skdcz.html',
 							accomplish: true
 						},
 						{
@@ -165,25 +165,25 @@ export default {
 						{
 							icon: 'https://res-oss.elist.com.cn/wxImg/handbook/icon/icon8.svg',
 							name: '签收管理',
-							path: 'https://res-oss.elist.com.cn/wxImg/handbook/course/qsgl.html',
+							path: 'https://upbill.cn/h5/handbook/course/qsgl.html',
 							accomplish: true
 						},
 						{
 							icon: 'https://res-oss.elist.com.cn/wxImg/handbook/icon/icon6.svg',
 							name: '供应商管理',
-							path: 'https://res-oss.elist.com.cn/wxImg/handbook/course/gysgl.html',
+							path: 'https://upbill.cn/h5/handbook/course/gysgl.html',
 							accomplish: true
 						},
 						{
 							icon: 'https://res-oss.elist.com.cn/wxImg/handbook/icon/icon7.svg',
 							name: '订单查询',
-							path: 'https://res-oss.elist.com.cn/wxImg/handbook/course/ddcx-s.html',
+							path: 'https://upbill.cn/h5/handbook/course/ddcx-s.html',
 							accomplish: true
 						},
 						{
 							icon: 'https://res-oss.elist.com.cn/wxImg/handbook/icon/icon9.svg',
 							name: '统计对账',
-							path: 'https://res-oss.elist.com.cn/wxImg/handbook/course/ddtj-s.html',
+							path: 'https://upbill.cn/h5/handbook/course/ddtj-s.html',
 							accomplish: true
 						}
 					],
@@ -191,19 +191,19 @@ export default {
 						{
 							icon: 'https://res-oss.elist.com.cn/wxImg/handbook/icon/icon10.svg',
 							name: '单据操作',
-							path: 'https://res-oss.elist.com.cn/wxImg/handbook/course/djcz-s.html',
+							path: 'https://upbill.cn/h5/handbook/course/djcz-s.html',
 							accomplish: true
 						},
 						{
 							icon: 'https://res-oss.elist.com.cn/wxImg/handbook/icon/icon16.svg',
 							name: '开付款单',
-							path: 'https://res-oss.elist.com.cn/wxImg/handbook/course/kfkd.html',
+							path: 'https://upbill.cn/h5/handbook/course/kfkd.html',
 							accomplish: true
 						},
 						{
 							icon: 'https://res-oss.elist.com.cn/wxImg/handbook/icon/icon15.svg',
 							name: '付款单操作',
-							path: 'https://res-oss.elist.com.cn/wxImg/handbook/course/fkdcz.html',
+							path: 'https://upbill.cn/h5/handbook/course/fkdcz.html',
 							accomplish: true
 						},
 						{
@@ -218,7 +218,7 @@ export default {
 						{
 							icon: 'https://res-oss.elist.com.cn/wxImg/handbook/icon/icon13.svg',
 							name: '统计对账',
-							path: 'https://res-oss.elist.com.cn/wxImg/handbook/course/ddtj-q.html',
+							path: 'https://upbill.cn/h5/handbook/course/ddtj-q.html',
 							accomplish: true
 						},
 						{
@@ -230,13 +230,13 @@ export default {
 						{
 							icon: 'https://res-oss.elist.com.cn/wxImg/handbook/icon/icon11.svg',
 							name: '往年数据',
-							path: 'https://res-oss.elist.com.cn/wxImg/handbook/course/wnsj-q.html',
+							path: 'https://upbill.cn/h5/handbook/course/wnsj-q.html',
 							accomplish: true
 						},
 						{
 							icon: 'https://res-oss.elist.com.cn/wxImg/handbook/icon/icon14.svg',
 							name: '人员管理',
-							path: 'https://res-oss.elist.com.cn/wxImg/handbook/course/rygl-q.html',
+							path: 'https://upbill.cn/h5/handbook/course/rygl-q.html',
 							accomplish: true
 						}
 					]
