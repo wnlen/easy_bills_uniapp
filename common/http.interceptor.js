@@ -77,7 +77,7 @@ export const initRequest = () => {
 		}
 		return _rawGet(url, finalOptions);
 	}
-	// 补丁
+	// 补丁11
 	http.setConfig((config) => {
 		// config.baseURL = 'https://wxapi.elist.com.cn/edo/'
 		config.baseURL = 'https://wxapi.elist.com.cn/test/edo/';
