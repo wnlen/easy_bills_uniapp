@@ -79,7 +79,7 @@ export default {
 						"privacyItems": [
 							// 自定义协议条款，最大支持2个，需要同时设置url和title. 否则不生效 
 							{
-								"url": "https://res-oss.elist.com.cn/notice/ServiceAgreement-v1.htm", // 点击跳转的协议详情页面
+								"url": "https://upbill.cn/h5/notice/ServiceAgreement-v1.htm", // 点击跳转的协议详情页面
 								"title": "用户服务协议" // 协议名称
 							}
 						]

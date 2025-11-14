@@ -22,7 +22,7 @@ export default {
 				},
 				{
 					name: '关于我们',
-					jump: 'https://res-oss.elist.com.cn/notice/AboutUs-v1.htm',
+					jump: 'https://upbill.cn/h5/notice/AboutUs-v1.htm',
 					type: true
 				}
 			]

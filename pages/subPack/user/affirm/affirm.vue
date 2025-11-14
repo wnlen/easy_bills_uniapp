@@ -175,7 +175,7 @@ export default {
 		jumpWord() {
 			console.log('点击');
 			uni.navigateTo({
-				url: '/pages/subPack/user/affirm/word?url=' + 'https://res-oss.elist.com.cn/notice/AccountCancellationNotice-v1.htm'
+				url: '/pages/subPack/user/affirm/word?url=' + 'https://upbill.cn/h5/notice/AccountCancellationNotice-v1.htm'
 			});
 		},
 		ClearVuexCash() {

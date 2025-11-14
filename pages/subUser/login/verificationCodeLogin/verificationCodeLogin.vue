@@ -122,7 +122,7 @@ export default {
 		return {
 			passwordState: true,
 			disabled: false,
-			xy: ['https://res-oss.elist.com.cn/notice/yhfwxy-v2.htm', 'https://res-oss.elist.com.cn/notice/ydj-yhysxy-v2.htm'],
+			xy: ['https://upbill.cn/h5/notice/yhfwxy-v2.htm', 'https://upbill.cn/h5/notice/ydj-yhysxy-v2.htm'],
 			message: '',
 			eyePassword: true,
 			fromCode: {

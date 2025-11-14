@@ -166,7 +166,7 @@ export default {
 	data() {
 		return {
 			tips: '获取验证码',
-			xy: ['https://res-oss.elist.com.cn/notice/ServiceAgreement-v1.htm', 'https://res-oss.elist.com.cn/notice/ApplicationPrivacyAgreement-v1.htm'],
+			xy: ['https://upbill.cn/h5/notice/ServiceAgreement-v1.htm', 'https://upbill.cn/h5/notice/ApplicationPrivacyAgreement-v1.htm'],
 			role: 0,
 			yisi_customStyle: {
 				width: '560rpx',
