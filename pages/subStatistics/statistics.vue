@@ -821,6 +821,7 @@ export default {
 				this.refresh = false;
 				this.onReachBottom = false;
 				this.realTimeSel.role = this.pinia_userRole == 'R' ? '1' : '0';
+				this.realTimeSel.isCustomized = 1;
 				uni.$api.order
 					.getFilteredOrders(this.realTimeSel)
 					.then((res) => {
