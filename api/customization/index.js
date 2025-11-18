@@ -15,4 +15,8 @@ export default (http) => ({
 	customizationLookDzImg(params) {
 		return http.post('printer/lookDzImg', params);
 	},
+	// 定制确认收货
+	customizationOrderSelfie(params) {
+		return http.post('order/selfie', params);
+	},
 })

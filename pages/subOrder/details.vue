@@ -316,8 +316,12 @@
 						</view>
 
 						<view class="xqcss pd10 pt10 pb10 black-border-left black-border-right black-border-bottom">
-							<text class="ml10 xqcss">合计：</text>
-							<text class="xqcss" v-if="orderisCustomized">{{ post.totalWeightKg || 0 }}KG</text>
+							<text class="ml10 xqcss">
+								<text>合计</text>
+								<text v-if="orderisCustomized">(KG)</text>
+								：
+							</text>
+							<text class="xqcss" v-if="orderisCustomized">{{ post.totalWeightKg || 0 }}</text>
 							<text class="xqcss" v-else>¥ {{ versions == 'Y' ? DigPrice(post.price) || '' : '****' }}</text>
 						</view>
 						<view class="xqcss pd10 pt10 pb10 black-border-bottom black-border-left black-border-right" v-if="!orderisCustomized">
@@ -334,13 +338,33 @@
 							</view>
 							<view class="flex-row items-center" style="">
 								<image
-									v-if="post.signatureImg != ''"
+									v-if="post.signatureImg"
 									:src="post.signatureImg"
 									style="transform: rotate(270deg) translateY(20%); width: 100rpx"
 									class=""
 									mode="widthFix"
 								></image>
 								<text v-else>{{ post.signatureImg || '' }}</text>
+							</view>
+						</view>
+						<view
+							v-if="orderisCustomized"
+							class="xqcss pd10 black-border-bottom flex-row items-center black-border-bottom black-border-left black-border-right"
+							:style="{ height: post.selfieUrl ? '7vh' : '' }"
+						>
+							<view class="ml10">
+								<text class="xqcss">签收图片：</text>
+							</view>
+							<view class="flex-row items-center" style="">
+								<image
+									@click="previewImageAll([post.selfieUrl])"
+									v-if="post.selfieUrl"
+									:src="post.selfieUrl"
+									style="width: 100rpx"
+									class=""
+									mode="widthFix"
+								></image>
+								<text v-else>{{ post.selfieUrl || '' }}</text>
 							</view>
 						</view>
 
@@ -634,7 +658,6 @@ export default {
 		console.log('type', type);
 		if (id != undefined) {
 			this.orderId = options.id;
-			this.loadData();
 			if (type != undefined) {
 				console.log('分享页面进入');
 				this.navbar = false;
@@ -648,7 +671,6 @@ export default {
 				this.versions = versions;
 			} else {
 				console.log('小程序内进入');
-
 				this.show = 1;
 				if (this.pinia_userRole == 'R') {
 					this.LookShar = 'F';
@@ -659,18 +681,6 @@ export default {
 				}
 			}
 		}
-
-		console.log('单据id:', id);
-		console.log('单据进入路径:', type);
-
-		// if (uni.getStorageSync("1003") == "0") {
-		// 	this.orderId = options.id;
-		// 	this.loadData()
-		// } else {
-		// 	console.log("分享");
-		// 	this.orderId = options.id;
-		// 	this.loadData()
-		// }
 
 		// #ifdef MP-WEIXIN
 		var that = this;
@@ -688,6 +698,7 @@ export default {
 	onShow() {
 		// 获取签收人
 		var that = this;
+		this.loadData();
 		uni.$api.sign
 			.getSignature({
 				phone: this.pinia_user.phone
@@ -1133,7 +1144,7 @@ export default {
 					that.post = res.data.data.post;
 					that.orderItemList = res.data.data.orderItemList;
 					that.imgList = res.data.data.imgList;
-					that.orderisCustomized = res.data.data.isCustomized;
+					that.orderisCustomized = res.data.data.post.isCustomized;
 					console.log('this.post.bossNumberS===>', this.post.bossNumberS);
 					console.log('this.pinia_user.phone===>', this.pinia_user.phone);
 					console.log('this.post.bossNumberS == this.pinia_user.phone', this.post.bossNumberS == this.pinia_user.phone);
@@ -1229,7 +1240,7 @@ export default {
 				// 定制的单子
 				if (this.orderisCustomized) {
 					uni.navigateTo({
-						url: '/pages/subOrder/confirmationPhoto'
+						url: `/pages/subOrder/confirmationPhoto?orderNumber=${this.post.orderNumber}&orderId=${this.post.id}`
 					});
 					return;
 				}
@@ -1410,7 +1421,7 @@ export default {
 					that.post = res.data.data.post;
 					that.orderItemList = res.data.data.orderItemList;
 					that.imgList = res.data.data.imgList;
-					that.orderisCustomized = res.data.data.isCustomized;
+					that.orderisCustomized = res.data.data.post.isCustomized;
 					this.updateOrder();
 				})
 				.catch((res) => {});

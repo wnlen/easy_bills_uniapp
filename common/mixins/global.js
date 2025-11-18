@@ -6,12 +6,14 @@ import {
 	useGlobalStore
 } from '@/store/global';
 import {
-	formatAmount
+	formatAmount,
+	previewImageAll
 } from '@/utils/format.js';
 
 export default {
 	methods: {
-		formatAmount
+		formatAmount,
+		previewImageAll
 	},
 	computed: {
 		pinia_user() {

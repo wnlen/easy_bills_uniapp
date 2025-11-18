@@ -445,8 +445,11 @@
 
 			<view class="pt12 mt12" style="background-color: #ffffff">
 				<view class="relative pt12 pb12">
-					<text class="pl20 textcolor">合计</text>
-					<text class="absolute" v-if="uni.$u.getPinia('user.customized')" style="right: 24rpx; color: #01bb74">{{ orderTotal }}KG</text>
+					<text class="pl20 textcolor">
+						<text>合计</text>
+						<text v-if="uni.$u.getPinia('user.customized')">(KG)</text>
+					</text>
+					<text class="absolute" v-if="uni.$u.getPinia('user.customized')" style="right: 24rpx; color: #01bb74">{{ orderTotal }}</text>
 					<text class="absolute" v-else style="right: 24rpx; color: #01bb74">￥{{ formatAmount(orderTotal) }}</text>
 				</view>
 				<view class="relative pt12 pb12" v-if="!uni.$u.getPinia('user.customized')">
@@ -628,7 +631,8 @@ export default {
 				carrierName: '', //承运人
 				plateNo: '', //车牌号
 				vehicleType: '', //车型
-				driverPhone: '' //司机电话
+				driverPhone: '', //司机电话，
+				isCustomized: false //是否定制订单
 			},
 			imgList: [],
 			show: false,
@@ -717,6 +721,7 @@ export default {
 		this.defImg();
 	},
 	onLoad(options) {
+		this.receipts.isCustomized = uni.$u.getPinia('user.customized');
 		if (options.orderId) {
 			if (options.pageType != 3) {
 				this.getDetail(options.orderId, options.pageType);
