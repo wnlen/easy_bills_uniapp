@@ -963,11 +963,11 @@ export default {
 				this.refresh = false;
 				this.onReachBottom = false;
 				this.realTimeSel.role = this.pinia_userRole == 'R' ? '1' : '0';
+				this.realTimeSel.isCustomized = 1;
+
 				uni.$api.bills
 					.getFilteredBills(this.realTimeSel)
 					.then((res) => {
-						//console.log(res.data.data);
-
 						var orderList = res.data.data.map((obj) => {
 							return {
 								...obj,
@@ -1037,6 +1037,7 @@ export default {
 		},
 		getNewfreshData() {
 			this.realTimeSel.role = this.pinia_userRole == 'R' ? '1' : '0';
+
 			uni.$api.order
 				.getFilteredOrders(this.realTimeSel)
 				.then((res) => {
