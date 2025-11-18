@@ -28,9 +28,10 @@ export function formatAmount(num) {
 	return sign + formattedInteger + '.' + decimalPart;
 }
 
-export function previewImageAll(urlList) {
+export function previewImageAll(urlList, indicator) {
 	// 预览图片
 	uni.previewImage({
-		urls: urlList
+		urls: urlList,
+		indicator: indicator //"default" - 底部圆点指示器； "number" - 顶部数字指示器； "none" - 不显示指示器。仅支持app
 	});
 }

@@ -203,7 +203,8 @@
 								</up-checkbox-group> -->
 								<view class="flex-row justify-center items-center">
 									<view
-										class="flex-col justify-center items-center"
+										v-if="!uni.$u.getPinia('user.customized')"
+										class="flex-col justify-center items-center mr24"
 										@click="checkboxGroupChange(item.orderNumber, index)"
 										:style="{
 											backgroundColor: item.check ? '#965510' : '#ffffff'
@@ -212,7 +213,7 @@
 									>
 										<wd-icon name="check" color="#ffffff" size="20rpx"></wd-icon>
 									</view>
-									<view class="ft30 ft-lightgray pr30 ml24" style="color: #666666">
+									<view class="ft30 ft-lightgray pr30" style="color: #666666">
 										订单编号
 										<text class="ml15" style="color: #f76565">
 											{{ item.orderNumber }}

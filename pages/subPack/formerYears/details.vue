@@ -274,7 +274,7 @@
 							<text class="ml10 xqcss">
 								<text>合计</text>
 								<text v-if="orderisCustomized">(KG)</text>
-								：
+								<text>：</text>
 							</text>
 							<text class="xqcss" v-if="orderisCustomized">{{ post.totalWeightKg || 0 }}</text>
 							<text class="xqcss" v-else>¥ {{ versions == 'Y' ? DigPrice(post.price) || '' : '****' }}</text>
@@ -302,7 +302,26 @@
 								<text v-else>{{ post.signatureImg || '' }}</text>
 							</view>
 						</view>
-
+						<view
+							v-if="orderisCustomized"
+							class="xqcss pd10 black-border-bottom flex-row items-center black-border-bottom black-border-left black-border-right"
+							:style="{ height: post.selfieUrl ? '7vh' : '' }"
+						>
+							<view class="ml10">
+								<text class="xqcss">签收图片：</text>
+							</view>
+							<view class="flex-row items-center" style="">
+								<image
+									@click="previewImageAll([post.selfieUrl], 'none')"
+									v-if="post.selfieUrl"
+									:src="post.selfieUrl"
+									style="height: 6.5vh"
+									class=""
+									mode="heightFix"
+								></image>
+								<text v-else>{{ post.selfieUrl || '' }}</text>
+							</view>
+						</view>
 						<view class="xqcss pt35 flex-row items-center black-border-left black-border-right" style="height: 12vh" v-if="imgList.length > 0">
 							<view class="ml20" style="" v-for="(item2, index2) in imgList" :key="index2">
 								<up-image :src="item2.url" shape="square" width="150rpx" height="150rpx" @click="bigImg(item2.url)">

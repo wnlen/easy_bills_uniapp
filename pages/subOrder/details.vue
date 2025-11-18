@@ -319,7 +319,7 @@
 							<text class="ml10 xqcss">
 								<text>合计</text>
 								<text v-if="orderisCustomized">(KG)</text>
-								：
+								<text>：</text>
 							</text>
 							<text class="xqcss" v-if="orderisCustomized">{{ post.totalWeightKg || 0 }}</text>
 							<text class="xqcss" v-else>¥ {{ versions == 'Y' ? DigPrice(post.price) || '' : '****' }}</text>
@@ -357,12 +357,15 @@
 							</view>
 							<view class="flex-row items-center" style="">
 								<image
-									@click="previewImageAll([post.selfieUrl])"
+									@click="
+										previewImageAll([post.selfieUrl], 'none');
+										isreload = false;
+									"
 									v-if="post.selfieUrl"
 									:src="post.selfieUrl"
-									style="width: 100rpx"
+									style="height: 6.5vh"
 									class=""
-									mode="widthFix"
+									mode="heightFix"
 								></image>
 								<text v-else>{{ post.selfieUrl || '' }}</text>
 							</view>
@@ -624,7 +627,8 @@ export default {
 			downPdf: true,
 			throttleTimer: null,
 			isPrinterOK: false,
-			orderisCustomized: false
+			orderisCustomized: false,
+			isreload: true //是否重新加载数据
 		};
 	},
 	onLoad(options) {
@@ -696,6 +700,9 @@ export default {
 		this.getPrintNum();
 	},
 	onShow() {
+		if (!this.isreload) {
+			return;
+		}
 		// 获取签收人
 		var that = this;
 		this.loadData();
@@ -717,6 +724,7 @@ export default {
 		if (uni.getStorageSync('inventoryStockpile')) {
 			uni.removeStorageSync('inventoryStockpile');
 		}
+		this.isreload = true;
 	},
 	onShareAppMessage(ops) {
 		return {

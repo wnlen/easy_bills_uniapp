@@ -229,7 +229,7 @@
 							<text class="ml10 xqcss">
 								<text>合计</text>
 								<text v-if="orderisCustomized">(KG)</text>
-								：
+								<text>：</text>
 							</text>
 							<text class="xqcss" v-if="orderisCustomized">{{ post.totalWeightKg || 0 }}</text>
 							<text class="xqcss" v-else>¥ {{ versions == 'Y' ? DigPrice(post.price) || '' : '****' }}</text>
@@ -267,12 +267,15 @@
 							</view>
 							<view class="flex-row items-center" style="">
 								<image
-									@click="previewImageAll([post.selfieUrl])"
+									@click="
+										previewImageAll([post.selfieUrl], 'none');
+										isreload = false;
+									"
 									v-if="post.selfieUrl"
 									:src="post.selfieUrl"
-									style="width: 100rpx"
+									style="height: 6.5vh"
 									class=""
-									mode="widthFix"
+									mode="heightFix"
 								></image>
 								<text v-else>{{ post.selfieUrl || '' }}</text>
 							</view>
@@ -418,7 +421,8 @@ export default {
 			originalText:
 				'这是您和易单据的\n第一次相遇，\n接下来，\n您将感受到易单据\n是多么的强大！\n当您使用易单据后，\n您的供应商的\n每一张\n送货单\n都将在这里体现，\n您可以通过\n易单据\n给供应商\n签收送货单\n如果您\n是一家\n更强大的公司，\n您的员工签单，\n财务和您都能\n实时的看到单据；\n您也可以通过\n易单据的统计功能\n随意的查询\n您每一家\n供应商的送货单据，\n每一张单据，\n查询他们的\n价格和数量；\n最关键的\n通过易单据，\n面对供应商\n半年付款的，\n季度付款的，\n年度付款的，\n你可以轻松\n统计出\n详细送货清单。\n当然，\n易单据还有更多，\n更强大的功能\n在您后期使用中\n会发现更多！\n未来，\n易单据\n将和您携手同行，\n用真诚与专业\n陪伴您\n骏业日新！',
 			timer: null,
-			orderisCustomized: false
+			orderisCustomized: false,
+			isreload: true //是否重新加载数据
 		};
 	},
 	computed: {
@@ -442,6 +446,9 @@ export default {
 		}
 	},
 	onShow() {
+		if (!this.isreload) {
+			return;
+		}
 		if (this.$u.getPinia('user') && this.$u.getPinia('user.user.phone')) {
 			this.getQs();
 			this.$loadUser(this);
@@ -450,6 +457,7 @@ export default {
 			this.$getRecord(this);
 		} else {
 		}
+		this.isreload = true;
 	},
 	onShareAppMessage(ops) {
 		return {

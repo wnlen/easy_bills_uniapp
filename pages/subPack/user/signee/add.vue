@@ -26,7 +26,7 @@
 			</up-form-item>
 		</up-form>
 		<view class="mt60">
-			<wd-button @click="submit" :customStyle="{ width: '100%' }">{{ formData.id ? '修改' : '提交' }}</wd-button>
+			<wd-button @click="submit" :customStyle="{ width: '100%' }" :disabled="subDisabled">{{ formData.id ? '修改' : '提交' }}</wd-button>
 		</view>
 	</view>
 </template>
@@ -79,7 +79,8 @@ export default {
 						trigger: ['change', 'blur']
 					}
 				]
-			}
+			},
+			subDisabled: false
 		};
 	},
 	onLoad(options) {
@@ -139,6 +140,7 @@ export default {
 				password: 1111,
 				state: '1'
 			};
+			this.subDisabled = true;
 			uni.$api.sign.addSignature(dx).then((res) => {
 				this.$u.toast(res.data.message);
 				if (res.data.code == 200) {
@@ -153,7 +155,8 @@ export default {
 						uni.navigateBack({
 							delta: 1
 						});
-					}, 1500);
+						this.subDisabled = false;
+					}, 1000);
 				}
 			});
 			// this.$refs.uForm.validate((valid) => {
