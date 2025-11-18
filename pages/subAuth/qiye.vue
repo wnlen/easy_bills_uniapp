@@ -51,7 +51,7 @@
 				</view>
 				<wd-button
 					v-if="pinia_user.workData.id == null"
-					size='small'
+					size="small"
 					:customStyle="{ width: '154rpx', height: '54rpx', margin: 0, fontSize: '24rpx' }"
 					@click="authRefresh"
 				>
@@ -82,7 +82,6 @@
 export default {
 	data() {
 		return {
-			buttonDisabled: false,
 			nameID: '',
 			showImg: false,
 			show: 0,
@@ -212,7 +211,10 @@ export default {
 				this.$u.toast('请输入姓名');
 				return;
 			}
-
+			uni.showLoading({
+				mask: true,
+				title: '加载中'
+			});
 			var send = {
 				id: this.pinia_user.data.id,
 				name: this.nameID,
@@ -222,10 +224,7 @@ export default {
 			};
 			send.name = send.name.trim();
 
-			this.buttonDisabled = true;
 			uni.$api.order.addAccountRecord(dx).then((res) => {
-				this.buttonDisabled = false;
-
 				//更新用户信息
 				if (res.data.data == '1') {
 					uni.navigateBack();
@@ -243,20 +242,20 @@ export default {
 							}
 						}
 					});
-
+					uni.hideLoading();
 					//完整重新加载当前页面
-					const pages = getCurrentPages();
-					const current = pages[pages.length - 1];
-					const currentRoute = '/' + current.route;
-					const currentOptions = current.options; // 参数
+					// const pages = getCurrentPages();
+					// const current = pages[pages.length - 1];
+					// const currentRoute = '/' + current.route;
+					// const currentOptions = current.options; // 参数
 
-					let query = '';
-					if (currentOptions) {
-						const params = Object.entries(currentOptions)
-							.map(([key, val]) => `${key}=${val}`)
-							.join('&');
-						query = params ? `?${params}` : '';
-					}
+					// let query = '';
+					// if (currentOptions) {
+					// 	const params = Object.entries(currentOptions)
+					// 		.map(([key, val]) => `${key}=${val}`)
+					// 		.join('&');
+					// 	query = params ? `?${params}` : '';
+					// }
 
 					// uni.redirectTo({
 					// 	url: `${currentRoute}${query}`

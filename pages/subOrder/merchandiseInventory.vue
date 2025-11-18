@@ -130,7 +130,7 @@
 					<text class="">
 						<text>合计</text>
 						<text v-if="uni.$u.getPinia('user.customized')">(KG)</text>
-						<text>:</text>
+						<text>：</text>
 						<text style="color: #01bb74" v-if="uni.$u.getPinia('user.customized')">{{ totalPrices }}</text>
 						<text style="color: #01bb74" v-else>￥{{ formatAmount(totalPrices) }}</text>
 					</text>
@@ -236,7 +236,7 @@
 							<text class="ml12">
 								<text>合计</text>
 								<text v-if="uni.$u.getPinia('user.customized')">(KG)</text>
-								<text>:</text>
+								<text>：</text>
 								<text style="color: #01bb74" v-if="uni.$u.getPinia('user.customized')">{{ totalPrices }}</text>
 								<text style="color: #01bb74" v-else>￥{{ formatAmount(totalPrices) }}</text>
 							</text>
