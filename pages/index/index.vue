@@ -49,6 +49,7 @@
 					v-for="(item, index) in orderList2"
 					:key="index"
 					@click="goPath(item.path, index)"
+					hover-class="hover-view"
 				>
 					<view class="ml10 mr10 mt8">
 						<wd-icon size="72rpx" :name="item.icon"></wd-icon>
@@ -74,7 +75,7 @@
 
 		<view class="bg-white radius12 mt30 ml30 mr30">
 			<view class="flex-row flex-wrap">
-				<view class="flex-col width25 items-center relative" @click="$goPath(listItem.path)" v-for="(listItem, listIndex) in iconlist" :key="listIndex">
+				<view class="flex-col width25 items-center relative" hover-class="hover-view" @click="goPath2(listItem)" v-for="(listItem, listIndex) in iconlist" :key="listIndex">
 					<view class="mt10">
 						<wd-icon size="80rpx" :name="listItem.icon"></wd-icon>
 					</view>
@@ -528,6 +529,18 @@ export default {
 				});
 			}
 		},
+		goPath2(item) {
+			if (uni.$u.getPinia('user.customized') && (item.title == '收款单列表' || item.title == '开收款单')) {
+				return uni.showToast({
+					title: '定制版暂不支持此功能',
+					icon: 'none'
+				});
+			} else {
+				uni.navigateTo({
+					url: item.path
+				});
+			}
+		},
 		getCustomization() {
 			uni.$api.customization.customizationUpdated().then((res) => {
 				console.log('定制化信息', res);
@@ -939,6 +952,12 @@ export default {
 					path: '/pages/subPack/formerYears/formerYears',
 					count: 0
 				};
+				this.iconlistC[4] = {
+					title: '往年数据',
+					icon: 'https://res-oss.elist.com.cn/wxImg/icon/icon/tb10.png',
+					path: '/pages/subPack/formerYears/formerYears',
+					count: 0
+				};
 			} else {
 				this.iconlistD[4] = {
 					title: '更多功能',
@@ -946,8 +965,18 @@ export default {
 					path: '/pages/subPack/more/more?tid=更多功能',
 					count: 0
 				};
+				this.iconlistC[4] = {
+					title: '更多功能',
+					icon: 'https://res-oss.elist.com.cn/wxImg/index/new/icon5.png',
+					path: '/pages/subPack/more/more?tid=更多功能',
+					count: 0
+				};
 			}
-			this.iconlist = this.iconlistD;
+			if (this.pinia_user.workData.identity == '3') {
+				this.iconlist = this.iconlistC;
+			} else {
+				this.iconlist = this.iconlistD;
+			}
 		},
 		setDR(value) {
 			this.current = value == 'D' ? '发货端' : '收货端';
@@ -960,19 +989,7 @@ export default {
 				this.$set(this.ringOpts.title, 'name', '总销售');
 
 				// 设置菜单
-				if (this.pinia_token) {
-					if (this.pinia_user.data.work == '0') {
-						this.setIconlistD();
-					} else {
-						if (this.pinia_user.workData.identity == '3') {
-							this.iconlist = this.iconlistC;
-						} else {
-							this.setIconlistD();
-						}
-					}
-				} else {
-					this.setIconlistD();
-				}
+				this.setIconlistD();
 
 				this.orderList2 = [
 					{

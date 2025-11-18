@@ -226,8 +226,12 @@
 						</view>
 
 						<view class="xqcss pd10 pt10 pb10 black-border-left black-border-right black-border-bottom">
-							<text class="ml10 xqcss">合计：</text>
-							<text class="xqcss" v-if="orderisCustomized">{{ post.totalWeightKg || 0 }}KG</text>
+							<text class="ml10 xqcss">
+								<text>合计</text>
+								<text v-if="orderisCustomized">(KG)</text>
+								：
+							</text>
+							<text class="xqcss" v-if="orderisCustomized">{{ post.totalWeightKg || 0 }}</text>
 							<text class="xqcss" v-else>¥ {{ versions == 'Y' ? DigPrice(post.price) || '' : '****' }}</text>
 						</view>
 						<view class="xqcss pd10 pt10 pb10 black-border-bottom black-border-left black-border-right" v-if="!orderisCustomized">
@@ -244,7 +248,7 @@
 							</view>
 							<view class="" style="">
 								<image
-									v-if="post.signatureImg != ''"
+									v-if="post.signatureImg"
 									:src="post.signatureImg"
 									style="transform: rotate(270deg) translateY(20%); width: 100rpx"
 									class=""
@@ -253,7 +257,26 @@
 								<text v-else>{{ post.signatureImg || '' }}</text>
 							</view>
 						</view>
-
+						<view
+							v-if="orderisCustomized"
+							class="xqcss pd10 black-border-bottom flex-row items-center black-border-bottom black-border-left black-border-right"
+							:style="{ height: post.selfieUrl ? '7vh' : '' }"
+						>
+							<view class="ml10">
+								<text class="xqcss">签收图片：</text>
+							</view>
+							<view class="flex-row items-center" style="">
+								<image
+									@click="previewImageAll([post.selfieUrl])"
+									v-if="post.selfieUrl"
+									:src="post.selfieUrl"
+									style="width: 100rpx"
+									class=""
+									mode="widthFix"
+								></image>
+								<text v-else>{{ post.selfieUrl || '' }}</text>
+							</view>
+						</view>
 						<view class="xqcss pt35 flex-row items-center black-border-left black-border-right" style="height: 12vh" v-if="imgList.length > 0">
 							<view class="ml20" style="" v-for="(item2, index2) in imgList" :key="index2">
 								<up-image :src="item2.url" shape="square" width="150rpx" height="150rpx" @click="bigImg(item2.url)">
@@ -473,7 +496,7 @@ export default {
 					this.shareShow = true;
 					return;
 				}
-				this.orderisCustomized = order.data.data.isCustomized;
+				this.orderisCustomized = order.data.data.post.isCustomized;
 				this.post = order.data.data.post;
 				this.orderItemList = order.data.data.orderItemList;
 				this.imgList = order.data.data.imgList;
@@ -486,7 +509,7 @@ export default {
 					this.shareShow = true;
 					return;
 				}
-				this.orderisCustomized = order.data.data.isCustomized;
+				this.orderisCustomized = order.data.data.post.isCustomized;
 				this.post = order.data.data.post;
 				this.orderItemList = order.data.data.orderItemList;
 				this.imgList = order.data.data.imgList;
@@ -909,7 +932,7 @@ export default {
 				// 定制的单子
 				if (this.orderisCustomized) {
 					uni.navigateTo({
-						url: '/pages/subOrder/confirmationPhoto'
+						url: `/pages/subOrder/confirmationPhoto?orderNumber=${this.post.orderNumber}&orderId=${this.post.id}`
 					});
 					return;
 				}

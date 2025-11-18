@@ -15,15 +15,105 @@ export default {
 	data() {
 		return {
 			imgList: [],
-			action: ''
+			action: '',
+			orderNumber: '',
+			orderId: '',
+			post: {},
+			qsrList: [] //签收人列表
 		};
 	},
-	onLoad() {
+	onLoad(option) {
+		this.orderId = option.orderId;
+		this.orderNumber = option.orderNumber;
+		this.getDetail();
 		this.action = uni.$http.config.baseURL + 'order/imgA';
 	},
 	methods: {
+		getDetail() {
+			uni.$api.order
+				.getOrderById({
+					orderId: this.orderId
+				})
+				.then((res) => {
+					this.post = res.data.data.post;
+				})
+				.catch((res) => {});
+			uni.$api.sign
+				.getSignature({
+					phone: this.pinia_user.phone
+				})
+				.then((res) => {
+					this.qsrList = res.data.data;
+				});
+		},
 		onConfirm() {
-			console.log(this.imgList);
+			if (!this.imgList.length) {
+				return uni.showToast({
+					icon: 'none',
+					title: '请上传照片'
+				});
+			}
+			uni.showLoading({
+				mask: true,
+				title: '加载中'
+			});
+			// 上传单子图片
+			uni.uploadFile({
+				url: uni.$http.config.baseURL + 'uploading/uploadImage', //新上传接口
+				header: {
+					Authorization: `Bearer ${this.pinia_token}`
+				},
+				filePath: this.imgList[0].url,
+				name: 'file',
+				formData: {
+					imageType: 'order_selfie',
+					orderNumber: this.orderNumber
+				},
+				success: (uploadFileRes) => {
+					// 单子绑定图片
+					uni.$api.customization
+						.customizationOrderSelfie({ orderId: this.orderId, selfieUrl: uploadFileRes.data })
+						.then((res) => {
+							if (res.data.code == 200) {
+								// 确认收货
+								this.updateOrder();
+							}
+						})
+						.catch((res) => {
+							uni.hideLoading();
+							that.$u.toast('获取失败');
+						});
+				}
+			});
+		},
+		updateOrder() {
+			var that = this;
+			var send = this.post;
+			var qm = this.qsrList[0];
+			send.signatureImg = qm.signatureImg;
+			send.signaturePhone = qm.phone;
+			send.signatureName = qm.name;
+			send.paymentState = '1';
+
+			uni.$api.order
+				.signForOrder(send)
+				.then((res) => {
+					uni.hideLoading();
+					if (res.data == '9') {
+						this.$u.toast('该单据已签收');
+					} else if (res.data.code == 200) {
+						this.$u.toast(res.data.message);
+						setTimeout(() => {
+							if (res.data.code == 200) {
+								uni.navigateBack();
+							}
+						}, 1000);
+					}
+				})
+				.catch((res) => {
+					uni.hideLoading();
+					this.$u.toast('签收失败~');
+				});
 		}
 	}
 };
