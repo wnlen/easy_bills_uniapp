@@ -271,8 +271,12 @@
 						</view>
 
 						<view class="xqcss pd10 pt10 pb10 black-border-left black-border-right black-border-bottom">
-							<text class="ml10 xqcss">合计：</text>
-							<text class="xqcss" v-if="orderisCustomized">{{ post.totalWeightKg || 0 }}KG</text>
+							<text class="ml10 xqcss">
+								<text>合计</text>
+								<text v-if="orderisCustomized">(KG)</text>
+								：
+							</text>
+							<text class="xqcss" v-if="orderisCustomized">{{ post.totalWeightKg || 0 }}</text>
 							<text class="xqcss" v-else>¥ {{ versions == 'Y' ? DigPrice(post.price) || '' : '****' }}</text>
 						</view>
 						<view class="xqcss pd10 pt10 pb10 black-border-bottom black-border-left black-border-right" v-if="!orderisCustomized">
@@ -1162,7 +1166,7 @@ export default {
 					that.post = res.data.data.post;
 					that.orderItemList = res.data.data.orderItemList;
 					that.imgList = res.data.data.imgList;
-					that.orderisCustomized = res.data.data.isCustomized;
+					that.orderisCustomized = res.data.data.post.isCustomized;
 					// this.updateOrder();
 				})
 				.catch((res) => {});

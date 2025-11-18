@@ -27,3 +27,10 @@ export function formatAmount(num) {
 	// 拼接结果
 	return sign + formattedInteger + '.' + decimalPart;
 }
+
+export function previewImageAll(urlList) {
+	// 预览图片
+	uni.previewImage({
+		urls: urlList
+	});
+}

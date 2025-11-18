@@ -128,7 +128,9 @@
 					</view>
 
 					<text class="">
-						合计:
+						<text>合计</text>
+						<text v-if="uni.$u.getPinia('user.customized')">(KG)</text>
+						<text>:</text>
 						<text style="color: #01bb74" v-if="uni.$u.getPinia('user.customized')">{{ totalPrices }}</text>
 						<text style="color: #01bb74" v-else>￥{{ formatAmount(totalPrices) }}</text>
 					</text>
@@ -232,7 +234,9 @@
 								<up-badge absolute bgColor="#FA5151" :value="orderItemList.length" :offset="['0rpx', '-20rpx']"></up-badge>
 							</view>
 							<text class="ml12">
-								合计:
+								<text>合计</text>
+								<text v-if="uni.$u.getPinia('user.customized')">(KG)</text>
+								<text>:</text>
 								<text style="color: #01bb74" v-if="uni.$u.getPinia('user.customized')">{{ totalPrices }}</text>
 								<text style="color: #01bb74" v-else>￥{{ formatAmount(totalPrices) }}</text>
 							</text>
@@ -637,7 +641,7 @@ export default {
 
 			if (idList.length <= 0) {
 				deepCopy.quantity = 1;
-				deepCopy.unitPrice = deepCopy.unitPrice > 0 ? deepCopy.unitPrice : '';
+				// deepCopy.unitPrice = deepCopy.unitPrice > 0 ? deepCopy.unitPrice : '';
 				this.orderItemList.push(deepCopy);
 				this.$u.toast(deepCopy.description + ' + ' + deepCopy.quantity);
 			} else {
