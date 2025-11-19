@@ -48,10 +48,10 @@
 			<view class="Card cardShow">
 				<view class="priceCard">
 					<text class="ft-gray mb18 ml10" style="color: #999999; font-size: 30rpx">
-						{{ pinia_userRole == 'D' && uni.$u.getPinia('user.customized') ? '累计总重' : '累计金额' }}
+						{{ pinia_userRole == 'D' && uni.$u.getPinia('user.customized') ? '累计总重(KG)' : '累计金额' }}
 					</text>
-					<view class="">
-						<text class="ft40 ft-bold ml9" v-if="!(pinia_userRole == 'D' && uni.$u.getPinia('user.customized'))">￥</text>
+					<view class="ml9">
+						<text class="ft40 ft-bold" v-if="!(pinia_userRole == 'D' && uni.$u.getPinia('user.customized'))">￥</text>
 						<up-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="20" decimals="2" bold></up-count-to>
 					</view>
 				</view>
@@ -260,7 +260,7 @@
 					<text>{{ pinia_userRole == 'D' && uni.$u.getPinia('user.customized') ? '订单总重' : '订单金额' }}：</text>
 					<text style="color: black; font-size: 24rpx" v-if="!(pinia_userRole == 'D' && uni.$u.getPinia('user.customized'))">￥</text>
 					<text class="ft35" style="color: black; font-weight: 500">
-						{{ pinia_userRole == 'D' && item.isCustomized ? formatAmount(item.totalWeightKg) : formatAmount(item.price) }}
+						{{ pinia_userRole == 'D' && item.isCustomized ? Number(item.totalWeightKg).toFixed(2) : item.price.toFixed(2) }}
 					</text>
 				</text>
 

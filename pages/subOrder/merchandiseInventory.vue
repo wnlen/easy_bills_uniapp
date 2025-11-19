@@ -569,7 +569,8 @@ export default {
 					this.$u.toast('单重必须大于0');
 					this.shoppingTrolley = true;
 					return;
-				} else if (nullNot.length > 0) {
+				}
+				if (nullNot.length > 0 && !uni.$u.getPinia('user.customized')) {
 					this.$u.toast('单价必须大于0');
 					this.shoppingTrolley = true;
 					return;
