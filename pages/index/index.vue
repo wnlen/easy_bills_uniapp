@@ -492,7 +492,7 @@ export default {
 		} else {
 			this.$nextTick(() => {
 				this.fetchDashboard(); //加载统计数据
-				// this.getdaiban(true); //获取待办数量
+				this.getdaiban(true); //获取待办数量
 				// this.getdaiban(); //获取待办数量
 
 				this.$refs.popTab.getMessNum();
@@ -617,12 +617,11 @@ export default {
 				bBoss: '',
 				type: type
 			};
-			if (workIF) {
+			if (this.pinia_user.data.work !== '1') {
 				//没工作
 				dx.bBoss = this.pinia_user.phone;
 			} else {
 				//有工作
-				console.log('(待办事项)有工作:', workIF);
 				var identity = this.pinia_user.workData.identity;
 				if (identity == '4') {
 					dx.bBoss = this.pinia_user.workData.bossNumber;
@@ -637,10 +636,10 @@ export default {
 			}
 
 			uni.$api.order.getOrderDraftLimit(dx).then((res) => {
-				// var getList = res.data.data.map((obj) => ({
-				// 	...obj,
-				// 	show: false
-				// }));
+				var getList = res.data.data.map((obj) => ({
+					...obj,
+					show: false
+				}));
 
 				// var filer = this.pinia_userRole == 'D';
 				// if (filer) {
@@ -648,7 +647,9 @@ export default {
 				// } else {
 				// 	this.$refs.paging.complete(getList.filter((res) => res.port == 'D' || res.port == 'S'));
 				// }
-				console.log('筛选条件后111111111: ', res);
+
+				console.error('22222222222', getList.length);
+				// console.error('22222222222')
 			});
 		},
 		fetchDashboard(isqiehuan = false) {
@@ -1046,22 +1047,13 @@ export default {
 			});
 			if (this.pinia_token) {
 				this.guideCourse();
-				this.getOrderDB(); //待办事项
+				// this.getOrderDB(); //待办事项
 				this.fetchDashboard(true);
 			}
 		},
 		// 待办事项  权限是否过期
 		getOrderDB() {
 			var that = this;
-			// 版权过期
-			// var workIFS = this.pinia_user.data.work == '1';
-			// if (workIFS) {
-			// 	var s = this.pinia_user.workData.endTime;
-			// 	if (s == '0') {
-			// 		this.expireShow = true;
-			// 	}
-			// 	return;
-			// }
 			var workIF = this.pinia_user.data.work == '0';
 			var dx = {
 				bUser: '',
@@ -1077,7 +1069,7 @@ export default {
 					dx.bUser = this.pinia_user.phone;
 				} else if (identity == '1') {
 					dx.bBoss = this.pinia_user.workData.bossNumber;
-					dx.bUser = this.pinia_user.workData.bossNumber;
+					// dx.bUser = this.pinia_user.workData.bossNumber;
 				} else {
 					dx.bBoss = this.pinia_user.workData.bossNumber;
 					dx.bUser = this.pinia_user.phone;
@@ -1087,6 +1079,7 @@ export default {
 			const fetchOrderDraftList = (dx) => {
 				uni.$api.order.getOrderDraftList(dx).then((res) => {
 					if (uni.$u.getPinia('user.userRole') === 'D') {
+						// console.error('获取待办事项11111111', res);
 						that.iconlist[3].count = res.data.data[0];
 					} else {
 						that.iconlist[1].count = res.data.data[0];
