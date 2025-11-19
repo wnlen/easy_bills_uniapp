@@ -59,9 +59,9 @@
 			<view class="order-simple-list pl30 pr30" v-show="current == 0 && !moneyCALL">
 				<div class="bg-white pd20 mt20 radius flex-col justify-center items-center cardShow">
 					<view class="flex-col" style="width: 100%">
-						<text class="ft30 ft-gray mb18" style="color: #999999">累计金额</text>
+						<text class="ft30 ft-gray mb18" style="color: #999999">{{ pinia_userRole == 'D' && uni.$u.getPinia('user.customized') ? '累计总重' : '累计金额' }}</text>
 						<view class="">
-							<text class="ft42 ft-bold">￥</text>
+							<text class="ft42 ft-bold" v-if="!(pinia_userRole == 'D' && uni.$u.getPinia('user.customized'))">￥</text>
 							<up-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="40rpx" decimals="2" bold></up-count-to>
 						</view>
 					</view>
@@ -295,8 +295,11 @@
 					</view>
 					<view class="ft-lightgray mt10 line25 flex-row items-center justify-end">
 						<text>
-							<text>订单金额：</text>
-							<text class="ft-bold ft35" style="color: black">￥{{ item.price.toFixed(2) }}</text>
+							<text>{{ pinia_userRole == 'D' && uni.$u.getPinia('user.customized') ? '订单总重' : '订单金额' }}：</text>
+							<text class="ft-bold ft35" style="color: black" v-if="!(pinia_userRole == 'D' && uni.$u.getPinia('user.customized'))">￥</text>
+							<text class="ft-bold ft35" style="color: black">
+								{{ pinia_userRole == 'D' && item.isCustomized ? formatAmount(item.totalWeightKg) : formatAmount(item.price) }}
+							</text>
 						</text>
 					</view>
 				</view>
@@ -1032,7 +1035,11 @@ export default {
 					.then((res) => {
 						console.log('当前订单个数：', res);
 						this.OrderQuantity = res.data.data[1];
-						this.OrderQuantitySum = res.data.data[0];
+						if (this.pinia_userRole == 'D' && uni.$u.getPinia('user.customized')) {
+							this.OrderQuantitySum = res.data.data[2];
+						} else {
+							this.OrderQuantitySum = res.data.data[0];
+						}
 					})
 					.catch((res) => {
 						this.refresh = true;

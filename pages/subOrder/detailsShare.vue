@@ -15,9 +15,7 @@
 		</view>
 
 		<up-empty icon="https://res-oss.elist.com.cn/wxImg/order/orderEmpty.svg" textColor="#666" width="414rpx" v-if="shareShow" text="订单已删除~" marginTop="400rpx"></up-empty>
-		<up-popup :show="showZG" mode="center" @close="showZG = false" :safeAreaInsetBottom="false">
-			<image style="width: 500rpx; height: 100%; display: block" :src="showZGImg" mode="widthFix"></image>
-		</up-popup>
+
 		<view class="height80 fixed-bar-height" v-if="!shareShow">
 			<view class="ml20 mr20">
 				<view class="flex-row" style="margin-top: 2%">
@@ -180,7 +178,7 @@
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
 										<text class="ft24" v-if="orderisCustomized">
-											{{ item.quantity != '-' && item.quantity != '' ? item.unitWeightKg * item.quantity : 0 }}
+											{{ item.quantity != '-' && item.quantity != '' ? towDig(item.unitWeightKg, item.quantity) : 0 }}
 										</text>
 										<text class="ft24" v-else>{{ towDig(item.quantity, item.unitPrice) }}</text>
 									</view>
@@ -217,7 +215,7 @@
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
 										<text class="ft24" v-if="orderisCustomized">
-											{{ versions == 'Y' ? item.unitWeightKg * item.quantity : '****' }}
+											{{ versions == 'Y' ? towDig(item.unitWeightKg * item.quantity) : '****' }}
 										</text>
 										<text class="ft24" v-else>{{ versions == 'Y' ? towDig(item.quantity, item.unitPrice) : '****' }}</text>
 									</view>
@@ -282,7 +280,7 @@
 						</view>
 						<view class="xqcss pt35 flex-row items-center black-border-left black-border-right" style="height: 12vh" v-if="imgList.length > 0">
 							<view class="ml20" style="" v-for="(item2, index2) in imgList" :key="index2">
-								<up-image :src="item2.url" shape="square" width="150rpx" height="150rpx" @click="bigImg(item2.url)">
+								<up-image :src="item2.url" shape="square" width="150rpx" height="150rpx" @click="previewImageAll(imgList, '', index2)">
 									<up-loading-icon slot="loading"></up-loading-icon>
 								</up-image>
 							</view>
@@ -388,8 +386,6 @@ export default {
 			//  签收人
 			qsrShow: false,
 			qsrList: [],
-			showZG: false,
-			showZGImg: '',
 			wxLoginRes: '',
 			text: true,
 			text2: false,
@@ -828,26 +824,6 @@ export default {
 					}
 				});
 			}
-		},
-		bigImg(url) {
-			//放大显示
-			console.log(url);
-			this.showZGImg = url;
-			this.showZG = true;
-		},
-		previewImage(path) {
-			uni.previewImage({
-				urls: [path],
-				longPressActions: {
-					itemList: ['发送给朋友', '保存图片', '收藏'],
-					success: function (data) {
-						console.log('选中了第' + (data.tapIndex + 1) + '个按钮,第' + (data.index + 1) + '张图片');
-					},
-					fail: function (err) {
-						console.log(err.errMsg);
-					}
-				}
-			});
 		},
 		//根据id获取单据
 		loadData(id) {

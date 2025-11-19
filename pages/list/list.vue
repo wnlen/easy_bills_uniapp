@@ -47,9 +47,11 @@
 
 			<view class="Card cardShow">
 				<view class="priceCard">
-					<text class="ft-gray mb18 ml10" style="color: #999999; font-size: 30rpx">累计金额</text>
+					<text class="ft-gray mb18 ml10" style="color: #999999; font-size: 30rpx">
+						{{ pinia_userRole == 'D' && uni.$u.getPinia('user.customized') ? '累计总重' : '累计金额' }}
+					</text>
 					<view class="">
-						<text class="ft40 ft-bold ml9">￥</text>
+						<text class="ft40 ft-bold ml9" v-if="!(pinia_userRole == 'D' && uni.$u.getPinia('user.customized'))">￥</text>
 						<up-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="20" decimals="2" bold></up-count-to>
 					</view>
 				</view>
@@ -255,9 +257,11 @@
 				</text>
 
 				<text class="ft-lightgray mt10 line25 flex-row items-center justify-end">
-					<text>订单金额：</text>
-					<text style="color: black; font-size: 24rpx">￥</text>
-					<text class="ft35" style="color: black; font-weight: 500">{{ item.price.toFixed(2) }}</text>
+					<text>{{ pinia_userRole == 'D' && uni.$u.getPinia('user.customized') ? '订单总重' : '订单金额' }}：</text>
+					<text style="color: black; font-size: 24rpx" v-if="!(pinia_userRole == 'D' && uni.$u.getPinia('user.customized'))">￥</text>
+					<text class="ft35" style="color: black; font-weight: 500">
+						{{ pinia_userRole == 'D' && item.isCustomized ? formatAmount(item.totalWeightKg) : formatAmount(item.price) }}
+					</text>
 				</text>
 
 				<text
@@ -1132,7 +1136,6 @@ function refreshDataNew() {
 			// 	// uloading.value = false;
 			// } else {
 			// }
-
 			proxy.$api.order
 				.getFilteredOrders(realTimeSel.value)
 				.then((res) => {
@@ -1156,24 +1159,15 @@ function refreshDataNew() {
 				.getFilteredOrderCount(realTimeSel.value)
 				.then((res) => {
 					OrderQuantity.value = res.data.data[1];
-					OrderQuantitySum.value = res.data.data[0];
+					if (userStore.userRole == 'D' && uni.$u.getPinia('user.customized')) {
+						OrderQuantitySum.value = res.data.data[2];
+					} else {
+						OrderQuantitySum.value = res.data.data[0];
+					}
 				})
 				.catch(() => {
 					// refresh.value = true;
 				});
-			// const res1 = await proxy.$api.order.getFilteredOrderCount(realTimeSel.value);
-			// if (res1.data.code == 200) {
-			// 	if (OrderQuantity.value != res1.data.data[1]) {
-			// 		OrderQuantity.value = res1.data.data[1];
-			// 	}
-			// 	if (OrderQuantitySum.value != res1.data.data[0]) {
-			// 		OrderQuantitySum.value = res1.data.data[0];
-			// 	}
-			// 	// OrderQuantity.value = res1.data.data[1];
-			// 	// OrderQuantitySum.value = res1.data.data[0];
-			// } else {
-			// 	// refresh.value = true;
-			// }
 			setTimeout(() => {
 				refresh.value = true;
 			}, 1000);

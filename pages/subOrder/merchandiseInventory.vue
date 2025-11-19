@@ -131,7 +131,7 @@
 						<text>合计</text>
 						<text v-if="uni.$u.getPinia('user.customized')">(KG)</text>
 						<text>：</text>
-						<text style="color: #01bb74" v-if="uni.$u.getPinia('user.customized')">{{ totalPrices }}</text>
+						<text style="color: #01bb74" v-if="uni.$u.getPinia('user.customized')">{{ formatAmount(totalPrices) }}</text>
 						<text style="color: #01bb74" v-else>￥{{ formatAmount(totalPrices) }}</text>
 					</text>
 					<wd-button :customStyle="bottomCustomStyle" @click="save">保存</wd-button>
@@ -237,7 +237,7 @@
 								<text>合计</text>
 								<text v-if="uni.$u.getPinia('user.customized')">(KG)</text>
 								<text>：</text>
-								<text style="color: #01bb74" v-if="uni.$u.getPinia('user.customized')">{{ totalPrices }}</text>
+								<text style="color: #01bb74" v-if="uni.$u.getPinia('user.customized')">{{ formatAmount(totalPrices) }}</text>
 								<text style="color: #01bb74" v-else>￥{{ formatAmount(totalPrices) }}</text>
 							</text>
 							<wd-button :customStyle="bottomCustomStyle" @click="closeOpen">保存</wd-button>
@@ -561,32 +561,33 @@ export default {
 			}
 		},
 		save() {
-			var nullNot = this.orderItemList.filter((res) => res.unitPrice == null || res.unitPrice == '');
-			var nullunitWeightKg = this.orderItemList.filter((res) => res.unitWeightKg == null || res.unitWeightKg == '');
+			var nullNot = this.orderItemList.filter((res) => res.unitPrice == null || res.unitPrice == '' || res.unitPrice == '0');
+			var nullunitWeightKg = this.orderItemList.filter((res) => res.unitWeightKg == null || res.unitWeightKg == '' || res.unitWeightKg == '0');
+			console.log(nullunitWeightKg);
 			if (this.totalPrices > 0) {
-				if (uni.$u.getPinia('user.customized') && nullunitWeightKg > 0) {
-					this.$u.toast('单重不能为空');
+				if (uni.$u.getPinia('user.customized') && nullunitWeightKg.length > 0) {
+					this.$u.toast('单重必须大于0');
 					this.shoppingTrolley = true;
 					return;
-				} else if (nullNot > 0) {
-					this.$u.toast('单价不能为空');
+				} else if (nullNot.length > 0) {
+					this.$u.toast('单价必须大于0');
 					this.shoppingTrolley = true;
 					return;
 				}
 			} else {
 				if (this.orderItemList.length > 0) {
 					if (uni.$u.getPinia('user.customized')) {
-						this.$u.toast('总重要大于0');
+						this.$u.toast('总重必须大于0');
 					} else {
-						this.$u.toast('开单总金额要大于0');
+						this.$u.toast('开单总金额必须大于0');
 					}
 
 					this.shoppingTrolley = true;
 				} else {
 					if (uni.$u.getPinia('user.customized')) {
-						this.$u.toast('总重要大于0');
+						this.$u.toast('总重必须大于0');
 					} else {
-						this.$u.toast('开单总金额要大于0');
+						this.$u.toast('开单总金额必须大于0');
 					}
 				}
 				return;

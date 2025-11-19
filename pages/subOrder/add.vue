@@ -432,7 +432,7 @@
 							<up-td>{{ uni.$u.getPinia('user.customized') ? item.unitWeightKg : item.unitPrice }}</up-td>
 							<up-td>
 								<text style="width: 200rpx" class="up-line-1" v-if="uni.$u.getPinia('user.customized')">
-									{{ item.quantity != '-' && item.quantity != '' ? item.unitWeightKg * item.quantity : 0 }}
+									{{ item.quantity != '-' && item.quantity != '' ? formatAmount(item.unitWeightKg * item.quantity) : 0 }}
 								</text>
 								<text style="width: 200rpx" class="up-line-1" v-else>
 									￥{{ item.quantity != '-' && item.quantity != '' ? formatAmount(item.unitPrice * item.quantity) : 0 }}
@@ -449,7 +449,7 @@
 						<text>合计</text>
 						<text v-if="uni.$u.getPinia('user.customized')">(KG)</text>
 					</text>
-					<text class="absolute" v-if="uni.$u.getPinia('user.customized')" style="right: 24rpx; color: #01bb74">{{ orderTotal }}</text>
+					<text class="absolute" v-if="uni.$u.getPinia('user.customized')" style="right: 24rpx; color: #01bb74">{{ formatAmount(orderTotal) }}</text>
 					<text class="absolute" v-else style="right: 24rpx; color: #01bb74">￥{{ formatAmount(orderTotal) }}</text>
 				</view>
 				<view class="relative pt12 pb12" v-if="!uni.$u.getPinia('user.customized')">
@@ -568,6 +568,7 @@
 </template>
 
 <script>
+import { multiply } from '@/utils/big.js';
 export default {
 	data() {
 		return {
@@ -753,16 +754,19 @@ export default {
 	},
 	methods: {
 		setOrderTotal() {
+			// console.log('this.PrecisionMath', this.PrecisionMath);
 			this.orderTotal = 0;
 			if (uni.$u.getPinia('user.customized')) {
 				this.orderItemList.forEach((res) => {
-					this.orderTotal = this.orderTotal + res.quantity * res.unitWeightKg;
+					this.orderTotal = this.orderTotal + multiply(Number(res.quantity), Number(res.unitWeightKg));
 				});
 			} else {
 				this.orderItemList.forEach((res) => {
-					this.orderTotal = this.orderTotal + res.quantity * res.unitPrice;
+					this.orderTotal = this.orderTotal + multiply(Number(res.quantity), Number(res.unitPrice));
 				});
 			}
+			// this.orderTotal = this.formatAmount(this.orderTotal);
+			// this.orderTotal = this.PrecisionMath(this.orderTotal);
 		},
 		// 手动删除图片
 		onRemoveImg(res) {
@@ -819,6 +823,7 @@ export default {
 						this.getOrderNumber();
 						this.receipts.creationTime = this.$u.timeFormat(this.receipts.creationTime, 'yyyy-mm-dd');
 						this.receipts.signatureImg = '';
+						this.receipts.selfieUrl = '';
 						var dx = {
 							user: {
 								phoneNumber: this.receipts.staffNumberE,
