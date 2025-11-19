@@ -1,7 +1,25 @@
 // utils/big.js
 import Decimal from 'decimal.js'
+// 加
+export function add(a, b) {
+	return new Decimal(a).plus(b).toNumber()
+}
+// 减
+export function subtract(a, b) {
+	return new Decimal(a).minus(b).toNumber()
+}
+// 乘
+export function multiply(a, b) {
+	return new Decimal(a).times(b).toNumber()
+}
+// 除
+export function divide(a, b) {
+	return new Decimal(a).div(b).toNumber()
+}
 
-export const add = (a, b) => new Decimal(a).plus(b).toNumber()
-export const sub = (a, b) => new Decimal(a).minus(b).toNumber()
-export const mul = (a, b) => new Decimal(a).times(b).toNumber()
-export const div = (a, b) => new Decimal(a).div(b).toNumber()
+export default {
+	add,
+	subtract,
+	multiply,
+	divide
+}

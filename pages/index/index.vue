@@ -17,7 +17,7 @@
 				<view class="charts-box relative" @touchmove.stop.prevent>
 					<qiun-data-charts type="ring" :animation="false" :canvas2d="true" canvasId="mQeRxIXWgXIzJwrjsSJdlsgpudfZgkIY" :opts="ringOpts" :chartData="chartsDataPie2" />
 					<view class="text-center ft-bold">
-						<text class="ft24">￥</text>
+						<text class="ft24" v-if="!(pinia_userRole == 'D' && uni.$u.getPinia('user.customized'))">￥</text>
 						<text v-for="(item, index) in formatAmount(allprice).split('.')" :class="index == 0 ? 'ft32' : 'ft24'" :key="index">
 							<text>{{ item }}</text>
 							<text v-if="index === 0 && formatAmount(allprice).split('.').length > 1">.</text>
@@ -27,7 +27,7 @@
 				<view class="flex-col justify-around mr24 items-end pt30">
 					<view class="flex-row items-center" @click="goList(ite.type)" v-for="(ite, ind) in rawData" :key="ind">
 						<view class="text-center ft-bold" :class="ind == 0 ? 'ft-orange' : ind == 1 ? 'ft-blue' : 'ft-green'">
-							<text class="ft20">￥</text>
+							<text class="ft20" v-if="!(pinia_userRole == 'D' && uni.$u.getPinia('user.customized'))">￥</text>
 							<text v-for="(item, index) in formatAmount(ite.value).split('.')" :class="index == 0 ? 'ft28' : 'ft20'" :key="index">
 								<text>{{ item }}</text>
 								<text v-if="index === 0 && formatAmount(ite.value).split('.').length > 1">.</text>
@@ -667,11 +667,18 @@ export default {
 				.then((res) => {
 					this.ringOpts.color = ['#ECECEC', '#ECECEC', '#ECECEC'];
 					const data = res.data.data || {};
-					this.rawData[0].value = data.pendingAmount ?? 0;
-					this.rawData[1].value = data.signedAmount ?? 0;
-					this.rawData[2].value = data.receivedAmount ?? 0;
+					if (this.pinia_userRole == 'D' && uni.$u.getPinia('user.customized')) {
+						this.rawData[0].value = data.pendingWeightKg ?? 0;
+						this.rawData[1].value = data.signedWeightKg ?? 0;
+						this.rawData[2].value = data.receivedWeightKg ?? 0;
+						this.allprice = data.totalWeightKg ?? 0;
+					} else {
+						this.rawData[0].value = data.pendingAmount ?? 0;
+						this.rawData[1].value = data.signedAmount ?? 0;
+						this.rawData[2].value = data.receivedAmount ?? 0;
+						this.allprice = data.totalAmount ?? 0;
+					}
 
-					this.allprice = data.totalAmount ?? 0;
 					// this.lastFetchedAt = now;
 
 					if (this.allprice) {

@@ -28,10 +28,20 @@ export function formatAmount(num) {
 	return sign + formattedInteger + '.' + decimalPart;
 }
 
-export function previewImageAll(urlList, indicator) {
+export function previewImageAll(urlList, indicator, current) {
+	let newsList = []
+	if (!(urlList[0] instanceof String)) {
+		urlList.forEach(el => {
+			newsList.push(el.url)
+		})
+	} else {
+		newsList = urlList
+	}
 	// 预览图片
 	uni.previewImage({
-		urls: urlList,
-		indicator: indicator //"default" - 底部圆点指示器； "number" - 顶部数字指示器； "none" - 不显示指示器。仅支持app
+		urls: newsList,
+		indicator: indicator ? indicator :
+		'number', //"default" - 底部圆点指示器； "number" - 顶部数字指示器； "none" - 不显示指示器。仅支持app
+		current: current ? current : 0
 	});
 }
