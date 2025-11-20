@@ -215,7 +215,7 @@
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
 										<text class="ft24" v-if="orderisCustomized">
-											{{ versions == 'Y' ? towDig(item.unitWeightKg * item.quantity) : '****' }}
+											{{ versions == 'Y' ? towDig(item.unitWeightKg, item.quantity) : '****' }}
 										</text>
 										<text class="ft24" v-else>{{ versions == 'Y' ? towDig(item.quantity, item.unitPrice) : '****' }}</text>
 									</view>
@@ -229,7 +229,7 @@
 								<text v-if="orderisCustomized">(KG)</text>
 								<text>：</text>
 							</text>
-							<text class="xqcss" v-if="orderisCustomized">{{ post.totalWeightKg || 0 }}</text>
+							<text class="xqcss" v-if="orderisCustomized">{{ DigPrice(post.totalWeightKg) || 0 }}</text>
 							<text class="xqcss" v-else>¥ {{ versions == 'Y' ? DigPrice(post.price) || '' : '****' }}</text>
 						</view>
 						<view class="xqcss pd10 pt10 pb10 black-border-bottom black-border-left black-border-right" v-if="!orderisCustomized">
