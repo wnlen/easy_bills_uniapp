@@ -568,7 +568,7 @@
 </template>
 
 <script>
-import { multiply } from '@/utils/big.js';
+import { multiply, addDecimal } from '@/utils/big.js';
 export default {
 	data() {
 		return {
@@ -758,11 +758,11 @@ export default {
 			this.orderTotal = 0;
 			if (uni.$u.getPinia('user.customized')) {
 				this.orderItemList.forEach((res) => {
-					this.orderTotal = this.orderTotal + multiply(Number(res.quantity), Number(res.unitWeightKg));
+					this.orderTotal = addDecimal(this.orderTotal, multiply(Number(res.quantity), Number(res.unitWeightKg)));
 				});
 			} else {
 				this.orderItemList.forEach((res) => {
-					this.orderTotal = this.orderTotal + multiply(Number(res.quantity), Number(res.unitPrice));
+					this.orderTotal = addDecimal(this.orderTotal, multiply(Number(res.quantity), Number(res.unitPrice)));
 				});
 			}
 			// this.orderTotal = this.formatAmount(this.orderTotal);

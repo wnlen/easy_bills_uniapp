@@ -1,7 +1,7 @@
 // utils/big.js
 import Decimal from 'decimal.js'
 // 加
-export function add(a, b) {
+export function addDecimal(a, b) {
 	return new Decimal(a).plus(b).toNumber()
 }
 // 减
@@ -18,7 +18,7 @@ export function divide(a, b) {
 }
 
 export default {
-	add,
+	addDecimal,
 	subtract,
 	multiply,
 	divide

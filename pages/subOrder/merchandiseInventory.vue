@@ -480,21 +480,29 @@ export default {
 					success: (res) => {
 						var okif = res.confirm;
 						if (okif) {
-							var nullNot = this.orderItemList.filter((res) => res.unitPrice == null || res.unitPrice == '');
-							console.log(nullNot);
-							// console.log(this.orderItemList);
-							if (this.totalPrices > 0) {
-								if (nullNot.length <= 0) {
-									uni.setStorageSync('inventoryStockpile', this.orderItemList);
-									if (uni.getStorageSync('inventoryStockpile') != undefined) {
-										uni.navigateBack();
+							if (!uni.$u.getPinia('user.customized')) {
+								var nullNot = this.orderItemList.filter((res) => res.unitPrice == null || res.unitPrice == '');
+								console.log(nullNot);
+								// console.log(this.orderItemList);
+								if (this.totalPrices > 0) {
+									if (nullNot.length <= 0) {
+										uni.setStorageSync('inventoryStockpile', this.orderItemList);
+										if (uni.getStorageSync('inventoryStockpile') != undefined) {
+											uni.navigateBack();
+										}
+									} else {
+										this.$u.toast('单价不能为空');
+										this.shoppingTrolley = true;
 									}
 								} else {
-									this.$u.toast('单价不能为空');
-									this.shoppingTrolley = true;
+									this.$u.toast('开单总金额要大于0');
 								}
 							} else {
-								this.$u.toast('开单总金额要大于0');
+								if (this.totalPrices < 0) {
+									this.$u.toast('开单总重要大于0');
+									return;
+								}
+								uni.navigateBack();
 							}
 						} else {
 							uni.navigateBack();
@@ -563,7 +571,7 @@ export default {
 		save() {
 			var nullNot = this.orderItemList.filter((res) => res.unitPrice == null || res.unitPrice == '' || res.unitPrice == '0');
 			// var nullunitWeightKg = this.orderItemList.filter((res) => res.unitWeightKg == null || res.unitWeightKg == '' || res.unitWeightKg == '0');
-			console.log(nullunitWeightKg);
+
 			if (this.totalPrices > 0) {
 				// if (uni.$u.getPinia('user.customized') && nullunitWeightKg.length > 0) {
 				// 	this.$u.toast('单重必须大于0');
@@ -576,18 +584,25 @@ export default {
 					return;
 				}
 			} else {
-				if (this.orderItemList.length > 0) {
-					if (!uni.$u.getPinia('user.customized')) {
+				if (!uni.$u.getPinia('user.customized')) {
+					if (this.orderItemList.length > 0) {
 						this.$u.toast('开单总金额必须大于0');
+						this.shoppingTrolley = true;
+						return;
+					} else {
+						this.$u.toast('开单总金额必须大于0');
+						return;
 					}
-
-					this.shoppingTrolley = true;
 				} else {
-					if (!uni.$u.getPinia('user.customized')) {
-						this.$u.toast('开单总金额必须大于0');
+					if (this.orderItemList.length > 0) {
+						this.$u.toast('开单总重必须大于0');
+						this.shoppingTrolley = true;
+						return;
+					} else {
+						this.$u.toast('开单总重必须大于0');
+						return;
 					}
 				}
-				return;
 			}
 
 			console.log('清单----->', this.orderItemList);

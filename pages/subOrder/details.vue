@@ -321,7 +321,7 @@
 								<text v-if="orderisCustomized">(KG)</text>
 								<text>：</text>
 							</text>
-							<text class="xqcss" v-if="orderisCustomized">{{ post.totalWeightKg || 0 }}</text>
+							<text class="xqcss" v-if="orderisCustomized">{{ DigPrice(post.totalWeightKg) || 0 }}</text>
 							<text class="xqcss" v-else>¥ {{ versions == 'Y' ? DigPrice(post.price) || '' : '****' }}</text>
 						</view>
 						<view class="xqcss pd10 pt10 pb10 black-border-bottom black-border-left black-border-right" v-if="!orderisCustomized">
