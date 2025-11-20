@@ -11,10 +11,12 @@ export default {
 	onLaunch(options) {
 		//加载字体
 		this.loadfont();
+		this.onNetworkStatusChange();
 
 		uni.$on('switchTabToList', (e) => {
 			console.log('监听到isFromSwitchTab');
 		});
+
 		//缓存邀请码
 		const inviterId = options?.query?.inviterId;
 		if (inviterId) {
@@ -68,6 +70,27 @@ export default {
 		SocketManager.close(); // 页面卸载时清理 WebSocket
 	},
 	methods: {
+		onNetworkStatusChange() {
+			// 初始化网络状态
+			uni.getNetworkType({
+				success(res) {
+					const connected = res.networkType !== 'none';
+					uni.setStorageSync('NET_CONNECTED', connected);
+				}
+			});
+
+			// 实时监听
+			uni.onNetworkStatusChange((res) => {
+				uni.setStorageSync('NET_CONNECTED', res.isConnected);
+
+				if (!res.isConnected) {
+					uni.showToast({
+						title: '网络已断开，请检查连接',
+						icon: 'none'
+					});
+				}
+			});
+		},
 		async loadfont() {
 			try {
 				await ensureFontsReady();
