@@ -5,58 +5,18 @@ import {
 } from '@/store/user';
 let hasRedirectedToLogin = false;
 
-function isWhiteListedPath(url = '') {
-	const noAuthUrls = [
-		'advert/get',
-		'rest/v1/login',
-		'rest/v1/register',
-		'rest/v1/refresh',
-		'rest/v1/phone',
-		'rest/v1/auth/mp-weixin/login',
-		'rest/v1/auth/app-weixin/login',
-		'rest/v1/auth/app-weixin/bind-with-phone',
-		'rest/v1/auth/app-yijian/login',
-		'rest/v1/auth/app-phone/login',
-		'rest/v1/auth/app-pwd/login',
-		'rest/v1/auth/app-apple/login',
-		'rest/v1/auth/refresh',
-		'rest/v1/auth/logout',
-		'user/getSmsCode', //发送短信
-		'user/comparisonCode', //验证短信
-
-	];
-	const whitePrefixList = ['public/']; // 统一为不带前导斜杠
-
-	let clean = url.split('?')[0] || '';
-	// 提取 pathname
-	try {
-		if (/^https?:\/\//i.test(clean)) {
-			clean = new URL(clean).pathname || '';
-		}
-	} catch (e) {}
-	// 去掉前导斜杠 & 去掉开头可能的 '/test/edo/'
-	clean = clean.replace(/^\/+/, '').replace(/^test\/edo\/+/, '');
-
-	// 完整匹配 & 前缀匹配
-	if (noAuthUrls.includes(clean)) return true;
-	return whitePrefixList.some(prefix => clean.startsWith(prefix));
-}
-
-function goLoginOnce() {
-	if (hasRedirectedToLogin) return
-	hasRedirectedToLogin = true
-	// 2 秒内防抖，避免并发多次跳转
-	setTimeout(() => (hasRedirectedToLogin = false), 2000)
-
-	setTimeout(() => {
-		uni.redirectTo({
-			url: '/pages/subUser/login'
-		})
-	}, 1500)
-}
-
 export const initRequest = () => {
 	const http = new Request();
+	http.setConfig((config) => {
+		// config.baseURL = 'https://wxapi.elist.com.cn/edo/'
+		// config.baseURL = 'https://wxapi.elist.com.cn/test/edo/';
+		config.baseURL = 'http://192.168.124.2:8081/test/edo/';
+		config.showLoading = true;
+		config.loadingText = '加载中~';
+		config.loadingTime = 800;
+		config.originalData = true;
+		return config;
+	});
 
 	const _rawGet = http.get.bind(http)
 	http.get = function(url, dataOrOptions = {}, options = {}) {
@@ -78,16 +38,7 @@ export const initRequest = () => {
 		return _rawGet(url, finalOptions);
 	}
 
-	http.setConfig((config) => {
-		// config.baseURL = 'https://wxapi.elist.com.cn/edo/'
-		config.baseURL = 'https://wxapi.elist.com.cn/test/edo/';
-		// config.baseURL = 'http://192.168.124.2:8081/test/edo/';
-		config.showLoading = true;
-		config.loadingText = '加载中~';
-		config.loadingTime = 800;
-		config.originalData = true;
-		return config;
-	});
+
 
 	// ===== 请求拦截：无 token 直接拦截，不发给后端 =====
 	http.interceptors.request.use((config) => {
@@ -201,3 +152,53 @@ export const initRequest = () => {
 	)
 	return http;
 };
+
+function isWhiteListedPath(url = '') {
+	const noAuthUrls = [
+		'advert/get',
+		'rest/v1/login',
+		'rest/v1/register',
+		'rest/v1/refresh',
+		'rest/v1/phone',
+		'rest/v1/auth/mp-weixin/login',
+		'rest/v1/auth/app-weixin/login',
+		'rest/v1/auth/app-weixin/bind-with-phone',
+		'rest/v1/auth/app-yijian/login',
+		'rest/v1/auth/app-phone/login',
+		'rest/v1/auth/app-pwd/login',
+		'rest/v1/auth/app-apple/login',
+		'rest/v1/auth/refresh',
+		'rest/v1/auth/logout',
+		'user/getSmsCode', //发送短信
+		'user/comparisonCode', //验证短信
+
+	];
+	const whitePrefixList = ['public/']; // 统一为不带前导斜杠
+
+	let clean = url.split('?')[0] || '';
+	// 提取 pathname
+	try {
+		if (/^https?:\/\//i.test(clean)) {
+			clean = new URL(clean).pathname || '';
+		}
+	} catch (e) {}
+	// 去掉前导斜杠 & 去掉开头可能的 '/test/edo/'
+	clean = clean.replace(/^\/+/, '').replace(/^test\/edo\/+/, '');
+
+	// 完整匹配 & 前缀匹配
+	if (noAuthUrls.includes(clean)) return true;
+	return whitePrefixList.some(prefix => clean.startsWith(prefix));
+}
+
+function goLoginOnce() {
+	if (hasRedirectedToLogin) return
+	hasRedirectedToLogin = true
+	// 2 秒内防抖，避免并发多次跳转
+	setTimeout(() => (hasRedirectedToLogin = false), 2000)
+
+	setTimeout(() => {
+		uni.redirectTo({
+			url: '/pages/subUser/login'
+		})
+	}, 1500)
+}
