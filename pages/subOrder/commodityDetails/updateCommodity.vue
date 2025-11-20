@@ -227,7 +227,7 @@ export default {
 				}
 
 				const strValue = String(this.uploadingCommodity.unitPrice);
-				const regex = /^[+-]?([1-9]\d*(\.\d{1,2})?$|0\.\d{1,2})$/;
+				const regex = /^[+-]?([1-9]\d*(\.\d{1,2})?$|0\.\d{1,2})$/; //非负金额，不支持 0，最多 2 位小数
 				var num = regex.test(strValue);
 				if (!num) {
 					this.$u.toast('请填写正确单价');
@@ -245,12 +245,12 @@ export default {
 					this.$u.toast('请填写长度');
 					return;
 				}
-				if (!this.uploadingCommodity.unitWeightKg) {
+				if (this.uploadingCommodity.unitWeightKg === '') {
 					this.$u.toast('请填写单重');
 					return;
 				}
 				const strValue = String(this.uploadingCommodity.unitWeightKg);
-				const regex = /^[+-]?([1-9]\d*(\.\d{1,2})?$|0\.\d{1,2})$/;
+				const regex = /^(0|([1-9]\d*))(\.\d{1,2})?$/; //非负金额，支持 0，最多 2 位小数
 				var num = regex.test(strValue);
 				console.log('num', strValue, num);
 				if (!num) {

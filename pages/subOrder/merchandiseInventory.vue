@@ -562,14 +562,14 @@ export default {
 		},
 		save() {
 			var nullNot = this.orderItemList.filter((res) => res.unitPrice == null || res.unitPrice == '' || res.unitPrice == '0');
-			var nullunitWeightKg = this.orderItemList.filter((res) => res.unitWeightKg == null || res.unitWeightKg == '' || res.unitWeightKg == '0');
+			// var nullunitWeightKg = this.orderItemList.filter((res) => res.unitWeightKg == null || res.unitWeightKg == '' || res.unitWeightKg == '0');
 			console.log(nullunitWeightKg);
 			if (this.totalPrices > 0) {
-				if (uni.$u.getPinia('user.customized') && nullunitWeightKg.length > 0) {
-					this.$u.toast('单重必须大于0');
-					this.shoppingTrolley = true;
-					return;
-				}
+				// if (uni.$u.getPinia('user.customized') && nullunitWeightKg.length > 0) {
+				// 	this.$u.toast('单重必须大于0');
+				// 	this.shoppingTrolley = true;
+				// 	return;
+				// }
 				if (nullNot.length > 0 && !uni.$u.getPinia('user.customized')) {
 					this.$u.toast('单价必须大于0');
 					this.shoppingTrolley = true;
@@ -577,17 +577,13 @@ export default {
 				}
 			} else {
 				if (this.orderItemList.length > 0) {
-					if (uni.$u.getPinia('user.customized')) {
-						this.$u.toast('总重必须大于0');
-					} else {
+					if (!uni.$u.getPinia('user.customized')) {
 						this.$u.toast('开单总金额必须大于0');
 					}
 
 					this.shoppingTrolley = true;
 				} else {
-					if (uni.$u.getPinia('user.customized')) {
-						this.$u.toast('总重必须大于0');
-					} else {
+					if (!uni.$u.getPinia('user.customized')) {
 						this.$u.toast('开单总金额必须大于0');
 					}
 				}
