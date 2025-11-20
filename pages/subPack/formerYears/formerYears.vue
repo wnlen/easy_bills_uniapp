@@ -825,6 +825,7 @@ export default {
 			console.log('this.pinia_user.jurisdiction', this.pinia_user.jurisdiction);
 			console.log('this.pinia_userRole', this.pinia_userRole);
 			var role = this.pinia_userRole == 'R';
+			console.error('this.pinia_user.jurisdiction', this.pinia_user.jurisdiction);
 			for (let key in this.pinia_user.jurisdiction) {
 				if (role) {
 					if (key == 'B2') {
@@ -1007,6 +1008,8 @@ export default {
 			if (this.refresh && timeO && timeT) {
 				this.refresh = false;
 				this.realTimeSel.role = this.pinia_userRole == 'R' ? '1' : '0';
+				this.realTimeSel.isCustomized = 1;
+
 				uni.$api.order
 					.getFilteredOrders(this.realTimeSel)
 					.then((res) => {
