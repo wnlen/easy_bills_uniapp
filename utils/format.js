@@ -30,7 +30,7 @@ export function formatAmount(num) {
 
 export function previewImageAll(urlList, indicator, current) {
 	let newsList = []
-	if (!(urlList[0] instanceof String)) {
+	if (!(typeof urlList[0] === 'string')) {
 		urlList.forEach(el => {
 			newsList.push(el.url)
 		})
