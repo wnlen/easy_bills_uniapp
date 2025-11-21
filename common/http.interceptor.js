@@ -46,6 +46,35 @@ export const initRequest = () => {
 		const isWhite = isWhiteListedPath(config.url)
 		const skipAuth = config.custom?.noAuth === true
 
+		const net = uni.$u.getPinia('system.NET_CONNECTED');
+		//断网检测
+		if (!net) {
+			uni.getNetworkType({
+				success(res) {
+					const connected = res.networkType !== 'none';
+
+					if (!connected) {
+						uni.showToast({
+							title: '网络已断开，请检查连接',
+							icon: 'none'
+						})
+					} else {
+						uni.$u.setPinia({
+							system: {
+								NET_CONNECTED: connected
+							}
+						});
+					}
+				},
+				fail() {
+					uni.showToast({
+						title: '网络状态异常，请检查连接',
+						icon: 'none'
+					})
+				}
+			})
+		}
+
 		if (!isWhite && !skipAuth) {
 			const token = (userStore.token || '').trim()
 			if (!token) {
@@ -90,17 +119,6 @@ export const initRequest = () => {
 
 			const reqUrl = error?.config?.url || ''
 			const isSilentApi = SILENT_API_WHITELIST.some(path => reqUrl.includes(path))
-
-			// --- 网络层异常（如断网、超时、DNS），既没有 httpCode 也没有 bizCode ---
-			// if (!httpCode && !bizCode) {
-			// 	if (!isSilentApi) {
-			// 		uni.showToast({
-			// 			title: '网络异常，请检查连接',
-			// 			icon: 'none'
-			// 		})
-			// 	}
-			// 	return Promise.reject(error)
-			// }
 
 			// --- 会话/Redis 等服务端异常：HTTP 503 + 业务码 50001 -> 不清 token，只提示 ---
 			if (httpCode === 503 || bizCode == '50001') {
