@@ -427,7 +427,7 @@
 									{{ uni.$u.getPinia('user.customized') ? '型号' : '单位' }}
 								</view>
 							</up-td>
-							<up-td : v-if="uni.$u.getPinia('user.customized')">
+							<up-td v-if="uni.$u.getPinia('user.customized')">
 								<view style="width: 150rpx">长度</view>
 							</up-td>
 							<up-td>{{ uni.$u.getPinia('user.customized') ? '单重' : '单价' }}</up-td>
