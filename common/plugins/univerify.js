@@ -119,6 +119,8 @@ export default {
 							});
 							that.roleShow = true;
 						}
+					}).catch(err => {
+						console.error(err)
 					})
 				},
 				// 当用户点击自定义按钮时，会触发uni.login的fail回调[点击其他登录方式，可以跳转页面，或执行事件]
