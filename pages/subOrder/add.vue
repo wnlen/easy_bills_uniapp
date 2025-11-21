@@ -422,13 +422,33 @@
 					<up-table border-color="#ffffff">
 						<up-tr>
 							<up-td>数量</up-td>
-							<up-td>{{ uni.$u.getPinia('user.customized') ? '型号' : '单位' }}</up-td>
+							<up-td>
+								<view :style="uni.$u.getPinia('user.customized') ? 'width: 150rpx' : ''">
+									{{ uni.$u.getPinia('user.customized') ? '型号' : '单位' }}
+								</view>
+							</up-td>
+							<up-td : v-if="uni.$u.getPinia('user.customized')">
+								<view style="width: 150rpx">长度</view>
+							</up-td>
 							<up-td>{{ uni.$u.getPinia('user.customized') ? '单重' : '单价' }}</up-td>
-							<up-td>{{ uni.$u.getPinia('user.customized') ? '总重' : '金额' }}</up-td>
+							<up-td>
+								<view style="width: 200rpx">
+									{{ uni.$u.getPinia('user.customized') ? '总重' : '金额' }}
+								</view>
+							</up-td>
 						</up-tr>
 						<up-tr>
 							<up-td>{{ item.quantity }}</up-td>
-							<up-td>{{ uni.$u.getPinia('user.customized') ? item.modelNo : item.unit }}</up-td>
+							<up-td>
+								<view :style="uni.$u.getPinia('user.customized') ? 'width: 150rpx' : ''" class="up-line-1">
+									{{ uni.$u.getPinia('user.customized') ? item.modelNo : item.unit }}
+								</view>
+							</up-td>
+							<up-td v-if="uni.$u.getPinia('user.customized')">
+								<view style="width: 150rpx" class="up-line-1">
+									{{ item.lengthMm }}
+								</view>
+							</up-td>
 							<up-td>{{ uni.$u.getPinia('user.customized') ? item.unitWeightKg : item.unitPrice }}</up-td>
 							<up-td>
 								<text style="width: 200rpx" class="up-line-1" v-if="uni.$u.getPinia('user.customized')">

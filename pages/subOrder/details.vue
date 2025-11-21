@@ -247,6 +247,7 @@
 								<view class="table-header flex-row justify-center items-center">
 									<view class="table-cell">品名</view>
 									<view class="table-cell">规格</view>
+									<view class="table-cell" v-if="orderisCustomized">长度</view>
 									<view class="table-cell">{{ orderisCustomized ? '型号' : '单位' }}</view>
 									<view class="table-cell">数量</view>
 									<view class="table-cell">{{ orderisCustomized ? '单重' : '单价' }}</view>
@@ -259,6 +260,9 @@
 									<view class="table-cell flex-col justify-center items-center">
 										<text class="ft24">{{ item.specification || '-' }}</text>
 									</view>
+									<view class="table-cell flex-col justify-center items-center" v-if="orderisCustomized">
+										<text class="ft24">{{ item.lengthMm || '-' }}</text>
+									</view>
 									<view class="table-cell flex-col justify-center items-center">
 										<text class="ft24">{{ orderisCustomized ? item.modelNo : item.unit }}</text>
 									</view>
@@ -266,7 +270,7 @@
 										<text class="ft24">{{ item.quantity }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24">{{ orderisCustomized ? item.unitWeightKg : item.unitPrice }}</text>
+										<text class="ft24">{{ orderisCustomized ? item.unitWeightKg.toFixed(2) : item.unitPrice.toFixed(2) }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
 										<text class="ft24" v-if="orderisCustomized">
@@ -283,6 +287,7 @@
 								<view class="table-header flex-row justify-center items-center">
 									<view class="table-cell">品名</view>
 									<view class="table-cell">规格</view>
+									<view class="table-cell" v-if="orderisCustomized">长度</view>
 									<view class="table-cell">{{ orderisCustomized ? '型号' : '单位' }}</view>
 									<view class="table-cell">数量</view>
 									<view class="table-cell">{{ orderisCustomized ? '单重' : '单价' }}</view>
@@ -295,6 +300,9 @@
 									<view class="table-cell flex-col justify-center items-center">
 										<text class="ft24">{{ item.specification || '-' }}</text>
 									</view>
+									<view class="table-cell flex-col justify-center items-center" v-if="orderisCustomized">
+										<text class="ft24">{{ item.lengthMm || '-' }}</text>
+									</view>
 									<view class="table-cell flex-col justify-center items-center">
 										<text class="ft24">{{ orderisCustomized ? item.modelNo : item.unit }}</text>
 									</view>
@@ -302,8 +310,8 @@
 										<text class="ft24">{{ item.quantity }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24" v-if="orderisCustomized">{{ versions == 'Y' ? item.unitWeightKg : '****' }}</text>
-										<text class="ft24" v-else>{{ versions == 'Y' ? item.unitPrice : '****' }}</text>
+										<text class="ft24" v-if="orderisCustomized">{{ versions == 'Y' ? item.unitWeightKg.toFixed(2) : '****' }}</text>
+										<text class="ft24" v-else>{{ versions == 'Y' ? item.unitPrice.toFixed(2) : '****' }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
 										<text class="ft24" v-if="orderisCustomized">
@@ -1590,7 +1598,7 @@ export default {
 	display: table-cell;
 	border: 2rpx solid #333333;
 	/* 可选：添加边框 */
-	padding: 16rpx;
+	padding: 16rpx 0;
 	/* 可选：添加内边距 */
 	text-align: center;
 	/* 水平居中 */
@@ -1598,7 +1606,7 @@ export default {
 	/* 垂直居中 */
 	box-sizing: border-box;
 	/* 包含边框和内边距在宽度内 */
-	width: 118rpx;
+	// width: 118rpx;
 }
 
 .passwordTitle {

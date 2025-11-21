@@ -174,7 +174,7 @@ export default {
 		}
 		return {
 			title: '自定义分享标题',
-			path: '/pages/test/test?id=123',
+			path: '/pages/subOrder/commodityDetails/shareCommodity',
 			imageUrl: ''
 		};
 	},
