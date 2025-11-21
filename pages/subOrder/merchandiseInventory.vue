@@ -149,24 +149,38 @@
 					<!-- <up-swipe-action> -->
 					<view class="OrderCard" style="width: 94vw" v-for="(item, index) in orderItemList" :key="index">
 						<!-- <up-swipe-action-item :show="item.show" :options="options" :name="index" @click="delclick" @open="open"> -->
-						<view class="absolute" style="right: 24rpx">
+						<view class="absolute" style="right: 24rpx; top: 18rpx">
 							<wd-icon name="minus-circle-filled" color="#FA5151" size="40rpx" @click="delclick(index)"></wd-icon>
 						</view>
-						<view class="flex-row pb24" style="width: 93%">
+						<view class="flex-row pb15" style="width: 93%" v-if="uni.$u.getPinia('user.customized')">
 							<view class="">品名:</view>
 							<view class="flex-1 up-line-1">{{ item.description }}</view>
-							<view class="ml10">规格:</view>
+						</view>
+						<view class="flex-row pb15" :style="uni.$u.getPinia('user.customized') ? '' : 'width: 93%'">
+							<view class="" v-if="!uni.$u.getPinia('user.customized')">品名:</view>
+							<view class="flex-1 up-line-1" v-if="!uni.$u.getPinia('user.customized')">{{ item.description }}</view>
+							<view :class="uni.$u.getPinia('user.customized') ? '' : 'ml10'">规格:</view>
 							<view class="flex-1 up-line-1">{{ item.specification }}</view>
+							<view class="ml10" v-if="uni.$u.getPinia('user.customized')">型号:</view>
+							<view class="flex-1 up-line-1" v-if="uni.$u.getPinia('user.customized')">{{ item.modelNo }}</view>
 						</view>
 						<view class="flex-row items-center justify-center" style="width: 100%">
-							<up-line class="u-line ml24 mr24" color="#F4F4F4" :dashed="true" length="100%"></up-line>
+							<up-line class="u-line ml24 mr24" color="#E0E0E0" length="100%"></up-line>
 						</view>
 						<up-table border-color="#ffffff">
 							<up-tr>
 								<up-td>数量</up-td>
-								<up-td>{{ uni.$u.getPinia('user.customized') ? '型号' : '单位' }}</up-td>
+								<up-td>
+									<view class="" style="width: 160rpx">
+										{{ uni.$u.getPinia('user.customized') ? '长度' : '单位' }}
+									</view>
+								</up-td>
 								<up-td>{{ uni.$u.getPinia('user.customized') ? '单重' : '单价' }}</up-td>
-								<up-td width="200rpx">{{ uni.$u.getPinia('user.customized') ? '总重' : '金额' }}</up-td>
+								<up-td>
+									<view style="width: 200rpx">
+										{{ uni.$u.getPinia('user.customized') ? '总重' : '金额' }}
+									</view>
+								</up-td>
 							</up-tr>
 							<up-tr>
 								<up-td>
@@ -187,7 +201,8 @@
 								</up-td>
 								<up-td>
 									<view class="up-line-1" style="width: 160rpx">
-										{{ uni.$u.getPinia('user.customized') ? item.modelNo : item.unit }}
+										{{ uni.$u.getPinia('user.customized') ? item.lengthMm : item.unit }}
+										<!-- {{ uni.$u.getPinia('user.customized') ? item.modelNo : item.unit }} -->
 									</view>
 								</up-td>
 								<up-td>
@@ -215,8 +230,11 @@
 										></wd-icon>
 									</view>
 								</up-td>
-								<up-td width="200rpx">
-									<text style="width: 200rpx" class="up-line-1" v-if="uni.$u.getPinia('user.customized')">{{ `${item.unitWeightKg * item.quantity}` }}</text>
+								<up-td>
+									<text style="width: 200rpx" class="up-line-1" v-if="uni.$u.getPinia('user.customized')">
+										{{ formatAmount(item.unitWeightKg * item.quantity) }}
+									</text>
+									<!-- <text style="width: 200rpx" class="up-line-1" v-if="uni.$u.getPinia('user.customized')">{{ item.lengthMm }}</text> -->
 									<text style="width: 200rpx" class="up-line-1" v-else>{{ `￥${formatAmount(item.unitPrice * item.quantity)}` }}</text>
 
 									<!-- <input type="text" :value="`￥${formatAmount(item.unitPrice * item.quantity)}`" disabled maxlength="10" placeholder="请输入" /> -->

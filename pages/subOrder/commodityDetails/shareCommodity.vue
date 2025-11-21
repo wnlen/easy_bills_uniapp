@@ -72,7 +72,7 @@
 							:src="item.img === 'definde' ? 'https://res-oss.elist.com.cn/wxImg/order/emptyView.png' : item.img"
 						></up-image>
 					</view>
-					<view class="pl20 pt15">
+					<view class="pl20 pt15 pb15">
 						<view class="invText flex-1" @click="jumpCommodityDetails(item)" v-if="uni.$u.getPinia('user.customized')">
 							<text>{{ item.description }}</text>
 							<text class="up-line-1">型号：{{ item.modelNo }}</text>
@@ -637,7 +637,7 @@ export default {
 	font-size: 28rpx;
 }
 .addicon {
-	bottom: 15rpx;
+	bottom: 30rpx;
 	z-index: 10;
 	right: 20rpx;
 }
