@@ -257,7 +257,7 @@
 				</text>
 
 				<text class="ft-lightgray mt10 line25 flex-row items-center justify-end">
-					<text>{{ pinia_userRole == 'D' && uni.$u.getPinia('user.customized') ? '订单总重' : '订单金额' }}：</text>
+					<text>{{ pinia_userRole == 'D' && item.isCustomized ? '订单总重' : '订单金额' }}：</text>
 					<text style="color: black; font-size: 24rpx" v-if="!(pinia_userRole == 'D' && uni.$u.getPinia('user.customized'))">￥</text>
 					<text class="ft35" style="color: black; font-weight: 500">
 						{{ pinia_userRole == 'D' && item.isCustomized ? Number(item.totalWeightKg).toFixed(2) : item.price.toFixed(2) }}
