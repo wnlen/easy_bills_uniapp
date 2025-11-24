@@ -1115,6 +1115,8 @@ export default {
 				quantity: '-',
 				unitPrice: '-',
 				unitWeightKg: '-',
+				modelNo: '-',
+				lengthMm: '-',
 				color: {
 					description: 'transparent',
 					specification: 'transparent',
