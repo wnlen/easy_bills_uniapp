@@ -246,9 +246,9 @@
 							<view class="table">
 								<view class="table-header flex-row justify-center items-center">
 									<view class="table-cell">品名</view>
-									<view class="table-cell">规格</view>
+									<view class="table-cell">{{ orderisCustomized ? '型号' : '规格' }}</view>
+									<view class="table-cell">{{ orderisCustomized ? '规格' : '单位' }}</view>
 									<view class="table-cell" v-if="orderisCustomized">长度</view>
-									<view class="table-cell">{{ orderisCustomized ? '型号' : '单位' }}</view>
 									<view class="table-cell">数量</view>
 									<view class="table-cell">{{ orderisCustomized ? '单重' : '单价' }}</view>
 									<view class="table-cell">{{ orderisCustomized ? '总重' : '金额' }}</view>
@@ -258,13 +258,13 @@
 										<text class="ft24 line25 text-center">{{ item.description }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24">{{ item.specification || '-' }}</text>
+										<text class="ft24">{{ orderisCustomized ? item.modelNo : item.specification }}</text>
+									</view>
+									<view class="table-cell flex-col justify-center items-center">
+										<text class="ft24">{{ orderisCustomized ? item.specification : item.unit }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center" v-if="orderisCustomized">
 										<text class="ft24">{{ item.lengthMm || '-' }}</text>
-									</view>
-									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24">{{ orderisCustomized ? item.modelNo : item.unit }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
 										<text class="ft24">{{ item.quantity }}</text>
@@ -286,9 +286,9 @@
 							<view class="table" v-show="wxType == 1">
 								<view class="table-header flex-row justify-center items-center">
 									<view class="table-cell">品名</view>
-									<view class="table-cell">规格</view>
+									<view class="table-cell">{{ orderisCustomized ? '型号' : '规格' }}</view>
+									<view class="table-cell">{{ orderisCustomized ? '规格' : '单位' }}</view>
 									<view class="table-cell" v-if="orderisCustomized">长度</view>
-									<view class="table-cell">{{ orderisCustomized ? '型号' : '单位' }}</view>
 									<view class="table-cell">数量</view>
 									<view class="table-cell">{{ orderisCustomized ? '单重' : '单价' }}</view>
 									<view class="table-cell">{{ orderisCustomized ? '总重' : '金额' }}</view>
@@ -298,13 +298,13 @@
 										<text class="ft24 line25 text-center">{{ item.description }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24">{{ item.specification || '-' }}</text>
+										<text class="ft24">{{ orderisCustomized ? item.modelNo : item.specification }}</text>
+									</view>
+									<view class="table-cell flex-col justify-center items-center">
+										<text class="ft24">{{ orderisCustomized ? item.specification : item.unit }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center" v-if="orderisCustomized">
 										<text class="ft24">{{ item.lengthMm || '-' }}</text>
-									</view>
-									<view class="table-cell flex-col justify-center items-center">
-										<text class="ft24">{{ orderisCustomized ? item.modelNo : item.unit }}</text>
 									</view>
 									<view class="table-cell flex-col justify-center items-center">
 										<text class="ft24">{{ item.quantity }}</text>
