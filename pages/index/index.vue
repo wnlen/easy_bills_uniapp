@@ -524,7 +524,7 @@ export default {
 				let isExpired = this.hasExpired();
 				return isExpired; //如果到期后面的不再执行
 				this.fetchDashboard(); //加载统计数据
-				// this.getdaiban(true); //获取待办数量
+				this.getdaiban(true); //获取待办数量
 				this.$refs.popTab && this.$refs.popTab.getMessNum();
 				that.$loadUser && that.$loadUser(this);
 				this.guideCourse && this.guideCourse();
