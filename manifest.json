@@ -22,7 +22,9 @@
             "Payment" : {},
             "Share" : {},
             "OAuth" : {},
-            "Push" : {}
+            "Push" : {},
+            "Barcode" : {},
+            "Camera" : {}
         },
         /* 应用发布信息 */
         "distribute" : {
@@ -127,9 +129,9 @@
             "splashscreen" : {
                 "androidStyle" : "default",
                 "android" : {
-                    "hdpi" : "F:/冠鹿信息/易单据/易单据项目图片/480.png",
-                    "xxhdpi" : "F:/冠鹿信息/易单据/易单据项目图片/1080.png",
-                    "xhdpi" : "F:/冠鹿信息/易单据/易单据项目图片/720.png"
+                    "hdpi" : "C:/Users/Administrator/Pictures/易单据项目图片/480x762.png",
+                    "xxhdpi" : "C:/Users/Administrator/Pictures/易单据项目图片/1080x1882.png",
+                    "xhdpi" : "C:/Users/Administrator/Pictures/易单据项目图片/720x1242.png"
                 },
                 "useOriginalMsgbox" : true
             }
