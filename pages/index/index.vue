@@ -1054,7 +1054,8 @@ export default {
 			var workIFS = this.pinia_user.data.work == '1';
 			if (workIFS) {
 				var s = this.pinia_user.workData.endTime;
-				if (s == '0' || s == null) {
+				// console.log('ssssendTime', s);
+				if (s === '0' || s === null) {
 					this.expireShow = true;
 					return false;
 				}
