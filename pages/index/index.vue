@@ -65,7 +65,7 @@
 					<view
 						class="tags flex-row items-center justify-center ft-white"
 						:style="`z-index: ${tagsIndex};`"
-						v-show="pinia_userRole === 'R' && rawData[0].value && index === 0"
+						v-if="pinia_userRole === 'R' && rawData[0].value && index === 0"
 					>
 						去签收
 					</view>
@@ -113,22 +113,16 @@
 				<view
 					class="flex-col justify-center items-center relative"
 					style="
-						width: 80%;
-						height: 25%;
+						width: 600rpx;
+						height: 400rpx;
 						background-image: url('https://res-oss.elist.com.cn/wxImg/index/xftx.png');
 						background-size: 100%;
 						box-sizing: border-box;
 						padding-top: 28rpx;
 					"
 				>
-					<!-- <view class="absolute flex-col justify-center items-center" style="top: 0; height: 160rpx; font-size: 36rpx; font-weight: bold">提示</view> -->
-
-					<!-- #ifdef MP-WEIXIN -->
 					<text style="font-size: 28rpx" v-if="pinia_user.workData">该{{ pinia_user.workData.identity == 3 ? '财务' : '分管' }}人员权限已到期,请联系</text>
-					<!-- #endif -->
-					<!-- #ifdef APP -->
-					<text style="font-size: 28rpx">人员权限已到期,请联系</text>
-					<!-- #endif -->
+
 					<text style="font-size: 28rpx">主账号续费</text>
 
 					<view class="absolute flex-col justify-center items-center" style="bottom: 0; height: 140rpx; width: 100%">
@@ -465,11 +459,13 @@ export default {
 			const role = this.$u.getPinia('user.userRole');
 			const guidanceD = this.$u.getPinia('guide.guidanceD');
 			const identity = this.pinia_user.workData.identity;
-			// 只有发货端弹出提醒 财务不谈
+
+			let isExpired = this.hasExpired();
+			return isExpired;
+			// 只有发货端弹出提醒 财务不弹
 			if (role === 'D' && guidanceD === 1 && identity != 3) {
 				this.openUnreceived();
 			}
-			//
 		}
 	},
 	onShow() {
@@ -491,6 +487,8 @@ export default {
 			//#endif
 		} else {
 			this.$nextTick(() => {
+				let isExpired = this.hasExpired();
+				return isExpired; //如果到期后面的不再执行
 				this.fetchDashboard(); //加载统计数据
 				this.getdaiban(true); //获取待办数量
 				// this.getdaiban(); //获取待办数量
@@ -499,6 +497,7 @@ export default {
 				that.$loadUser(this);
 				this.guideCourse();
 				this.SOCKETfLUSH();
+
 				this.getCustomization();
 			});
 		}
@@ -541,15 +540,14 @@ export default {
 				});
 			}
 		},
+		// 获取是否定制化
 		getCustomization() {
 			uni.$api.customization.customizationUpdated().then((res) => {
-				console.log('定制化信息', res);
 				uni.$u.setPinia({
 					user: {
 						customized: res.data.data.customized
 					}
 				});
-				console.log('定制化信息1', uni.$u.getPinia('user.customized'));
 			});
 		},
 		clicklogin() {
@@ -1051,7 +1049,19 @@ export default {
 				this.fetchDashboard(true);
 			}
 		},
-		// 待办事项  权限是否过期
+		// 权限是否过期
+		hasExpired() {
+			var workIFS = this.pinia_user.data.work == '1';
+			if (workIFS) {
+				var s = this.pinia_user.workData.endTime;
+				if (s == '0' || s == null) {
+					this.expireShow = true;
+					return false;
+				}
+			}
+			return true;
+		},
+		// 待办事项
 		getOrderDB() {
 			var that = this;
 			var workIF = this.pinia_user.data.work == '0';
@@ -1091,6 +1101,7 @@ export default {
 			const throttledFetchOrderDraftList = uni.$u.throttle(fetchOrderDraftList(dx), 3000);
 		},
 		exit() {
+			// #ifdef MP-WEIXIN
 			wx.exitMiniProgram({
 				success: function () {
 					console.log('成功退出小程序');
@@ -1099,6 +1110,17 @@ export default {
 					console.error('退出小程序失败', err);
 				}
 			});
+			// #endif
+			// #ifndef MP-WEIXIN
+			this.$u.setPinia({
+				user: {
+					userRole: this.pinia_userRole,
+					token: '',
+					user: { phone: undefined }
+				}
+			});
+			uni.reLaunch({ url: '/pages/subUser/login' });
+			// #endif
 		}
 	}
 };
