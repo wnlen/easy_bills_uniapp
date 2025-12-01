@@ -42,26 +42,26 @@ export default {
 			uni.setStorageSync('wzc_img', 'https://res-oss.elist.com.cn/wxImg/obj/wzc' + (Math.floor(Math.random() * 3) + 1) + '.svg');
 		}
 	},
-	onShow(options) {
-		this.$getCid?.();
-		this.$monitorPushMessage?.();
+	// onShow(options) {
+	// 	this.$getCid?.();
+	// 	this.$monitorPushMessage?.();
 
-		if (options.scene !== 1007 && this.pinia_user?.phone) {
-			// 使用封装模块连接 WebSocket
-			SocketManager.connect(this.pinia_user.phone, (data) => {
-				if (this.pinia_user?.phone) {
-					this.updateMessageCounts();
-					uni.$u.setPinia({
-						system: {
-							flush: data
-						}
-					});
-				}
-			});
+	// 	if (options.scene !== 1007 && this.pinia_user?.phone) {
+	// 		// 使用封装模块连接 WebSocket
+	// 		SocketManager.connect(this.pinia_user.phone, (data) => {
+	// 			if (this.pinia_user?.phone) {
+	// 				this.updateMessageCounts();
+	// 				uni.$u.setPinia({
+	// 					system: {
+	// 						flush: data
+	// 					}
+	// 				});
+	// 			}
+	// 		});
 
-			this.redirectToIndexIfNeeded();
-		}
-	},
+	// 		this.redirectToIndexIfNeeded();
+	// 	}
+	// },
 	onHide() {
 		SocketManager.close(); // 页面隐藏时清理 WebSocket
 	},
@@ -75,20 +75,21 @@ export default {
 			uni.getNetworkType({
 				success(res) {
 					const connected = res.networkType !== 'none';
-					uni.setStorageSync('NET_CONNECTED', connected);
+					uni.$u.setPinia({
+						system: {
+							NET_CONNECTED: connected
+						}
+					});
 				}
 			});
 
 			// 实时监听
 			uni.onNetworkStatusChange((res) => {
-				uni.setStorageSync('NET_CONNECTED', res.isConnected);
-
-				if (!res.isConnected) {
-					uni.showToast({
-						title: '网络已断开，请检查连接',
-						icon: 'none'
-					});
-				}
+				uni.$u.setPinia({
+					system: {
+						NET_CONNECTED: res.isConnected
+					}
+				});
 			});
 		},
 		async loadfont() {

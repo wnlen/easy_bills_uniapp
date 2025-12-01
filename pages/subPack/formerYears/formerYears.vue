@@ -1008,7 +1008,9 @@ export default {
 			if (this.refresh && timeO && timeT) {
 				this.refresh = false;
 				this.realTimeSel.role = this.pinia_userRole == 'R' ? '1' : '0';
-				this.realTimeSel.isCustomized = 1;
+				if (this.pinia_userRole == 'R') {
+					this.realTimeSel.isCustomized = 1;
+				}
 
 				uni.$api.order
 					.getFilteredOrders(this.realTimeSel)

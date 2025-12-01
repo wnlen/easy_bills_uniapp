@@ -46,6 +46,35 @@ export const initRequest = () => {
 		const isWhite = isWhiteListedPath(config.url)
 		const skipAuth = config.custom?.noAuth === true
 
+		const net = uni.$u.getPinia('system.NET_CONNECTED');
+		//断网检测
+		if (!net) {
+			uni.getNetworkType({
+				success(res) {
+					const connected = res.networkType !== 'none';
+
+					if (!connected) {
+						uni.showToast({
+							title: '网络已断开，请检查连接',
+							icon: 'none'
+						})
+					} else {
+						uni.$u.setPinia({
+							system: {
+								NET_CONNECTED: connected
+							}
+						});
+					}
+				},
+				fail() {
+					uni.showToast({
+						title: '网络状态异常，请检查连接',
+						icon: 'none'
+					})
+				}
+			})
+		}
+
 		if (!isWhite && !skipAuth) {
 			const token = (userStore.token || '').trim()
 			if (!token) {
@@ -74,57 +103,53 @@ export const initRequest = () => {
 
 	// ===== 响应拦截：细分 401 场景，不要误清 token =====
 	http.interceptors.response.use(
-		(res) => res,
+		(res) => {
+			// 后端所有成功都是 { code:200, success:true }
+			const body = res?.data || {}
+			if (body.success === false || body.code && String(body.code) !== '200') {
+				// 业务错误也统一走 error 分支，让业务层处理
+				return Promise.reject({
+					...res,
+					data: body,
+					statusCode: res.statusCode,
+					_fromBizError: true
+				})
+			}
+			return res
+		},
 		async (error) => {
 			const httpCode = error?.statusCode ?? error?.status
-			const data = error?.data || {}
-			// 兼容后端把业务码放 header（推荐做法）
-			const hdrCode = error?.header?.['X-Auth-Error-Code'] || error?.headers?.['X-Auth-Error-Code']
-			const bizCode = String(data?.code || hdrCode || '')
+			const body = error?.data || {}
+			const hdrCode =
+				error?.header?.['X-Auth-Error-Code'] ||
+				error?.headers?.['X-Auth-Error-Code']
 
-			// === 异常接口白名单 ===
-			const SILENT_API_WHITELIST = [
-				'orderDel/get',
-				'inform/all'
-			]
+			const bizCode = String(body?.code || hdrCode || '')
 
+			// ============ 1. 特殊接口白名单（避免 UI 抖动） ============
+			const SILENT_API_WHITELIST = ['orderDel/get', 'inform/all']
 			const reqUrl = error?.config?.url || ''
-			const isSilentApi = SILENT_API_WHITELIST.some(path => reqUrl.includes(path))
+			const isSilentApi = SILENT_API_WHITELIST.some((p) =>
+				reqUrl.includes(p)
+			)
 
-			// --- 网络层异常（如断网、超时、DNS），既没有 httpCode 也没有 bizCode ---
-			// if (!httpCode && !bizCode) {
-			// 	if (!isSilentApi) {
-			// 		uni.showToast({
-			// 			title: '网络异常，请检查连接',
-			// 			icon: 'none'
-			// 		})
-			// 	}
-			// 	return Promise.reject(error)
-			// }
-
-			// --- 会话/Redis 等服务端异常：HTTP 503 + 业务码 50001 -> 不清 token，只提示 ---
-			if (httpCode === 503 || bizCode == '50001') {
-
-				uni.showToast({
-					title: error.data.message,
-					icon: 'none'
-				})
-				// 可选：对幂等 GET 请求做一次轻量重试，避免偶发抖动
-				// if (error?.config && error.config.method?.toUpperCase() === 'GET' && !error.config.__retried) {
-				//   error.config.__retried = true
-				//   return http.request(error.config)
-				// }
+			// ============ 2. 服务端异常：不要误清 token ============
+			// 场景：Redis 抖动、网关 502/503、服务重启
+			if ([502, 503, 504].includes(httpCode) || bizCode === '50001') {
+				!isSilentApi &&
+					uni.showToast({
+						title: body.message || '系统繁忙，请稍后再试',
+						icon: 'none'
+					})
 				return Promise.reject(error)
 			}
 
-			// --- 鉴权相关：只在确认为“失效/冲突/缺失”时清 token ---
-			const shouldLogout =
-				httpCode === 401 || ['40101', '40102', '40103', 401].includes(bizCode)
+			// ============ 3. 鉴权失效：明确业务码才清 token ============
+			const isAuthFailed =
+				httpCode === 401 || ['40101', '40102', '40103'].includes(bizCode)
 
-
-			if (shouldLogout) {
-
-				// 40101 未带/格式错；40102 过期；40103 被挤下线
+			if (isAuthFailed) {
+				// 清除本地 token
 				uni.$u.setPinia({
 					user: {
 						token: '',
@@ -134,19 +159,27 @@ export const initRequest = () => {
 					}
 				})
 
-				// 针对 40103 友好提示
+				// 40103（被挤下线）提示
 				if (bizCode === '40103') {
-
 					uni.showToast({
-						title: error.data.message,
+						title: body.message || '您的账号在其他设备登录',
 						icon: 'none'
 					})
 				}
+
 				goLoginOnce()
 				return Promise.reject(error)
 			}
 
-			// 其它错误，交给业务层
+			// ============ 4. 其它普通业务错误 ============
+			// 只提示，不动 token
+			if (!isSilentApi) {
+				uni.showToast({
+					title: body?.message || '请求失败，请稍后再试',
+					icon: 'none'
+				})
+			}
+
 			return Promise.reject(error)
 		}
 	)

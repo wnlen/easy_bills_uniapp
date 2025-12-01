@@ -472,37 +472,66 @@ export default {
 		// #ifndef MP-WEIXIN
 		uni.hideTabBar();
 		// #endif
+		const net = uni.$u.getPinia('system.NET_CONNECTED'); // 读取网络状态
+		const hasToken = !!this.pinia_token;
+		// 本地清理无所谓
+		if (uni.getStorageSync('inventoryStockpile')) {
+			uni.removeStorageSync('inventoryStockpile');
+		}
+		// 不管有网没网，这些纯本地的不怕
+		this.setDR(this.pinia_userRole);
+		// ===========================
+		// 1) 断网场景：只展示本地 UI，不发请求
+		// ===========================
+		if (net === false) {
+			console.log('[首页] 当前为离线模式');
+			if (!hasToken) {
+				// 未登录且离线：只展示默认广告 & 静态界面
+				if (this.pinia_userRole == 'D') {
+					this.middleBanner = this.middleBannerlXD;
+				} else {
+					this.middleBanner = this.middleBannerlXR;
+				}
+				this.ringOpts.color = ['#ECECEC', '#ECECEC', '#ECECEC'];
+			} else {
+				// 已登录 + 离线：保留上一次缓存的数据即可，不再请求
+				// 比如你可以从 storage 里读上次的 dashboard 缓存
+				// this.dashboard = uni.getStorageSync('dashboardCache') || {}
+			}
+			// 给个温和提示（可选）
+			uni.showToast({
+				title: '当前为离线模式，部分数据无法更新',
+				icon: 'none',
+				duration: 2000
+			});
+			// 离线模式下，直接 return，不再请求网络、不建 socket
+			return;
+		}
+		// ===========================
+		// 2) 有网络：按原逻辑走
+		// ===========================
 		var that = this;
 		this.getmiddleBanner(); //加载广告
-		this.setDR(this.pinia_userRole); //从收货端点击登录要在onShow的时候设置角色
-		if (!this.pinia_token) {
+		if (!hasToken) {
 			if (this.pinia_userRole == 'D') {
 				this.middleBanner = this.middleBannerlXD;
 			} else {
 				this.middleBanner = this.middleBannerlXR;
 			}
 			this.ringOpts.color = ['#ECECEC', '#ECECEC', '#ECECEC'];
-			//#ifdef APP
-			// this.$univerify();
-			//#endif
 		} else {
 			this.$nextTick(() => {
 				let isExpired = this.hasExpired();
 				return isExpired; //如果到期后面的不再执行
 				this.fetchDashboard(); //加载统计数据
 				this.getdaiban(true); //获取待办数量
-				// this.getdaiban(); //获取待办数量
+				this.$refs.popTab && this.$refs.popTab.getMessNum();
+				that.$loadUser && that.$loadUser(this);
+				this.guideCourse && this.guideCourse();
+				this.SOCKETfLUSH && this.SOCKETfLUSH();
+				this.getCustomization && this.getCustomization();
 
-				this.$refs.popTab.getMessNum();
-				that.$loadUser(this);
-				this.guideCourse();
-				this.SOCKETfLUSH();
-
-				this.getCustomization();
 			});
-		}
-		if (uni.getStorageSync('inventoryStockpile')) {
-			uni.removeStorageSync('inventoryStockpile');
 		}
 	},
 	onShareAppMessage() {
