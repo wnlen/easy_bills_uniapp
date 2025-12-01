@@ -128,7 +128,7 @@
 				<view class="yjdl" @click="$univerify()">本机号码一键登录</view>
 				<view class="mt20" style="color: #aaaaaa; font-size: 24rpx; text-align: center">第三方登录</view>
 				<view class="mt10 flex-row justify-center items-center" style="text-align: center">
-					<view class="flex-row justify-center items-center mr30" style="background-color: #01bb74; height: 96rpx; width: 96rpx; border-radius: 50%">
+					<view class="flex-row justify-center items-center mr30" style="background-color: #20c300; height: 96rpx; width: 96rpx; border-radius: 50%">
 						<albb-icon icon="ydj-weixin-fill" color="#fff" size="80rpx" @active="wxloginInit"></albb-icon>
 					</view>
 					<!-- #ifdef APP-IOS -->
@@ -138,8 +138,7 @@
 			</view>
 		</view>
 		<!-- #endif -->
-		<!-- 微信小程序隐私弹窗 -->
-
+		<!--隐私弹窗 -->
 		<up-popup :show="yinsi_show" :safeAreaInsetBottom="false" mode="center" @close="yinsi_close" @open="yinsi_open" :customStyle="yisi_customStyle">
 			<view class="yinsi_box">
 				<view class="yinsi_title">用户协议及隐私政策</view>
@@ -151,9 +150,16 @@
 					<text>，同意授权后未注册的手机号码将自动注册易单据账号</text>
 				</view>
 				<view class="btn_l" @click="yinsi_close">不同意</view>
+				<!-- #ifdef MP-WEIXIN -->
 				<view @click="yinsi_agree" class="btn_r">
 					<wd-button class="btn_r" open-type="getPhoneNumber" @getphonenumber="(e) => getPhoneNumber(e)">同意并继续</wd-button>
 				</view>
+				<!-- #endif -->
+				<!-- #ifndef MP-WEIXIN -->
+				<view @click="yinsi_agree" class="btn_r">
+					<wd-button class="btn_r" @click="verificationLogin()">同意并继续</wd-button>
+				</view>
+				<!-- #endif -->
 			</view>
 		</up-popup>
 
@@ -468,12 +474,8 @@ export default {
 			// 	}
 			// });
 		},
+		// 手机号验证码验证
 		LoginImport() {
-			if (!this.ischeck) {
-				this.$u.toast('请勾选用户协议～');
-				return;
-			}
-
 			if (this.fromLogin.phoneNumber == '' && this.fromLogin.phoneNumber.length < 11) {
 				this.$u.toast('请输入手机号码～');
 				this.phoneNumberErr = true;
@@ -485,7 +487,14 @@ export default {
 				this.smsCodeErr = true;
 				return;
 			}
-
+			if (!this.ischeck) {
+				this.yinsi_show = true;
+				return;
+			}
+			this.verificationLogin();
+		},
+		// 验证码登录
+		verificationLogin() {
 			uni.$api.user
 				.loginAppPhone({
 					phoneNumber: String(this.fromLogin.phoneNumber || ''),
@@ -509,7 +518,7 @@ export default {
 				})
 				.catch((res) => {
 					console.log('报错', res);
-					this.$u.toast(res.data.data);
+					this.$u.toast(res.data.message);
 				});
 		},
 		wxloginInit() {
@@ -635,7 +644,7 @@ export default {
 }
 
 .head {
-	margin-bottom: 210rpx;
+	margin-bottom: 310rpx;
 	width: 100%;
 	position: relative;
 }
@@ -649,7 +658,7 @@ export default {
 	font-feature-settings: 'kern' on;
 	color: #333333;
 	position: absolute;
-	top: 150rpx;
+	top: 190rpx;
 	left: 40rpx;
 }
 

@@ -1,8 +1,7 @@
 <template>
 	<view class="content pd15 bg-gray">
-		<view class="vw100 relative flex-col justify-center items-center" style="height: 100vh" v-if="!allShow && !defShow">
-			<up-empty icon="https://res-oss.elist.com.cn/wxImg/vip/print.svg" iconSize="400rpx" text="暂无打印机~" mode="search" margin-top="-150"></up-empty>
-
+		<view class="is-center flex-col items-center" v-if="!allShow && !defShow">
+			<up-empty icon="https://res-oss.elist.com.cn/wxImg/vip/print.svg" iconSize="400rpx" text="暂无打印机~" mode="search"></up-empty>
 			<wd-button @click="buy" :customStyle="{ width: '300rpx', height: '70rpx', fontSize: '30rpx', marginTop: '100rpx', background: '#47506C' }">去购买</wd-button>
 		</view>
 
@@ -160,6 +159,12 @@ export default {
 </script>
 
 <style>
+.is-center {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
 .content {
 	background-color: #f9f9f9;
 	height: 100vh;

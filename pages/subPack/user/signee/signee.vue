@@ -41,7 +41,6 @@
 						</view>
 						<text class="ft25 line25 ft-gray mt10">{{ item.phone }}</text>
 					</view>
-					<!-- #ifdef MP-WEIXIN -->
 					<view style="margin-right: 15rpx">
 						<view class="mr20">
 							<albb-icon icon="ydj-bianji" color="#aaa" size="34rpx" @active="goDetails(item, 1)"></albb-icon>
@@ -52,21 +51,6 @@
 							<albb-icon icon="ydj-shanchu" color="#aaa" size="34rpx" @active="goDetails(item.id, 2)"></albb-icon>
 						</view>
 					</view>
-					<!-- #endif -->
-					<!-- #ifndef MP-WEIXIN -->
-					<view style="margin-right: 15rpx">
-						<view class="mr20">
-							<albb-icon icon="ydj-bianji" color="#aaa" size="34rpx" @active="goDetails(item, 1)"></albb-icon>
-							<!-- <wd-icon name="edit-1" color="#aaa" size="34rpx" @click="goDetails(item, 1)"></wd-icon> -->
-						</view>
-					</view>
-					<view style="margin-right: 24rpx; margin-left: 30rpx">
-						<view class="ml30 mr20">
-							<albb-icon icon="ydj-shanchu" color="#aaa" size="34rpx" @active="goDetails(item.id, 2)"></albb-icon>
-							<!-- <wd-icon name="delete1" color="#aaa" size="34rpx" @click="goDetails(item.id, 2)"></wd-icon> -->
-						</view>
-					</view>
-					<!-- #endif -->
 				</view>
 				<view class="u-border-top pt30 mt30 flex-row items-center justify-between">
 					<view class="flex-row items-center" v-if="item.ifDefault != 'Y'">
@@ -75,7 +59,7 @@
 					</view>
 				</view>
 				<up-popup :show="show" @close="show = false" :safeAreaInsetBottom="false" mode="center" :closeable="true">
-					<up-image style="transform: rotate(90deg)" width="500rpx" mode="widthFix" :src="item.signatureImg"></up-image>
+					<up-image width="500rpx" mode="widthFix" :src="item.signatureImg"></up-image>
 				</up-popup>
 
 				<up-overlay :show="showMask" @click="showMask = false">

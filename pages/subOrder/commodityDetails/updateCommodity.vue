@@ -2,7 +2,8 @@
 	<view class="uploadingCommodity">
 		<up-navbar :autoBack="true" :placeholder="true" :titleBold="true" :title="navbarTitle"></up-navbar>
 		<view class="uploadingCommodityImg">
-			<up-upload
+			<wd-upload v-model:file-list="imgList" :upload-text="'添加图片'" :show-limit-num="false" :limit="1" image-mode="aspectFill" :action="action"></wd-upload>
+			<!-- <up-upload
 				v-model:fileList="imgList"
 				autoUpload
 				autoDelete
@@ -21,7 +22,7 @@
 					<wd-icon name="add-circle1" color="#01BB74" size="50rpx" />
 					<view class="mt15">添加图片</view>
 				</view>
-			</up-upload>
+			</up-upload> -->
 		</view>
 
 		<view class="uploadingCommodityFrom">
@@ -381,6 +382,11 @@ export default {
 </script>
 
 <style lang="scss">
+.wd-upload__evoke,
+.wd-upload__preview {
+	height: 264rpx !important;
+	width: 264rpx !important;
+}
 .u-upload__wrap {
 	justify-content: center !important;
 }
@@ -393,18 +399,8 @@ export default {
 	min-height: 100vh;
 	padding-bottom: 150rpx;
 	.uploadingCommodityImg {
-		background: rgba(244, 244, 244, 0.5);
 		margin-left: 24rpx;
-		// margin-right: 24rpx;
 		margin-top: 24rpx;
-		height: 16vh;
-		width: 34vw;
-		border-radius: 12rpx;
-
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
 	}
 
 	.uploadingCommodityFrom {
@@ -435,6 +431,9 @@ export default {
 			.uploadingCommodityFromCardRowInput {
 				position: absolute;
 				right: 24rpx;
+			}
+			&:nth-of-type(1) {
+				margin-top: 0;
 			}
 		}
 	}

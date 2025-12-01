@@ -162,6 +162,7 @@
 					>
 						<text>去开单</text>
 					</wd-button>
+					<!-- #ifdef MP-WEIXIN -->
 					<wd-button
 						v-if="pinia_userRole == 'R' && pinia_user.phone"
 						dataName="shareFriend"
@@ -172,6 +173,18 @@
 					>
 						<text>去邀请</text>
 					</wd-button>
+					<!-- #endif -->
+					<!-- #ifndef MP-WEIXIN -->
+					<wd-button
+						v-if="pinia_userRole == 'R' && pinia_user.phone"
+						@click="setShareData('shareFriend', '')"
+						iconColor="#ECFFF9"
+						:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent', color: '#01BB74' }"
+						:plain="true"
+					>
+						<text>去邀请</text>
+					</wd-button>
+					<!-- #endif -->
 					<wd-button
 						v-if="pinia_userRole == 'R' && !pinia_user.phone"
 						iconColor="#ECFFF9"
@@ -335,14 +348,7 @@
 							</button>
 							<!-- #endif -->
 							<!-- #ifndef MP-WEIXIN -->
-							<button
-								class="hl-btn flex-row items-center justify-center"
-								type="default"
-								@click="
-									showShare = true;
-									shareImg = item.picturesId;
-								"
-							>
+							<button class="hl-btn flex-row items-center justify-center" type="default" @click="setShareData('', item)">
 								<albb-icon icon="ydj-zhuanfa" size="20rpx" color="#666666"></albb-icon>
 								<text class="ft22 ml10">{{ pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发' }}</text>
 							</button>
@@ -401,7 +407,8 @@
 			</template>
 		</z-paging>
 		<pop-tab :tabIndex="1" ref="popTabCom"></pop-tab>
-		<pop-share :show="showShare" :imageUrl="shareImg" @closeShare="showShare = false"></pop-share>
+		<!-- app分享 -->
+		<pop-share :show="showShare" :sharePath="sharePath" :shareTitle="shareTitle" :imageUrl="shareImg" @closeShare="showShare = false"></pop-share>
 		<!-- 弹出层 -->
 		<up-popup :show="show_start" @close="show_start = false" mode="top" :safeAreaInsetBottom="false" :safeAreaInsetTop="true" zIndex="999">
 			<!-- #ifdef MP-WEIXIN -->
@@ -645,6 +652,8 @@ const current = ref(0);
 const dataList = ref([]);
 const reload = ref(false);
 const showShare = ref(false);
+const sharePath = ref('');
+const shareTitle = ref('');
 const total = ref(0);
 const current_page = ref(0);
 const last_page = ref(1);
@@ -879,7 +888,7 @@ onPullDownRefresh(() => {
 
 // 分享页面逻辑
 onShareAppMessage((ops) => {
-	const store = useUserStore();
+	const store = userStore;
 	const pinia_user = store.user;
 	const pinia_userRole = store.userRole;
 	if (ops.from === 'button') {
@@ -924,8 +933,41 @@ onShareAppMessage((ops) => {
 	}
 });
 
+// app分享数据设置
+function setShareData(type, item) {
+	const store = userStore;
+	const pinia_user = store.user;
+	const pinia_userRole = store.userRole;
+	if (type == 'shareFriend') {
+		// 邀请成为供应商
+		let title = '',
+			imageUrl = '';
+		if (pinia_userRole == 'D') {
+			title = '邀请您成为他的客户~';
+			imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareD.png';
+		} else {
+			title = '邀请您成为他的供应商~';
+			imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareR.png';
+		}
+		var phone = pinia_user.data.work == '0' ? pinia_user.phone : pinia_user.workData.bossNumber;
+		shareImg.value = imageUrl;
+		sharePath.value = '/pages/subMessage/friend_apply_for/shareFriend?phone=' + phone + '&invitationRole=' + pinia_userRole;
+		shareTitle.value = title;
+		showShare.value = true;
+	} else {
+		// 分享订单
+		const phone = userStore.user.phone;
+		const port = userStore.userRole;
+
+		shareImg.value = item.picturesId;
+		sharePath.value = `/pages/subOrder/detailsShare?share_id=${item.id}&&type=1&&phone=${phone}&&port=${port}&&versions=Y`;
+		shareTitle.value = '您有一张订单待确认~';
+		showShare.value = true;
+	}
+}
+
 function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList, customer, current) {
-	const store = useUserStore();
+	const store = userStore;
 	const global = useGlobalStore();
 	const pinia_user = store.user;
 	const pinia_userRole = store.userRole;
@@ -1033,9 +1075,11 @@ function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList,
 }
 
 function onClear() {
-	setTimeout(() => {
-		inputblur('');
-	}, 1000); // 或者 100ms，根据需要调整
+	field.value = '';
+	searchListennerConfirm();
+	// setTimeout(() => {
+	// 	inputblur('');
+	// }, 1000); // 或者 100ms，根据需要调整
 }
 
 function inputblur(e) {
@@ -1573,7 +1617,7 @@ function updateOrder(order) {
 }
 
 function searchListenner(e) {
-	const store = useUserStore();
+	const store = userStore;
 	const pinia_user = store.user;
 	const pinia_userRole = store.userRole;
 	const filterIndex = showTage.value;

@@ -391,7 +391,7 @@
 							@click="DownPdf(post)"
 							style="background: #fffbdd; border-radius: 6rpx; color: #ffc300; width: 28%; margin-left: 3%; height: 80rpx"
 						>
-							<view style="border-bottom: 2rpx solid #ffc300; padding-bottom: 1rpx; padding-top: 3rpx; font-weight: 500">下载PDF</view>
+							<view style="border-bottom: 2rpx solid #ffc300; font-weight: 500">下载PDF</view>
 						</view>
 					</view>
 				</view>

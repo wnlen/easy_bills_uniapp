@@ -20,7 +20,9 @@
 					bgColor="transparent"
 					:background="{ background: 'transparent' }"
 				></up-navbar>
-				<up-notice-bar v-if="uNoticeBarlist.length" direction="column" :text="uNoticeBarlist" padding="6rpx 12rpx"></up-notice-bar>
+				<view class="">
+					<up-notice-bar v-if="uNoticeBarlist.length" direction="column" :text="uNoticeBarlist" padding="6rpx 12rpx"></up-notice-bar>
+				</view>
 				<view class="flex-row justify-between pl30 pr30" style="width: 100%; height: 5vh">
 					<view class="flex-col justify-center items-center" @click="selectionIconClick" style="height: 100%">
 						<liu-data-select elementId="data-select1" :dataList="dataList" @change="dropdown" color="#965510">

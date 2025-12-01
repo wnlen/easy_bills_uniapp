@@ -396,9 +396,7 @@
 			"
 			confirmText="我知道了"
 		></up-modal>
-		<up-overlay :show="roleShow">
-			<pop-renew ref="popRenew" :item="buy"></pop-renew>
-		</up-overlay>
+		<pop-renew ref="popRenew" :item="buy"></pop-renew>
 	</view>
 </template>
 
@@ -422,7 +420,6 @@ export default {
 				hhrgm: 'https://res-oss.elist.com.cn/wxImg/vip/hhr.svg',
 				hhrxf: 'https://res-oss.elist.com.cn/wxImg/vip/hhrxf.svg'
 			},
-			roleShow: false,
 			show: false,
 			showAl: 0,
 			user: {
@@ -471,8 +468,6 @@ export default {
 		}
 
 		this.systemIf();
-
-		this.roleShow = false;
 	},
 	onPullDownRefresh() {
 		console.log('下拉');
@@ -612,7 +607,6 @@ export default {
 				}
 			}
 			console.log('最后的图片：', this.$refs.popRenew.src);
-			this.roleShow = true;
 			this.$refs.popRenew.roleShow = true;
 		},
 		CrearOrder(json, index) {
@@ -675,7 +669,6 @@ export default {
 					this.$refs.popRenew.src = this.imgList.hhrxf + '?time=' + this.getTimestamp();
 				}
 			}
-			this.roleShow = true;
 			this.$refs.popRenew.roleShow = true;
 		},
 		getTimestamp() {

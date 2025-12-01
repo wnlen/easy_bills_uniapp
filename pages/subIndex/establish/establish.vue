@@ -45,10 +45,10 @@
 		</view>
 
 		<view class="mt60 pl20 pr20 pb30 absolute" style="bottom: 24rpx; width: 100%" v-if="user.port == 'D'">
-			<wd-button :customStyle="{ width: '100%' }" @click="establishFriend" >创建客户</wd-button>
+			<wd-button :customStyle="{ width: '100%' }" @click="establishFriend">创建客户</wd-button>
 		</view>
 		<view class="mt60 pl20 pr20 pb30 absolute" style="bottom: 24rpx; width: 100%" v-if="user.port == 'R'">
-			<wd-button :customStyle="{ width: '100%' }" @click="establishFriend" >创建供应商</wd-button>
+			<wd-button :customStyle="{ width: '100%' }" @click="establishFriend">创建供应商</wd-button>
 		</view>
 	</view>
 </template>
@@ -88,8 +88,8 @@ export default {
 	},
 	methods: {
 		searchPhoneInput(e) {
-			this.submitUser.eBossNumber = e.target.value;
-			this.remark = e.target.value;
+			this.submitUser.eBossNumber = e.value.value;
+			this.remark = e.value.value;
 		},
 		Init() {
 			var ifWorkPort = this.pinia_userRole == 'R';

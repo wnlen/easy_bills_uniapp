@@ -1,5 +1,5 @@
 <template>
-	<view @tap.stop v-show="roleShow" class="flex-col justify-center items-center pop-renew">
+	<view @tap.stop v-if="roleShow" class="flex-col justify-center items-center pop-renew">
 		<view class="relative flex-col justify-center items-center" style="height: 100%; width: 100%; margin-top: 200rpx">
 			<up-image class="" :showLoading="true" :src="src" width="720rpx" height="720rpx"></up-image>
 			<view class="absolute" style="top: 5%; right: 10%">
@@ -48,7 +48,7 @@ export default {
 	data() {
 		return {
 			productCode: [],
-			roleShow: true,
+			roleShow: false,
 			src: 'https://res-oss.elist.com.cn/wxImg/order/yjkd.png',
 			year: 1,
 			order: {
@@ -69,7 +69,7 @@ export default {
 	},
 	methods: {
 		close() {
-			this.$parent.$parent.showOrderPly = false;
+			// this.$parent.$parent.showOrderPly = false;
 			this.roleShow = false;
 			uni.switchTab({
 				url: '/pages/index/index'

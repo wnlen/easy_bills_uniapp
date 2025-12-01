@@ -11,20 +11,16 @@
 		>
 			<template #top>
 				<up-navbar title="消息" :placeholder="true">
-					<template #left></template>
+					<template #left>
+						<view class=""></view>
+					</template>
 				</up-navbar>
 				<view>
 					<up-notice-bar direction="column" :text="list2"></up-notice-bar>
 				</view>
 
-				<view class="vw100" style="margin-top: 50%; height: 200rpx" v-if="!ifShow()">
-					<up-empty
-						icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg"
-						iconSize="400rpx"
-						text="暂无消息~"
-						mode="search"
-						marginTop="200rpx"
-					></up-empty>
+				<view class="is-center" v-if="!ifShow()">
+					<up-empty icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/dbsx.svg" iconSize="400rpx" text="暂无消息~" mode="search"></up-empty>
 				</view>
 				<view class="">
 					<up-swipe-action :show="item.show" :index="index" v-for="(item, index) in list" :key="index" @click="click" disabled :options="options">
@@ -327,6 +323,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.is-center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
 .content {
 	width: 100vw;
 	height: 100vw;

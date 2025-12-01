@@ -7,7 +7,6 @@
 					<text class="textcolor">订单编号:</text>
 					<input
 						placeholder-class="placeholder_class"
-						type="number"
 						v-model="billFrom.billNumber"
 						:style="{ color: '#F76565' }"
 						maxlength="18"
@@ -22,7 +21,6 @@
 					<input
 						v-if="pinia_user.data.work == '0' ? pinia_user.phone == billFrom.sourcePhone : pinia_user.workData.bossNumber == billFrom.sourcePhone"
 						placeholder-class="placeholder_class"
-						type="number"
 						v-model="billFrom.billEnterpriseE"
 						:style="{ color: '#333333' }"
 						maxlength="20"
@@ -33,7 +31,6 @@
 					<input
 						v-else
 						placeholder-class="placeholder_class"
-						type="number"
 						v-model="billFrom.billEnterpriseS"
 						:style="{ color: '#333333' }"
 						maxlength="20"
@@ -47,7 +44,6 @@
 					<input
 						placeholder-class="placeholder_class"
 						disabled
-						type="number"
 						v-model="billFrom.billTime"
 						:style="{ color: '#333333' }"
 						maxlength="11"

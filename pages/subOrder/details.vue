@@ -442,7 +442,7 @@
 							@click="DownPdf(post)"
 							style="background: #fffbdd; border-radius: 6rpx; color: #ffc300; width: 22%; margin-left: 3%; height: 80rpx"
 						>
-							<view style="border-bottom: 2rpx solid #ffc300; padding-bottom: 1rpx; padding-top: 3rpx; font-weight: 500">下载PDF</view>
+							<view style="border-bottom: 2rpx solid #ffc300; font-weight: 500">下载PDF</view>
 						</view>
 						<!-- {{(pinia_user.data.work=='1'?pinia_user.workData.identity!='3':true)}}
 						{{(pinia_user.data.work=='1')}}
@@ -453,7 +453,7 @@
 							v-if="pinia_userRole != 'R' && (pinia_user.data.work == '1' ? pinia_user.workData.identity != '3' : true)"
 							style="background: #eef4ff; border-radius: 6rpx; color: #4d91ff; width: 22%; margin-left: 3%; height: 80rpx"
 						>
-							<view style="border-bottom: 2rpx solid #4d91ff; padding-bottom: 1rpx; padding-top: 3rpx; font-weight: 500">复制开单</view>
+							<view style="border-bottom: 2rpx solid #4d91ff; font-weight: 500">复制开单</view>
 						</view>
 					</view>
 
