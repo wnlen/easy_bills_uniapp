@@ -15,7 +15,15 @@
 		<view class="bg-white radius12 mt60 ml30 mr30">
 			<view class="mb54 flex-row justify-between">
 				<view class="charts-box relative" @touchmove.stop.prevent>
-					<qiun-data-charts type="ring" :animation="false" :canvas2d="true" canvasId="mQeRxIXWgXIzJwrjsSJdlsgpudfZgkIY" :opts="ringOpts" :chartData="chartsDataPie2" />
+					<qiun-data-charts
+						type="ring"
+						:animation="false"
+						:tooltipShow="false"
+						:canvas2d="true"
+						canvasId="mQeRxIXWgXIzJwrjsSJdlsgpudfZgkIY"
+						:opts="ringOpts"
+						:chartData="chartsDataPie2"
+					/>
 					<view class="text-center ft-bold">
 						<text class="ft24" v-if="!(pinia_userRole == 'D' && uni.$u.getPinia('user.customized'))">￥</text>
 						<text v-for="(item, index) in formatAmount(allprice).split('.')" :class="index == 0 ? 'ft32' : 'ft24'" :key="index">
@@ -238,7 +246,6 @@ export default {
 			],
 			allprice: 0,
 			ringOpts: {
-				tooltipShow: false, //是否显示tooltip提示窗
 				rotate: false,
 				rotateLock: false,
 				padding: [0, 0, 0, 0],
@@ -461,7 +468,9 @@ export default {
 			const identity = this.pinia_user.workData.identity;
 
 			let isExpired = this.hasExpired();
-			return isExpired;
+			if (!isExpired) {
+				return;
+			}
 			// 只有发货端弹出提醒 财务不弹
 			if (role === 'D' && guidanceD === 1 && identity != 3) {
 				this.openUnreceived();
@@ -522,7 +531,10 @@ export default {
 		} else {
 			this.$nextTick(() => {
 				let isExpired = this.hasExpired();
-				return isExpired; //如果到期后面的不再执行
+				if (!isExpired) {
+					return; //如果到期后面的不再执行
+				}
+
 				this.fetchDashboard(); //加载统计数据
 				this.getdaiban(true); //获取待办数量
 				this.$refs.popTab && this.$refs.popTab.getMessNum();
@@ -767,9 +779,9 @@ export default {
 		},
 		// 新手指引
 		guideCourse() {
-			if (this.$u.getPinia('user.userRole') == 'D' && this.$u.getPinia('guide.guidanceD') != 1) {
+			if (this.$u.getPinia('user.userRole') === 'D' && this.$u.getPinia('guide.guidanceD') !== 1) {
 				this.$refs.FunctionGuide.init();
-			} else if (this.$u.getPinia('user.userRole') == 'R' && this.$u.getPinia('guide.guidanceR') != 1) {
+			} else if (this.$u.getPinia('user.userRole') === 'R' && this.$u.getPinia('guide.guidanceR') !== 1) {
 				this.$refs.FunctionGuide.init();
 			}
 		},
