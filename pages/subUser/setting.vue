@@ -15,6 +15,11 @@
 						<text class="ft-lightgray">{{ item.id == '1' ? (pinia_userRole == 'D' ? '发货方' : '收货方') : '' }}</text>
 					</template>
 				</up-cell>
+				<up-cell :titleStyle="{ color: '#666666' }" title="微信快速登录" @click="wxbind" :isLink="true">
+					<template #value>
+						<text class="ft-lightgray">{{ pinia_userRole == 'D' ? '绑定' : '未绑定' }}</text>
+					</template>
+				</up-cell>
 				<up-cell :titleStyle="{ color: '#666666' }" title="注销账号" @click="writeOff" :isLink="true"></up-cell>
 				<up-cell :titleStyle="{ color: '#666666' }" title="退出登录" @click="loginOut" :isLink="true"></up-cell>
 			</up-cell-group>

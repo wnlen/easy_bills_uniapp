@@ -1,6 +1,7 @@
 <template>
 	<view class="pt60">
 		<view class="flex-row justify-center pt30 mb20 avatar-area">
+			<!-- #ifdef MP-WEIXIN -->
 			<button open-type="chooseAvatar" @chooseavatar="onChooseAvatar" type="default" mode="circle">
 				<view class="relative" style="">
 					<up-avatar :level-icon="camera" size="150rpx" :src="`${userInfo.headPortrait}`"></up-avatar>
@@ -13,6 +14,19 @@
 					</view>
 				</view>
 			</button>
+			<!-- #endif -->
+			<!-- #ifndef MP-WEIXIN -->
+			<view class="relative" style="" @click="uploadImg">
+				<up-avatar :level-icon="camera" size="150rpx" :src="`${userInfo.headPortrait}`"></up-avatar>
+				<!-- camera -->
+				<view
+					class="absolute flex-col justify-center items-center"
+					style="border-radius: 50%; width: 50rpx; height: 50rpx; background-color: #f4f4f4; z-index: 9999; right: 0; bottom: 10rpx"
+				>
+					<wd-icon name="camera" color="#333333" size="30rpx"></wd-icon>
+				</view>
+			</view>
+			<!-- #endif -->
 		</view>
 		<!-- <view class="box ml48 mr48 pd30 bg-white"> -->
 		<view class="ml32 mr32 bg-white mt40">
@@ -30,7 +44,7 @@
 						placeholder="输入姓名"
 						@blur="onNickname"
 					/>
-					<wd-icon name="arrow-right" color="#ccc" @click="userInfoNickNameFocus = true"></wd-icon>
+					<wd-icon size="30rpx" name="arrow-right" color="#ccc" @click="userInfoNickNameFocus = true"></wd-icon>
 				</view>
 			</view>
 			<view class="flex-row pt35 pb35 u-border-bottom items-center justify-between">
@@ -46,7 +60,7 @@
 						<view class="flex-row justify-end items-center flex-1">
 							<text>{{ array[gender] || '请选择' }}</text>
 							<view class="ml3">
-								<wd-icon name="arrow-right" color="#ccc"></wd-icon>
+								<wd-icon name="arrow-right" size="30rpx" color="#ccc"></wd-icon>
 							</view>
 						</view>
 					</picker>
@@ -115,11 +129,17 @@ export default {
 			this.gender = e.detail.value;
 			this.userInfo.gender = parseInt(e.detail.value);
 		},
-		onChooseAvatar(e) {
-			let that = this,
-				fileAvatar = e.detail.avatarUrl;
-			console.log('fileAvatar', fileAvatar);
-			console.log('uni.$http.config.baseURL', uni.$http.config.baseURL);
+		uploadImg() {
+			uni.chooseImage({
+				count: 1,
+				success: (chooseImageRes) => {
+					const tempFilePaths = chooseImageRes.tempFilePaths;
+					this.toUpload(tempFilePaths[0]);
+				}
+			});
+		},
+		toUpload(fileAvatar) {
+			let that = this;
 
 			uni.uploadFile({
 				url: uni.$http.config.baseURL + 'user/modifyImage',
@@ -156,6 +176,10 @@ export default {
 					console.log('mess', mess);
 				}
 			});
+		},
+		onChooseAvatar(e) {
+			let fileAvatar = e.detail.avatarUrl;
+			this.toUpload(fileAvatar);
 		},
 		onNickname(e) {
 			this.userInfoNickNameFocus = false;

@@ -5,7 +5,7 @@
 				<up-navbar :autoBack="true" :placeholder="true" bgColor="transparent" :titleStyle="titleStyle" title="商品库">
 					<template #right>
 						<!-- #ifndef MP-WEIXIN -->
-						<wd-icon name="share" size="44rpx" @click="toShare"></wd-icon>
+						<!-- <wd-icon name="share" size="44rpx" @click="toShare"></wd-icon> -->
 						<!-- #endif -->
 					</template>
 				</up-navbar>

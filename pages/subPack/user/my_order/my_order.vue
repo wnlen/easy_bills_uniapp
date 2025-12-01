@@ -46,12 +46,14 @@
 							<view class="card_people_title_one">
 								<view class="relative flex-row items-start">
 									<text class="mr10">{{ item.product || '' }}</text>
-									<!-- #ifdef MP-WEIXIN -->
-									<wd-icon @tap.stop @click="popDetails(1, item)" class="mb10 ml5 absolute" size="23rpx" name="help-circle" color="#AAAAAA"></wd-icon>
-									<!-- #endif -->
-									<!-- #ifdef APP -->
-									<wd-icon @click="popDetails(1, item)" class="mb10 ml5 absolute" size="23rpx" name="help-circle" color="#AAAAAA"></wd-icon>
-									<!-- #endif -->
+									<wd-icon
+										@tap.stop
+										@click="popDetails(1, item)"
+										class="mb10 ml5 absolute former-circle"
+										size="23rpx"
+										name="help-circle"
+										color="#AAAAAA"
+									></wd-icon>
 								</view>
 							</view>
 							<view class="card_people_title_two">
@@ -93,7 +95,7 @@
 						</view>
 						<view class="tempCard_title flex-row justify-end">
 							<view class="bjzx">
-								<wd-button :customStyle="buttonStyle" open-type="contact">
+								<wd-button :customStyle="buttonStyle" open-type="contact" hover-class="none">
 									<view class="flex-row items-center">
 										<text>报价咨询</text>
 										<view class="ml8 mt1"><wd-icon name="play" color="#E7647F" size="30rpx"></wd-icon></view>
@@ -139,7 +141,7 @@
 										<wd-icon
 											@tap.stop
 											@click="popDetails(1, c_product_old_data[0])"
-											class="mb10 ml5 absolute"
+											class="mb10 ml5 absolute former-circle"
 											size="23rpx"
 											name="help-circle"
 											color="#AAAAAA"
@@ -168,7 +170,7 @@
 										<wd-icon
 											@tap.stop
 											@click="popDetails(1, c_product_old_data[1])"
-											class="mb10 ml5 absolute"
+											class="mb10 ml5 absolute former-circle"
 											size="23rpx"
 											name="help-circle"
 											color="#AAAAAA"
@@ -1512,6 +1514,10 @@ export default {
 }
 ::v-deep .u-tabs__wrapper__nav__item {
 	height: 64rpx !important;
+}
+.former-circle {
+	top: 0;
+	right: -20rpx;
 }
 .Myorder {
 	width: 100vw;

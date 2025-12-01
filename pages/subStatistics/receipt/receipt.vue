@@ -111,7 +111,6 @@
 			>
 				<view class="OrderCardHand" @tap.stop>
 					<view class="title ml1" style="" @tap.stop>
-						<!-- #ifdef MP-WEIXIN -->
 						<view
 							class="flex-col justify-center items-center mr15"
 							@tap.stop
@@ -120,16 +119,6 @@
 						>
 							<wd-icon name="check" @click="checkboxGroupChange(item, index)" color="#ffffff" size="20rpx"></wd-icon>
 						</view>
-						<!-- #endif -->
-						<!-- #ifdef APP -->
-						<view
-							class="flex-col justify-center items-center mr15"
-							:style="{ backgroundColor: item.check ? '#01BB74' : '#ffffff' }"
-							style="border-radius: 100rpx; height: 40rpx; width: 40rpx; border: 2rpx solid #aaaaaa"
-						>
-							<wd-icon name="check" @click="checkboxGroupChange(item, index)" color="#ffffff" size="20rpx"></wd-icon>
-						</view>
-						<!-- #endif -->
 
 						<text class="ft30 ft-lightgray pr30" style="color: #666666" @tap.stop>
 							订单编号:

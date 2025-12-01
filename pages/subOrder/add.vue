@@ -96,7 +96,7 @@
 
 					<!-- #ifndef MP-WEIXIN -->
 					<button
-						@click="showPopShare = true"
+						@click="setShareData()"
 						style="
 							background-color: #ffffff;
 							width: 271.24rpx;
@@ -112,7 +112,7 @@
 					>
 						<view class="pr10 flex-row items-center">
 							<image src="/static/app/img/share/zfqd.svg" mode="" style="width: 34rpx; height: 34rpx"></image>
-							<text class="ft-green ft28 ml10">转发签单</text>
+							<text class="ft-green ft30 ml10">转发签单</text>
 						</view>
 					</button>
 					<!-- #endif -->
@@ -186,10 +186,10 @@
 							placeholder="请输入手机号"
 							class="flex-1 endcolor"
 						/>
+
 						<input
 							v-else
 							placeholder-class="placeholder_class"
-							type="number"
 							v-model="khPhone"
 							:style="{ color: ifInput(khPhone), width: '360rpx' }"
 							placeholder="请输入客户手机号"
@@ -504,7 +504,7 @@
 				</view>
 
 				<view class="mt40" style="width: 95%">
-					<up-upload
+					<!-- <up-upload
 						autoUpload
 						@delete="onRemoveImg"
 						:autoUploadApi="action"
@@ -520,10 +520,20 @@
 						height="200rpx"
 					>
 						<wd-icon :name="ImgUrl + '/wxImg/order/down.png'" size="200rpx"></wd-icon>
-					</up-upload>
+					</up-upload> -->
+					<wd-upload
+						v-model:file-list="imgList"
+						@remove="onRemoveImg"
+						multiple
+						:upload-text="'添加图片'"
+						:show-limit-num="false"
+						:limit="3"
+						image-mode="aspectFill"
+						:action="action"
+					></wd-upload>
 				</view>
 
-				<view class="flex-col mt45" style="width: 95%">
+				<view class="flex-col mt20" style="width: 95%">
 					<text class="handcolor line34" style="font-weight: bold">备注</text>
 					<view class="mt40" style="border-radius: 6rpx; box-sizing: border-box; border: 1rpx solid rgba(216, 216, 216, 0.5)">
 						<input
@@ -577,13 +587,19 @@
 				</view>
 			</view>
 		</view>
-		<pop-share :show="showPopShare" :imageUrl="transmitList[0].picturesId" @closeShare="showPopShare = false"></pop-share>
+		<pop-share
+			:show="showPopShare"
+			:sharePath="sharePath"
+			:shareTitle="`您有一张订单待确认~`"
+			:imageUrl="transmitList[0].picturesId"
+			@closeShare="showPopShare = false"
+		></pop-share>
 		<pop-auth ref="popAuth"></pop-auth>
 		<!-- 认证提醒 -->
 
-		<up-overlay :show="showOrderPly" @click="showOrderPly = false" :mask-click-able="false">
-			<pop-order ref="popOrder" :item="order"></pop-order>
-		</up-overlay>
+		<!-- <up-overlay :show="showOrderPly" @click="showOrderPly = false" :mask-click-able="false"> -->
+		<pop-order ref="popOrder" :item="order"></pop-order>
+		<!-- </up-overlay> -->
 	</view>
 </template>
 
@@ -703,7 +719,8 @@ export default {
 			khPhone: '',
 			shareReady: false,
 			showCalendar: false,
-			pageType: 0 //0添加，1修改，2复制开单,3草稿箱
+			pageType: 0, //0添加，1修改，2复制开单,3草稿箱
+			sharePath: ''
 		};
 	},
 	onShareAppMessage(ops) {
@@ -726,20 +743,22 @@ export default {
 		}
 	},
 	onShow() {
-		// #ifdef MP-WEIXIN
-		this.$refs.popAuth.authShow = false;
-		this.$refs.popOrder.authShow = false;
-		this.showShare = false;
-		this.addOrderIfOk();
-		// #endif
-		if (uni.getStorageSync('inventoryStockpile') != undefined && uni.getStorageSync('inventoryStockpile') != null && uni.getStorageSync('inventoryStockpile') != '') {
-			this.orderItemList = uni.getStorageSync('inventoryStockpile');
-			console.log('inventoryStockpile', uni.getStorageSync('inventoryStockpile'));
-			this.setOrderTotal();
-		}
-		this.$loadUser(this);
-		this.loadData();
-		this.defImg();
+		this.$nextTick(() => {
+			setTimeout(() => {
+				this.$refs.popAuth.authShow = false;
+				this.$refs.popOrder.roleShow = false;
+				this.showShare = false;
+				this.addOrderIfOk();
+				if (uni.getStorageSync('inventoryStockpile') != undefined && uni.getStorageSync('inventoryStockpile') != null && uni.getStorageSync('inventoryStockpile') != '') {
+					this.orderItemList = uni.getStorageSync('inventoryStockpile');
+					console.log('inventoryStockpile', uni.getStorageSync('inventoryStockpile'));
+					this.setOrderTotal();
+				}
+				this.$loadUser(this);
+				this.loadData();
+				this.defImg();
+			}, 500);
+		});
 	},
 	onLoad(options) {
 		this.receipts.isCustomized = uni.$u.getPinia('user.customized');
@@ -773,6 +792,14 @@ export default {
 		// this.searchDomain = ""
 	},
 	methods: {
+		// app分享到微信
+		setShareData() {
+			var phone = this.pinia_user.phone;
+			var port = this.pinia_userRole;
+			this.sharePath = '/pages/subOrder/detailsShare?share_id=' + this.transmitList[0].id + '&&type=1' + '&&phone=' + phone + '&&port=' + port + '&&versions=Y';
+			this.showPopShare = true;
+		},
+		// 动态设置订单总金额
 		setOrderTotal() {
 			// console.log('this.PrecisionMath', this.PrecisionMath);
 			this.orderTotal = 0;
@@ -791,9 +818,8 @@ export default {
 		// 手动删除图片
 		onRemoveImg(res) {
 			this.removeList.push(res.file);
-			const removeList = this.imgList.splice(res.index, 1);
-			if (removeList[0].id) {
-				this.newImg.push(removeList[0]);
+			if (res.file.id) {
+				this.newImg.push(res.file);
 			}
 		},
 		// 编辑复开单获取详情
@@ -935,7 +961,7 @@ export default {
 					// delete this.receipts.id;
 					if (reIf === 1) {
 						this.searchIFNumber({
-							target: {
+							detail: {
 								value: this.receipts.staffNumberE
 							}
 						});
@@ -1040,11 +1066,11 @@ export default {
 					phone: this.pinia_user.phone
 				})
 				.then((res) => {
-					// console.log("开单价格",res.data.data);
+					console.log('开单价格', res.data.data);
 					this.order = res.data.data;
 					this.$refs.popOrder.orderInit(this.order[1], 1);
-					this.$refs.popOrder.authShow = true;
-					this.showOrderPly = true;
+					this.$refs.popOrder.roleShow = true;
+					// this.showOrderPly = true;
 				});
 		},
 		defImg() {
@@ -1055,7 +1081,7 @@ export default {
 		},
 		authentication() {
 			console.log('---安全认证---');
-			if (this.$refs.popOrder.authShow) {
+			if (this.$refs.popOrder.roleShow) {
 				return;
 			} else {
 				console.log('安全认证');
@@ -1135,16 +1161,16 @@ export default {
 			return /^\d+$/.test(str);
 		},
 		InitSearch(e) {
-			if (e.target.value == '' || e.target.value == null) {
+			if (e.detail.value == '' || e.detail.value == null) {
 				console.log('===未输入手机号码===>');
 				return false;
 			} else {
-				this.khPhone = e.target.value.replace(/\s+/g, '');
+				this.khPhone = e.detail.value.replace(/\s+/g, '');
 			}
 
 			this.receipts.organizationE = this.receipts.organizationE.replace(/\s+/g, '');
-			var ifphone = this.isAllNumbers(e.target.value.replace(/\s+/g, ''));
-			var phone = e.target.value.replace(/\s+/g, '');
+			var ifphone = this.isAllNumbers(e.detail.value.replace(/\s+/g, ''));
+			var phone = e.detail.value.replace(/\s+/g, '');
 
 			if (ifphone && phone.length == 11) {
 				console.log('===标准专属手机号码===>', phone);
@@ -1166,7 +1192,7 @@ export default {
 					boss = this.pinia_user.workData.bossNumber;
 				}
 
-				var phone = e.target.value.replace(/\s+/g, '');
+				var phone = e.detail.value.replace(/\s+/g, '');
 				this.searchCopy = phone;
 				var port = this.pinia_userRole;
 
@@ -1283,12 +1309,14 @@ export default {
 		},
 		searchIFNumberBlur(e) {
 			console.log('===失焦===>', this.searchDomain);
-			var phone = e.target.value;
-
+			var phone = e.detail.value;
+			console.log(this.searchDomain.verification.enterpriseName);
 			if (this.searchDomain.verification) {
+				console.log(2, this.searchDomain.verification.enterpriseName);
 				if (this.searchDomain.verification.enterpriseName) {
 					this.receipts.organizationE = this.searchDomain.verification.enterpriseName;
 					this.khPhone = this.searchDomain.verification.enterpriseName;
+					console.log(3, this.khPhone);
 				}
 
 				if (this.searchDomain.user.name) {
@@ -1315,11 +1343,12 @@ export default {
 				this.receipts.bossNumberE = '';
 				this.receipts.organizationE = '';
 			}
-
-			if (phone.length < 11 || phone.length > 11) {
-				this.khPhone = '';
-				this.$u.toast('请输入11位客户手机号~');
-				this.clear();
+			if (phone) {
+				if (phone.length < 11 || phone.length > 11) {
+					this.khPhone = '';
+					this.$u.toast('请输入11位客户手机号~');
+					this.clear();
+				}
 			}
 		},
 		clear() {

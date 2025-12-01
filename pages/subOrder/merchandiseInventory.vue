@@ -23,7 +23,7 @@
 				>
 					<template #right>
 						<!-- #ifndef MP-WEIXIN -->
-						<wd-icon name="share" size="44rpx" @click="toShare"></wd-icon>
+						<!-- <wd-icon name="share" size="44rpx" @click="toShare"></wd-icon> -->
 						<!-- #endif -->
 					</template>
 				</up-navbar>
@@ -115,14 +115,15 @@
 					<text>单位：{{ item.unit }}</text>
 					<text>单价：{{ item.unitPrice == '0' ? '-' : '￥' + item.unitPrice }}</text>
 				</view>
+				<!-- class="absolute" style="bottom: 24rpx; right: 24rpx" -->
 				<view class="absolute addicon" :id="index == 0 ? 'box1' : ''">
-					<wd-icon @tab.stop class="absolute" style="bottom: 24rpx; right: 24rpx" name="add-circle1" color="#01BB74" size="40rpx" @click="addOrderBill(item)"></wd-icon>
+					<wd-icon @tab.stop name="add-circle1" color="#01BB74" size="40rpx" @click="addOrderBill(item)"></wd-icon>
 				</view>
 			</view>
 
 			<template #bottom>
 				<view class="bottomCard">
-					<view class="relative pd10" id="box2">
+					<view class="relative" id="box2">
 						<wd-icon name="https://res-oss.elist.com.cn/wxImg/order/merchandiseInventory.png" size="110rpx" @click="AlertCard"></wd-icon>
 						<up-badge absolute bgColor="#FA5151" :value="orderItemList.length" :offset="['0rpx', '-20rpx']"></up-badge>
 					</view>
@@ -769,6 +770,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#box2 {
+	width: 110rpx;
+	height: 110rpx;
+}
 .shareBtn {
 	padding: 0;
 	line-height: 44rpx;
@@ -779,11 +784,14 @@ export default {
 	height: auto;
 }
 .addicon {
+	width: 60rpx;
+	height: 60rpx;
 	padding: 10rpx;
 	border-radius: 50%;
 	bottom: 20rpx;
 	z-index: 10;
 	right: 22rpx;
+	// background-color: #01bb74;
 }
 ::v-deep .u-border-bottom,
 .up-border-bottom {

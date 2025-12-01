@@ -17,11 +17,16 @@ export default {
 					//参考`univerifyStyle 数据结构`
 					"fullScreen": true, // 是否全屏显示，默认值： false
 					"title": '快速登录',
-					"backgroundColor": "#ffffff", // 授权页面背景颜色，默认值：#ffffff
+					"backgroundColor": "", // 授权页面背景颜色，默认值：#ffffff
+					"backgroundImage": "/static/app/img/login/login.png",
 					"icon": {
 						"path": "/static/app/img/logo/logo-r.png", // 自定义显示在授权框中的logo，仅支持本地图片 默认显示App logo
 						"width": "60px", //图标宽度 默认值：60px
 						"height": "60px" //图标高度 默认值：60px
+					},
+					"closeIcon": {
+						"width": "20px", //图标宽度 默认值：60px (HBuilderX 4.0+ 仅iOS支持)
+						"height": "20px" //图标高度 默认值：60px (HBuilderX 4.0+ 仅iOS支持)
 					},
 					"phoneNum": {
 						"color": "#000000", // 手机号文字颜色 默认值：#000000
@@ -58,12 +63,12 @@ export default {
 					// 其他登录方式
 					"otherLoginButton": {
 						"visible": "true", // 是否显示其他登录按钮，默认值：true
-						"normalColor": "#f8f8f8", // 其他登录按钮正常状态背景颜色 默认值：#f8f8f8
+						"normalColor": "#F5FCF9", // 其他登录按钮正常状态背景颜色 默认值：#f8f8f8
 						"highlightColor": "#dedede", // 其他登录按钮按下状态背景颜色 默认值：#dedede
-						"textColor": "#000000", // 其他登录按钮文字颜色 默认值：#000000
+						"textColor": "#01BB74", // 其他登录按钮文字颜色 默认值：#000000
 						"title": "其他手机号登录", // 其他登录方式按钮文字 默认值：“其他登录方式”
 						"borderWidth": "1px", // 边框宽度 默认值：1px（仅ios支持）
-						"borderColor": "#c5c5c5" //边框颜色 默认值： #c5c5c5（仅ios支持）
+						"borderColor": "#F5FCF9" //边框颜色 默认值： #c5c5c5（仅ios支持）
 					},
 					"privacyTerms": {
 						"defaultCheckBoxState": "false", // 条款勾选框初始状态 默认值： true
@@ -80,7 +85,11 @@ export default {
 							// 自定义协议条款，最大支持2个，需要同时设置url和title. 否则不生效 
 							{
 								"url": "https://upbill.cn/h5/notice/ServiceAgreement-v1.htm", // 点击跳转的协议详情页面
-								"title": "用户服务协议" // 协议名称
+								"title": "易单据用户服务协议" // 协议名称
+							},
+							{
+								"url": "https://upbill.cn/h5/notice/ApplicationPrivacyAgreement-v1.htm", // 点击跳转的协议详情页面
+								"title": "隐私政策" // 协议名称
 							}
 						]
 					},
@@ -134,7 +143,12 @@ export default {
 
 					if (route == 'pages/subUser/login') {
 						if (res.metadata?.msg != undefined) {
-							uni.$u.toast(res.metadata.msg);
+							if (res.metadata.msg == '移动网络未开启') {
+								uni.$u.toast('使用一键登录需打开移动网络');
+							} else {
+								uni.$u.toast(res.metadata.msg);
+							}
+
 						}
 						return;
 					}
@@ -146,6 +160,7 @@ export default {
 					} else if (res.code == "30003") {
 						console.log('主动关闭')
 					} else if (res.code == "30005") {
+						uni.$u.toast('使用一键登录需打开移动网络');
 						uni.navigateTo({
 							url: '/pages/subUser/login'
 						});

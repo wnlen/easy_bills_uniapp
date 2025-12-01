@@ -254,7 +254,6 @@
 					:icon="ImgUrl + '/wxImg/list/empty.svg'"
 					iconSize="200rpx"
 					:text="pinia_userRole == 'D' ? '还没有送货单呢~快去开一个单试试吧！' : '还没收到订单呢~快去邀请供应商开单吧！'"
-					marginTop="-100rpx"
 				>
 					<wd-button
 						v-if="pinia_userRole == 'D'"

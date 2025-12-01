@@ -35,6 +35,14 @@ export default {
 		imageUrl: {
 			type: String,
 			default: '/static/share.png'
+		},
+		sharePath: {
+			type: String,
+			default: '/pages/index/index'
+		},
+		shareTitle: {
+			type: String,
+			default: '打开易单据小程序，极速管理您的货单~'
 		}
 	},
 	data() {
@@ -85,11 +93,16 @@ export default {
 								provider: 'weixin',
 								scene: 'WXSceneSession', // 好友
 								// scene: 'WXSceneTimeline', // 朋友圈（朋友圈不支持文本，仅支持图片或链接）
-								type: 0, // 0 表示链接类型
-								title: '您有一张订单待确认~', // 标题
-								summary: '', // 描述
+								type: 5, // 0 表示链接类型,5	小程序
+								title: this.shareTitle, // 标题
 								href: 'https://www.example.com', // 跳转链接
 								imageUrl: this.imageUrl, // 分享图片（本地路径或网络图片）
+								miniProgram: {
+									id: 'gh_65335aa354af',
+									path: this.sharePath,
+									type: 0,
+									webUrl: 'https://www.example.com'
+								},
 								success: () => {
 									console.log('分享成功');
 								},

@@ -169,8 +169,9 @@ export default {
 		var workIF = this.pinia_user.data.work != '0';
 
 		this.scanQRcodesData.phone = this.pinia_user.phone;
-
-		this.init();
+		this.$nextTick(() => {
+			this.init();
+		});
 	},
 	methods: {
 		scanQRcodes() {
@@ -300,7 +301,8 @@ export default {
 							filePath: res.tempFilePath,
 							success: () => {
 								uni.showToast({
-									title: '图片已保存到相册'
+									title: '图片已保存到相册',
+									icon: 'none'
 								});
 							},
 							fail: (err) => {

@@ -92,7 +92,7 @@
 					<text style="color: #01bb74"><uv-count-to color="#01BB74" fontSize="15" :startVal="0" separator="," :endVal="Statisticsdata.totalOrders"></uv-count-to></text>
 				</view>
 			</view>
-			<view class="page-list-chart" @touchmove.stop.prevent>
+			<view class="page-list-chart">
 				<qiun-data-charts
 					type="column"
 					:opts="{
@@ -101,7 +101,11 @@
 							column: {
 								seriesGap: 5,
 								barBorderRadius: [6, 6, 6, 6],
-								width: 40
+								width: 40,
+								activeBgColor: '#fff' //当前点击柱状图的背景颜色
+							},
+							tooltip: {
+								showBox: false //是否显示提示窗的方框及内部文字
 							}
 						}
 					}"

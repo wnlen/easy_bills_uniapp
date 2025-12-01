@@ -442,7 +442,6 @@
 				</view>
 			</view>
 		</view>
-		<pop-share :show="showPopShare" :imageUrl="transmitList[0].picturesId" @closeShare="showPopShare = false"></pop-share>
 		<pop-auth ref="popAuth"></pop-auth>
 		<!-- 认证提醒 -->
 

@@ -1,26 +1,28 @@
 <template>
-	<view @tap.stop v-show="roleShow" class="flex-col justify-center items-center pop-renew">
-		<view class="relative flex-col justify-center items-center">
-			<up-image class="" :showLoading="true" :src="src" width="360px" height="360px"></up-image>
-			<view class="absolute" style="top: 5%; right: 10%">
-				<wd-icon @click="close" name="close-circle" color="#ffffff" size="40rpx"></wd-icon>
-			</view>
+	<up-overlay :show="roleShow">
+		<view @tap.stop class="flex-col justify-center items-center pop-renew">
+			<view class="relative flex-col justify-center items-center">
+				<up-image class="" :showLoading="true" :src="src" width="360px" height="360px"></up-image>
+				<view class="absolute" style="top: 5%; right: 10%">
+					<wd-icon @click="close" name="close-circle" color="#ffffff" size="40rpx"></wd-icon>
+				</view>
 
-			<view @click="buyRenew" class="absolute flex-row justify-center items-center buttonRenew" style="bottom: 100rpx">
-				<text class="te">￥{{ orderPrice }}</text>
-				<text class="te">/年</text>
-				<text class="te ml10">立即购买</text>
-			</view>
+				<view @click="buyRenew" class="absolute flex-row justify-center items-center buttonRenew" style="bottom: 100rpx">
+					<text class="te">￥{{ orderPrice }}</text>
+					<text class="te">/年</text>
+					<text class="te ml10">立即购买</text>
+				</view>
 
-			<view
-				class="absolute flex-row justify-center items-center"
-				style="bottom: -5px; color: #ffffff; opacity: 1; font-size: 14.3px"
-				@click="$goPath('/pages/subPack/user/my_order/my_order')"
-			>
-				进入我的订购 >
+				<view
+					class="absolute flex-row justify-center items-center"
+					style="bottom: -5px; color: #ffffff; opacity: 1; font-size: 14.3px"
+					@click="$goPath('/pages/subPack/user/my_order/my_order')"
+				>
+					进入我的订购 >
+				</view>
 			</view>
 		</view>
-	</view>
+	</up-overlay>
 </template>
 
 <script>
@@ -45,7 +47,6 @@ export default {
 	},
 	methods: {
 		close() {
-			this.$parent.$parent.roleShow = false;
 			this.roleShow = false;
 		},
 		buyRenew() {

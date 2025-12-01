@@ -191,8 +191,22 @@ export default {
 @import '@/uni_modules/uview-plus/index.scss';
 @import 'static/common/css/base.scss';
 /* #ifdef APP */
-::v-deep a {
-	color: #01bb74 !important;
+/* 全局样式，穿透到隐私政策弹窗 */
+/* 针对rich-text组件中的a标签 */
+rich-text a {
+	color: #000000 !important; /* 自定义颜色 */
+	text-decoration: none !important; /* 去掉下划线 */
+}
+
+/* 针对web-view中的a标签（如果是加载外部页面） */
+web-view a {
+	color: #000000 !important;
+}
+
+/* 兼容不同组件的类名（部分版本UniApp的隐私弹窗有特定类名） */
+.privacy-popup a,
+.android-privacy a {
+	color: #000000 !important;
 }
 /* #endif */
 </style>

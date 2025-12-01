@@ -221,7 +221,7 @@
 				</view>
 			</template>
 			<template #bottom>
-				<view class="fixedBar pd10" style="" v-if="current == 0">
+				<view class="fixedBar pd10" v-if="current == 0">
 					<view class="fixedBarLeft">
 						<view class="fixedBarLeftTop">
 							<view class="LeftTop_text">
@@ -894,12 +894,12 @@ export default {
 
 .fixedBar {
 	background-color: #ffffff;
-
-	width: 100vw;
+	bottom: 0 !important;
 	height: 10vh;
+	width: 100vw;
 
 	display: flex;
-	flex-direction: row;
+	// flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
 	.fixedBarLeft {

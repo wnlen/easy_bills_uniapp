@@ -8,7 +8,6 @@
 			<view class="flex-row items-center flex-1" style="width: 100vw; margin-top: 2.5vh">
 				<view class="flex-row flex-1 ml24 items-center" style="">
 					<view>
-						<!-- #ifdef MP-WEIXIN -->
 						<view v-if="pinia_token">
 							<up-avatar
 								size="60"
@@ -19,10 +18,6 @@
 						<view v-else>
 							<up-avatar size="60" :src="ImgUrl + '/wxImg/index/mr.svg'" @click="userClick"></up-avatar>
 						</view>
-						<!-- #endif -->
-						<!-- #ifdef APP -->
-						<up-avatar size="60" src="https://res-oss.elist.com.cn/wxImg/index/mr.svg" @click="userClick"></up-avatar>
-						<!-- #endif -->
 					</view>
 					<view class="flex-col justify-left ml20" style="width: 100%">
 						<view class="flex-row justify-left items-center" style="" @click="userClick">
@@ -145,7 +140,8 @@ export default {
 					verifyLogin: true,
 					name: '我的订购',
 					icon: '/wxImg/user/wddd.png',
-					url: '/pages/subPack/user/app_order/app_order'
+					// url: '/pages/subPack/user/app_order/app_order'
+					url: '/pages/subPack/user/my_order/my_order'
 				},
 				// #endif
 				// #ifdef MP-WEIXIN
@@ -163,10 +159,19 @@ export default {
 					id: 2,
 					verify: false,
 					verifyLogin: true,
-					name: '资料认证',//增加角标
+					name: '个人资料',
 					icon: '/wxImg/user/grzl.png',
-					url: '/pages/subAuth/dataAuthentication/dataAuthentication'
+					url: '/pages/subUser/userinfo'
 				},
+				// 先完成基本功能下面的是后续功能
+				// {
+				// 	id: 2,
+				// 	verify: false,
+				// 	verifyLogin: true,
+				// 	name: '资料认证',//增加角标
+				// 	icon: '/wxImg/user/grzl.png',
+				// 	url: '/pages/subAuth/dataAuthentication/dataAuthentication'
+				// },
 				// #endif
 				{
 					id: 3,
@@ -193,10 +198,19 @@ export default {
 					id: 4,
 					verify: false,
 					verifyLogin: true,
-					name: '我的签名',//增加角标
+					name: '签收管理',
 					icon: '/wxImg/user/qsgl.png',
-					url: '/pages/subAuth/mySignature'
+					url: '/pages/subPack/user/signee/signee',
+					showDot:true,
 				}
+				// {
+				// 	id: 4,
+				// 	verify: false,
+				// 	verifyLogin: true,
+				// 	name: '我的签名',//增加角标
+				// 	icon: '/wxImg/user/qsgl.png',
+				// 	url: '/pages/subAuth/mySignature'
+				// }
 				// #endif
 			],
 			menus: [
@@ -211,12 +225,19 @@ export default {
 				// #endif
 				// #ifndef MP-WEIXIN
 				{
-					name: '法律签署设置',
+					name: '公司资料',
 					icon: '/wxImg/user/rz.svg',
-					url: '/pages/subAuth/legalSignature',
+					url: '/pages/subAuth/auth',
 					verify: false,
 					verifyLogin: true
 				},
+				// {
+				// 	name: '法律签署设置',
+				// 	icon: '/wxImg/user/rz.svg',
+				// 	url: '/pages/subAuth/legalSignature',
+				// 	verify: false,
+				// 	verifyLogin: true
+				// },
 				// #endif
 				{
 					name: '操作手册',
