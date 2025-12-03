@@ -25,8 +25,9 @@ export default {
 						"height": "60px" //图标高度 默认值：60px
 					},
 					"closeIcon": {
-						"width": "20px", //图标宽度 默认值：60px (HBuilderX 4.0+ 仅iOS支持)
-						"height": "20px" //图标高度 默认值：60px (HBuilderX 4.0+ 仅iOS支持)
+						// "path": "/static/app/img/login/close.png",
+						// "width": "20px", //图标宽度 默认值：60px (HBuilderX 4.0+ 仅iOS支持)
+						// "height": "20px" //图标高度 默认值：60px (HBuilderX 4.0+ 仅iOS支持)
 					},
 					"phoneNum": {
 						"color": "#000000", // 手机号文字颜色 默认值：#000000
@@ -46,7 +47,7 @@ export default {
 					},
 					// 自定义页面下方按钮仅全屏模式生效（3.1.14+ 版本支持）
 					"buttons": {
-						"iconWidth": "45px", // 图标宽度（高度等比例缩放） 默认值：45px
+						"iconWidth": "50px", // 图标宽度（高度等比例缩放） 默认值：45px
 						"list": [
 							// #ifdef APP-IOS
 							{
@@ -149,6 +150,8 @@ export default {
 								uni.$u.toast(res.metadata.msg);
 							}
 
+						} else {
+							uni.$u.toast(res.errMsg);
 						}
 						return;
 					}
@@ -160,7 +163,6 @@ export default {
 					} else if (res.code == "30003") {
 						console.log('主动关闭')
 					} else if (res.code == "30005") {
-						uni.$u.toast('使用一键登录需打开移动网络');
 						uni.navigateTo({
 							url: '/pages/subUser/login'
 						});

@@ -427,11 +427,11 @@
 					</view>
 				</template>
 			</up-navbar>
+			<view style="height: 44px"></view>
 			<!-- #endif -->
-			<!-- #ifdef APP -->
+			<!-- #ifndef MP-WEIXIN -->
 			<up-navbar title="查询订单" leftIconColor="#fff" :placeholder="true"></up-navbar>
 			<!-- #endif -->
-			<view style="height: 44px"></view>
 			<view class="pl30 pr30 pb30">
 				<view class="pb60">
 					<view class="flex-col mt20">
@@ -1076,10 +1076,9 @@ function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList,
 
 function onClear() {
 	field.value = '';
-	searchListennerConfirm();
-	// setTimeout(() => {
-	// 	inputblur('');
-	// }, 1000); // 或者 100ms，根据需要调整
+	setTimeout(() => {
+		inputblur('');
+	}, 100); // 或者 100ms，根据需要调整
 }
 
 function inputblur(e) {

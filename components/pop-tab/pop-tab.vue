@@ -4,11 +4,11 @@
 	<up-tabbar :value="tabIndex" activeColor="#01BB74" @change="changeTab" :placeholder="true" :fixed="true" :safeAreaInsetBottom="true">
 		<up-tabbar-item :text="item.text" v-for="(item, index) in tabbar" :key="index" :badge="index == 2 ? messNum : 0" badgeStyle="background-color:#FA5151;">
 			<template #active-icon>
-				<wd-icon size="40rpx" :name="item.selectedIconPath"></wd-icon>
+				<image :src="item.selectedIconPath" v-if="tabIndex === index" :class="tabIndex === index ? 'uni-tabbar-icon' : ''"></image>
 			</template>
 			<template #inactive-icon>
 				<view :id="index == 1 ? 'box4' : ''">
-					<wd-icon size="40rpx" :name="item.iconPath"></wd-icon>
+					<image :src="item.iconPath"></image>
 				</view>
 			</template>
 		</up-tabbar-item>
@@ -65,6 +65,7 @@ export default {
 			if (e == 1) {
 				uni.$emit('switchTabToList');
 			}
+			// 1. 切换 Tab 页面（先跳转，再触发动画，避免页面切换卡顿）
 			uni.switchTab({
 				url: this.tabbar[e].pagePath,
 				success: () => {}
@@ -77,4 +78,48 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style scoped lang="scss">
+image {
+	width: 40rpx;
+	height: 40rpx;
+}
+/* App.vue中全局样式 */
+/* 找到TabBar图标的类名，不同平台类名可能不同 */
+.uni-tabbar-icon {
+	/* 核心动画：ease-out 时间曲线（先快后慢），duration 800ms（适中不急促） */
+	animation: tabPulse 0.5s ease-out 1 forwards;
+	-webkit-animation: tabPulse 0.5s ease-out 1 forwards; /* 适配 iOS/Android */
+}
+
+/* 动画关键帧：优化细节，更丝滑 */
+@keyframes tabPulse {
+	0% {
+		transform: scale(1) translateY(0);
+		opacity: 0.8; /* 初始略暗，增强过渡感 */
+	}
+	50% {
+		transform: scale(1.2) translateY(-3px); /* 轻微上浮，更生动 */
+		opacity: 1;
+	}
+	100% {
+		transform: scale(1) translateY(0); /* 回归原位置，不残留偏移 */
+		opacity: 1;
+	}
+}
+
+/* 兼容webkit内核（iOS/部分Android） */
+@-webkit-keyframes tabPulse {
+	0% {
+		transform: scale(1) translateY(0);
+		opacity: 0.8;
+	}
+	50% {
+		transform: scale(1.1) translateY(-3px);
+		opacity: 1;
+	}
+	100% {
+		transform: scale(1) translateY(0);
+		opacity: 1;
+	}
+}
+</style>
