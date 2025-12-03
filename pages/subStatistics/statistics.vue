@@ -101,7 +101,7 @@
 						</view>
 					</view>
 
-					<div class="flex-row items-center radius pr20 mr10 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%">
+					<div class="flex-row items-center radius pr20 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%; box-sizing: border-box">
 						<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
 							<text class="ft11 ft-gray ml36" @click="CustomerGet">{{ pinia_userRole == 'R' ? '供应商选择' : '客户选择' }}</text>
 							<up-line direction="col" margin="0 20rpx" color="#333" length="30rpx"></up-line>
@@ -121,7 +121,7 @@
 						</div>
 					</div>
 
-					<div class="flex-row items-center radius pr20 mr10 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%">
+					<div class="flex-row items-center radius pr20 mt20" style="height: 5vh; background-color: #f9f9f9; width: 100%; box-sizing: border-box">
 						<div class="bg-white flex-row items-center justify-left radius" style="width: 100%; height: 5vh; background-color: #f9f9f9">
 							<text class="ft11 ft-gray ml36" @click="filtrateGet">
 								{{ Title }}

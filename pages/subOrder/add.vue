@@ -525,7 +525,7 @@
 						v-model:file-list="imgList"
 						@remove="onRemoveImg"
 						multiple
-						:upload-text="'添加图片'"
+						:upload-text="''"
 						:show-limit-num="false"
 						:limit="3"
 						image-mode="aspectFill"
@@ -1984,6 +1984,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+::v-deep .wd-upload__evoke,
+::v-deep .wd-upload__picture {
+	border-radius: 12rpx !important;
+}
 ::v-deep button::after {
 	border: none !important; //按钮外边框border隐藏
 }

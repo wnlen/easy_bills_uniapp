@@ -382,10 +382,12 @@ export default {
 </script>
 
 <style lang="scss">
-.wd-upload__evoke,
-.wd-upload__preview {
+::v-deep .wd-upload__evoke,
+::v-deep .wd-upload__picture {
 	height: 264rpx !important;
 	width: 264rpx !important;
+	border-radius: 12rpx !important;
+	margin-bottom: 0 !important;
 }
 .u-upload__wrap {
 	justify-content: center !important;
@@ -431,9 +433,6 @@ export default {
 			.uploadingCommodityFromCardRowInput {
 				position: absolute;
 				right: 24rpx;
-			}
-			&:nth-of-type(1) {
-				margin-top: 0;
 			}
 		}
 	}

@@ -126,11 +126,12 @@
 
 			<view class="module">
 				<view class="yjdl" @click="$univerify()">本机号码一键登录</view>
-				<view class="mt20" style="color: #aaaaaa; font-size: 24rpx; text-align: center">第三方登录</view>
+				<view class="mt45" style="color: #aaaaaa; font-size: 24rpx; text-align: center">第三方登录</view>
 				<view class="mt10 flex-row justify-center items-center" style="text-align: center">
-					<view class="flex-row justify-center items-center mr30" style="background-color: #20c300; height: 96rpx; width: 96rpx; border-radius: 50%">
+					<image src="/static/app/img/login/wechat.png" class="wechatIcon" @click="wxloginInit"></image>
+					<!-- <view class="flex-row justify-center items-center mr30" style="background-color: #20c300; height: 96rpx; width: 96rpx; border-radius: 50%">
 						<albb-icon icon="ydj-weixin-fill" color="#fff" size="80rpx" @active="wxloginInit"></albb-icon>
-					</view>
+					</view> -->
 					<!-- #ifdef APP-IOS -->
 					<wd-icon name="apple-filled" size="96rpx"></wd-icon>
 					<!-- #endif -->
@@ -584,6 +585,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.wechatIcon {
+	width: 50px;
+	height: 50px;
+}
 .module {
 	position: fixed;
 	bottom: 40rpx;
