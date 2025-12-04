@@ -444,7 +444,7 @@ export default {
 				return;
 			} else {
 				let url =null
-				if(this.pinia_user.data.work=='0'){
+				if(this.pinia_user.work=='0'){
 					url=!this.pinia_user.ac? '/pages/subAuth/qiye?btn=0' : '/pages/subAuth/qiye?btn=3';
 				}else{
 					url='/pages/subAuth/auth'
@@ -465,7 +465,7 @@ export default {
 
 			if (val.verify) {
 				this.$loadUser(this);
-				var ifwork = this.pinia_user.data.work != '0';
+				var ifwork = this.pinia_user.work != '0';
 				if (ifwork) {
 					// this.$u.toast("您没有访问权限");
 					uni.navigateTo({

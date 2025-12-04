@@ -781,7 +781,6 @@ onLoad(() => {
 		tabHight.value = value || '100rpx';
 	});
 	OperatingSystem.value = getOperatingSystem();
-	console.log('userStore.userRole11111111111111111', userStore.userRole);
 	if (userStore.userRole == 'R') {
 		tabsList = ref([
 			{

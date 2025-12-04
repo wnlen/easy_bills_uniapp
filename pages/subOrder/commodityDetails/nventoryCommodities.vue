@@ -156,7 +156,7 @@ export default {
 	},
 	onLoad(option) {},
 	onShow() {
-		var work = this.pinia_user.data.work == '0';
+		var work = this.pinia_user.work == '0';
 		if (work) {
 			//没工作
 			this.merchandiseInventory.staffNumber = this.pinia_user.phone;

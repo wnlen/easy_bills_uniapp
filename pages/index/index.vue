@@ -547,7 +547,7 @@ export default {
 				that.$loadUser && that.$loadUser(this);
 				this.guideCourse && this.guideCourse();
 				this.SOCKETfLUSH && this.SOCKETfLUSH();
-				// this.getCustomization && this.getCustomization();
+				this.getCustomization && this.getCustomization();
 			});
 		}
 	},
@@ -697,7 +697,6 @@ export default {
 				// 	this.$refs.paging.complete(getList.filter((res) => res.port == 'D' || res.port == 'S'));
 				// }
 
-				console.error('22222222222', getList.length);
 				// console.error('22222222222')
 			});
 		},
