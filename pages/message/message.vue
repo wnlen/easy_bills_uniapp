@@ -24,10 +24,15 @@
 				</view>
 				<view class="">
 					<up-swipe-action :show="item.show" :index="index" v-for="(item, index) in list" :key="index" @click="click" disabled :options="options">
-						<view class="item u-border-bottom relative" v-show="item.number > 0" v-if="item.ifwork && showMess && ifShow()">
+						<view class="item u-border-bottom relative" hover-class="hover-view" v-show="item.number > 0" v-if="item.ifwork && showMess && ifShow()">
 							<view class="mr30"><wd-icon :name="ImgUrl + item.images" size="100rpx"></wd-icon></view>
 
-							<view class="title-wrap flex-col" style="background-color: #ffffff; width: 80%" @click="jumpChat(item.name, item.images, item)">
+							<view
+								class="title-wrap flex-col"
+								hover-class="hover-view"
+								style="background-color: #ffffff; width: 80%"
+								@click="jumpChat(item.name, item.images, item)"
+							>
 								<view class="flex-row" style="width: 100%">
 									<view class="" style="width: 60%; font-size: 32rpx; margin-top: 4rpx">
 										<text>{{ item.name }}</text>
@@ -49,7 +54,7 @@
 			</template>
 		</z-paging>
 		<!-- 自定义tab -->
-		<pop-tab :tabIndex="2" ref="popTab"></pop-tab>
+		<pop-tab :tabIndex="2" ref="popTab" v-if="showTab"></pop-tab>
 		<!-- <up-tabbar :list="vuex_tabbar" :height="tabHight" iconSize="40" active-color="#0FB076"></up-tabbar> -->
 	</view>
 </template>
@@ -127,7 +132,8 @@ export default {
 				}
 			],
 			list2: ['欢迎使用易单据', '目前上线版本3.0', '欢迎用户提出建议', '共同创建完美平台'],
-			phone: ''
+			phone: '',
+			showTab: false
 		};
 	},
 	onLoad() {
@@ -141,15 +147,21 @@ export default {
 		// });
 	},
 	onShow() {
+		this.showTab = true;
 		// #ifndef MP-WEIXIN
 		uni.hideTabBar();
 		// #endif
 		if (this.pinia_user.phone != undefined) {
-			this.getAllNum();
-			this.$refs.popTab.getMessNum();
+			this.$nextTick(() => {
+				this.getAllNum();
+				this.$refs.popTab.getMessNum();
+			});
 		} else {
 			this.$u.toast('登录了解更多');
 		}
+	},
+	onHide() {
+		this.showTab = false;
 	},
 	onPullDownRefresh() {
 		console.log('下拉');

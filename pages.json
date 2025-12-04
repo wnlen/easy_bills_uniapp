@@ -630,6 +630,13 @@
 						"navigationBarTitleText": "拍照上传",
 						"navigationBarBackgroundColor": "#fff"
 					}
+				},
+				{
+					"path": "noPermission",
+					"style": {
+						"navigationBarTitleText": "无权限",
+						"navigationStyle": "custom"
+					}
 				}
 			]
 		},

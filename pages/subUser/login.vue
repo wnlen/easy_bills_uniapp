@@ -253,7 +253,7 @@ export default {
 			this.tips = `${e.seconds}s后重新获取`;
 		},
 		getCode() {
-			if (this.tips != '获取验证码' || this.tips != '重新获取') {
+			if (this.tips == '获取验证码' || this.tips == '重新获取') {
 				uni.$api.sms
 					.getSmsCode({
 						phone: this.fromLogin.phoneNumber,

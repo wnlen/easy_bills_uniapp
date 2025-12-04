@@ -8,7 +8,7 @@
 				<view class="cardOneTitle">通用</view>
 
 				<view class="cardOneIcon flex-row justify-center items-center" v-for="(item, index) in iconList.cardOne" :key="index">
-					<view class="item" v-for="(item2, index2) in item" :key="index2">
+					<view class="item" v-for="(item2, index2) in item" :key="index2" hover-class="hover-view">
 						<wd-icon @click="jump(item2)" :name="item2.icon" size="90rpx"></wd-icon>
 						<view class="">{{ item2.name }}</view>
 					</view>
@@ -19,7 +19,7 @@
 				<view class="cardOneTitle">收货端</view>
 
 				<view class="cardOneIcon flex-row justify-center items-center" v-for="(item, index) in iconList.cardTowS" :key="index">
-					<view class="item" v-for="(item2, index2) in item" :key="index2">
+					<view class="item" v-for="(item2, index2) in item" :key="index2" hover-class="hover-view">
 						<wd-icon @click="jump(item2)" :name="item2.icon" size="90rpx"></wd-icon>
 						<view class="">{{ item2.name }}</view>
 					</view>
@@ -30,7 +30,7 @@
 				<view class="cardOneTitle">发货端</view>
 
 				<view class="cardOneIcon flex-row justify-center items-center" v-for="(item, index) in iconList.cardTowF" :key="index">
-					<view class="item" v-for="(item2, index2) in item" :key="index2">
+					<view class="item" v-for="(item2, index2) in item" :key="index2" hover-class="hover-view">
 						<wd-icon @click="jump(item2)" :name="item2.icon" size="90rpx"></wd-icon>
 						<view class="">{{ item2.name }}</view>
 					</view>
@@ -41,7 +41,7 @@
 				<view class="cardOneTitle">我的权益</view>
 
 				<view class="cardOneIcon flex-row justify-center items-center" v-for="(item, index) in iconList.cardThree" :key="index">
-					<view class="item" v-for="(item2, index2) in item" :key="index2">
+					<view class="item" v-for="(item2, index2) in item" :key="index2" hover-class="hover-view">
 						<wd-icon @click="jump(item2)" :name="item2.icon" size="90rpx"></wd-icon>
 						<view class="">{{ item2.name }}</view>
 					</view>

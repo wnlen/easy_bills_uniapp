@@ -1,49 +1,51 @@
 <template>
-	<view @tap.stop v-show="roleShow" class="flex-col justify-center items-center pop-renew">
-		<view class="relative flex-col justify-center items-center" style="height: 100%; width: 100%">
-			<up-image class="" :lazy-load="true" :showLoading="true" :src="src" width="720rpx" height="720rpx"></up-image>
-			<view class="absolute" style="top: 5%; right: 10%">
-				<wd-icon @click="close" name="close-circle" color="#ffffff" size="40rpx"></wd-icon>
-			</view>
-			<view class="absolute flex-row justify-center items-center mt30" style="width: 100%; height: 240rpx">
-				<view class="mr15 tab flex-col justify-center items-center" :style="{ backgroundColor: year == 1 ? '#FDF7ED' : '#FFFFFF' }" @click="orderInit('A1')">
-					<text class="t1">{{ productCode[0] ? productCode[0].product : '' }}</text>
-					<text class="t2">
-						<text class="ft30">￥</text>
-						<text>{{ orderPriceBDiscount }}</text>
-					</text>
-					<text class="t3">￥{{ orderPriceB }}</text>
-					<view class="iconPeople flex-col justify-center items-center mt10">低至{{ (orderPriceBDiscount / 365).toFixed(2) }}元/天</view>
+	<up-overlay :show="roleShow" @click="roleShow = false">
+		<view @tap.stop v-show="roleShow" class="flex-col justify-center items-center pop-renew">
+			<view class="relative flex-col justify-center items-center" style="height: 100%; width: 100%">
+				<up-image class="" :lazy-load="true" :showLoading="true" :src="src" width="720rpx" height="720rpx"></up-image>
+				<view class="absolute" style="top: 5%; right: 10%">
+					<wd-icon @click="close" name="close-circle" color="#ffffff" size="40rpx"></wd-icon>
 				</view>
-				<view class="ml15 tab flex-col justify-center items-center" :style="{ backgroundColor: year == 2 ? '#FDF7ED' : '#FFFFFF' }" @click="orderInit('A2')">
-					<view style="position: absolute; top: -4rpx">
-						<image src="https://res-oss.elist.com.cn/wxImg/order/tj.png" style="width: 120rpx" mode="widthFix"></image>
+				<view class="absolute flex-row justify-center items-center mt30" style="width: 100%; height: 240rpx">
+					<view class="mr15 tab flex-col justify-center items-center" :style="{ backgroundColor: year == 1 ? '#FDF7ED' : '#FFFFFF' }" @click="orderInit('A1')">
+						<text class="t1">{{ productCode[0] ? productCode[0].product : '' }}</text>
+						<text class="t2">
+							<text class="ft30">￥</text>
+							<text>{{ orderPriceBDiscount }}</text>
+						</text>
+						<text class="t3">￥{{ orderPriceB }}</text>
+						<view class="iconPeople flex-col justify-center items-center mt10">低至{{ (orderPriceBDiscount / 365).toFixed(2) }}元/天</view>
 					</view>
+					<view class="ml15 tab flex-col justify-center items-center" :style="{ backgroundColor: year == 2 ? '#FDF7ED' : '#FFFFFF' }" @click="orderInit('A2')">
+						<view style="position: absolute; top: -4rpx">
+							<image src="https://res-oss.elist.com.cn/wxImg/order/tj.png" style="width: 120rpx" mode="widthFix"></image>
+						</view>
 
-					<text class="t1">{{ productCode[1] ? productCode[1].product : '' }}</text>
-					<text class="t2">
-						<text class="ft30">￥</text>
-						<text>{{ orderPriceQDiscount }}</text>
-					</text>
-					<text class="t3">￥{{ orderPriceQ }}</text>
-					<view class="iconPeople flex-col justify-center items-center mt10">低至{{ (orderPriceQDiscount / 365).toFixed(2) }}元/天</view>
+						<text class="t1">{{ productCode[1] ? productCode[1].product : '' }}</text>
+						<text class="t2">
+							<text class="ft30">￥</text>
+							<text>{{ orderPriceQDiscount }}</text>
+						</text>
+						<text class="t3">￥{{ orderPriceQ }}</text>
+						<view class="iconPeople flex-col justify-center items-center mt10">低至{{ (orderPriceQDiscount / 365).toFixed(2) }}元/天</view>
+					</view>
 				</view>
-			</view>
 
-			<view @click="buyRenew" class="absolute flex-row justify-center items-center buttonRenew" style="bottom: 100rpx">
-				<text class="te">￥{{ year == 1 ? orderPriceBDiscount : orderPriceQDiscount }}</text>
-				<text class="te">/年</text>
-				<text class="te ml10">立即购买</text>
-			</view>
-			<view
-				class="absolute flex-row justify-center items-center"
-				style="bottom: -10rpx; color: #ffffff; opacity: 1; font-size: 28.6rpx"
-				@click="$goPath('/pages/subPack/user/my_order/my_order')"
-			>
-				进入我的订购 >
+				<view @click="buyRenew" class="absolute flex-row justify-center items-center buttonRenew" style="bottom: 100rpx">
+					<text class="te">￥{{ year == 1 ? orderPriceBDiscount : orderPriceQDiscount }}</text>
+					<text class="te">/年</text>
+					<text class="te ml10">立即购买</text>
+				</view>
+				<view
+					class="absolute flex-row justify-center items-center"
+					style="bottom: -10rpx; color: #ffffff; opacity: 1; font-size: 28.6rpx"
+					@click="$goPath('/pages/subPack/user/my_order/my_order')"
+				>
+					进入我的订购 >
+				</view>
 			</view>
 		</view>
-	</view>
+	</up-overlay>
 </template>
 
 <script>
@@ -76,7 +78,6 @@ export default {
 	},
 	methods: {
 		close() {
-			this.$parent.$parent.roleShow = false;
 			this.roleShow = false;
 		},
 		orderInit(type) {

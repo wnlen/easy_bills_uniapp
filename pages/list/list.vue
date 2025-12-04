@@ -342,18 +342,20 @@
 								:data-thumb="item.picturesId"
 								:data-id="item.id"
 								:data-versions="'Y'"
+								hover-class="hover-view"
 							>
 								<albb-icon icon="ydj-zhuanfa" size="20rpx" color="#666666"></albb-icon>
 								<text class="ft22 ml10">{{ pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发' }}</text>
 							</button>
 							<!-- #endif -->
 							<!-- #ifndef MP-WEIXIN -->
-							<button class="hl-btn flex-row items-center justify-center" type="default" @click="setShareData('', item)">
+							<button hover-class="hover-view" class="hl-btn flex-row items-center justify-center" type="default" @click="setShareData('', item)">
 								<albb-icon icon="ydj-zhuanfa" size="20rpx" color="#666666"></albb-icon>
 								<text class="ft22 ml10">{{ pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发' }}</text>
 							</button>
 							<!-- #endif -->
 							<button
+								hover-class="hover-view"
 								v-if="userStore.userRole === 'R' && pinia_user.workData.identity !== '3' && item.paymentState === '0' && item.lockOrder != 1"
 								class="hl-btn ml20 flex-row items-center justify-center"
 								type="default"
@@ -363,6 +365,7 @@
 								<text class="ft22 ml5">确认签收</text>
 							</button>
 							<button
+								hover-class="hover-view"
 								v-if="pinia_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
 								class="hl-btn ml20 flex-row items-center justify-center"
 								type="default"
@@ -373,6 +376,7 @@
 								<text class="ft22 ml5">{{ userStore.userRole === 'R' ? '确认付款' : '确认收款' }}</text>
 							</button>
 							<button
+								hover-class="hover-view"
 								v-if="pinia_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
 								class="hl-btn ml20 flex-row items-center justify-center"
 								type="default"
@@ -382,6 +386,7 @@
 								<text class="ft22 ml5">删除</text>
 							</button>
 							<button
+								hover-class="hover-view"
 								v-if="
 									item.paymentState !== '2' &&
 									item.paymentState !== '1' &&
@@ -406,7 +411,7 @@
 				<view class="" :style="`height:${bottomSafeArea + 50}px`"></view>
 			</template>
 		</z-paging>
-		<pop-tab :tabIndex="1" ref="popTabCom"></pop-tab>
+		<pop-tab :tabIndex="1" ref="popTabCom" v-if="showTab"></pop-tab>
 		<!-- app分享 -->
 		<pop-share :show="showShare" :sharePath="sharePath" :shareTitle="shareTitle" :imageUrl="shareImg" @closeShare="showShare = false"></pop-share>
 		<!-- 弹出层 -->
@@ -719,6 +724,7 @@ const pinia_user = storeToRefs(userStore).user;
 const field = ref('');
 const scrollTopCopy = ref(1156);
 const refresh = ref(true);
+const showTab = ref(false);
 const s = ref(0);
 const e = ref(25);
 const uloading = ref(true);
@@ -814,6 +820,7 @@ uni.$on('switchTabToList', (e) => {
 });
 // 页面进入展示
 onShow(() => {
+	showTab.value = true;
 	// #ifndef MP-WEIXIN
 	uni.hideTabBar();
 	// #endif
@@ -872,6 +879,7 @@ onReady(async () => {
 
 // 页面隐藏（如切后台）
 onHide(() => {
+	showTab.value = false;
 	ClearIF();
 });
 
