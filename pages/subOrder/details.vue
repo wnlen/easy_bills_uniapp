@@ -718,7 +718,7 @@ export default {
 			});
 		uni.$api.order
 			.getAccountStatistics({
-				user: this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
+				user: this.pinia_user.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
 			})
 			.then((res) => {
 				that.qyList = res.data.data;
@@ -759,7 +759,7 @@ export default {
 		getPrintNum() {
 			var dx = {
 				orderId: this.orderId,
-				boss: this.pinia_user.data.work == '1' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone,
+				boss: this.pinia_user.work == '1' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone,
 				phone: this.pinia_user.phone
 			};
 			uni.$api.order.getOrderRecords(dx).then((rest) => {
@@ -786,8 +786,8 @@ export default {
 				port: '',
 				phone: '',
 				deviceOpenid: '',
-				work: this.pinia_user.data.work,
-				boss: this.pinia_user.data.work == '1' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone
+				work: this.pinia_user.work,
+				boss: this.pinia_user.work == '1' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone
 			};
 			print.orderId = this.orderId;
 			print.port = this.pinia_userRole;
@@ -823,7 +823,7 @@ export default {
 		},
 		printerOK() {
 			this.isPrinterOK = true;
-			var ifwork = this.pinia_user.data.work == '0';
+			var ifwork = this.pinia_user.work == '0';
 			var ifWorkPort = this.pinia_userRole == 'R';
 
 			var phone = this.pinia_user.phone;
@@ -832,7 +832,7 @@ export default {
 				boss: '',
 				staff: '',
 				phone: '',
-				work: this.pinia_user.data.work
+				work: this.pinia_user.work
 			};
 
 			if (ifwork) {
@@ -861,7 +861,7 @@ export default {
 					deviceOpenid: '',
 					boss: '',
 					staff: '',
-					work: this.pinia_user.data.work
+					work: this.pinia_user.work
 				};
 				print.orderId = this.orderId;
 				print.port = this.pinia_userRole;
@@ -871,7 +871,7 @@ export default {
 				// 先都用默认打印机
 				print.deviceOpenid = res.data.def[0].deviceopenid;
 				//判断是否是子账号
-				// if (this.pinia_user.data.work == '0') {
+				// if (this.pinia_user.work == '0') {
 				// 	print.deviceOpenid = res.data.def[0].deviceopenid;
 				// } else {
 				// 	print.deviceOpenid = res.data.all[0].deviceopenid;
@@ -1165,11 +1165,11 @@ export default {
 			// console.log(this.qsrList);
 			// console.log(this.qyList);
 			var that = this;
-			if (that.qsrList.length == 0 || (that.qyList == null && this.pinia_user.data.work == '0')) {
+			if (that.qsrList.length == 0 || (that.qyList == null && this.pinia_user.work == '0')) {
 				//  无签收人
 				if (that.qsrList.length == 0 && that.qyList == null) {
 					// /pages/subAuth/qiye
-					if (this.pinia_user.data.work == '1' && that.qsrList.length == 0) {
+					if (this.pinia_user.work == '1' && that.qsrList.length == 0) {
 						uni.showModal({
 							title: '暂无签收信息，是否去添加？',
 							showCancel: true,
@@ -1188,7 +1188,7 @@ export default {
 						});
 					}
 
-					if (this.pinia_user.data.work == '0' && that.qsrList.length == 0 && that.qyList == null) {
+					if (this.pinia_user.work == '0' && that.qsrList.length == 0 && that.qyList == null) {
 						uni.showModal({
 							title: '暂无完整信息，是否去添加？',
 							showCancel: true,

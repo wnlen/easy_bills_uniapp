@@ -219,8 +219,8 @@ export default {
 				id: this.pinia_user.data.id,
 				name: this.nameID,
 				phoneNumber: this.pinia_user.phone,
-				work: this.pinia_user.data.work,
-				boss: this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
+				work: this.pinia_user.work,
+				boss: this.pinia_user.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
 			};
 			send.name = send.name.trim();
 

@@ -102,7 +102,7 @@ export default {
 				}
 
 				//添加
-				var work = this.pinia_user.data.work;
+				var work = this.pinia_user.work;
 				if (work == '0') {
 					//没有工作加他
 					this.addFriend(loginPhone);

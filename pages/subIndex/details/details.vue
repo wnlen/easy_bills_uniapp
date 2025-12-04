@@ -303,7 +303,7 @@ export default {
 			this.$refs.popup.open();
 		},
 		getBossNumber() {
-			return this.pinia_user.data.work === '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber;
+			return this.pinia_user.work === '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber;
 		},
 		isRole(role) {
 			return this.pinia_userRole === role;
@@ -343,7 +343,7 @@ export default {
 			});
 		},
 		getUserData(phone) {
-			var ifwork = this.pinia_user.data.work == '0';
+			var ifwork = this.pinia_user.work == '0';
 			var boss = '';
 			if (ifwork) {
 				boss = this.pinia_user.phone;

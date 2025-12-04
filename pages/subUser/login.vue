@@ -335,7 +335,8 @@ export default {
 						.then((res) => {
 							var resDate = res.data.data;
 							that.message = res.data.message;
-							if (resDate.data == null || resDate.data.work == null) {
+							console.log('亘古不变', resDate);
+							if (resDate.user == null || resDate.user.work == null) {
 								that.$u.toast(that.message);
 								return;
 							}
@@ -344,13 +345,12 @@ export default {
 								user: {
 									userRole: 'D',
 									token: resDate.loginToken,
-									user: resDate,
-									work: resDate.data.work != '1' ? 'N' : 'Y'
+									user: resDate.user,
+									work: resDate.user.work != '1' ? 'N' : 'Y'
 								}
 							});
-							console.log('亘古不变', that.$u.getPinia('user.user'));
 
-							if (resDate.phone != '' && resDate.data.work != null) {
+							if (resDate.phone != '' && resDate.user.work != null) {
 								that.$loadUser(that);
 								console.log('授权完', that.sharePath);
 								// 接收分享参数
