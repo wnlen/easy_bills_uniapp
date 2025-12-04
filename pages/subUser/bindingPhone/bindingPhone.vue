@@ -129,7 +129,7 @@ export default {
 							userRole: 'D',
 							token: resDate.loginToken,
 							user: resDate,
-							work: resDate.data.work != '1' ? 'N' : 'Y'
+							work: resDate.work != '1' ? 'N' : 'Y'
 						}
 					});
 
