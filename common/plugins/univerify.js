@@ -113,7 +113,7 @@ export default {
 						console.log('登录成功', res.statusCode)
 						if (res.statusCode == 200) {
 							var resDate = res.data.data;
-							const work = resDate.data.work == '1' ? 'Y' : 'N'
+							const work = resDate.work == '1' ? 'Y' : 'N'
 							console.log('q1')
 							uni.$u.setPinia({
 								user: {
