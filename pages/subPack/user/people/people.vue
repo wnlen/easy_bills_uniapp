@@ -461,7 +461,7 @@ export default {
 	onShow() {
 		// this.SOCKETfLUSH();
 		var listz = [];
-		if (this.pinia_user.data.work != '1') {
+		if (this.pinia_user.work != '1') {
 			this.loadDataPeop();
 		} else {
 			console.log('已加入别的公司');
@@ -472,7 +472,7 @@ export default {
 	onPullDownRefresh() {
 		console.log('下拉');
 		var listz = [];
-		if (this.pinia_user.data.work != '1') {
+		if (this.pinia_user.work != '1') {
 			this.loadDataPeop();
 		}
 		this.systemIf();

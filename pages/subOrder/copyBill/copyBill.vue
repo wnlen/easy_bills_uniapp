@@ -743,7 +743,7 @@ export default {
 						if (O1 == '' || O1 == undefined) {
 							//获取开单价格
 							//判断是否工作
-							var work = this.pinia_user.data.work == '0';
+							var work = this.pinia_user.work == '0';
 							if (work) {
 								this.getProductAll();
 							} else {
@@ -841,7 +841,7 @@ export default {
 		},
 
 		addEmp() {
-			var ifwork = this.pinia_user.data.work == '0';
+			var ifwork = this.pinia_user.work == '0';
 			var dx = {
 				id: '',
 				orderId: '',
@@ -900,7 +900,7 @@ export default {
 			console.log('===验证ifok===>', ifok);
 			if (ifok) {
 				console.log('===验证通过===>');
-				var ifwork = this.pinia_user.data.work == '0';
+				var ifwork = this.pinia_user.work == '0';
 				var boss = '';
 				if (ifwork) {
 					boss = this.pinia_user.phone;
@@ -1040,7 +1040,7 @@ export default {
 			// if (ifphone && phone.length == 11) {
 			// 	//查询
 			// 	// console.log("老板账号：",this.pinia_user.workData.bossNumber,"输入手机号码：",phone);
-			// 	var ifwork = this.pinia_user.data.work == "0"
+			// 	var ifwork = this.pinia_user.work == "0"
 			// 	var boss = ""
 			// 	if (ifwork) {
 			// 		boss = this.pinia_user.phone
@@ -1110,7 +1110,7 @@ export default {
 			// 				}
 
 			// 				//判断是否工作
-			// 				var b = this.pinia_user.data.work === "0";
+			// 				var b = this.pinia_user.work === "0";
 			// 				if (b) {
 			// 					//没有工作 出来了自己其他人都可以开单
 
@@ -1303,13 +1303,13 @@ export default {
 			this.loadOrderNo();
 		},
 		loadOrderNo() {
-			this.receipts.bossNumberS = this.pinia_user.data.work != '0' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone;
+			this.receipts.bossNumberS = this.pinia_user.work != '0' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone;
 
 			this.receipts.staffNumberS = this.pinia_user.phone;
 
-			this.receipts.jobNumberS = this.pinia_user.data.work != '0' ? this.pinia_user.workData.jobNumber : '';
+			this.receipts.jobNumberS = this.pinia_user.work != '0' ? this.pinia_user.workData.jobNumber : '';
 
-			this.receipts.contactsS = this.pinia_user.data.work != '0' ? this.pinia_user.data.name || this.pinia_user.data.phoneNumber : this.pinia_user.phone;
+			this.receipts.contactsS = this.pinia_user.work != '0' ? this.pinia_user.data.name || this.pinia_user.data.phoneNumber : this.pinia_user.phone;
 
 			try {
 				var res = JSON.parse(uni.getStorageSync('companyNameJSON'));
@@ -1348,7 +1348,7 @@ export default {
 		},
 		sendInit() {
 			return new Promise((resolve) => {
-				this.receipts.bossNumberS = this.pinia_user.data.work != '0' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone;
+				this.receipts.bossNumberS = this.pinia_user.work != '0' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone;
 
 				this.receipts.staffNumberS = this.pinia_user.phone;
 

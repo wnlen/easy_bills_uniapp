@@ -277,7 +277,6 @@ export default {
 	methods: {
 		chooseFile() {
 			chooseFile((path) => {
-				console.log('111111111', path);
 				uni.getFileInfo({
 					//读取文件大小
 					filePath: path,
@@ -314,7 +313,7 @@ export default {
 			this.billFrom.billTime = this.$u.timeFormat(new Date(), 'yyyy-mm-dd');
 			this.getOrderNumber();
 
-			var ifwork = this.pinia_user.data.work == '0';
+			var ifwork = this.pinia_user.work == '0';
 			var ifWorkPort = this.pinia_userRole == 'R';
 			if (!ifwork) {
 				var boss = this.pinia_user.workData.bossNumber;

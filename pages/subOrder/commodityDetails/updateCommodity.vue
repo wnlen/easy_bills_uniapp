@@ -153,7 +153,7 @@ export default {
 		}
 	},
 	onShow() {
-		this.action = uni.$http.config.baseURL + 'order/imgA';
+		this.action = uni.$http.config.baseURL + 'oss/upload';
 	},
 	methods: {
 		getCommodityDetails(id) {
