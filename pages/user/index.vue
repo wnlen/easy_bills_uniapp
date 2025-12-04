@@ -106,7 +106,7 @@
 		</view>
 
 		<!-- 自定义tab -->
-		<pop-tab :tabIndex="3" ref="popTab"></pop-tab>
+		<pop-tab :tabIndex="3" ref="popTab" v-if="showTab"></pop-tab>
 
 		<pop-guide :max-step="3" :guideData="functionGuideData" ref="FunctionGuide"></pop-guide>
 	</view>
@@ -289,7 +289,8 @@ export default {
 				tipsPosition: '', // 介绍 显示位置
 				btnGroupPosition: '', // 按钮组显示位置
 				position: {}
-			}
+			},
+			showTab:false,
 		};
 	},
 	computed: {
@@ -309,6 +310,7 @@ export default {
 		});
 	},
 	onShow() {
+		this.showTab=true
 		// #ifndef MP-WEIXIN
 		uni.hideTabBar();
 		// #endif
@@ -320,6 +322,9 @@ export default {
 		} else {
 			console.log('未登录');
 		}
+	},
+	onHide() {
+		this.showTab = false;
 	},
 	methods: {
 		guideCourse() {

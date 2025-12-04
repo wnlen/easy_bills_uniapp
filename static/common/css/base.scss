@@ -1531,3 +1531,7 @@ text {
 .minw0 {
 	min-width: 0;
 }
+// 点击效果
+::v-deep .hover-view {
+	background-color: #f5f5f5 !important; /* 触摸时的背景色 */
+}

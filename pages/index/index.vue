@@ -57,7 +57,7 @@
 					v-for="(item, index) in orderList2"
 					:key="index"
 					@click="goPath(item.path, index)"
-					hover-class="hover-view"
+					hover-class="hover-order"
 				>
 					<view class="ml10 mr10 mt8">
 						<wd-icon size="72rpx" :name="item.icon"></wd-icon>
@@ -161,7 +161,7 @@
 		<!-- 新手指引 -->
 		<pop-guide :max-step="4" :guideData="functionGuideData" ref="FunctionGuide" @step-change="onGuideStepChange" @finished="onGuideFinished"></pop-guide>
 		<!-- 自定义tab -->
-		<pop-tab ref="popTab" :tabIndex="0"></pop-tab>
+		<pop-tab ref="popTab" :tabIndex="0" v-if="showTab"></pop-tab>
 		<!-- 未签收提醒 -->
 		<up-popup :show="showUnreceived" :safeAreaInsetBottom="false" mode="center" :customStyle="unreceivedStyle">
 			<view class="unreceivedBox">
@@ -458,7 +458,8 @@ export default {
 			expireShow: false,
 			unwatchFlush: null,
 			daibannum: 0,
-			tagsIndex: 1
+			tagsIndex: 1,
+			showTab: false
 		};
 	},
 	onLoad() {
@@ -477,7 +478,12 @@ export default {
 			}
 		}
 	},
+	onHide() {
+		this.showTab = false;
+	},
 	onShow() {
+		console.log('userinfo', this.pinia_user);
+		this.showTab = true;
 		// #ifndef MP-WEIXIN
 		uni.hideTabBar();
 		// #endif
@@ -541,8 +547,7 @@ export default {
 				that.$loadUser && that.$loadUser(this);
 				this.guideCourse && this.guideCourse();
 				this.SOCKETfLUSH && this.SOCKETfLUSH();
-				this.getCustomization && this.getCustomization();
-
+				// this.getCustomization && this.getCustomization();
 			});
 		}
 	},
@@ -558,10 +563,15 @@ export default {
 	},
 	methods: {
 		goPath(path, index) {
+			const identity = this.pinia_user.workData.identity;
 			if (this.pinia_userRole == 'D' && index == 1 && uni.$u.getPinia('user.customized')) {
 				return uni.showToast({
 					title: '定制版暂不支持此功能',
 					icon: 'none'
+				});
+			} else if (this.pinia_userRole == 'D' && index == 0 && identity == 3) {
+				uni.navigateTo({
+					url: '/pages/subOrder/noPermission'
 				});
 			} else {
 				uni.navigateTo({
@@ -1179,6 +1189,9 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+.hover-order {
+	background-color: #fff !important;
+}
 .tags {
 	font-size: 18rpx;
 	width: 83rpx;

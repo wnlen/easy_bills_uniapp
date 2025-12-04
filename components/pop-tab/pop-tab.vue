@@ -4,7 +4,9 @@
 	<up-tabbar :value="tabIndex" activeColor="#01BB74" @change="changeTab" :placeholder="true" :fixed="true" :safeAreaInsetBottom="true">
 		<up-tabbar-item :text="item.text" v-for="(item, index) in tabbar" :key="index" :badge="index == 2 ? messNum : 0" badgeStyle="background-color:#FA5151;">
 			<template #active-icon>
-				<image :src="item.selectedIconPath" v-if="tabIndex === index" :class="tabIndex === index ? 'uni-tabbar-icon' : ''"></image>
+				<view>
+					<image :src="item.selectedIconPath" class="uni-tabbar-icon"></image>
+				</view>
 			</template>
 			<template #inactive-icon>
 				<view :id="index == 1 ? 'box4' : ''">

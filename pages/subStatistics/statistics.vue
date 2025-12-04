@@ -258,7 +258,7 @@
 					<wd-button
 						v-if="pinia_userRole == 'D'"
 						iconColor="#ECFFF9"
-						:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent', color: '#01BB74' }"
+						:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '46rpx', background: 'transparent', color: '#01BB74' }"
 						:plain="true"
 						@click="
 							uni.navigateTo({
@@ -272,7 +272,7 @@
 						v-else
 						openType="share"
 						iconColor="#ECFFF9"
-						:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent', color: '#01BB74' }"
+						:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '46rpx', background: 'transparent', color: '#01BB74' }"
 						:plain="true"
 					>
 						<text>去邀请</text>
@@ -503,17 +503,16 @@
 			</up-popup>
 		</view>
 
-		<up-overlay :show="roleShow" @click="roleShow = false">
-			<pop-database ref="popDatabase"></pop-database>
-		</up-overlay>
+		<pop-database ref="popDatabase"></pop-database>
 	</view>
 </template>
 
 <script>
+import { nextTick } from 'vue';
+
 export default {
 	data() {
 		return {
-			roleShow: false,
 			checked: false,
 			companySerch: '',
 			seBtnColor: 1,
@@ -705,10 +704,9 @@ export default {
 	},
 	onShow() {
 		// this.loadDataRen();
-		// #ifdef MP-WEIXIN
-		this.$refs.popDatabase.roleShow = false;
-		// #endif
-		this.roleShow = false;
+		this.$nextTick(() => {
+			this.$refs.popDatabase.roleShow = false;
+		});
 
 		this.systemIf();
 
@@ -1708,7 +1706,6 @@ export default {
 			}
 		},
 		RenewStatic(index) {
-			this.roleShow = true;
 			this.getPriceAll(index);
 		},
 		getPriceAll(index) {
