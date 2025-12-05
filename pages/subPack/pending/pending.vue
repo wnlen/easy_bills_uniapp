@@ -98,6 +98,7 @@
 		>
 			<template #empty>
 				<up-empty :icon="ImgUrl + '/wxImg/list/empty.svg'" iconSize="200rpx" text="还没收到订单呢~快去邀请供应商开单吧！" marginTop="-200">
+					<!-- #ifdef MP-WEIXIN -->
 					<wd-button
 						dataName="shareFriend"
 						openType="share"
@@ -107,6 +108,17 @@
 					>
 						<text>去邀请</text>
 					</wd-button>
+					<!-- #endif -->
+					<!-- #ifndef MP-WEIXIN -->
+					<wd-button
+						@click="setShareData('shareFriend', '')"
+						iconColor="#ECFFF9"
+						:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent', color: '#01BB74' }"
+						:plain="true"
+					>
+						<text>去邀请</text>
+					</wd-button>
+					<!-- #endif -->
 				</up-empty>
 			</template>
 			<!-- <template #top> -->
@@ -289,6 +301,7 @@
 					<view v-if="!item.share" class="flex-row items-center justify-center">
 						<view class="flex-row items-center justify-center">
 							<!-- @click="shareNY(item, 1)" -->
+							<!-- #ifdef MP-WEIXIN -->
 							<button
 								class="hl-btn flex-row items-center justify-center"
 								type="default"
@@ -301,6 +314,13 @@
 								<albb-icon icon="ydj-zhuanfa" size="20rpx" color="#666666"></albb-icon>
 								<text class="ft22 ml5">{{ pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发' }}</text>
 							</button>
+							<!-- #endif -->
+							<!-- #ifndef MP-WEIXIN -->
+							<button class="hl-btn flex-row items-center justify-center" type="default" @click="setShareData('', item)">
+								<albb-icon icon="ydj-zhuanfa" size="20rpx" color="#666666"></albb-icon>
+								<text class="ft22 ml5">{{ pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发' }}</text>
+							</button>
+							<!-- #endif -->
 							<button
 								v-if="pinia_userRole === 'R' && pinia_user.workData.identity !== '3' && item.paymentState === '0' && item.lockOrder != 1"
 								class="hl-btn ml20 flex-row items-center justify-center"
@@ -505,6 +525,8 @@
 				</view>
 			</up-popup>
 		</up-overlay>
+		<!-- app分享 -->
+		<pop-share :show="showShare" :sharePath="sharePath" :shareTitle="shareTitle" :imageUrl="shareImg" @closeShare="showShare = false"></pop-share>
 	</view>
 </template>
 
@@ -637,7 +659,11 @@ export default {
 			OperatingSystem: false,
 			startX: 0,
 			startY: 0,
-			timeType: null
+			timeType: null,
+			showShare: false,
+			sharePath: '',
+			shareTitle: '',
+			shareImg: ''
 		};
 	},
 	onLoad() {
@@ -709,6 +735,37 @@ export default {
 		this.ClearIF();
 	},
 	methods: {
+		setShareData(type, item) {
+			const store = userStore;
+			const pinia_user = store.user;
+			const pinia_userRole = store.userRole;
+			if (type == 'shareFriend') {
+				// 邀请成为供应商
+				let title = '',
+					imageUrl = '';
+				if (pinia_userRole == 'D') {
+					title = '邀请您成为他的客户~';
+					imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareD.png';
+				} else {
+					title = '邀请您成为他的供应商~';
+					imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareR.png';
+				}
+				var phone = pinia_user.data.work == '0' ? pinia_user.phone : pinia_user.workData.bossNumber;
+				this.shareImg = imageUrl;
+				this.sharePath = '/pages/subMessage/friend_apply_for/shareFriend?phone=' + phone + '&invitationRole=' + pinia_userRole;
+				this.shareTitle = title;
+				this.showShare = true;
+			} else {
+				// 分享订单
+				const phone = userStore.user.phone;
+				const port = userStore.userRole;
+
+				this.shareImg = item.picturesId;
+				this.sharePath = `/pages/subOrder/detailsShare?share_id=${item.id}&&type=1&&phone=${phone}&&port=${port}&&versions=Y`;
+				this.shareTitle = '您有一张订单待确认~';
+				this.showShare = true;
+			}
+		},
 		touchStart(e) {
 			this.startX = e.touches[0].pageX;
 			this.startY = e.touches[0].pageY;

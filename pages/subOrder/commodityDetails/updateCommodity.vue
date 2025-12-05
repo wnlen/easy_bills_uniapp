@@ -384,7 +384,8 @@ export default {
 
 <style lang="scss">
 ::v-deep .wd-upload__evoke,
-::v-deep .wd-upload__picture {
+::v-deep .wd-upload__picture,
+::v-deep .wd-upload__preview {
 	height: 264rpx !important;
 	width: 264rpx !important;
 	border-radius: 12rpx !important;

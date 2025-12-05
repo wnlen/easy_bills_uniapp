@@ -1,10 +1,10 @@
 <template>
 	<view class="vh100 pb60 flex-col justify-center" style="background-color: #ffffff; overflow-x: hidden" :class="showCalendar ? 'body-no-scroll' : ''">
-		<!-- #ifdef MP-WEIXIN -->
 		<up-navbar :placeholder="true" bgColor="#ffffff" @leftClick="navBack">
 			<template #center>
 				<view class="flex-row items-center justify-center ml48" style="width: 100%">
 					<view class="" style="font-size: 34rpx; font-weight: 510">{{ pageType == 1 ? '订单修改' : '开送货单' }}</view>
+					<!-- #ifdef MP-WEIXIN -->
 					<view
 						v-if="pageType == 0"
 						@click="jumpVideo"
@@ -14,13 +14,11 @@
 						<text class="mr6">使用方法</text>
 						<view class="ml6"><wd-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></wd-icon></view>
 					</view>
+					<!-- #endif -->
 				</view>
 			</template>
 		</up-navbar>
-		<!-- #endif -->
-		<!-- #ifndef  MP-WEIXIN -->
-		<up-navbar title="开送货单" :placeholder="true" bgColor="#ffffff" @leftClick="navBack"></up-navbar>
-		<!-- #endif -->
+
 		<view class="width100" style="height: 80vh; text-align: center; margin-left: 10vw" v-show="pinia_userRole == 'D' && shareShow == true">
 			<up-popup :show="showShare" mode="center" round="15" :safeAreaInsetBottom="false" @close="showShare = false">
 				<view style="height: 356rpx; width: 580rpx">

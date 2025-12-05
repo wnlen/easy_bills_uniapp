@@ -4,6 +4,7 @@
 			<template #center>
 				<view class="flex-row items-center justify-center ml48" style="width: 100%">
 					<view class="" style="font-size: 34rpx; font-weight: 510">{{ title }}</view>
+					<!-- #ifdef MP-WEIXIN -->
 					<view
 						@click="jumpVideo"
 						class="flex-row justify-center items-center ml12"
@@ -14,6 +15,7 @@
 							<wd-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></wd-icon>
 						</view>
 					</view>
+					<!-- #endif -->
 				</view>
 			</template>
 		</up-navbar>
@@ -31,12 +33,22 @@
 
 		<view class="flex-row ml24 mr24 mt24" style="display: flex">
 			<view class="ml5 mr5 flex-row justify-center" style="flex: 1">
+				<!-- #ifdef MP-WEIXIN -->
 				<wd-button openType="share" color="#01BB74" :customStyle="SearchCustomStyleWechat" :plain="true">
 					<view class="flex-row items-center justify-center">
 						<view><albb-icon icon="ydj-weixin-fill" color="#01BB74" size="40rpx"></albb-icon></view>
 						<text class="pl10">微信邀请</text>
 					</view>
 				</wd-button>
+				<!-- #endif -->
+				<!-- #ifndef MP-WEIXIN -->
+				<wd-button @click="setShareData()" color="#01BB74" :customStyle="SearchCustomStyleWechat" :plain="true">
+					<view class="flex-row items-center justify-center">
+						<view><albb-icon icon="ydj-weixin-fill" color="#01BB74" size="40rpx"></albb-icon></view>
+						<text class="pl10">微信邀请</text>
+					</view>
+				</wd-button>
+				<!-- #endif -->
 			</view>
 			<!-- <view class="ml5 mr5" style="flex: 1">
 				<wd-button :customStyle="SearchCustomStyle"  shape="circle" @click="$goPath('/pages/subIndex/add_friend/add_friend')">
@@ -187,6 +199,7 @@
 				text="供应商空空如也~邀请供应商一起开单吧！"
 				marginTop="100rpx"
 			>
+				<!-- #ifdef MP-WEIXIN -->
 				<wd-button
 					openType="share"
 					iconColor="#ECFFF9"
@@ -195,6 +208,17 @@
 				>
 					<text>去邀请</text>
 				</wd-button>
+				<!-- #endif -->
+				<!-- #ifndef MP-WEIXIN -->
+				<wd-button
+					@click="setShareData()"
+					iconColor="#ECFFF9"
+					:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent', color: '#01BB74' }"
+					:plain="true"
+				>
+					<text>去邀请</text>
+				</wd-button>
+				<!-- #endif -->
 			</up-empty>
 			<view class="mt20 pb150" :style="{ display: show != 1 ? 'none' : 'block' }" @click="showAl = showAl == true ? false : false">
 				<view class="ml20 flex-row items-center vw100" v-for="(item2, index2) in listO" :key="index2" style="height: 9vh" @click="particulars(item2, false)">
@@ -262,8 +286,9 @@
 				>
 					<text>去创建</text>
 				</wd-button>
+				<!-- #ifdef MP-WEIXIN -->
 				<wd-button
-					v-else
+					v-if="pinia_userRole == 'R'"
 					openType="share"
 					iconColor="#ECFFF9"
 					:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent', color: '#01BB74' }"
@@ -271,6 +296,18 @@
 				>
 					<text>去邀请</text>
 				</wd-button>
+				<!-- #endif -->
+				<!-- #ifndef MP-WEIXIN -->
+				<wd-button
+					v-if="pinia_userRole == 'R'"
+					@click="setShareData()"
+					iconColor="#ECFFF9"
+					:customStyle="{ width: '300rpx', height: '80rpx', fontSize: '32rpx', marginTop: '76rpx', background: 'transparent', color: '#01BB74' }"
+					:plain="true"
+				>
+					<text>去邀请</text>
+				</wd-button>
+				<!-- #endif -->
 			</up-empty>
 			<!-- 之前show为0时展示的数据 现在合并后默认展示show=1 -->
 			<view class="" :style="{ display: show != 0 ? 'none' : 'block' }">
@@ -311,6 +348,8 @@
 				</view>
 			</view>
 		</up-overlay>
+		<!-- app分享 -->
+		<pop-share :show="showShare" :sharePath="sharePath" :shareTitle="shareTitle" :imageUrl="shareImg" @closeShare="showShare = false"></pop-share>
 	</view>
 </template>
 <script>
@@ -356,7 +395,11 @@ export default {
 				color: '#01BB74'
 			},
 			identity: false,
-			title: ''
+			title: '',
+			showShare: false,
+			sharePath: '',
+			shareTitle: '',
+			shareImg: ''
 		};
 	},
 	onShow() {
@@ -414,6 +457,22 @@ export default {
 		}
 	},
 	methods: {
+		setShareData() {
+			let title = '',
+				imageUrl = '';
+			if (this.pinia_userRole == 'D') {
+				title = '邀请您成为他的客户~';
+				imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareD.png';
+			} else {
+				title = '邀请您成为他的供应商~';
+				imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareR.png';
+			}
+			let phone = this.pinia_user.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber;
+			this.shareTitle = title;
+			this.shareImg = imageUrl;
+			this.sharePath = '/pages/subMessage/friend_apply_for/shareFriend?phone=' + phone + '&invitationRole=' + this.pinia_userRole;
+			this.showShare = true;
+		},
 		headimg() {
 			return uni.getStorageSync('wzc_img');
 		},

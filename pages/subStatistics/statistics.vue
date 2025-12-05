@@ -17,6 +17,7 @@
 					<template #center>
 						<view class="flex-row items-center justify-center ml50" style="width: 100%">
 							<view class="" style="font-size: 34rpx; font-weight: 510">统计对账</view>
+							<!-- #ifdef MP-WEIXIN -->
 							<view
 								@click="jumpVideo"
 								class="flex-row justify-center items-center ml12"
@@ -25,6 +26,7 @@
 								<text class="mr6">使用方法</text>
 								<wd-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></wd-icon>
 							</view>
+							<!-- #endif -->
 						</view>
 					</template>
 				</up-navbar>
@@ -363,6 +365,7 @@
 					<template #center>
 						<view class="flex-row items-center justify-center ml50" style="width: 100%">
 							<view class="" style="font-size: 34rpx; font-weight: 510">统计对账</view>
+							<!-- #ifdef MP-WEIXIN -->
 							<view
 								@click="jumpVideo"
 								class="flex-row justify-center items-center ml12"
@@ -371,6 +374,7 @@
 								<text class="mr6">使用方法</text>
 								<wd-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></wd-icon>
 							</view>
+							<!-- #endif -->
 						</view>
 					</template>
 				</up-navbar>
