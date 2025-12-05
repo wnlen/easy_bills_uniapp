@@ -126,12 +126,11 @@
 
 			<view class="module">
 				<view class="yjdl" @click="$univerify()">本机号码一键登录</view>
-				<view class="mt45" style="color: #aaaaaa; font-size: 24rpx; text-align: center">第三方登录</view>
+				<view class="mt20" style="color: #aaaaaa; font-size: 24rpx; text-align: center">第三方登录</view>
 				<view class="mt10 flex-row justify-center items-center" style="text-align: center">
-					<image src="/static/app/img/login/wechat.png" class="wechatIcon" @click="wxloginInit"></image>
-					<!-- <view class="flex-row justify-center items-center mr30" style="background-color: #20c300; height: 96rpx; width: 96rpx; border-radius: 50%">
+					<view class="flex-row justify-center items-center mr30" style="background-color: #20c300; height: 96rpx; width: 96rpx; border-radius: 50%">
 						<albb-icon icon="ydj-weixin-fill" color="#fff" size="80rpx" @active="wxloginInit"></albb-icon>
-					</view> -->
+					</view>
 					<!-- #ifdef APP-IOS -->
 					<wd-icon name="apple-filled" size="96rpx"></wd-icon>
 					<!-- #endif -->
@@ -253,7 +252,7 @@ export default {
 			this.tips = `${e.seconds}s后重新获取`;
 		},
 		getCode() {
-			if (this.tips == '获取验证码' || this.tips == '重新获取') {
+			if (this.tips != '获取验证码' || this.tips != '重新获取') {
 				uni.$api.sms
 					.getSmsCode({
 						phone: this.fromLogin.phoneNumber,
@@ -335,8 +334,7 @@ export default {
 						.then((res) => {
 							var resDate = res.data.data;
 							that.message = res.data.message;
-							console.log('亘古不变', resDate);
-							if (resDate.user == null || resDate.user.work == null) {
+							if (resDate.data == null || resDate.data.work == null) {
 								that.$u.toast(that.message);
 								return;
 							}
@@ -345,12 +343,12 @@ export default {
 								user: {
 									userRole: 'D',
 									token: resDate.loginToken,
-									user: resDate.user,
-									work: resDate.user.work != '1' ? 'N' : 'Y'
+									user: resDate,
+									work: resDate.data.work != '1' ? 'N' : 'Y'
 								}
 							});
 
-							if (resDate.phone != '' && resDate.user.work != null) {
+							if (resDate.phone != '' && resDate.data.work != null) {
 								that.$loadUser(that);
 								console.log('授权完', that.sharePath);
 								// 接收分享参数
@@ -508,7 +506,7 @@ export default {
 							userRole: 'D',
 							token: resDate.loginToken,
 							user: resDate,
-							work: resDate.work != '1' ? 'N' : 'Y'
+							work: resDate.data.work != '1' ? 'N' : 'Y'
 						}
 					});
 
@@ -585,10 +583,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.wechatIcon {
-	width: 50px;
-	height: 50px;
-}
 .module {
 	position: fixed;
 	bottom: 40rpx;

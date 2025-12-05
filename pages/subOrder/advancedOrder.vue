@@ -400,7 +400,7 @@ export default {
 	methods: {
 		getDraftsAmount() {
 			// amount
-			var ifwork = this.pinia_user.user.work == '0';
+			var ifwork = this.pinia_user.data.work == '0';
 			if (ifwork) {
 				this.realTimeSel.bossNumberS = this.pinia_user.phone;
 				this.realTimeSel.staffNumberS = this.pinia_user.phone;
@@ -429,7 +429,7 @@ export default {
 			this.realTimeSel.checkAll = this.checked;
 			this.realTimeSel.delId = checkTrue;
 
-			this.realTimeSel.bossNumberS = this.pinia_user.user.work != '0' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone;
+			this.realTimeSel.bossNumberS = this.pinia_user.data.work != '0' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone;
 			this.realTimeSel.staffNumberS = this.pinia_user.phone;
 
 			uni.showModal({
@@ -531,7 +531,7 @@ export default {
 			this.hide = true;
 			this.realTimeSel.getPhone = this.pinia_user.phone;
 
-			var ifwork = this.pinia_user.user.work == '0';
+			var ifwork = this.pinia_user.data.work == '0';
 			var timeEmp = this.realTimeSel.startDate == '' || this.realTimeSel.endDate == '';
 			var ifWorkPort = this.pinia_userRole == 'R';
 

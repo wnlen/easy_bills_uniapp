@@ -385,7 +385,7 @@ export default {
 		}
 	},
 	onShow() {
-		var identity = this.pinia_user.user.work == '1' ? this.pinia_user.workData.identity != 4 : true;
+		var identity = this.pinia_user.data.work == '1' ? this.pinia_user.workData.identity != 4 : true;
 		this.identity = identity;
 		if (identity) {
 			this.checkFalse();
@@ -415,7 +415,7 @@ export default {
 			console.log('删除', bill);
 
 			var billdel = false;
-			if (this.pinia_user.user.work == '0') {
+			if (this.pinia_user.data.work == '0') {
 				billdel = bill.sourcePhone == this.pinia_user.phone;
 			} else {
 				billdel = bill.sourcePhone == this.pinia_user.workData.bossNumber;
@@ -435,7 +435,7 @@ export default {
 				this.defaultValues.orderNumber = bill.billNumber;
 				this.defaultValues.genre = 'D';
 
-				var work = this.pinia_user.user.work == '0';
+				var work = this.pinia_user.data.work == '0';
 
 				if (this.pinia_userRole == 'D') {
 					this.defaultValues.aBoss = this.pinia_user.phone;
@@ -517,7 +517,7 @@ export default {
 
 			var Bill = this.CBills[index];
 
-			var work = this.pinia_user.user.work == '0';
+			var work = this.pinia_user.data.work == '0';
 			var phone = this.pinia_user.phone;
 
 			var content = '';
@@ -640,7 +640,7 @@ export default {
 				console.log('收费', bill, okList);
 			} else {
 				//申请付款
-				var work = this.pinia_user.user.work == '0';
+				var work = this.pinia_user.data.work == '0';
 
 				var cDelOrderApplyList = [];
 
@@ -787,7 +787,7 @@ export default {
 			this.okList();
 			let resJson = uni.getStorageSync('companyNameJSON');
 			var ifWorkPort = this.pinia_userRole == 'R';
-			var work = this.pinia_user.user.work == '0';
+			var work = this.pinia_user.data.work == '0';
 
 			if (resJson != '') {
 				var json = JSON.parse(resJson);

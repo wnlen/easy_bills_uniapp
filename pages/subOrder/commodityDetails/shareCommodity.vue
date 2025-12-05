@@ -292,7 +292,7 @@ export default {
 		this.add();
 	},
 	onShow() {
-		var work = this.pinia_user.user.work == '0';
+		var work = this.pinia_user.data.work == '0';
 		if (work) {
 			//没工作
 			this.merchandiseInventory.staffNumber = this.pinia_user.phone;
@@ -570,7 +570,7 @@ export default {
 			this.save();
 		},
 		addEmp() {
-			var ifwork = this.pinia_user.user.work == '0';
+			var ifwork = this.pinia_user.data.work == '0';
 			var dx = {
 				id: '',
 				orderId: '',

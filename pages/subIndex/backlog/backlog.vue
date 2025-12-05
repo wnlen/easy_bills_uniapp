@@ -306,7 +306,7 @@ export default {
 			});
 		},
 		refresh(start, end) {
-			var workIF = this.pinia_user.user.work == '0';
+			var workIF = this.pinia_user.data.work == '0';
 			var dx = {
 				bUser: '',
 				bBoss: '',
@@ -349,7 +349,7 @@ export default {
 			});
 		},
 		loadData() {
-			var workIF = this.pinia_user.user.work == '0';
+			var workIF = this.pinia_user.data.work == '0';
 			var dx = {
 				bUser: '',
 				bBoss: '',

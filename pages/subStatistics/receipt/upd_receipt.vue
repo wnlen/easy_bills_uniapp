@@ -1019,7 +1019,7 @@ export default {
 		},
 		Init() {
 			this.realTimeSel.organizationE = '';
-			if (this.pinia_user.user.work == '0') {
+			if (this.pinia_user.data.work == '0') {
 				if (this.pinia_userRole == 'D') {
 					this.realTimeSel.bossNumberS = this.pinia_user.phone;
 					if (this.pinia_user.phone == this.start) {
@@ -1195,8 +1195,8 @@ export default {
 				});
 		},
 		loadData() {
-			let role = this.pinia_user.user.work == '1' ? 1 : 2;
-			//console.log(this.pinia_user.user.work);
+			let role = this.pinia_user.data.work == '1' ? 1 : 2;
+			//console.log(this.pinia_user.data.work);
 			var that = this;
 			// uni.$api.user
 			// 	.refreshUser({
@@ -1289,7 +1289,7 @@ export default {
 			//当前手机号码 发起者
 			var aPhone = this.pinia_user.phone;
 			//是否工作
-			var workif = this.pinia_user.user.work == '0';
+			var workif = this.pinia_user.data.work == '0';
 			//收获端老板是否为同一人
 			var ifOne = val.bossNumberE == val.staffNumberE;
 			//判断端口

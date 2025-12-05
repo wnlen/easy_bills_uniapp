@@ -8,7 +8,7 @@ export const useUserStore = defineStore('user', {
 	state: () => ({
 		user: {
 			workData: {},
-			data: {},
+			user: {},
 			ac: {},
 			phone: null,
 			password: ''

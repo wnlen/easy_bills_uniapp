@@ -103,7 +103,7 @@ export default {
 					title: '创建新客户'
 				});
 			}
-			this.user.work = this.pinia_user.user.work == '0';
+			this.user.work = this.pinia_user.data.work == '0';
 			this.user.port = this.pinia_userRole;
 			this.submitUser.port = this.pinia_userRole;
 			if (!this.user.work) {
