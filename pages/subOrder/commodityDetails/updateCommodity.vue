@@ -383,6 +383,9 @@ export default {
 </script>
 
 <style lang="scss">
+::v-deep .wd-upload__status-content {
+	border-radius: 12rpx !important;
+}
 ::v-deep .wd-upload__evoke,
 ::v-deep .wd-upload__picture,
 ::v-deep .wd-upload__preview {

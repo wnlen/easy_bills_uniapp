@@ -424,7 +424,7 @@ export default {
 				// #ifdef APP
 				this.$univerify();//app一键登录
 				// #endif
-				// #ifdef MP-WEIXIN
+				// #ifndef APP
 				uni.navigateTo({
 					url: '/pages/subUser/login'
 				});
@@ -436,7 +436,7 @@ export default {
 				// #ifdef APP
 				this.$univerify();//app一键登录
 				// #endif
-				// #ifdef MP-WEIXIN
+				// #ifndef APP
 				uni.navigateTo({
 					url: '/pages/subUser/login'
 				});

@@ -13,7 +13,7 @@ export function goPath(path, vm) {
 			url: path
 		});
 	} else {
-		// #ifdef MP
+		// #ifndef APP
 		uni.navigateTo({
 			url: '/pages/subUser/login'
 		});

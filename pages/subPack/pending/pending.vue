@@ -310,18 +310,20 @@
 								:data-thumb="item.picturesId"
 								:data-id="item.id"
 								:data-versions="'Y'"
+								hover-class="hover-view"
 							>
 								<albb-icon icon="ydj-zhuanfa" size="20rpx" color="#666666"></albb-icon>
 								<text class="ft22 ml5">{{ pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发' }}</text>
 							</button>
 							<!-- #endif -->
 							<!-- #ifndef MP-WEIXIN -->
-							<button class="hl-btn flex-row items-center justify-center" type="default" @click="setShareData('', item)">
+							<button hover-class="hover-view" class="hl-btn flex-row items-center justify-center" type="default" @click="setShareData('', item)">
 								<albb-icon icon="ydj-zhuanfa" size="20rpx" color="#666666"></albb-icon>
 								<text class="ft22 ml5">{{ pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发' }}</text>
 							</button>
 							<!-- #endif -->
 							<button
+								hover-class="hover-view"
 								v-if="pinia_userRole === 'R' && pinia_user.workData.identity !== '3' && item.paymentState === '0' && item.lockOrder != 1"
 								class="hl-btn ml20 flex-row items-center justify-center"
 								type="default"
@@ -331,6 +333,7 @@
 								<text class="ft22 ml5">确认签收</text>
 							</button>
 							<button
+								hover-class="hover-view"
 								v-if="pinia_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
 								class="hl-btn ml20 flex-row items-center justify-center"
 								type="default"
@@ -340,6 +343,7 @@
 								<text class="ft22 ml5">{{ labText }}</text>
 							</button>
 							<button
+								hover-class="hover-view"
 								v-if="pinia_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
 								class="hl-btn ml20 flex-row items-center justify-center"
 								type="default"
