@@ -544,7 +544,7 @@ export default {
 			this.searchData = json;
 		}
 
-		var identity = this.pinia_user.work == '1' ? this.pinia_user.workData.identity != 4 : true;
+		var identity = this.pinia_user.user.work == '1' ? this.pinia_user.workData.identity != 4 : true;
 		this.identity = identity;
 	},
 	onShow() {
@@ -809,7 +809,7 @@ export default {
 
 			this.realTimeSel.getPhone = this.pinia_user.phone;
 
-			var ifwork = this.pinia_user.work == '0';
+			var ifwork = this.pinia_user.user.work == '0';
 			var timeEmp = this.realTimeSel.startDate == '' || this.realTimeSel.endDate == '';
 			var ifWorkPort = this.pinia_userRole == 'R';
 
@@ -1048,8 +1048,8 @@ export default {
 				});
 		},
 		// loadData() {
-		// 	let role = this.pinia_user.work == '1' ? 1 : 2;
-		// 	//console.log(this.pinia_user.work);
+		// 	let role = this.pinia_user.user.work == '1' ? 1 : 2;
+		// 	//console.log(this.pinia_user.user.work);
 		// 	var that = this;
 		// 	uni.$api.user
 		// 		.refreshUser({
@@ -1143,7 +1143,7 @@ export default {
 			//当前手机号码 发起者
 			var aPhone = this.pinia_user.phone;
 			//是否工作
-			var workif = this.pinia_user.work == '0';
+			var workif = this.pinia_user.user.work == '0';
 			//收获端老板是否为同一人
 			var ifOne = val.bossNumberE == val.staffNumberE;
 			//判断端口

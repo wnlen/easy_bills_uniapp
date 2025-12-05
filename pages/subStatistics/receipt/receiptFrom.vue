@@ -313,7 +313,7 @@ export default {
 			this.billFrom.billTime = this.$u.timeFormat(new Date(), 'yyyy-mm-dd');
 			this.getOrderNumber();
 
-			var ifwork = this.pinia_user.work == '0';
+			var ifwork = this.pinia_user.user.work == '0';
 			var ifWorkPort = this.pinia_userRole == 'R';
 			if (!ifwork) {
 				var boss = this.pinia_user.workData.bossNumber;

@@ -70,7 +70,7 @@ export default {
 		defUpdate(item) {
 			console.log(item);
 
-			var ifwork = this.pinia_user.work == '0';
+			var ifwork = this.pinia_user.user.work == '0';
 			var ifWorkPort = this.pinia_userRole == 'R';
 
 			var phone = this.pinia_user.phone;
@@ -124,7 +124,7 @@ export default {
 			});
 		},
 		getPrinter() {
-			var ifwork = this.pinia_user.work == '0';
+			var ifwork = this.pinia_user.user.work == '0';
 			var ifWorkPort = this.pinia_userRole == 'R';
 
 			var phone = this.pinia_user.phone;

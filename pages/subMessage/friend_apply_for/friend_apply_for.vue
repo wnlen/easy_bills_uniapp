@@ -114,7 +114,7 @@ export default {
 			uni.$api.user
 				.getClientList({
 					bNumber: this.pinia_user.phone,
-					bBossNumber: this.pinia_user.work === '1' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone,
+					bBossNumber: this.pinia_user.user.work === '1' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone,
 					state: '0'
 				})
 				.then((res) => {

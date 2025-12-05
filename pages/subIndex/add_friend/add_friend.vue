@@ -312,7 +312,7 @@ export default {
 			var addWork = item.work == '0';
 
 			var phone = this.pinia_user.phone;
-			var work = this.pinia_user.work == '1';
+			var work = this.pinia_user.user.work == '1';
 			var img = this.pinia_user.data.headPortrait;
 			var aName = this.pinia_user.data.nickName || phone;
 			var identy = '';
