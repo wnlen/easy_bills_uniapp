@@ -604,7 +604,7 @@ export default {
 			// #ifdef APP
 			this.$univerify();
 			// #endif
-			// #ifdef MP
+			// #ifndef APP
 			uni.navigateTo({
 				url: '/pages/subUser/login'
 			});
