@@ -46,9 +46,9 @@ export default {
 			this.messNum = 0;
 			if (this.$u.getPinia('user.token')) {
 				var dx = {
-					boss: this.pinia_user.work == '1' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone,
+					boss: this.pinia_user.user.work == '1' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone,
 					staff: this.pinia_user.phone,
-					work: this.pinia_user.work
+					work: this.pinia_user.user.work
 				};
 				uni.$api.inform
 					.getAllMessages(dx)

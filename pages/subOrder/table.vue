@@ -282,7 +282,7 @@ export default {
 			imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareR.png';
 		}
 		if (ops.from === 'button') {
-			var phone = this.pinia_user.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber;
+			var phone = this.pinia_user.user.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber;
 			return {
 				title: title,
 				path: '/pages/subMessage/friend_apply_for/shareFriend?phone=' + phone + '&invitationRole=' + this.pinia_userRole,
@@ -418,7 +418,7 @@ export default {
 		addFriend(json) {
 			var addPhone = json.phone;
 			var phone = this.pinia_user.phone;
-			var work = this.pinia_user.work == '1';
+			var work = this.pinia_user.user.work == '1';
 			var img = this.pinia_user.data.headPortrait;
 			var aName = this.pinia_user.data.nickName || phone;
 			var identy = '';

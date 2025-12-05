@@ -166,7 +166,7 @@ export default {
 		} else {
 			this.checked = '客户';
 		}
-		var workIF = this.pinia_user.work != '0';
+		var workIF = this.pinia_user.user.work != '0';
 
 		this.scanQRcodesData.phone = this.pinia_user.phone;
 		this.$nextTick(() => {
@@ -193,7 +193,7 @@ export default {
 		addFriend(json) {
 			var addPhone = json.phone;
 			var phone = this.pinia_user.phone;
-			var work = this.pinia_user.work == '1';
+			var work = this.pinia_user.user.work == '1';
 			var img = this.pinia_user.data.headPortrait;
 			var aName = this.pinia_user.data.nickName || phone;
 			var identy = '';

@@ -671,7 +671,7 @@ export default {
 					title = '邀请您成为他的供应商~';
 					imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareR.png';
 				}
-				var phone = this.pinia_user.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber;
+				var phone = this.pinia_user.user.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber;
 				return {
 					title: title,
 					path: '/pages/subMessage/friend_apply_for/shareFriend?phone=' + phone + '&invitationRole=' + this.pinia_userRole,
@@ -780,7 +780,7 @@ export default {
 
 			this.realTimeSel.getPhone = this.pinia_user.phone;
 
-			var ifwork = this.pinia_user.work == '0';
+			var ifwork = this.pinia_user.user.work == '0';
 			var timeEmp = this.realTimeSel.startDate == '' || this.realTimeSel.endDate == '';
 			var ifWorkPort = this.pinia_userRole == 'R';
 
@@ -1207,7 +1207,7 @@ export default {
 			//当前手机号码 发起者
 			var aPhone = this.pinia_user.phone;
 			//是否工作
-			var workif = this.pinia_user.work == '0';
+			var workif = this.pinia_user.user.work == '0';
 			//收获端老板是否为同一人
 			var ifOne = val.bossNumberE == val.staffNumberE;
 			//判断端口
