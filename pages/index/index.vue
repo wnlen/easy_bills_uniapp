@@ -482,7 +482,6 @@ export default {
 		this.showTab = false;
 	},
 	onShow() {
-		console.log('userinfo', this.pinia_user);
 		this.showTab = true;
 		// #ifndef MP-WEIXIN
 		uni.hideTabBar();

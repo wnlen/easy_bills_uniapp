@@ -14,7 +14,12 @@
 				<view class="qrcode_img">
 					<uv-image :src="qrCodeUrl" :lazy-load="true" :fade="true" duration="450" width="162rpx" height="162rpx"></uv-image>
 				</view>
+				<!-- #ifdef MP-WEIXIN -->
 				<button class="btn_1" open-type="share">分享好友</button>
+				<!-- #endif -->
+				<!-- #ifndef MP-WEIXIN -->
+				<button class="btn_1" @click="showShare = true">分享好友</button>
+				<!-- #endif -->
 				<button class="btn_2" @click="saveQr">下载</button>
 				<view class="box-text">注:邀请新好友注册登录累计一个人数</view>
 			</view>
@@ -47,6 +52,14 @@
 				<view class="ddtj_btn_disabled" v-else>领取</view>
 			</view>
 		</view>
+		<!-- app分享 -->
+		<pop-share
+			:show="showShare"
+			:sharePath="`/pages/index/index?inviterId=${pinia_user.data.id}`"
+			:shareTitle="'邀你体验易单据'"
+			:imageUrl="'https://res-oss.elist.com.cn/share/share.png'"
+			@closeShare="showShare = false"
+		></pop-share>
 	</view>
 </template>
 
@@ -60,7 +73,8 @@ export default {
 			canClaim3Month: false, //能不能领
 			canClaim12Month: false,
 			claimed3Month: false, //领没领过
-			claimed12Month: false
+			claimed12Month: false,
+			showShare: false
 		};
 	},
 	onLoad() {
@@ -92,7 +106,7 @@ export default {
 					if (res.statusCode === 200) {
 						uni.saveImageToPhotosAlbum({
 							filePath: res.tempFilePath,
-							success: () => uni.showToast({ title: '已保存' }),
+							success: () => uni.showToast({ title: '已保存', icon: 'none' }),
 							fail: () => uni.showToast({ title: '保存失败', icon: 'none' })
 						});
 					}

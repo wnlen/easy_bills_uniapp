@@ -19,325 +19,131 @@
 						</view>
 					</template>
 				</up-navbar>
+
+				<view style="width: 100%">
+					<up-tabs
+						:list="tabsList"
+						lineWidth="30"
+						lineHeight="7"
+						lineColor="#0FB076"
+						:scrollable="false"
+						:activeStyle="{
+							color: '#0FB076',
+							fontWeight: 'bold',
+							transform: 'scale(1.05)'
+						}"
+						:inactiveStyle="{
+							color: '#333333',
+							transform: 'scale(1)'
+						}"
+						itemStyle="padding-left: 30rpx; padding-right: 30rpx; height: 70rpx;font-size:32rpx;padding-bottom:20rpx;backgroundColor:#fff"
+						:current="current"
+						@change="changeTab"
+					></up-tabs>
+				</view>
 			</template>
-			<wd-tabs v-model="current" swipeable animated color="#0FB076" :lineHeight="5" @change="changeTab">
-				<block v-for="(item, index) in tabsList" :key="index">
-					<wd-tab :title="item.name">
-						<view class="pt100">
-							<view class="Card cardShow">
-								<view class="priceCard">
-									<text class="ft-gray mb18 ml10" style="color: #999999; font-size: 30rpx">
-										{{ pinia_userRole == 'D' && uni.$u.getPinia('user.customized') ? '累计总重(KG)' : '累计金额' }}
-									</text>
-									<view class="ml9">
-										<text class="ft40 ft-bold" v-if="!(pinia_userRole == 'D' && uni.$u.getPinia('user.customized'))">￥</text>
-										<up-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="20" decimals="2" bold></up-count-to>
-									</view>
+
+			<view class="Card cardShow">
+				<view class="priceCard">
+					<text class="ft-gray mb18 ml10" style="color: #999999; font-size: 30rpx">
+						{{ pinia_userRole == 'D' && uni.$u.getPinia('user.customized') ? '累计总重(KG)' : '累计金额' }}
+					</text>
+					<view class="ml9">
+						<text class="ft40 ft-bold" v-if="!(pinia_userRole == 'D' && uni.$u.getPinia('user.customized'))">￥</text>
+						<up-count-to :end-val="OrderQuantitySum" separator="," color="#000000" font-size="20" decimals="2" bold></up-count-to>
+					</view>
+				</view>
+
+				<view class="InputCard">
+					<view class="InputOne">
+						<uv-input
+							v-model="customer"
+							:customStyle="{ backgroundColor: 'transparent' }"
+							:placeholder="userStore.userRole === 'R' ? '请选择供应商' : '请选择客户'"
+							:clearable="true"
+							border="none"
+							@blur="inputblur"
+							@clear="onClear"
+						>
+							<template #prefix>
+								<view>
+									<text class="ft30 ft-gray ml20 mr20">{{ userStore.userRole === 'R' ? '供应商选择' : '客户选择' }}</text>
+									<text class="mr15">|</text>
 								</view>
-
-								<view class="InputCard">
-									<view class="InputOne">
-										<uv-input
-											v-model="customer"
-											:customStyle="{ backgroundColor: 'transparent' }"
-											:placeholder="userStore.userRole === 'R' ? '请选择供应商' : '请选择客户'"
-											:clearable="true"
-											border="none"
-											@blur="inputblur"
-											@clear="onClear"
-										>
-											<template #prefix>
-												<view>
-													<text class="ft30 ft-gray ml20 mr20">{{ userStore.userRole === 'R' ? '供应商选择' : '客户选择' }}</text>
-													<text class="mr15">|</text>
-												</view>
-											</template>
-											<template #suffix>
-												<view class="flex-col justify-center items-center ml40">
-													<wd-icon name="/static/img/list/lxr.svg" size="46rpx" @click="CustomerGet"></wd-icon>
-												</view>
-											</template>
-										</uv-input>
-									</view>
-
-									<view class="InputOne" v-if="showTage !== '1'">
-										<uv-input
-											v-model="field"
-											:customStyle="{ backgroundColor: 'transparent' }"
-											placeholder="输入关键字进行检索"
-											border="none"
-											:clearable="true"
-											@blur="searchListennerConfirm"
-											@clear="onClear"
-										>
-											<template #prefix>
-												<up-text
-													:text="Title"
-													margin="0 0 0 20rpx"
-													suffixIcon="arrow-down-fill"
-													color="#606266"
-													iconStyle="color: #606266;margin:0 10rpx;fontSize:20rpx"
-													@click="filtrateGet"
-												></up-text>
-											</template>
-											<template #suffix>
-												<view class="flex-col justify-center items-center">
-													<wd-icon name="/static/img/list/ss.svg" size="46rpx" @click="searchListennerConfirm"></wd-icon>
-												</view>
-											</template>
-										</uv-input>
-									</view>
-									<view class="InputOne" v-if="showTage === '1'">
-										<uv-input
-											v-model="field"
-											maxlength="11"
-											:customStyle="{ backgroundColor: 'transparent' }"
-											placeholder="输入号码进行检索"
-											border="none"
-											:clearable="true"
-											@blur="searchListennerConfirm"
-											@clear="onClear"
-										>
-											<template #prefix>
-												<up-text
-													class="ft11 ft-gray"
-													margin="0 0 0 20rpx"
-													:text="Title"
-													suffixIcon="arrow-down-fill"
-													iconStyle="color: #606266;margin:0 10rpx;fontSize:20rpx"
-													@click="filtrateGet"
-												></up-text>
-											</template>
-											<template #suffix>
-												<view class="ml40 flex-col justify-center items-center">
-													<wd-icon name="/static/img/list/ss.svg" size="46rpx" @click="searchListennerConfirm"></wd-icon>
-												</view>
-											</template>
-										</uv-input>
-									</view>
+							</template>
+							<template #suffix>
+								<view class="flex-col justify-center items-center ml40">
+									<wd-icon name="/static/img/list/lxr.svg" size="46rpx" @click="CustomerGet"></wd-icon>
 								</view>
-							</view>
+							</template>
+						</uv-input>
+					</view>
 
-							<text class="NumOrder ml10">
-								<text>
-									共
-									<text style="color: #01bb74">{{ OrderQuantity }}</text>
-									个订单
-								</text>
-							</text>
-							<view
-								v-for="(item, index) in orderList"
-								:key="item.id"
-								:index="index"
-								:id="`zp-id-${item.id}`"
-								@click="
-									$goPath('/pages/subOrder/details?id=' + item.id);
-									hide = false;
-								"
-								class="OrderCard"
-							>
-								<view class="OrderCardHand" @tap.stop>
-									<view class="title ml1 flex-row items-center" style="" @tap.stop>
-										<text class="ft30 ft-lightgray pr30" style="color: #666666">
-											订单编号:
-											<text class="ml15" @click="copyBtn(item.orderNumber)" style="color: #f76565">
-												{{ item.orderNumber }}
-											</text>
-										</text>
-										<wd-icon size="30rpx" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></wd-icon>
-										<view class="ml15">
-											<wd-icon size="30rpx" v-if="item.lockOrder == 1 && item.paymentState != 2" :name="bat64.lock" color="#666666"></wd-icon>
-										</view>
-									</view>
-									<view class="ml20" style="width: 30%">
-										<view class="u-img" v-if="userStore.userRole == 'D'" :style="{ display: item.paymentState == '0' ? 'inline' : 'none' }">
-											<up-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.dqs"></up-image>
-										</view>
-
-										<view class="u-img" v-if="userStore.userRole == 'R'" :style="{ display: item.paymentState == '0' ? 'inline' : 'none' }">
-											<up-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.dqss"></up-image>
-										</view>
-
-										<view class="u-img" v-if="userStore.userRole == 'R'" :style="{ display: item.paymentState == '2' ? 'inline' : 'none' }">
-											<up-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.yfk"></up-image>
-										</view>
-										<view class="u-img" :style="{ display: item.paymentState == '1' ? 'inline' : 'none' }">
-											<up-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.yqs"></up-image>
-										</view>
-
-										<view class="u-img" v-if="userStore.userRole != 'R'" :style="{ display: item.paymentState == '2' ? 'inline' : 'none' }">
-											<up-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.ysk"></up-image>
-										</view>
-									</view>
+					<view class="InputOne" v-if="showTage !== '1'">
+						<uv-input
+							v-model="field"
+							:customStyle="{ backgroundColor: 'transparent' }"
+							placeholder="输入关键字进行检索"
+							border="none"
+							:clearable="true"
+							@blur="searchListennerConfirm"
+							@clear="onClear"
+						>
+							<template #prefix>
+								<up-text
+									:text="Title"
+									margin="0 0 0 20rpx"
+									suffixIcon="arrow-down-fill"
+									color="#606266"
+									iconStyle="color: #606266;margin:0 10rpx;fontSize:20rpx"
+									@click="filtrateGet"
+								></up-text>
+							</template>
+							<template #suffix>
+								<view class="flex-col justify-center items-center">
+									<wd-icon name="/static/img/list/ss.svg" size="46rpx" @click="searchListennerConfirm"></wd-icon>
 								</view>
-								<view class="width100 pb25 text-left">
-									<text class="flex-col text-left">
-										<text
-											v-if="userStore.userRole == 'D'"
-											:style="{ color: ifZX(item.bossNumberE) ? '#AAAAAA' : '#3D3D3D' }"
-											class="ft34 u-line-bt width100"
-											style="font-weight: 500"
-										>
-											{{ item.organizationE || item.bossNumberE }}{{ ifZX(item.bossNumberE) ? '(已注销)' : '' }}
-										</text>
-										<text
-											v-if="userStore.userRole == 'R'"
-											:style="{ color: ifZX(item.bossNumberS) ? '#AAAAAA' : '#3D3D3D' }"
-											class="ft34 u-line-bt width100"
-											style="font-weight: 500"
-										>
-											{{ item.enterpriseS || item.bossNumberS }}{{ ifZX(item.bossNumberS) ? '(已注销)' : '' }}
-										</text>
-									</text>
+							</template>
+						</uv-input>
+					</view>
+					<view class="InputOne" v-if="showTage === '1'">
+						<uv-input
+							v-model="field"
+							maxlength="11"
+							:customStyle="{ backgroundColor: 'transparent' }"
+							placeholder="输入号码进行检索"
+							border="none"
+							:clearable="true"
+							@blur="searchListennerConfirm"
+							@clear="onClear"
+						>
+							<template #prefix>
+								<up-text
+									class="ft11 ft-gray"
+									margin="0 0 0 20rpx"
+									:text="Title"
+									suffixIcon="arrow-down-fill"
+									iconStyle="color: #606266;margin:0 10rpx;fontSize:20rpx"
+									@click="filtrateGet"
+								></up-text>
+							</template>
+							<template #suffix>
+								<view class="ml40 flex-col justify-center items-center">
+									<wd-icon name="/static/img/list/ss.svg" size="46rpx" @click="searchListennerConfirm"></wd-icon>
 								</view>
-								<text class="ft30 line25 ft-lightgray">
-									<text>日期：{{ $u.timeFormat(item.creationTime, 'yyyy-mm-dd') }}</text>
-								</text>
+							</template>
+						</uv-input>
+					</view>
+				</view>
+			</view>
 
-								<text class="ft-lightgray mt10 line25 flex-row items-center justify-end">
-									<text>{{ pinia_userRole == 'D' && item.isCustomized ? '订单总重' : '订单金额' }}：</text>
-									<text style="color: black; font-size: 24rpx" v-if="!(pinia_userRole == 'D' && uni.$u.getPinia('user.customized'))">￥</text>
-									<text class="ft35" style="color: black; font-weight: 500">
-										{{ pinia_userRole == 'D' && item.isCustomized ? Number(item.totalWeightKg).toFixed(2) : item.price.toFixed(2) }}
-									</text>
-								</text>
-
-								<text
-									style="width: 100%"
-									class="mt17 ft-lightgray ft25 bg-gray radius pd10"
-									@tap.stop
-									v-if="item.receiptsDescr && item.paymentState != 2"
-									@click="noteMyOrder(item)"
-								>
-									备注：{{ item.receiptsDescr }}
-								</text>
-
-								<view class="flex-row u-border-top pd10 pt20 justify-between text-right items-center mt17" @tap.stop>
-									<!-- 分享按钮区域 -->
-									<view v-if="item.share" class="flex-row items-center justify-center" style="width: 100%">
-										<view class="flex-row justify-center items-center" style="width: 100%">
-											<view class="flex-row justify-center items-center" style="width: 40%; color: #cccccc">
-												<view class="flex-row items-center justify-center">
-													<button
-														class="hl-btn NY flex-row items-center justify-center"
-														type="default"
-														open-type="share"
-														name="Y"
-														:data-thumb="item.picturesId"
-														:data-id="item.id"
-														:data-versions="'Y'"
-													>
-														<view>
-															<albb-icon icon="ydj-zhuanfa" size="20rpx" color="#666666"></albb-icon>
-															<text class="ft22 ml5">
-																{{ pinia_user.data.work !== '1' && pinia_user.workDate == null ? '有金额转发' : '有金额转发' }}
-															</text>
-														</view>
-													</button>
-												</view>
-											</view>
-											<view class="flex-row justify-center items-center u-border-left u-border-right" style="width: 40%; color: #cccccc">
-												<button
-													class="hl-btn NY flex-row items-center justify-center"
-													type="default"
-													open-type="share"
-													name="N"
-													:data-thumb="item.picturesId"
-													:data-id="item.id"
-													:data-versions="'N'"
-												>
-													<view>
-														<albb-icon icon="ydj-zhuanfa" size="20rpx" color="#666666"></albb-icon>
-														<text class="ft22 ml5">
-															{{ pinia_user.data.work !== '1' && pinia_user.workDate == null ? '无金额转发' : '无金额转发' }}
-														</text>
-													</view>
-												</button>
-											</view>
-											<view class="flex-row justify-center items-center" style="width: 20%; color: #f76565" @click="shareNY(item, 2)">关闭</view>
-										</view>
-									</view>
-
-									<!-- 未分享区域 -->
-									<view v-if="!item.share" class="flex-row items-center justify-center">
-										<view class="flex-row items-center justify-center">
-											<!-- @click="shareNY(item, 1)" -->
-											<!-- #ifdef MP-WEIXIN -->
-											<button
-												class="hl-btn flex-row items-center justify-center"
-												type="default"
-												open-type="share"
-												name="Y"
-												:data-thumb="item.picturesId"
-												:data-id="item.id"
-												:data-versions="'Y'"
-												hover-class="hover-view"
-											>
-												<albb-icon icon="ydj-zhuanfa" size="20rpx" color="#666666"></albb-icon>
-												<text class="ft22 ml10">{{ pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发' }}</text>
-											</button>
-											<!-- #endif -->
-											<!-- #ifndef MP-WEIXIN -->
-											<button hover-class="hover-view" class="hl-btn flex-row items-center justify-center" type="default" @click="setShareData('', item)">
-												<albb-icon icon="ydj-zhuanfa" size="20rpx" color="#666666"></albb-icon>
-												<text class="ft22 ml10">{{ pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发' }}</text>
-											</button>
-											<!-- #endif -->
-											<button
-												hover-class="hover-view"
-												v-if="userStore.userRole === 'R' && pinia_user.workData.identity !== '3' && item.paymentState === '0' && item.lockOrder != 1"
-												class="hl-btn ml20 flex-row items-center justify-center"
-												type="default"
-												@click="$goPath('/pages/subOrder/details?id=' + item.id)"
-											>
-												<wd-icon name="list" size="20rpx" color="#666666"></wd-icon>
-												<text class="ft22 ml5">确认签收</text>
-											</button>
-											<button
-												hover-class="hover-view"
-												v-if="pinia_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
-												class="hl-btn ml20 flex-row items-center justify-center"
-												type="default"
-												@click="VerifyAdd(item, index, 2)"
-											>
-												<!-- &&item.lockOrder!=1 -->
-												<wd-icon name="money-circle" size="25rpx" color="#666666"></wd-icon>
-												<text class="ft22 ml5">{{ userStore.userRole === 'R' ? '确认付款' : '确认收款' }}</text>
-											</button>
-											<button
-												hover-class="hover-view"
-												v-if="pinia_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
-												class="hl-btn ml20 flex-row items-center justify-center"
-												type="default"
-												@click="VerifyAdd(item, index, 1)"
-											>
-												<wd-icon name="delete1" size="26rpx" color="#666666"></wd-icon>
-												<text class="ft22 ml5">删除</text>
-											</button>
-											<button
-												hover-class="hover-view"
-												v-if="
-													item.paymentState !== '2' &&
-													item.paymentState !== '1' &&
-													item.lockOrder != 1 &&
-													userStore.userRole == 'D' &&
-													pinia_user.workData.identity !== '3'
-												"
-												class="hl-btn ml20 flex-row items-center justify-center"
-												type="default"
-												@click="VerifyAdd(item, index, 3)"
-											>
-												<albb-icon icon="ydj-dingdanliebiao2" color="#666666" size="24rpx" class="mt2"></albb-icon>
-												<text class="ft22 ml5">修改</text>
-											</button>
-										</view>
-									</view>
-								</view>
-							</view>
-						</view>
-					</wd-tab>
-				</block>
-			</wd-tabs>
+			<text class="NumOrder ml10">
+				<text>
+					共
+					<text style="color: #01bb74">{{ OrderQuantity }}</text>
+					个订单
+				</text>
+			</text>
 			<template #empty>
 				<up-empty
 					:icon="ImgUrl + '/wxImg/list/empty.svg'"
@@ -392,6 +198,212 @@
 					</wd-button>
 				</up-empty>
 			</template>
+			<view
+				v-for="(item, index) in orderList"
+				:key="item.id"
+				:index="index"
+				:id="`zp-id-${item.id}`"
+				@click="
+					$goPath('/pages/subOrder/details?id=' + item.id);
+					hide = false;
+				"
+				class="OrderCard"
+			>
+				<view class="OrderCardHand" @tap.stop>
+					<view class="title ml1 flex-row items-center" style="" @tap.stop>
+						<text class="ft30 ft-lightgray pr30" style="color: #666666">
+							订单编号:
+							<text class="ml15" @click="copyBtn(item.orderNumber)" style="color: #f76565">
+								{{ item.orderNumber }}
+							</text>
+						</text>
+						<wd-icon size="30rpx" :name="bat64.copy" @click="copyBtn(item.orderNumber)"></wd-icon>
+						<view class="ml15">
+							<wd-icon size="30rpx" v-if="item.lockOrder == 1 && item.paymentState != 2" :name="bat64.lock" color="#666666"></wd-icon>
+						</view>
+					</view>
+					<view class="ml20" style="width: 30%">
+						<view class="u-img" v-if="userStore.userRole == 'D'" :style="{ display: item.paymentState == '0' ? 'inline' : 'none' }">
+							<up-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.dqs"></up-image>
+						</view>
+
+						<view class="u-img" v-if="userStore.userRole == 'R'" :style="{ display: item.paymentState == '0' ? 'inline' : 'none' }">
+							<up-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.dqss"></up-image>
+						</view>
+
+						<view class="u-img" v-if="userStore.userRole == 'R'" :style="{ display: item.paymentState == '2' ? 'inline' : 'none' }">
+							<up-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.yfk"></up-image>
+						</view>
+						<view class="u-img" :style="{ display: item.paymentState == '1' ? 'inline' : 'none' }">
+							<up-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.yqs"></up-image>
+						</view>
+
+						<view class="u-img" v-if="userStore.userRole != 'R'" :style="{ display: item.paymentState == '2' ? 'inline' : 'none' }">
+							<up-image :show-menu-by-longpress="false" width="120rpx" height="50rpx" :src="bat64.ysk"></up-image>
+						</view>
+					</view>
+				</view>
+				<view class="width100 pb25 text-left">
+					<text class="flex-col text-left">
+						<text
+							v-if="userStore.userRole == 'D'"
+							:style="{ color: ifZX(item.bossNumberE) ? '#AAAAAA' : '#3D3D3D' }"
+							class="ft34 u-line-bt width100"
+							style="font-weight: 500"
+						>
+							{{ item.organizationE || item.bossNumberE }}{{ ifZX(item.bossNumberE) ? '(已注销)' : '' }}
+						</text>
+						<text
+							v-if="userStore.userRole == 'R'"
+							:style="{ color: ifZX(item.bossNumberS) ? '#AAAAAA' : '#3D3D3D' }"
+							class="ft34 u-line-bt width100"
+							style="font-weight: 500"
+						>
+							{{ item.enterpriseS || item.bossNumberS }}{{ ifZX(item.bossNumberS) ? '(已注销)' : '' }}
+						</text>
+					</text>
+				</view>
+				<text class="ft30 line25 ft-lightgray">
+					<text>日期：{{ $u.timeFormat(item.creationTime, 'yyyy-mm-dd') }}</text>
+				</text>
+
+				<text class="ft-lightgray mt10 line25 flex-row items-center justify-end">
+					<text>{{ pinia_userRole == 'D' && item.isCustomized ? '订单总重' : '订单金额' }}：</text>
+					<text style="color: black; font-size: 24rpx" v-if="!(pinia_userRole == 'D' && uni.$u.getPinia('user.customized'))">￥</text>
+					<text class="ft35" style="color: black; font-weight: 500">
+						{{ pinia_userRole == 'D' && item.isCustomized ? Number(item.totalWeightKg).toFixed(2) : item.price.toFixed(2) }}
+					</text>
+				</text>
+
+				<text
+					style="width: 100%"
+					class="mt17 ft-lightgray ft25 bg-gray radius pd10"
+					@tap.stop
+					v-if="item.receiptsDescr && item.paymentState != 2"
+					@click="noteMyOrder(item)"
+				>
+					备注：{{ item.receiptsDescr }}
+				</text>
+
+				<view class="flex-row u-border-top pd10 pt20 justify-between text-right items-center mt17" @tap.stop>
+					<!-- 分享按钮区域 -->
+					<view v-if="item.share" class="flex-row items-center justify-center" style="width: 100%">
+						<view class="flex-row justify-center items-center" style="width: 100%">
+							<view class="flex-row justify-center items-center" style="width: 40%; color: #cccccc">
+								<view class="flex-row items-center justify-center">
+									<button
+										class="hl-btn NY flex-row items-center justify-center"
+										type="default"
+										open-type="share"
+										name="Y"
+										:data-thumb="item.picturesId"
+										:data-id="item.id"
+										:data-versions="'Y'"
+									>
+										<view>
+											<albb-icon icon="ydj-zhuanfa" size="20rpx" color="#666666"></albb-icon>
+											<text class="ft22 ml5">{{ pinia_user.data.work !== '1' && pinia_user.workDate == null ? '有金额转发' : '有金额转发' }}</text>
+										</view>
+									</button>
+								</view>
+							</view>
+							<view class="flex-row justify-center items-center u-border-left u-border-right" style="width: 40%; color: #cccccc">
+								<button
+									class="hl-btn NY flex-row items-center justify-center"
+									type="default"
+									open-type="share"
+									name="N"
+									:data-thumb="item.picturesId"
+									:data-id="item.id"
+									:data-versions="'N'"
+								>
+									<view>
+										<albb-icon icon="ydj-zhuanfa" size="20rpx" color="#666666"></albb-icon>
+										<text class="ft22 ml5">{{ pinia_user.data.work !== '1' && pinia_user.workDate == null ? '无金额转发' : '无金额转发' }}</text>
+									</view>
+								</button>
+							</view>
+							<view class="flex-row justify-center items-center" style="width: 20%; color: #f76565" @click="shareNY(item, 2)">关闭</view>
+						</view>
+					</view>
+
+					<!-- 未分享区域 -->
+					<view v-if="!item.share" class="flex-row items-center justify-center">
+						<view class="flex-row items-center justify-center">
+							<!-- @click="shareNY(item, 1)" -->
+							<!-- #ifdef MP-WEIXIN -->
+							<button
+								class="hl-btn flex-row items-center justify-center"
+								type="default"
+								open-type="share"
+								name="Y"
+								:data-thumb="item.picturesId"
+								:data-id="item.id"
+								:data-versions="'Y'"
+								hover-class="hover-view"
+							>
+								<albb-icon icon="ydj-zhuanfa" size="20rpx" color="#666666"></albb-icon>
+								<text class="ft22 ml10">{{ pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发' }}</text>
+							</button>
+							<!-- #endif -->
+							<!-- #ifndef MP-WEIXIN -->
+							<button hover-class="hover-view" class="hl-btn flex-row items-center justify-center" type="default" @click="setShareData('', item)">
+								<albb-icon icon="ydj-zhuanfa" size="20rpx" color="#666666"></albb-icon>
+								<text class="ft22 ml10">{{ pinia_user.data.work !== '1' && pinia_user.workDate == null ? '转发' : '转发' }}</text>
+							</button>
+							<!-- #endif -->
+							<button
+								hover-class="hover-view"
+								v-if="userStore.userRole === 'R' && pinia_user.workData.identity !== '3' && item.paymentState === '0' && item.lockOrder != 1"
+								class="hl-btn ml20 flex-row items-center justify-center"
+								type="default"
+								@click="$goPath('/pages/subOrder/details?id=' + item.id)"
+							>
+								<wd-icon name="list" size="20rpx" color="#666666"></wd-icon>
+								<text class="ft22 ml5">确认签收</text>
+							</button>
+							<button
+								hover-class="hover-view"
+								v-if="pinia_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
+								class="hl-btn ml20 flex-row items-center justify-center"
+								type="default"
+								@click="VerifyAdd(item, index, 2)"
+							>
+								<!-- &&item.lockOrder!=1 -->
+								<wd-icon name="money-circle" size="25rpx" color="#666666"></wd-icon>
+								<text class="ft22 ml5">{{ userStore.userRole === 'R' ? '确认付款' : '确认收款' }}</text>
+							</button>
+							<button
+								hover-class="hover-view"
+								v-if="pinia_user.workData.identity !== '3' && item.paymentState !== '2' && item.lockOrder != 1"
+								class="hl-btn ml20 flex-row items-center justify-center"
+								type="default"
+								@click="VerifyAdd(item, index, 1)"
+							>
+								<wd-icon name="delete1" size="26rpx" color="#666666"></wd-icon>
+								<text class="ft22 ml5">删除</text>
+							</button>
+							<button
+								hover-class="hover-view"
+								v-if="
+									item.paymentState !== '2' &&
+									item.paymentState !== '1' &&
+									item.lockOrder != 1 &&
+									userStore.userRole == 'D' &&
+									pinia_user.workData.identity !== '3'
+								"
+								class="hl-btn ml20 flex-row items-center justify-center"
+								type="default"
+								@click="VerifyAdd(item, index, 3)"
+							>
+								<albb-icon icon="ydj-dingdanliebiao2" color="#666666" size="24rpx" class="mt2"></albb-icon>
+								<text class="ft22 ml5">修改</text>
+							</button>
+						</view>
+					</view>
+				</view>
+			</view>
+
 			<!-- 自定义tab -->
 			<template #bottom>
 				<view class="" :style="`height:${bottomSafeArea + 50}px`"></view>
@@ -751,7 +763,6 @@ const startX = ref(0);
 const startY = ref(0);
 const uNoticeBarlist = ref(['请及时完成2024年订单收款，逾期将无法处理；跨年后，可前往更多功能-往年数据处查看往年订单。']);
 const bottomSafeArea = ref(0);
-const topSafeArea = ref(0);
 const isFromSwitchTab = ref(false);
 const shareImg = ref('');
 watch(
@@ -1114,7 +1125,6 @@ function close_mask() {
 function getOperatingSystem() {
 	const systemInfo = uni.getSystemInfoSync();
 	bottomSafeArea.value = systemInfo.safeAreaInsets ? systemInfo.safeAreaInsets.bottom : 0;
-	topSafeArea.value = systemInfo.safeAreaInsets ? systemInfo.safeAreaInsets.top : 0;
 	if (systemInfo.system.toLowerCase().includes('ios')) {
 		return true;
 	}
@@ -1736,20 +1746,6 @@ function getCurrentDate() {
 </script>
 
 <style scoped lang="scss">
-::v-deep .wd-tab {
-	background: #f5f5f5 !important;
-}
-::v-deep .wd-tabs__line {
-	background: #0fb076 !important;
-}
-::v-deep .wd-tabs__nav-item {
-	font-size: 32rpx !important;
-}
-::v-deep .wd-tabs__nav {
-	position: fixed !important;
-	top: calc(var(topSafeArea) + 44) px;
-	z-index: 10;
-}
 .root {
 	height: 100vh;
 	width: 100vw;

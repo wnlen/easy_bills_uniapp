@@ -214,7 +214,10 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+::v-deep .uni-picker-container .uni-picker-action.uni-picker-action-confirm {
+	color: #01bb74 !important ;
+}
 .box {
 	border: 2rpx solid #f6f6f6;
 	box-shadow: 0 6rpx 15rpx rgba(0, 0, 0, 0.05);
