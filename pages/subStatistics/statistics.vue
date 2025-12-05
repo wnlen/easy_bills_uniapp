@@ -694,7 +694,7 @@ export default {
 			imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareR.png';
 		}
 		if (ops.from === 'button') {
-			var phone = this.pinia_user.user.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber;
+			var phone = this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber;
 			return {
 				title: title,
 				path: '/pages/subMessage/friend_apply_for/shareFriend?phone=' + phone + '&invitationRole=' + this.pinia_userRole,
@@ -714,7 +714,7 @@ export default {
 
 		this.systemIf();
 
-		var ifwork = this.pinia_user.user.work == '0';
+		var ifwork = this.pinia_user.data.work == '0';
 		var timeEmp = this.realTimeSel.startDate == '' || this.realTimeSel.endDate == '';
 		var ifWorkPort = this.pinia_userRole == 'R';
 
@@ -919,8 +919,8 @@ export default {
 					: '条件筛选';
 		},
 		loadDataRen() {
-			let role = this.pinia_user.user.work == '1' ? 1 : 2;
-			console.log(this.pinia_user.user.work);
+			let role = this.pinia_user.data.work == '1' ? 1 : 2;
+			console.log(this.pinia_user.data.work);
 			var that = this;
 			// uni.$api.user
 			// 	.refreshUser({
@@ -1542,7 +1542,7 @@ export default {
 		},
 		getData() {
 			let that = this;
-			var phone = this.pinia_user.user.work == '1' && this.pinia_user.workData.identity != '4' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone;
+			var phone = this.pinia_user.data.work == '1' && this.pinia_user.workData.identity != '4' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone;
 			let zd = false;
 			try {
 				zd = this.pinia_user.workData.identity != '4';
@@ -1701,7 +1701,7 @@ export default {
 				// this.field = ""
 			} else {
 				// this.$u.toast("请开通会员")
-				var work = this.pinia_user.user.work != '1';
+				var work = this.pinia_user.data.work != '1';
 				if (work) {
 					this.RenewStatic(index);
 				} else {
@@ -1792,7 +1792,7 @@ export default {
 			this.$refs.popDatabase.orderInit(type);
 		},
 		OrderInit(productCode) {
-			var workIF = this.pinia_user.user.work == '1';
+			var workIF = this.pinia_user.data.work == '1';
 			let order = {
 				orderNumber: '', // 订单编号
 				price: 0, // 支付总价（注：通常价格应该是一个数字或BigDecimal的字符串表示，但这里按照要求设置为空字符串）

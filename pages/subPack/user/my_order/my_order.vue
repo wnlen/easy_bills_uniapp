@@ -916,7 +916,7 @@ export default {
 		this.systemIf();
 		this.getData();
 
-		var ifwork = this.pinia_user.user.work == '0';
+		var ifwork = this.pinia_user.data.work == '0';
 		if (ifwork) {
 			this.getJurisdiction();
 			this.getRenew();

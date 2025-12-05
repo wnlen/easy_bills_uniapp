@@ -118,7 +118,7 @@ export default {
 	methods: {
 		getCommodityDetails(id) {
 			this.getByID.staffNumber = this.pinia_user.phone;
-			if (this.pinia_user.user.work == '0') {
+			if (this.pinia_user.data.work == '0') {
 				this.getByID.phone = this.pinia_user.phone;
 			} else {
 				this.getByID.phone = this.pinia_user.workData.bossNumber;
