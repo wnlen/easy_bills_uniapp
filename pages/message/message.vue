@@ -188,11 +188,13 @@ export default {
 			}
 		},
 		getAllNum() {
+			console.error('222', this.pinia_user.data.work);
 			var dx = {
 				boss: this.pinia_user.data.work == '1' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone,
 				staff: this.pinia_user.phone,
 				work: this.pinia_user.data.work
 			};
+
 			uni.$api.inform
 				.getAllMessages(dx)
 				.then((res) => {

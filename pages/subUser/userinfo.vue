@@ -160,8 +160,8 @@ export default {
 							id: that.pinia_user.data.id,
 							headPortrait: that.userInfo.headPortrait,
 							// name: that.userInfo.name,
-							work: this.pinia_user.work,
-							boss: this.pinia_user.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
+							work: this.pinia_user.user.work,
+							boss: this.pinia_user.user.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
 						};
 
 						uni.$api.user.updateUserUp(data).then((res) => {
@@ -197,8 +197,8 @@ export default {
 					name: this.userInfo.name,
 					gender: this.userInfo.gender,
 					phoneNumber: this.pinia_user.phone,
-					work: this.pinia_user.work,
-					boss: this.pinia_user.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
+					work: this.pinia_user.user.work,
+					boss: this.pinia_user.user.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber
 				};
 				uni.$api.user.updateUserUp(send).then((res) => {
 					if (res.data.data == '1') {

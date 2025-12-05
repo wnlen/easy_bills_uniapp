@@ -741,7 +741,7 @@ export default {
 			//需购买
 		},
 		getInIt() {
-			var ifwork = this.pinia_user.work == '0';
+			var ifwork = this.pinia_user.user.work == '0';
 			var timeEmp = this.realTimeSel.startDate == '' || this.realTimeSel.endDate == '';
 			var ifWorkPort = this.pinia_userRole == 'R';
 
@@ -856,7 +856,7 @@ export default {
 		},
 		getAllYear() {
 			var role = this.pinia_userRole == 'R';
-			var work = this.pinia_user.work == '0';
+			var work = this.pinia_user.user.work == '0';
 			var dx = {
 				bossNumberS: '',
 				bossNumberE: ''
@@ -1409,7 +1409,7 @@ export default {
 		},
 		getData() {
 			let that = this;
-			var phone = this.pinia_user.work == '1' && this.pinia_user.workData.identity != '4' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone;
+			var phone = this.pinia_user.user.work == '1' && this.pinia_user.workData.identity != '4' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone;
 			let zd = false;
 			try {
 				zd = this.pinia_user.workData.identity != '4';
