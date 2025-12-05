@@ -22,7 +22,8 @@
             "Payment" : {},
             "Share" : {},
             "OAuth" : {},
-            "Push" : {}
+            "Push" : {},
+            "Camera" : {}
         },
         /* 应用发布信息 */
         "distribute" : {
