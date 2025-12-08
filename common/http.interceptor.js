@@ -127,7 +127,7 @@ export const initRequest = () => {
 			const bizCode = String(body?.code || hdrCode || '')
 
 			// ============ 1. 特殊接口白名单（避免 UI 抖动） ============
-			const SILENT_API_WHITELIST = ['orderDel/get', 'inform/all']
+			const SILENT_API_WHITELIST = ['orderDel/get', 'inform/all', 'dev/client-error-log']
 			const reqUrl = error?.config?.url || ''
 			const isSilentApi = SILENT_API_WHITELIST.some((p) =>
 				reqUrl.includes(p)
@@ -174,7 +174,7 @@ export const initRequest = () => {
 			// ============ 4. 其它普通业务错误 ============
 			// 只提示，不动 token
 			if (!isSilentApi) {
-				if (uni.$http.config.baseURL = 'https://wxapi.elist.com.cn/test/edo/') {
+				if (uni.$http.config.baseURL === 'https://wxapi.elist.com.cn/test/edo/') {
 					//上报error
 					uni.$api.err.posterrorlog({
 						kind: 'NO_ERROR_MESSAGE',

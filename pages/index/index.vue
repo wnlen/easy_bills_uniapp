@@ -592,13 +592,18 @@ export default {
 		},
 		// 获取是否定制化
 		getCustomization() {
-			uni.$api.customization.customizationUpdated().then((res) => {
-				uni.$u.setPinia({
-					user: {
-						customized: res.data.data.customized
-					}
+			uni.$api.customization
+				.customizationUpdated()
+				.then((res) => {
+					uni.$u.setPinia({
+						user: {
+							customized: res.data.data.customized
+						}
+					});
+				})
+				.catch((err) => {
+					console.error('用户信息刷新失败', err);
 				});
-			});
 		},
 		clicklogin() {
 			// #ifdef APP
