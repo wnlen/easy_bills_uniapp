@@ -174,10 +174,21 @@ export const initRequest = () => {
 			// ============ 4. 其它普通业务错误 ============
 			// 只提示，不动 token
 			if (!isSilentApi) {
-				uni.showToast({
-					title: body?.message || '请求失败，请稍后再试',
-					icon: 'none'
-				})
+				if (uni.$http.config.baseURL = 'https://wxapi.elist.com.cn/test/edo/') {
+					//上报error
+					uni.$api.err.posterrorlog({
+						kind: 'NO_ERROR_MESSAGE',
+						url: reqUrl,
+						httpCode,
+						bizCode,
+						body
+					})
+
+					uni.showToast({
+						title: body?.message || '请求失败，请稍后再试',
+						icon: 'none'
+					})
+				}
 			}
 
 			return Promise.reject(error)
