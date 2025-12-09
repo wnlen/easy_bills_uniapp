@@ -500,11 +500,15 @@ export default {
 						var okif = res.confirm;
 						if (okif) {
 							if (!uni.$u.getPinia('user.customized')) {
-								var nullNot = this.orderItemList.filter((res) => res.unitPrice == null || res.unitPrice == '');
+								let nullNot = this.orderItemList.filter((res) => res.unitPrice == null || res.unitPrice == '');
+								let nullQuantity = this.orderItemList.filter((res) => res.quantity == null || res.quantity == '' || res.quantity == '0');
 								console.log(nullNot);
 								// console.log(this.orderItemList);
 								if (this.totalPrices > 0) {
-									if (nullNot.length <= 0) {
+									if (nullQuantity.length > 0) {
+										this.$u.toast('数量必须大于0');
+										this.shoppingTrolley = true;
+									} else if (nullNot.length <= 0) {
 										uni.setStorageSync('inventoryStockpile', this.orderItemList);
 										if (uni.getStorageSync('inventoryStockpile') != undefined) {
 											uni.navigateBack();
@@ -589,15 +593,14 @@ export default {
 		},
 		save() {
 			var nullNot = this.orderItemList.filter((res) => res.unitPrice == null || res.unitPrice == '');
-			// var nullunitWeightKg = this.orderItemList.filter((res) => res.unitWeightKg == null || res.unitWeightKg == '' || res.unitWeightKg == '0');
-
+			var nullunitWeightKg = this.orderItemList.filter((res) => res.unitWeightKg == null || res.unitWeightKg == '' || res.unitWeightKg == '0');
+			let nullQuantity = this.orderItemList.filter((res) => res.quantity == null || res.quantity == '' || res.quantity == '0');
 			if (this.totalPrices > 0) {
-				// if (uni.$u.getPinia('user.customized') && nullunitWeightKg.length > 0) {
-				// 	this.$u.toast('单重必须大于0');
-				// 	this.shoppingTrolley = true;
-				// 	return;
-				// }
-				if (nullNot.length > 0 && !uni.$u.getPinia('user.customized')) {
+				if (nullQuantity.length > 0) {
+					this.$u.toast('数量必须大于0');
+					this.shoppingTrolley = true;
+					return;
+				} else if (nullNot.length > 0 && !uni.$u.getPinia('user.customized')) {
 					this.$u.toast('单价不能为空');
 					this.shoppingTrolley = true;
 					return;
