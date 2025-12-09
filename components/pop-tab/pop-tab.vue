@@ -85,13 +85,13 @@ image {
 	width: 40rpx;
 	height: 40rpx;
 }
-/* App.vue中全局样式 */
-/* 找到TabBar图标的类名，不同平台类名可能不同 */
+/* #ifdef APP */
 .uni-tabbar-icon {
 	/* 核心动画：ease-out 时间曲线（先快后慢），duration 800ms（适中不急促） */
 	animation: tabPulse 0.5s ease-out 1 forwards;
 	-webkit-animation: tabPulse 0.5s ease-out 1 forwards; /* 适配 iOS/Android */
 }
+/* #endif */
 
 /* 动画关键帧：优化细节，更丝滑 */
 @keyframes tabPulse {

@@ -54,7 +54,12 @@
 			</template>
 		</z-paging>
 		<!-- 自定义tab -->
+		<!-- #ifdef APP -->
 		<pop-tab :tabIndex="2" ref="popTab" v-if="showTab"></pop-tab>
+		<!-- #endif -->
+		<!-- #ifndef APP -->
+		<pop-tab :tabIndex="2" ref="popTab"></pop-tab>
+		<!-- #endif -->
 		<!-- <up-tabbar :list="vuex_tabbar" :height="tabHight" iconSize="40" active-color="#0FB076"></up-tabbar> -->
 	</view>
 </template>

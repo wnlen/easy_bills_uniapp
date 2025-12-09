@@ -19,11 +19,37 @@
 						</view>
 					</template>
 				</up-navbar>
+				<!-- #ifndef APP -->
+				<view style="width: 100%">
+					<up-tabs
+						:list="tabsList"
+						lineWidth="30"
+						lineHeight="7"
+						lineColor="#0FB076"
+						:scrollable="false"
+						:activeStyle="{
+							color: '#0FB076',
+							fontWeight: 'bold',
+							transform: 'scale(1.05)'
+						}"
+						:inactiveStyle="{
+							color: '#333333',
+							transform: 'scale(1)'
+						}"
+						itemStyle="padding-left: 30rpx; padding-right: 30rpx; height: 70rpx;font-size:32rpx;padding-bottom:20rpx;backgroundColor:#fff"
+						:current="current"
+						@change="changeTab"
+					></up-tabs>
+				</view>
+				<!-- #endif -->
 			</template>
+
+			<!-- #ifdef APP -->
 			<wd-tabs v-model="current" swipeable animated color="#0FB076" :lineHeight="5" @change="changeTab">
 				<block v-for="(item, index) in tabsList" :key="index">
 					<wd-tab :title="item.name">
-						<view class="pt100">
+						<!-- #endif -->
+						<view class="safePadding">
 							<view class="Card cardShow">
 								<view class="priceCard">
 									<text class="ft-gray mb18 ml10" style="color: #999999; font-size: 30rpx">
@@ -335,9 +361,11 @@
 								</view>
 							</view>
 						</view>
+						<!-- #ifdef APP -->
 					</wd-tab>
 				</block>
 			</wd-tabs>
+			<!-- #endif -->
 			<template #empty>
 				<up-empty
 					:icon="ImgUrl + '/wxImg/list/empty.svg'"
@@ -397,7 +425,12 @@
 				<view class="" :style="`height:${bottomSafeArea + 50}px`"></view>
 			</template>
 		</z-paging>
+		<!-- #ifdef APP -->
 		<pop-tab :tabIndex="1" ref="popTabCom" v-if="showTab"></pop-tab>
+		<!-- #endif -->
+		<!-- #ifndef APP -->
+		<pop-tab :tabIndex="1" ref="popTabCom"></pop-tab>
+		<!-- #endif -->
 		<!-- app分享 -->
 		<pop-share :show="showShare" :sharePath="sharePath" :shareTitle="shareTitle" :imageUrl="shareImg" @closeShare="showShare = false"></pop-share>
 		<!-- 弹出层 -->
@@ -1736,6 +1769,12 @@ function getCurrentDate() {
 </script>
 
 <style scoped lang="scss">
+.safePadding {
+	/* #ifdef APP */
+	padding-top: 100rpx;
+	/* #endif */
+}
+
 ::v-deep .wd-tab {
 	background: #f5f5f5 !important;
 }

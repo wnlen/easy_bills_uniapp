@@ -106,7 +106,12 @@
 		</view>
 
 		<!-- 自定义tab -->
+		<!-- #ifdef APP -->
 		<pop-tab :tabIndex="3" ref="popTab" v-if="showTab"></pop-tab>
+		<!-- #endif -->
+		<!-- #ifndef APP -->
+		<pop-tab :tabIndex="3" ref="popTab"></pop-tab>
+		<!-- #endif -->
 
 		<pop-guide :max-step="3" :guideData="functionGuideData" ref="FunctionGuide"></pop-guide>
 	</view>
