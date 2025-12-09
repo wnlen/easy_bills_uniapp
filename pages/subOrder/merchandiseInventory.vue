@@ -588,7 +588,7 @@ export default {
 			}
 		},
 		save() {
-			var nullNot = this.orderItemList.filter((res) => res.unitPrice == null || res.unitPrice == '' || res.unitPrice == '0');
+			var nullNot = this.orderItemList.filter((res) => res.unitPrice == null || res.unitPrice == '');
 			// var nullunitWeightKg = this.orderItemList.filter((res) => res.unitWeightKg == null || res.unitWeightKg == '' || res.unitWeightKg == '0');
 
 			if (this.totalPrices > 0) {
@@ -598,7 +598,7 @@ export default {
 				// 	return;
 				// }
 				if (nullNot.length > 0 && !uni.$u.getPinia('user.customized')) {
-					this.$u.toast('单价必须大于0');
+					this.$u.toast('单价不能为空');
 					this.shoppingTrolley = true;
 					return;
 				}
