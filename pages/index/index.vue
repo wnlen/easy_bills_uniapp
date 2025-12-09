@@ -539,6 +539,8 @@ export default {
 			this.ringOpts.color = ['#ECECEC', '#ECECEC', '#ECECEC'];
 		} else {
 			this.$nextTick(() => {
+				// 更新用户信息--权限是否过期等
+				that.$loadUser && that.$loadUser(this);
 				setTimeout(() => {
 					// 权限是否过期
 					if (this.pinia_user.workData.endTime == 0 || this.pinia_user.workData.endTime == 'null') {
@@ -548,7 +550,7 @@ export default {
 					this.fetchDashboard(); //加载统计数据
 					this.getdaiban(true); //获取待办数量
 					this.$refs.popTab && this.$refs.popTab.getMessNum();
-					that.$loadUser && that.$loadUser(this);
+
 					this.guideCourse && this.guideCourse();
 					this.SOCKETfLUSH && this.SOCKETfLUSH();
 					this.getCustomization && this.getCustomization();
