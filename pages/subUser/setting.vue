@@ -26,7 +26,6 @@
 				<up-cell :titleStyle="{ color: '#666666' }" title="退出登录" @click="loginOut" :isLink="true"></up-cell>
 			</up-cell-group>
 		</view>
-
 		<!-- 切换角色 -->
 		<pop-role ref="popRole"></pop-role>
 		<!-- 切换角色 -->
@@ -67,7 +66,7 @@ export default {
 				showCancel: true,
 				cancelText: '取消注销',
 				confirmText: '确认注销',
-				confirmColor: '#01bb74',
+				confirmColor: '#fa4350',
 				success: (res) => {
 					if (res.confirm) {
 						uni.navigateTo({
@@ -105,11 +104,11 @@ export default {
 		},
 		async loginOut() {
 			uni.showModal({
-				title: '是否退出?',
+				title: '你确定要退出登录吗?',
 				showCancel: true,
-				cancelText: '取消退出',
-				confirmText: '确认退出',
-				confirmColor: '#01bb74',
+				cancelText: '取消',
+				confirmText: '退出登录',
+				confirmColor: '#fa4350',
 				success: async (res) => {
 					if (!res.confirm) return;
 
