@@ -603,7 +603,7 @@ import { useGlobalStore } from '@/store/global';
 import { setPinia } from '@/common/piniaHelper';
 import { getCurrentInstance } from 'vue';
 import { onLoad, onShow, onHide, onUnload, onPullDownRefresh, onShareAppMessage, onReady } from '@dcloudio/uni-app';
-import { timeFormat } from '@/uni_modules/uv-ui-tools/libs/function/index.js';
+import { timeFormat } from '@/uni_modules/uview-plus';
 const { proxy } = getCurrentInstance();
 
 const systemStore = useSystemStore();
