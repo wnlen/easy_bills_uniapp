@@ -147,7 +147,7 @@
 				<view
 					v-for="(item, index) in orderList"
 					:key="index"
-					@click="$goPath('/pages/subOrder/details?id=' + item.id)"
+					@click="uni.$nav.to('/pages/subOrder/details', { id: item.id })"
 					class="flex-col pl20 pr20 pd36 pt38 bg-white mb18 order-item u-skeleton relative cardShow"
 				>
 					<view class="u-skeleton-fillet mb10 flex-row" @tap.stop style="width: 100%">

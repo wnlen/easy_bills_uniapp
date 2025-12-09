@@ -184,10 +184,10 @@ export const initRequest = () => {
 						body
 					})
 
-					uni.showToast({
-						title: body?.message || '请求失败，请稍后再试',
-						icon: 'none'
-					})
+					// uni.showToast({
+					// 	title: body?.message || '请求失败，请稍后再试',
+					// 	icon: 'none'
+					// })
 				}
 			}
 

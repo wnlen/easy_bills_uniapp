@@ -103,7 +103,7 @@
 			</view>
 			<!-- <view class="ml5 mr5" style="flex: 1">
 				<wd-button :customStyle="SearchCustomStyle"  shape="circle"
-					@click="$goPath('/pages/subIndex/add_friend/add_friend')">
+					@click="uni.$nav.to('/pages/subIndex/add_friend/add_friend')">
 					<view class=></view><albb-icon icon="ydj-shoujihao" color="#ffffff" size="30rpx"></albb-icon>
 					手机号邀请
 				</wd-button>

@@ -1,6 +1,6 @@
 <template>
 	<view class="page-container">
-		<uv-toast ref="toast"></uv-toast>
+		<up-toast ref="toast"></up-toast>
 		<up-navbar title="分享给好友" :autoBack="true" :placeholder="true"></up-navbar>
 		<view class="top-img">
 			<image class="banner" src="https://res-oss.elist.com.cn/share/bannerT.png" mode="widthFix"></image>
@@ -12,7 +12,7 @@
 			<view class="list-box">
 				<view class="box-line"></view>
 				<view class="qrcode_img">
-					<uv-image :src="qrCodeUrl" :lazy-load="true" :fade="true" duration="450" width="162rpx" height="162rpx"></uv-image>
+					<up-image :src="qrCodeUrl" :lazy-load="true" :fade="true" duration="450" width="162rpx" height="162rpx"></up-image>
 				</view>
 				<!-- #ifdef MP-WEIXIN -->
 				<button class="btn_1" open-type="share">分享好友</button>
@@ -26,12 +26,12 @@
 			<view class="page-list-jindu">
 				<image class="jindu_img" src="https://res-oss.elist.com.cn/share/yaoqingjindutiao.png" mode="widthFix"></image>
 				<view class="jindu_text">
-					<uv-line-progress height="18" :percentage="15 + ((inviteCount * 100) / 15) * 0.85" activeColor="#FE962A">
+					<up-line-progress height="18" :percentage="15 + ((inviteCount * 100) / 15) * 0.85" activeColor="#FE962A">
 						<text class="uv-percentage-slot">
 							<text v-show="inviteCount > 2">邀请人数</text>
 							<text>{{ inviteCount }}/15</text>
 						</text>
-					</uv-line-progress>
+					</up-line-progress>
 				</view>
 			</view>
 			<view class="page-list-ddtj">
