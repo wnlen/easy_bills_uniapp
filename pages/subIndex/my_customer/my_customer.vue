@@ -51,7 +51,7 @@
 				<!-- #endif -->
 			</view>
 			<!-- <view class="ml5 mr5" style="flex: 1">
-				<wd-button :customStyle="SearchCustomStyle"  shape="circle" @click="$goPath('/pages/subIndex/add_friend/add_friend')">
+				<wd-button :customStyle="SearchCustomStyle"  shape="circle" @click="uni.$nav.to('/pages/subIndex/add_friend/add_friend')">
 					<albb-icon icon="ydj-shoujihao" color="#ffffff" size="30rpx"></albb-icon>
 					<text class="pl10">手机号邀请</text>
 				</wd-button>

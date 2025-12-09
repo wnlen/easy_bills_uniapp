@@ -722,7 +722,7 @@
 									<text style="color: #bb9063; font-size: 26rpx; font-weight: normal">售后咨询</text>
 								</button>
 								<!-- <button class="hl-btn-plus ml20 flex-row items-center justify-center"
-									@click="$goPath('/pages/subMessage/chitchat/chat?type=9')" type="default">
+									@click="uni.$nav.to('/pages/subMessage/chitchat/chat?type=9')" type="default">
 									<text style="color: #BB9063;font-size: 26rpx;font-weight: normal;">售后咨询</text>
 								</button> -->
 							</view>

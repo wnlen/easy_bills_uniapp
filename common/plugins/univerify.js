@@ -6,7 +6,8 @@ import {
 export default {
 	install(app) {
 		// #ifdef APP
-		app.config.globalProperties.$univerify = (data) => {
+		const that = this;
+		const univerifyFn = (data) => {
 			uni.showLoading({
 				title: '加载中...', // 提示文字
 				mask: true // 是否显示透明蒙层，防止触摸穿透
@@ -299,6 +300,13 @@ export default {
 				}
 			});
 		}
+
+		// ① 挂载到 Vue 实例
+		app.config.globalProperties.$univerify = univerifyFn
+
+		// ② 挂载到 uni
+		uni.$univerify = univerifyFn
+
 		// #endif
 	}
 }

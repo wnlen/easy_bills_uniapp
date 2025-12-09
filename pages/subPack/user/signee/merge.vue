@@ -27,13 +27,13 @@
 			<up-form-item label="手写签名" required prop="signeeImage" labelPosition="top" label-width="170rpx">
 				<view v-if="formData.signeeImage" class="text-center width100 mt30 signeeBox">
 					<image
-						@click="$goPath('/pages/subSignature/signature')"
+						@click="uni.$nav.to('/pages/subSignature/signature')"
 						style="transform: rotate(-90deg); height: 50vw; width: 100%"
 						:src="formData.signeeImage"
 						mode="heightFix"
 					></image>
 				</view>
-				<view v-else class="bg-white pd20 text-center width100 mt30 signeeBox flex-row items-center justify-center" @click="$goPath('/pages/subSignature/signature')">
+				<view v-else class="bg-white pd20 text-center width100 mt30 signeeBox flex-row items-center justify-center" @click="uni.$nav.to('/pages/subSignature/signature')">
 					<wd-icon name="edit-1" color="#eee"></wd-icon>
 					<text style="color: #eee" class="ml5">点击去签名</text>
 				</view>

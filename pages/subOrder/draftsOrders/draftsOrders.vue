@@ -875,7 +875,7 @@ export default {
 		},
 		jumpTable() {
 			this.receipts.phoneE = '';
-			this.$goPath('/pages/subOrder/table');
+			uni.$nav.to('/pages/subOrder/table');
 		},
 
 		addEmp() {

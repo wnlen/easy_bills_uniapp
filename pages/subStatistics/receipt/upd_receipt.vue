@@ -117,7 +117,7 @@
 				v-for="(item, index) in orderList"
 				:key="item.id"
 				@click="
-					$goPath('/pages/subOrder/details?id=' + item.id);
+					uni.$nav.to('/pages/subOrder/details', { id: item.id });
 					hide = false;
 				"
 				class="OrderCard"
@@ -259,7 +259,7 @@
 							<up-swipe-action-item :show="item.show" :name="index" @click="delclick" :options="options">
 								<view
 									@click="
-										$goPath('/pages/subOrder/details?id=' + item.id);
+										uni.$nav.to('/pages/subOrder/details', { id: item.id });
 										hide = false;
 									"
 									class=""
@@ -1268,7 +1268,7 @@ export default {
 			);
 		},
 		remark(item) {
-			this.$goPath('/pages/subList/remark?item=' + JSON.stringify(item));
+			uni.$nav.to('/pages/subList/remark', { item: JSON.stringify(item) });
 			this.hide = false;
 		},
 		ClearIF() {
