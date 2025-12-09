@@ -1,15 +1,20 @@
 <template>
 	<up-popup :show="roleShow" @close="roleShow = false" mode="bottom" round="15" height="750rpx" :closeable="true" :mask-close-able="false">
-		<view class="pd36 flex-col justify-center jb" @tap.stop style="background-size: cover" :style="{ backgroundImage: 'url(' + ImgUrl + '/wxImg/index/backRD.png)' }">
-			<view class="flex-col" style="width: 100%">
+		<view
+			class="pd36 flex-col justify-center jb"
+			@tap.stop
+			style="background-size: cover; border-radius: 15px"
+			:style="{ backgroundImage: 'url(' + ImgUrl + '/wxImg/index/backRD.png)' }"
+		>
+			<view class="flex-col">
 				<text class="ft30 ft-bold ft-green mb10" style="color: #333333; font-size: 40rpx; font-weight: bold">设置角色</text>
 				<text class="ft-gray pb48" style="#666666">切换您的角色，快速收发单</text>
 			</view>
-			<view class="vw100 flex-row" style="height: 300rpx">
+			<view class="flex-row" style="height: 300rpx">
 				<view class=""></view>
 				<view
 					class="relative mr10"
-					style="height: 400rpx; width: 40%; margin-left: 4%; margin-right: 2%; border: 3rpx solid #01bb74; border-radius: 24rpx; box-sizing: content-box"
+					style="height: 400rpx; width: 45%; margin-left: 4%; margin-right: 2%; border: 3rpx solid #01bb74; border-radius: 24rpx; box-sizing: content-box"
 				>
 					<view class="" v-show="roleShowF == true">
 						<up-image width="100%" height="400rpx" @click="qh(11)" radius="20rpx" :show-menu-by-longpress="false" :src="ImgUrl + '/wxImg/index/01.png'"></up-image>
@@ -24,7 +29,7 @@
 						</up-radio-group>
 					</view>
 				</view>
-				<view class="relative ml10" style="height: 400rpx; width: 40%; border: 3rpx solid #568ff2; border-radius: 24rpx; box-sizing: content-box">
+				<view class="relative ml10" style="height: 400rpx; width: 45%; border: 3rpx solid #568ff2; border-radius: 24rpx; box-sizing: content-box">
 					<view class="" v-show="roleShowS == true">
 						<up-image height="400rpx" @click="qh(22)" radius="20rpx" width="100%" :show-menu-by-longpress="false" :src="ImgUrl + '/wxImg/index/04.png'"></up-image>
 					</view>
@@ -40,7 +45,7 @@
 				</view>
 			</view>
 			<view class="" style="margin: 10vh 0 0 30rpx; width: 85vw">
-				<wd-button :customStyle="{ width: '100%' }"  @click="submitRole">确定</wd-button>
+				<wd-button :customStyle="{ width: '100%' }" @click="submitRole">确定</wd-button>
 			</view>
 		</view>
 	</up-popup>

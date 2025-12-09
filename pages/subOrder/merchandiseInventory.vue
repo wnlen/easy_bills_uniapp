@@ -103,13 +103,13 @@
 						:src="item.img === 'definde' ? 'https://res-oss.elist.com.cn/wxImg/order/emptyView.png' : item.img"
 					></up-image>
 				</view>
-				<view class="invText flex-1" @click="jumpCommodityDetails(item)" v-if="uni.$u.getPinia('user.customized')">
+				<view class="invText flex-1 pt12" @click="jumpCommodityDetails(item)" v-if="uni.$u.getPinia('user.customized')">
 					<text>{{ item.description }}</text>
 					<text class="up-line-1">型号：{{ item.modelNo }}</text>
 					<text>长度(毫米)：{{ item.lengthMm }}</text>
 					<text>单重(kg/件)：{{ item.unitWeightKg }}</text>
 				</view>
-				<view class="invText flex-1" @click="jumpCommodityDetails(item)" v-else>
+				<view class="invText flex-1 pt12" @click="jumpCommodityDetails(item)" v-else>
 					<text>{{ item.description }}</text>
 					<text class="up-line-1" style="width: 418rpx">规格：{{ item.specification }}</text>
 					<text>单位：{{ item.unit }}</text>

@@ -20,7 +20,6 @@
 					bgColor="#ffffff"
 				></up-navbar>
 				<!-- <up-notice-bar mode="horizontal" :list="uNoticeBarlist" padding="6rpx 12rpx"></up-notice-bar> -->
-				<!-- #ifndef APP -->
 				<up-tabs
 					:list="tabList"
 					:current="tab"
@@ -34,91 +33,80 @@
 					}"
 					@change="TabClick"
 				/>
-				<!-- #endif -->
 			</template>
-			<!-- #ifdef APP -->
-			<wd-tabs v-model="tab" swipeable animated color="#0FB076" @change="TabClick">
-				<block v-for="(item, index) in tabList" :key="index">
-					<wd-tab :title="item.name">
-						<!-- #endif -->
-						<view class="safePadding">
-							<view class="ml24 mr24 mt24 swipeBox" v-for="(item, index) in list" :key="item.id">
-								<up-swipe-action>
-									<up-swipe-action-item :show="item.show" :name="index" @click="delclick(item)" :options="options">
-										<view class="pt20 pl20 pr20">
-											<view class="item flex-col justify-left">
-												<!-- 此层wrap在此为必写的，否则可能会出现标题定位错误 -->
-												<view class="u-body-item u-flex u-row-between u-p-b-0 justify-between">
-													<view class="flex-row justify-center items-center" v-if="item.genre == 'D'">
-														<wd-icon name="https://res-oss.elist.com.cn/wxImg/index/del.svg" size="40rpx"></wd-icon>
-														<text class="ml20" style="font-size: 32rpx; font-weight: bold">删除申请</text>
-													</view>
-													<view class="flex-row justify-center items-center" v-if="item.genre == 'P'">
-														<wd-icon name="https://res-oss.elist.com.cn/wxImg/index/play.svg" size="40rpx"></wd-icon>
-														<text class="ml20" style="font-size: 32rpx; font-weight: bold">确认付款申请</text>
-													</view>
-													<div>
-														<wd-button size="small" :customStyle="customStyle" @click="clickApply(item)">同意</wd-button>
-													</div>
-												</view>
-												<view class="">
-													<view class="flex-col mt25" style="font-size: 28rpx" v-if="item.port == 'D' || item.port == 'R'">
-														<text style="color: #666666" v-if="item.genre == 'D'">{{ item.aName || item.aUser }}申请删除订单</text>
-														<text style="color: #666666" v-if="item.genre == 'P'">{{ item.aName || item.aUser }}申请确认付款订单</text>
-														<text style="color: #666666" class="mt10">
-															订单编号：
-															<text style="color: #01bb74">{{ item.orderNumber }}</text>
-														</text>
-													</view>
-													<view class="flex-col mt25" style="font-size: 28rpx" v-if="item.port == 'E' || item.port == 'S'">
-														<text style="color: #666666" v-if="item.genre == 'D'">
-															{{ item.aName || item.aUser }}申请删除{{ item.port == 'E' ? '收款单' : '付款单' }}
-														</text>
-														<text style="color: #666666" v-if="item.genre == 'P'">{{ item.aName || item.aUser }}申请确认付款收款单</text>
-														<text style="color: #666666" class="mt10">
-															订单编号：
-															<text style="color: #01bb74">{{ item.orderNumber }}</text>
-														</text>
-													</view>
-
-													<view class="flex-row mt15" style="font-size: 28rpx" v-if="item.port == 'D' || item.port == 'R'">
-														<text style="color: #aaaaaa" v-if="item.orderState <= 1">订单状态：</text>
-														<text style="color: #aaaaaa" v-if="item.orderState > 1">订单数：</text>
-														<text style="color: #aaaaaa" v-if="item.orderState <= 1">
-															{{ item.orderState == '0' ? '待签收' : item.orderState == '1' ? '已签收' : '已付款' }}
-														</text>
-														<text style="color: #aaaaaa" v-if="item.orderState > 1">{{ item.orderState }}</text>
-													</view>
-
-													<view class="flex-row mt15" style="font-size: 28rpx" v-if="item.port == 'E' || item.port == 'S'">
-														<text style="color: #aaaaaa">订单数量：</text>
-														<text style="color: #aaaaaa">{{ item.billQuantity }}</text>
-													</view>
-													<view class="flex-row mt15" style="font-size: 28rpx" v-if="item.port == 'E' || item.port == 'S'">
-														<text style="color: #aaaaaa">订单金额：</text>
-														<text style="color: #aaaaaa">￥{{ parseFloat(item.totalPrices).toFixed(2) }}</text>
-													</view>
-
-													<view class="flex-row mb36 mt15" style="font-size: 28rpx">
-														<text style="color: #aaaaaa">申请时间：</text>
-														<text style="color: #aaaaaa">{{ $u.timeFormat(item.createTime, 'yyyy-mm-dd hh:MM:ss') }}</text>
-													</view>
-												</view>
-												<view class="u-body-item u-flex u-row-between u-p-b-0 u-border-top items-center justify-between" @click="jumpDetails(item)">
-													<view class="u-body-item-title u-line-0 mt15" style="color: #01bb74">查看订单</view>
-													<view class="u-body-item-title u-line-1 mt15"><wd-icon name="arrow-right" color="#666666" size="28rpx"></wd-icon></view>
-												</view>
-											</view>
+			<view class="">
+				<view class="ml24 mr24 mt24 swipeBox" v-for="(item, index) in list" :key="item.id">
+					<up-swipe-action>
+						<up-swipe-action-item :show="item.show" :name="index" @click="delclick(item)" :options="options">
+							<view class="pt20 pl20 pr20">
+								<view class="item flex-col justify-left">
+									<!-- 此层wrap在此为必写的，否则可能会出现标题定位错误 -->
+									<view class="u-body-item u-flex u-row-between u-p-b-0 justify-between">
+										<view class="flex-row justify-center items-center" v-if="item.genre == 'D'">
+											<wd-icon name="https://res-oss.elist.com.cn/wxImg/index/del.svg" size="40rpx"></wd-icon>
+											<text class="ml20" style="font-size: 32rpx; font-weight: bold">删除申请</text>
 										</view>
-									</up-swipe-action-item>
-								</up-swipe-action>
+										<view class="flex-row justify-center items-center" v-if="item.genre == 'P'">
+											<wd-icon name="https://res-oss.elist.com.cn/wxImg/index/play.svg" size="40rpx"></wd-icon>
+											<text class="ml20" style="font-size: 32rpx; font-weight: bold">确认付款申请</text>
+										</view>
+										<div>
+											<wd-button size="small" :customStyle="customStyle" @click="clickApply(item)">同意</wd-button>
+										</div>
+									</view>
+									<view class="">
+										<view class="flex-col mt25" style="font-size: 28rpx" v-if="item.port == 'D' || item.port == 'R'">
+											<text style="color: #666666" v-if="item.genre == 'D'">{{ item.aName || item.aUser }}申请删除订单</text>
+											<text style="color: #666666" v-if="item.genre == 'P'">{{ item.aName || item.aUser }}申请确认付款订单</text>
+											<text style="color: #666666" class="mt10">
+												订单编号：
+												<text style="color: #01bb74">{{ item.orderNumber }}</text>
+											</text>
+										</view>
+										<view class="flex-col mt25" style="font-size: 28rpx" v-if="item.port == 'E' || item.port == 'S'">
+											<text style="color: #666666" v-if="item.genre == 'D'">
+												{{ item.aName || item.aUser }}申请删除{{ item.port == 'E' ? '收款单' : '付款单' }}
+											</text>
+											<text style="color: #666666" v-if="item.genre == 'P'">{{ item.aName || item.aUser }}申请确认付款收款单</text>
+											<text style="color: #666666" class="mt10">
+												订单编号：
+												<text style="color: #01bb74">{{ item.orderNumber }}</text>
+											</text>
+										</view>
+
+										<view class="flex-row mt15" style="font-size: 28rpx" v-if="item.port == 'D' || item.port == 'R'">
+											<text style="color: #aaaaaa" v-if="item.orderState <= 1">订单状态：</text>
+											<text style="color: #aaaaaa" v-if="item.orderState > 1">订单数：</text>
+											<text style="color: #aaaaaa" v-if="item.orderState <= 1">
+												{{ item.orderState == '0' ? '待签收' : item.orderState == '1' ? '已签收' : '已付款' }}
+											</text>
+											<text style="color: #aaaaaa" v-if="item.orderState > 1">{{ item.orderState }}</text>
+										</view>
+
+										<view class="flex-row mt15" style="font-size: 28rpx" v-if="item.port == 'E' || item.port == 'S'">
+											<text style="color: #aaaaaa">订单数量：</text>
+											<text style="color: #aaaaaa">{{ item.billQuantity }}</text>
+										</view>
+										<view class="flex-row mt15" style="font-size: 28rpx" v-if="item.port == 'E' || item.port == 'S'">
+											<text style="color: #aaaaaa">订单金额：</text>
+											<text style="color: #aaaaaa">￥{{ parseFloat(item.totalPrices).toFixed(2) }}</text>
+										</view>
+
+										<view class="flex-row mb36 mt15" style="font-size: 28rpx">
+											<text style="color: #aaaaaa">申请时间：</text>
+											<text style="color: #aaaaaa">{{ $u.timeFormat(item.createTime, 'yyyy-mm-dd hh:MM:ss') }}</text>
+										</view>
+									</view>
+									<view class="u-body-item u-flex u-row-between u-p-b-0 u-border-top items-center justify-between" @click="jumpDetails(item)">
+										<view class="u-body-item-title u-line-0 mt15" style="color: #01bb74">查看订单</view>
+										<view class="u-body-item-title u-line-1 mt15"><wd-icon name="arrow-right" color="#666666" size="28rpx"></wd-icon></view>
+									</view>
+								</view>
 							</view>
-						</view>
-						<!-- #ifdef APP -->
-					</wd-tab>
-				</block>
-			</wd-tabs>
-			<!-- #endif -->
+						</up-swipe-action-item>
+					</up-swipe-action>
+				</view>
+			</view>
 			<template #empty>
 				<view v-if="(pinia_user.workData.identity == '3' && tab == 0) || (pinia_user.workData.identity == '4' && tab == 1)">
 					<up-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" mode="search" marginTop="-200rpx"></up-empty>
@@ -150,7 +138,7 @@ export default {
 					text: '删除',
 					style: {
 						backgroundColor: '#ff6e55',
-						borderRadius: '0 10rpx 10rpx 0',
+						borderRadius: '0 15rpx 15rpx 0',
 						height: '100%',
 						padding: '0 15px'
 					}
@@ -396,11 +384,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.safePadding {
-	/* #ifdef APP */
-	padding-top: 100rpx;
-	/* #endif */
-}
 ::v-deep .wd-tab {
 	background: #f5f5f5 !important;
 }

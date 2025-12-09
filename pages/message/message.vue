@@ -24,28 +24,24 @@
 				</view>
 				<view class="">
 					<up-swipe-action :show="item.show" :index="index" v-for="(item, index) in list" :key="index" @click="click" disabled :options="options">
-						<view class="item u-border-bottom relative" hover-class="hover-view" v-show="item.number > 0" v-if="item.ifwork && showMess && ifShow()">
-							<view class="mr30"><wd-icon :name="ImgUrl + item.images" size="100rpx"></wd-icon></view>
-
-							<view
-								class="title-wrap flex-col"
-								hover-class="hover-view"
-								style="background-color: #ffffff; width: 80%"
-								@click="jumpChat(item.name, item.images, item)"
-							>
-								<view class="flex-row" style="width: 100%">
-									<view class="" style="width: 60%; font-size: 32rpx; margin-top: 4rpx">
-										<text>{{ item.name }}</text>
+						<view hover-class="hover-view">
+							<view class="item u-border-bottom relative" v-show="item.number > 0" v-if="item.ifwork && showMess && ifShow()">
+								<view class="mr30"><wd-icon :name="ImgUrl + item.images" size="100rpx"></wd-icon></view>
+								<view class="title-wrap flex-col" hover-class="hover-view" style="width: 80%" @click="jumpChat(item.name, item.images, item)">
+									<view class="flex-row" style="width: 100%">
+										<view class="" style="width: 60%; font-size: 32rpx; margin-top: 4rpx">
+											<text>{{ item.name }}</text>
+										</view>
+										<view class="" style="width: 40%">
+											<text class="" style="font-size: 24rpx; color: #cccccc; margin-right: 0; width: 20%">
+												{{ item.time }}
+											</text>
+										</view>
 									</view>
-									<view class="" style="width: 40%">
-										<text class="" style="font-size: 24rpx; color: #cccccc; margin-right: 0; width: 20%">
-											{{ item.time }}
-										</text>
+									<view class="title-wrap">
+										<text class="title u-line-2">{{ item.title }}</text>
+										<up-badge size="default" :offset="['10rpx', '20rpx']" absolute bgColor="#FA5151" v-show="item.right" :value="item.number"></up-badge>
 									</view>
-								</view>
-								<view class="title-wrap">
-									<text class="title u-line-2">{{ item.title }}</text>
-									<up-badge size="default" :offset="['10rpx', '20rpx']" absolute bgColor="#FA5151" v-show="item.right" :value="item.number"></up-badge>
 								</view>
 							</view>
 						</view>
