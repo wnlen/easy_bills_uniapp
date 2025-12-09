@@ -20,12 +20,28 @@
 					bgColor="#ffffff"
 				></up-navbar>
 				<!-- <up-notice-bar mode="horizontal" :list="uNoticeBarlist" padding="6rpx 12rpx"></up-notice-bar> -->
+				<!-- #ifndef APP -->
+				<up-tabs
+					:list="tabList"
+					:current="tab"
+					:lineColor="'#01BB74'"
+					:activeStyle="{ color: '#01BB74' }"
+					:inactiveStyle="{ color: '#333333' }"
+					:scrollable="false"
+					:itemStyle="{
+						height: '80rpx',
+						backgroundColor: '#fff'
+					}"
+					@change="TabClick"
+				/>
+				<!-- #endif -->
 			</template>
-
+			<!-- #ifdef APP -->
 			<wd-tabs v-model="tab" swipeable animated color="#0FB076" @change="TabClick">
 				<block v-for="(item, index) in tabList" :key="index">
 					<wd-tab :title="item.name">
-						<view class="pt100">
+						<!-- #endif -->
+						<view class="safePadding">
 							<view class="ml24 mr24 mt24 swipeBox" v-for="(item, index) in list" :key="item.id">
 								<up-swipe-action>
 									<up-swipe-action-item :show="item.show" :name="index" @click="delclick(item)" :options="options">
@@ -46,22 +62,6 @@
 													</div>
 												</view>
 												<view class="">
-													<!-- 				<view class="flex-col mt25" style="font-size: 28rpx;">
-									<text style="color: #666666;"
-										v-if="item.genre=='D'">{{item.aName||item.aUser}}申请删除{{item.port=="E"?"付款单":(item.port=="S"?"收款单":"订单")}}</text>
-									<text style="color: #666666;"
-										v-if="item.genre=='P'">{{item.aName||item.aUser}}申请确认付款{{item.port=="E"?"付款单":(item.port=="S"?"收款单":"订单")}}</text>
-									<text style="color: #666666;" class="mt10">订单编号：<text
-											style="color: #01BB74;">{{item.orderNumber}}</text></text>
-								</view>
-								<view class="flex-col mt25" style="font-size: 28rpx;">
-									<text style="color: #666666;"
-										v-if="item.genre=='D'">{{item.aName||item.aUser}}申请删除{{item.port=="E"?"付款单":(item.port=="S"?"收款单":"订单")}}</text>
-									<text style="color: #666666;"
-										v-if="item.genre=='P'">{{item.aName||item.aUser}}申请确认付款{{item.port=="E"?"付款单":(item.port=="S"?"收款单":"订单")}}</text>
-									<text style="color: #666666;" class="mt10">订单编号：<text
-											style="color: #01BB74;">{{item.orderNumber}}</text></text>
-								</view> -->
 													<view class="flex-col mt25" style="font-size: 28rpx" v-if="item.port == 'D' || item.port == 'R'">
 														<text style="color: #666666" v-if="item.genre == 'D'">{{ item.aName || item.aUser }}申请删除订单</text>
 														<text style="color: #666666" v-if="item.genre == 'P'">{{ item.aName || item.aUser }}申请确认付款订单</text>
@@ -114,9 +114,11 @@
 								</up-swipe-action>
 							</view>
 						</view>
+						<!-- #ifdef APP -->
 					</wd-tab>
 				</block>
 			</wd-tabs>
+			<!-- #endif -->
 			<template #empty>
 				<view v-if="(pinia_user.workData.identity == '3' && tab == 0) || (pinia_user.workData.identity == '4' && tab == 1)">
 					<up-empty icon="https://res-oss.elist.com.cn/wxImg/order/cw.svg" iconSize="400rpx" text="无查看权限~" mode="search" marginTop="-200rpx"></up-empty>
@@ -255,27 +257,6 @@ export default {
 			} else if (item.genre == 'D') {
 				this.okDel(item);
 			}
-			// let mes = null;
-			// if (item.genre == 'P') {
-			// 	mes = '确定同意吗？';
-			// } else if (item.genre == 'D') {
-			// 	mes = '确定删除吗？';
-			// }
-			// uni.showModal({
-			// 	title: '温馨提醒',
-			// 	content: mes,
-			// 	success: (res) => {
-			// 		if (res.confirm) {
-			// 			if (item.genre == 'P') {
-			// 				this.okPlay(item);
-			// 			} else if (item.genre == 'D') {
-			// 				this.okDel(item);
-			// 			}
-			// 		} else if (res.cancel) {
-			// 			// console.log('用户点击取消');
-			// 		}
-			// 	}
-			// });
 		},
 		okDel(item) {
 			//同意删除
@@ -415,6 +396,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.safePadding {
+	/* #ifdef APP */
+	padding-top: 100rpx;
+	/* #endif */
+}
 ::v-deep .wd-tab {
 	background: #f5f5f5 !important;
 }

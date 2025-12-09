@@ -161,7 +161,12 @@
 		<!-- 新手指引 -->
 		<pop-guide :max-step="4" :guideData="functionGuideData" ref="FunctionGuide" @step-change="onGuideStepChange" @finished="onGuideFinished"></pop-guide>
 		<!-- 自定义tab -->
+		<!-- #ifdef APP -->
 		<pop-tab ref="popTab" :tabIndex="0" v-if="showTab"></pop-tab>
+		<!-- #endif -->
+		<!-- #ifndef APP -->
+		<pop-tab ref="popTab" :tabIndex="0"></pop-tab>
+		<!-- #endif -->
 		<!-- 未签收提醒 -->
 		<up-popup :show="showUnreceived" :safeAreaInsetBottom="false" mode="center" :customStyle="unreceivedStyle">
 			<view class="unreceivedBox">
