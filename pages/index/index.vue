@@ -472,9 +472,8 @@ export default {
 			const role = this.$u.getPinia('user.userRole');
 			const guidanceD = this.$u.getPinia('guide.guidanceD');
 			const identity = this.pinia_user.workData.identity;
-
-			let isExpired = this.hasExpired();
-			if (!isExpired) {
+			// 权限是否过期
+			if (this.pinia_user.workData.endTime == 0 || this.pinia_user.workData.endTime == 'null') {
 				return;
 			}
 			// 只有发货端弹出提醒 财务不弹
@@ -540,18 +539,20 @@ export default {
 			this.ringOpts.color = ['#ECECEC', '#ECECEC', '#ECECEC'];
 		} else {
 			this.$nextTick(() => {
-				let isExpired = this.hasExpired();
-				if (!isExpired) {
-					return; //如果到期后面的不再执行
-				}
-
-				this.fetchDashboard(); //加载统计数据
-				this.getdaiban(true); //获取待办数量
-				this.$refs.popTab && this.$refs.popTab.getMessNum();
-				that.$loadUser && that.$loadUser(this);
-				this.guideCourse && this.guideCourse();
-				this.SOCKETfLUSH && this.SOCKETfLUSH();
-				this.getCustomization && this.getCustomization();
+				setTimeout(() => {
+					// 权限是否过期
+					if (this.pinia_user.workData.endTime == 0 || this.pinia_user.workData.endTime == 'null') {
+						this.expireShow = true;
+						return;
+					}
+					this.fetchDashboard(); //加载统计数据
+					this.getdaiban(true); //获取待办数量
+					this.$refs.popTab && this.$refs.popTab.getMessNum();
+					that.$loadUser && that.$loadUser(this);
+					this.guideCourse && this.guideCourse();
+					this.SOCKETfLUSH && this.SOCKETfLUSH();
+					this.getCustomization && this.getCustomization();
+				}, 300);
 			});
 		}
 	},
@@ -1107,19 +1108,6 @@ export default {
 				// this.getOrderDB(); //待办事项
 				this.fetchDashboard(true);
 			}
-		},
-		// 权限是否过期
-		hasExpired() {
-			var workIFS = this.pinia_user.data.work == '1';
-			if (workIFS) {
-				var s = this.pinia_user.workData.endTime;
-				// console.log('ssssendTime', s);
-				if (s === '0' || s === null) {
-					this.expireShow = true;
-					return false;
-				}
-			}
-			return true;
 		},
 		// 待办事项
 		getOrderDB() {
