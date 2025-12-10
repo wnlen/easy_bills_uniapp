@@ -400,14 +400,10 @@ export default {
 		},
 		generateCode() {
 			if (!this.pinia_token) {
-				uni.navigateTo({
-					url: '/pages/subUser/login'
-				});
+				uni.$nav.to('/pages/subUser/login')
 				return;
 			} else {
-				uni.navigateTo({
-					url: '/pages/subPack/user/QRcode/QRcode'
-				});
+				uni.$nav.to('/pages/subPack/user/QRcode/QRcode')
 			}
 		},
 		eyeClick() {
@@ -422,17 +418,13 @@ export default {
 		},
 		userClick() {
 			if (this.pinia_token) {
-				uni.navigateTo({
-					url: '/pages/subUser/userinfo'
-				});
+				uni.$nav.to('/pages/subUser/userinfo')
 			} else {
 				// #ifdef APP
 				this.$univerify();//app一键登录
 				// #endif
 				// #ifndef APP
-				uni.navigateTo({
-					url: '/pages/subUser/login'
-				});
+				uni.$nav.to('/pages/subUser/login')
 				// #endif
 			}
 		},
@@ -442,9 +434,7 @@ export default {
 				this.$univerify();//app一键登录
 				// #endif
 				// #ifndef APP
-				uni.navigateTo({
-					url: '/pages/subUser/login'
-				});
+				uni.$nav.to('/pages/subUser/login')
 				// #endif
 				return;
 			} else {
@@ -454,17 +444,12 @@ export default {
 				}else{
 					url='/pages/subAuth/auth'
 				}
-
-				uni.navigateTo({
-					url: url
-				});
+				uni.$nav.to(url)
 			}
 		},
 		menuClick(val) {
 			if (!this.pinia_token && val.verifyLogin) {
-				uni.navigateTo({
-					url: '/pages/subUser/login'
-				});
+				uni.$nav.to('/pages/subUser/login')
 				return;
 			}
 
@@ -473,9 +458,7 @@ export default {
 				var ifwork = this.pinia_user.data.work != '0';
 				if (ifwork) {
 					// this.$u.toast("您没有访问权限");
-					uni.navigateTo({
-						url: '/pages/subPack/noAccess/noAccess'
-					});
+					uni.$nav.to('/pages/subPack/noAccess/noAccess')
 					return;
 				}
 			}
@@ -483,13 +466,9 @@ export default {
 			let that = this;
 			if (val.url) {
 				if (that.$u.test.url(val.url)) {
-					uni.navigateTo({
-						url: '/pages/webview/webview?url=' + val.url
-					});
+					uni.$nav.to('/pages/webview/webview',{url:val.url})
 				}
-				uni.navigateTo({
-					url: val.url
-				});
+				uni.$nav.to(val.url)
 			}
 		},
 		userName(str) {

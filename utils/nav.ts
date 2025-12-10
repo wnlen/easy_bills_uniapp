@@ -1,6 +1,8 @@
 // nav.ts
 // 易单据项目统一导航工具（节流 + 登录检查 + 端内差异处理）
 
+import { useUserStore } from '@/store/user';
+
 /**
  * 使用示例
  * uni.nav.to('/pages/subUser/login')
@@ -28,8 +30,9 @@ function buildUrl(url: string, params?: Record<string, any>) {
 
 // 获取 pinia token
 function getToken() {
+	const userStore = useUserStore();
 	try {
-		return this.$u.getPinia('user.token') || '';
+		return userStore.token || '';
 	} catch {
 		return '';
 	}
