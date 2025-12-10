@@ -29,6 +29,15 @@
 		<!-- 切换角色 -->
 		<pop-role ref="popRole"></pop-role>
 		<!-- 切换角色 -->
+		<!-- 确认弹窗 -->
+		<up-modal ref="modal" v-model:show="showModal" contentTextAlign="center" :closeOnClickOverlay="false" :title="modalContent">
+			<template v-slot:confirmButton>
+				<view class="flex-row justify-between">
+					<wd-button type="info" @click="showModal = false">取消</wd-button>
+					<wd-button @click="onModalConfirm" type="error">{{ confirmText }}</wd-button>
+				</view>
+			</template>
+		</up-modal>
 	</view>
 </template>
 
@@ -37,6 +46,10 @@ import SocketManager from '@/utils/socketManager.js';
 export default {
 	data() {
 		return {
+			showModal: false,
+			modalType: 0,
+			modalContent: '',
+			confirmText: '',
 			menus: [
 				{
 					name: '当前角色',
@@ -58,27 +71,38 @@ export default {
 		this.loadData();
 	},
 	methods: {
-		writeOff() {
-			var phone = this.pinia_user.phone;
-
-			uni.showModal({
-				title: '请您慎重考虑,是否注销?',
-				showCancel: true,
-				cancelText: '取消注销',
-				confirmText: '确认注销',
-				confirmColor: '#fa4350',
-				success: (res) => {
-					if (res.confirm) {
-						uni.navigateTo({
-							url: '/pages/subUser/unsubscribe'
-						});
+		onModalConfirm() {
+			this.showModal = false;
+			// 注销
+			if (this.modalType == 0) {
+				uni.navigateTo({
+					url: '/pages/subUser/unsubscribe'
+				});
+			}
+			// 退出登录
+			else {
+				uni.$api.user.loginlogout({});
+				this.$u.toast('已退出~');
+				this.$u.setPinia({
+					user: {
+						userRole: this.pinia_userRole,
+						token: '',
+						user: { phone: undefined }
 					}
-				},
-				fail: () => {},
-				complete: () => {}
-			});
+				});
 
-			console.log(phone);
+				// 关闭socket...（略）
+				setTimeout(() => {
+					uni.reLaunch({ url: '/pages/user/index' });
+				}, 500);
+				SocketManager.close();
+			}
+		},
+		writeOff() {
+			this.modalType = 0;
+			this.modalContent = '请您慎重考虑,是否注销?';
+			this.confirmText = '确认注销';
+			this.showModal = true;
 		},
 		loadData() {
 			this.menus[0].info = this.pinia_userRole == 'D' ? '发货方' : '收货方';
@@ -103,33 +127,10 @@ export default {
 			}
 		},
 		async loginOut() {
-			uni.showModal({
-				title: '你确定要退出登录吗?',
-				showCancel: true,
-				cancelText: '取消',
-				confirmText: '退出登录',
-				confirmColor: '#fa4350',
-				success: async (res) => {
-					if (!res.confirm) return;
-
-					uni.$api.user.loginlogout({});
-
-					this.$u.toast('已退出~');
-					this.$u.setPinia({
-						user: {
-							userRole: this.pinia_userRole,
-							token: '',
-							user: { phone: undefined }
-						}
-					});
-
-					// 关闭socket...（略）
-					setTimeout(() => {
-						uni.reLaunch({ url: '/pages/user/index' });
-					}, 500);
-					SocketManager.close();
-				}
-			});
+			this.modalType = 1;
+			this.modalContent = '你确定要退出登录吗?';
+			this.confirmText = '退出登录';
+			this.showModal = true;
 		}
 	}
 };

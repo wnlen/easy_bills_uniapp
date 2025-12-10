@@ -55,15 +55,15 @@
 			</view>
 			<view class="flex-row pt35 pb35 items-center justify-between u-border-bottom">
 				<text class="ft-gray">性别</text>
-				<view class="flex-1">
-					<picker @change="bindPickerChange" :value="Number(pinia_user.data.gender)" :range="array">
-						<view class="flex-row justify-end items-center flex-1">
-							<text>{{ array[gender] || '请选择' }}</text>
-							<view class="ml3">
-								<wd-icon name="arrow-right" size="30rpx" color="#ccc"></wd-icon>
-							</view>
+				<view class="flex-1" @click="showPicker = true">
+					<!-- <picker @change="bindPickerChange" :value="Number(pinia_user.data.gender)" :range="array"> -->
+					<view class="flex-row justify-end items-center flex-1">
+						<text>{{ array[0][gender] || '请选择' }}</text>
+						<view class="ml3">
+							<wd-icon name="arrow-right" size="30rpx" color="#ccc"></wd-icon>
 						</view>
-					</picker>
+					</view>
+					<!-- </picker> -->
 				</view>
 			</view>
 			<view class="flex-row pt35 pb35 items-center u-border-bottom justify-between">
@@ -85,6 +85,15 @@
 		<view class="flex-col pl60 pr60 pb60 pt60 vw100" style="position: fixed; bottom: 40rpx; text-align: center">
 			<wd-button :customStyle="{ width: '100%' }" @click="updateInfo">保存信息</wd-button>
 		</view>
+		<up-picker
+			:show="showPicker"
+			@close="showPicker = false"
+			:closeOnClickOverlay="true"
+			:columns="array"
+			@confirm="bindPickerChange"
+			@cancel="showPicker = false"
+			confirmColor="#01bb74"
+		></up-picker>
 	</view>
 </template>
 
@@ -92,13 +101,14 @@
 export default {
 	data() {
 		return {
+			showPicker: false,
 			gender: '',
 			userInfo: {
 				name: '', //必填
 				gender: '', //性别：0-男 1-女
 				headPortrait: ''
 			},
-			array: ['男', '女'],
+			array: [['男', '女']],
 			subjectRole: {
 				1: '老板',
 				2: '财务',
@@ -125,9 +135,9 @@ export default {
 			});
 		},
 		bindPickerChange(e) {
-			console.log('性别', e);
-			this.gender = e.detail.value;
-			this.userInfo.gender = parseInt(e.detail.value);
+			this.showPicker = false;
+			this.gender = e.indexs[0];
+			this.userInfo.gender = parseInt(e.indexs[0]);
 		},
 		uploadImg() {
 			uni.chooseImage({
@@ -213,11 +223,7 @@ export default {
 	}
 };
 </script>
-
 <style lang="scss" scoped>
-::v-deep .uni-picker-container .uni-picker-action.uni-picker-action-confirm {
-	color: #01bb74 !important ;
-}
 .box {
 	border: 2rpx solid #f6f6f6;
 	box-shadow: 0 6rpx 15rpx rgba(0, 0, 0, 0.05);

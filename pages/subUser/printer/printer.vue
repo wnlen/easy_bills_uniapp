@@ -31,6 +31,15 @@
 				</view>
 			</view>
 		</view>
+		<!-- 确认弹窗 -->
+		<up-modal ref="modal" v-model:show="showModal" title="温馨提醒" contentTextAlign="center" :closeOnClickOverlay="false" content="是否将其设置为默认打印机?">
+			<template v-slot:confirmButton>
+				<view class="flex-row justify-between">
+					<wd-button type="info" @click="showModal = false">取消</wd-button>
+					<wd-button @click="onModalConfirm">确定</wd-button>
+				</view>
+			</template>
+		</up-modal>
 	</view>
 </template>
 
@@ -38,11 +47,13 @@
 export default {
 	data() {
 		return {
+			showModal: false,
 			defShow: false,
 			allShow: false,
 			infos: {},
 			def: [],
-			all: []
+			all: [],
+			itemdata: {}
 		};
 	},
 	onShow() {
@@ -65,6 +76,21 @@ export default {
 			console.log(item);
 			uni.navigateTo({
 				url: '/pages/subUser/printer/edit?id=' + item.id
+			});
+		},
+		onModalConfirm() {
+			this.showModal = false;
+			uni.$api.printer.setDefaultPrinter(this.itemdata).then((res) => {
+				console.log('打印及设置：', res);
+				if (res.data == '1') {
+					this.getPrinter();
+					uni.showToast({
+						title: '操作成功',
+						icon: 'success',
+						duration: 2000 // 持续时间，单位毫秒，默认为 1500
+					});
+				} else {
+				}
 			});
 		},
 		defUpdate(item) {
@@ -95,33 +121,8 @@ export default {
 				dx.staff = phone;
 				dx.phone = boss;
 			}
-
-			uni.showModal({
-				title: '温馨提醒',
-				content: '是否将其设置为默认打印机',
-				showCancel: true,
-				cancelText: '取消',
-				confirmText: '确认',
-				confirmColor: '#01bb74',
-				success: (res) => {
-					console.log(res.confirm);
-					if (res.confirm) {
-						// printDef
-						uni.$api.printer.setDefaultPrinter(dx).then((res) => {
-							console.log('打印及设置：', res);
-							if (res.data == '1') {
-								this.getPrinter();
-								uni.showToast({
-									title: '操作成功',
-									icon: 'success',
-									duration: 2000 // 持续时间，单位毫秒，默认为 1500
-								});
-							} else {
-							}
-						});
-					}
-				}
-			});
+			this.itemdata = dx;
+			this.showModal = true;
 		},
 		getPrinter() {
 			var ifwork = this.pinia_user.data.work == '0';

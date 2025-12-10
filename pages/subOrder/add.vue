@@ -586,6 +586,7 @@
 			</view>
 		</view>
 		<pop-share
+			ref="popShare"
 			:show="showPopShare"
 			:sharePath="sharePath"
 			:shareTitle="`您有一张订单待确认~`"
@@ -598,6 +599,15 @@
 		<!-- <up-overlay :show="showOrderPly" @click="showOrderPly = false" :mask-click-able="false"> -->
 		<pop-order ref="popOrder" :item="order"></pop-order>
 		<!-- </up-overlay> -->
+		<!-- 确认弹窗 -->
+		<up-modal ref="modal" v-model:show="showModal" title="温馨提醒" contentTextAlign="center" :closeOnClickOverlay="false" content="是否保存到草稿箱?">
+			<template v-slot:confirmButton>
+				<view class="flex-row justify-between">
+					<wd-button type="info" @click="onModalCancel">{{ cancelText }}</wd-button>
+					<wd-button @click="onModalConfirm">保存</wd-button>
+				</view>
+			</template>
+		</up-modal>
 	</view>
 </template>
 
@@ -606,6 +616,8 @@ import { multiply, addDecimal } from '@/utils/big.js';
 export default {
 	data() {
 		return {
+			showModal: false,
+			cancelText: '',
 			newImg: [],
 			removeList: [],
 			showPopShare: false,
@@ -795,7 +807,8 @@ export default {
 			var phone = this.pinia_user.phone;
 			var port = this.pinia_userRole;
 			this.sharePath = '/pages/subOrder/detailsShare?share_id=' + this.transmitList[0].id + '&&type=1' + '&&phone=' + phone + '&&port=' + port + '&&versions=Y';
-			this.showPopShare = true;
+			// this.showPopShare = true;
+			this.$refs.popShare.toShare(1);
 		},
 		// 动态设置订单总金额
 		setOrderTotal() {
@@ -1423,27 +1436,27 @@ export default {
 				uni.navigateBack();
 				return;
 			}
-
-			uni.showModal({
-				title: '温馨提醒',
-				content: '是否保存到草稿箱?',
-				showCancel: true,
-				cancelText: type ? '不保存' : '关闭',
-				confirmText: '保存',
-				mask: false,
-				confirmColor: '#01bb74',
-				success: (res) => {
-					var okif = res.confirm;
-					if (okif) {
-						this.draftOrderConceal();
-					} else {
-						this.$u.toast('已清除~');
-					}
-					this.backHomepageClick = true;
-					uni.navigateBack();
-				}
-			});
+			if (type) {
+				this.cancelText = '不保存';
+			} else {
+				this.cancelText = '关闭';
+			}
+			this.showModal = true;
 		},
+
+		onModalConfirm() {
+			this.draftOrderConceal();
+			this.backHomepageClick = true;
+			this.showModal = false;
+			uni.navigateBack();
+		},
+		onModalCancel() {
+			this.$u.toast('已清除~');
+			this.backHomepageClick = true;
+			this.showModal = false;
+			uni.navigateBack();
+		},
+
 		loadData() {
 			this.loadOrderNo();
 		},

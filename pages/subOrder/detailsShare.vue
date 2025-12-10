@@ -365,6 +365,15 @@
 			</view>
 		</up-popup>
 		<pop-letter ref="popLetter"></pop-letter>
+		<!-- 确认弹窗 -->
+		<up-modal ref="modal" v-model:show="showModal" :title="modalTitle" contentTextAlign="center" :closeOnClickOverlay="false" :content="modalContent">
+			<template v-slot:confirmButton>
+				<view class="flex-row justify-between">
+					<wd-button type="info" @click="showModal = false">取消</wd-button>
+					<wd-button @click="onModalConfirm">{{ confirmText }}</wd-button>
+				</view>
+			</template>
+		</up-modal>
 	</view>
 </template>
 
@@ -372,6 +381,11 @@
 export default {
 	data() {
 		return {
+			showModal: false,
+			modalType: 0,
+			modalContent: '',
+			modalTitle: '',
+			confirmText: '',
 			customStyle_pop_pwd: {
 				width: '600rpx',
 				height: '400rpx'
@@ -839,85 +853,61 @@ export default {
 				orderId: id
 			});
 		},
+		onModalConfirm() {
+			this.showModal = false;
+			//  无签收人    暂无签收信息
+			if (this.modalType == 1 || this.modalType == 4) {
+				uni.navigateTo({
+					url: '/pages/subPack/user/signee/add'
+				});
+			}
+			// 暂无完整信息
+			else if (this.modalType == 2) {
+				uni.navigateTo({
+					url: '/pages/subPack/user/signee/merge'
+				});
+			}
+			// 暂无企业信息
+			else if (this.modalType == 3) {
+				uni.navigateTo({
+					url: '/pages/subAuth/qiye?btn=0'
+				});
+			}
+			// 确认签收
+			else if (this.modalType == 5) {
+				this.qs();
+			}
+		},
 		onConfirm() {
-			console.log(this.qsrList);
-			console.log(this.qyList);
+			this.modalTitle = '';
 			var that = this;
-			if (that.qsrList.length == 0 || (that.qyList == null && this.$u.getPinia('user.user.data.work') == '0')) {
+			if (that.qsrList.length == 0 || (that.qyList == null && this.pinia_user.data.work == '0')) {
 				//  无签收人
 				if (that.qsrList.length == 0 && that.qyList == null) {
 					// /pages/subAuth/qiye
-					if (this.$u.getPinia('user.user.data.work') == '1' && that.qsrList.length == 0) {
-						uni.showModal({
-							title: '暂无签收信息，是否去添加？',
-							showCancel: true,
-							cancelText: '取消',
-							confirmText: '去添加',
-							confirmColor: '#01bb74',
-							success: (res) => {
-								if (res.confirm) {
-									uni.navigateTo({
-										url: '/pages/subPack/user/signee/add'
-									});
-								}
-							},
-							fail: () => {},
-							complete: () => {}
-						});
+					if (this.pinia_user.data.work == '1' && that.qsrList.length == 0) {
+						this.modalType = 1;
+						this.confirmText = '去添加';
+						this.modalContent = '暂无签收信息，是否去添加？';
+						this.showModal = true;
 					}
 
-					if (this.$u.getPinia('user.user.data.work') == '0' && that.qsrList.length == 0 && that.qyList == null) {
-						uni.showModal({
-							title: '暂无完整信息，是否去添加？',
-							showCancel: true,
-							cancelText: '取消',
-							confirmText: '去添加',
-							confirmColor: '#01bb74',
-							success: (res) => {
-								if (res.confirm) {
-									uni.navigateTo({
-										url: '/pages/subPack/user/signee/merge'
-									});
-								}
-							},
-							fail: () => {},
-							complete: () => {}
-						});
+					if (this.pinia_user.data.work == '0' && that.qsrList.length == 0 && that.qyList == null) {
+						this.modalType = 2;
+						this.confirmText = '去添加';
+						this.modalContent = '暂无完整信息，是否去添加？';
+						this.showModal = true;
 					}
 				} else if (that.qsrList.length != 0 && that.qyList == null) {
-					uni.showModal({
-						title: '暂无企业信息，是否去添加？',
-						showCancel: true,
-						cancelText: '取消',
-						confirmText: '去添加',
-						confirmColor: '#01bb74',
-						success: (res) => {
-							if (res.confirm) {
-								uni.navigateTo({
-									url: '/pages/subAuth/qiye?btn=0'
-								});
-							}
-						},
-						fail: () => {},
-						complete: () => {}
-					});
+					this.modalType = 3;
+					this.confirmText = '去添加';
+					this.modalContent = '暂无企业信息，是否去添加？';
+					this.showModal = true;
 				} else if (that.qsrList.length == 0 && that.qyList != null) {
-					uni.showModal({
-						title: '暂无签收信息，是否去添加？',
-						showCancel: true,
-						cancelText: '取消',
-						confirmText: '去添加',
-						confirmColor: '#01bb74',
-						success: (res) => {
-							if (res.confirm) {
-								uni.navigateTo({
-									url: '/pages/subPack/user/signee/add'
-								});
-							}
-						},
-						fail: () => {},
-						complete: () => {}
-					});
+					this.modalType = 4;
+					this.confirmText = '去添加';
+					this.modalContent = '暂无签收信息，是否去添加？';
+					this.showModal = true;
 				}
 				return;
 			} else {
@@ -928,32 +918,14 @@ export default {
 					});
 					return;
 				}
-				uni.showModal({
-					title: '确认签收提醒',
-					content: '请仔细核对货物信息后确认签收',
-					showCancel: true,
-					cancelText: '取消',
-					confirmText: '确认',
-					confirmColor: '#01bb74',
-					success: (res) => {
-						if (res.confirm) {
-							this.qs();
-							// this.showMask = true;
-						}
-					}
-				});
+
+				this.modalType = 5;
+				this.confirmText = '确定';
+				this.modalContent = '请仔细核对货物信息后确认签收';
+				this.modalTitle = '确认签收提醒';
+				this.showModal = true;
 			}
-		},
-		qsrConfirm(val) {
-			// uni.showModal({
-			// 	title: '确认签收提醒',
-			// 	content: '请仔细核对货物信息后确认收货',
-			// 	showCancel: true,
-			// 	cancelText: '取消',
-			// 	confirmText: '确认',
-			// 	success: res => {
-			// 	}
-			// });
+			// that.qsrShow = true;
 		},
 		qs() {
 			var that = this;
@@ -1036,17 +1008,6 @@ export default {
 				success: function () {
 					that.$u.toast('已复制' + from);
 				}
-			});
-		},
-		goPay() {
-			uni.showModal({
-				title: '现款签收提醒',
-				content: '该项货款是否已完成现款支付？',
-				showCancel: true,
-				cancelText: '取消',
-				confirmText: '确认',
-				confirmColor: '#01bb74',
-				success: (res) => {}
 			});
 		},
 		// 切换收发货

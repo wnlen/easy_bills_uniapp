@@ -96,6 +96,15 @@
 				</view>
 			</view>
 		</up-overlay>
+		<!-- 确认弹窗 -->
+		<up-modal ref="modal" v-model:show="showModal" title="温馨提醒" contentTextAlign="center" :closeOnClickOverlay="false" content="是否删除该商品?">
+			<template v-slot:confirmButton>
+				<view class="flex-row justify-between">
+					<wd-button type="info" @click="showModal = false">取消</wd-button>
+					<wd-button @click="onModalConfirm">确定</wd-button>
+				</view>
+			</template>
+		</up-modal>
 	</view>
 </template>
 
@@ -103,6 +112,8 @@
 export default {
 	data() {
 		return {
+			showModal: false,
+			itemGoods: {},
 			showTip: false,
 			titleStyle: {
 				fontSize: '34rpx',
@@ -220,28 +231,20 @@ export default {
 		},
 		queryListCheck() {},
 		delOrderBill(item) {
-			uni.showModal({
-				title: '温馨提醒',
-				content: '是否删除该商品?',
-				showCancel: true,
-				cancelText: '取消',
-				confirmText: '确定',
-				confirmColor: '#01bb74',
-				success: (res) => {
-					var okif = res.confirm;
-					if (okif) {
-						uni.$api.library
-							.deleteCommodity(item)
-							.then((res) => {
-								this.$u.toast(res.data.message);
-								this.$refs.paging.reload();
-							})
-							.catch((res) => {
-								this.$u.toast('获取失败');
-							});
-					}
-				}
-			});
+			this.itemGoods = item;
+			this.showModal = true;
+		},
+		onModalConfirm() {
+			this.showModal = false;
+			uni.$api.library
+				.deleteCommodity(this.itemGoods)
+				.then((res) => {
+					this.$u.toast(res.data.message);
+					this.$refs.paging.reload();
+				})
+				.catch((res) => {
+					this.$u.toast('获取失败');
+				});
 		},
 		jumpAddCommodity() {
 			uni.navigateTo({

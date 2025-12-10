@@ -18,6 +18,14 @@
         <button class="btn" @click="connectWifi(item)">连接</button>
       </view>
     </view> -->
+		<!-- 确认弹窗 -->
+		<up-modal ref="modal" v-model:show="showModal" title="" contentTextAlign="center" :closeOnClickOverlay="false" :content="modalContent">
+			<template v-slot:confirmButton>
+				<view class="flex-row justify-between">
+					<wd-button @click="onModalConfirm">确定</wd-button>
+				</view>
+			</template>
+		</up-modal>
 	</view>
 </template>
 
@@ -25,6 +33,8 @@
 export default {
 	data() {
 		return {
+			showModal: false,
+			modalContent: '',
 			wifiList: [], // 存储WiFi列表
 			connectedWifi: {
 				SSID: ''
@@ -57,6 +67,9 @@ export default {
 		};
 	},
 	methods: {
+		onModalConfirm() {
+			this.showModal = false;
+		},
 		setShareMenu() {
 			// 发起微信公众号分享
 		},
@@ -70,11 +83,8 @@ export default {
 					},
 					fail: (err) => {
 						console.error('启动wifi 失败', err);
-						uni.showModal({
-							content: err.errMsg,
-							showCancel: false,
-							confirmColor: '#01bb74',
-						});
+						this.modalContent = err.errMsg;
+						this.showModal = true;
 						reject(new Error(err));
 					}
 				});
@@ -91,11 +101,8 @@ export default {
 				},
 				fail: (err) => {
 					console.error('获取wifi列表 失败', err);
-					uni.showModal({
-						content: err.errMsg,
-						showCancel: false,
-						confirmColor: '#01bb74',
-					});
+					this.modalContent = err.errMsg;
+					this.showModal = true;
 				}
 			});
 		},
@@ -136,11 +143,8 @@ export default {
 				},
 				fail: (err) => {
 					console.error('wifi连接 失败:', err);
-					uni.showModal({
-						content: err.errMsg,
-						showCancel: false,
-						confirmColor: '#01bb74',
-					});
+					this.modalContent = err.errMsg;
+					this.showModal = true;
 				}
 			});
 		},
@@ -168,11 +172,8 @@ export default {
 				},
 				fail: (err) => {
 					console.error('获取当前连接的wifi 失败:', err);
-					uni.showModal({
-						content: err.errMsg,
-						showCancel: false,
-						confirmColor: '#01bb74',
-					});
+					this.modalContent = err.errMsg;
+					this.showModal = true;
 				}
 			});
 		}

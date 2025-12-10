@@ -162,36 +162,6 @@ export default {
 		},
 		addRoleSet() {
 			this.$refs.popPartner.popShow = true;
-		},
-		deleteRole(val) {
-			const that = this;
-			uni.showModal({
-				title: '温馨提示',
-				content: '是否移除当前用户的合伙人身份？',
-				cancelText: '再考虑下',
-				confirmText: '确定移除',
-				confirmColor: '#01bb74',
-				success: (res) => {
-					if (res.confirm) {
-					}
-				}
-			});
-		},
-		// 更换授权用户
-		changeUser(val) {
-			const that = this;
-			uni.showModal({
-				title: '离职账号迁移',
-				cancelText: '取消',
-				confirmText: '确定',
-				editable: true,
-				placeholderText: '请输入新账号手机号~',
-				confirmColor: '#01bb74',
-				success: (res) => {
-					if (res.confirm) {
-					}
-				}
-			});
 		}
 	}
 };

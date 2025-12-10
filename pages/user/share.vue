@@ -18,7 +18,7 @@
 				<button class="btn_1" open-type="share">分享好友</button>
 				<!-- #endif -->
 				<!-- #ifndef MP-WEIXIN -->
-				<button class="btn_1" @click="showShare = true">分享好友</button>
+				<button class="btn_1" @click="toShareApp">分享好友</button>
 				<!-- #endif -->
 				<button class="btn_2" @click="saveQr">下载</button>
 				<view class="box-text">注:邀请新好友注册登录累计一个人数</view>
@@ -52,14 +52,6 @@
 				<view class="ddtj_btn_disabled" v-else>领取</view>
 			</view>
 		</view>
-		<!-- app分享 -->
-		<pop-share
-			:show="showShare"
-			:sharePath="`/pages/index/index?inviterId=${pinia_user.data.id}`"
-			:shareTitle="'邀你体验易单据'"
-			:imageUrl="'https://res-oss.elist.com.cn/share/share.png'"
-			@closeShare="showShare = false"
-		></pop-share>
 	</view>
 </template>
 
@@ -73,14 +65,45 @@ export default {
 			canClaim3Month: false, //能不能领
 			canClaim12Month: false,
 			claimed3Month: false, //领没领过
-			claimed12Month: false,
-			showShare: false
+			claimed12Month: false
 		};
 	},
 	onLoad() {
 		this.getData();
 	},
 	methods: {
+		toShareApp() {
+			uni.getProvider({
+				service: 'share',
+				success: (res) => {
+					if (res.provider.includes('weixin')) {
+						uni.share({
+							provider: 'weixin',
+							scene: 'WXSceneSession', // 好友
+							// scene: 'WXSceneTimeline', // 朋友圈（朋友圈不支持文本，仅支持图片或链接）
+							type: 5, // 0 表示链接类型,5	小程序
+							title: '邀你体验易单据', // 标题
+							href: 'https://www.example.com', // 跳转链接
+							imageUrl: 'https://res-oss.elist.com.cn/share/share.png', // 分享图片（本地路径或网络图片）
+							miniProgram: {
+								id: 'gh_65335aa354af',
+								path: `/pages/index/index?inviterId=${this.pinia_user.data.id}`,
+								type: 0,
+								webUrl: 'https://www.example.com'
+							},
+							success: () => {
+								console.log('分享成功');
+							},
+							fail: (err) => {
+								console.log('分享失败', err);
+							}
+						});
+					} else {
+						uni.showToast({ title: '未安装微信', icon: 'none' });
+					}
+				}
+			});
+		},
 		getData() {
 			uni.$api.user.getInviteOverview().then((res) => {
 				const data = res.data.data;
