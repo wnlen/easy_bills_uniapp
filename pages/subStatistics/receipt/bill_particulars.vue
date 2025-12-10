@@ -488,7 +488,7 @@ export default {
 
 		.OwnTextFromText {
 			padding-right: 24rpx;
-			font-weight: 500;
+			font-weight: bold;
 			position: absolute;
 			right: 0;
 			color: #333333;

@@ -90,6 +90,15 @@
 				</up-overlay>
 			</view>
 		</view>
+		<!-- 确认弹窗 -->
+		<up-modal ref="modal" v-model:show="showModal" title="删除提醒" contentTextAlign="center" :closeOnClickOverlay="false" content="是否删除该签收人?">
+			<template v-slot:confirmButton>
+				<view class="flex-row justify-between">
+					<wd-button type="info" @click="showModal = false">取消</wd-button>
+					<wd-button @click="onModalConfirm">确定</wd-button>
+				</view>
+			</template>
+		</up-modal>
 	</view>
 </template>
 
@@ -97,6 +106,7 @@
 export default {
 	data() {
 		return {
+			showModal: false,
 			showMask: false,
 			isEmpty: true,
 			orderList: [],
@@ -146,7 +156,8 @@ export default {
 					});
 				}
 				if (type == 2) {
-					this.deleteItem(this.val);
+					this.showModal = true;
+					// this.deleteItem(this.val);
 				}
 			} else {
 				this.err = true;
@@ -180,24 +191,29 @@ export default {
 				});
 			}
 			if (type == 2) {
-				this.deleteItem(this.val);
+				this.showModal = true;
+				// this.deleteItem(this.val);
 			}
 		},
 		defaultItem(id) {},
+		onModalConfirm() {
+			this.showModal = false;
+			this.del(this.val);
+		},
 		deleteItem(id) {
-			uni.showModal({
-				title: '删除提醒',
-				content: '是否删除该签收人？',
-				showCancel: true,
-				cancelText: '取消',
-				confirmText: '确定',
-				confirmColor: '#01bb74',
-				success: (res) => {
-					if (res.confirm) {
-						this.del(id);
-					}
-				}
-			});
+			// showModal({
+			// 	title: '删除提醒',
+			// 	content: '是否删除该签收人？',
+			// 	showCancel: true,
+			// 	cancelText: '取消',
+			// 	confirmText: '确定',
+			// 	confirmColor: '#01bb74',
+			// 	success: (res) => {
+			// 		if (res.confirm) {
+			// 			this.del(id);
+			// 		}
+			// 	}
+			// });
 		},
 		del(id) {
 			uni.$api.sign

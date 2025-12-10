@@ -382,6 +382,14 @@
 				<uv-calendars color="#01BB74" confirmColor="#01BB74" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="date1Change" />
 			</view>
 		</up-popup>
+		<!-- 确认弹窗 -->
+		<up-modal ref="modal" v-model:show="showModal" :title="modalTitle" contentTextAlign="center" :closeOnClickOverlay="false" :content="modalContent">
+			<template v-slot:confirmButton>
+				<view class="flex-row justify-between">
+					<wd-button @click="onModalConfirm">确定</wd-button>
+				</view>
+			</template>
+		</up-modal>
 	</view>
 </template>
 
@@ -389,6 +397,9 @@
 export default {
 	data() {
 		return {
+			showModal: false,
+			modalTitle: '',
+			modalContent: '',
 			// 选择客户
 			OrderQuantity: 0,
 			OrderQuantitySum: 0,
@@ -642,23 +653,26 @@ export default {
 								var number = '';
 								if (data.length > 0) {
 									number = data.join(',');
-									uni.showModal({
-										title: mes,
-										content: number,
-										showCancel: false,
-										confirmText: '确认',
-										confirmColor: '#01bb74',
-										success: (res) => {
-											if (res.confirm) {
-												this.checked = false;
-												this.orderList.forEach((res) => {
-													res.check = false;
-												});
-												this.hasCheck = false;
-												this.$refs.paging.reload();
-											}
-										}
-									});
+									this.modalTitle = mes;
+									this.modalContent = number;
+									this.showModal = true;
+									// showModal({
+									// 	title: mes,
+									// 	content: number,
+									// 	showCancel: false,
+									// 	confirmText: '确认',
+									// 	confirmColor: '#01bb74',
+									// 	success: (res) => {
+									// 		if (res.confirm) {
+									// 			this.checked = false;
+									// 			this.orderList.forEach((res) => {
+									// 				res.check = false;
+									// 			});
+									// 			this.hasCheck = false;
+									// 			this.$refs.paging.reload();
+									// 		}
+									// 	}
+									// });
 								} else {
 									this.$u.toast('订单状态异常，请下拉刷新后重试');
 								}
@@ -668,6 +682,15 @@ export default {
 					console.log('开收款单 NO全选', idList);
 				}
 			}
+		},
+		onModalConfirm() {
+			this.showModal = false;
+			this.checked = false;
+			this.orderList.forEach((res) => {
+				res.check = false;
+			});
+			this.hasCheck = false;
+			this.$refs.paging.reload();
 		},
 		removeCheck() {
 			this.checked = false;
@@ -1370,17 +1393,6 @@ export default {
 		},
 		noteMyOrder(val) {
 			//console.log(val);
-		},
-		payClick(val) {
-			uni.showModal({
-				title: '温馨提醒',
-				content: '请仔细核对货物信息后确认收货',
-				showCancel: true,
-				cancelText: '取消',
-				confirmText: '现款签收',
-				confirmColor: '#01bb74',
-				success: (res) => {}
-			});
 		},
 		change(index) {
 			//查询数据库

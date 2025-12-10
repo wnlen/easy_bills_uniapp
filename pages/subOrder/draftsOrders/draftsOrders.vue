@@ -448,6 +448,15 @@
 		<up-overlay :show="showOrderPly" @click="showOrderPly = false" :mask-click-able="false">
 			<pop-order ref="popOrder" :item="order"></pop-order>
 		</up-overlay>
+		<!-- 确认弹窗 -->
+		<up-modal ref="modal" v-model:show="showModal" title="温馨提醒" contentTextAlign="center" :closeOnClickOverlay="false" content="是否保存到草稿箱?">
+			<template v-slot:confirmButton>
+				<view class="flex-row justify-between">
+					<wd-button type="info" @click="onModalCancel">不保存</wd-button>
+					<wd-button @click="onModalConfirm">确定</wd-button>
+				</view>
+			</template>
+		</up-modal>
 	</view>
 </template>
 
@@ -455,6 +464,7 @@
 export default {
 	data() {
 		return {
+			showModal: false,
 			showPopShare: false,
 			order: {},
 			showOrderPly: false,
@@ -1387,27 +1397,21 @@ export default {
 				uni.navigateBack();
 				return;
 			}
-
-			uni.showModal({
-				title: '温馨提醒',
-				content: '是否保存到草稿箱?',
-				showCancel: true,
-				cancelText: type ? '不保存' : '不保存',
-				confirmText: '保存',
-				confirmColor: '#01bb74',
-				success: (res) => {
-					var okif = res.confirm;
-					if (okif) {
-						// this.$u.toast("已保存到草稿箱~");
-						this.draftOrderConceal(true);
-					} else {
-						this.$u.toast('已清除');
-					}
-					this.backHomepageClick = true;
-					uni.navigateBack();
-				}
-			});
+			this.showModal = true;
 		},
+		onModalConfirm() {
+			this.showModal = false;
+			this.draftOrderConceal(true);
+			this.backHomepageClick = true;
+			uni.navigateBack();
+		},
+		onModalCancel() {
+			this.showModal = false;
+			this.$u.toast('已清除');
+			this.backHomepageClick = true;
+			uni.navigateBack();
+		},
+
 		loadData() {
 			this.loadOrderNo();
 		},

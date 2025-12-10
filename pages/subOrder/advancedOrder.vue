@@ -293,6 +293,15 @@
 				<uv-calendars color="#01BB74" confirmColor="#01BB74" :startDate="getCurrentYearFirstDay()" :endDate="getCurrentDate()" ref="calendars" @confirm="date1Change" />
 			</view>
 		</up-popup>
+		<!-- 确认弹窗 -->
+		<up-modal ref="modal" v-model:show="showModal" title="提示" contentTextAlign="center" :closeOnClickOverlay="false" content="是否确认删除所选草稿？">
+			<template v-slot:confirmButton>
+				<view class="flex-row justify-between">
+					<wd-button type="info" @click="showModal = false">取消</wd-button>
+					<wd-button @click="onModalConfirm">确定</wd-button>
+				</view>
+			</template>
+		</up-modal>
 	</view>
 </template>
 
@@ -431,27 +440,16 @@ export default {
 
 			this.realTimeSel.bossNumberS = this.pinia_user.data.work != '0' ? this.pinia_user.workData.bossNumber : this.pinia_user.phone;
 			this.realTimeSel.staffNumberS = this.pinia_user.phone;
-
-			uni.showModal({
-				title: '是否确认删除所选草稿？',
-				showCancel: true,
-				cancelText: '取消',
-				confirmText: '确认',
-				confirmColor: '#01bb74',
-				success: (res) => {
-					if (res.confirm) {
-						uni.$api.draft.deleteDraftById(this.realTimeSel).then((res) => {
-							this.$u.toast('删除成功~');
-							this.checked = false;
-							this.$refs.paging.reload();
-						});
-
-						console.log('删除', this.realTimeSel);
-					}
-				},
-				fail: () => {},
-				complete: () => {}
+			this.showModal = true;
+		},
+		onModalConfirm() {
+			uni.$api.draft.deleteDraftById(this.realTimeSel).then((res) => {
+				this.$u.toast('删除成功~');
+				this.checked = false;
+				this.$refs.paging.reload();
 			});
+			this.showModal = false;
+			console.log('删除', this.realTimeSel);
 		},
 		checkedAll() {
 			console.log('全选');

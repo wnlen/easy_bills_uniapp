@@ -1514,17 +1514,6 @@ export default {
 		noteMyOrder(val) {
 			//console.log(val);
 		},
-		payClick(val) {
-			uni.showModal({
-				title: '温馨提醒',
-				content: '请仔细核对货物信息后确认收货',
-				showCancel: true,
-				cancelText: '取消',
-				confirmText: '现款签收',
-				confirmColor: '#01bb74',
-				success: (res) => {}
-			});
-		},
 		change(index) {
 			//查询数据库
 			this.$refs.paging.reload();

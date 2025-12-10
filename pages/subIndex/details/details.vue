@@ -116,9 +116,19 @@
 				/>
 			</view>
 		</view>
-		<!-- <view class="delBox page-list" @click="toDel">
+
+		<view class="delBox page-list" @click="showModal = true">
 			{{ pinia_userRole == 'D' ? '删除客户' : '删除供应商' }}
-		</view> -->
+		</view>
+		<!-- 确认弹窗 -->
+		<up-modal ref="modal" v-model:show="showModal" title="温馨提醒" contentTextAlign="center" :closeOnClickOverlay="false" content="您是否确认删除?">
+			<template v-slot:confirmButton>
+				<view class="flex-row justify-between">
+					<wd-button type="info" @click="showModal = false">取消</wd-button>
+					<wd-button @click="onModalConfirm">确定</wd-button>
+				</view>
+			</template>
+		</up-modal>
 	</view>
 </template>
 
@@ -126,6 +136,7 @@
 export default {
 	data() {
 		return {
+			showModal: false,
 			detailsHeadline: '客户信息',
 			phone: '',
 			state: 0,
@@ -210,20 +221,9 @@ export default {
 		}
 	},
 	methods: {
-		toDel() {
-			uni.showModal({
-				title: '温馨提醒',
-				content: '您是否确认删除?',
-				showCancel: true,
-				cancelText: '取消',
-				confirmText: '确定',
-				confirmColor: '#01bb74',
-				success: (res) => {
-					if (res.confirm) {
-						// showMask.value = true;
-					}
-				}
-			});
+		onModalConfirm() {
+			this.showModal = false;
+			console.log('点击了确定');
 		},
 		headimg() {
 			return uni.getStorageSync('wzc_img');

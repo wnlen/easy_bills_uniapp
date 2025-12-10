@@ -267,6 +267,23 @@
 		</up-popup>
 		<!-- 新手指引 -->
 		<pop-guide :max-step="2" :guideType="'goods'" :guideData="functionGuideData" ref="FunctionGuide" @step-change="onGuideStepChange" @finished="onGuideFinished"></pop-guide>
+		<!-- 确认弹窗 -->
+		<up-modal ref="modal" v-model:show="showModal" title="温馨提醒" contentTextAlign="center" :closeOnClickOverlay="false" content="是否保存此次修改?">
+			<template v-slot:confirmButton>
+				<view class="flex-row justify-between">
+					<wd-button
+						type="info"
+						@click="
+							showModal = false;
+							uni.navigateBack();
+						"
+					>
+						取消
+					</wd-button>
+					<wd-button @click="onModalConfirm">确定</wd-button>
+				</view>
+			</template>
+		</up-modal>
 	</view>
 </template>
 
@@ -276,6 +293,7 @@ import { nextTick } from 'vue';
 export default {
 	data() {
 		return {
+			showModal: false,
 			intoView: '',
 			functionGuideData: {
 				step: 0,
@@ -376,26 +394,7 @@ export default {
 		}
 		this.$refs.paging.reload();
 	},
-	onUnload() {
-		// uni.showModal({
-		// 	title: '温馨提醒',
-		// 	content: "是否保存该在操作?",
-		// 	showCancel: true,
-		// 	cancelText: '不保存',
-		// 	confirmText: '保存',
-		// 	success: res => {
-		// 		var okif = res.confirm;
-		// 		if (okif) {
-		// 			uni.setStorageSync("inventoryStockpile", this.orderItemList);
-		// 			if (uni.getStorageSync("inventoryStockpile") != undefined) {
-		// 				uni.navigateBack()
-		// 			}
-		// 		} else {
-		// 			uni.navigateBack()
-		// 		}
-		// 	}
-		// });
-	},
+	onUnload() {},
 	methods: {
 		// app分享
 		toShare() {
@@ -489,50 +488,39 @@ export default {
 		customBack() {
 			console.log('返回');
 			if (this.orderItemList.length > 0 && this.update == false) {
-				uni.showModal({
-					title: '温馨提醒',
-					content: '是否保存此次修改?',
-					showCancel: true,
-					cancelText: '返回',
-					confirmText: '保存',
-					confirmColor: '#01bb74',
-					success: (res) => {
-						var okif = res.confirm;
-						if (okif) {
-							if (!uni.$u.getPinia('user.customized')) {
-								let nullNot = this.orderItemList.filter((res) => res.unitPrice == null || res.unitPrice == '');
-								let nullQuantity = this.orderItemList.filter((res) => res.quantity == null || res.quantity == '' || res.quantity == '0');
-								console.log(nullNot);
-								// console.log(this.orderItemList);
-								if (this.totalPrices > 0) {
-									if (nullQuantity.length > 0) {
-										this.$u.toast('数量必须大于0');
-										this.shoppingTrolley = true;
-									} else if (nullNot.length <= 0) {
-										uni.setStorageSync('inventoryStockpile', this.orderItemList);
-										if (uni.getStorageSync('inventoryStockpile') != undefined) {
-											uni.navigateBack();
-										}
-									} else {
-										this.$u.toast('单价不能为空');
-										this.shoppingTrolley = true;
-									}
-								} else {
-									this.$u.toast('开单总金额要大于0');
-								}
-							} else {
-								if (this.totalPrices < 0) {
-									this.$u.toast('开单总重要大于0');
-									return;
-								}
-								uni.navigateBack();
-							}
-						} else {
+				this.showModal = true;
+			} else {
+				uni.navigateBack();
+			}
+		},
+		onModalConfirm() {
+			this.showModal = false;
+			if (!uni.$u.getPinia('user.customized')) {
+				let nullNot = this.orderItemList.filter((res) => res.unitPrice == null || res.unitPrice == '');
+				let nullQuantity = this.orderItemList.filter((res) => res.quantity == null || res.quantity == '' || res.quantity == '0');
+				console.log(nullNot);
+				// console.log(this.orderItemList);
+				if (this.totalPrices > 0) {
+					if (nullQuantity.length > 0) {
+						this.$u.toast('数量必须大于0');
+						this.shoppingTrolley = true;
+					} else if (nullNot.length <= 0) {
+						uni.setStorageSync('inventoryStockpile', this.orderItemList);
+						if (uni.getStorageSync('inventoryStockpile') != undefined) {
 							uni.navigateBack();
 						}
+					} else {
+						this.$u.toast('单价不能为空');
+						this.shoppingTrolley = true;
 					}
-				});
+				} else {
+					this.$u.toast('开单总金额要大于0');
+				}
 			} else {
+				if (this.totalPrices < 0) {
+					this.$u.toast('开单总重要大于0');
+					return;
+				}
 				uni.navigateBack();
 			}
 		},
