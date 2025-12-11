@@ -25,6 +25,14 @@
 			}
 		},
 		{
+			"path": "uni_modules/imengyu-IMDebuggerWindow/pages/debugger",
+			"style": {
+				"navigationBarTitleText": "调试输出窗口",
+				"disableScroll": true,
+				"background": "transparent"
+			}
+		},
+		{
 			"path": "pages/user/index",
 			"style": {
 				"navigationBarTitleText": "我的",
