@@ -2,15 +2,25 @@
 import SocketManager from '@/utils/socketManager.js';
 import { ensureFontsReady } from '@/utils/font-loader.js';
 
+import { debuggerModule, installDebugger } from '@/uni_modules/imengyu-IMDebuggerWindow/common/debuggerExtern.js';
+
 export default {
 	data() {
 		return {
 			todoCount: 0
 		};
 	},
-	onLaunch(options) {
-		//加载字体
-		this.loadfont();
+	async onLaunch(options) {
+		//这里配置是在调试模式下才开启，您也可以去掉判断，在任何时候都开启
+		// #ifdef APP-PLUS
+		if (process.env.NODE_ENV === 'development') {
+			installDebugger({
+				enableRequestInterceptor: false, //默认为false，指示是否拦截网络请求，参见下一条
+				showGlobalFloatWindow: false //默认为true，指定是否添加一个全局的调试按钮，点击可跳转至窗口
+			});
+		}
+		// #endif
+
 		this.onNetworkStatusChange();
 
 		uni.$on('switchTabToList', (e) => {
@@ -42,26 +52,14 @@ export default {
 			uni.setStorageSync('wzc_img', 'https://res-oss.elist.com.cn/wxImg/obj/wzc' + (Math.floor(Math.random() * 3) + 1) + '.svg');
 		}
 	},
-	// onShow(options) {
-	// 	this.$getCid?.();
-	// 	this.$monitorPushMessage?.();
-
-	// 	if (options.scene !== 1007 && this.pinia_user?.phone) {
-	// 		// 使用封装模块连接 WebSocket
-	// 		SocketManager.connect(this.pinia_user.phone, (data) => {
-	// 			if (this.pinia_user?.phone) {
-	// 				this.updateMessageCounts();
-	// 				uni.$u.setPinia({
-	// 					system: {
-	// 						flush: data
-	// 					}
-	// 				});
-	// 			}
-	// 		});
-
-	// 		this.redirectToIndexIfNeeded();
-	// 	}
-	// },
+	onError(err) {
+		// 小程序/APP 原生级错误
+		if (debuggerModule) debuggerModule.addAppErr(err);
+	},
+	onUnhandledRejection(err) {
+		// 未处理的 Promise 错误（H5/APP 支持）
+		if (debuggerModule) debuggerModule.addAppErr(err);
+	},
 	onHide() {
 		SocketManager.close(); // 页面隐藏时清理 WebSocket
 	},
@@ -98,6 +96,7 @@ export default {
 				// 字体已全局可用，后续各页面无需再 loadFontFace
 			} catch (e) {
 				console.error('font init failed', e);
+				if (debuggerModule) debuggerModule.addAppErr(e);
 			}
 		},
 		updateMessageCounts() {
