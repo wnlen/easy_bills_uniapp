@@ -313,7 +313,7 @@
 								范围筛选
 							</text>
 
-							<view class="flex-row mt20" style="width: 100%">
+							<view class="flex-row mt20 justify-between" style="width: 100%">
 								<view
 									class="flex-col justify-center items-center text-center mr24 tages"
 									@click="Filtrate('0')"

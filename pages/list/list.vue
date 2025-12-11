@@ -435,11 +435,11 @@
 		<pop-share :show="showShare" :sharePath="sharePath" :shareTitle="shareTitle" :imageUrl="shareImg" @closeShare="showShare = false"></pop-share>
 		<!-- 弹出层 -->
 		<up-popup :show="show_start" @close="show_start = false" mode="top" :safeAreaInsetBottom="false" :safeAreaInsetTop="true" zIndex="999">
-			<!-- #ifdef MP-WEIXIN -->
 			<up-navbar leftIconColor="#fff">
 				<template #center>
 					<view class="flex-row items-center justify-center">
 						<view class="" style="font-size: 34rpx; font-weight: 500">查询订单</view>
+						<!-- #ifdef MP-WEIXIN -->
 						<view
 							@click="jumpVideo"
 							class="flex-row justify-center items-center ml12"
@@ -448,14 +448,11 @@
 							<text class="mr6">使用方法</text>
 							<wd-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></wd-icon>
 						</view>
+						<!-- #endif -->
 					</view>
 				</template>
 			</up-navbar>
 			<view style="height: 44px"></view>
-			<!-- #endif -->
-			<!-- #ifndef MP-WEIXIN -->
-			<up-navbar title="查询订单" leftIconColor="#fff" :placeholder="true"></up-navbar>
-			<!-- #endif -->
 			<view class="pl30 pr30 pb30">
 				<view class="pb60">
 					<view class="flex-col mt20">
@@ -473,7 +470,7 @@
 							时间筛选
 						</text>
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
-							<view class="flex-row items-center flex-1">
+							<view class="flex-row items-center">
 								<text style="color: #999999">开始日期</text>
 								<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 								<view
@@ -486,7 +483,7 @@
 									{{ date1 }}
 								</view>
 							</view>
-							<view class="flex-row items-center flex-1">
+							<view class="flex-row items-center">
 								<text style="color: #999999" class="ml10">结束日期</text>
 								<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 								<view
@@ -516,7 +513,7 @@
 								范围筛选
 							</text>
 
-							<view class="flex-row mt20" style="width: 100%">
+							<view class="flex-row mt20 justify-between" style="width: 100%">
 								<view
 									class="flex-col justify-center items-center text-center mr24 tages"
 									@click="Filtrate('0')"

@@ -177,16 +177,12 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .page-container {
 	display: flex;
 	flex-direction: column;
-	min-height: 100vh;
 	background-color: #fbeeda;
-	position: fixed;
 	width: 100vw;
-	height: 100vh;
-	overflow: hidden;
 }
 
 /* 顶部图片区域 */

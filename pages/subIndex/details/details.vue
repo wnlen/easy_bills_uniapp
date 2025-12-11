@@ -116,10 +116,12 @@
 				/>
 			</view>
 		</view>
-
-		<view class="delBox page-list" @click="showModal = true">
-			{{ pinia_userRole == 'D' ? '删除客户' : '删除供应商' }}
+		<view class="pb30">
+			<view class="delBox page-list" @click="showModal = true">
+				{{ pinia_userRole == 'D' ? '删除客户' : '删除供应商' }}
+			</view>
 		</view>
+
 		<!-- 确认弹窗 -->
 		<up-modal ref="modal" v-model:show="showModal" title="温馨提醒" contentTextAlign="center" :closeOnClickOverlay="false" content="您是否确认删除?">
 			<template v-slot:confirmButton>
@@ -438,7 +440,7 @@ export default {
 <style scoped lang="scss">
 .page-container {
 	width: 100vw;
-	height: 100vh;
+	min-height: 100vh;
 	background-color: #f4f4f4;
 }
 .delBox {

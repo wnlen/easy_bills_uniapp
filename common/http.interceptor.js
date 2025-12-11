@@ -265,6 +265,13 @@ function isWhiteListedPath(url = '') {
 function goLoginOnce() {
 	if (hasRedirectedToLogin) return
 	hasRedirectedToLogin = true
+	// 登录页错误不再跳转登录页
+	const pages = getCurrentPages();
+	const currentPage = pages[pages.length - 1];
+	const route = currentPage.route; // 获取本页路径
+	if (route == 'pages/subUser/login') {
+		return
+	}
 	// 2 秒内防抖，避免并发多次跳转
 	setTimeout(() => (hasRedirectedToLogin = false), 2000)
 
