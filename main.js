@@ -1,7 +1,4 @@
 // main.js
-// #ifdef APP
-import Vue from 'vue'
-// #endif
 import App from './App.vue';
 import {
 	createSSRApp
