@@ -80,9 +80,11 @@
 							placeholder="请输入手机号"
 							class="u-line-1 ml15 endcolor"
 							@focus="phoneNumberFocusInput"
+							@input="verifyMobile"
+							@blur="verifyMobile1"
 						/>
 					</view>
-					<text class="err ml24" v-if="phoneNumberErr">请输入手机号码</text>
+					<text class="err ml24" v-if="phoneNumberErr">请输入正确的手机号</text>
 				</view>
 				<view class="InputTab">
 					<view class="headlineInput">验证码</view>
@@ -101,7 +103,7 @@
 					</view>
 					<text class="err ml24" v-if="smsCodeErr">请输入验证码</text>
 					<view class="headlineEnd mb36" v-if="err">
-						<text class="ts" @click="ZC">手机号或验证码错误，请重新输入!!!</text>
+						<text class="ts" @click="ZC">验证码错误，请重新输入!!!</text>
 					</view>
 					<!-- <view class="headlineEnd">
 						<text class="left" @click="ZC">立即注册</text>
@@ -244,6 +246,27 @@ export default {
 		// console.log('from:' + options.from);
 	},
 	methods: {
+		// 检测手机号
+		verifyMobile(e) {
+			if (this.fromLogin.phoneNumber.length == 11) {
+				const reg = /^1[3-9]\d{9}$/;
+				if (reg.test(this.fromLogin.phoneNumber.trim())) {
+					this.phoneNumberErr = false;
+				} else {
+					this.phoneNumberErr = true;
+				}
+			} else if (this.fromLogin.phoneNumber.length == 0) {
+				this.phoneNumberErr = false;
+			}
+		},
+		verifyMobile1() {
+			const reg = /^1[3-9]\d{9}$/;
+			if (reg.test(this.fromLogin.phoneNumber.trim())) {
+				this.phoneNumberErr = false;
+			} else {
+				this.phoneNumberErr = true;
+			}
+		},
 		codeFinish() {
 			this.$refs.countDown.reset();
 			this.tips = '重新获取';
@@ -253,6 +276,10 @@ export default {
 		},
 		getCode() {
 			if (this.tips != '获取验证码' || this.tips != '重新获取') {
+				uni.showLoading({
+					mask: true,
+					title: '加载中'
+				});
 				uni.$api.sms
 					.getSmsCode({
 						phone: this.fromLogin.phoneNumber,
@@ -260,10 +287,18 @@ export default {
 					})
 					.then((res) => {
 						this.$refs.countDown.start();
+						uni.hideLoading();
 					})
 					.catch((err) => {
+						uni.hideLoading();
+						this.$u.toast(err.data.data);
 						console.error('短信接口失败', err);
 					});
+			} else {
+				uni.showToast({
+					title: '验证码获取过于频繁，请稍后再试',
+					icon: 'none'
+				});
 			}
 		},
 		yinsi_open() {
@@ -475,8 +510,8 @@ export default {
 		},
 		// 手机号验证码验证
 		LoginImport() {
-			if (this.fromLogin.phoneNumber == '' && this.fromLogin.phoneNumber.length < 11) {
-				this.$u.toast('请输入手机号码～');
+			const reg = /^1[3-9]\d{9}$/;
+			if (!reg.test(this.fromLogin.phoneNumber.trim())) {
 				this.phoneNumberErr = true;
 				return;
 			}

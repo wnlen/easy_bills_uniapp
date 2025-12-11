@@ -1182,7 +1182,6 @@ export default {
 			this.receipts.organizationE = this.receipts.organizationE.replace(/\s+/g, '');
 			var ifphone = this.isAllNumbers(e.detail.value.replace(/\s+/g, ''));
 			var phone = e.detail.value.replace(/\s+/g, '');
-
 			if (ifphone && phone.length == 11) {
 				console.log('===标准专属手机号码===>', phone);
 				return true;
@@ -1298,6 +1297,10 @@ export default {
 							this.receipts.staffNumberE = this.searchCopy;
 							// this.searchDomain = {}
 						}
+					})
+					.catch((res) => {
+						this.$u.toast(res.data.message);
+						this.clear();
 					});
 			} else {
 				console.log('===验证不通过===>');
@@ -1319,15 +1322,13 @@ export default {
 			}
 		},
 		searchIFNumberBlur(e) {
+			console.log(e);
 			console.log('===失焦===>', this.searchDomain);
 			var phone = e.detail.value;
-			console.log(this.searchDomain.verification.enterpriseName);
 			if (this.searchDomain.verification) {
-				console.log(2, this.searchDomain.verification.enterpriseName);
 				if (this.searchDomain.verification.enterpriseName) {
 					this.receipts.organizationE = this.searchDomain.verification.enterpriseName;
 					this.khPhone = this.searchDomain.verification.enterpriseName;
-					console.log(3, this.khPhone);
 				}
 
 				if (this.searchDomain.user.name) {
@@ -1348,18 +1349,16 @@ export default {
 					}
 				}
 			}
-
-			if (phone == '') {
-				this.searchDomain = {};
-				this.receipts.bossNumberE = '';
-				this.receipts.organizationE = '';
-			}
-			if (phone) {
+			if (phone?.length) {
 				if (phone.length < 11 || phone.length > 11) {
 					this.khPhone = '';
 					this.$u.toast('请输入11位客户手机号~');
 					this.clear();
 				}
+			} else {
+				this.searchDomain = {};
+				this.receipts.bossNumberE = '';
+				this.receipts.organizationE = '';
 			}
 		},
 		clear() {

@@ -182,7 +182,7 @@
 						</text>
 
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
-							<view class="flex-row items-center flex-1">
+							<view class="flex-row items-center">
 								<text style="color: #999999">开始日期</text>
 								<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 								<view
@@ -195,7 +195,7 @@
 									{{ date1 || '开始日期' }}
 								</view>
 							</view>
-							<view class="flex-row items-center flex-1">
+							<view class="flex-row items-center">
 								<text style="color: #999999" class="ml10">结束日期</text>
 								<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 								<view
@@ -225,7 +225,7 @@
 								范围筛选
 							</text>
 
-							<view class="flex-row mt20" style="width: 100%">
+							<view class="flex-row mt20 justify-between" style="width: 100%">
 								<view
 									class="flex-col justify-center items-center text-center mr24 tages"
 									@click="Filtrate('0')"
@@ -615,11 +615,7 @@ export default {
 			}
 
 			this.checked = false;
-			// this.$refs.paging.reload();
-			// #ifdef MP-WEIXIN
-			// this.$refs.paging.refresh();
 			this.$refs.paging.reload();
-			// #endif
 		},
 		virtualListChange(vList) {
 			console.log('virtualListChange:', vList);

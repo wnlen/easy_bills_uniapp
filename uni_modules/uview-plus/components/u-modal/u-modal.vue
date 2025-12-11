@@ -204,7 +204,7 @@
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
-			font-size: 16px;
+			font-size: 17px;
 			font-weight: 500;
 			// color: $u-content-color;
 			color: rgba(0, 0, 0, 0.85);
@@ -218,7 +218,7 @@
 			justify-content: center;
 
 			&__text {
-				font-size: 14px;
+				font-size: 15px;
 				// color: $u-content-color;
 				color: #666666;
 				flex: 1;

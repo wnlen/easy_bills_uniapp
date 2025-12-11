@@ -447,7 +447,7 @@
 								范围筛选
 							</text>
 
-							<view class="flex-row mt20" style="width: 100%">
+							<view class="flex-row mt20 justify-between" style="width: 100%">
 								<view
 									class="justify-center items-center mr24 tages flex-row"
 									@click="Filtrate('0')"
