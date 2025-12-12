@@ -120,37 +120,33 @@ export default {
 			}
 		},
 		okPhone(fillPhone) {
-			uni.$api.user
-				.unsubscribeUser({
-					phone: this.pinia_user.phone,
-					fillPhone: fillPhone
-				})
-				.then((res) => {
-					var resD = res.data.data.data;
+			//账号注销接口
+			uni.$api.user.unsubscribeUser().then((res) => {
+				var resD = res.data.data.data;
 
-					if (resD == 1) {
-						this.$u.setPinia({
-							user: {
-								userRole: this.pinia_userRole,
-								token: '',
-								user: { phone: undefined }
-							},
-							guide: {
-								guidanceD: null,
-								guidanceR: null,
-								guidanceGoods: null,
-								unreceivedReminder: null, //未签收提醒弹窗
-								guidance: 0,
-								draft: false
-							}
-						});
-						uni.reLaunch({
-							url: '/pages/index/index'
-						});
-					} else {
-						this.$u.toast(res.data.data.message);
-					}
-				});
+				if (resD == 1) {
+					this.$u.setPinia({
+						user: {
+							userRole: this.pinia_userRole,
+							token: '',
+							user: { phone: undefined }
+						},
+						guide: {
+							guidanceD: null,
+							guidanceR: null,
+							guidanceGoods: null,
+							unreceivedReminder: null, //未签收提醒弹窗
+							guidance: 0,
+							draft: false
+						}
+					});
+					uni.reLaunch({
+						url: '/pages/index/index'
+					});
+				} else {
+					this.$u.toast(res.data.data.message);
+				}
+			});
 		},
 		customBack() {
 			uni.switchTab({

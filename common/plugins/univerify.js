@@ -182,10 +182,6 @@ export default {
 										const {
 											code
 										} = event
-										// uni.getUserInfo({
-										// 	provider: 'weixin',
-										// 	success(res) {
-										// 		console.log('微信用户信息', res)
 										//app微信登录
 										uni.$api.user
 											.loginAppWX({
@@ -283,11 +279,6 @@ export default {
 													'服务器异常,请联系官方客服'
 												);
 											});
-										// 	},
-										// 	fail(err) {
-										// 		console.log('失败', err)
-										// 	}
-										// })
 
 									},
 									fail: function(err) {
