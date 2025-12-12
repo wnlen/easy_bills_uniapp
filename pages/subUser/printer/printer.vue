@@ -11,10 +11,10 @@
 				<text class="ml15" style="color: #666666; font-size: 14px">默认设备名称：{{ item.name }}</text>
 				<view class="ml15" :style="{ backgroundColor: item.online ? '#01BB74' : '#F76565' }" style="width: 5px; height: 5px; border-radius: 45%"></view>
 			</view>
-			<view class="absolute flex-row justify-center items-center" style="right: 5px" @click="edit(item)">
+			<view class="absolute flex-row justify-center items-center" style="right: 10px" @click="edit(item)">
 				<text class="mr20" style="color: #01bb74" v-show="item.online">在线</text>
 				<text class="mr20" style="color: #f76565" v-show="!item.online">离线</text>
-				<wd-icon name="arrow-right" color="#666666" size="20rpx"></wd-icon>
+				<wd-icon name="arrow-right" color="#666666" size="15px"></wd-icon>
 			</view>
 		</view>
 
@@ -24,10 +24,10 @@
 				<view class="ml15 flex-row justify-center items-center">
 					<text class="ml15" style="color: #666666; font-size: 14px">设备名称：{{ item.name }}</text>
 				</view>
-				<view class="absolute flex-row justify-center items-center" style="right: 5px">
+				<view class="absolute flex-row justify-center items-center" style="right: 10px">
 					<text class="mr20" style="color: #01bb74" v-show="item.online">在线</text>
 					<text class="mr20" style="color: #f76565" v-show="!item.online">离线</text>
-					<wd-icon name="arrow-right" color="#666666" size="20rpx"></wd-icon>
+					<wd-icon name="arrow-right" color="#666666" size="15px"></wd-icon>
 				</view>
 			</view>
 		</view>

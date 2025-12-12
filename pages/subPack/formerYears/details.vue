@@ -389,7 +389,7 @@
 						<view
 							class="flex-row justify-center items-center mt15"
 							@click="DownPdf(post)"
-							style="background: #fffbdd; border-radius: 6rpx; color: #ffc300; width: 28%; margin-left: 3%; height: 80rpx"
+							style="background: #fffbdd; border-radius: 6rpx; color: #ffc300; width: 28%; margin-left: 3%; height: 80rpx; padding-bottom: 8rpx"
 						>
 							<view style="border-bottom: 2rpx solid #ffc300; font-weight: 500">下载PDF</view>
 						</view>

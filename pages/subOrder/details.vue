@@ -440,18 +440,15 @@
 						<view
 							class="flex-row justify-center items-center mt15"
 							@click="DownPdf(post)"
-							style="background: #fffbdd; border-radius: 6rpx; color: #ffc300; width: 22%; margin-left: 3%; height: 80rpx"
+							style="background: #fffbdd; border-radius: 6rpx; color: #ffc300; width: 22%; margin-left: 3%; height: 80rpx; padding-bottom: 8rpx"
 						>
 							<view style="border-bottom: 2rpx solid #ffc300; font-weight: 500">下载PDF</view>
 						</view>
-						<!-- {{(pinia_user.data.work=='1'?pinia_user.workData.identity!='3':true)}}
-						{{(pinia_user.data.work=='1')}}
-						{{pinia_user.workData.identity!='3'}} -->
 						<view
 							class="flex-row justify-center items-center mt15"
 							@click="copyBill(post)"
 							v-if="pinia_userRole != 'R' && (pinia_user.data.work == '1' ? pinia_user.workData.identity != '3' : true)"
-							style="background: #eef4ff; border-radius: 6rpx; color: #4d91ff; width: 22%; margin-left: 3%; height: 80rpx"
+							style="background: #eef4ff; border-radius: 6rpx; color: #4d91ff; width: 22%; margin-left: 3%; height: 80rpx; padding-bottom: 8rpx"
 						>
 							<view style="border-bottom: 2rpx solid #4d91ff; font-weight: 500">复制开单</view>
 						</view>

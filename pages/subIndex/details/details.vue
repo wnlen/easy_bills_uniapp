@@ -64,7 +64,6 @@
 				></uv-cell>
 			</uv-cell-group>
 		</view>
-
 		<view class="page-list" v-if="!(pinia_userRole == 'D' && uni.$u.getPinia('user.customized'))">
 			<view class="page-list-box" v-if="pinia_userRole == 'D'">
 				<view class="box_l">
@@ -116,11 +115,11 @@
 				/>
 			</view>
 		</view>
-		<view class="pb30">
+		<!-- <view class="pb30">
 			<view class="delBox page-list" @click="showModal = true">
 				{{ pinia_userRole == 'D' ? '删除客户' : '删除供应商' }}
 			</view>
-		</view>
+		</view> -->
 
 		<!-- 确认弹窗 -->
 		<up-modal ref="modal" v-model:show="showModal" title="温馨提醒" contentTextAlign="center" :closeOnClickOverlay="false" content="您是否确认删除?">
@@ -452,7 +451,7 @@ export default {
 	justify-content: center;
 }
 .page-list {
-	position: relative;
+	// position: relative;
 	margin: 30rpx 24rpx;
 	border-radius: 12rpx;
 	padding: 0 22rpx;
