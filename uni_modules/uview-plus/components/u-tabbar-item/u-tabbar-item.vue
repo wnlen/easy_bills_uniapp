@@ -23,7 +23,7 @@
 			</template>
 			<up-badge
 				absolute
-				:offset="[0, dot ? '34rpx' : badge > 9 ? '14rpx' : '20rpx']"
+				:offset="[0, dot ? '34rpx' : badge > 9 ? '25rpx' : '30rpx']"
 			    :customStyle="badgeStyle"
 			    :isDot="dot"
 			    :value="badge || (dot ? 1 : null)"

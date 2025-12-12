@@ -96,7 +96,7 @@
 			<template #empty>
 				<view style="padding-bottom: 200rpx">
 					<wd-icon :name="ImgUrl + '/wxImg/list/empty.svg'" size="180"></wd-icon>
-					<view class="text-center ft-lightgray">暂无记录</view>
+					<view class="text-center ft-lightgray">暂无记录~</view>
 				</view>
 			</template>
 			<view

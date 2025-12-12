@@ -19,7 +19,7 @@
 			</template>
 		</up-navbar>
 
-		<view class="width100" style="height: 80vh; text-align: center; margin-left: 10vw" v-show="pinia_userRole == 'D' && shareShow == true">
+		<view class="vh100 flex-1" v-show="pinia_userRole == 'D' && shareShow == true">
 			<up-popup :show="showShare" mode="center" round="15" :safeAreaInsetBottom="false" @close="showShare = false">
 				<view style="height: 356rpx; width: 580rpx">
 					<view class="flex-col justify-center items-center" style="height: 30%; font-size: 32rpx">提示</view>
@@ -55,7 +55,7 @@
 				</view>
 			</up-popup>
 
-			<view class="mt80 flex-col justify-center" style="width: 80vw; text-align: center; align-items: center; height: 50vh">
+			<view class="flex-col justify-center items-center" style="margin-top: 30%">
 				<view>
 					<up-image style="" width="414rpx" height="280rpx" src="https://res-oss.elist.com.cn/wxImg/order/fscg.png"></up-image>
 				</view>
