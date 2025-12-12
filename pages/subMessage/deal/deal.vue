@@ -13,7 +13,7 @@
 				class="ml24 mr24 bg-white justify-center mt10"
 				margin="10"
 				:border="false"
-				:thumb="item.type == 1 ? '/static/img/message/jyzs.svg' : '/static/img/message/sktz.svg'"
+				:thumb="item.type == 1 ? 'https://res-oss.elist.com.cn/wxImg/message/jyzs.svg' : 'https://res-oss.elist.com.cn/wxImg/message/sktz.svg'"
 				thumb-width="40"
 				:title="item.name"
 				head-border-bottom="true"
