@@ -115,11 +115,11 @@
 				/>
 			</view>
 		</view>
-		<view class="pb30">
+		<!-- <view class="pb30">
 			<view class="delBox page-list" @click="showModal = true">
 				{{ pinia_userRole == 'D' ? '删除客户' : '删除供应商' }}
 			</view>
-		</view>
+		</view> -->
 
 		<!-- 确认弹窗 -->
 		<up-modal ref="modal" v-model:show="showModal" title="温馨提醒" contentTextAlign="center" :closeOnClickOverlay="false" content="您是否确认删除?">
