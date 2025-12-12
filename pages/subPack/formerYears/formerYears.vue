@@ -23,7 +23,7 @@
 				<view class="">
 					<up-notice-bar v-if="uNoticeBarlist.length" direction="column" :text="uNoticeBarlist" padding="6rpx 12rpx"></up-notice-bar>
 				</view>
-				<view class="flex-row justify-between pl30 pr30" style="width: 100%; height: 5vh">
+				<view class="flex-row justify-between pl30 pr30" style="width: 100%; height: 5vh" v-if="!moneyCALL">
 					<view class="flex-col justify-center items-center" @click="selectionIconClick" style="height: 100%">
 						<liu-data-select elementId="data-select1" :dataList="dataList" @change="dropdown" color="#965510">
 							<view id="data-select1" class="btn-info flex-row justify-center items-center">
@@ -166,7 +166,7 @@
 					<up-empty
 						icon="https://ydj-lsy.oss-cn-shanghai.aliyuncs.com/applet-img/img/role/empty.svg"
 						iconSize="400rpx"
-						text="暂无数据"
+						text="暂无数据~"
 						mode="search"
 						margin-top="-260rpx"
 					></up-empty>
@@ -174,7 +174,7 @@
 				<view
 					@click="uni.$nav.to('/pages/subPack/user/my_order/my_order')"
 					v-if="pinia_user.workData.identity != 3 && pinia_user.workData.identity != 4 && pinia_user.workData.identity != 1"
-					class="buyOrder flex-col justify-center items-center"
+					class="buyOrder flex-col justify-center items-center mt20"
 					style=""
 				>
 					前往订购

@@ -32,7 +32,7 @@
 								}"
 								style="width: 20%; height: 54rpx"
 							>
-								{{ pinia_userRole === 'R' ? '待签收' : '待确收' }}
+								{{ pinia_userRole === 'D' ? '待签收' : '待确收' }}
 							</view>
 							<view
 								class="HnadCardBtn"

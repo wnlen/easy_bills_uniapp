@@ -275,7 +275,8 @@ export default {
 			this.tips = `${e.seconds}s后重新获取`;
 		},
 		getCode() {
-			if (this.tips != '获取验证码' || this.tips != '重新获取') {
+			console.log(this.tips);
+			if (this.tips == '获取验证码' || this.tips == '重新获取') {
 				uni.showLoading({
 					mask: true,
 					title: '加载中'

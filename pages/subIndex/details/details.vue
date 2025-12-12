@@ -64,7 +64,6 @@
 				></uv-cell>
 			</uv-cell-group>
 		</view>
-
 		<view class="page-list" v-if="!(pinia_userRole == 'D' && uni.$u.getPinia('user.customized'))">
 			<view class="page-list-box" v-if="pinia_userRole == 'D'">
 				<view class="box_l">
@@ -452,7 +451,7 @@ export default {
 	justify-content: center;
 }
 .page-list {
-	position: relative;
+	// position: relative;
 	margin: 30rpx 24rpx;
 	border-radius: 12rpx;
 	padding: 0 22rpx;

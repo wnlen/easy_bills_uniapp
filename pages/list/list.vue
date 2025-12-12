@@ -63,14 +63,14 @@
 
 								<view class="InputCard">
 									<view class="InputOne">
-										<uv-input
+										<wd-input
 											v-model="customer"
 											:customStyle="{ backgroundColor: 'transparent' }"
 											:placeholder="userStore.userRole === 'R' ? '请选择供应商' : '请选择客户'"
 											:clearable="true"
-											border="none"
+											:no-border="true"
 											@blur="inputblur"
-											@clear="onClear"
+											@clear="onClear(1)"
 										>
 											<template #prefix>
 												<view>
@@ -79,22 +79,22 @@
 												</view>
 											</template>
 											<template #suffix>
-												<view class="flex-col justify-center items-center ml40">
+												<view class="flex-col justify-center items-center ml10">
 													<wd-icon name="/static/img/list/lxr.svg" size="46rpx" @click="CustomerGet"></wd-icon>
 												</view>
 											</template>
-										</uv-input>
+										</wd-input>
 									</view>
 
 									<view class="InputOne" v-if="showTage !== '1'">
-										<uv-input
+										<wd-input
 											v-model="field"
 											:customStyle="{ backgroundColor: 'transparent' }"
 											placeholder="输入关键字进行检索"
-											border="none"
+											:no-border="true"
 											:clearable="true"
 											@blur="searchListennerConfirm"
-											@clear="onClear"
+											@clear="onClear(2)"
 										>
 											<template #prefix>
 												<up-text
@@ -107,22 +107,22 @@
 												></up-text>
 											</template>
 											<template #suffix>
-												<view class="flex-col justify-center items-center">
+												<view class="flex-col justify-center items-center ml10">
 													<wd-icon name="/static/img/list/ss.svg" size="46rpx" @click="searchListennerConfirm"></wd-icon>
 												</view>
 											</template>
-										</uv-input>
+										</wd-input>
 									</view>
 									<view class="InputOne" v-if="showTage === '1'">
-										<uv-input
+										<wd-input
 											v-model="field"
 											maxlength="11"
 											:customStyle="{ backgroundColor: 'transparent' }"
 											placeholder="输入号码进行检索"
-											border="none"
+											:no-border="true"
 											:clearable="true"
 											@blur="searchListennerConfirm"
-											@clear="onClear"
+											@clear="onClear(2)"
 										>
 											<template #prefix>
 												<up-text
@@ -135,11 +135,11 @@
 												></up-text>
 											</template>
 											<template #suffix>
-												<view class="ml40 flex-col justify-center items-center">
+												<view class="ml40 flex-col justify-center items-center ml10">
 													<wd-icon name="/static/img/list/ss.svg" size="46rpx" @click="searchListennerConfirm"></wd-icon>
 												</view>
 											</template>
-										</uv-input>
+										</wd-input>
 									</view>
 								</view>
 							</view>
@@ -1139,11 +1139,24 @@ function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList,
 	isFromSwitchTab.value = false;
 }
 
-function onClear() {
-	field.value = '';
-	setTimeout(() => {
-		inputblur('');
-	}, 100); // 或者 100ms，根据需要调整
+function onClear(type) {
+	const ifWorkPort = userStore.userRole === 'R';
+	// 客户选择
+	if (type == 1) {
+		if (!ifWorkPort) {
+			realTimeSel.value.organizationE = '';
+		} else {
+			realTimeSel.value.enterpriseS = '';
+		}
+	}
+	// 条件筛选
+	else {
+		realTimeSel.value.kTakeE = '';
+		realTimeSel.value.kPhoneE = '';
+		realTimeSel.value.kSiteE = '';
+		realTimeSel.value.inventoryName = '';
+	}
+	paging.value?.reload();
 }
 
 function inputblur(e) {
@@ -1794,7 +1807,13 @@ function getCurrentDate() {
 	padding-top: 100rpx;
 	/* #endif */
 }
-
+::v-deep .wd-input__clear {
+	color: #c6c7cb !important;
+}
+::v-deep .wd-input__suffix {
+	display: flex;
+	align-items: center;
+}
 ::v-deep .wd-tab {
 	background: #f5f5f5 !important;
 }
@@ -1843,14 +1862,9 @@ function getCurrentDate() {
 
 			.InputOne {
 				background-color: #f9f9f9;
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				justify-content: left;
 				border-radius: 24rpx;
 				margin-top: 20rpx;
-				padding-right: 20rpx;
-				height: 62rpx;
+				padding: 6rpx 20rpx 6rpx 0;
 			}
 		}
 	}
