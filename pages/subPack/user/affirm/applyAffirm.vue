@@ -7,13 +7,29 @@
 		<text class="applyAffirmText">成注销后，您可重新注册新账号</text>
 
 		<view class="applyAffirm_btn">
-			<view class="withdraw" @click="withdraw">
+			<view class="withdraw" @click="showModal = true">
 				{{ withdrawText }}
 			</view>
 			<view class="relation">
 				<wd-button open-type="contact" :customStyle="buttonStyle">联系客服</wd-button>
 			</view>
 		</view>
+		<!-- 确认弹窗 -->
+		<up-modal
+			ref="modal"
+			v-model:show="showModal"
+			title="撤销提示"
+			contentTextAlign="center"
+			:closeOnClickOverlay="false"
+			content="您是否确认撤销注销申请？撤回后账号将恢复正常状态"
+		>
+			<template v-slot:confirmButton>
+				<view class="flex-row justify-between">
+					<wd-button type="info" @click="showModal = false">取消</wd-button>
+					<wd-button @click="onModalConfirm">确定</wd-button>
+				</view>
+			</template>
+		</up-modal>
 	</view>
 </template>
 
@@ -21,6 +37,7 @@
 export default {
 	data() {
 		return {
+			showModal: false,
 			url: '',
 			withdrawText: '撤销',
 			buttonStyle: {
@@ -44,40 +61,62 @@ export default {
 				url: '/pages/subMessage/chitchat/chat'
 			});
 		},
-		withdraw() {
-			uni.showModal({
-				title: '撤销提示',
-				content: '您是否确认撤销注销申请？撤回后账号将恢复正常状态',
-				showCancel: true,
-				cancelText: '取消',
-				confirmText: '确定',
-				confirmColor: '#01bb74',
-				success: (res) => {
-					var okif = res.confirm;
-					if (okif) {
-						console.log('---撤销---');
-						uni.$api.user
-							.revokeUnsubscribe({
-								phone: this.pinia_user.phone
-							})
-							.then((res) => {
-								var code = res.data.data == 1;
-								if (code) {
-									this.$loadUser(this);
-									console.log(this.pinia_user.data.state);
-									var freezeState = this.pinia_user.data.state == '0';
-									if (!freezeState) {
-										uni.switchTab({
-											url: '/pages/index/index'
-										});
-									}
-								} else {
-									this.$u.toast(res.data.data);
-								}
+		onModalConfirm() {
+			this.showModal = false;
+			uni.$api.user
+				.revokeUnsubscribe({
+					phone: this.pinia_user.phone
+				})
+				.then((res) => {
+					var code = res.data.data == 1;
+					if (code) {
+						this.$loadUser(this);
+						console.log(this.pinia_user.data.state);
+						var freezeState = this.pinia_user.data.state == '0';
+						if (!freezeState) {
+							uni.switchTab({
+								url: '/pages/index/index'
 							});
+						}
+					} else {
+						this.$u.toast(res.data.data);
 					}
-				}
-			});
+				});
+		},
+		withdraw() {
+			// showModal({
+			// 	title: '撤销提示',
+			// 	content: '您是否确认撤销注销申请？撤回后账号将恢复正常状态',
+			// 	showCancel: true,
+			// 	cancelText: '取消',
+			// 	confirmText: '确定',
+			// 	confirmColor: '#01bb74',
+			// 	success: (res) => {
+			// 		var okif = res.confirm;
+			// 		if (okif) {
+			// 			console.log('---撤销---');
+			// 			uni.$api.user
+			// 				.revokeUnsubscribe({
+			// 					phone: this.pinia_user.phone
+			// 				})
+			// 				.then((res) => {
+			// 					var code = res.data.data == 1;
+			// 					if (code) {
+			// 						this.$loadUser(this);
+			// 						console.log(this.pinia_user.data.state);
+			// 						var freezeState = this.pinia_user.data.state == '0';
+			// 						if (!freezeState) {
+			// 							uni.switchTab({
+			// 								url: '/pages/index/index'
+			// 							});
+			// 						}
+			// 					} else {
+			// 						this.$u.toast(res.data.data);
+			// 					}
+			// 				});
+			// 		}
+			// 	}
+			// });
 		}
 	}
 };

@@ -435,11 +435,11 @@
 		<pop-share :show="showShare" :sharePath="sharePath" :shareTitle="shareTitle" :imageUrl="shareImg" @closeShare="showShare = false"></pop-share>
 		<!-- 弹出层 -->
 		<up-popup :show="show_start" @close="show_start = false" mode="top" :safeAreaInsetBottom="false" :safeAreaInsetTop="true" zIndex="999">
-			<!-- #ifdef MP-WEIXIN -->
 			<up-navbar leftIconColor="#fff">
 				<template #center>
 					<view class="flex-row items-center justify-center">
 						<view class="" style="font-size: 34rpx; font-weight: 500">查询订单</view>
+						<!-- #ifdef MP-WEIXIN -->
 						<view
 							@click="jumpVideo"
 							class="flex-row justify-center items-center ml12"
@@ -448,14 +448,11 @@
 							<text class="mr6">使用方法</text>
 							<wd-icon name="https://res-oss.elist.com.cn/wxImg/video.png" size="20rpx"></wd-icon>
 						</view>
+						<!-- #endif -->
 					</view>
 				</template>
 			</up-navbar>
 			<view style="height: 44px"></view>
-			<!-- #endif -->
-			<!-- #ifndef MP-WEIXIN -->
-			<up-navbar title="查询订单" leftIconColor="#fff" :placeholder="true"></up-navbar>
-			<!-- #endif -->
 			<view class="pl30 pr30 pb30">
 				<view class="pb60">
 					<view class="flex-col mt20">
@@ -473,7 +470,7 @@
 							时间筛选
 						</text>
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
-							<view class="flex-row items-center flex-1">
+							<view class="flex-row items-center">
 								<text style="color: #999999">开始日期</text>
 								<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 								<view
@@ -486,7 +483,7 @@
 									{{ date1 }}
 								</view>
 							</view>
-							<view class="flex-row items-center flex-1">
+							<view class="flex-row items-center">
 								<text style="color: #999999" class="ml10">结束日期</text>
 								<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 								<view
@@ -516,7 +513,7 @@
 								范围筛选
 							</text>
 
-							<view class="flex-row mt20" style="width: 100%">
+							<view class="flex-row mt20 justify-between" style="width: 100%">
 								<view
 									class="flex-col justify-center items-center text-center mr24 tages"
 									@click="Filtrate('0')"
@@ -625,6 +622,15 @@
 		</view>
 
 		<!-- </up-overlay> -->
+		<!-- 确认弹窗 -->
+		<up-modal ref="modal" v-model:show="showModal" :title="modalTitle" contentTextAlign="center" :closeOnClickOverlay="false" :content="modalContent">
+			<template v-slot:confirmButton>
+				<view class="flex-row justify-between">
+					<wd-button type="info" @click="showModal = false">取消</wd-button>
+					<wd-button @click="onModalConfirm">确定</wd-button>
+				</view>
+			</template>
+		</up-modal>
 	</view>
 </template>
 <script setup>
@@ -689,6 +695,9 @@ const loadText = ref({
 });
 const scrollTop = ref(0);
 const filterShow = ref(false);
+const showModal = ref(false);
+const modalTitle = ref('');
+const modalContent = ref('');
 const date1 = ref('');
 const date2 = ref('');
 const totalMoney = ref(0);
@@ -980,7 +989,6 @@ function setShareData(type, item) {
 		shareImg.value = imageUrl;
 		sharePath.value = '/pages/subMessage/friend_apply_for/shareFriend?phone=' + phone + '&invitationRole=' + pinia_userRole;
 		shareTitle.value = title;
-		showShare.value = true;
 	} else {
 		// 分享订单
 		const phone = userStore.user.phone;
@@ -989,8 +997,38 @@ function setShareData(type, item) {
 		shareImg.value = item.picturesId;
 		sharePath.value = `/pages/subOrder/detailsShare?share_id=${item.id}&&type=1&&phone=${phone}&&port=${port}&&versions=Y`;
 		shareTitle.value = '您有一张订单待确认~';
-		showShare.value = true;
 	}
+	uni.getProvider({
+		service: 'share',
+		success: (res) => {
+			if (res.provider.includes('weixin')) {
+				uni.share({
+					provider: 'weixin',
+					scene: 'WXSceneSession', // 好友
+					// scene: 'WXSceneTimeline', // 朋友圈（朋友圈不支持文本，仅支持图片或链接）
+					type: 5, // 0 表示链接类型,5	小程序
+					title: shareTitle, // 标题
+					href: 'https://www.example.com', // 跳转链接
+					imageUrl: shareImg, // 分享图片（本地路径或网络图片）
+					miniProgram: {
+						id: 'gh_65335aa354af',
+						path: sharePath,
+						type: 0,
+						webUrl: 'https://www.example.com'
+					},
+					success: () => {
+						console.log('分享成功');
+					},
+					fail: (err) => {
+						console.log('分享失败', err);
+					}
+				});
+			} else {
+				uni.showToast({ title: '未安装微信', icon: 'none' });
+			}
+		}
+	});
+	// showShare.value = true;
 }
 
 function useInitPage(realTimeSel, searchList, pagingRef, date1, date2, tabsList, customer, current) {
@@ -1416,7 +1454,7 @@ function VerifyAdd(item, index, type) {
 	const pas = userStore.user.password;
 	console.log('userStore', userStore);
 	// if (!pas) {
-	// 	uni.showModal({
+	// 	showModal({
 	// 		title: '暂无签收人，是否去添加？',
 	// 		showCancel: true,
 	// 		cancelText: '取消',
@@ -1439,40 +1477,18 @@ function VerifyAdd(item, index, type) {
 		} else if (userStore.userRole === 'R') {
 			tips = '是否确认向发货方申请删除该单据，需要对方同意后单据才会被删除？';
 		}
-		uni.showModal({
-			title: '温馨提醒',
-			content: tips,
-			showCancel: true,
-			cancelText: '取消',
-			confirmText: '确定',
-			confirmColor: '#01bb74',
-			success: (res) => {
-				if (res.confirm) {
-					// showMask.value = true;
-					onsubmit();
-				}
-			}
-		});
+		modalTitle.value = '温馨提醒';
+		modalContent.value = tips;
+		showModal.value = true;
 	}
 
 	if (type === 2 || type === 3) {
 		const isReceiver = userStore.userRole === 'R';
 		const title = type === 2 ? (isReceiver ? '确认付款提示' : '确认收款提示') : '修改提醒';
 		const content = type === 2 ? (isReceiver ? '是否向发货方申请确认付款该单据' : '是否确认收货方已支付该单据') : '是否确认修改该单据？';
-		uni.showModal({
-			title,
-			content,
-			showCancel: true,
-			cancelText: '取消',
-			confirmText: '确定',
-			confirmColor: '#01bb74',
-			success: (res) => {
-				if (res.confirm) {
-					// showMask.value = true;
-					onsubmit();
-				}
-			}
-		});
+		modalTitle.value = title;
+		modalContent.value = content;
+		showModal.value = true;
 	}
 
 	verifyPassword.value = {
@@ -1481,7 +1497,10 @@ function VerifyAdd(item, index, type) {
 		type
 	};
 }
-
+function onModalConfirm() {
+	showModal.value = false;
+	onsubmit();
+}
 function onsubmit(passwordInput) {
 	// console.log('面膜', passwordInput);
 	// const storedPass = userStore.user.password;

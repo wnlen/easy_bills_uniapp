@@ -382,7 +382,7 @@
 						</text>
 
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
-							<view class="flex-row items-center flex-1">
+							<view class="flex-row items-center">
 								<text style="color: #999999">开始日期</text>
 								<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 								<view
@@ -395,7 +395,7 @@
 									{{ date1 || '开始日期' }}
 								</view>
 							</view>
-							<view class="flex-row items-center flex-1">
+							<view class="flex-row items-center">
 								<text style="color: #999999" class="ml10">结束日期</text>
 								<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 								<view
@@ -425,7 +425,7 @@
 								范围筛选
 							</text>
 
-							<view class="flex-row mt20" style="width: 100%">
+							<view class="flex-row mt20 justify-between" style="width: 100%">
 								<view
 									class="flex-col justify-center items-center text-center mr24 tages"
 									@click="Filtrate('0')"
@@ -530,7 +530,16 @@
 			</up-popup>
 		</up-overlay>
 		<!-- app分享 -->
-		<pop-share :show="showShare" :sharePath="sharePath" :shareTitle="shareTitle" :imageUrl="shareImg" @closeShare="showShare = false"></pop-share>
+		<pop-share ref="popShare" :show="showShare" :sharePath="sharePath" :shareTitle="shareTitle" :imageUrl="shareImg" @closeShare="showShare = false"></pop-share>
+		<!-- 确认弹窗 -->
+		<up-modal ref="modal" v-model:show="showModal" :title="modalTitle" contentTextAlign="center" :closeOnClickOverlay="false" :content="modalContent">
+			<template v-slot:confirmButton>
+				<view class="flex-row justify-between">
+					<wd-button type="info" @click="showModal = false">取消</wd-button>
+					<wd-button @click="onModalConfirm">{{ confirmText }}</wd-button>
+				</view>
+			</template>
+		</up-modal>
 	</view>
 </template>
 
@@ -538,6 +547,13 @@
 export default {
 	data() {
 		return {
+			showModal: false,
+			modalType: 0,
+			modalContent: '',
+			modalTitle: '',
+			confirmText: '',
+			itemData: {},
+			itemIndex: 0,
 			// 选择客户
 			OrderQuantity: 0,
 			OrderQuantitySum: 0,
@@ -740,35 +756,33 @@ export default {
 	},
 	methods: {
 		setShareData(type, item) {
-			const store = userStore;
-			const pinia_user = store.user;
-			const pinia_userRole = store.userRole;
+			console.log(this.pinia_userRole == 'D');
 			if (type == 'shareFriend') {
 				// 邀请成为供应商
 				let title = '',
 					imageUrl = '';
-				if (pinia_userRole == 'D') {
+				if (this.pinia_userRole == 'D') {
 					title = '邀请您成为他的客户~';
 					imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareD.png';
 				} else {
 					title = '邀请您成为他的供应商~';
 					imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareR.png';
 				}
-				var phone = pinia_user.data.work == '0' ? pinia_user.phone : pinia_user.workData.bossNumber;
+				var phone = this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber;
 				this.shareImg = imageUrl;
 				this.sharePath = '/pages/subMessage/friend_apply_for/shareFriend?phone=' + phone + '&invitationRole=' + pinia_userRole;
 				this.shareTitle = title;
-				this.showShare = true;
 			} else {
 				// 分享订单
-				const phone = userStore.user.phone;
-				const port = userStore.userRole;
+				const phone = this.pinia_user.phone;
+				const port = this.pinia_userRole;
 
 				this.shareImg = item.picturesId;
 				this.sharePath = `/pages/subOrder/detailsShare?share_id=${item.id}&&type=1&&phone=${phone}&&port=${port}&&versions=Y`;
 				this.shareTitle = '您有一张订单待确认~';
-				this.showShare = true;
 			}
+			this.$refs.popShare.toShare(1);
+			// this.showShare = true;
 		},
 		touchStart(e) {
 			this.startX = e.touches[0].pageX;
@@ -1064,29 +1078,35 @@ export default {
 				});
 			}
 		},
+		onModalConfirm() {
+			this.showModal = false;
+			// 暂无签收人
+			if (this.modalType == 0) {
+				uni.navigateTo({
+					url: '/pages/subPack/user/signee/add'
+				});
+			}
+			// 删除
+			else if (this.modalType == 1) {
+				this.deleteOrder(this.itemData, this.itemIndex);
+			}
+			// 收付款提示
+			else if (this.modalType == 2) {
+				this.payment(this.itemData);
+			}
+		},
 		VerifyAdd(item, index, type) {
+			this.modalTitle = '';
 			this.err = false;
 			var pas = this.pinia_user.password;
 			if (pas == '' || pas == null || pas == undefined) {
-				uni.showModal({
-					title: '暂无签收人，是否去添加？',
-					showCancel: true,
-					cancelText: '取消',
-					confirmText: '去添加',
-					confirmColor: '#01bb74',
-					success: (res) => {
-						if (res.confirm) {
-							uni.navigateTo({
-								url: '/pages/subPack/user/signee/add'
-							});
-						}
-					},
-					fail: () => {},
-					complete: () => {}
-				});
+				this.modalType = 0;
+				this.modalContent = '暂无签收人，是否去添加？';
+				this.confirmText = '去添加';
+				this.showModal = true;
 				return;
 			}
-
+			this.modalType = type;
 			if (type == 1) {
 				let tips = '';
 				if (this.pinia_userRole == 'D') {
@@ -1098,22 +1118,12 @@ export default {
 				} else {
 					tips = '是否确认向发货方申请删除该单据，需要对方同意后单据才会被删除 ？';
 				}
-				uni.showModal({
-					title: '温馨提醒',
-					content: tips,
-					showCancel: true,
-					cancelText: '取消',
-					confirmText: '确定',
-					confirmColor: '#01bb74',
-					success: (res) => {
-						var okif = res.confirm;
-						if (okif) {
-							// this.showMask = true;
-							// this.onsubmit();
-							type == 1 ? this.deleteOrder(item, index) : type == 2 ? this.payment(item) : this.payment(item);
-						}
-					}
-				});
+				this.modalTitle = '温馨提醒';
+				this.modalContent = tips;
+				this.confirmText = '确定';
+				this.itemData = item;
+				this.itemIndex = index;
+				this.showModal = true;
 			}
 
 			if (type == 2) {
@@ -1125,21 +1135,12 @@ export default {
 					tips = '是否向发货方申请确认付款该单据';
 					title = '确认付款提示';
 				}
-				uni.showModal({
-					title: title,
-					content: tips,
-					showCancel: true,
-					cancelText: '取消',
-					confirmText: '确定',
-					confirmColor: '#01bb74',
-					success: (res) => {
-						var okif = res.confirm;
-						if (okif) {
-							// this.showMask = true;
-							type == 1 ? this.deleteOrder(item, index) : type == 2 ? this.payment(item) : this.payment(item);
-						}
-					}
-				});
+				this.modalTitle = title;
+				this.modalContent = tips;
+				this.itemData = item;
+				this.confirmText = '确定';
+				this.itemIndex = index;
+				this.showModal = true;
 			}
 
 			this.verifyPassword.type = type;
@@ -1451,17 +1452,6 @@ export default {
 		},
 		noteMyOrder(val) {
 			//console.log(val);
-		},
-		payClick(val) {
-			uni.showModal({
-				title: '温馨提醒',
-				content: '请仔细核对货物信息后确认收货',
-				showCancel: true,
-				cancelText: '取消',
-				confirmText: '现款签收',
-				confirmColor: '#01bb74',
-				success: (res) => {}
-			});
 		},
 		change(index) {
 			//查询数据库

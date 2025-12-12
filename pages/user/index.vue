@@ -87,21 +87,16 @@
 					</view>
 				</view>
 			</view>
-			<view
-				class="card flex-row mt25 ml24 ml24 cardShowPlus justify-center items-center pb5 pt5"
-				style="border-radius: 6px; width: 94vw; height: auto; background-color: white"
-			>
-				<view class="" style="width: 94%">
-					<wd-cell-group :border="true">
-						<wd-cell :titleStyle="{ color: '#666666' }" v-for="(item, index) in menus" :key="index" :title="item.name" isLink @click="menuClick(item)">
-							<template #icon>
-								<view class="mr20 flex-row items-center">
-									<wd-icon slot="icon" size="40rpx" :name="ImgUrl + item.icon" color="#999"></wd-icon>
-								</view>
-							</template>
-						</wd-cell>
-					</wd-cell-group>
-				</view>
+			<view class="card mt25 mr24 ml24 cardShowPlus justify-center items-center" style="border-radius: 6px; background-color: white; overflow: hidden">
+				<wd-cell-group :border="true">
+					<wd-cell :titleStyle="{ color: '#666666' }" v-for="(item, index) in menus" :key="index" :title="item.name" isLink @click="menuClick(item)">
+						<template #icon>
+							<view class="mr20 flex-row items-center">
+								<wd-icon slot="icon" size="40rpx" :name="ImgUrl + item.icon" color="#999"></wd-icon>
+							</view>
+						</template>
+					</wd-cell>
+				</wd-cell-group>
 			</view>
 		</view>
 
@@ -490,6 +485,9 @@ export default {
 }
 ::v-deep .wd-cell__wrapper {
 	padding: 30rpx 0 !important;
+}
+::v-deep .wd-cell {
+	padding-right: 15px !important;
 }
 ::v-deep .u-line {
 	border-color: #f4f4f4 !important;

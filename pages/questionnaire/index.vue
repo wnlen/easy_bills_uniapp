@@ -1,7 +1,7 @@
 <template>
 	<view class="page-container">
 		<view class="return_icon" @click="return_page">
-			<wd-icon name="arrow-left" size="18" color="#333333"></wd-icon>
+			<wd-icon name="arrow-left" size="20" color="#333333"></wd-icon>
 		</view>
 		<view class="top-img">
 			<image class="banner" src="https://res-oss.elist.com.cn/advertising/wenjuan_backgroundT.png" mode="widthFix"></image>
@@ -290,7 +290,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .page-container {
 	display: flex;
 	flex-direction: column;
@@ -301,6 +301,7 @@ export default {
 	position: absolute;
 	top: 80rpx;
 	left: 20rpx;
+	z-index: 100;
 }
 
 /* 顶部图片区域 */

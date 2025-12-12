@@ -242,6 +242,15 @@
 		</z-paging>
 
 		<pop-password ref="popPassword" v-if="showPassVerify"></pop-password>
+		<!-- 确认弹窗 -->
+		<up-modal ref="modal" v-model:show="showModal" title="温馨提醒" contentTextAlign="center" :closeOnClickOverlay="false" :content="modalContent">
+			<template v-slot:confirmButton>
+				<view class="flex-row justify-between">
+					<wd-button type="info" @click="showModal = false">取消</wd-button>
+					<wd-button @click="onModalConfirm">确定</wd-button>
+				</view>
+			</template>
+		</up-modal>
 	</view>
 </template>
 
@@ -249,6 +258,10 @@
 export default {
 	data() {
 		return {
+			showModal: false,
+			modalType: 0,
+			modalContent: '',
+			dataIndex: 0,
 			billFrom: {
 				sourcePhone: '',
 				receptionPhone: '',
@@ -510,6 +523,30 @@ export default {
 			console.log('type:', type);
 			this.getSin(type, index);
 		},
+		onModalConfirm() {
+			this.showModal = false;
+			// 修改
+			if (this.modalType == 1) {
+				var Bill = this.CBills[this.dataIndex];
+				if (Bill.sourcePhone == this.pinia_user.phone || Bill.sourcePhone == this.pinia_user.workData.bossNumber) {
+					this.OpenBillDetails(Bill.id, true);
+				} else {
+					this.$u.toast(`您没有权限修改`);
+					this.$refs.paging.refresh();
+				}
+				this.checkFalse();
+			}
+			// 删除
+			else if (this.modalType == 2) {
+				var Bill = this.CBills[this.dataIndex];
+				this.delBill(Bill);
+				this.checkFalse();
+			}
+			// 确定订单
+			else if (this.modalType == 3) {
+				this.chargeBut();
+			}
+		},
 		getSin(type, index) {
 			var operator = type == 0;
 			var port = this.pinia_userRole == 'D';
@@ -526,35 +563,14 @@ export default {
 			} else {
 				content = '是否确认向' + (port ? '收' : '发') + '货方申请' + (operator ? '修改' : '删除') + '该' + billPort + '款单，需要对方同意后' + billPort + '款单才会被删除';
 			}
-
-			uni.showModal({
-				title: '温馨提醒',
-				content: content,
-				showCancel: true,
-				cancelText: '取消',
-				confirmText: '确认',
-				confirmColor: '#01bb74',
-				success: (res) => {
-					if (res.confirm) {
-						if (operator) {
-							var Bill = this.CBills[index];
-							if (Bill.sourcePhone == this.pinia_user.phone || Bill.sourcePhone == this.pinia_user.workData.bossNumber) {
-								this.OpenBillDetails(Bill.id, true);
-							} else {
-								this.$u.toast(`您没有权限修改`);
-								this.$refs.paging.refresh();
-							}
-						} else {
-							//删除
-							var Bill = this.CBills[index];
-							this.delBill(Bill);
-						}
-						this.checkFalse();
-					}
-				},
-				fail: () => {},
-				complete: () => {}
-			});
+			this.modalContent = content;
+			if (operator) {
+				this.modalType = 1;
+			} else {
+				this.modalType = 2;
+			}
+			this.dataIndex = index;
+			this.showModal = true;
 		},
 		confirmPassword() {
 			console.log('操作', this.operationBill);
@@ -602,21 +618,9 @@ export default {
 
 			var port = this.pinia_userRole == 'D';
 			var content = port ? '是否确认收货方已支付该订单？' : '是否向发货方申请确认付款该订单？';
-			uni.showModal({
-				title: '温馨提醒',
-				content: content,
-				showCancel: true,
-				cancelText: '取消',
-				confirmText: '确认',
-				confirmColor: '#01bb74',
-				success: (res) => {
-					if (res.confirm) {
-						this.chargeBut();
-					}
-				},
-				fail: () => {},
-				complete: () => {}
-			});
+			this.modalContent = content;
+			this.modalType = 3;
+			this.showModal = true;
 		},
 		chargeBut() {
 			var port = this.pinia_userRole == 'D';

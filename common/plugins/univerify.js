@@ -152,7 +152,7 @@ export default {
 							}
 
 						} else {
-							uni.$u.toast(res.errMsg);
+							// uni.$u.toast(res.errMsg);
 						}
 						return;
 					}

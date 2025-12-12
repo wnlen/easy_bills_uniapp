@@ -21,17 +21,15 @@
 
 		<view class="card" style="">
 			<view class="" v-if="true" style="border-radius: border-radius: 12rpx;">
-				<view class="flex-row items-center pt38" style="width: 100%; padding-left: 35rpx">
+				<view class="flex-row items-center pt38" style="width: 100%; padding-left: 24rpx">
 					<up-image
 						shape="circle"
-						class="ml20"
 						:show-menu-by-longpress="false"
 						:src="pinia_user.data.headPortrait || 'https://res-oss.elist.com.cn/wxImg/obj/defind.svg'"
 						width="100rpx"
 						height="100rpx"
 					></up-image>
-
-					<text class="ml10" style="font-weight: bold; color: #333333; font-size: 36rpx">{{ userName(pinia_user.data.name) || '未设置' }}</text>
+					<text class="ml15" style="font-weight: bold; color: #333333; font-size: 36rpx">{{ userName(pinia_user.data.name) || '未设置' }}</text>
 					<image class="ml15" :src="pinia_user.ac ? ImgUrl + '/wxImg/order/yes-is.svg' : ImgUrl + '/wxImg/order/no-is.svg'" style="width: 80rpx; height: 50rpx"></image>
 				</view>
 				<view
@@ -83,7 +81,7 @@
 					<wd-icon class="ml20" :name="ImgUrl + '/wxImg/user/qyrz.png'" size="45"></wd-icon>
 					<text class="ml15" style="font-weight: 500; color: #333333">公司资料</text>
 					<button
-						v-if="btnqy == 0"
+						v-if="!pinia_user.ac"
 						class="ml48 mr20 flex-col justify-center"
 						shape="circle"
 						style="
@@ -162,36 +160,6 @@ export default {
 		},
 		addRoleSet() {
 			this.$refs.popPartner.popShow = true;
-		},
-		deleteRole(val) {
-			const that = this;
-			uni.showModal({
-				title: '温馨提示',
-				content: '是否移除当前用户的合伙人身份？',
-				cancelText: '再考虑下',
-				confirmText: '确定移除',
-				confirmColor: '#01bb74',
-				success: (res) => {
-					if (res.confirm) {
-					}
-				}
-			});
-		},
-		// 更换授权用户
-		changeUser(val) {
-			const that = this;
-			uni.showModal({
-				title: '离职账号迁移',
-				cancelText: '取消',
-				confirmText: '确定',
-				editable: true,
-				placeholderText: '请输入新账号手机号~',
-				confirmColor: '#01bb74',
-				success: (res) => {
-					if (res.confirm) {
-					}
-				}
-			});
 		}
 	}
 };

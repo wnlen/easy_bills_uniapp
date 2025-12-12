@@ -32,7 +32,7 @@
 								}"
 								style="width: 20%; height: 54rpx"
 							>
-								待确收
+								{{ pinia_userRole === 'R' ? '待签收' : '待确收' }}
 							</view>
 							<view
 								class="HnadCardBtn"
@@ -107,10 +107,12 @@
 					</view>
 				</view>
 			</template>
-			<view slot="empty" style="padding-bottom: 200rpx">
-				<wd-icon :name="ImgUrl + '/wxImg/list/empty.svg'" size="180"></wd-icon>
-				<view class="text-center ft-lightgray">暂无记录</view>
-			</view>
+			<template #empty>
+				<view style="padding-bottom: 200rpx">
+					<wd-icon :name="ImgUrl + '/wxImg/list/empty.svg'" size="180"></wd-icon>
+					<view class="text-center ft-lightgray">暂无记录</view>
+				</view>
+			</template>
 
 			<view
 				:index="index"
@@ -420,7 +422,7 @@
 						</text>
 
 						<view class="flex-row items-center justify-between mt10" style="width: 100%">
-							<view class="flex-row items-center flex-1">
+							<view class="flex-row items-center">
 								<text style="color: #999999">开始日期</text>
 								<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 								<view
@@ -433,7 +435,7 @@
 									{{ date1 == '' ? '开始日期' : date1 }}
 								</view>
 							</view>
-							<view class="flex-row items-center flex-1">
+							<view class="flex-row items-center">
 								<text style="color: #999999" class="ml10">结束日期</text>
 								<albb-icon class="ml10 mr10" icon="ydj-tiaojianshaixuanfan2" color="#606266" size="20rpx"></albb-icon>
 								<view
@@ -463,7 +465,7 @@
 								范围筛选
 							</text>
 
-							<view class="flex-row mt20" style="width: 100%">
+							<view class="flex-row mt20 justify-between" style="width: 100%">
 								<view
 									class="flex-col justify-center items-center text-center mr24 tages"
 									@click="Filtrate('0')"
@@ -1513,17 +1515,6 @@ export default {
 		},
 		noteMyOrder(val) {
 			//console.log(val);
-		},
-		payClick(val) {
-			uni.showModal({
-				title: '温馨提醒',
-				content: '请仔细核对货物信息后确认收货',
-				showCancel: true,
-				cancelText: '取消',
-				confirmText: '现款签收',
-				confirmColor: '#01bb74',
-				success: (res) => {}
-			});
 		},
 		change(index) {
 			//查询数据库

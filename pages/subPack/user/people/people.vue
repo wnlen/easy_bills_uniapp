@@ -382,7 +382,7 @@
 			</view>
 		</view>
 		<!-- </view> -->
-		<up-modal
+		<!-- <up-modal
 			:show="show"
 			title="提示"
 			:content="gs != undefined && gs != '' ? `该用户已在${gs}，您无法对该用户发起邀请` : '该用户已进入其他账户，您无法对该用户发起邀请'"
@@ -395,8 +395,17 @@
 				gs = '';
 			"
 			confirmText="我知道了"
-		></up-modal>
+		></up-modal> -->
 		<pop-renew ref="popRenew" :item="buy"></pop-renew>
+		<!-- 确认弹窗 -->
+		<up-modal ref="modal" v-model:show="showModal" :title="modalTitle" contentTextAlign="center" :closeOnClickOverlay="false" :content="modalContent">
+			<template v-slot:confirmButton>
+				<view class="flex-row justify-between">
+					<wd-button type="info" v-if="cancelText" @click="showModal = false">{{ cancelText }}</wd-button>
+					<wd-button @click="onModalConfirm">{{ confirmText }}</wd-button>
+				</view>
+			</template>
+		</up-modal>
 	</view>
 </template>
 
@@ -404,6 +413,13 @@
 export default {
 	data() {
 		return {
+			showModal: false,
+			modalType: 0,
+			modalContent: '',
+			modalTitle: '',
+			confirmText: '',
+			cancelText: '',
+			itemData: {},
 			imgListIOS: {
 				ygxf: 'https://res-oss.elist.com.cn/wxImg/vip/ygxf.png',
 				cwxf: 'https://res-oss.elist.com.cn/wxImg/vip/cwxf.png',
@@ -420,7 +436,6 @@ export default {
 				hhrgm: 'https://res-oss.elist.com.cn/wxImg/vip/hhr.svg',
 				hhrxf: 'https://res-oss.elist.com.cn/wxImg/vip/hhrxf.svg'
 			},
-			show: false,
 			showAl: 0,
 			user: {
 				1: '老板',
@@ -802,35 +817,70 @@ export default {
 				url: '/pages/subIndex/add_friend/add_yg'
 			});
 		},
+		onModalConfirm() {
+			this.showModal = false;
+			// 移除当前用户的身份
+			if (this.modalType == 1) {
+				uni.$api.user
+					.deleteRelation(this.itemData)
+					.then((res) => {
+						console.log(res);
+						this.loadDataPeop();
+					})
+					.catch((res) => {
+						this.$u.toast(res.data.message);
+					});
+			}
+			// 添加提示
+			else if (this.modalType == 2) {
+				this.gs = '';
+			}
+		},
 		deleteRole(val) {
-			const that = this;
-			uni.showModal({
-				title: '温馨提示',
-				content: '是否移除当前用户的身份？',
-				cancelText: '再考虑下',
-				confirmText: '确定移除',
-				confirmColor: '#01bb74',
-				success: (res) => {
-					if (res.confirm) {
-						console.log(val);
-						uni.$api.user
-							.deleteRelation(val)
-							.then((res) => {
-								console.log(res);
-								this.loadDataPeop();
-							})
-							.catch((res) => {
-								that.$u.toast(res.data.message);
-							});
-					}
-				}
-			});
+			this.itemData = val;
+			this.modalContent = '是否移除当前用户的身份？';
+			this.modalType = 1;
+			this.modalTitle = '温馨提示';
+			this.confirmText = '确定移除';
+			this.cancelText = '再考虑下';
+			this.showModal = true;
+			// showModal({
+			// 	title: '温馨提示',
+			// 	content: '是否移除当前用户的身份？',
+			// 	cancelText: '再考虑下',
+			// 	confirmText: '确定移除',
+			// 	confirmColor: '#01bb74',
+			// 	success: (res) => {
+			// 		if (res.confirm) {
+			// 			console.log(val);
+			// 			uni.$api.user
+			// 				.deleteRelation(val)
+			// 				.then((res) => {
+			// 					console.log(res);
+			// 					this.loadDataPeop();
+			// 				})
+			// 				.catch((res) => {
+			// 					that.$u.toast(res.data.message);
+			// 				});
+			// 		}
+			// 	}
+			// });
 		},
 		verification(phone, json, e) {
 			uni.$api.user.searchUser({ phone: phone }).then((res) => {
 				this.gs = res.data.data.map.enterpriseName;
 				if (res.data.data.work != '0') {
-					this.show = true;
+					if (this.gs) {
+						this.modalContent = `该用户已在${this.gs}，您无法对该用户发起邀请`;
+					} else {
+						this.modalContent = '该用户已进入其他账户，您无法对该用户发起邀请';
+					}
+
+					this.modalType = 2;
+					this.modalTitle = '温馨提示';
+					this.confirmText = '我知道了';
+					this.cancelText = '';
+					this.showModal = true;
 				} else {
 					this.addFriendYG(json.phone, json.img, e);
 				}
@@ -843,26 +893,6 @@ export default {
 					this.addFriendYG(json.phone, json.img, e);
 				} else {
 					this.verification(json.phone);
-				}
-			});
-		},
-		// 更换授权用户
-		changeUser(val) {
-			const that = this;
-			uni.showModal({
-				title: '离职账号迁移',
-				cancelText: '取消',
-				confirmText: '确定',
-				editable: true,
-				placeholderText: '请输入新账号手机号~',
-				confirmColor: '#01bb74',
-				success: (res) => {
-					if (res.confirm) {
-						if (!that.$u.test.mobile(res.content)) {
-							that.$u.toast('请输入手机号码后确定~');
-							return;
-						}
-					}
 				}
 			});
 		},
@@ -891,7 +921,11 @@ export default {
 				if (work) {
 					// this.$u.toast("此人已经工作~")
 					this.gs = data.map.enterpriseName;
-					this.show = true;
+					this.modalType = 2;
+					this.modalTitle = '温馨提示';
+					this.confirmText = '我知道了';
+					this.cancelText = '';
+					this.showModal = true;
 				} else {
 					if (phone == myPhone) {
 						this.$u.toast('请勿添加自己~');

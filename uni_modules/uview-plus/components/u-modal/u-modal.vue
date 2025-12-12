@@ -5,7 +5,7 @@
 		:show="show"
 		:class="[customClass]"
 		:customStyle="{
-			borderRadius: '6px', 
+			borderRadius: '16px', 
 			overflow: 'hidden',
 			marginTop: `-${addUnit(negativeTop)}`
 		}"
@@ -16,9 +16,6 @@
 	>
 		<view
 			class="u-modal"
-			:style="{
-				width: addUnit(width),
-			}"
 		>
 			<view
 				class="u-modal__title"
@@ -197,8 +194,9 @@
 	$u-modal-border-radius: 6px;
 
 	.u-modal {
-		width: 650rpx;
-		border-radius: $u-modal-border-radius;
+		width: 600rpx;
+		// border-radius: $u-modal-border-radius;
+		border-radius:32rpx;
 		overflow: hidden;
 
 		&__title {
@@ -206,21 +204,23 @@
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
-			font-size: 16px;
-			font-weight: bold;
-			color: $u-content-color;
+			font-size: 17px;
+			font-weight: 500;
+			// color: $u-content-color;
+			color: rgba(0, 0, 0, 0.85);
 			text-align: center;
 			padding-top: 25px;
 		}
 
 		&__content {
-			padding: 12px 25px 25px 25px;
+			padding: 10px 24px 24px 24px;
 			@include flex;
 			justify-content: center;
 
 			&__text {
 				font-size: 15px;
-				color: $u-content-color;
+				// color: $u-content-color;
+				color: #666666;
 				flex: 1;
 			}
 		}

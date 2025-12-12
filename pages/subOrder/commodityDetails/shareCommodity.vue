@@ -320,44 +320,6 @@ export default {
 					}
 				});
 		},
-		customBack() {
-			console.log('返回');
-			if (this.orderItemList.length > 0 && this.update == false) {
-				uni.showModal({
-					title: '温馨提醒',
-					content: '是否保存此次修改?',
-					showCancel: true,
-					cancelText: '返回',
-					confirmText: '保存',
-					confirmColor: '#01bb74',
-					success: (res) => {
-						var okif = res.confirm;
-						if (okif) {
-							var nullNot = this.orderItemList.filter((res) => res.unitPrice == null || res.unitPrice == '');
-							console.log(nullNot);
-							// console.log(this.orderItemList);
-							if (this.totalPrices > 0) {
-								if (nullNot.length <= 0) {
-									uni.setStorageSync('inventoryStockpile', this.orderItemList);
-									if (uni.getStorageSync('inventoryStockpile') != undefined) {
-										uni.navigateBack();
-									}
-								} else {
-									this.$u.toast('单价不能为空');
-									this.shoppingTrolley = true;
-								}
-							} else {
-								this.$u.toast('开单总金额要大于0');
-							}
-						} else {
-							uni.navigateBack();
-						}
-					}
-				});
-			} else {
-				uni.navigateBack();
-			}
-		},
 		calculate() {
 			console.log('计算');
 			this.add();

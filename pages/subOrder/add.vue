@@ -586,6 +586,7 @@
 			</view>
 		</view>
 		<pop-share
+			ref="popShare"
 			:show="showPopShare"
 			:sharePath="sharePath"
 			:shareTitle="`您有一张订单待确认~`"
@@ -598,6 +599,15 @@
 		<!-- <up-overlay :show="showOrderPly" @click="showOrderPly = false" :mask-click-able="false"> -->
 		<pop-order ref="popOrder" :item="order"></pop-order>
 		<!-- </up-overlay> -->
+		<!-- 确认弹窗 -->
+		<up-modal ref="modal" v-model:show="showModal" title="温馨提醒" contentTextAlign="center" :closeOnClickOverlay="false" content="是否保存到草稿箱?">
+			<template v-slot:confirmButton>
+				<view class="flex-row justify-between">
+					<wd-button type="info" @click="onModalCancel">{{ cancelText }}</wd-button>
+					<wd-button @click="onModalConfirm">保存</wd-button>
+				</view>
+			</template>
+		</up-modal>
 	</view>
 </template>
 
@@ -606,6 +616,8 @@ import { multiply, addDecimal } from '@/utils/big.js';
 export default {
 	data() {
 		return {
+			showModal: false,
+			cancelText: '',
 			newImg: [],
 			removeList: [],
 			showPopShare: false,
@@ -795,7 +807,8 @@ export default {
 			var phone = this.pinia_user.phone;
 			var port = this.pinia_userRole;
 			this.sharePath = '/pages/subOrder/detailsShare?share_id=' + this.transmitList[0].id + '&&type=1' + '&&phone=' + phone + '&&port=' + port + '&&versions=Y';
-			this.showPopShare = true;
+			// this.showPopShare = true;
+			this.$refs.popShare.toShare(1);
 		},
 		// 动态设置订单总金额
 		setOrderTotal() {
@@ -1169,7 +1182,6 @@ export default {
 			this.receipts.organizationE = this.receipts.organizationE.replace(/\s+/g, '');
 			var ifphone = this.isAllNumbers(e.detail.value.replace(/\s+/g, ''));
 			var phone = e.detail.value.replace(/\s+/g, '');
-
 			if (ifphone && phone.length == 11) {
 				console.log('===标准专属手机号码===>', phone);
 				return true;
@@ -1285,6 +1297,10 @@ export default {
 							this.receipts.staffNumberE = this.searchCopy;
 							// this.searchDomain = {}
 						}
+					})
+					.catch((res) => {
+						this.$u.toast(res.data.message);
+						this.clear();
 					});
 			} else {
 				console.log('===验证不通过===>');
@@ -1306,15 +1322,13 @@ export default {
 			}
 		},
 		searchIFNumberBlur(e) {
+			console.log(e);
 			console.log('===失焦===>', this.searchDomain);
 			var phone = e.detail.value;
-			console.log(this.searchDomain.verification.enterpriseName);
 			if (this.searchDomain.verification) {
-				console.log(2, this.searchDomain.verification.enterpriseName);
 				if (this.searchDomain.verification.enterpriseName) {
 					this.receipts.organizationE = this.searchDomain.verification.enterpriseName;
 					this.khPhone = this.searchDomain.verification.enterpriseName;
-					console.log(3, this.khPhone);
 				}
 
 				if (this.searchDomain.user.name) {
@@ -1335,18 +1349,16 @@ export default {
 					}
 				}
 			}
-
-			if (phone == '') {
-				this.searchDomain = {};
-				this.receipts.bossNumberE = '';
-				this.receipts.organizationE = '';
-			}
-			if (phone) {
+			if (phone?.length) {
 				if (phone.length < 11 || phone.length > 11) {
 					this.khPhone = '';
 					this.$u.toast('请输入11位客户手机号~');
 					this.clear();
 				}
+			} else {
+				this.searchDomain = {};
+				this.receipts.bossNumberE = '';
+				this.receipts.organizationE = '';
 			}
 		},
 		clear() {
@@ -1423,27 +1435,27 @@ export default {
 				uni.navigateBack();
 				return;
 			}
-
-			uni.showModal({
-				title: '温馨提醒',
-				content: '是否保存到草稿箱?',
-				showCancel: true,
-				cancelText: type ? '不保存' : '关闭',
-				confirmText: '保存',
-				mask: false,
-				confirmColor: '#01bb74',
-				success: (res) => {
-					var okif = res.confirm;
-					if (okif) {
-						this.draftOrderConceal();
-					} else {
-						this.$u.toast('已清除~');
-					}
-					this.backHomepageClick = true;
-					uni.navigateBack();
-				}
-			});
+			if (type) {
+				this.cancelText = '不保存';
+			} else {
+				this.cancelText = '关闭';
+			}
+			this.showModal = true;
 		},
+
+		onModalConfirm() {
+			this.draftOrderConceal();
+			this.backHomepageClick = true;
+			this.showModal = false;
+			uni.navigateBack();
+		},
+		onModalCancel() {
+			this.$u.toast('已清除~');
+			this.backHomepageClick = true;
+			this.showModal = false;
+			uni.navigateBack();
+		},
+
 		loadData() {
 			this.loadOrderNo();
 		},

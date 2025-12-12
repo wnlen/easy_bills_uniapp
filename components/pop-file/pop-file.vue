@@ -14,6 +14,15 @@
 				<wd-icon name="delete1" color="#A8A8A8" size="30rpx"></wd-icon>
 			</view>
 		</view>
+		<!-- 确认弹窗 -->
+		<up-modal ref="modal" v-model:show="showModal" title="提示" contentTextAlign="center" :closeOnClickOverlay="false" content="是否确认删除该附件？">
+			<template v-slot:confirmButton>
+				<view class="flex-row justify-between">
+					<wd-button type="info" @click="showModal = false">取消</wd-button>
+					<wd-button @click="onModalConfirm">确定</wd-button>
+				</view>
+			</template>
+		</up-modal>
 	</view>
 </template>
 
@@ -36,7 +45,9 @@ export default {
 	name: 'pop-file',
 	data() {
 		return {
-			fileIcon: ['/wxImg/icon/file/pdf.svg', '/wxImg/icon/file/word.svg', '/wxImg/icon/file/excel.svg', '/wxImg/icon/file/img.svg']
+			showModal: false,
+			fileIcon: ['/wxImg/icon/file/pdf.svg', '/wxImg/icon/file/word.svg', '/wxImg/icon/file/excel.svg', '/wxImg/icon/file/img.svg'],
+			fileIndex: 0
 		};
 	},
 	methods: {
@@ -111,19 +122,12 @@ export default {
 			if (item.id != undefined && item.id != null) {
 				this.$parent.delFileList.push(item.id);
 			}
-			var that = this;
-			uni.showModal({
-				title: '提示',
-				content: '是否确认删除该附件？',
-				confirmColor: '#01bb74',
-				success: function (res) {
-					if (res.confirm) {
-						that.$parent.fileList.splice(index, 1);
-					} else if (res.cancel) {
-						console.log('用户点击取消');
-					}
-				}
-			});
+			this.fileIndex = index;
+			this.showModal = true;
+		},
+		onModalConfirm() {
+			this.$parent.fileList.splice(this.fileIndex, 1);
+			this.showModal = false;
 		}
 	}
 };

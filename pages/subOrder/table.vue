@@ -235,7 +235,7 @@
 			</view>
 		</up-overlay>
 		<!-- app分享 -->
-		<pop-share :show="showShare" :sharePath="sharePath" :shareTitle="shareTitle" :imageUrl="shareImg" @closeShare="showShare = false"></pop-share>
+		<pop-share ref="popShare" :show="showShare" :sharePath="sharePath" :shareTitle="shareTitle" :imageUrl="shareImg" @closeShare="showShare = false"></pop-share>
 	</view>
 </template>
 <script>
@@ -331,11 +331,12 @@ export default {
 				title = '邀请您成为他的供应商~';
 				imageUrl = 'https://res-oss.elist.com.cn/wxImg/message/shareR.png';
 			}
-			let phone = this.pinia_user.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber;
+			var phone = this.pinia_user.data.work == '0' ? this.pinia_user.phone : this.pinia_user.workData.bossNumber;
 			this.shareTitle = title;
 			this.shareImg = imageUrl;
 			this.sharePath = '/pages/subMessage/friend_apply_for/shareFriend?phone=' + phone + '&invitationRole=' + this.pinia_userRole;
-			this.showShare = true;
+			// this.showShare = true;
+			this.$refs.popShare.toShare(1);
 		},
 		getCompanyName(item) {
 			var boss = item.filter((res) => res.identity == '0');

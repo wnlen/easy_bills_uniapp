@@ -26,8 +26,8 @@
 					<up-swipe-action :show="item.show" :index="index" v-for="(item, index) in list" :key="index" @click="click" disabled :options="options">
 						<view hover-class="hover-view">
 							<view class="item u-border-bottom relative" v-show="item.number > 0" v-if="item.ifwork && showMess && ifShow()">
-								<view class="mr30"><wd-icon :name="ImgUrl + item.images" size="100rpx"></wd-icon></view>
-								<view class="title-wrap flex-col" hover-class="hover-view" style="width: 80%" @click="jumpChat(item.name, item.images, item)">
+								<view class="mr30" @click.stop="jumpChat(item.name, item.images, item)"><wd-icon :name="ImgUrl + item.images" size="100rpx"></wd-icon></view>
+								<view class="title-wrap flex-col" hover-class="hover-view" style="width: 80%" @click.stop="jumpChat(item.name, item.images, item)">
 									<view class="flex-row" style="width: 100%">
 										<view class="" style="width: 60%; font-size: 32rpx; margin-top: 4rpx">
 											<text>{{ item.name }}</text>
