@@ -1,11 +1,6 @@
 // common/http.interceptor.js
 import Request from 'luch-request'; // 下载的插件
 import {
-	debuggerEnabled,
-	debuggerModule
-} from '@/uni_modules/imengyu-IMDebuggerWindow/common/debuggerExtern.js'
-
-import {
 	useUserStore
 } from '@/store/user';
 let hasRedirectedToLogin = false;
@@ -109,25 +104,6 @@ export const initRequest = () => {
 	// ===== 响应拦截：细分 401 场景，不要误清 token =====
 	http.interceptors.response.use(
 		(res) => {
-			// ========= 调试插件：网络日志（成功 + 业务错误都记录） =========
-			if (debuggerEnabled()) {
-				try {
-					// luch-request 的 res 结构：res.config / res.data / res.statusCode
-					debuggerModule.addNetworkLog({
-							url: res?.config?.url,
-							method: res?.config?.method || 'GET',
-							sourceUrl: res?.config?.url,
-							status: res?.statusCode, // 插件要的是 status 字段，这里用 HTTP 状态码
-						},
-						res.config, // 请求数据：显示在 Option
-						res.data // 响应数据：显示在 Data
-					)
-				} catch (e) {
-					// 避免调试模块异常影响正常请求
-					console.warn('IMDebuggerWindow addNetworkLog error', e)
-				}
-			}
-
 			// 后端所有成功都是 { code:200, success:true }
 			const body = res?.data || {}
 			if (body.success === false || body.code && String(body.code) !== '200') {
@@ -150,16 +126,6 @@ export const initRequest = () => {
 
 			const bizCode = String(body?.code || hdrCode || '')
 			const reqUrl = error?.config?.url || ''
-
-			// ========= 调试插件：错误日志 =========
-			if (debuggerEnabled()) {
-				try {
-					// 直接把 error 丢进去，错误窗口会显示
-					debuggerModule.addAppErr(error)
-				} catch (e) {
-					console.warn('IMDebuggerWindow addAppErr error', e)
-				}
-			}
 
 			// ============ 1. 特殊接口白名单（避免 UI 抖动） ============
 			const SILENT_API_WHITELIST = ['orderDel/get', 'inform/all', 'dev/client-error-log']

@@ -197,19 +197,12 @@
 			</view>
 		</up-popup>
 	</view>
-
-	<!-- #ifdef APP-PLUS -->
-	<!-- 悬浮按钮 -->
-	<wd-fab :draggable="true" @click="openDebugger()" :expandable="false" position="right-center" inactiveIcon="error-fill"></wd-fab>
-	<!-- #endif -->
 </template>
 
 <script>
 import SocketManager from '@/utils/socketManager.js';
 import { useSystemStore } from '@/store/system';
 import { ensureFontsReady } from '@/utils/font-loader.js';
-import { showDebuggerWindow } from '@/uni_modules/imengyu-IMDebuggerWindow/common/debuggerExtern.js';
-import { debuggerModule, installDebugger } from '@/uni_modules/imengyu-IMDebuggerWindow/common/debuggerExtern.js';
 export default {
 	data() {
 		return {
@@ -482,7 +475,6 @@ export default {
 			// 字体已全局可用，后续页面直接用 font-family 即可
 		} catch (e) {
 			console.error('font init failed', e);
-			if (debuggerModule) debuggerModule.addAppErr(e);
 		}
 
 		if (this.pinia_token) {
@@ -586,9 +578,6 @@ export default {
 		};
 	},
 	methods: {
-		openDebugger() {
-			showDebuggerWindow(); // 打开调试窗口
-		},
 		goPath(path, index) {
 			const identity = this.pinia_user.workData.identity;
 			if (this.pinia_userRole == 'D' && index == 1 && uni.$u.getPinia('user.customized')) {
