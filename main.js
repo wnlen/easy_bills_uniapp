@@ -27,12 +27,6 @@ import plugins from '@/common/plugins'; //全局插件
 import globalMixin from '@/common/mixins/global.js'; //全局混入
 import createApi from '@/api'; //api接口
 
-// ========== APP调试插件 ==========
-import {
-	debuggerModule
-} from './uni_modules/imengyu-IMDebuggerWindow/common/debuggerExtern.js'
-
-
 // import uExtend from '@/plugins/uExtend'
 
 export function createApp() {
@@ -71,17 +65,6 @@ export function createApp() {
 	// 全局插件 & Mixin
 	app.use(plugins);
 	app.mixin(globalMixin); //混入全局变量\全局方法
-
-	// === 注册全局错误捕获 ===
-	app.config.errorHandler = (err, vm, info) => {
-		try {
-			if (debuggerModule) {
-				debuggerModule.addVueError(err, vm, info)
-			}
-		} catch (e) {
-			console.warn('IMDebuggerWindow addVueError failed:', e)
-		}
-	}
 
 	// 挂载 Vue 应用
 	// #ifdef H5
